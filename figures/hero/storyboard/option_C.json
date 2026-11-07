@@ -1,0 +1,50 @@
+{
+ "layout": "C",
+ "px": [
+  900,
+  561
+ ],
+ "cm": [
+  12.2,
+  7.6
+ ],
+ "samples": 32,
+ "device": "GPU",
+ "threads": 2,
+ "panel_render_s": [
+  5.8,
+  3.2,
+  2.4,
+  2.3
+ ],
+ "total_render_s": 13.7,
+ "args": {
+  "layout": "C",
+  "out": "figures/hero/storyboard/option_C.png",
+  "width_px": 900,
+  "width_cm": 12.2,
+  "height_cm": 7.6,
+  "samples": 32,
+  "threads": 2,
+  "device": "GPU",
+  "agent_cmap": "cividis",
+  "field_cmap": "magma_r",
+  "margin_span": 150.0,
+  "force_max": 1000.0,
+  "force_min": 1.0,
+  "force_scale": "log",
+  "light": 0.6,
+  "agent_height": 0.2,
+  "wall_height": 0.42,
+  "wall_thickness": 0.03,
+  "surf_common": 0.28,
+  "surf_opposed": 0.04,
+  "surf_aniso": 3.0,
+  "surf_umin": -1.2,
+  "surf_umax": 1.0,
+  "surf_zscale": 0.28,
+  "surf_half": 1,
+  "world_strength": 0.6,
+  "cam": {}
+ }
+}

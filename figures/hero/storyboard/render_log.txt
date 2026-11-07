@@ -1,0 +1,9 @@
+HERO {"layout": "A", "px": [900, 398], "cm": [12.2, 5.4], "samples": 32, "device": "GPU", "threads": 2, "panel_render_s": [4.5, 2.3, 2.4], "total_render_s": 9.2}
+option_A        15.28 real         7.54 user         3.84 sys
+option_A           2378172288  peak memory footprint
+HERO {"layout": "B", "px": [900, 339], "cm": [12.2, 4.6], "samples": 32, "device": "GPU", "threads": 2, "panel_render_s": [6.9], "total_render_s": 6.9}
+option_B        14.13 real         7.28 user         2.50 sys
+option_B           2404583320  peak memory footprint
+HERO {"layout": "C", "px": [900, 561], "cm": [12.2, 7.6], "samples": 32, "device": "GPU", "threads": 2, "panel_render_s": [5.8, 3.2, 2.4, 2.3], "total_render_s": 13.7}
+option_C        20.50 real         9.82 user         4.54 sys
+option_C           2312062824  peak memory footprint
