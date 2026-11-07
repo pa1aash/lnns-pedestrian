@@ -1,0 +1,4 @@
+# the unmodified Springer template lives in llncs/
+$ENV{'TEXINPUTS'} = './llncs//:' . ($ENV{'TEXINPUTS'} // '');
+$ENV{'BSTINPUTS'} = './llncs//:' . ($ENV{'BSTINPUTS'} // '');
+$pdf_mode = 1;

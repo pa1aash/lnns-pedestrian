@@ -1,0 +1,26 @@
+# Paper figure style (matches llncs body font: T1 Computer Modern via cm-super)
+text.usetex : True
+text.latex.preamble : \usepackage[T1]{fontenc}
+font.family : serif
+font.serif : Computer Modern Roman
+font.size : 8
+axes.labelsize : 8
+axes.titlesize : 8
+xtick.labelsize : 7
+ytick.labelsize : 7
+legend.fontsize : 7
+lines.linewidth : 1.0
+lines.markersize : 3
+axes.linewidth : 0.6
+xtick.major.width : 0.6
+ytick.major.width : 0.6
+xtick.major.size : 3
+ytick.major.size : 3
+axes.spines.top : False
+axes.spines.right : False
+axes.grid : False
+axes.titleweight : normal
+legend.frameon : False
+axes.prop_cycle : cycler('color', ['000000'])
+savefig.bbox : standard
+figure.dpi : 100

@@ -1,0 +1,9 @@
+Springer LaTeX2e Proceedings Templates (llncs), unmodified.
+Download URL: https://resource-cms.springernature.com/springer-cms/rest/v1/content/19238648/data/v8
+Linked as "LaTeX2e Proceedings Templates download" from
+https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines
+(the page redirects to link.springer.com/series/558/information-for-authors-and-editors, which needs a browser; the page was read from the Internet Archive snapshot 2026-06-13 and the file fetched directly with curl).
+Fetched: 2026-11-07
+llncs.cls version string: \ProvidesClass{llncs}[2024/01/29 v2.24
+Contents: llncs.cls, samplepaper.tex, fig1.eps, splncs04.bst, llncsdoc.pdf, history.txt, readme.txt
+Note: the CTAN package llncs (v2.26, 2025/02/25) has no samplepaper.tex; the Springer download above was used instead.

@@ -1,0 +1,20 @@
+name: paper
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: xu-cheng/latex-action@4.1.0
+        with:
+          root_file: main.tex
+          working_directory: paper
+          latexmk_use_xelatex: false
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: main-pdf
+          path: paper/main.pdf

@@ -1,0 +1,22 @@
+# TeX build files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+paper/main.pdf
+# python
+__pycache__/
+.venv/
+# macOS
+.DS_Store
+# figure QA previews
+figures/_qa/
+# literature PDFs
+lit/
