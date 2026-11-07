@@ -6,7 +6,10 @@
        in ascending order (then sorted by seed): 60 in total. The original 34 keep their order, so their
        E2 job_ids and noise seeds are unchanged. Each entry carries its class (the E2 stratum).
   BAR  all 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective barrier
-       Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).
+       Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen). Every barrier then
+       passes the validity gate experiments/BAR/gate.py (C15a; run by "selection.py e3e4" before it
+       selects); only accepted barriers are used. A snapshot whose collective (full) barrier fails is
+       not eligible for E3 or E4 and is listed in BAR.gate_excluded.
   E3   20 of the 60 with collective Delta U >= 3 J, spread across Delta U: the qualifying snapshots
        sorted by (Delta U, seed), ranks round(linspace(0, n_q - 1, 20)). If fewer than 20 qualify, all
        are taken. dU_rank (0 = smallest Delta U) sets the noise level in E3 (even 1.5, odd 2.5).
@@ -14,7 +17,8 @@
        evenly-spaced-rank rule (sorted by (Delta U, seed), ranks round(linspace(0, n - 1, 10))).
 
 Usage: selection.py e2        (needs the keystone summary)
-       selection.py e3e4      (needs data/BAR/barriers.json; adds BAR, E3 and E4 to selection.json)
+       selection.py e3e4      (needs data/BAR/barriers.jsonl; runs the gate, then adds BAR, E3 and E4
+                              to selection.json)
 Output: data/derived/selection.json
 """
 import json
@@ -65,13 +69,26 @@ def spread(rows, n):
 
 
 def e3e4():
+    # experiments/ (this script's directory) holds queue.py, which would shadow the standard-library
+    # queue module that multiprocessing imports in the gate's worker pool.
+    here = os.path.dirname(os.path.abspath(__file__))
+    sys.path[:] = [p for p in sys.path if os.path.abspath(p or ".") != here]
+    sys.path.insert(0, os.path.join(here, "BAR"))
+    import gate
+    gate.main()
+    G = json.load(open(gate.GATED))["barriers"]
     sel = json.load(open(OUT))
-    bar = {b["job_id"]: b for b in json.load(open(os.path.join(DATA, "BAR", "barriers.json")))["barriers"]}
-    rows = []
+    bar = {b["job_id"]: b for b in load_runs(os.path.join(DATA, "BAR", "barriers.jsonl"))}
+    rows, excluded = [], []
     for s in sel["E2"]["snapshots"]:
+        g = G.get(s["tag"])
+        if g is None or not g["full"]["accepted"]:
+            excluded.append({"tag": s["tag"], "reasons": g["full"]["reasons"] if g else ["no gate row"]})
+            continue
         b = bar[s["tag"]]
-        rows.append(dict(s, dU=b["all_mobile"]["dU_climb"], dU_string=b["all_mobile"]["dU_string"],
-                         dU_frozen=b["frozen"]["dU_climb"], dU_alone=b["alone"]["dU_climb"],
+        rows.append(dict(s, dU=g["full"]["dU"], dU_bar=b["all_mobile"]["dU_climb"],
+                         dU_frozen=g["frozen"]["dU"], frozen_ok=g["frozen"]["accepted"],
+                         dU_alone=g["alone"]["dU"], alone_ok=g["alone"]["accepted"],
                          dU_1d_alone=b["dU_1d_axis_alone"],
                          force_check_all_maxabs_N=b["force_check_all_maxabs_N"]))
     q = [r for r in rows if r["dU"] >= DU_MIN]
@@ -81,15 +98,16 @@ def e3e4():
     q4 = [r for r in rows if r["n_resid"] >= MIN_RESID_E4]
     e4 = spread(q4, N_E4)
     du = np.array([r["dU"] for r in rows])
-    sel["BAR"] = {"n": len(rows), "dU_all_mobile_J": {f"p{p}": float(np.percentile(du, p)) for p in (0, 10, 25, 50, 75, 90, 100)},
+    sel["BAR"] = {"n": len(rows), "gate_excluded": excluded, "dU_all_mobile_J": {f"p{p}": float(np.percentile(du, p)) for p in (0, 10, 25, 50, 75, 90, 100)},
                   "n_dU_ge_3J": len(q), "max_force_check_N": max(r["force_check_all_maxabs_N"] for r in rows),
-                  "per_snapshot": [{k: r[k] for k in ("tag", "class", "n_resid", "dU", "dU_string", "dU_frozen",
-                                                      "dU_alone", "dU_1d_alone", "force_check_all_maxabs_N")}
+                  "per_snapshot": [{k: r[k] for k in ("tag", "class", "n_resid", "dU", "dU_bar", "dU_frozen",
+                                                      "frozen_ok", "dU_alone", "alone_ok", "dU_1d_alone",
+                                                      "force_check_all_maxabs_N")}
                                    for r in rows]}
     sel["E3"] = {"n": len(e3), "n_qualifying": len(q), "short": len(e3) < N_E3, "snapshots": e3}
     sel["E4"] = {"n": len(e4), "n_qualifying": len(q4), "snapshots": e4}
     json.dump(sel, open(OUT, "w"), indent=1, default=float)
-    print("BAR", sel["BAR"]["dU_all_mobile_J"], "E3", len(e3), "of", len(q), "E4", len(e4), "of", len(q4))
+    print("BAR gate excluded", len(excluded), sel["BAR"]["dU_all_mobile_J"], "E3", len(e3), "of", len(q), "E4", len(e4), "of", len(q4))
 
 
 if __name__ == "__main__":

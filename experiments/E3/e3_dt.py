@@ -2,7 +2,7 @@
 
 Corrected-forward, all residual agents mobile (condition "full"), restart from the frozen snapshot with
 CF union arm flags (pattern: experiments/pilot/w23_escape.py, kind "dtpilot" / "c3dt").
-Noise per snapshot (C15): for snapshot i with collective barrier dU_i (BAR all_mobile.dU_climb) and
+Noise per snapshot (C15): for snapshot i with collective barrier dU_i (BAR all_mobile, accepted by the gate experiments/BAR/gate.py) and
 blocker relaxation time tau_b, beta_ref = dU_i / k_B T_eff at dt = 0.01 s is 1.5 for even dU rank and
 2.5 for odd (rank within the E3 set, 0 = smallest dU); k_B T_target = dU_i / beta_ref and
 sigma_i = sqrt(k_B T_target (1 - (1 - 0.01 / tau_b)^2) / m), m = 80 kg (T3, experiments/lib/teff.py).
