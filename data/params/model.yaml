@@ -1,0 +1,92 @@
+# Model parameters for Table 1 (paper/tables/table1_params.tex, built by experiments/tables/make_table1.py).
+# Values were read on 2026-11-07 from the simulator at
+#   /Users/palaash/Developer/pedestrian-abs-plan/pedestrian-abs, branch exec-v1 (commit 8b29429),
+# with `git -C ... show exec-v1:<path>`, except w2lib.py, which is read from the plan root
+# (wave2/scripts/w2lib.py, plan-root HEAD 4b70fd6, working tree) because exec-v1 does not contain it.
+# `source` is file:line on exec-v1. `plan` says whether plan/FINAL_PLAN.md section 7 agrees.
+meta:
+  simulator_branch: exec-v1
+  simulator_commit: 8b29429
+  fallback_branch_not_needed: plan-wave2b
+  read_date: 2026-11-07
+
+parameters:
+  # ---- agents
+  mass:        {symbol: m,       value: 80.0, unit: kg,  meaning: agent mass, source: "sim/core/agent.py:66; config/params.yaml:2", plan: agrees}
+  v0:          {symbol: v0,      value: {dist: normal, mean: 1.34, std: 0.26, min: 0.5}, unit: m/s, meaning: desired speed, redrawn per agent and clipped below, source: "sim/core/agent.py:62-63,96", plan: agrees}
+  radius:      {symbol: r,       value: {dist: normal, mean: 0.25, std: 0.03, min: 0.15}, unit: m, meaning: body radius, clipped below, source: "sim/core/agent.py:64-65,97", plan: agrees}
+  tau:         {symbol: tau,     value: {dist: uniform, low: 0.4, high: 0.6}, unit: s, meaning: relaxation time of the desired force, drawn per agent, source: "sim/core/agent.py:98", plan: agrees, note: "params.yaml agent.tau = 0.5 is used only when heterogeneous=False (agent.py:102); default is heterogeneous"}
+  # ---- speed-density coupling and density estimate
+  weidmann_gamma:   {symbol: gamma,   value: 1.913, unit: m^-2, meaning: Weidmann shape parameter as used (calibrated 0.833 never applied), source: "sim/steering/desired.py:42; sim/steering/hybrid.py:151", plan: agrees, note: "params.yaml has no weidmann keys; defaults apply"}
+  weidmann_rho_max: {symbol: rho_max, value: 5.4,   unit: ped/m^2, meaning: Weidmann jam density as used (calibrated 5.98 never applied), source: "sim/steering/desired.py:43; sim/steering/hybrid.py:152", plan: agrees}
+  speed_factor_clip: {symbol: "", value: [0.05, 1.0], unit: "", meaning: bounds on v_eff/v0, source: "sim/steering/desired.py:54", plan: not_stated}
+  density_floor:    {symbol: "", value: 0.01, unit: ped/m^2, meaning: floor on rho inside 1/rho, source: "sim/steering/desired.py:52", plan: agrees}
+  neighbor_radius:  {symbol: R,       value: 3.0,   unit: m, meaning: neighbour search radius and radius of the density disk, source: "config/params.yaml:1; sim/core/simulation.py:52,140", plan: agrees}
+  density_estimator: {symbol: rho, value: "neighbour count within R divided by pi R^2 (self excluded)", unit: ped/m^2, meaning: fixed-disk density, quantised in steps 1/(9 pi) = 0.0354, source: "sim/core/simulation.py:130,140-144", plan: agrees}
+  # ---- SFM agent-agent
+  A:      {symbol: A,     value: 2000.0,   unit: N,         meaning: social repulsion strength, source: "sim/steering/sfm.py:31; config/params.yaml:3", plan: agrees}
+  B:      {symbol: B,     value: 0.08,     unit: m,         meaning: social repulsion range, source: "sim/steering/sfm.py:32; config/params.yaml:3", plan: agrees}
+  k:      {symbol: k,     value: 120000.0, unit: kg/s^2,    meaning: body compression coefficient, source: "sim/steering/sfm.py:33; config/params.yaml:3", plan: agrees}
+  kappa:  {symbol: kappa, value: 240000.0, unit: kg/(m s),  meaning: sliding friction coefficient, source: "sim/steering/sfm.py:34; config/params.yaml:3", plan: agrees}
+  # ---- walls
+  A_w:    {symbol: A_w, value: 2000.0, unit: N, meaning: wall repulsion strength, equals A unless A_w is set, source: "sim/steering/hybrid.py:82", plan: agrees}
+  B_w:    {symbol: B_w, value: 0.08,   unit: m, meaning: wall repulsion range, equals B unless B_w is set, source: "sim/steering/hybrid.py:83", plan: agrees}
+  B_w_edge: {symbol: B_w_edge, value: null, unit: m, meaning: "variant: social range on jamb segments near the door edge; null = published", source: "sim/steering/walls.py:35,43-46,176-181; sim/steering/hybrid.py:86", plan: agrees}
+  edge_zone: {symbol: "", value: [0.5, 1.0], unit: m, meaning: B_w_edge applies within 0.5 m of the door edge and blends linearly to B_w by 1.0 m, source: "sim/steering/walls.py:36,180-181", plan: agrees}
+  edge_radius: {symbol: "", value: 0.1, unit: m, meaning: "variant edge=rounded: capsule jambs of radius 0.1 m; default edge=sharp (zero thickness)", source: "sim/scenarios/bottleneck.py:19,26", plan: agrees}
+  # ---- TTC
+  k_ttc:  {symbol: k_ttc, value: 1.5, unit: "N s^2", meaning: TTC force scale, source: "sim/steering/ttc.py:31; config/params.yaml:4", plan: agrees}
+  tau_0:  {symbol: tau_0, value: 3.0, unit: s, meaning: TTC decay time, source: "sim/steering/ttc.py:32; config/params.yaml:4", plan: agrees}
+  tau_max: {symbol: tau_max, value: 8.0, unit: s, meaning: TTC look-ahead horizon, source: "sim/steering/ttc.py:33,97; config/params.yaml:4", plan: agrees}
+  ttc_min_dv2: {symbol: "", value: 1.0e-8, unit: m^2/s^2, meaning: pair is valid only if |dv|^2 >= this, so F = 0 near v = 0, source: "sim/steering/ttc.py:91", plan: agrees}
+  # ---- ORCA
+  time_horizon: {symbol: tau_h, value: 5.0, unit: s, meaning: ORCA look-ahead for non-collision half-planes, source: "sim/steering/orca.py:266; config/params.yaml:5", plan: agrees}
+  tau_orca: {symbol: tau_ORCA, value: 0.5, unit: s, meaning: relaxation time converting v_ORCA - v into a force, source: "sim/steering/orca.py:267; config/params.yaml:5", plan: agrees}
+  orca_speed_cap: {symbol: "", value: 2.0, unit: "multiple of v0", meaning: speed circle of the ORCA linear programme; v_pref = v0 e_hat (not v_eff), source: "sim/steering/orca.py:340-341,403-404", plan: agrees}
+  orca_gate: {symbol: "w_o", value: {rho0: 4.0, k: 2.0}, unit: "ped/m^2, m^2/ped", meaning: "w_o = 1 - sigma(rho; rho0, k), sigma = 1/(1+exp(-k(rho-rho0)))", source: "sim/steering/hybrid.py:119-123,262-264; config/params.yaml:6", plan: agrees}
+  orca_collision_halfplane_time: {symbol: "", value: 0.01, unit: s, meaning: "overlapping pairs use the time step dt (not tau_h) in the collision half-plane", source: "sim/steering/orca.py:325-326", plan: not_stated}
+  # ---- crush (config C4 only)
+  k_crush:     {symbol: k_crush,     value: 360000.0, unit: kg/s^2,   meaning: enhanced body compression, source: "sim/steering/crush.py:27; config/params.yaml:7", plan: agrees}
+  kappa_crush: {symbol: kappa_crush, value: 480000.0, unit: kg/(m s), meaning: enhanced sliding friction, source: "sim/steering/crush.py:28; config/params.yaml:7", plan: agrees}
+  crush_gate:  {symbol: "w_c", value: {rho0: 5.5, k: 3.0}, unit: "ped/m^2, m^2/ped", meaning: "w_c = sigma(rho; rho0, k); also scales F_des by (1 - w_c); about 0.0025 at rho = 3.5", source: "sim/steering/hybrid.py:128-132,154; config/params.yaml:6", plan: agrees}
+  # ---- noise, time step, termination
+  noise_sigma: {symbol: sigma, value: null, unit: m/s, meaning: "per-component velocity noise std, set per experiment (Simulation default 0.0); added to v after the clamp and re-clamped", source: "sim/core/simulation.py:42,219-224 (published); 200-204 (fixed)", plan: agrees}
+  noise_modes: {symbol: "", value: [per_step, dt_scaled, lateral_bias, "off"], unit: "", meaning: "w2_noise; dt_scaled uses sigma sqrt(dt/0.01)", source: "sim/core/simulation.py:184-189", plan: agrees}
+  dt:          {symbol: dt, value: 0.01, unit: s, meaning: time step, source: "config/params.yaml:1; sim/core/simulation.py:51", plan: agrees}
+  speed_clamp: {symbol: "", value: 2.0, unit: "multiple of v0", meaning: speed limit applied to |v|, source: "sim/core/simulation.py:197,216", plan: agrees}
+  force_clip:  {symbol: "", value: 1.0e6, unit: N, meaning: element-wise force clip in published mode; off in corrected mode (events counted), source: "sim/core/helpers.py:28-37; sim/core/simulation.py:100", plan: agrees}
+  deactivation_radius: {symbol: "", value: 0.5, unit: m, meaning: an agent is removed when |x - g| < this, source: "config/params.yaml:1; sim/core/simulation.py:54,241-244", plan: agrees}
+  goal:        {symbol: g, value: [11.0, 5.0], unit: m, meaning: point goal behind the door, source: "sim/scenarios/bottleneck.py:60", plan: agrees}
+  spawn_area:  {symbol: "", value: [1.0, 8.0, 1.0, 9.0], unit: m, meaning: "x_min, x_max, y_min, y_max of the spawn box in the 10 m x 10 m room", source: "sim/scenarios/bottleneck.py:59", plan: agrees}
+  deadlock_criterion: {symbol: "", value: {v_thr: 0.01, hold: 10.0, check_every_steps: 10}, unit: "m/s, s", meaning: "deadlock = no exit and every active |v| < v_thr for >= hold", source: "wave2/scripts/w2lib.py:146-166 (plan root; not on exec-v1)", plan: agrees}
+
+modes:
+  published_reproduction:
+    integrator: "semi-implicit Euler (v' = v + F dt/m, x' = x + v' dt), then clamp |v'| <= 2 v0; each force component clipped at +-1e6 N"
+    w2_numerics: published
+    spawn: uniform          # BottleneckScenario(spawn='uniform')
+    w2_orca: published
+    w2_crush: "on"
+    w2_wall_corner: segment_sum
+    w2_metrics: full
+    sources: "sim/core/integrator.py:40-41; sim/core/simulation.py:213-217; sim/core/helpers.py:28-37; sim/scenarios/bottleneck.py:24; sim/steering/orca.py:269; sim/steering/hybrid.py:68,87"
+  corrected_forward:
+    integrator: "v' = clamp(v + F dt/m) (+ noise, re-clamp), then x' = x + v' dt; no force clip"
+    w2_numerics: fixed
+    spawn: rejection
+    w2_orca: rvo2
+    w2_crush: "off"
+    w2_wall_corner: convex_union
+    w2_metrics: light
+    sources: "sim/core/simulation.py:100,193-205; sim/scenarios/bottleneck.py:64-66; sim/steering/orca.py:413; sim/steering/hybrid.py:66-78,87; sim/steering/walls.py:48-52"
+
+# Places where plan/FINAL_PLAN.md section 7 and the code on exec-v1 disagree (values agree unless stated).
+discrepancies:
+  - {id: P1, kind: line_references, plan: "cites hybrid.py:128-129, simulation.py:162-172 and 174-179, helpers.py:23-27, integrator.py:39-41", code: "same statements now at hybrid.py:151-152, simulation.py:193-224, helpers.py:28-37, integrator.py:40-41 (flags added since the plan was written)", action: update plan references before they go into the paper}
+  - {id: P2, kind: flag_value, plan: "flag table names the corner flag value 'union'", code: "walls.py accepts 'segment_sum' | 'convex_union' (CHANGELOG C4 agrees with the code)", action: use convex_union}
+  - {id: P3, kind: corner_rule_wording, plan: "section 7 and mode table: 'nearest point on the union of walls sharing an end, at every shared end'", code: "conditional rule of CHANGELOG C4: drop a duplicated corner term only when the agent's closest point is the shared end P; concave corners keep both walls", action: describe the C4 rule in the paper}
+  - {id: P4, kind: implementation_status, plan: "w2_crush and w2_wall_corner 'to implement in execution'", code: "both implemented on exec-v1 (hybrid.py:66-78, walls.py:48-52), default published", action: none}
+  - {id: P5, kind: unused_config_keys, plan: "density is the 3 m fixed disk", code: "config/params.yaml:8 lists density.grid_radius = 2.0 and kde_bandwidth = 1.0, and lines 9-10 list risk and optimization keys; none are read by sim/ (grep); the disk radius is simulation.neighbor_radius = 3.0", action: do not tabulate the unused keys}
+  - {id: P6, kind: unused_default, plan: "tau ~ U(0.4, 0.6) per agent", code: "config/params.yaml:2 agent.tau = 0.5 applies only if heterogeneous=False; default path draws U(0.4, 0.6)", action: none}
+  - {id: P7, kind: not_verified, plan: "quench arms stop when |v| < 1e-3 m/s for 10 s and are censored at 120 s", code: "StationaryDetector in w2lib.py has hold 10 s and v_thr 0.01 (the deadlock criterion); the 1e-3 and 120 s settings were not found in w2lib.py", action: check the quench script before stating them}
+  - {id: P8, kind: not_in_plan, plan: "silent on the ORCA collision case", code: "overlapping pairs use the time step dt as the horizon (orca.py:325-326)", action: mention in the model description if relevant}

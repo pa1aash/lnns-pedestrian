@@ -1,0 +1,12 @@
+# Registry of numbers quoted in the paper text.
+# Each entry maps a LaTeX macro name (letters only) to its source:
+#
+#   MacroName:
+#     file: <name>.json     # JSON file under data/derived/
+#     key:  a.b.0.c         # dotted key path; integers index lists
+#     fmt:  "{:.2f}"        # Python format string applied to the value
+#     unit: "m/s"           # optional; also emitted as \MacroNameUnit
+#
+# tools/make_numbers.py turns this into paper/numbers.tex, with a comment above
+# every \newcommand naming its source, and fails on any missing file or key.
+# The registry is empty until result files exist.
