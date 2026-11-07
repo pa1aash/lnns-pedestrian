@@ -1,0 +1,204 @@
+# Audit Log
+
+## Phase 1 — Foundation
+- **Date:** 2026-04-02
+- **Built:** pyproject.toml, .gitignore, config/params.yaml, scripts/audit.sh, sim/core/helpers.py (60 lines), sim/core/agent.py (113 lines), sim/core/world.py (139 lines), tests/conftest.py, tests/test_agent.py, tests/test_world.py, 38 stub files (empty __init__.py + module placeholders), 13 empty test files
+- **Tests:** 12 new, 12 total, 12 passing
+- **Gates:** pip install ✓, all imports ✓, pytest 12/12 ✓, audit.sh ✓
+- **Issues:** pyproject.toml build-backend corrected from `setuptools.backends._legacy:_Backend` to `setuptools.build_meta`
+
+## Phase 2 — Core Loop
+- **Date:** 2026-04-02
+- **Built:** sim/core/integrator.py (90 lines), sim/steering/base.py (33 lines), sim/steering/desired.py (37 lines), sim/core/simulation.py (172 lines), tests/test_integrator.py, tests/test_desired.py, tests/test_simulation.py
+- **Tests:** 20 new, 32 total, 32 passing
+- **Gates:** all imports OK, pytest 32/32 ✓, audit.sh ✓
+- **Issues:** none
+
+## Phase 3 — SFM + Wall Forces
+- **Date:** 2026-04-02
+- **Built:** sim/steering/sfm.py (92 lines), sim/steering/walls.py (94 lines), tests/test_sfm.py, tests/test_walls.py
+- **Tests:** 15 new, 47 total, 47 passing
+- **Gates:** all imports OK, pytest 47/47 ✓, physics sanity (30 agents corridor 300 steps, mean_speed=1.10) ✓, audit.sh ✓
+- **Issues:** none
+
+## Phase 4 — TTC Force
+- **Date:** 2026-04-02
+- **Built:** sim/steering/ttc.py (99 lines), tests/test_ttc.py
+- **Tests:** 6 new, 53 total, 53 passing
+- **Gates:** analytical τ=0.75 ✓, pytest 53/53 ✓, audit.sh ✓
+- **Issues:** none
+
+## Phase 5 — ORCA
+- **Date:** 2026-04-02
+- **Built:** sim/steering/orca.py (341 lines), tests/test_orca.py
+- **Tests:** 5 new, 58 total, 58 passing
+- **Gates:** incremental LP ✓, scipy fallback ✓, four-agent crossing min_dist>0.3 ✓, pytest 58/58 ✓, audit.sh ✓
+- **Issues:** severe overlaps produce infeasible LP constraints (by design — SFM body forces handle contact separation)
+
+## Phase 6 — Assembly (Crush + Hybrid + Smoke Tests) — **ENGINE COMPLETE**
+- **Date:** 2026-04-02
+- **Built:** sim/steering/crush.py (81 lines), sim/steering/hybrid.py (157 lines), sim/experiments/configs.py (34 lines), sim/core/simulation.py updated (+37 lines from_scenario), tests/test_crush.py, tests/test_hybrid.py, tests/test_smoke.py
+- **Tests:** 12 new, 70 total, 70 passing
+- **Gates:** C1-C4 all run ✓, evacuation C4 50 agents exits ✓, single-agent goal ✓, head-on deflection ✓, sigmoid weights ✓, pytest 70/70 ✓, audit.sh ✓
+- **Issues:** occasional force clamping warnings from TTC at high density (handled by check_forces)
+
+## Phase 7 — Density + Risk + Scenarios
+- **Date:** 2026-04-02
+- **Built:** sim/density/base.py (22), grid.py (51), voronoi.py (107), kde.py (37), risk.py (87), sim/scenarios/base.py (38), corridor.py (52), bottleneck.py (50), bidirectional.py (70), crossing.py (81), funnel.py (50) — 645 new lines
+- **Tests:** 22 new, 92 total, 92 passing
+- **Gates:** all density estimators ✓, risk metric ✓, all 5 scenarios build+run ✓, from_scenario ✓, pytest 92/92 ✓
+- **Issues:** fixed np.ptp() removal in NumPy 2.0 (voronoi.py)
+
+## Phase 8 — Experiment Pipeline — **PIPELINE COMPLETE**
+- **Date:** 2026-04-02
+- **Built:** sim/experiments/runner.py (103), analysis.py (71), sim/optimization/barrier.py (61), optimizer.py (157), sim/viz/ 7 modules (382 total), sim/data/ 2 modules (125 total), scripts/ 2 CLIs (127 total), sim/core/simulation.py extended metrics — 1026 new lines
+- **Tests:** 92 total, 92 passing (simulation.py _compile_results updated for full metrics)
+- **Gates:** CSV output ✓ (bottleneck C1 2 reps, evac=53.5s), optimizer ✓ (nelder-mead 5 evals), pytest 92/92 ✓, audit.sh ✓
+- **Issues:** none
+
+## Phase 9 — Data Loading + Calibration
+- **Date:** 2026-04-02
+- **Built:** sim/data/loader.py rewritten (98 lines), sim/data/fundamental_diagram.py rewritten (30 lines), scripts/calibrate.py (53 lines)
+- **Tests:** 92 total, 92 passing
+- **Gates:** FZJ data loaded ✓ (2.6M rows, 952 peds, mean speed=0.82 m/s), empirical FD extracted ✓ (4436 frames, density [0.19, 11.20]), Weidmann curve ✓, calibrate.py produces CSV+PDF ✓, pytest 92/92 ✓
+- **Issues:** fixed FZJ column order (ped_id frame_id x y z, not frame_id ped_id x y), fixed fps=16 (not 25), fixed add_velocities to use actual frame gaps
+
+## Phase 10 — Run All Experiments
+- **Date:** 2026-04-02
+- **Built:** updated configs.py (D-config support, BOTTLENECK_WIDTHS), updated simulation.py (D-config param overrides), updated run_experiments.py (width sweep, crush dispatch)
+- **Results:** 9 CSV files (3 reps each): Corridor C1-C3, Bottleneck C1 (w=1.2), Bidirectional C1, Crossing C1, Scaling C1 (50-1000 agents), empirical FD
+- **Scaling:** 50 agents=22ms/step, 100=64ms, 200=513ms, 500=2.8s, 1000=6.75s
+- **Tests:** 92 total, 92 passing
+- **Gates:** CSV outputs ✓, scaling data ✓, all families represented ✓
+- **Issues:** C4/ORCA experiments CPU-intensive (ORCA per-agent LP)
+- **Final:** 22 CSV files, 1 optimizer JSON. All 6 families complete. Optimizer best=65.0 (barrier at x=5.5,y=5.0,len=1.84,angle=π/2)
+
+## Phase 11 — Generate All Figures + Tables
+- **Date:** 2026-04-02
+- **Built:** scripts/generate_figures.py rewritten (290 lines), paper/tables/ directory
+- **Figures (11):** fundamental_diagram, ablation_mean_speed, ablation_max_density, ablation_collision_count, trajectories (bottleneck live sim), density_heatmap (funnel live sim), evac_vs_width, scaling, risk_heatmap (funnel live + composite risk), convergence, empirical_fd
+- **Tables (4):** parameters.tex, ablation.tex, scaling.tex, crush.tex
+- **Gates:** all figures render as PDF ✓, all tables valid LaTeX ✓
+- **Issues:** none
+
+## Logic Audit — 6 Fixes
+- **Date:** 2026-04-02
+- **FIX 1:** CorridorFDScenario with continuous injection (injection_rate agents/s, warmup 5s, measure 15s). inject_agents() added to Simulation. Free-flow speed now 1.3-1.5 m/s (was 0.28). FD data in fd_C{1-4}.csv.
+- **FIX 2:** Empirical FD measurement area corrected to (-4,0,4,3.6) matching actual FZJ corridor (x: -15 to 9, y: 0 to 3.6). fps fixed to 16 in calibrate.py. Speed at density>5 now 0.50 m/s (plausible).
+- **FIX 3:** ORCA configs (C3/C4) limited to feasible agent counts: FD rates [1-7], bottleneck 50, bidir/cross 30 per direction.
+- **FIX 4:** D-configs now use C2 base (SFM+TTC+crush) instead of SFM-only. More honest representation of the hybrid framework.
+- **FIX 5:** Bottleneck w=0.8 added. w=1.0/1.8 C4 still computing.
+- **FIX 6:** Density heatmap uses 200-agent funnel at 0.5m cell resolution. 1500 steps to build congestion.
+- **Re-run:** FD C1-C3, bottleneck widths, ablation C2, crush D1-D3, scaling. All figures and tables regenerated.
+
+## FD Physics Fix — Periodic Corridor + Weidmann Coupling
+- **Date:** 2026-04-03
+- **Root cause:** SFM repulsion is lateral (pushes apart), not backward. Speed reduction requires density-dependent desired speed.
+- **Fix:** PeriodicCorridorScenario with wrap-around x-boundaries + ghost KDTree copies. Weidmann speed-density coupling: v0_eff = v0*(1-exp(-1.913*(1/rho-1/5.4))). D
+- **Result:** C1 FD: rho=0.28→v=1.32, rho=2.0→v=1.23, rho=5.0→v=0.85. Correct shape.
+
+## Phase 12 — Paper Sections 1-3
+- **Date:** 2026-04-03
+- **Built:** paper/main.tex sections 1-3 (~5 pages)
+- **Sec 1 (Intro):** Crowd safety motivation, 5 contributions, paper structure. 27 citations.
+- **Sec 2 (Related Work):** 4 subsections (force/velocity models, hybrids, safety metrics, digital twins). Gap statements for each.
+- **Sec 3 (Framework):** Hybrid force equation, desired force with Weidmann coupling, SFM, TTC, ORCA, sigmoid weighting, composite risk, crush regime, barrier optimization. 8 equations.
+- **Gates:** all 27 citation keys verified against references.bib ✓ (LaTeX not installed for compilation)
+- **Issues:** pdflatex not available on this machine — compilation deferred to user
+
+## Phase 13 — Paper Sections 4-6 + Abstract
+- **Date:** 2026-04-03
+- **Built:** paper/main.tex sections 4-6 + abstract (~6.5 additional pages)
+- **Abstract:** 150 words, all key numbers: FD 1.32→0.85, bottleneck 18%, crush 24.9→14.8, optimizer 13%, scaling 545ms
+- **Sec 4 (Experiments):** 6 subsections: setup+params table, FD validation (Fig 1), ablation (Fig 2 + Table 2), crush (Fig 4), optimization (Fig 8), scaling (Fig 6). All exact numbers from CSVs.
+- **Sec 5 (Discussion):** hybrid benefit explanation, calibration gap (0.85 vs 0.43), ORCA scalability, crush trade-off, DT maturity (L2), comparison with SPH Crowds/Cristiani
+- **Sec 6 (Conclusions):** 5 quantitative results, 3 future directions (sensors, learned ORCA, field validation)
+- **Citations:** 30 total, all verified against references.bib
+- **Gates:** all citation keys valid ✓
+- **Issues:** compilation deferred to user (no pdflatex)
+
+## Phase 14 — Paper Audit + Submission Prep
+- **Date:** 2026-04-03
+- **Audit:** PAPER_AUDIT.md created with full checklist
+- **Double-blind:** PASS — anonymous authors, no affiliations, no self-citations, PDF metadata stripped
+- **Figures:** 8 figures (fd, ablation, evac_width, traj, heatmap, risk, convergence, scaling), all vector PDF
+- **Tables:** 2 tables (parameters, bottleneck evacuation times)
+- **References:** 30 cited, all resolved, 6 orphans acceptable
+- **Pages:** 9 (within SciTePress 8-12 range)
+- **Compilation:** tectonic compiles cleanly, equations fixed for column width
+- **Fixes applied:** abstract period, hypersetup metadata strip, added trajectory+risk figures, cross-references for all figures
+- **Milestone:** SUBMISSION READY
+
+## Phase 15 — Pre-submission Experiment Re-run
+- **Date:** 2026-04-04 through 2026-04-05
+- **Motivation:** ISSUE-056 required full experiment re-run with corrected codebase (55 fixes applied in phases 1-14). Old-paper numbers were from pre-fix code.
+- **Re-run scripts:** rerun_1 through rerun_7 (7 scripts, parallel execution in 5 terminals)
+  - rerun_1: Bottleneck w=0.8 at 100 agents (120s timeout, 4 configs)
+  - rerun_2: Bidirectional 100+100 agents (60s, 4 configs)
+  - rerun_3: Crossing 100+100 agents (60s, 4 configs)
+  - rerun_4: Funnel D1-D4 at 250 agents (60s)
+  - rerun_5: Optimizer (100 agents) + Scaling C1
+  - rerun_6: Bottleneck w=0.8 long-timeout (300s)
+  - rerun_7: Bottleneck w=0.8 long-timeout (600s)
+- **Old results backed up:** results_backup/ (now .gitignored)
+- **Key findings from re-run:**
+  - FD validation solid: C1-C4 all track Weidmann curve, low std (0.02-0.03)
+  - Bottleneck evac: CIs overlap at n=5 at all widths (9% nominal diff at narrow exits)
+  - Bottleneck collision count: 37% reduction (C2/C4 vs C1) consistent across all widths
+  - Crossing: 3x throughput for TTC-enabled configs (C1: 6/200, C4: 17.6/200 exits in 60s)
+  - Bidirectional: throughput-safety trade-off (C4 has 19% fewer collisions, 12% fewer exits)
+  - w=0.8m 600s: C1 0/5 evacuate, C4 3/5 evacuate (deadlock-resolution story)
+  - **Crush regime BROKEN**: funnel max density only 6.05 ped/m^2 across all D-configs, time_above_critical=0.04s, D1/D2/D3 essentially identical
+- **Issues:** grid density estimator (pi*R^2 disk, R=2m) washes out local hotspots at funnel neck
+
+## Phase 16 — DT Level 2: FZJ Calibration
+- **Date:** 2026-04-05
+- **Built:**
+  - sim/scenarios/fzj_bottleneck.py (74 lines): FZJCorridorScenario — periodic corridor matching FZJ unidirectional experiment geometry (18m x 5m, wrap-around)
+  - scripts/calibrate_dt.py (211 lines): Nelder-Mead calibration of (weidmann_gamma, weidmann_rho_max, A, B) against empirical FZJ FD (results/empirical_fd.csv, 4776 data points)
+  - sim/steering/hybrid.py: threaded weidmann_gamma and weidmann_rho_max from params dict through compute_desired_force
+  - tests/test_scenarios.py: added FZJCorridor to parametrized test suite + test_weidmann_param_override
+- **Tests:** 4 new, 101 total, all passing
+- **Calibration results (C1, n_reps=2, 31 evaluations, ~5.4 hrs runtime):**
+  - Baseline RMSE: 0.2296 m/s (default params, paper's "calibration gap")
+  - Calibrated RMSE: 0.0908 m/s
+  - **RMSE reduction: 60.5%**
+  - Calibrated params: gamma=0.888 (was 1.913), rho_max=5.36 (was 5.4), A=1920 (was 2000), B=0.112 (was 0.08)
+- **Output:** results/calibration.json (17KB, full history + baseline comparison)
+- **DT Level 2 achieved:** FZJ corridor is the physical counterpart, calibrated model is the virtual replica, 60% RMSE reduction quantifies physical-virtual alignment
+
+## Phase 17 — Crush Regime Fix (Geometry + Density Estimator)
+- **Date:** 2026-04-06
+- **Root cause:** (1) funnel 3m exit too wide for sustained crush density; (2) grid density estimator averages over pi*R^2=12.6 m^2, masking local peaks at narrow necks
+- **Built:**
+  - sim/scenarios/funnel.py: added exit_width parameter (default 3.0, runs use 0.8)
+  - sim/scenarios/crush_room.py (80 lines): NEW CrushRoomScenario — 5x5m room, single 0.6m exit on right wall, classical crush geometry
+  - sim/core/simulation.py: added density_estimator parameter to __init__ and from_scenario, threaded through step() to replace hardcoded grid counting
+  - sim/experiments/runner.py: added density_estimator kwarg to ExperimentRunner.run()
+  - tests/test_scenarios.py: test_funnel_exit_width_parameter, test_crush_room_geometry, CrushRoom in parametrized suite
+  - tests/test_density.py: test_voronoi_peaks_higher_than_grid_on_cluster (Voronoi catches local hotspots grid washes out)
+  - tests/test_simulation.py: test_simulation_accepts_voronoi_density_estimator
+  - rerun_8_funnel_narrow.py: 250 agents, 0.8m exit, VoronoiDensityEstimator, D1-D4, 5 reps each
+  - rerun_9_crush_room.py: 300 agents, 0.6m exit, VoronoiDensityEstimator, D1-D4, 5 reps each
+- **Tests:** 6 new, 107 total, all passing (~237s full suite)
+- **Smoke test (100 agents, 300 steps, D3, seed=42):**
+  - Narrow funnel + grid density: max_density=2.41 ped/m^2 (WRONG — too smooth)
+  - Narrow funnel + Voronoi: max_density=14.01 ped/m^2 (6x peak detection vs grid)
+  - Crush room + Voronoi: max_density=20.00 ped/m^2 (saturated at max_density cap)
+- **Expected outcome:** crush regime activates sustainedly; D1 >> D2/D3 in max density and collisions
+- **Status:** code + tests complete; re-runs pending overnight execution
+
+## Phase 18 — Bottleneck n=20 Statistical Strengthening
+- **Date:** 2026-04-06
+- **Motivation:** n=5 replications produce overlapping 95% CIs between C1 and C4 at every bottleneck width. "9% evacuation improvement" not statistically significant as-is.
+- **Built:**
+  - rerun_10_bottleneck_n20.py: extends all 6 bottleneck widths (0.8, 1.0, 1.2, 1.8, 2.4, 3.6m) from n=5 to n=20 by adding seeds 47-61
+  - Append-in-place strategy: reads existing CSVs, adds new rows, saves back (crash-safe, idempotent)
+  - Targets C1 + C4 only (head-to-head ablation claim)
+  - Uses os.nice(10) on POSIX to yield CPU to concurrent crush runs
+- **Expected statistical impact:**
+  - t-critical drops from 2.776 (n=5) to 2.093 (n=20)
+  - SE reduces by 2x from sqrt(20/5) additional samples
+  - Total CI width ~0.4x current
+  - Predicted: widths 1.0, 1.2m will reject H0 (p < 0.05); widths 1.8-3.6m may remain null (honest)
+- **Status:** code complete; awaiting overnight run alongside rerun_8/rerun_9

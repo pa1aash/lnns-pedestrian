@@ -1,0 +1,40 @@
+data/
+results/
+figures/
+# Trajectory parquets are 1.3 GB total — distribute via Zenodo, not git
+results_new/trajectories/
+__pycache__/
+*.egg-info/
+.venv/
+*.pyc
+.pytest_cache/
+.DS_Store
+prompt_pedestrian_abs/
+issues/
+OPRS/
+run_all_experiments.py
+results_backup/
+rerun_*.py
+
+# LaTeX build artifacts
+paper/main.aux
+paper/main.log
+paper/main.out
+paper/main.blg
+paper/main.bbl
+paper/main.pdf
+paper/CrowdTwin_SIMULTECH2026_submission.pdf
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.toc
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local development artifacts
+*.tmp
+*.bak
