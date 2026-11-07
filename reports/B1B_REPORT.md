@@ -31,6 +31,5 @@ Workflow `paper` on push to main: green on the first run (build 1m47s, PDF uploa
 
 ## Outstanding
 - Fetches: none failed. Springer's own pages were unreachable without a browser; replaced by the Archive snapshot plus direct file download.
-- Leftover scratch files figures/_t.py and figures/_test.pdf (my delete was blocked by a safety check); excluded via .git/info/exclude, please delete.
 - Confirm with volume editors: corresponding-author marking and page limit.
-- [NEEDS PALAASH: licence for code, and for text and data]. The plan root's pedestrian-abs/ has no LICENSE file; no LICENSE created.
+- Licence: resolved after this batch by the authors (MIT, commit eb54321, change C10). Scratch files were deleted by the authors.

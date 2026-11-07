@@ -39,8 +39,4 @@ CI builds the PDF on every push to `main` and uploads it as an artifact.
 
 ## Licence
 
-Not yet decided for code, text and data.
-
-## Licence
-
 Code and original content in this repository are released under the MIT licence (see `LICENSE`). Third-party material keeps its own licence: the CroMa 2021 trajectories in `data/ext/croma/` (CC BY 4.0) and the conference paper in `ref/` (CC BY-NC-ND 4.0); see the README in each folder.
