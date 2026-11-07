@@ -21,3 +21,4 @@ C7 Reproducibility kept conventional: one Makefile from data to figures, tables 
 C8 Compute on the Mac (4 workers) through one resumable job queue ordered by dependencies; RunPod only if needed later. Regression hash checked on the Mac.
 
 C9 Deadline recorded: 18 Nov 2026 via PRIMORIS (from the invitation). Not used for planning.
+C10 (2026-11-07) Repository licence: MIT (code and original content), copyright 2026 Palaash Gang and Arjun Veluri; text fetched from the GitHub licence API. Third-party data keep their own licences.
