@@ -2,6 +2,7 @@
 %
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{booktabs,tabularx}
 %
 \begin{document}
 %
@@ -41,13 +42,21 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 %
 \section{Model and Scenarios}
 % Budget 2.5 pages. Table 1.
+\input{tables/table1_params}
 %
 \section{Mechanism Classes and Their Physical Signatures}
 % Budget 2.5 pages. Table 2.
+\input{tables/table2_signatures}
 %
 \section{Deadlock Physics}
 % Budget 3.5 pages. Figs 2, 3, 4.
 \subsection{The Lone-Agent Trap at the Door Edges}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig2_lone_trap.pdf}
+\caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the blue band the C3 boundary for $\tau\in[0.4,0.6]$\,s.}
+\label{fig:lone-trap}
+\end{figure}
 \subsection{The Symmetric Pair Standoff}
 \subsection{No Persistent Contact Arches}
 \subsection{Noise as Collective Activated Escape}
