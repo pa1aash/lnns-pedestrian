@@ -1,0 +1,284 @@
+{
+ "doc": "Selection rules for E2, BAR, E3 and E4 (Step 4 of batch 2A). Fixed before any of these runs.\n\n  E2   60 corrected-forward (E1b) snapshots drawn uniformly without replacement from the\n       lone-keystone class (data/derived/E1_keystone.json), numpy Generator(PCG64(2026)).choice over\n       the class's seeds in ascending order. If the class has fewer than 60, all are taken.\n  BAR  for the 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective\n       barrier Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).\n  E3   the 20 E2 snapshots with the largest collective Delta U, all with Delta U >= 3 J. If fewer\n       than 20 qualify, every qualifying snapshot is taken.\n  E4   10 snapshots from the E3 set spread across its Delta U range: for q = 0.05, 0.15, ..., 0.95 the\n       snapshot (not yet chosen) whose Delta U is nearest the q-quantile (numpy linear) of the E3\n       Delta U values; ties to the smaller Delta U. If E3 has <= 10 snapshots, all are taken.\n\nUsage: selection.py e2        (needs the keystone summary)\n       selection.py e3e4      (needs data/BAR/barriers.json; adds E3 and E4 to selection.json)\nOutput: data/derived/selection.json\n",
+ "E2": {
+  "pool_class": "lone_keystone",
+  "pool_size": 34,
+  "n": 34,
+  "rng": "numpy Generator(PCG64(2026)).choice(pool ascending, 60, replace=False)",
+  "short": true,
+  "snapshots": [
+   {
+    "tag": "E1b_seed52",
+    "seed": 52,
+    "snap": "data/E1/library/E1b_seed52.pkl",
+    "blocker": 19,
+    "n_resid": 3,
+    "blocker_margin_C1": 146.21101977170858
+   },
+   {
+    "tag": "E1b_seed58",
+    "seed": 58,
+    "snap": "data/E1/library/E1b_seed58.pkl",
+    "blocker": 17,
+    "n_resid": 3,
+    "blocker_margin_C1": 139.28498074102455
+   },
+   {
+    "tag": "E1b_seed61",
+    "seed": 61,
+    "snap": "data/E1/library/E1b_seed61.pkl",
+    "blocker": 52,
+    "n_resid": 4,
+    "blocker_margin_C1": 113.98774983035736
+   },
+   {
+    "tag": "E1b_seed69",
+    "seed": 69,
+    "snap": "data/E1/library/E1b_seed69.pkl",
+    "blocker": 66,
+    "n_resid": 1,
+    "blocker_margin_C1": 133.66797111913422
+   },
+   {
+    "tag": "E1b_seed71",
+    "seed": 71,
+    "snap": "data/E1/library/E1b_seed71.pkl",
+    "blocker": 78,
+    "n_resid": 2,
+    "blocker_margin_C1": 38.35849223224213
+   },
+   {
+    "tag": "E1b_seed72",
+    "seed": 72,
+    "snap": "data/E1/library/E1b_seed72.pkl",
+    "blocker": 21,
+    "n_resid": 2,
+    "blocker_margin_C1": 51.6287773674872
+   },
+   {
+    "tag": "E1b_seed80",
+    "seed": 80,
+    "snap": "data/E1/library/E1b_seed80.pkl",
+    "blocker": 65,
+    "n_resid": 1,
+    "blocker_margin_C1": 34.0470049449528
+   },
+   {
+    "tag": "E1b_seed83",
+    "seed": 83,
+    "snap": "data/E1/library/E1b_seed83.pkl",
+    "blocker": 36,
+    "n_resid": 1,
+    "blocker_margin_C1": 250.26896951705163
+   },
+   {
+    "tag": "E1b_seed84",
+    "seed": 84,
+    "snap": "data/E1/library/E1b_seed84.pkl",
+    "blocker": 99,
+    "n_resid": 1,
+    "blocker_margin_C1": 85.1962495074811
+   },
+   {
+    "tag": "E1b_seed87",
+    "seed": 87,
+    "snap": "data/E1/library/E1b_seed87.pkl",
+    "blocker": 50,
+    "n_resid": 1,
+    "blocker_margin_C1": 158.9317354632832
+   },
+   {
+    "tag": "E1b_seed89",
+    "seed": 89,
+    "snap": "data/E1/library/E1b_seed89.pkl",
+    "blocker": 18,
+    "n_resid": 1,
+    "blocker_margin_C1": 69.02263371421904
+   },
+   {
+    "tag": "E1b_seed91",
+    "seed": 91,
+    "snap": "data/E1/library/E1b_seed91.pkl",
+    "blocker": 31,
+    "n_resid": 1,
+    "blocker_margin_C1": 50.49911512191204
+   },
+   {
+    "tag": "E1b_seed94",
+    "seed": 94,
+    "snap": "data/E1/library/E1b_seed94.pkl",
+    "blocker": 60,
+    "n_resid": 1,
+    "blocker_margin_C1": 101.83501480574128
+   },
+   {
+    "tag": "E1b_seed100",
+    "seed": 100,
+    "snap": "data/E1/library/E1b_seed100.pkl",
+    "blocker": 44,
+    "n_resid": 1,
+    "blocker_margin_C1": 13.701503388787387
+   },
+   {
+    "tag": "E1b_seed107",
+    "seed": 107,
+    "snap": "data/E1/library/E1b_seed107.pkl",
+    "blocker": 49,
+    "n_resid": 2,
+    "blocker_margin_C1": 75.04824549957013
+   },
+   {
+    "tag": "E1b_seed108",
+    "seed": 108,
+    "snap": "data/E1/library/E1b_seed108.pkl",
+    "blocker": 60,
+    "n_resid": 1,
+    "blocker_margin_C1": 19.132669030895187
+   },
+   {
+    "tag": "E1b_seed114",
+    "seed": 114,
+    "snap": "data/E1/library/E1b_seed114.pkl",
+    "blocker": 38,
+    "n_resid": 1,
+    "blocker_margin_C1": 102.69833942095642
+   },
+   {
+    "tag": "E1b_seed120",
+    "seed": 120,
+    "snap": "data/E1/library/E1b_seed120.pkl",
+    "blocker": 45,
+    "n_resid": 2,
+    "blocker_margin_C1": 50.7027268691688
+   },
+   {
+    "tag": "E1b_seed128",
+    "seed": 128,
+    "snap": "data/E1/library/E1b_seed128.pkl",
+    "blocker": 27,
+    "n_resid": 2,
+    "blocker_margin_C1": 187.59176223811858
+   },
+   {
+    "tag": "E1b_seed132",
+    "seed": 132,
+    "snap": "data/E1/library/E1b_seed132.pkl",
+    "blocker": 17,
+    "n_resid": 1,
+    "blocker_margin_C1": 103.49488824585376
+   },
+   {
+    "tag": "E1b_seed140",
+    "seed": 140,
+    "snap": "data/E1/library/E1b_seed140.pkl",
+    "blocker": 8,
+    "n_resid": 1,
+    "blocker_margin_C1": 73.7807773915996
+   },
+   {
+    "tag": "E1b_seed141",
+    "seed": 141,
+    "snap": "data/E1/library/E1b_seed141.pkl",
+    "blocker": 20,
+    "n_resid": 1,
+    "blocker_margin_C1": 24.037478251007045
+   },
+   {
+    "tag": "E1b_seed150",
+    "seed": 150,
+    "snap": "data/E1/library/E1b_seed150.pkl",
+    "blocker": 51,
+    "n_resid": 1,
+    "blocker_margin_C1": 34.4796826866303
+   },
+   {
+    "tag": "E1b_seed155",
+    "seed": 155,
+    "snap": "data/E1/library/E1b_seed155.pkl",
+    "blocker": 6,
+    "n_resid": 1,
+    "blocker_margin_C1": 124.24073429357252
+   },
+   {
+    "tag": "E1b_seed179",
+    "seed": 179,
+    "snap": "data/E1/library/E1b_seed179.pkl",
+    "blocker": 63,
+    "n_resid": 1,
+    "blocker_margin_C1": 54.91853606928129
+   },
+   {
+    "tag": "E1b_seed200",
+    "seed": 200,
+    "snap": "data/E1/library/E1b_seed200.pkl",
+    "blocker": 78,
+    "n_resid": 1,
+    "blocker_margin_C1": 51.08589264063704
+   },
+   {
+    "tag": "E1b_seed203",
+    "seed": 203,
+    "snap": "data/E1/library/E1b_seed203.pkl",
+    "blocker": 35,
+    "n_resid": 1,
+    "blocker_margin_C1": 151.279816696179
+   },
+   {
+    "tag": "E1b_seed204",
+    "seed": 204,
+    "snap": "data/E1/library/E1b_seed204.pkl",
+    "blocker": 3,
+    "n_resid": 1,
+    "blocker_margin_C1": 64.19436556762622
+   },
+   {
+    "tag": "E1b_seed205",
+    "seed": 205,
+    "snap": "data/E1/library/E1b_seed205.pkl",
+    "blocker": 28,
+    "n_resid": 2,
+    "blocker_margin_C1": 35.584249151954566
+   },
+   {
+    "tag": "E1b_seed211",
+    "seed": 211,
+    "snap": "data/E1/library/E1b_seed211.pkl",
+    "blocker": 13,
+    "n_resid": 1,
+    "blocker_margin_C1": 147.56945628762946
+   },
+   {
+    "tag": "E1b_seed215",
+    "seed": 215,
+    "snap": "data/E1/library/E1b_seed215.pkl",
+    "blocker": 5,
+    "n_resid": 1,
+    "blocker_margin_C1": 135.99476315931472
+   },
+   {
+    "tag": "E1b_seed227",
+    "seed": 227,
+    "snap": "data/E1/library/E1b_seed227.pkl",
+    "blocker": 51,
+    "n_resid": 1,
+    "blocker_margin_C1": 117.43466900752728
+   },
+   {
+    "tag": "E1b_seed238",
+    "seed": 238,
+    "snap": "data/E1/library/E1b_seed238.pkl",
+    "blocker": 34,
+    "n_resid": 1,
+    "blocker_margin_C1": 43.48770514416239
+   },
+   {
+    "tag": "E1b_seed239",
+    "seed": 239,
+    "snap": "data/E1/library/E1b_seed239.pkl",
+    "blocker": 47,
+    "n_resid": 2,
+    "blocker_margin_C1": 100.28322252046013
+   }
+  ]
+ }
+}

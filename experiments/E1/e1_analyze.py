@@ -10,6 +10,15 @@ Leave-one-seed-out: for each seed, k in 1..29 is chosen to maximise pooled agent
 other seeds (ties: smallest k) and applied to that seed's stuck-alone agents. Confidence intervals
 from 2000 resamples of seeds (with replacement; percentile intervals; numpy PCG64 seed 12345).
 ROC AUC: score = others active at arrival, positive class = exited (Mann-Whitney, ties count 1/2).
+The AUC is the headline number (plan change C13).
+Refinement (C13), at the rule's k = 3:
+  all-exit baseline   accuracy of predicting that every stuck-alone agent exits (= fraction that exit);
+  error split         rule errors among non-exited agents split into final blockers (the run's blocker)
+                      and agents queued behind a blocker (not exited, not the blocker); errors among
+                      exited agents (predicted stuck, observed exit) reported separately;
+  restricted accuracy accuracy over final blockers plus exited agents (queued agents left out).
+The contact-cluster deadlock type (field deadlock_type in E1_runs.jsonl) is superseded by the keystone
+classes (experiments/E1/keystone.py, data/derived/E1_keystone.json) and is no longer summarised here.
 """
 import json, os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "lib"))
@@ -60,8 +69,6 @@ def analyse(R, PASS):
     out["completion_time_s"] = q([r["t_end"] for r in R if r["complete"]])
     out["exits_per_run"] = q([r["n_exits"] for r in R])
     out["wall_s_per_run"] = q([r["wall_s"] for r in R])
-    types = [r["deadlock_type"]["type"] for r in R if r["deadlock"]]
-    out["deadlock_type_counts"] = {t: types.count(t) for t in ("lone", "pair", "triple", "larger", "none_at_door")}
     out["n_remaining_hist"] = {str(k): sum(r["n_remaining"] == k for r in R if r["deadlock"])
                                for k in sorted({r["n_remaining"] for r in R if r["deadlock"]})}
 
@@ -76,17 +83,19 @@ def analyse(R, PASS):
         at = {a["id"]: a for a in r["attrs"]}
         exits = {int(k) for k in r["exit_t"]}
         arrive = {int(k): v for k, v in r["arrive"].items()}
-        for i, a in at.items():
-            if a["margin_C1"] > 0 and i in arrive:
-                rows.append({"seed": r["seed"], "id": i, "margin": a["margin_C1"], "exited": i in exits,
-                             "others": arrive[i]["n_active"] - 1, "order": arrive[i]["order"]})
+        b = None
         if r.get("residual"):
             pos = {x["id"]: np.array(x["pos"]) for x in r["residual"]}
             b = min(pos, key=lambda i: np.linalg.norm(pos[i] - [10.0, 5.0]))
+        for i, a in at.items():
+            if a["margin_C1"] > 0 and i in arrive:
+                rows.append({"seed": r["seed"], "id": i, "margin": a["margin_C1"], "exited": i in exits,
+                             "others": arrive[i]["n_active"] - 1, "order": arrive[i]["order"],
+                             "role": "exited" if i in exits else ("blocker" if i == b else "queued")})
+        if b is not None:
             blockers.append({"seed": r["seed"], "blocker": b, "margin_C1": at[b]["margin_C1"],
                              "margin_C3": at[b]["margin_C3"], "r": at[b]["r"], "v0": at[b]["v0"],
                              "tau": at[b]["tau"], "pos": pos[b].tolist(), "n_resid": len(pos),
-                             "deadlock_type": r.get("deadlock_type", {}).get("type"),
                              "others_at_arrival": arrive[b]["n_active"] - 1 if b in arrive else None})
     n_stuck_never_arrived = int((allm > 0).sum()) - len(rows)
     out["stuck_alone_agents"] = {"n_reached_door_zone": len(rows), "n_never_reached": n_stuck_never_arrived,
@@ -119,6 +128,28 @@ def analyse(R, PASS):
         "heldout_accuracy": float(correct.sum() / cnt.sum()), "n_agents": int(cnt.sum()),
         "ci95_seed_bootstrap": [float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5))],
         "chosen_k_counts": {str(k): chosen.count(k) for k in sorted(set(chosen))}}
+
+    # refinement (C13): baseline, error split, restricted accuracy at k = 3
+    K = 3
+    n_rows = len(rows)
+    pred = {id(x): x["others"] >= K for x in rows}
+    err = [x for x in rows if pred[id(x)] != x["exited"]]
+    sub = [x for x in rows if x["role"] in ("exited", "blocker")]
+    out["k_rule_refined"] = {
+        "k": K, "n_stuck_alone_reached": n_rows,
+        "all_exit_baseline_accuracy": sum(x["exited"] for x in rows) / n_rows,
+        "rule_accuracy": 1 - len(err) / n_rows,
+        "roles": {g: sum(x["role"] == g for x in rows) for g in ("exited", "blocker", "queued")},
+        "errors": {"total": len(err),
+                   "final_blockers_pred_exit": sum(x["role"] == "blocker" for x in err),
+                   "queued_behind_blocker_pred_exit": sum(x["role"] == "queued" for x in err),
+                   "exited_pred_stuck": sum(x["role"] == "exited" for x in err)},
+        "correct_by_role": {g: sum((x["role"] == g) and pred[id(x)] == x["exited"] for x in rows)
+                            for g in ("exited", "blocker", "queued")},
+        "restricted_blockers_plus_exited": {
+            "n": len(sub), "accuracy": sum(pred[id(x)] == x["exited"] for x in sub) / len(sub),
+            "all_exit_baseline": sum(x["exited"] for x in sub) / len(sub),
+            "auc": auc([x["others"] for x in sub], [x["exited"] for x in sub])}}
 
     # AUC of others-active-at-arrival
     sc = np.array([x["others"] for x in rows], float)
@@ -155,7 +186,9 @@ def analyse(R, PASS):
 if __name__ == "__main__":
     R_all = load_runs(runs_path())
     PASS = Passability(0.8)
-    res = {"script": "experiments/E1/e1_library.py + e1_analyze.py", "doc": __doc__,
+    res = {"superseded_fields": {"E1_runs.jsonl:deadlock_type": "contact-cluster grouping, superseded by the "
+                                 "keystone classes (data/derived/E1_keystone.json; plan change C12)"},
+           "script": "experiments/E1/e1_library.py + e1_analyze.py", "doc": __doc__,
            "setup": "C1, room bottleneck w=0.8 m, 100 agents, dt=0.01 s, sigma=0, cap 600 s, stop at deadlock "
                     "(all active |v|<0.01 m/s for 10 s, no exit) or completion, w2_metrics=light; seeds 42-241"}
     for mode in ("E1a", "E1b"):
@@ -180,10 +213,11 @@ if __name__ == "__main__":
             continue
         o = res[mode]
         print(mode, "runs", o["n_runs"], "completion", o["completion"], "deadlock", o["deadlock"])
-        print("  types", o["deadlock_type_counts"], "deadlock t", o["deadlock_time_s"])
+        print("  deadlock t", o["deadlock_time_s"])
         print("  stuck frac", o["stuck_alone_frac_C1"], "C3", o["stuck_alone_frac_C3_rest"])
         print("  blockers", o["blockers"]["n"], "stuck", o["blockers"]["stuck_alone"], "agents", o["stuck_alone_agents"])
         for c in o["k_rule_pooled"]:
             print("   ", c)
         print("  LOSO", o["k_rule_leave_one_seed_out"], "AUC", o["auc_others_active"])
+        print("  refined", o["k_rule_refined"])
     print("gmax", res["gmax_N"])

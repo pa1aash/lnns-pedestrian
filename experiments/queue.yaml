@@ -1,0 +1,40 @@
+# Batch-2 job queue. Steps run sequentially, each with 4 worker processes; each step is resumable
+# (finished job_ids are skipped). Finished steps are recorded in data/queue_state.json.
+# Paths are relative to the repository root. cpu_h: estimated CPU-hours (see reports/B2A_REPORT.md).
+steps:
+  - name: E2
+    cmd: [experiments/E2/e2_quench.py]
+    depends: []
+    cpu_h: 2.5
+  - name: BAR
+    cmd: [experiments/BAR/bar.py]
+    depends: []
+    cpu_h: 1.0
+  - name: SEL_E3E4
+    cmd: [experiments/selection.py, e3e4]
+    depends: [BAR]
+    cpu_h: 0.0
+  - name: E3
+    cmd: [experiments/E3/e3_dt.py]
+    depends: [SEL_E3E4]
+    cpu_h: 12.0
+  - name: E4
+    cmd: [experiments/E4/e4_escape.py]
+    depends: [SEL_E3E4]
+    cpu_h: 12.0
+  - name: E5b
+    cmd: [experiments/E5/e5_sweep.py, E5b]
+    depends: []
+    cpu_h: 11.0
+  - name: E7b_lib
+    cmd: [experiments/E7b/e7b_lib.py]
+    depends: []
+    cpu_h: 4.5
+  - name: E5a
+    cmd: [experiments/E5/e5_sweep.py, E5a]
+    depends: []
+    cpu_h: 18.0
+  - name: E7
+    cmd: [experiments/E7/e7_cells.py]
+    depends: []
+    cpu_h: 10.0

@@ -1,6 +1,9 @@
 {
+ "superseded_fields": {
+  "E1_runs.jsonl:deadlock_type": "contact-cluster grouping, superseded by the keystone classes (data/derived/E1_keystone.json; plan change C12)"
+ },
  "script": "experiments/E1/e1_library.py + e1_analyze.py",
- "doc": "E1 analysis, each mode separately. Input data/E1/E1_runs.jsonl(.gz); output data/derived/E1_analysis.json.\n\nDefinitions follow wave2/scripts/w21_analyze.py:\n  stuck-alone agent   margin_C1 = g_max(r) - m v0 / tau > 0 (rest state on the door axis, rho = 0);\n  blocker             residual agent nearest the door centre (10, 5) in a run that did not complete;\n  end-of-queue rule   a stuck-alone agent is predicted to exit iff at least k other agents are active\n                      when it first reaches the door zone (others = n_active at arrival - 1); only\n                      stuck-alone agents that reached the door zone enter the rule.\nLeave-one-seed-out: for each seed, k in 1..29 is chosen to maximise pooled agent-level accuracy on the\nother seeds (ties: smallest k) and applied to that seed's stuck-alone agents. Confidence intervals\nfrom 2000 resamples of seeds (with replacement; percentile intervals; numpy PCG64 seed 12345).\nROC AUC: score = others active at arrival, positive class = exited (Mann-Whitney, ties count 1/2).\n",
+ "doc": "E1 analysis, each mode separately. Input data/E1/E1_runs.jsonl(.gz); output data/derived/E1_analysis.json.\n\nDefinitions follow wave2/scripts/w21_analyze.py:\n  stuck-alone agent   margin_C1 = g_max(r) - m v0 / tau > 0 (rest state on the door axis, rho = 0);\n  blocker             residual agent nearest the door centre (10, 5) in a run that did not complete;\n  end-of-queue rule   a stuck-alone agent is predicted to exit iff at least k other agents are active\n                      when it first reaches the door zone (others = n_active at arrival - 1); only\n                      stuck-alone agents that reached the door zone enter the rule.\nLeave-one-seed-out: for each seed, k in 1..29 is chosen to maximise pooled agent-level accuracy on the\nother seeds (ties: smallest k) and applied to that seed's stuck-alone agents. Confidence intervals\nfrom 2000 resamples of seeds (with replacement; percentile intervals; numpy PCG64 seed 12345).\nROC AUC: score = others active at arrival, positive class = exited (Mann-Whitney, ties count 1/2).\nThe AUC is the headline number (plan change C13).\nRefinement (C13), at the rule's k = 3:\n  all-exit baseline   accuracy of predicting that every stuck-alone agent exits (= fraction that exit);\n  error split         rule errors among non-exited agents split into final blockers (the run's blocker)\n                      and agents queued behind a blocker (not exited, not the blocker); errors among\n                      exited agents (predicted stuck, observed exit) reported separately;\n  restricted accuracy accuracy over final blockers plus exited agents (queued agents left out).\nThe contact-cluster deadlock type (field deadlock_type in E1_runs.jsonl) is superseded by the keystone\nclasses (experiments/E1/keystone.py, data/derived/E1_keystone.json) and is no longer summarised here.\n",
  "setup": "C1, room bottleneck w=0.8 m, 100 agents, dt=0.01 s, sigma=0, cap 600 s, stop at deadlock (all active |v|<0.01 m/s for 10 s, no exit) or completion, w2_metrics=light; seeds 42-241",
  "E1a": {
   "n_runs": 200,
@@ -58,13 +61,6 @@
    "p95": 69.65689438575022,
    "p100": 209.28795929199987
   },
-  "deadlock_type_counts": {
-   "lone": 24,
-   "pair": 90,
-   "triple": 80,
-   "larger": 3,
-   "none_at_door": 0
-  },
   "n_remaining_hist": {
    "1": 22,
    "2": 63,
@@ -111,7 +107,6 @@
       4.99839730637214
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -127,7 +122,6 @@
       5.007715353897442
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -143,7 +137,6 @@
       4.999068188612756
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -159,7 +152,6 @@
       5.008751337080834
      ],
      "n_resid": 5,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -175,7 +167,6 @@
       5.026546378767037
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -191,7 +182,6 @@
       5.008195236279907
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -207,7 +197,6 @@
       5.431094558461581
      ],
      "n_resid": 8,
-     "deadlock_type": "pair",
      "others_at_arrival": 8
     },
     {
@@ -223,7 +212,6 @@
       5.0268415280655825
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -239,7 +227,6 @@
       5.047160312920338
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -255,7 +242,6 @@
       4.97752370637443
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -271,7 +257,6 @@
       5.4505191043274825
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -287,7 +272,6 @@
       5.409994054813451
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -303,7 +287,6 @@
       4.963969726593135
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -319,7 +302,6 @@
       4.999999873328958
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -335,7 +317,6 @@
       4.992475166687097
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -351,7 +332,6 @@
       4.9978307998126255
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -367,7 +347,6 @@
       4.595604658342568
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -383,7 +362,6 @@
       4.5805045671611015
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -399,7 +377,6 @@
       4.594551976548085
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -415,7 +392,6 @@
       4.975350897704869
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -431,7 +407,6 @@
       4.590992743801551
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -447,7 +422,6 @@
       5.446089804058483
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -463,7 +437,6 @@
       4.991323406772543
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -479,7 +452,6 @@
       4.9941083709858605
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -495,7 +467,6 @@
       5.000858204187146
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -511,7 +482,6 @@
       5.000357374899712
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -527,7 +497,6 @@
       5.000808084272157
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -543,7 +512,6 @@
       4.997856773335515
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -559,7 +527,6 @@
       5.010414919911525
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -575,7 +542,6 @@
       5.007598507222775
      ],
      "n_resid": 5,
-     "deadlock_type": "larger",
      "others_at_arrival": 4
     },
     {
@@ -591,7 +557,6 @@
       4.588568511684303
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -607,7 +572,6 @@
       5.0183397629877105
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -623,7 +587,6 @@
       5.034226892201904
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -639,7 +602,6 @@
       4.9968748391022135
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -655,7 +617,6 @@
       4.994045849420417
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -671,7 +632,6 @@
       5.000000162161304
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -687,7 +647,6 @@
       4.962058542471066
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -703,7 +662,6 @@
       4.9873913239635135
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -719,7 +677,6 @@
       5.0170627844934685
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     },
     {
@@ -735,7 +692,6 @@
       5.000000353991379
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -751,7 +707,6 @@
       4.974596372059981
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -767,7 +722,6 @@
       4.958630118264372
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -783,7 +737,6 @@
       4.989000954657242
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -799,7 +752,6 @@
       4.999999591501361
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -815,7 +767,6 @@
       5.03407684137285
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -831,7 +782,6 @@
       5.014695452374255
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -847,7 +797,6 @@
       5.026037166423894
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -863,7 +812,6 @@
       5.012320468138019
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -879,7 +827,6 @@
       5.000000004059967
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -895,7 +842,6 @@
       5.021625343615221
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -911,7 +857,6 @@
       4.524187047805301
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -927,7 +872,6 @@
       4.99910840294788
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -943,7 +887,6 @@
       4.998376110758859
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -959,7 +902,6 @@
       5.005086632738685
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -975,7 +917,6 @@
       4.578412493098086
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -991,7 +932,6 @@
       5.028765341406269
      ],
      "n_resid": 5,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -1007,7 +947,6 @@
       5.005184141406236
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1023,7 +962,6 @@
       5.005023296736733
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -1039,7 +977,6 @@
       4.997220015074985
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -1055,7 +992,6 @@
       5.02139158504748
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1071,7 +1007,6 @@
       4.955171551958073
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -1087,7 +1022,6 @@
       4.545836811370427
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1103,7 +1037,6 @@
       4.999999654630268
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -1119,7 +1052,6 @@
       5.02026515921929
      ],
      "n_resid": 5,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -1135,7 +1067,6 @@
       5.408480443130999
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     },
     {
@@ -1151,7 +1082,6 @@
       5.0005664760891895
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -1167,7 +1097,6 @@
       4.990250597625762
      ],
      "n_resid": 5,
-     "deadlock_type": "larger",
      "others_at_arrival": 4
     },
     {
@@ -1183,7 +1112,6 @@
       4.995467130576079
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -1199,7 +1127,6 @@
       4.581644101118587
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1215,7 +1142,6 @@
       4.974833908230917
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -1231,7 +1157,6 @@
       5.023053079387346
      ],
      "n_resid": 11,
-     "deadlock_type": "triple",
      "others_at_arrival": 10
     },
     {
@@ -1247,7 +1172,6 @@
       5.005374633672812
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -1263,7 +1187,6 @@
       4.98024997618127
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1279,7 +1202,6 @@
       4.99999998813784
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -1295,7 +1217,6 @@
       4.546499918800459
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1311,7 +1232,6 @@
       4.998271945265622
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 8
     },
     {
@@ -1327,7 +1247,6 @@
       4.596665880677221
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1343,7 +1262,6 @@
       4.999999989633891
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 3
     },
     {
@@ -1359,7 +1277,6 @@
       5.411995492949734
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1375,7 +1292,6 @@
       4.999348603058657
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -1391,7 +1307,6 @@
       4.976413544727229
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -1407,7 +1322,6 @@
       5.000000088042032
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -1423,7 +1337,6 @@
       4.983187215447948
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1439,7 +1352,6 @@
       5.00887298858816
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -1455,7 +1367,6 @@
       4.972851621847727
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1471,7 +1382,6 @@
       5.006064626054868
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -1487,7 +1397,6 @@
       5.0110008460837605
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1503,7 +1412,6 @@
       4.995500149144888
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 8
     },
     {
@@ -1519,7 +1427,6 @@
       5.002796519417007
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1535,7 +1442,6 @@
       5.000909342859168
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -1551,7 +1457,6 @@
       4.999450566974548
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1567,7 +1472,6 @@
       4.95458336829506
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1583,7 +1487,6 @@
       5.006959394279269
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -1599,7 +1502,6 @@
       4.968456810466498
      ],
      "n_resid": 2,
-     "deadlock_type": "lone",
      "others_at_arrival": 3
     },
     {
@@ -1615,7 +1517,6 @@
       4.58257692789431
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1631,7 +1532,6 @@
       5.427430517994535
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1647,7 +1547,6 @@
       4.999999694145708
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -1663,7 +1562,6 @@
       5.4184460960592995
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1679,7 +1577,6 @@
       4.971152278366374
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1695,7 +1592,6 @@
       4.578216939780704
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -1711,7 +1607,6 @@
       5.00124311785747
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1727,7 +1622,6 @@
       4.96141415801396
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -1743,7 +1637,6 @@
       5.004765753561594
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 8
     },
     {
@@ -1759,7 +1652,6 @@
       5.444694743258614
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1775,7 +1667,6 @@
       4.999999096587447
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -1791,7 +1682,6 @@
       5.003251525761082
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -1807,7 +1697,6 @@
       4.999771951074484
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -1823,7 +1712,6 @@
       4.999999921626326
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -1839,7 +1727,6 @@
       4.999999814910087
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -1855,7 +1742,6 @@
       5.002724503604284
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -1871,7 +1757,6 @@
       4.991686910183407
      ],
      "n_resid": 5,
-     "deadlock_type": "larger",
      "others_at_arrival": 4
     },
     {
@@ -1887,7 +1772,6 @@
       5.001122482049325
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -1903,7 +1787,6 @@
       5.028682856428902
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -1919,7 +1802,6 @@
       5.426126682005127
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -1935,7 +1817,6 @@
       4.971529708903608
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -1951,7 +1832,6 @@
       5.001015144780271
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -1967,7 +1847,6 @@
       5.458261837843273
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     },
     {
@@ -1983,7 +1862,6 @@
       4.981397587144557
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -1999,7 +1877,6 @@
       5.012645359521456
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -2015,7 +1892,6 @@
       5.001386518726194
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -2031,7 +1907,6 @@
       5.422042794484076
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -2047,7 +1922,6 @@
       4.954747351042969
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -2063,7 +1937,6 @@
       4.994240548103133
      ],
      "n_resid": 9,
-     "deadlock_type": "triple",
      "others_at_arrival": 11
     },
     {
@@ -2079,7 +1952,6 @@
       5.00000005268658
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2095,7 +1967,6 @@
       5.000764851431628
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2111,7 +1982,6 @@
       5.009157863956702
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2127,7 +1997,6 @@
       5.041978910564033
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2143,7 +2012,6 @@
       4.966062107283585
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2159,7 +2027,6 @@
       5.0329934146371444
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2175,7 +2042,6 @@
       5.011933247778226
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -2191,7 +2057,6 @@
       4.953926072599387
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2207,7 +2072,6 @@
       5.034940995397238
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -2223,7 +2087,6 @@
       4.999999961928571
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2239,7 +2102,6 @@
       5.01163306432193
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -2255,7 +2117,6 @@
       5.014433091190248
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -2271,7 +2132,6 @@
       5.010801366202111
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2287,7 +2147,6 @@
       4.977466897435279
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2303,7 +2162,6 @@
       4.98619670663861
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -2319,7 +2177,6 @@
       4.999999974591438
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2335,7 +2192,6 @@
       4.999596830560155
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2351,7 +2207,6 @@
       5.004525687487909
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -2367,7 +2222,6 @@
       4.974683201107265
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2383,7 +2237,6 @@
       5.0051851868131045
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -2399,7 +2252,6 @@
       5.428752765282885
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2415,7 +2267,6 @@
       5.0165683591582635
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 7
     },
     {
@@ -2431,7 +2282,6 @@
       4.997452025058431
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -2447,7 +2297,6 @@
       5.025073888713928
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2463,7 +2312,6 @@
       4.995253552758611
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -2479,7 +2327,6 @@
       4.9572719670211
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2495,7 +2342,6 @@
       4.971769298030764
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2511,7 +2357,6 @@
       5.000819420640086
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -2527,7 +2372,6 @@
       4.996791418057118
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2543,7 +2387,6 @@
       5.417023346282787
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2559,7 +2402,6 @@
       5.427834592380917
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     },
     {
@@ -2575,7 +2417,6 @@
       4.589355685765015
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2591,7 +2432,6 @@
       5.0006511674823475
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -2607,7 +2447,6 @@
       5.000000137520506
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 3
     },
     {
@@ -2623,7 +2462,6 @@
       5.019414479420097
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2639,7 +2477,6 @@
       5.004491481867602
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -2655,7 +2492,6 @@
       5.014295515027093
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -2671,7 +2507,6 @@
       4.994030048029304
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2687,7 +2522,6 @@
       5.018151376370852
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2703,7 +2537,6 @@
       5.003498278832813
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -2719,7 +2552,6 @@
       4.9922036317744105
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2735,7 +2567,6 @@
       4.983716612709332
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2751,7 +2582,6 @@
       5.002969628763064
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -2767,7 +2597,6 @@
       4.999999925555578
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2783,7 +2612,6 @@
       5.420702952217592
      ],
      "n_resid": 9,
-     "deadlock_type": "pair",
      "others_at_arrival": 9
     },
     {
@@ -2799,7 +2627,6 @@
       4.994309534815684
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -2815,7 +2642,6 @@
       4.9854186115188766
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -2831,7 +2657,6 @@
       5.418397076385038
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -2847,7 +2672,6 @@
       4.581349879592613
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2863,7 +2687,6 @@
       5.019021425597832
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -2879,7 +2702,6 @@
       4.999999803084482
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2895,7 +2717,6 @@
       4.987712615646273
      ],
      "n_resid": 3,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2911,7 +2732,6 @@
       4.976782883495539
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -2927,7 +2747,6 @@
       4.999999951040523
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2943,7 +2762,6 @@
       4.996267052434414
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -2959,7 +2777,6 @@
       5.011583552219549
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 9
     },
     {
@@ -2975,7 +2792,6 @@
       4.999999766753116
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -2991,7 +2807,6 @@
       5.03070949758321
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -3007,7 +2822,6 @@
       5.00000004424422
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -3023,7 +2837,6 @@
       4.971321269241012
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -3039,7 +2852,6 @@
       5.00094983347571
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -3055,7 +2867,6 @@
       5.000540184252879
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -3071,7 +2882,6 @@
       4.997488138038655
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -3087,7 +2897,6 @@
       4.996094412815035
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -3103,7 +2912,6 @@
       4.976765303201879
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -3119,7 +2927,6 @@
       5.002361293324693
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -3135,7 +2942,6 @@
       5.000182438708076
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -3151,7 +2957,6 @@
       4.53584381871275
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3167,7 +2972,6 @@
       5.006645641161103
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -3183,7 +2987,6 @@
       5.027035283631442
      ],
      "n_resid": 5,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -3199,7 +3002,6 @@
       5.02589793061907
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -3215,7 +3017,6 @@
       5.027079734395374
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3231,7 +3032,6 @@
       4.984857411324896
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3247,7 +3047,6 @@
       4.5224975427577325
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     }
    ]
@@ -3318,6 +3117,34 @@
    ],
    "chosen_k_counts": {
     "3": 200
+   }
+  },
+  "k_rule_refined": {
+   "k": 3,
+   "n_stuck_alone_reached": 4486,
+   "all_exit_baseline_accuracy": 0.9315648684797146,
+   "rule_accuracy": 0.9621043245653144,
+   "roles": {
+    "exited": 4179,
+    "blocker": 192,
+    "queued": 115
+   },
+   "errors": {
+    "total": 170,
+    "final_blockers_pred_exit": 110,
+    "queued_behind_blocker_pred_exit": 38,
+    "exited_pred_stuck": 22
+   },
+   "correct_by_role": {
+    "exited": 4157,
+    "blocker": 82,
+    "queued": 77
+   },
+   "restricted_blockers_plus_exited": {
+    "n": 4371,
+    "accuracy": 0.9698009608785175,
+    "all_exit_baseline": 0.9560741249142073,
+    "auc": 0.9724428192550052
    }
   },
   "auc_others_active": {
@@ -3682,13 +3509,6 @@
    "p95": 76.07824987674996,
    "p100": 234.97877079199998
   },
-  "deadlock_type_counts": {
-   "lone": 30,
-   "pair": 93,
-   "triple": 71,
-   "larger": 2,
-   "none_at_door": 0
-  },
   "n_remaining_hist": {
    "1": 24,
    "2": 60,
@@ -3735,7 +3555,6 @@
       5.431363889828506
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 1
     },
     {
@@ -3751,7 +3570,6 @@
       4.999883909262639
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 9
     },
     {
@@ -3767,7 +3585,6 @@
       4.982656481368547
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3783,7 +3600,6 @@
       4.5835741174358375
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3799,7 +3615,6 @@
       4.5966350670298946
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3815,7 +3630,6 @@
       5.031653154916879
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -3831,7 +3645,6 @@
       5.024107880143725
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3847,7 +3660,6 @@
       4.972883143015898
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3863,7 +3675,6 @@
       5.008581263157421
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -3879,7 +3690,6 @@
       5.024666052269528
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -3895,7 +3705,6 @@
       4.996714011759091
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -3911,7 +3720,6 @@
       5.00937149411968
      ],
      "n_resid": 10,
-     "deadlock_type": "triple",
      "others_at_arrival": 9
     },
     {
@@ -3927,7 +3735,6 @@
       4.987191228252749
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -3943,7 +3750,6 @@
       4.995843727270941
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -3959,7 +3765,6 @@
       5.4089640469753215
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -3975,7 +3780,6 @@
       4.6086821888294125
      ],
      "n_resid": 7,
-     "deadlock_type": "pair",
      "others_at_arrival": 7
     },
     {
@@ -3991,7 +3795,6 @@
       5.002020876167374
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4007,7 +3810,6 @@
       5.000334184590954
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -4023,7 +3825,6 @@
       5.410843710795457
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4039,7 +3840,6 @@
       4.986285239732191
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -4055,7 +3855,6 @@
       4.587697850819149
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4071,7 +3870,6 @@
       5.016312697278482
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4087,7 +3885,6 @@
       5.012553029408573
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4103,7 +3900,6 @@
       4.995860615401266
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4119,7 +3915,6 @@
       4.576725303937163
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4135,7 +3930,6 @@
       4.985310477562198
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -4151,7 +3945,6 @@
       5.00576810340597
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -4167,7 +3960,6 @@
       4.9999999162392355
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4183,7 +3975,6 @@
       5.010345838641646
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4199,7 +3990,6 @@
       5.0248261175328395
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4215,7 +4005,6 @@
       4.977689606604058
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4231,7 +4020,6 @@
       5.013519451576768
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4247,7 +4035,6 @@
       5.026781888273367
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4263,7 +4050,6 @@
       5.406930510000692
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4279,7 +4065,6 @@
       4.984862278837489
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4295,7 +4080,6 @@
       4.979034992982531
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4311,7 +4095,6 @@
       5.033049344809625
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4327,7 +4110,6 @@
       5.0018507059576
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -4343,7 +4125,6 @@
       4.999999805153057
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4359,7 +4140,6 @@
       4.967667967118226
      ],
      "n_resid": 6,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4375,7 +4155,6 @@
       5.0165695825116465
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4391,7 +4170,6 @@
       5.0000001102511025
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -4407,7 +4185,6 @@
       4.999999778235625
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4423,7 +4200,6 @@
       4.59593230871136
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4439,7 +4215,6 @@
       5.414414890219806
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -4455,7 +4230,6 @@
       4.999999951625585
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4471,7 +4245,6 @@
       4.979909144769872
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4487,7 +4260,6 @@
       4.9999999712950824
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4503,7 +4275,6 @@
       4.985773171842232
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4519,7 +4290,6 @@
       4.99999999347254
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -4535,7 +4305,6 @@
       5.029615912665469
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4551,7 +4320,6 @@
       5.008141806309116
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4567,7 +4335,6 @@
       5.000000040727976
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4583,7 +4350,6 @@
       5.00297166246458
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4599,7 +4365,6 @@
       4.966471523768586
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -4615,7 +4380,6 @@
       4.993974739170575
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4631,7 +4395,6 @@
       5.01279077260557
      ],
      "n_resid": 5,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -4647,7 +4410,6 @@
       5.000000059055338
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4663,7 +4425,6 @@
       5.406680484801988
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4679,7 +4440,6 @@
       4.999383512353609
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4695,7 +4455,6 @@
       4.9833398343507715
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4711,7 +4470,6 @@
       5.02639551371564
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4727,7 +4485,6 @@
       5.014382100618405
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4743,7 +4500,6 @@
       5.004598053337495
      ],
      "n_resid": 5,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -4759,7 +4515,6 @@
       5.018679280598307
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4775,7 +4530,6 @@
       4.999999994189584
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4791,7 +4545,6 @@
       4.953636005889422
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4807,7 +4560,6 @@
       4.9971610696143856
      ],
      "n_resid": 8,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -4823,7 +4575,6 @@
       4.597972805292221
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4839,7 +4590,6 @@
       5.002026329253574
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4855,7 +4605,6 @@
       5.003582403656076
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -4871,7 +4620,6 @@
       5.000000005604584
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -4887,7 +4635,6 @@
       4.970066600483491
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -4903,7 +4650,6 @@
       4.588705713922558
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -4919,7 +4665,6 @@
       5.469579666986117
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -4935,7 +4680,6 @@
       4.99804133500283
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -4951,7 +4695,6 @@
       4.983097497304569
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -4967,7 +4710,6 @@
       5.016098271988608
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -4983,7 +4725,6 @@
       5.003314709854091
      ],
      "n_resid": 4,
-     "deadlock_type": "larger",
      "others_at_arrival": 3
     },
     {
@@ -4999,7 +4740,6 @@
       4.993784717797569
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -5015,7 +4755,6 @@
       4.989140740539221
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5031,7 +4770,6 @@
       4.963418501883847
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5047,7 +4785,6 @@
       5.021840687372508
      ],
      "n_resid": 2,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -5063,7 +4800,6 @@
       5.027790522403095
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5079,7 +4815,6 @@
       5.0327671315011475
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5095,7 +4830,6 @@
       4.978908554993352
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5111,7 +4845,6 @@
       5.429516423482145
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5127,7 +4860,6 @@
       4.989115844386794
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -5143,7 +4875,6 @@
       5.000000137910338
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -5159,7 +4890,6 @@
       4.991602990323878
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5175,7 +4905,6 @@
       4.993548259335164
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -5191,7 +4920,6 @@
       5.0296773638413255
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5207,7 +4935,6 @@
       4.9849138547194745
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5223,7 +4950,6 @@
       4.979102003634447
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5239,7 +4965,6 @@
       4.587001721989686
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5255,7 +4980,6 @@
       5.252708782906382
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5271,7 +4995,6 @@
       4.999999805268696
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -5287,7 +5010,6 @@
       4.999999991176098
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -5303,7 +5025,6 @@
       5.013330908885636
      ],
      "n_resid": 9,
-     "deadlock_type": "triple",
      "others_at_arrival": 8
     },
     {
@@ -5319,7 +5040,6 @@
       4.68190596141159
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5335,7 +5055,6 @@
       5.027586380023724
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5351,7 +5070,6 @@
       5.000944416572902
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5367,7 +5085,6 @@
       5.001286756955773
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -5383,7 +5100,6 @@
       5.448047959141815
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5399,7 +5115,6 @@
       4.953787332973682
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -5415,7 +5130,6 @@
       5.015612397364716
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -5431,7 +5145,6 @@
       4.9999999935283075
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -5447,7 +5160,6 @@
       5.035487936977839
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -5463,7 +5175,6 @@
       4.95715210790043
      ],
      "n_resid": 2,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -5479,7 +5190,6 @@
       4.979146800376752
      ],
      "n_resid": 2,
-     "deadlock_type": "lone",
      "others_at_arrival": 3
     },
     {
@@ -5495,7 +5205,6 @@
       4.975012375612171
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5511,7 +5220,6 @@
       4.999999617772708
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -5527,7 +5235,6 @@
       4.994259520597462
      ],
      "n_resid": 3,
-     "deadlock_type": "lone",
      "others_at_arrival": 4
     },
     {
@@ -5543,7 +5250,6 @@
       4.993431170380188
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -5559,7 +5265,6 @@
       5.013333275936932
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -5575,7 +5280,6 @@
       5.028260161545054
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5591,7 +5295,6 @@
       4.997029615887335
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -5607,7 +5310,6 @@
       5.007289801352075
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -5623,7 +5325,6 @@
       5.013194610209778
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -5639,7 +5340,6 @@
       4.999367908531499
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 7
     },
     {
@@ -5655,7 +5355,6 @@
       4.974940222218768
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5671,7 +5370,6 @@
       5.006891114040662
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -5687,7 +5385,6 @@
       5.019578307034945
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5703,7 +5400,6 @@
       4.998993498166538
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5719,7 +5415,6 @@
       4.595956457526262
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5735,7 +5430,6 @@
       5.023953755246617
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -5751,7 +5445,6 @@
       5.008812185669555
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 4
     },
     {
@@ -5767,7 +5460,6 @@
       5.004400937288066
      ],
      "n_resid": 9,
-     "deadlock_type": "triple",
      "others_at_arrival": 8
     },
     {
@@ -5783,7 +5475,6 @@
       4.578145385403656
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5799,7 +5490,6 @@
       5.018812743613497
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5815,7 +5505,6 @@
       5.0029929600405305
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -5831,7 +5520,6 @@
       4.9715232546669315
      ],
      "n_resid": 2,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -5847,7 +5535,6 @@
       5.023770605774688
      ],
      "n_resid": 10,
-     "deadlock_type": "triple",
      "others_at_arrival": 9
     },
     {
@@ -5863,7 +5550,6 @@
       5.016543662880492
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5879,7 +5565,6 @@
       5.0000000264348365
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -5895,7 +5580,6 @@
       5.018479843299443
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5911,7 +5595,6 @@
       4.977621812392269
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5927,7 +5610,6 @@
       4.997585001043112
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -5943,7 +5625,6 @@
       5.035499147986516
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -5959,7 +5640,6 @@
       4.714029497581244
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -5975,7 +5655,6 @@
       4.979903652928001
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -5991,7 +5670,6 @@
       5.026116227037459
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -6007,7 +5685,6 @@
       5.000303734398514
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6023,7 +5700,6 @@
       5.020698404033317
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6039,7 +5715,6 @@
       5.004137419567698
      ],
      "n_resid": 7,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -6055,7 +5730,6 @@
       4.985802752354796
      ],
      "n_resid": 5,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -6071,7 +5745,6 @@
       4.992733638418157
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -6087,7 +5760,6 @@
       4.977573790189081
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6103,7 +5775,6 @@
       4.993726281797726
      ],
      "n_resid": 3,
-     "deadlock_type": "lone",
      "others_at_arrival": 6
     },
     {
@@ -6119,7 +5790,6 @@
       5.004279332677175
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6135,7 +5805,6 @@
       5.402373634351299
      ],
      "n_resid": 5,
-     "deadlock_type": "pair",
      "others_at_arrival": 6
     },
     {
@@ -6151,7 +5820,6 @@
       5.011941587881064
      ],
      "n_resid": 3,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6167,7 +5835,6 @@
       4.583760251517643
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -6183,7 +5850,6 @@
       5.002924217683388
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     },
     {
@@ -6199,7 +5865,6 @@
       4.976493526971015
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -6215,7 +5880,6 @@
       4.999999933713746
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -6231,7 +5895,6 @@
       4.997144587803607
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6247,7 +5910,6 @@
       5.010147737564857
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -6263,7 +5925,6 @@
       5.000000012400886
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -6279,7 +5940,6 @@
       4.999999731616867
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -6295,7 +5955,6 @@
       5.017854283717199
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6311,7 +5970,6 @@
       5.000019431392434
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6327,7 +5985,6 @@
       4.967670298876353
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6343,7 +6000,6 @@
       4.992125953627678
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -6359,7 +6015,6 @@
       5.401244371066446
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6375,7 +6030,6 @@
       5.0037695354160325
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6391,7 +6045,6 @@
       4.999999634572099
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 1
     },
     {
@@ -6407,7 +6060,6 @@
       5.003485017632524
      ],
      "n_resid": 5,
-     "deadlock_type": "pair",
      "others_at_arrival": 7
     },
     {
@@ -6423,7 +6075,6 @@
       5.018798320245426
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6439,7 +6090,6 @@
       4.983136235188382
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6455,7 +6105,6 @@
       5.000000047001751
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -6471,7 +6120,6 @@
       4.971175064739895
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -6487,7 +6135,6 @@
       5.0234500631181955
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6503,7 +6150,6 @@
       4.997886072663367
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 7
     },
     {
@@ -6519,7 +6165,6 @@
       5.021388378433894
      ],
      "n_resid": 6,
-     "deadlock_type": "triple",
      "others_at_arrival": 6
     },
     {
@@ -6535,7 +6180,6 @@
       4.584076871981539
      ],
      "n_resid": 8,
-     "deadlock_type": "pair",
      "others_at_arrival": 9
     },
     {
@@ -6551,7 +6195,6 @@
       5.450292679421967
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6567,7 +6210,6 @@
       4.953924398446623
      ],
      "n_resid": 4,
-     "deadlock_type": "triple",
      "others_at_arrival": 3
     },
     {
@@ -6583,7 +6225,6 @@
       5.417953293043995
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6599,7 +6240,6 @@
       5.032127648328643
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6615,7 +6255,6 @@
       4.995659627509576
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 5
     },
     {
@@ -6631,7 +6270,6 @@
       5.000000048376034
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 3
     },
     {
@@ -6647,7 +6285,6 @@
       4.997967305036516
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 2
     },
     {
@@ -6663,7 +6300,6 @@
       4.975075120707533
      ],
      "n_resid": 6,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -6679,7 +6315,6 @@
       4.564674889322171
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6695,7 +6330,6 @@
       4.9848407257392955
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6711,7 +6345,6 @@
       5.402353924225667
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -6727,7 +6360,6 @@
       5.005450063814392
      ],
      "n_resid": 4,
-     "deadlock_type": "pair",
      "others_at_arrival": 5
     },
     {
@@ -6743,7 +6375,6 @@
       4.999650253810227
      ],
      "n_resid": 4,
-     "deadlock_type": "larger",
      "others_at_arrival": 3
     },
     {
@@ -6759,7 +6390,6 @@
       4.983562527345546
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6775,7 +6405,6 @@
       4.986659767902964
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 3
     },
     {
@@ -6791,7 +6420,6 @@
       4.573136958884398
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6807,7 +6435,6 @@
       5.000000196833368
      ],
      "n_resid": 1,
-     "deadlock_type": "lone",
      "others_at_arrival": 2
     },
     {
@@ -6823,7 +6450,6 @@
       5.029346782641382
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6839,7 +6465,6 @@
       4.973877253665547
      ],
      "n_resid": 2,
-     "deadlock_type": "pair",
      "others_at_arrival": 2
     },
     {
@@ -6855,7 +6480,6 @@
       4.999863318297924
      ],
      "n_resid": 3,
-     "deadlock_type": "triple",
      "others_at_arrival": 4
     }
    ]
@@ -6926,6 +6550,34 @@
    ],
    "chosen_k_counts": {
     "3": 200
+   }
+  },
+  "k_rule_refined": {
+   "k": 3,
+   "n_stuck_alone_reached": 4465,
+   "all_exit_baseline_accuracy": 0.9305711086226204,
+   "rule_accuracy": 0.9623740201567749,
+   "roles": {
+    "exited": 4155,
+    "blocker": 194,
+    "queued": 116
+   },
+   "errors": {
+    "total": 168,
+    "final_blockers_pred_exit": 101,
+    "queued_behind_blocker_pred_exit": 50,
+    "exited_pred_stuck": 17
+   },
+   "correct_by_role": {
+    "exited": 4138,
+    "blocker": 93,
+    "queued": 66
+   },
+   "restricted_blockers_plus_exited": {
+    "n": 4349,
+    "accuracy": 0.9728673258220281,
+    "all_exit_baseline": 0.95539204414808,
+    "auc": 0.9751001774039475
    }
   },
   "auc_others_active": {
