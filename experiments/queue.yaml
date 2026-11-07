@@ -1,15 +1,16 @@
 # Batch-2 job queue. Steps run sequentially, each with 4 worker processes; each step is resumable
 # (finished job_ids are skipped). Finished steps are recorded in data/queue_state.json.
-# Paths are relative to the repository root. cpu_h: estimated CPU-hours (see reports/B2A_REPORT.md).
+# Paths are relative to the repository root. cpu_h: estimated CPU-hours (see reports/B2A_REPORT.md;
+# E2, BAR, E3 and E4 revised for plan change C15 in reports/B2C_REPORT.md).
 steps:
   - name: E2
     cmd: [experiments/E2/e2_quench.py]
     depends: []
-    cpu_h: 2.5
+    cpu_h: 2.0  # the 26 snapshots added by C15; the original 34 are done
   - name: BAR
     cmd: [experiments/BAR/bar.py]
     depends: []
-    cpu_h: 1.0
+    cpu_h: 2.5  # 46 of 60 snapshots left
   - name: SEL_E3E4
     cmd: [experiments/selection.py, e3e4]
     depends: [BAR]
@@ -17,11 +18,11 @@ steps:
   - name: E3
     cmd: [experiments/E3/e3_dt.py]
     depends: [SEL_E3E4]
-    cpu_h: 12.0
+    cpu_h: 8.0  # upper bound 29 if every restart is censored
   - name: E4
     cmd: [experiments/E4/e4_escape.py]
     depends: [SEL_E3E4]
-    cpu_h: 12.0
+    cpu_h: 10.0  # upper bound 27.5 at 20 restarts if every restart is censored
   - name: E5b
     cmd: [experiments/E5/e5_sweep.py, E5b]
     depends: []

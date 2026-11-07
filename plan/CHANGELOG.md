@@ -32,3 +32,9 @@ C12 Deadlock typing: residual geometry is classified by snapshot surgery (keysto
 C13 End-of-queue rule: reported against the all-exit baseline (93.2% E1a, 93.1% E1b of stuck-alone agents exit), with its errors split between final blockers and agents queued behind a blocker; the rank AUC is the headline number. T2 is stated for the terminal rest state, where the local density gives v_eff/v0 ≥ 0.99 (pending sign-off).
 
 C14 Table 2: the last column is "Corrected numerics" (open geometry is not a probe of a frozen bottleneck state and belongs to the Table 4 claims); P, L, T and D read "persists" there; D under both Δt probes reads "no Δt dependence" (a static tilt is deterministic).
+
+C15 (2026-11-08) Quench library and escape-test temperatures:
+- E2 = the 34 lone-keystone E1b snapshots plus 26 drawn (seed 2026) from the lone-keystone-with-second-trap class (60 in total); the primary quench outcome is "blocker freed within 120 s", with the two classes as strata.
+- E3 = 20 snapshots spread across collective ΔU (≥ 3 J). The noise amplitude is set per snapshot from the T3 formula with the blocker's τ, so that ΔU/k_BT_eff at Δt = 0.01 s is 1.5 or 2.5 (alternating by ΔU rank). Per-step noise keeps σ fixed across Δt; √Δt-scaled noise keeps k_BT_eff fixed. Censoring is at 300 s (900 s for the per-step Δt = 0.02 s arm).
+- E4 = 10 snapshots with at least 2 residual agents, spread across collective ΔU. String-method barriers are computed per condition (full, frozen neighbours, alone), with three noise amplitudes per (snapshot, condition) giving ΔU/k_BT_eff ∈ {1.5, 2.5, 3.5}. Censoring is at 300 s (900 s at 3.5); restarts are extended until each condition has at least 105 escape events.
+- Reason: at a fixed σ = 0.05 m/s, the lone barriers (16-45 J) put the per-step Δt = 0.02 s arm at ΔU/k_BT_eff ≈ 6-36, so nearly every restart would be censored.

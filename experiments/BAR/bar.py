@@ -1,8 +1,12 @@
 """BAR: string-method barriers for the 60 E2 snapshots (selection rule, experiments/selection.py).
 
 Ported from the pilot experiments/pilot/w23_barrier.py; the energy, gradient, relaxation, string
-method and climbing refinement are unchanged. The only change is that the agent-agent sum in U is
-evaluated with numpy over the same pairs (i mobile, j > i, d_ij < 3 m) instead of a Python loop.
+method and climbing refinement are unchanged except for two points: the agent-agent sum in U is
+evaluated with numpy over the same pairs (i mobile, j > i, d_ij < 3 m) instead of a Python loop, and
+(C15) every gradient step (relaxation, string images, climbing) moves each agent by at most
+STEP_CAP = 2 mm. Without the cap a body overlap (k = 1.2e5 N/m) on the initial straight path gives
+steps of order 0.1-1 m at alpha = 4e-5 and the string does not converge (pair snapshots with both
+jambs occupied); where the cap does not bind the iteration is the pilot's.
 
 Rest-state C1 field with density frozen at the snapshot value is conservative:
 U = sum_i c_i |x_i - g| + sum_{i,w} A B exp((r_i - d_iw)/B) + sum_{i<j} A B exp((r_ij - d_ij)/B)
@@ -33,6 +37,14 @@ from sim.steering.hybrid import HybridSteeringModel  # noqa: E402
 from sim.experiments.configs import get_config  # noqa: E402
 
 A, B, K = 2000.0, 0.08, 120000.0
+STEP_CAP = 0.002
+
+
+def capped(d):
+    """Gradient step d (flat, 2 per agent) with each agent's displacement capped at STEP_CAP."""
+    v = d.reshape(-1, 2)
+    n = np.linalg.norm(v, axis=1, keepdims=True)
+    return (v * np.minimum(1.0, STEP_CAP / np.maximum(n, 1e-300))).ravel()
 G = np.array([11.0, 5.0])
 OUTD = os.path.join(DATA, "BAR")
 OUT = os.path.join(OUTD, "barriers.jsonl")
@@ -113,7 +125,7 @@ def relax(field, X, fix_idx=(), steps=4000, alpha=5e-5):
         g = field.grad(X)
         for k in fix_idx:
             g[k] = 0
-        X -= alpha * g
+        X -= capped(alpha * g)
         if np.max(np.abs(g)) < 1e-3:
             break
     return X
@@ -124,7 +136,7 @@ def string_method(field, XA, XB, n_img=31, iters=1500, alpha=4e-5):
     path = (1 - s) * XA + s * XB
     for it in range(iters):
         for k in range(1, n_img - 1):
-            path[k] -= alpha * field.grad(path[k])
+            path[k] -= capped(alpha * field.grad(path[k]))
         seg = np.linalg.norm(np.diff(path, axis=0), axis=1)
         L = np.concatenate([[0], np.cumsum(seg)])
         t = np.linspace(0, L[-1], n_img)
@@ -136,7 +148,7 @@ def string_method(field, XA, XB, n_img=31, iters=1500, alpha=4e-5):
         tan = path[min(k + 1, n_img - 1)] - path[max(k - 1, 0)]
         tan /= np.linalg.norm(tan)
         g = field.grad(X)
-        X -= alpha * (g - 2 * np.dot(g, tan) * tan)
+        X -= capped(alpha * (g - 2 * np.dot(g, tan) * tan))
         if np.linalg.norm(g) < 1e-2:
             break
     return path, E, float(field.U(X)), X, float(np.linalg.norm(field.grad(X)))

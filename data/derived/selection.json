@@ -1,15 +1,24 @@
 {
- "doc": "Selection rules for E2, BAR, E3 and E4 (Step 4 of batch 2A). Fixed before any of these runs.\n\n  E2   60 corrected-forward (E1b) snapshots drawn uniformly without replacement from the\n       lone-keystone class (data/derived/E1_keystone.json), numpy Generator(PCG64(2026)).choice over\n       the class's seeds in ascending order. If the class has fewer than 60, all are taken.\n  BAR  for the 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective\n       barrier Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).\n  E3   the 20 E2 snapshots with the largest collective Delta U, all with Delta U >= 3 J. If fewer\n       than 20 qualify, every qualifying snapshot is taken.\n  E4   10 snapshots from the E3 set spread across its Delta U range: for q = 0.05, 0.15, ..., 0.95 the\n       snapshot (not yet chosen) whose Delta U is nearest the q-quantile (numpy linear) of the E3\n       Delta U values; ties to the smaller Delta U. If E3 has <= 10 snapshots, all are taken.\n\nUsage: selection.py e2        (needs the keystone summary)\n       selection.py e3e4      (needs data/BAR/barriers.json; adds E3 and E4 to selection.json)\nOutput: data/derived/selection.json\n",
+ "doc": "Selection rules for E2, BAR, E3 and E4 (batch 2A Step 4, revised by plan change C15).\n\n  E2   the 34 lone-keystone E1b snapshots (class lone_keystone in data/derived/E1_keystone.json, all\n       of them, seed ascending) followed by 26 drawn uniformly without replacement from the\n       lone_keystone_second_trap class with numpy Generator(PCG64(2026)).choice over that class's seeds\n       in ascending order (then sorted by seed): 60 in total. The original 34 keep their order, so their\n       E2 job_ids and noise seeds are unchanged. Each entry carries its class (the E2 stratum).\n  BAR  all 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective barrier\n       Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).\n  E3   20 of the 60 with collective Delta U >= 3 J, spread across Delta U: the qualifying snapshots\n       sorted by (Delta U, seed), ranks round(linspace(0, n_q - 1, 20)). If fewer than 20 qualify, all\n       are taken. dU_rank (0 = smallest Delta U) sets the noise level in E3 (even 1.5, odd 2.5).\n  E4   10 of the 60 with at least 2 residual agents, spread across collective Delta U by the same\n       evenly-spaced-rank rule (sorted by (Delta U, seed), ranks round(linspace(0, n - 1, 10))).\n\nUsage: selection.py e2        (needs the keystone summary)\n       selection.py e3e4      (needs data/BAR/barriers.json; adds BAR, E3 and E4 to selection.json)\nOutput: data/derived/selection.json\n",
  "E2": {
-  "pool_class": "lone_keystone",
-  "pool_size": 34,
-  "n": 34,
-  "rng": "numpy Generator(PCG64(2026)).choice(pool ascending, 60, replace=False)",
-  "short": true,
+  "n": 60,
+  "strata": {
+   "lone_keystone": {
+    "pool_size": 34,
+    "n": 34,
+    "rule": "all"
+   },
+   "lone_keystone_second_trap": {
+    "pool_size": 160,
+    "n": 26,
+    "rule": "numpy Generator(PCG64(2026)).choice(pool ascending, 26, replace=False)"
+   }
+  },
   "snapshots": [
    {
     "tag": "E1b_seed52",
     "seed": 52,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed52.pkl",
     "blocker": 19,
     "n_resid": 3,
@@ -18,6 +27,7 @@
    {
     "tag": "E1b_seed58",
     "seed": 58,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed58.pkl",
     "blocker": 17,
     "n_resid": 3,
@@ -26,6 +36,7 @@
    {
     "tag": "E1b_seed61",
     "seed": 61,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed61.pkl",
     "blocker": 52,
     "n_resid": 4,
@@ -34,6 +45,7 @@
    {
     "tag": "E1b_seed69",
     "seed": 69,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed69.pkl",
     "blocker": 66,
     "n_resid": 1,
@@ -42,6 +54,7 @@
    {
     "tag": "E1b_seed71",
     "seed": 71,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed71.pkl",
     "blocker": 78,
     "n_resid": 2,
@@ -50,6 +63,7 @@
    {
     "tag": "E1b_seed72",
     "seed": 72,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed72.pkl",
     "blocker": 21,
     "n_resid": 2,
@@ -58,6 +72,7 @@
    {
     "tag": "E1b_seed80",
     "seed": 80,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed80.pkl",
     "blocker": 65,
     "n_resid": 1,
@@ -66,6 +81,7 @@
    {
     "tag": "E1b_seed83",
     "seed": 83,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed83.pkl",
     "blocker": 36,
     "n_resid": 1,
@@ -74,6 +90,7 @@
    {
     "tag": "E1b_seed84",
     "seed": 84,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed84.pkl",
     "blocker": 99,
     "n_resid": 1,
@@ -82,6 +99,7 @@
    {
     "tag": "E1b_seed87",
     "seed": 87,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed87.pkl",
     "blocker": 50,
     "n_resid": 1,
@@ -90,6 +108,7 @@
    {
     "tag": "E1b_seed89",
     "seed": 89,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed89.pkl",
     "blocker": 18,
     "n_resid": 1,
@@ -98,6 +117,7 @@
    {
     "tag": "E1b_seed91",
     "seed": 91,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed91.pkl",
     "blocker": 31,
     "n_resid": 1,
@@ -106,6 +126,7 @@
    {
     "tag": "E1b_seed94",
     "seed": 94,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed94.pkl",
     "blocker": 60,
     "n_resid": 1,
@@ -114,6 +135,7 @@
    {
     "tag": "E1b_seed100",
     "seed": 100,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed100.pkl",
     "blocker": 44,
     "n_resid": 1,
@@ -122,6 +144,7 @@
    {
     "tag": "E1b_seed107",
     "seed": 107,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed107.pkl",
     "blocker": 49,
     "n_resid": 2,
@@ -130,6 +153,7 @@
    {
     "tag": "E1b_seed108",
     "seed": 108,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed108.pkl",
     "blocker": 60,
     "n_resid": 1,
@@ -138,6 +162,7 @@
    {
     "tag": "E1b_seed114",
     "seed": 114,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed114.pkl",
     "blocker": 38,
     "n_resid": 1,
@@ -146,6 +171,7 @@
    {
     "tag": "E1b_seed120",
     "seed": 120,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed120.pkl",
     "blocker": 45,
     "n_resid": 2,
@@ -154,6 +180,7 @@
    {
     "tag": "E1b_seed128",
     "seed": 128,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed128.pkl",
     "blocker": 27,
     "n_resid": 2,
@@ -162,6 +189,7 @@
    {
     "tag": "E1b_seed132",
     "seed": 132,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed132.pkl",
     "blocker": 17,
     "n_resid": 1,
@@ -170,6 +198,7 @@
    {
     "tag": "E1b_seed140",
     "seed": 140,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed140.pkl",
     "blocker": 8,
     "n_resid": 1,
@@ -178,6 +207,7 @@
    {
     "tag": "E1b_seed141",
     "seed": 141,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed141.pkl",
     "blocker": 20,
     "n_resid": 1,
@@ -186,6 +216,7 @@
    {
     "tag": "E1b_seed150",
     "seed": 150,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed150.pkl",
     "blocker": 51,
     "n_resid": 1,
@@ -194,6 +225,7 @@
    {
     "tag": "E1b_seed155",
     "seed": 155,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed155.pkl",
     "blocker": 6,
     "n_resid": 1,
@@ -202,6 +234,7 @@
    {
     "tag": "E1b_seed179",
     "seed": 179,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed179.pkl",
     "blocker": 63,
     "n_resid": 1,
@@ -210,6 +243,7 @@
    {
     "tag": "E1b_seed200",
     "seed": 200,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed200.pkl",
     "blocker": 78,
     "n_resid": 1,
@@ -218,6 +252,7 @@
    {
     "tag": "E1b_seed203",
     "seed": 203,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed203.pkl",
     "blocker": 35,
     "n_resid": 1,
@@ -226,6 +261,7 @@
    {
     "tag": "E1b_seed204",
     "seed": 204,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed204.pkl",
     "blocker": 3,
     "n_resid": 1,
@@ -234,6 +270,7 @@
    {
     "tag": "E1b_seed205",
     "seed": 205,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed205.pkl",
     "blocker": 28,
     "n_resid": 2,
@@ -242,6 +279,7 @@
    {
     "tag": "E1b_seed211",
     "seed": 211,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed211.pkl",
     "blocker": 13,
     "n_resid": 1,
@@ -250,6 +288,7 @@
    {
     "tag": "E1b_seed215",
     "seed": 215,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed215.pkl",
     "blocker": 5,
     "n_resid": 1,
@@ -258,6 +297,7 @@
    {
     "tag": "E1b_seed227",
     "seed": 227,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed227.pkl",
     "blocker": 51,
     "n_resid": 1,
@@ -266,6 +306,7 @@
    {
     "tag": "E1b_seed238",
     "seed": 238,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed238.pkl",
     "blocker": 34,
     "n_resid": 1,
@@ -274,10 +315,245 @@
    {
     "tag": "E1b_seed239",
     "seed": 239,
+    "class": "lone_keystone",
     "snap": "data/E1/library/E1b_seed239.pkl",
     "blocker": 47,
     "n_resid": 2,
     "blocker_margin_C1": 100.28322252046013
+   },
+   {
+    "tag": "E1b_seed46",
+    "seed": 46,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed46.pkl",
+    "blocker": 27,
+    "n_resid": 2,
+    "blocker_margin_C1": 137.60388115722407
+   },
+   {
+    "tag": "E1b_seed55",
+    "seed": 55,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed55.pkl",
+    "blocker": 11,
+    "n_resid": 3,
+    "blocker_margin_C1": 60.90437916399702
+   },
+   {
+    "tag": "E1b_seed60",
+    "seed": 60,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed60.pkl",
+    "blocker": 53,
+    "n_resid": 2,
+    "blocker_margin_C1": 57.80541556895224
+   },
+   {
+    "tag": "E1b_seed73",
+    "seed": 73,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed73.pkl",
+    "blocker": 86,
+    "n_resid": 3,
+    "blocker_margin_C1": 93.79459926568258
+   },
+   {
+    "tag": "E1b_seed74",
+    "seed": 74,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed74.pkl",
+    "blocker": 61,
+    "n_resid": 4,
+    "blocker_margin_C1": 143.2059694271697
+   },
+   {
+    "tag": "E1b_seed75",
+    "seed": 75,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed75.pkl",
+    "blocker": 93,
+    "n_resid": 2,
+    "blocker_margin_C1": 101.76437765111274
+   },
+   {
+    "tag": "E1b_seed103",
+    "seed": 103,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed103.pkl",
+    "blocker": 71,
+    "n_resid": 2,
+    "blocker_margin_C1": 28.975232653862292
+   },
+   {
+    "tag": "E1b_seed104",
+    "seed": 104,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed104.pkl",
+    "blocker": 97,
+    "n_resid": 4,
+    "blocker_margin_C1": 199.67176230167334
+   },
+   {
+    "tag": "E1b_seed111",
+    "seed": 111,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed111.pkl",
+    "blocker": 22,
+    "n_resid": 2,
+    "blocker_margin_C1": 92.64782252111286
+   },
+   {
+    "tag": "E1b_seed112",
+    "seed": 112,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed112.pkl",
+    "blocker": 8,
+    "n_resid": 3,
+    "blocker_margin_C1": 84.25646587292755
+   },
+   {
+    "tag": "E1b_seed113",
+    "seed": 113,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed113.pkl",
+    "blocker": 34,
+    "n_resid": 7,
+    "blocker_margin_C1": 217.78381375421966
+   },
+   {
+    "tag": "E1b_seed130",
+    "seed": 130,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed130.pkl",
+    "blocker": 91,
+    "n_resid": 2,
+    "blocker_margin_C1": 96.71595001958912
+   },
+   {
+    "tag": "E1b_seed158",
+    "seed": 158,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed158.pkl",
+    "blocker": 32,
+    "n_resid": 6,
+    "blocker_margin_C1": 210.00952310033136
+   },
+   {
+    "tag": "E1b_seed162",
+    "seed": 162,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed162.pkl",
+    "blocker": 95,
+    "n_resid": 3,
+    "blocker_margin_C1": 118.81419521779799
+   },
+   {
+    "tag": "E1b_seed170",
+    "seed": 170,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed170.pkl",
+    "blocker": 82,
+    "n_resid": 4,
+    "blocker_margin_C1": 175.57324323395758
+   },
+   {
+    "tag": "E1b_seed172",
+    "seed": 172,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed172.pkl",
+    "blocker": 55,
+    "n_resid": 9,
+    "blocker_margin_C1": 220.9531679391037
+   },
+   {
+    "tag": "E1b_seed174",
+    "seed": 174,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed174.pkl",
+    "blocker": 72,
+    "n_resid": 4,
+    "blocker_margin_C1": 236.59329942846693
+   },
+   {
+    "tag": "E1b_seed178",
+    "seed": 178,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed178.pkl",
+    "blocker": 57,
+    "n_resid": 4,
+    "blocker_margin_C1": 110.72579946292402
+   },
+   {
+    "tag": "E1b_seed186",
+    "seed": 186,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed186.pkl",
+    "blocker": 43,
+    "n_resid": 6,
+    "blocker_margin_C1": 254.90091480775104
+   },
+   {
+    "tag": "E1b_seed187",
+    "seed": 187,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed187.pkl",
+    "blocker": 47,
+    "n_resid": 3,
+    "blocker_margin_C1": 167.0101851280562
+   },
+   {
+    "tag": "E1b_seed192",
+    "seed": 192,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed192.pkl",
+    "blocker": 75,
+    "n_resid": 3,
+    "blocker_margin_C1": 247.70029051847666
+   },
+   {
+    "tag": "E1b_seed202",
+    "seed": 202,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed202.pkl",
+    "blocker": 22,
+    "n_resid": 3,
+    "blocker_margin_C1": 111.56834094969457
+   },
+   {
+    "tag": "E1b_seed209",
+    "seed": 209,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed209.pkl",
+    "blocker": 82,
+    "n_resid": 2,
+    "blocker_margin_C1": 36.253909656068146
+   },
+   {
+    "tag": "E1b_seed223",
+    "seed": 223,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed223.pkl",
+    "blocker": 5,
+    "n_resid": 2,
+    "blocker_margin_C1": 62.888936312182466
+   },
+   {
+    "tag": "E1b_seed230",
+    "seed": 230,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed230.pkl",
+    "blocker": 74,
+    "n_resid": 2,
+    "blocker_margin_C1": 130.7032870242268
+   },
+   {
+    "tag": "E1b_seed237",
+    "seed": 237,
+    "class": "lone_keystone_second_trap",
+    "snap": "data/E1/library/E1b_seed237.pkl",
+    "blocker": 9,
+    "n_resid": 2,
+    "blocker_margin_C1": 130.23128307344774
    }
   ]
  }

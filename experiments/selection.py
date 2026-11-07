@@ -1,18 +1,20 @@
-"""Selection rules for E2, BAR, E3 and E4 (Step 4 of batch 2A). Fixed before any of these runs.
+"""Selection rules for E2, BAR, E3 and E4 (batch 2A Step 4, revised by plan change C15).
 
-  E2   60 corrected-forward (E1b) snapshots drawn uniformly without replacement from the
-       lone-keystone class (data/derived/E1_keystone.json), numpy Generator(PCG64(2026)).choice over
-       the class's seeds in ascending order. If the class has fewer than 60, all are taken.
-  BAR  for the 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective
-       barrier Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).
-  E3   the 20 E2 snapshots with the largest collective Delta U, all with Delta U >= 3 J. If fewer
-       than 20 qualify, every qualifying snapshot is taken.
-  E4   10 snapshots from the E3 set spread across its Delta U range: for q = 0.05, 0.15, ..., 0.95 the
-       snapshot (not yet chosen) whose Delta U is nearest the q-quantile (numpy linear) of the E3
-       Delta U values; ties to the smaller Delta U. If E3 has <= 10 snapshots, all are taken.
+  E2   the 34 lone-keystone E1b snapshots (class lone_keystone in data/derived/E1_keystone.json, all
+       of them, seed ascending) followed by 26 drawn uniformly without replacement from the
+       lone_keystone_second_trap class with numpy Generator(PCG64(2026)).choice over that class's seeds
+       in ascending order (then sorted by seed): 60 in total. The original 34 keep their order, so their
+       E2 job_ids and noise seeds are unchanged. Each entry carries its class (the E2 stratum).
+  BAR  all 60 E2 snapshots: string-method barriers (experiments/BAR/bar.py); the collective barrier
+       Delta U is all_mobile.dU_climb (every residual agent mobile, density frozen).
+  E3   20 of the 60 with collective Delta U >= 3 J, spread across Delta U: the qualifying snapshots
+       sorted by (Delta U, seed), ranks round(linspace(0, n_q - 1, 20)). If fewer than 20 qualify, all
+       are taken. dU_rank (0 = smallest Delta U) sets the noise level in E3 (even 1.5, odd 2.5).
+  E4   10 of the 60 with at least 2 residual agents, spread across collective Delta U by the same
+       evenly-spaced-rank rule (sorted by (Delta U, seed), ranks round(linspace(0, n - 1, 10))).
 
 Usage: selection.py e2        (needs the keystone summary)
-       selection.py e3e4      (needs data/BAR/barriers.json; adds E3 and E4 to selection.json)
+       selection.py e3e4      (needs data/BAR/barriers.json; adds BAR, E3 and E4 to selection.json)
 Output: data/derived/selection.json
 """
 import json
@@ -24,26 +26,42 @@ from e1lib import DATA, DERIVED, ELIB, ROOT, load_runs, runs_path  # noqa: E402
 import numpy as np  # noqa: E402
 
 OUT = os.path.join(DERIVED, "selection.json")
-N_E2, SEED_E2, N_E3, DU_MIN, N_E4 = 60, 2026, 20, 3.0, 10
+N_E2_EXTRA, SEED_E2, N_E3, DU_MIN, N_E4, MIN_RESID_E4 = 26, 2026, 20, 3.0, 10, 2
+CLS_A, CLS_B = "lone_keystone", "lone_keystone_second_trap"
 
 
 def e2():
     ks = json.load(open(os.path.join(DERIVED, "E1_keystone.json")))["modes"]["E1b"]
-    pool = sorted(x["seed"] for x in ks["per_snapshot"] if x["class"] == "lone_keystone")
+    pool_a = sorted(x["seed"] for x in ks["per_snapshot"] if x["class"] == CLS_A)
+    pool_b = sorted(x["seed"] for x in ks["per_snapshot"] if x["class"] == CLS_B)
     rng = np.random.Generator(np.random.PCG64(SEED_E2))
-    chosen = sorted(int(s) for s in rng.choice(pool, N_E2, replace=False)) if len(pool) > N_E2 else list(pool)
+    extra = sorted(int(s) for s in rng.choice(pool_b, N_E2_EXTRA, replace=False))
     blk = {x["seed"]: x for x in ks["per_snapshot"]}
     R = {r["seed"]: r for r in load_runs(runs_path()) if r["mode"] == "E1b"}
-    snaps = [{"tag": f"E1b_seed{s}", "seed": s,
+    chosen = [(s, CLS_A) for s in pool_a] + [(s, CLS_B) for s in extra]
+    snaps = [{"tag": f"E1b_seed{s}", "seed": s, "class": c,
               "snap": os.path.relpath(os.path.join(ELIB, f"E1b_seed{s}.pkl"), ROOT),
               "blocker": blk[s]["blocker"], "n_resid": blk[s]["n_resid"],
-              "blocker_margin_C1": blk[s]["blocker_margin_C1"]} for s in chosen]
-    assert all(R[s]["snapshot"] for s in chosen)
-    sel = {"doc": __doc__, "E2": {"pool_class": "lone_keystone", "pool_size": len(pool), "n": len(snaps),
-                                  "rng": "numpy Generator(PCG64(2026)).choice(pool ascending, 60, replace=False)",
-                                  "short": len(pool) < N_E2, "snapshots": snaps}}
+              "blocker_margin_C1": blk[s]["blocker_margin_C1"]} for s, c in chosen]
+    assert all(R[s]["snapshot"] for s, _ in chosen)
+    assert len({s for s, _ in chosen}) == len(chosen)
+    sel = {"doc": __doc__, "E2": {
+        "n": len(snaps), "strata": {CLS_A: {"pool_size": len(pool_a), "n": len(pool_a), "rule": "all"},
+                                    CLS_B: {"pool_size": len(pool_b), "n": len(extra),
+                                            "rule": "numpy Generator(PCG64(2026)).choice(pool ascending, 26, replace=False)"}},
+        "snapshots": snaps}}
     json.dump(sel, open(OUT, "w"), indent=1, default=float)
-    print("E2: pool", len(pool), "chosen", len(snaps))
+    print("E2:", CLS_A, len(pool_a), "+", CLS_B, len(extra), "of", len(pool_b), "=", len(snaps))
+
+
+def spread(rows, n):
+    """Evenly spaced ranks over rows sorted by (dU, seed)."""
+    r = sorted(rows, key=lambda x: (x["dU"], x["seed"]))
+    if len(r) <= n:
+        return r
+    idx = np.round(np.linspace(0, len(r) - 1, n)).astype(int)
+    assert len(set(idx)) == n
+    return [r[i] for i in idx]
 
 
 def e3e4():
@@ -53,27 +71,25 @@ def e3e4():
     for s in sel["E2"]["snapshots"]:
         b = bar[s["tag"]]
         rows.append(dict(s, dU=b["all_mobile"]["dU_climb"], dU_string=b["all_mobile"]["dU_string"],
+                         dU_frozen=b["frozen"]["dU_climb"], dU_alone=b["alone"]["dU_climb"],
+                         dU_1d_alone=b["dU_1d_axis_alone"],
                          force_check_all_maxabs_N=b["force_check_all_maxabs_N"]))
     q = [r for r in rows if r["dU"] >= DU_MIN]
-    e3 = sorted(q, key=lambda r: (-r["dU"], r["seed"]))[:N_E3]
-    if len(e3) <= N_E4:
-        e4 = list(e3)
-    else:
-        vals = np.array([r["dU"] for r in e3])
-        left, e4 = list(e3), []
-        for qq in np.arange(0.05, 1.0, 0.1):
-            target = float(np.quantile(vals, qq))
-            pick = min(left, key=lambda r: (abs(r["dU"] - target), r["dU"]))
-            e4.append(pick)
-            left.remove(pick)
+    e3 = spread(q, N_E3)
+    for k, r in enumerate(e3):
+        r["dU_rank"] = k
+    q4 = [r for r in rows if r["n_resid"] >= MIN_RESID_E4]
+    e4 = spread(q4, N_E4)
     du = np.array([r["dU"] for r in rows])
     sel["BAR"] = {"n": len(rows), "dU_all_mobile_J": {f"p{p}": float(np.percentile(du, p)) for p in (0, 10, 25, 50, 75, 90, 100)},
                   "n_dU_ge_3J": len(q), "max_force_check_N": max(r["force_check_all_maxabs_N"] for r in rows),
-                  "per_snapshot": [{k: r[k] for k in ("tag", "dU", "dU_string", "force_check_all_maxabs_N")} for r in rows]}
-    sel["E3"] = {"n": len(e3), "short": len(e3) < N_E3, "snapshots": sorted(e3, key=lambda r: r["seed"])}
-    sel["E4"] = {"n": len(e4), "snapshots": sorted(e4, key=lambda r: r["dU"])}
+                  "per_snapshot": [{k: r[k] for k in ("tag", "class", "n_resid", "dU", "dU_string", "dU_frozen",
+                                                      "dU_alone", "dU_1d_alone", "force_check_all_maxabs_N")}
+                                   for r in rows]}
+    sel["E3"] = {"n": len(e3), "n_qualifying": len(q), "short": len(e3) < N_E3, "snapshots": e3}
+    sel["E4"] = {"n": len(e4), "n_qualifying": len(q4), "snapshots": e4}
     json.dump(sel, open(OUT, "w"), indent=1, default=float)
-    print("BAR", sel["BAR"]["dU_all_mobile_J"], "E3", len(e3), "E4", len(e4))
+    print("BAR", sel["BAR"]["dU_all_mobile_J"], "E3", len(e3), "of", len(q), "E4", len(e4), "of", len(q4))
 
 
 if __name__ == "__main__":
