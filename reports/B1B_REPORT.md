@@ -23,7 +23,7 @@ ref (conference PDF, README.md) | reports | Makefile, README.md, .gitignore
 4D030_w080_l200_h0.txt 11M; 4D040_w080_l200_h1.txt 8.3M; 4D110_w080_l021_h0.txt 8.2M; 4D120_w080_l021_h1.txt 7.3M; 4D130_w080_l021_h2.txt 6.4M. None over 50 MB, none gzipped. The distributed archive holds only the 24 trajectory files, with no readme, licence or metadata file.
 
 ## Actions
-See final status line below (filled after the run).
+Workflow `paper` on push to main: green on the first run (build 1m47s, PDF uploaded as artifact main-pdf). Pinned: xu-cheng/latex-action 4.1.0, actions/checkout v7.0.1, actions/upload-artifact v7.0.2. Only annotation: ubuntu-latest migrates to Ubuntu 26 from 2026-10-19.
 
 ## Environment changes outside the repo
 - Installed type1cm.sty (built from the CTAN type1cm .ins with latex) into ~/Library/texmf/tex/latex/type1cm/, because matplotlib's usetex always loads it and the TeX tree lacked it.
