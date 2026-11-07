@@ -41,8 +41,8 @@ Section to keys. Keys marked OUTSTANDING are not yet in refs.bib (see end).
 - `steffen2010`: density estimation methods (Voronoi) vs the 3 m disk count used
 - `mullick2025`: bias in density estimation (Voronoi perspective), conference ref
 - `koster2013`: numerical pitfalls in SFM integration (integrator modes)
-- `weidmann1993`: OUTSTANDING: Weidmann speed-density law (gamma, rho_max); not yet fetched
-- `fruin1971`: OUTSTANDING: levels-of-service density context (conference ref); not yet fetched
+- `weidmann1993`: Weidmann speed-density law (gamma, rho_max); DataCite record 10.3929/ethz-b-000242008
+- `fruin1971`: levels-of-service density context (conference ref); LoC MODS record LCCN 70159312
 
 ## 4 Mechanism classes; rest-state lemma
 - `koren1991`: local minima / deadlock in potential-field navigation
