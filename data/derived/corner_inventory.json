@@ -1,0 +1,668 @@
+{
+ "note": "Shared wall endpoints (junctions) and their convex / concave status, seen from free space,\nfor the scenarios used in execution; CroMa door-edge forces under both corner rules.\nOutput: data/derived/corner_inventory.json\n\nA junction's status is read from the free-space arcs on a circle of radius 0.05 m around P:\nwalls leaving P separate arcs. An arc of 90 deg is a concave corner (agent inside a room corner), 270 deg a convex corner\n(agent outside a solid corner), 180 deg a flat (collinear) joint. Free space per scenario:\nroom bottleneck = the whole plane minus the walls (the room exterior is reachable only by\nagents past the door plane); CroMa and\nopen geometries = complement of the scenario's outside_walkable().\n",
+ "inventory": [
+  {
+   "scenario": "room bottleneck w=0.8",
+   "n_walls": 5,
+   "junctions": [
+    {
+     "P": [
+      0.0,
+      0.0
+     ],
+     "segments": [
+      0,
+      1
+     ],
+     "free_arcs_deg": [
+      89.9,
+      269.9
+     ],
+     "status": [
+      "concave",
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      0.0
+     ],
+     "segments": [
+      0,
+      3
+     ],
+     "free_arcs_deg": [
+      89.9,
+      269.9
+     ],
+     "status": [
+      "concave",
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      0.0,
+      10.0
+     ],
+     "segments": [
+      1,
+      2
+     ],
+     "free_arcs_deg": [
+      269.9,
+      89.9
+     ],
+     "status": [
+      "convex",
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      10.0
+     ],
+     "segments": [
+      2,
+      4
+     ],
+     "free_arcs_deg": [
+      89.9,
+      269.9
+     ],
+     "status": [
+      "concave",
+      "convex"
+     ]
+    }
+   ],
+   "free_ends": [
+    [
+     10.0,
+     4.6
+    ],
+    [
+     10.0,
+     5.4
+    ]
+   ]
+  },
+  {
+   "scenario": "CroMa L=2.0",
+   "n_walls": 7,
+   "junctions": [
+    {
+     "P": [
+      2.2,
+      0.7
+     ],
+     "segments": [
+      0,
+      1
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      0.7
+     ],
+     "segments": [
+      0,
+      3
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      2.2,
+      9.3
+     ],
+     "segments": [
+      1,
+      2
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      9.3
+     ],
+     "segments": [
+      2,
+      4
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      4.6
+     ],
+     "segments": [
+      3,
+      5
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      5.4
+     ],
+     "segments": [
+      4,
+      6
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    }
+   ],
+   "free_ends": [
+    [
+     12.0,
+     4.6
+    ],
+    [
+     12.0,
+     5.4
+    ]
+   ]
+  },
+  {
+   "scenario": "CroMa L=0.21",
+   "n_walls": 7,
+   "junctions": [
+    {
+     "P": [
+      2.2,
+      0.7
+     ],
+     "segments": [
+      0,
+      1
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      0.7
+     ],
+     "segments": [
+      0,
+      3
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      2.2,
+      9.3
+     ],
+     "segments": [
+      1,
+      2
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      9.3
+     ],
+     "segments": [
+      2,
+      4
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      4.6
+     ],
+     "segments": [
+      3,
+      5
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      10.0,
+      5.4
+     ],
+     "segments": [
+      4,
+      6
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    }
+   ],
+   "free_ends": [
+    [
+     10.21,
+     4.6
+    ],
+    [
+     10.21,
+     5.4
+    ]
+   ]
+  },
+  {
+   "scenario": "open bidirectional corridor",
+   "n_walls": 4,
+   "junctions": [
+    {
+     "P": [
+      -12.0,
+      0.0
+     ],
+     "segments": [
+      0,
+      2
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      32.0,
+      0.0
+     ],
+     "segments": [
+      0,
+      3
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      32.0,
+      3.6
+     ],
+     "segments": [
+      1,
+      3
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      -12.0,
+      3.6
+     ],
+     "segments": [
+      1,
+      2
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    }
+   ],
+   "free_ends": []
+  },
+  {
+   "scenario": "open crossing",
+   "n_walls": 10,
+   "junctions": [
+    {
+     "P": [
+      3.2,
+      -20.0
+     ],
+     "segments": [
+      0,
+      8
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      3.2,
+      3.2
+     ],
+     "segments": [
+      0,
+      1
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      -20.0,
+      3.2
+     ],
+     "segments": [
+      1,
+      9
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      6.8,
+      -20.0
+     ],
+     "segments": [
+      2,
+      8
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      6.8,
+      3.2
+     ],
+     "segments": [
+      2,
+      3
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      3.2,
+      6.8
+     ],
+     "segments": [
+      4,
+      5
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    },
+    {
+     "P": [
+      -20.0,
+      6.8
+     ],
+     "segments": [
+      5,
+      9
+     ],
+     "free_arcs_deg": [
+      89.9
+     ],
+     "status": [
+      "concave"
+     ]
+    },
+    {
+     "P": [
+      6.8,
+      6.8
+     ],
+     "segments": [
+      6,
+      7
+     ],
+     "free_arcs_deg": [
+      269.9
+     ],
+     "status": [
+      "convex"
+     ]
+    }
+   ],
+   "free_ends": [
+    [
+     24.0,
+     3.2
+    ],
+    [
+     3.2,
+     24.0
+    ],
+    [
+     6.8,
+     24.0
+    ],
+    [
+     24.0,
+     6.8
+    ]
+   ]
+  }
+ ],
+ "door_edge_axis_force": {
+  "room w=0.8": {
+   "r=0.2": {
+    "segment_sum": {
+     "max_backward_N": 83.31,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 83.31,
+     "at_x": 9.829
+    }
+   },
+   "r=0.25": {
+    "segment_sum": {
+     "max_backward_N": 155.65,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 155.65,
+     "at_x": 9.829
+    }
+   },
+   "r=0.3": {
+    "segment_sum": {
+     "max_backward_N": 290.79,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 290.79,
+     "at_x": 9.829
+    }
+   },
+   "r=0.35": {
+    "segment_sum": {
+     "max_backward_N": 543.26,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 543.26,
+     "at_x": 9.829
+    }
+   }
+  },
+  "CroMa L=2.0": {
+   "r=0.2": {
+    "segment_sum": {
+     "max_backward_N": 166.62,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 83.31,
+     "at_x": 9.829
+    }
+   },
+   "r=0.25": {
+    "segment_sum": {
+     "max_backward_N": 311.3,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 155.65,
+     "at_x": 9.829
+    }
+   },
+   "r=0.3": {
+    "segment_sum": {
+     "max_backward_N": 581.58,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 290.79,
+     "at_x": 9.829
+    }
+   },
+   "r=0.35": {
+    "segment_sum": {
+     "max_backward_N": 1086.53,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 543.26,
+     "at_x": 9.829
+    }
+   }
+  },
+  "CroMa L=0.21": {
+   "r=0.2": {
+    "segment_sum": {
+     "max_backward_N": 166.62,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 83.31,
+     "at_x": 9.829
+    }
+   },
+   "r=0.25": {
+    "segment_sum": {
+     "max_backward_N": 311.3,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 155.65,
+     "at_x": 9.829
+    }
+   },
+   "r=0.3": {
+    "segment_sum": {
+     "max_backward_N": 581.58,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 290.79,
+     "at_x": 9.829
+    }
+   },
+   "r=0.35": {
+    "segment_sum": {
+     "max_backward_N": 1086.53,
+     "at_x": 9.829
+    },
+    "convex_union": {
+     "max_backward_N": 543.26,
+     "at_x": 9.829
+    }
+   }
+  }
+ }
+}
