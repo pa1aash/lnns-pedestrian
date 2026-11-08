@@ -208,3 +208,521 @@ EsixCThreeMovingSecond:
   file: E6_analysis.json
   key: "failure_state.C3_rvo2.class_counts_moving.lone_keystone_second_trap"
   fmt: "{:d}"
+# --- E10_analysis
+EtenHumanN:
+  file: E10_analysis.json
+  key: "humans.n_runs"
+  fmt: "{:d}"
+EtenHumanFlow:
+  file: E10_analysis.json
+  key: "humans.flow.mean"
+  fmt: "{:.2f}"
+EtenHumanFlowLo:
+  file: E10_analysis.json
+  key: "humans.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenHumanFlowHi:
+  file: E10_analysis.json
+  key: "humans.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenHumanFlowMin:
+  file: E10_analysis.json
+  key: "humans.flow_range.0"
+  fmt: "{:.2f}"
+EtenHumanFlowMax:
+  file: E10_analysis.json
+  key: "humans.flow_range.1"
+  fmt: "{:.2f}"
+EtenHumanGap:
+  file: E10_analysis.json
+  key: "humans.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenHumanGapMax:
+  file: E10_analysis.json
+  key: "humans.longest_gap_max"
+  fmt: "{:.1f}"
+EtenHumanGapsTwo:
+  file: E10_analysis.json
+  key: "humans.gaps_gt_2s.mean"
+  fmt: "{:.1f}"
+EtenHumanFluct:
+  file: E10_analysis.json
+  key: "humans.fluct.mean"
+  fmt: "{:.3f}"
+EtenHumanFluctLo:
+  file: E10_analysis.json
+  key: "humans.fluct.ci95.0"
+  fmt: "{:.3f}"
+EtenHumanFluctHi:
+  file: E10_analysis.json
+  key: "humans.fluct.ci95.1"
+  fmt: "{:.3f}"
+EtenLongHumanFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.humans.flow.mean"
+  fmt: "{:.2f}"
+EtenShortHumanFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.humans.flow.mean"
+  fmt: "{:.2f}"
+EtenCPubComplete:
+  file: E10_analysis.json
+  key: "cells.C1_pub.complete"
+  fmt: "{:d}"
+EtenCPubCompleteHi:
+  file: E10_analysis.json
+  key: "cells.C1_pub.completion_wilson95.1"
+  fmt: "{:.2f}"
+EtenCPubDeadlock:
+  file: E10_analysis.json
+  key: "cells.C1_pub.deadlock"
+  fmt: "{:d}"
+EtenCPubFlow:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow.mean"
+  fmt: "{:.2f}"
+EtenCPubFlowLo:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenCPubFlowHi:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenCPubFlowRatio:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow_ratio_to_human.ratio"
+  fmt: "{:.2f}"
+EtenCPubFlowRatioLo:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow_ratio_to_human.ci95.0"
+  fmt: "{:.2f}"
+EtenCPubFlowRatioHi:
+  file: E10_analysis.json
+  key: "cells.C1_pub.flow_ratio_to_human.ci95.1"
+  fmt: "{:.2f}"
+EtenCPubGap:
+  file: E10_analysis.json
+  key: "cells.C1_pub.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenCPubGapLo:
+  file: E10_analysis.json
+  key: "cells.C1_pub.longest_gap.ci95.0"
+  fmt: "{:.1f}"
+EtenCPubGapHi:
+  file: E10_analysis.json
+  key: "cells.C1_pub.longest_gap.ci95.1"
+  fmt: "{:.1f}"
+EtenCPubGapsTwo:
+  file: E10_analysis.json
+  key: "cells.C1_pub.gaps_gt_2s.mean"
+  fmt: "{:.0f}"
+EtenCPubFluct:
+  file: E10_analysis.json
+  key: "cells.C1_pub.fluct.mean"
+  fmt: "{:.3f}"
+EtenCPubLeaks:
+  file: E10_analysis.json
+  key: "cells.C1_pub.wall_leaks_total"
+  fmt: "{:d}"
+EtenCPubCapped:
+  file: E10_analysis.json
+  key: "cells.C1_pub.capped"
+  fmt: "{:d}"
+EtenCPubLongFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_pub.flow.mean"
+  fmt: "{:.2f}"
+EtenCPubShortFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_pub.flow.mean"
+  fmt: "{:.2f}"
+EtenCPubLongComplete:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_pub.complete"
+  fmt: "{:d}"
+EtenCPubShortComplete:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_pub.complete"
+  fmt: "{:d}"
+EtenCOneComplete:
+  file: E10_analysis.json
+  key: "cells.C1_cf.complete"
+  fmt: "{:d}"
+EtenCOneCompleteHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf.completion_wilson95.1"
+  fmt: "{:.2f}"
+EtenCOneDeadlock:
+  file: E10_analysis.json
+  key: "cells.C1_cf.deadlock"
+  fmt: "{:d}"
+EtenCOneFlow:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCOneFlowLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenCOneFlowHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenCOneFlowRatio:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow_ratio_to_human.ratio"
+  fmt: "{:.2f}"
+EtenCOneFlowRatioLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow_ratio_to_human.ci95.0"
+  fmt: "{:.2f}"
+EtenCOneFlowRatioHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf.flow_ratio_to_human.ci95.1"
+  fmt: "{:.2f}"
+EtenCOneGap:
+  file: E10_analysis.json
+  key: "cells.C1_cf.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenCOneGapLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf.longest_gap.ci95.0"
+  fmt: "{:.1f}"
+EtenCOneGapHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf.longest_gap.ci95.1"
+  fmt: "{:.1f}"
+EtenCOneGapsTwo:
+  file: E10_analysis.json
+  key: "cells.C1_cf.gaps_gt_2s.mean"
+  fmt: "{:.0f}"
+EtenCOneFluct:
+  file: E10_analysis.json
+  key: "cells.C1_cf.fluct.mean"
+  fmt: "{:.3f}"
+EtenCOneLeaks:
+  file: E10_analysis.json
+  key: "cells.C1_cf.wall_leaks_total"
+  fmt: "{:d}"
+EtenCOneCapped:
+  file: E10_analysis.json
+  key: "cells.C1_cf.capped"
+  fmt: "{:d}"
+EtenCOneLongFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCOneShortFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCOneLongComplete:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf.complete"
+  fmt: "{:d}"
+EtenCOneShortComplete:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf.complete"
+  fmt: "{:d}"
+EtenCEdgeComplete:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.complete"
+  fmt: "{:d}"
+EtenCEdgeCompleteHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.completion_wilson95.1"
+  fmt: "{:.2f}"
+EtenCEdgeDeadlock:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.deadlock"
+  fmt: "{:d}"
+EtenCEdgeFlow:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow.mean"
+  fmt: "{:.2f}"
+EtenCEdgeFlowLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenCEdgeFlowHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenCEdgeFlowRatio:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow_ratio_to_human.ratio"
+  fmt: "{:.2f}"
+EtenCEdgeFlowRatioLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow_ratio_to_human.ci95.0"
+  fmt: "{:.2f}"
+EtenCEdgeFlowRatioHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.flow_ratio_to_human.ci95.1"
+  fmt: "{:.2f}"
+EtenCEdgeGap:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenCEdgeGapLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.longest_gap.ci95.0"
+  fmt: "{:.1f}"
+EtenCEdgeGapHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.longest_gap.ci95.1"
+  fmt: "{:.1f}"
+EtenCEdgeGapsTwo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.gaps_gt_2s.mean"
+  fmt: "{:.0f}"
+EtenCEdgeFluct:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.fluct.mean"
+  fmt: "{:.3f}"
+EtenCEdgeLeaks:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.wall_leaks_total"
+  fmt: "{:d}"
+EtenCEdgeCapped:
+  file: E10_analysis.json
+  key: "cells.C1_cf_edge.capped"
+  fmt: "{:d}"
+EtenCEdgeLongFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf_edge.flow.mean"
+  fmt: "{:.2f}"
+EtenCEdgeShortFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf_edge.flow.mean"
+  fmt: "{:.2f}"
+EtenCEdgeLongComplete:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf_edge.complete"
+  fmt: "{:d}"
+EtenCEdgeShortComplete:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf_edge.complete"
+  fmt: "{:d}"
+EtenCThreeComplete:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.complete"
+  fmt: "{:d}"
+EtenCThreeCompleteHi:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.completion_wilson95.1"
+  fmt: "{:.2f}"
+EtenCThreeDeadlock:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.deadlock"
+  fmt: "{:d}"
+EtenCThreeFlow:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCThreeFlowLo:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenCThreeFlowHi:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenCThreeFlowRatio:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow_ratio_to_human.ratio"
+  fmt: "{:.2f}"
+EtenCThreeFlowRatioLo:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow_ratio_to_human.ci95.0"
+  fmt: "{:.2f}"
+EtenCThreeFlowRatioHi:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.flow_ratio_to_human.ci95.1"
+  fmt: "{:.2f}"
+EtenCThreeGap:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenCThreeGapLo:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.longest_gap.ci95.0"
+  fmt: "{:.1f}"
+EtenCThreeGapHi:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.longest_gap.ci95.1"
+  fmt: "{:.1f}"
+EtenCThreeGapsTwo:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.gaps_gt_2s.mean"
+  fmt: "{:.0f}"
+EtenCThreeFluct:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.fluct.mean"
+  fmt: "{:.3f}"
+EtenCThreeLeaks:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.wall_leaks_total"
+  fmt: "{:d}"
+EtenCThreeCapped:
+  file: E10_analysis.json
+  key: "cells.C3_rvo2_cf.capped"
+  fmt: "{:d}"
+EtenCThreeLongFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C3_rvo2_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCThreeShortFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C3_rvo2_cf.flow.mean"
+  fmt: "{:.2f}"
+EtenCThreeLongComplete:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C3_rvo2_cf.complete"
+  fmt: "{:d}"
+EtenCThreeShortComplete:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C3_rvo2_cf.complete"
+  fmt: "{:d}"
+EtenCSigComplete:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.complete"
+  fmt: "{:d}"
+EtenCSigCompleteHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.completion_wilson95.1"
+  fmt: "{:.2f}"
+EtenCSigDeadlock:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.deadlock"
+  fmt: "{:d}"
+EtenCSigFlow:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow.mean"
+  fmt: "{:.2f}"
+EtenCSigFlowLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow.ci95.0"
+  fmt: "{:.2f}"
+EtenCSigFlowHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow.ci95.1"
+  fmt: "{:.2f}"
+EtenCSigFlowRatio:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow_ratio_to_human.ratio"
+  fmt: "{:.2f}"
+EtenCSigFlowRatioLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow_ratio_to_human.ci95.0"
+  fmt: "{:.2f}"
+EtenCSigFlowRatioHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.flow_ratio_to_human.ci95.1"
+  fmt: "{:.2f}"
+EtenCSigGap:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.longest_gap.mean"
+  fmt: "{:.1f}"
+EtenCSigGapLo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.longest_gap.ci95.0"
+  fmt: "{:.1f}"
+EtenCSigGapHi:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.longest_gap.ci95.1"
+  fmt: "{:.1f}"
+EtenCSigGapsTwo:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.gaps_gt_2s.mean"
+  fmt: "{:.0f}"
+EtenCSigFluct:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.fluct.mean"
+  fmt: "{:.3f}"
+EtenCSigLeaks:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.wall_leaks_total"
+  fmt: "{:d}"
+EtenCSigCapped:
+  file: E10_analysis.json
+  key: "cells.C1_cf_sig.capped"
+  fmt: "{:d}"
+EtenCSigLongFlow:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf_sig.flow.mean"
+  fmt: "{:.2f}"
+EtenCSigShortFlow:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf_sig.flow.mean"
+  fmt: "{:.2f}"
+EtenCSigLongComplete:
+  file: E10_analysis.json
+  key: "by_L.L2p0.C1_cf_sig.complete"
+  fmt: "{:d}"
+EtenCSigShortComplete:
+  file: E10_analysis.json
+  key: "by_L.L0p21.C1_cf_sig.complete"
+  fmt: "{:d}"
+# --- arch_analysis
+ArchN:
+  file: arch_analysis.json
+  key: "n_runs"
+  fmt: "{:d}"
+ArchVZero:
+  file: arch_analysis.json
+  key: "v0_mean"
+  fmt: "{:.0f}"
+ArchComplete:
+  file: arch_analysis.json
+  key: "complete"
+  fmt: "{:d}"
+ArchDeadlock:
+  file: arch_analysis.json
+  key: "deadlock"
+  fmt: "{:d}"
+ArchRunsWithArch:
+  file: arch_analysis.json
+  key: "runs_with_arch"
+  fmt: "{:d}"
+ArchEpisodes:
+  file: arch_analysis.json
+  key: "episodes"
+  fmt: "{:d}"
+ArchEpisodesThree:
+  file: arch_analysis.json
+  key: "episodes_size3"
+  fmt: "{:d}"
+ArchMaxLife:
+  file: arch_analysis.json
+  key: "max_lifetime_s"
+  fmt: "{:.1f}"
+ArchPersistent:
+  file: arch_analysis.json
+  key: "persistent_runs"
+  fmt: "{:d}"
+ArchPersistentHi:
+  file: arch_analysis.json
+  key: "persistent_wilson95.1"
+  fmt: "{:.2f}"
+ArchTimeFrac:
+  file: arch_analysis.json
+  key: "time_frac_arch_pct"
+  fmt: "{:.1f}"
+ArchPeakForce:
+  file: arch_analysis.json
+  key: "peak_body_force_kN"
+  fmt: "{:.0f}"
+ArchPNinetyFive:
+  file: arch_analysis.json
+  key: "p95_lifetime_s"
+  fmt: "{:.1f}"
+ArchSizeMax:
+  file: arch_analysis.json
+  key: "size_max"
+  fmt: "{:d}"
+ArchEvacMedian:
+  file: arch_analysis.json
+  key: "evac_time_median"
+  fmt: "{:.0f}"

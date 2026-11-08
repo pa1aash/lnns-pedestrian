@@ -1,0 +1,95 @@
+{
+ "estimator": "experiments/pilot/w28_croma.py croma(), unchanged",
+ "runs": [
+  {
+   "file": "4D030_w080_l200_h0.txt",
+   "n_ids": 135,
+   "duration_s": 121.48,
+   "width_m": 0.8,
+   "length_m": 2.0,
+   "motivation": "h0",
+   "n_pass": 135,
+   "flow_per_s": 1.1543762922122673,
+   "n_gaps_gt_2s": 0,
+   "max_gap_s": 1.879999999999999,
+   "median_gap_s": 0.9000000000000021,
+   "fluct": {
+    "n_samples": 70638,
+    "sd_x": 0.07878048874727743,
+    "sd_y": 0.07799188093367164
+   }
+  },
+  {
+   "file": "4D040_w080_l200_h1.txt",
+   "n_ids": 136,
+   "duration_s": 94.12,
+   "width_m": 0.8,
+   "length_m": 2.0,
+   "motivation": "h1",
+   "n_pass": 135,
+   "flow_per_s": 1.4908767245215842,
+   "n_gaps_gt_2s": 0,
+   "max_gap_s": 1.6000000000000005,
+   "median_gap_s": 0.7199999999999989,
+   "fluct": {
+    "n_samples": 64227,
+    "sd_x": 0.07221040026420193,
+    "sd_y": 0.07016667658887846
+   }
+  },
+  {
+   "file": "4D110_w080_l021_h0.txt",
+   "n_ids": 131,
+   "duration_s": 95.2,
+   "width_m": 0.8,
+   "length_m": 0.21,
+   "motivation": "h0",
+   "n_pass": 131,
+   "flow_per_s": 1.4298284205895293,
+   "n_gaps_gt_2s": 0,
+   "max_gap_s": 1.3999999999999915,
+   "median_gap_s": 0.7199999999999998,
+   "fluct": {
+    "n_samples": 62844,
+    "sd_x": 0.07787362792507369,
+    "sd_y": 0.07758177169722749
+   }
+  },
+  {
+   "file": "4D120_w080_l021_h1.txt",
+   "n_ids": 129,
+   "duration_s": 83.92,
+   "width_m": 0.8,
+   "length_m": 0.21,
+   "motivation": "h1",
+   "n_pass": 129,
+   "flow_per_s": 1.5952143569292125,
+   "n_gaps_gt_2s": 1,
+   "max_gap_s": 2.039999999999999,
+   "median_gap_s": 0.6799999999999997,
+   "fluct": {
+    "n_samples": 61870,
+    "sd_x": 0.07239455745968652,
+    "sd_y": 0.07037929850081623
+   }
+  },
+  {
+   "file": "4D130_w080_l021_h2.txt",
+   "n_ids": 128,
+   "duration_s": 77.6,
+   "width_m": 0.8,
+   "length_m": 0.21,
+   "motivation": "h2",
+   "n_pass": 128,
+   "flow_per_s": 1.7106681034482756,
+   "n_gaps_gt_2s": 0,
+   "max_gap_s": 1.6400000000000006,
+   "median_gap_s": 0.5599999999999996,
+   "fluct": {
+    "n_samples": 60189,
+    "sd_x": 0.07372367082091975,
+    "sd_y": 0.0716174782595291
+   }
+  }
+ ]
+}
