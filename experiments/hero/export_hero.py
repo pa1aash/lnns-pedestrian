@@ -41,8 +41,23 @@ from a3_pair_stability import Field, code_force  # noqa: E402
 from sim.core.agent import AgentState  # noqa: E402
 from sim.core.world import agents_to_walls  # noqa: E402
 
-LONE_SNAP = PLAN / "wave2/data/library/C1_w0.8_seed108.pkl"
+REPO = Path(__file__).resolve().parents[2]
+# Lone trap: corrected-forward E1b lone-keystone snapshot (class list: data/derived/E1_keystone.json).
+LONE_SNAP = REPO / "data/E1/library/E1b_seed52.pkl"
+# Pair: pilot snapshot (corrected numerics, B_w = 0.04 m). The production swap is this one line.
 PAIR_SNAP = PLAN / "wave2/data/library/w25_B0.04_seed43.pkl"   # listed in wave2b/data/a4_selected_snaps.txt
+# Landscape window in metres of per-member lateral displacement: common c = (dy_lo + dy_hi)/2, opposed o = (dy_hi - dy_lo)/2.
+CO_C, CO_O, CO_STEP = 0.30, 0.10, 0.005
+
+
+def rel(path):
+    path = Path(os.path.normpath(path))
+    for base in (REPO, PLAN):
+        try:
+            return str(path.relative_to(base))
+        except ValueError:
+            pass
+    return str(path)
 G = np.array([11.0, 5.0])
 
 
@@ -98,15 +113,23 @@ def export_lone(path, r_probe=0.25, step=0.01):
     ff, on_axis_max, wp = floor_field(params, world, r_probe, step)
     # check: on-axis maximum of the backward force equals Passability.gmax(r_probe)
     check = {"gmax_probe_passability_N": pas.gmax(r_probe), "gmax_probe_grid_N": on_axis_max}
+    kj = REPO / "data/derived/E1_keystone.json"
+    if kj.exists() and path.name.startswith("E1b_seed"):
+        seed = int(path.stem.split("seed")[1])
+        row = next(r for r in json.load(open(kj))["modes"]["E1b"]["per_snapshot"] if r["seed"] == seed)
+        bi = int(np.nonzero(ids == blocker)[0][0])
+        check.update({"E1_class": row["class"], "E1_blocker": row["blocker"], "E1_blocker_margin_N": row["blocker_margin_C1"],
+                      "export_blocker_margin_N": float(margin[bi]), "blocker_matches_E1": bool(row["blocker"] == blocker),
+                      "margin_abs_diff_N": abs(float(margin[bi]) - row["blocker_margin_C1"])})
 
     np.savez_compressed(
         OUT / "lone_trap.npz",
-        snapshot=str(path.relative_to(PLAN)), ids=ids, blocker=blocker,
+        snapshot=rel(path), ids=ids, blocker=blocker,
         pos=st.positions[ids], radius=st.radii[ids], vel=st.velocities[ids],
         v0=st.desired_speeds[ids], tau=st.taus[ids], mass=st.masses[ids], rho_frozen=rho,
         gmax_N=gmax, drive_N=drive, margin_N=margin,
         walls=walls_array(world), width=width, **ff)
-    return {"snapshot": str(path.relative_to(PLAN)), "time_s": snap["time"], "n_active": int(len(ids)),
+    return {"snapshot": rel(path), "time_s": snap["time"], "n_active": int(len(ids)),
             "blocker": blocker, "agents": [{"id": int(i), "pos": np.round(st.positions[i], 4).tolist(),
                                             "r": round(float(st.radii[i]), 4), "speed": float(np.linalg.norm(st.velocities[i])),
                                             "gmax_N": round(float(g), 1), "drive_N": round(float(dr), 1),
@@ -303,7 +326,7 @@ def export_pair(path, n_grid=101, half_range=0.5):
     pas = Passability(width=snap["width"], **{k: params[k] for k in ("A_w", "B_w") if k in params})
     margin = np.array([pas.margin(st.radii[i], st.desired_speeds[i], st.taus[i], f0.rho[k]) for k, i in enumerate(ids)])
     ff, on_axis_max, wp = floor_field(params, f0.world)
-    save = {"snapshot": str(Path(os.path.normpath(path)).relative_to(PLAN)), "ids": np.array(ids),
+    save = {"snapshot": rel(path), "ids": np.array(ids),
             "margin_N": margin, "gmax_N": np.array([pas.gmax(st.radii[i]) for i in ids]), **ff,
             "pos": st.positions[ids], "radius": st.radii[ids], "vel": st.velocities[ids],
             "rho_frozen": f0.rho, "drive_c_N": f0.c, "walls": walls_array(f0.world), "width": snap["width"],
@@ -314,6 +337,14 @@ def export_pair(path, n_grid=101, half_range=0.5):
         save[f"U_relax_{tag}_J"] = Ur - U0
         save[f"dx_relax_{tag}_m"] = DX
         save[f"dx_at_bound_{tag}"] = hit
+    from scipy.interpolate import RegularGridInterpolator
+    cc = np.arange(-CO_C, CO_C + 1e-9, CO_STEP)
+    oo = np.arange(-CO_O, CO_O + 1e-9, CO_STEP)
+    Cg, Og = np.meshgrid(cc, oo, indexing="ij")
+    save.update(co_c=cc, co_o=oo)
+    for tag in ("b0", "bfold"):
+        itp = RegularGridInterpolator((dy, dy), out[tag][2] - U0, method="linear")
+        save[f"U_co_{tag}_J"] = itp(np.column_stack([(Cg - Og).ravel(), (Cg + Og).ravel()])).reshape(Cg.shape)
     np.savez_compressed(OUT / "pair_landscape.npz", **save)
 
     return {"snapshot": save["snapshot"], "ids": ids, "pos": np.round(st.positions[ids], 4).tolist(),

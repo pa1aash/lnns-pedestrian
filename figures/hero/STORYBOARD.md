@@ -1,4 +1,34 @@
-# Hero figure (Fig. 1): storyboard
+# Hero figure (Fig. 1): production state (batch 3B)
+
+Option C was chosen and is now rendered at production quality: `figures/fig1_hero.png` (2882 × 1631 px, 600 dpi at 12.2 cm → 12.2 × 6.9 cm, 128 samples, denoised).
+Pipeline: `experiments/hero/export_hero.py` → `data/derived/hero/*.npz` → `experiments/hero/render_safe.sh` (memory-gated wrapper around `render_hero.py`, Blender headless, `-t 2`, Metal GPU). Previews: `--width-px 900 --samples 32`. The caption is in `paper/main.tex` (Fig. 1 environment). The A/B/C sections below are the earlier pilot storyboard and are kept for the record; only C was built, with the changes listed here (C17).
+
+## Production layout
+- **Top row:** the lone trap. **Bottom row:** the pair standoff (left), and its landscape before (upper right) and after (lower right) a lateral bias past the fold.
+- **One floor scale.** Both floor scenes use an orthographic camera at the same elevation (40°) and the same 847.6 px per metre; the pair panel is a narrower crop of the same view of the same door. A metre has the same length in both.
+- **Landscapes at true aspect.** Horizontal axes are the common shift c = (dy_lo + dy_hi)/2 and the opposed shift o = (dy_hi − dy_lo)/2 of the two members, in metres, on one horizontal scale (c within ±0.30 m, o within ±0.04 m; the valley is only about ±0.03 m wide at the clip). No ×3 stretch, full symmetric opposed range. Height is linear in U with one scale, 0.12 m of drawn height per joule, clipped to [−1.2, 0.6] J; colour is the same U, magma_r over the same window. The black sphere is the frozen state. The valley is narrow because λ1 ≈ 85 N/m (common) against λ2 ≈ 1124 N/m (opposed).
+- **Encodings shared with Fig. 2.** Agent stuck-alone margin: cividis over ±150 N. Wall force: magma_r on a log scale, 1–1000 N. Each agent cylinder has a thin dark edge (8 mm) so light agents separate from a light floor. Light-grey strips along walls are the cells where a 0.25 m probe disc would overlap the wall. No text in the image.
+
+## Snapshots used
+- **Lone trap:** `data/E1/library/E1b_seed52.pkl` (E1b corrected-forward, class `lone_keystone`, w = 0.8 m, t = 150.9 s, wall B_w = 0.08 m, convex-union corner rule). Three residual agents. The blocker (id 19, r = 0.296 m) sits on the axis 0.34 m before the door plane with margin **+146.2 N**, below the ±150 N ramp end, so it is not clipped. The two other residual agents (ids 38 and 54) would each pass alone, with margins −9.6 N and −41.6 N. This is the closest match to the pilot seed108 (one held blocker, two passable neighbours) with a clearly positive margin. Seeds 61 (+114.0 N, four residuals) and 128 (+187.6 N, past the ramp) were considered and rejected.
+- **Pair:** pilot snapshot `wave2/data/library/w25_B0.04_seed43.pkl` (B_w = 0.04 m, segment-sum corner rule), margins −98.7 N and −82.9 N, λ1 = 84.95 N/m, fold at b = 0.03 (held at b = 0.01).
+- **Pending pair swap.** The production pair library (corrected-forward, B_w = 0.04) is still being built by the queue. The swap is one line: `PAIR_SNAP` in `experiments/hero/export_hero.py`; then re-run `export_hero.py --only pair` and `render_safe.sh`. Check on swapping that the corner rule in the caption's wall laws still reads correctly (the pilot pair uses segment-sum, the lone uses convex-union), and that the fold bias and the window c ±0.30 m, o ±0.04 m still show the dimple and both escapes.
+
+## Checks (export_report.json)
+- Lone floor on-axis maximum 155.638 N against Passability g_max(0.25 m) = 155.648 N (the 1 cm grid step); pair floor 17.404 against 17.418 N.
+- Lone blocker margin equals `E1_keystone.json` (146.211 N, difference 3e-10 N, same blocker id and class).
+- Pair landscape: strict minimum at b = 0 (relaxed and slice, Hessian eigenvalues 84.95 and 1124.5 N/m); no local minimum of the relaxed landscape past the fold; escape barrier 0.293 J at b = 0 and 0 at the fold; |F_code + ∇U| ≤ 0.68 N.
+
+## Honesty note for the text
+- The model is 2-D. Agent height (0.20 m) and wall height (0.42 m) are arbitrary, and walls are drawn 3 cm thick around zero-thickness segments.
+- Landscape height is a stylised vertical scale (0.12 m per J), linear in U but clipped to [−1.2, 0.6] J, so the walls of the valley and the deep escape basins are flat. The dimple is 0.29 J deep (grid estimate of the escape barrier) against the 1.8 J window.
+- The landscape is the rest-state energy with density frozen and the forward positions relaxed (within ±0.3 m), over a rectangle of the common and opposed lateral shifts of the two members, drawn at true 1:1 aspect in metres. The lone and pair scenes use different wall laws (B_w = 0.08 and 0.04 m), stated in the caption.
+- The floor ramp is for a lone 0.25 m probe at rest, not for the agents drawn on it.
+- The oblique 3-D view hides part of the near half of the valley; the far half and the ramp show it.
+
+---
+# Earlier pilot storyboard (pre-C17)
+
 
 Pilot data. Previews are 900 px wide with 32 samples; the final render is 2882 px wide (600 dpi at 12.2 cm).
 Pipeline: `experiments/hero/export_hero.py` → `data/derived/hero/*.npz` → `experiments/hero/render_hero.py` (Blender, headless) → `figures/hero/storyboard/option_{A,B,C}.png`.

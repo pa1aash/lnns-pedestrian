@@ -1,6 +1,6 @@
 """Print-legibility and colour-vision checks of the storyboard previews.
 
-    /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/check_previews.py
+    /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/check_previews.py [image.png ...]
 
 For each figures/hero/storyboard/option_*.png writes a contact strip
 option_*_checks.png: original | greyscale (Rec. 709 luma) | deuteranopia | protanopia
@@ -36,7 +36,9 @@ def luma(rgb):
 
 
 def main():
-    for p in sorted(SB.glob("option_[A-Z].png")):
+    import sys
+    paths = [Path(x) for x in sys.argv[1:]] or sorted(SB.glob("option_[A-Z].png"))
+    for p in paths:
         im = np.asarray(Image.open(p).convert("RGB"), float) / 255
         grey = np.repeat(srgb(luma(lin(im)))[..., None], 3, axis=2)
         sims = [srgb(lin(im) @ M.T) for M in MACHADO.values()]
