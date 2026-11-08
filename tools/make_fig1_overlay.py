@@ -1,11 +1,11 @@
 """Turn figures/hero/fig1_overlay.json (3-D anchors projected by render_hero.py) into figures/fig1_overlay.tex.
 
-    python3 tools/make_fig1_overlay.py [--overlay figures/hero/fig1_overlay.json] [--png figures/fig1_hero.png]
-                                       [--out figures/fig1_overlay.tex]
+    python3 tools/make_fig1_overlay.py [--overlay figures/hero/mock_v2/fig1_overlay_v2.json] [--png figures/fig1_hero.png]
+                                       [--out figures/hero/mock_v2/fig1_overlay_v2.tex]
 
 The TeX file is a fragment for a TikZ scope whose unit is the image width (x = y = \\textwidth, origin at the
-image's lower-left corner): force arrows, coordinate lines, scale bars, labels (8 pt serif, dark text on light
-areas, no boxes or halos) and the vector context inset. Nothing here is hand-placed except the label table
+image's lower-left corner): force arrows (0.6 pt shafts, solid), coordinate lines, one scale-bar cluster, the 17 labels (6.5 pt
+serif, dark text on light areas, no boxes, halos or leader lines) and the vector context inset. Nothing here is hand-placed except the label table
 below; every arrow, line and bar end point is a projected 3-D anchor.
 
 With --png the script also checks each label against the image: the estimated text box must sit on light
@@ -18,33 +18,33 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GREY = "7F7F7F"
-C = {"black": "000000", "wall": "51127C", "orca": "0072B2", "partner": "B63679", "bias": "F0E442", "scale": "333333"}
-FONT = r"\fontsize{8}{9.5}\selectfont"
-CHAR_W_CM = 0.155            # mean advance of 8 pt Computer Modern text, for the box estimate only
+C = {"black": "000000", "wall": "51127C", "orca": "0072B2", "partner": "51127C", "push": "777777", "scale": "333333"}
+FONT = r"\fontsize{6.5}{7.5}\selectfont"
+CHAR_W_CM = 0.118            # mean advance of 6.5 pt Computer Modern text, for the box estimate only
 
-# (text, panel, anchor, dx_cm, dy_cm, tikz anchor, colour). Offsets in printed cm; anchors "@tl" etc are panel corners.
+# (text, panel, anchor, dx_cm, dy_cm, tikz anchor). Offsets in printed cm; anchors "@tl" etc are panel corners.
+# Exactly 17 labels. Panel tags top-left; scene labels beside their object (never over an agent, never on an arrow
+# junction); ribbon labels at the left end of each ribbon just above the curve.
 LABELS = [
     ("lone trap", "lone", "@tl", 0.10, -0.08, "north west"),
     ("100 N", "lone", "scale100_mid", 0.10, 0.0, "west"),
-    ("0.5 m", "lone", "scale_half_m_mid", 0.0, -0.06, "north"),
-    ("held alone", "lone", "drive_1", -0.12, -0.02, "east"),
-    ("passes alone", "lone", "n54", 0.0, 0.78, "center"),
-    ("door", "lone", "door", 0.0, 0.0, "center"),
-    ("drive", "lone", "drive_mid", 0.10, 0.0, "west"),
-    ("wall", "lone", "wall_1", 0.10, 0.0, "west"),
-    ("ORCA", "lone", "orca_mid", 0.10, 0.0, "west"),
-    ("own drive", "rib_lone", "curve0_top", 0.0, 0.10, "south"),
-    ("added drive", "rib_lone", "base1_0", 0.05, 0.10, "south west"),
-    ("noise", "rib_lone", "band_1", 0.0, 0.06, "south"),
+    ("0.5 m", "lone", "scale_half_m_mid", 0.0, 0.07, "south"),
+    ("held alone", "lone", "drive_1", -0.27, 0.12, "south east"),
+    ("passes alone", "lone", "n54", 0.0, 0.58, "south"),
+    ("drive", "lone", "drive_1", 0.20, 0.0, "south west"),
+    ("wall", "lone", "wall_1", 0.12, -0.03, "west"),
+    ("ORCA", "lone", "orca_mid", 0.12, 0.0, "west"),
+    ("own drive", "rib_lone", "label0", 0.02, 0.03, "south west"),
+    ("added drive", "rib_lone", "label1", 0.02, 0.03, "south west"),
+    ("noise", "rib_lone", "band_1", 0.0, 0.05, "south"),
     ("10 J", "rib_lone", "scale_mid", 0.10, 0.0, "west"),
     ("pair standoff", "pair", "@tl", 0.10, -0.08, "north west"),
-    ("held together", "pair", "between", 0.0, 1.15, "south"),
-    ("partner", "pair", "partner_1", 0.40, -0.50, "west"),
-    ("tilt", "pair", "bias_1", 0.20, 0.14, "west"),
-    ("no tilt", "rib_pair", "curve0_top", 0.0, 0.10, "south"),
-    ("tilted", "rib_pair", "base1_0", 0.05, 0.10, "south west"),
+    ("held together", "pair", "between", 0.0, 1.20, "south"),
+    ("no tilt", "rib_pair", "label0", 0.02, 0.03, "south west"),
+    ("tilted", "rib_pair", "label1", 0.02, 0.03, "south west"),
     ("0.5 J", "rib_pair", "scale_mid", 0.10, 0.0, "west"),
 ]
+assert len(LABELS) == 17
 
 
 class Ctx:
@@ -76,21 +76,19 @@ def f(p):
     return "(%.5f,%.5f)" % p
 
 
-def arrow(c, p0, p1, colour, lw=0.7, halo=True, head_cm=0.16):
+def arrow(c, p0, p1, colour, lw=0.6, halo=True, head_cm=0.095):
     L = math.hypot((p1[0] - p0[0]) * c.cm, (p1[1] - p0[1]) * c.cm)
-    h = min(head_cm, max(0.5 * L, 0.03)) if head_cm >= 0.16 else head_cm
+    h = min(head_cm, max(0.6 * L, 0.03))
     tip = "{Stealth[length=%.3fcm,width=%.3fcm]}" % (h, 0.75 * h)
     out = []
-    if halo == "dark":
-        out.append(r"\draw[-%s,line width=%.2fpt,color=black] %s -- %s;" % (tip, lw + 0.8, f(p0), f(p1)))
-    elif halo:
-        out.append(r"\draw[-%s,line width=%.2fpt,color=white,opacity=0.85] %s -- %s;" % (tip, lw + 1.0, f(p0), f(p1)))
+    if halo:      # thin white under-stroke so black / dark arrows stay visible over dark agents and floor
+        out.append(r"\draw[-%s,line width=%.2fpt,color=white,opacity=0.9] %s -- %s;" % (tip, lw + 0.7, f(p0), f(p1)))
     out.append(r"\draw[-%s,line width=%.2fpt,color={rgb,255:red,%d;green,%d;blue,%d}] %s -- %s;" % (
         tip, lw, *[int(colour[i:i + 2], 16) for i in (0, 2, 4)], f(p0), f(p1)))
     return out, L
 
 
-def bar(c, p0, p1, lw=0.6, tick_cm=0.07):
+def bar(c, p0, p1, lw=0.5, tick_cm=0.05):
     dx, dy = (p1[0] - p0[0]) * c.cm, (p1[1] - p0[1]) * c.cm
     L = math.hypot(dx, dy)
     nx, ny = -dy / L * tick_cm / c.cm, dx / L * tick_cm / c.cm
@@ -101,53 +99,42 @@ def bar(c, p0, p1, lw=0.6, tick_cm=0.07):
 
 
 def grey_line(c, p0, p1):
-    return r"\draw[line width=0.5pt,color={rgb,255:red,127;green,127;blue,127}] %s -- %s;" % (f(p0), f(p1))
+    return r"\draw[line width=0.4pt,color={rgb,255:red,127;green,127;blue,127}] %s -- %s;" % (f(p0), f(p1))
 
 
-def inset(c, d, ov, size_cm=1.55, margin_cm=0.07, label_strip_cm=0.40):
+def inset(c, d, ov, size_cm=1.55, margin_cm=0.07):
     """Vector context inset in the top-right corner of the lone scene; orientation as in the scene
-    (screen right = -y, screen up = +x). The 10 m room fills the square above a label strip."""
+    (screen right = -y, screen up = +x). The 10 m room fills the square; no dimension line, no label."""
     px, py, pw, ph = ov["panels_px"]["lone"]
     right, top = (px + pw) / c.W, (1 - py / c.H) * c.asp
     s = size_cm / c.cm
     m = margin_cm / c.cm
     x1, y1 = right - m, top - m
     x0, y0 = x1 - s, y1 - s
-    strip = label_strip_cm / c.cm
-    room = s - strip - 2 * 0.04 / c.cm       # room square, 0.4 mm padding inside the border
+    pad = 0.06 / c.cm
+    room = s - 2 * pad
     k = room / 10.0
     ox = x0 + (s + room) / 2                  # room centred horizontally; screen X = ox - y k
-    oy = y0 + strip                           # screen Y = oy + x k
+    oy = y0 + pad                             # screen Y = oy + x k
     grey = "{rgb,255:red,64;green,64;blue,64}"
 
     def S(x, y):
         return (ox - y * k, oy + x * k)
-    out = [r"\begin{scope}", r"\fill[white] %s rectangle %s;" % (f((x0, y0)), f((x1, y1)))]
+    out = [r"\begin{scope}", r"\fill[color={rgb,255:red,245;green,245;blue,245}] %s rectangle %s;" % (f((x0, y0)), f((x1, y1)))]
     for (xa, ya, xb, yb) in d["walls"]:
-        out.append(r"\draw[line width=0.35pt,color=%s] %s -- %s;" % (grey, f(S(xa, ya)), f(S(xb, yb))))
+        out.append(r"\draw[line width=0.3pt,color=%s] %s -- %s;" % (grey, f(S(xa, ya)), f(S(xb, yb))))
     for (x, y) in d["initial_positions"]:
         px_, py_ = S(x, y)
         out.append(r"\fill[color={rgb,255:red,190;green,190;blue,190}] (%.5f,%.5f) circle (%.5f);" % (px_, py_, 0.016 / c.cm))
     box = ov["lone_box_m"]
     a_, b_ = S(box["x"][0], box["y"][1]), S(box["x"][1], box["y"][0])
-    out.append(r"\draw[line width=0.4pt,color=black] %s rectangle %s;" % (f(a_), f(b_)))
+    out.append(r"\draw[line width=0.35pt,color=black] %s rectangle %s;" % (f(a_), f(b_)))
     for r_ in d["residual"]:
         cx, cy = S(*r_["pos"])
         col = r_["colour"].lstrip("#")
         out.append(r"\fill[color={rgb,255:red,%d;green,%d;blue,%d}] (%.5f,%.5f) circle (%.5f);" % (
             int(col[0:2], 16), int(col[2:4], 16), int(col[4:6], 16), cx, cy, max(r_["r"] * k, 0.03 / c.cm)))
-    # dimension line with the label for the 10 m side, in the strip
-    yl = y0 + strip * 0.5
-    xl0, xl1 = ox - 10 * k, ox
-    tw = 0.46 / c.cm                           # label width reserved
-    xm = (xl0 + xl1) / 2
-    tk = 0.03 / c.cm
-    for (xa, xb) in ((xl0, xm - tw / 2), (xm + tw / 2, xl1)):
-        out.append(r"\draw[line width=0.35pt,color=%s] (%.5f,%.5f) -- (%.5f,%.5f);" % (grey, xa, yl, xb, yl))
-    for xt in (xl0, xl1):
-        out.append(r"\draw[line width=0.35pt,color=%s] (%.5f,%.5f) -- (%.5f,%.5f);" % (grey, xt, yl - tk, xt, yl + tk))
-    out.append(r"\node[anchor=center,inner sep=0pt,font=%s,text=black!85] at (%.5f,%.5f) {10 m};" % (FONT, xm, yl))
-    out.append(r"\draw[line width=0.4pt,color=black] %s rectangle %s;" % (f((x0, y0)), f((x1, y1))))
+    out.append(r"\draw[line width=0.25pt,color=black] %s rectangle %s;" % (f((x0, y0)), f((x1, y1))))
     out.append(r"\end{scope}")
     return out, (x0, y0, x1, y1)
 
@@ -176,11 +163,11 @@ def label_checks(c, labels, png):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--overlay", default=str(ROOT / "figures/hero/fig1_overlay.json"))
+    ap.add_argument("--overlay", default=str(ROOT / "figures/hero/mock_v2/fig1_overlay_v2.json"))
     ap.add_argument("--inset", default=str(ROOT / "data/derived/hero/inset.json"))
-    ap.add_argument("--out", default=str(ROOT / "figures/fig1_overlay.tex"))
+    ap.add_argument("--out", default=str(ROOT / "figures/hero/mock_v2/fig1_overlay_v2.tex"))
     ap.add_argument("--png", default=None)
-    ap.add_argument("--inset-cm", type=float, default=1.55)
+    ap.add_argument("--inset-cm", type=float, default=1.40)
     a = ap.parse_args()
     ov = json.load(open(a.overlay))
     d = json.load(open(a.inset))
@@ -195,15 +182,14 @@ def main():
             L.append(grey_line(c, c.pt(panel, "base%d_0" % k), c.pt(panel, "base%d_1" % k)))
     # arrows
     stats = {}
-    for panel, names in (("lone", [("drive", "black"), ("wall", "wall"), ("orca", "orca")]),
-                         ("pair", [("drive", "black"), ("wall", "wall"), ("partner", "partner"), ("bias", "bias")])):
-        for n, col in names:
-            o, Lc = arrow(c, c.pt(panel, n + "_0"), c.pt(panel, n + "_1"), C[col], halo="dark" if col == "bias" else True,
-                          head_cm=0.16 if col != "bias" else 0.10)
+    for panel, names in (("lone", [("wall", "wall", True), ("drive", "black", True), ("orca", "orca", False), ("push", "push", False)]),
+                         ("pair", [("wall", "wall", True), ("partner", "partner", True), ("drive", "black", True)])):
+        for n, col, halo in names:
+            o, Lc = arrow(c, c.pt(panel, n + "_0"), c.pt(panel, n + "_1"), C[col], halo=halo)
             L += o
             stats[panel + "_" + n + "_cm"] = round(Lc, 3)
     # scale bars
-    L += bar(c, c.pt("lone", "scale100_0"), c.pt("lone", "scale100_1"))
+    L += bar(c, c.pt("lone", "scale100_0"), c.pt("lone", "scale100_1"))          # the cluster: shared lower-left corner
     L += bar(c, c.pt("lone", "scale_half_m_0"), c.pt("lone", "scale_half_m_1"))
     L += bar(c, c.pt("rib_lone", "scale_0"), c.pt("rib_lone", "scale_1"))
     L += bar(c, c.pt("rib_pair", "scale_0"), c.pt("rib_pair", "scale_1"))

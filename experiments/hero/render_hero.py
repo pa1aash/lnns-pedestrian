@@ -29,10 +29,9 @@ from mathutils import Vector
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data" / "derived" / "hero"
 A = None
-BG = (1.0, 1.0, 1.0)
+BG = (245 / 255, 245 / 255, 245 / 255)     # neutral off-white: all four panels and the weak-force floor (make_luts.BG)
 EDGE_RGB = (0.10, 0.10, 0.10)
 KERB_RGB = (0.62, 0.62, 0.60)
-INACCESSIBLE_RGB = (0.90, 0.90, 0.89)
 OKABE = {"black": (0.0, 0.0, 0.0), "blue": (0.0, 0.447, 0.698), "yellow": (0.941, 0.894, 0.259),
          "vermillion": (0.835, 0.369, 0.0)}
 
@@ -46,7 +45,7 @@ def parse():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
-    ap.add_argument("--overlay", default=str(ROOT / "figures" / "hero" / "fig1_overlay.json"))
+    ap.add_argument("--overlay", default=str(ROOT / "figures" / "hero" / "mock_v2" / "fig1_overlay_v2.json"))
     ap.add_argument("--width-px", type=int, default=900)
     ap.add_argument("--samples", type=int, default=24)
     ap.add_argument("--threads", type=int, default=2)
@@ -68,12 +67,14 @@ def parse():
     ap.add_argument("--edge", type=float, default=0.006, help="m, dark shading edge around each agent")
     ap.add_argument("--bevel", type=float, default=0.008, help="m, bevel on discs and kerbs")
     ap.add_argument("--margin-span", type=float, default=150.0)
-    ap.add_argument("--force-min", type=float, default=1.0)
+    ap.add_argument("--force-min", type=float, default=5.0, help="N, the floor is the background at and below this force")
+    ap.add_argument("--floor-diffuse", type=float, default=0.25, help="share of the LUT colour that is lit (soft shadows)")
+    ap.add_argument("--floor-emit", type=float, default=0.76, help="emission = 1 - floor_diffuse x (measured lit fraction 0.97): unshaded floor renders as its LUT colour")
     ap.add_argument("--force-max", type=float, default=1000.0)
     ap.add_argument("--arrow-m-per-n", type=float, default=0.003, help="floor metres per newton: 100 N = 0.30 m")
     # ribbons
-    ap.add_argument("--lone-x", default="9.55,10.0", help="m, door-axis range of the lone ribbons")
-    ap.add_argument("--lone-ej", type=float, default=30.0, help="J per cm of ribbon height (lone)")
+    ap.add_argument("--lone-x", default="9.45,10.0", help="m, door-axis range of the lone ribbons")
+    ap.add_argument("--lone-ej", type=float, default=45.0, help="J per cm of ribbon height (lone)")
     ap.add_argument("--pair-c", type=float, default=0.10, help="m, |common shift| of the pair ribbons")
     ap.add_argument("--pair-ej", type=float, default=1.0, help="J per cm of ribbon height (pair)")
     ap.add_argument("--rib-width-cm", type=float, default=4.1)
@@ -81,6 +82,8 @@ def parse():
     ap.add_argument("--rib-depth-cm", type=float, default=0.40)
     ap.add_argument("--ball-cm", type=float, default=0.11, help="ball radius")
     ap.add_argument("--rib-elev", type=float, default=12.0)
+    ap.add_argument("--cluster-u", type=float, default=0.30, help="cm from the lone panel's left edge: scale cluster corner")
+    ap.add_argument("--cluster-v", type=float, default=1.17, help="cm from the lone panel's top edge: scale cluster corner")
     ap.add_argument("--light", type=float, default=0.25)
     ap.add_argument("--world-strength", type=float, default=0.35)
     a = ap.parse_args(argv)
@@ -304,8 +307,18 @@ def floor_scene(D, anc, kind, extras):
     iy = (gy >= box[2] - 0.02) & (gy <= box[3] + 0.02)
     F = D["wall_back_N"][np.ix_(iy, ix)]
     feas = D["feasible"][np.ix_(iy, ix)]
-    rgb = ramp(np.log10(np.maximum(F, 1e-12)), math.log10(A.force_min), math.log10(A.force_max), "magma_r")
-    rgb[~feas] = INACCESSIBLE_RGB
+    UP = 2                                               # bilinear upsampling of the 0.5 cm force grid (smooth lobe edges)
+
+    def upsample(a, k=UP):
+        h, w = a.shape
+        yi, xi = (np.arange(h * k) + 0.5) / k - 0.5, (np.arange(w * k) + 0.5) / k - 0.5
+        tmp = np.array([np.interp(xi, np.arange(w), row) for row in a])
+        return np.array([np.interp(yi, np.arange(h), col) for col in tmp.T]).T
+    logF = upsample(np.log10(np.maximum(F, 1.0)))
+    mk = np.clip((upsample(feas.astype(float)) - 0.35) / 0.3, 0.0, 1.0)
+    rgb = ramp(logF, math.log10(A.force_min), math.log10(A.force_max), "floor")
+    rgb = np.asarray(BG, float) + mk[..., None] * (rgb - np.asarray(BG, float))   # probe would overlap a wall: plain floor
+    F = logF
     h_, w_ = F.shape
     img = bpy.data.images.new("floor", w_, h_, alpha=True)
     img.colorspace_settings.name = "sRGB"
@@ -319,7 +332,19 @@ def floor_scene(D, anc, kind, extras):
     uv = me.uv_layers.new()
     for li, (u, v) in enumerate([(0, 0), (1, 0), (1, 1), (0, 1)]):
         uv.data[li].uv = (u, v)
-    me.materials.append(material("floor", image=img, rough=0.9, spec=0.1))
+    fm = material("floor", image=img, rough=0.9, spec=0.1)
+    pb_ = fm.node_tree.nodes["Principled BSDF"]
+    tex_ = [n for n in fm.node_tree.nodes if n.type == "TEX_IMAGE"][0]
+    nt_ = fm.node_tree
+    nt_.links.new(tex_.outputs["Color"], pb_.inputs["Emission Color"])
+    pb_.inputs["Emission Strength"].default_value = A.floor_emit
+    mx_ = nt_.nodes.new("ShaderNodeMix")                  # diffuse share of the LUT colour: the floor keeps soft contact shading
+    mx_.data_type, mx_.blend_type = "RGBA", "MULTIPLY"
+    mx_.inputs["Factor"].default_value = 1.0
+    nt_.links.new(tex_.outputs["Color"], mx_.inputs[6])
+    mx_.inputs[7].default_value = (A.floor_diffuse,) * 3 + (1.0,)
+    nt_.links.new(mx_.outputs[2], pb_.inputs["Base Color"])
+    me.materials.append(fm)
     link(bpy.data.objects.new("floor", me))
     fb = (X0, X1, Y0, Y1)
     for k, w in enumerate(D["walls"]):
@@ -410,12 +435,13 @@ def ribbons_scene(spec, anc):
         zb0 = float(Z.min() - t - 0.10)
         anc.add("base%d_0" % k, (X[0], 0.0, zb0))
         anc.add("base%d_1" % k, (X[-1], 0.0, zb0))
-        anc.add("label%d" % k, (X[0], 0.0, float(Z[0]) + 0.05))
+        lead = X <= X[0] + 1.35                      # the label spans the first 1.35 cm: clear the curve's highest point there
+        anc.add("label%d" % k, (X[0], 0.0, float(Z[lead].max()) + 0.10))
         anc.add("curve%d_top" % k, (float(X[np.argmax(Z)]), 0.0, float(Z.max())))
         out[k] = dict(zmin=float(Z.min()), zmax=float(Z.max()), xs_ball=float(xs_ball))
         if spec.get("band") and k == spec["band"]["curve"]:
             kT = spec["band"]["kT"] / ej
-            xb = X0 + (spec["band"]["x"] - xlo) * hs - rb * 2.3
+            xb = X0 + (spec["band"]["x"] - xlo) * hs + rb * 2.6
             zb_floor = float(np.interp(xb, X, Z))
             bw = 0.05
             verts = [(xb - bw, -dep / 2 - 0.01, zb_floor), (xb + bw, -dep / 2 - 0.01, zb_floor),
@@ -478,10 +504,10 @@ def main():
     bl = int(np.nonzero(L["ids"] == L["blocker"])[0][0])
     pb = L["pos"][bl]
     drive = L["drive_N"][bl]
-    ar_lone = {"drive": (pb, drive), "wall": (pb, L["wall_N"][bl]),
-               "orca": (pb + drive * A.arrow_m_per_n, L["orca_N"])}
+    ar_lone = {"drive": (pb, drive), "wall": (pb, L["wall_N"][bl])}
     # ORCA starts at the tip of the drive arrow: expressed in world metres, convert back to a start point
     ar_lone["orca"] = (pb + drive * A.arrow_m_per_n, L["orca_N"])
+    ar_lone["push"] = (pb + drive * A.arrow_m_per_n, L["partner_N"][bl])      # neighbours' push (17.5 N), stacked on the drive tip
     sin_el = math.sin(math.radians(A.elev))
     wm = A.col_cm / A.cm_per_m
     x_top = A.x0 + A.row_cm / (A.cm_per_m * sin_el)
@@ -491,33 +517,33 @@ def main():
         """floor point at printed offset (u from the panel's left edge, v from its top edge), in metres"""
         return (x_top - v_cm / (A.cm_per_m * sin_el), y_max - u_cm / A.cm_per_m)
 
-    x100, y100 = scr(0.30, 1.27)
-    ar_lone["scale100"] = ((x100, y100), np.array([100.0, 0.0]))                      # parallel to the door axis
-    xh, yh = scr(1.40, 0.24)
-    ar_lone["scale_half_m"] = ((xh, yh), np.array([0.0, -0.5 / A.arrow_m_per_n]))     # 0.5 m along -y = to the screen right
+    # scale-bar cluster (free top-left corner below the panel tag): 100 N parallel to the door axis (foreshortened like the
+    # force arrows), 0.5 m along y (screen right), sharing the lower-left corner
+    x100, y100 = scr(A.cluster_u, A.cluster_v)
+    ar_lone["scale100"] = ((x100, y100), np.array([100.0, 0.0]))
+    ar_lone["scale_half_m"] = ((x100, y100), np.array([0.0, -0.5 / A.arrow_m_per_n]))
     pts_lone = {"coord_0": (A.x0 + 0.02, pb[1]), "coord_1": (x_top - 0.14, pb[1]), "blocker": (pb[0], pb[1]),
                 "n38": (L["pos"][1][0], L["pos"][1][1]), "n54": (L["pos"][2][0], L["pos"][2][1]),
-                "door": scr(3.55, 0.50), "box_x0": (A.x0, A.yc - wm / 2)}
+                "box_x0": (A.x0, A.yc - wm / 2)}
     k0, k1 = 0, 1                       # pair members: lower, upper
     mp = P["pos"][k0]
-    ar_pair = {"drive": (mp, P["drive_N"][k0]), "wall": (mp, P["wall_N"][k0]), "partner": (mp, P["partner_N"][k0]),
-               "bias": (mp + P["drive_N"][k0] * A.arrow_m_per_n, P["bias_N"][k0])}
+    ar_pair = {"drive": (mp, P["drive_N"][k0]), "wall": (mp, P["wall_N"][k0]), "partner": (mp, P["partner_N"][k0])}
     xm = float(np.mean(P["pos"][:, 0]))
     pts_pair = {"coord_0": (xm, A.yc - 1.0 + 0.1), "coord_1": (xm, A.yc + 1.0 - 0.1), "member0": tuple(P["pos"][0]),
                 "member1": tuple(P["pos"][1]), "between": (xm, float(np.mean(P["pos"][:, 1])))}
     # ---- ribbons
     xlo, xhi = [float(v) for v in A.lone_x.split(",")]
-    xf = float(L["pos"][bl][0])
+    xf = float(L["x_min_own"])        # the ball sits at the alone minimum (1.9 cm behind the frozen position: neighbours' push)
     x_rib = L["rib_x"]
     Uo, Ua = L["rib_Uown"], L["rib_Uadd"]
     rep = phys["lone"]["ribbon"]
-    spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "bar_J": 10.0, "gap_cm": 0.40,
+    spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "bar_J": 10.0, "gap_cm": 0.52,
                  "curves": [{"x": x_rib, "U": Uo, "x_ref": xf, "rgb": OKABE["black"], "ghost_x": None},
                             {"x": x_rib, "U": Ua, "x_ref": xf, "rgb": OKABE["blue"], "ghost_x": xhi - 0.012}],
                  "band": {"curve": 0, "kT": float(L["kT_J"]), "x": float(L["x_min_own"])}}
     cs, U0, Ub = P["rib_c"], P["rib_U0"], P["rib_Ub"]
     c0 = float(np.interp(0.0, cs, Ub))
-    spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "bar_J": 0.5, "gap_cm": 0.40,
+    spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "bar_J": 0.5, "gap_cm": 0.52,
                  "curves": [{"x": cs, "U": U0, "x_ref": 0.0, "rgb": OKABE["black"], "ghost_x": None},
                             {"x": cs, "U": Ub, "x_ref": 0.0, "rgb": OKABE["yellow"], "ghost_x": A.pair_c - 0.006}]}
     jobs = {"lone": lambda anc: floor_scene(L, anc, "lone", {"arrows": ar_lone, "points": pts_lone}),

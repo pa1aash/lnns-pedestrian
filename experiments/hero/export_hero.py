@@ -49,7 +49,7 @@ def hexcol(name, v, lo, hi):
     return "#%02X%02X%02X" % (r, g, b)
 
 
-def floor_field(snap, r_probe=0.25, step=0.01, x=(8.8, 11.0), y=(3.6, 6.4)):
+def floor_field(snap, r_probe=0.25, step=0.005, x=(8.8, 11.0), y=(3.6, 6.4)):
     """Backward wall force on a lone probe agent of radius r_probe at rest at every grid point, from the
     WallForces the simulator builds for this snapshot (same law, parameters, corner rule)."""
     hm, _ = hp.model_of(snap)
@@ -101,6 +101,8 @@ def export_lone(rep):
     x, Uo, Ua = rb["x"], rb["U_own"], rb["U_added"]
     mins_o, maxs_o = hp.stationary_points(x, Uo)
     mins_a, maxs_a = hp.stationary_points(x, Ua)
+    mins_aa, maxs_aa = hp.stationary_points(x, rb["U_added_alone"])
+    vs_model = hp.check_ribbon_vs_model(snap, blocker, rb)
     xf = float(st.positions[blocker, 0])
     U0o = float(np.interp(mins_o[0], x, Uo))
     barrier = float(np.interp(maxs_o[0], x, Uo)) - U0o
@@ -121,6 +123,10 @@ def export_lone(rep):
         "net_force_alone_at_frozen_N": float(rb["c"] + np.interp(xf, x, rb["wall_Fx"])),
         "added_has_no_stationary_point": bool(not mins_a and not maxs_a),
         "added_dimple": dimple,
+        "added_alone_dimple": {"x_min": mins_aa, "x_max": maxs_aa,
+                               "depth_J": float(np.interp(maxs_aa[0], x, rb["U_added_alone"]) - np.interp(mins_aa[0], x, rb["U_added_alone"])) if mins_aa else 0.0},
+        "neighbour_push_Fx_N_at_frozen_and_along": [float(np.interp(v, x, rb["push_Fx"])) for v in (xf, 9.75, 9.79, 9.86)],
+        "ribbon_vs_code_force": vs_model,
         "added_U_drop_frozen_to_x_end_J": float(np.interp(xf, x, Ua) - Ua[-1]),
         "kT_eff_J": kT, "sigma_m_s": SIGMA_T, "tau_s": float(tau), "kT_over_barrier": kT / barrier,
         "c_own_N": rb["c"], "c_orca_N": rb["c_orca"], "w_o": rb["w_o"], "tau_orca_s": 0.5,
@@ -148,7 +154,7 @@ def export_lone(rep):
                         pos=st.positions[ids], radius=st.radii[ids], margin_N=margin,
                         drive_N=F["drive"], wall_N=F["wall"], partner_N=F["partner"], orca_N=F_orca,
                         walls=walls_array(world), width=snap["width"],
-                        rib_x=x, rib_Uown=Uo, rib_Uadd=Ua, rib_y=rb["y"],
+                        rib_x=x, rib_Uown=Uo, rib_Uadd=Ua, rib_Uadd_alone=rb["U_added_alone"], rib_y=rb["y"],
                         kT_J=kT, x_min_own=mins_o[0], x_top_own=maxs_o[0], **ff)
     rep["lone"] = {"snapshot": rel(LONE_SNAP), "time_s": snap["time"], "ids": ids, "blocker": blocker,
                    "pos": st.positions[ids].round(4).tolist(), "r": st.radii[ids].round(4).tolist(),

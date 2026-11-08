@@ -37,7 +37,7 @@
    "B_w": 0.08,
    "corner": "convex_union"
   },
-  "floor_gmax_probe_grid_N": 155.63804661601074,
+  "floor_gmax_probe_grid_N": 155.63804661600807,
   "floor_gmax_probe_passability_N": 155.64768277877613,
   "force_balance": {
    "max_abs_total_N": 0.00023316257807894786,
@@ -96,8 +96,9 @@
    "own_U_frozen_above_min_J": 0.1638279671387295,
    "gate_frozen_neighbours_barrier_J": 21.208647449038466,
    "net_force_alone_at_frozen_N": -17.47127495448848,
-   "added_has_no_stationary_point": false,
-   "added_dimple": {
+   "added_has_no_stationary_point": true,
+   "added_dimple": null,
+   "added_alone_dimple": {
     "x_min": [
      9.790626426231741
     ],
@@ -106,7 +107,31 @@
     ],
     "depth_J": 0.5312233074837991
    },
-   "added_U_drop_frozen_to_x_end_J": 204.58245713953733,
+   "neighbour_push_Fx_N_at_frozen_and_along": [
+    17.471411459476798,
+    24.65251490849878,
+    25.418890769103236,
+    23.79831770562638
+   ],
+   "ribbon_vs_code_force": {
+    "alone": {
+     "max_abs_diff_N": 3.361719791428186e-10,
+     "max_abs_diff_N_all_x": 3.361719791428186e-10,
+     "x_of_max_diff_all": 9.66000000000044,
+     "min_Fx_N": -10.43659029861692,
+     "sign_changes": 2,
+     "x_from": 9.55
+    },
+    "neighbours_pinned": {
+     "max_abs_diff_N": 3.361719791428186e-10,
+     "max_abs_diff_N_all_x": 119.04202179685174,
+     "x_of_max_diff_all": 9.3,
+     "min_Fx_N": 14.690069149094938,
+     "sign_changes": 0,
+     "x_from": 9.55
+    }
+   },
+   "added_U_drop_frozen_to_x_end_J": 214.32111744189893,
    "kT_eff_J": 10.222607167721021,
    "sigma_m_s": 0.07,
    "tau_s": 0.5165127155495125,
@@ -285,7 +310,7 @@
    0.15031152950035676,
    0.29216323479025164
   ],
-  "ribbon_seconds": 4.3
+  "ribbon_seconds": 7.1
  },
- "seconds": 4.9
+ "seconds": 8.5
 }

@@ -1,0 +1,22 @@
+{
+ "floor_bg_rgb": [
+  245.0,
+  245.0,
+  245.0
+ ],
+ "floor_dark_end_hex": "#51127C",
+ "floor_orange_end_hex": "#FD9668",
+ "F_fade_N": 5.0,
+ "F_max_N": 1000.0,
+ "held_alone_cividis_yellow": {
+  "rgb_hex": "#FEE434",
+  "min_dE2000": 28.820092117953273,
+  "at_force_N": 5.904174444755297
+ },
+ "lateral_bias_F0E442": {
+  "rgb_hex": "#F0E442",
+  "min_dE2000": 28.442877023161035,
+  "at_force_N": 5.547384127383158
+ },
+ "min_dE2000_overall": 28.442877023161035
+}

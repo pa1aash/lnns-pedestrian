@@ -1,0 +1,14 @@
+% Standalone compile of hero mock v2 at the paper's text width (12.2 cm). From the repository root:
+%   pdflatex -output-directory figures/hero/mock_v2 figures/hero/mock_v2/fig1_mock_v2.tex
+\documentclass[border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\newcommand{\figdir}{figures/}
+\newcommand{\heroimage}{figures/hero/mock_v2/fig1_hero_mock_v2.png}
+\newcommand{\overlayfile}{figures/hero/mock_v2/fig1_overlay_v2.tex}
+\begin{document}
+\setlength{\textwidth}{12.2cm}%
+\input{figures/fig1_hero.tex}
+\end{document}

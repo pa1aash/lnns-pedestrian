@@ -173,8 +173,64 @@ def lone_ribbon(snap, i, tau_orca=0.5, x0=9.30, x1=10.40, step=0.0005):
     w_o = 1.0 - 1.0 / (1.0 + np.exp(-2.0 * (rho - 4.0)))
     co = w_o * m * v0 / tau_orca
     dist = np.hypot(G[0] - xs, G[1] - y)
+    # neighbours' push: the agent-agent force from the other held agents pinned at their frozen positions, x component
+    # along the same line (4C found a 0.53 J dimple without it; the push, 17.5 -> 25 N, is larger than the 11 N shortfall)
+    st2 = copy.deepcopy(st)
+    st2.velocities[:] = 0
+    act = [int(j) for j in st.active_indices]
+    nl = [[] for _ in range(st2.n)]
+    for a in act:
+        nl[a] = [j for j in act if j != a and np.linalg.norm(st.positions[j] - st.positions[a]) <= 3.0]
+    xc = xs[::10]
+    Fc = np.empty(len(xc))
+    for k, xv in enumerate(xc):
+        st2.positions[i, 0] = xv
+        Fc[k] = hm.sfm.compute_agent_forces(st2, nl)[i, 0]
+    Fp = np.interp(xs, xc, Fc)
+    Up = -np.concatenate([[0.0], np.cumsum(0.5 * (Fp[1:] + Fp[:-1]) * np.diff(xs))])
     return {"x": xs, "y": y, "r": r, "v0": v0, "tau": tau, "m": m, "rho": float(rho), "c": c, "c_orca": co, "w_o": float(w_o),
-            "U_own": c * dist + Uw, "U_added": (c + co) * dist + Uw, "wall_Fx": Fw}
+            "U_own": c * dist + Uw, "U_added_alone": (c + co) * dist + Uw, "U_added": (c + co) * dist + Uw + Up,
+            "wall_Fx": Fw, "push_Fx": Fp}
+
+
+def check_ribbon_vs_model(snap, i, rb, config="C3", x_from=9.55):
+    """The code's full hybrid (C3, rvo2) force on agent i along the ribbon line at rest, density frozen, against the
+    ribbon's force (-dU/dx): alone (others inactive) and with the neighbours pinned. Returns max |difference| (N) and the
+    minimum x force along the line for each case."""
+    st = snap["state"]
+    params = dict(snap["params"])
+    params.update(CF)
+    hm = HybridSteeringModel(get_config(config), params)
+    world = world_of(snap)
+    ids = sorted(int(j) for j in st.active_indices)
+    rho = frozen_rho(st, ids)[ids.index(i)]
+    xs = rb["x"][::40]
+    e_x = (G[0] - xs) / np.hypot(G[0] - xs, G[1] - rb["y"])
+    pred_alone = (rb["c"] + rb["c_orca"]) * e_x + np.interp(xs, rb["x"], rb["wall_Fx"])
+    pred_nb = pred_alone + np.interp(xs, rb["x"], rb["push_Fx"])
+    out = {}
+    for name, nb, pred in (("alone", False, pred_alone), ("neighbours_pinned", True, pred_nb)):
+        Fx = np.empty(len(xs))
+        for k, xv in enumerate(xs):
+            s = copy.deepcopy(st)
+            s.velocities[:] = 0
+            s.positions[i, 0] = xv
+            act = [i] + ([j for j in ids if j != i] if nb else [])
+            for j in ids:
+                if j not in act:
+                    s.active[j] = False
+            nl = [[] for _ in range(s.n)]
+            for a in act:
+                nl[a] = [j for j in act if j != a]
+            dens = np.zeros(s.n)
+            dens[act] = rho
+            Fx[k] = hm.compute_forces(s, nl, world.walls, dens)[i, 0]
+        d = np.abs(Fx - pred)
+        keep = xs >= x_from                       # the drawn range; left of it the blocker is beside the neighbours (ORCA constraints)
+        out[name] = {"max_abs_diff_N": float(d[keep].max()), "max_abs_diff_N_all_x": float(d.max()),
+                     "x_of_max_diff_all": float(xs[d.argmax()]), "min_Fx_N": float(Fx[keep].min()),
+                     "sign_changes": int(np.sum(np.sign(Fx[keep][1:]) != np.sign(Fx[keep][:-1]))), "x_from": x_from}
+    return out
 
 
 def stationary_points(x, U):
