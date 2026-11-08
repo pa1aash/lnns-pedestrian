@@ -1,0 +1,2570 @@
+{
+ "script": "experiments/BAR/gate.py",
+ "doc": "Barrier validity gate (plan change C15a): re-checks every BAR result before E3 / E4 use it.\n\nFor each E2 snapshot and condition (alone, frozen, full = all_mobile) the minimum-energy path is\nrecomputed with the BAR field, end points and step cap (experiments/BAR/bar.py), and the barrier is\naccepted only if:\n  (i)   the string has converged: F_perp_max, the largest norm over the uphill interior images (trapped\n        minimum to one image past the top) of the gradient component perpendicular to the path (all\n        mobile coordinates; upwind tangent), is below F_TOL = 5 N (about 2.5% of the blocker's drive);\n        the sum over those images is recorded; the climbing image reaches |grad U| < 1e-2 N; and the climbing-\n        image barrier changes by less than 1% when the number of images is doubled (31 -> 62);\n  (ii)  the final image is an exit state (blocker centre past the door plane, x >= 10) and the saddle\n        has no agent-agent overlap deeper than 2 cm;\n  (iii) alone only: the barrier agrees with the 1-D on-axis integral (BAR dU_1d_axis_alone) to 1%.\nConvergence schedule: BAR's 1500 string iterations at alpha = 4e-5, then, while F_perp_max >= F_TOL,\nup to two blocks of 500 iterations at alpha = 1e-5. The climbing image is\nrefined as in BAR (|grad U| < 1e-2 N), with alpha / 4 if that does not converge.\nFrozen barrier more than 1.5x the alone barrier: recomputed from a second initial path (blocker from its\nminimum straight onto the door axis y = 5, then along the axis to x = 10.35), relaxed first with the\npinned neighbours displaced off that path (initial guess only) and then in the true field; the lower of\nthe accepted values is kept. For frozen and full the saddle's squeeze geometry is recorded (the other\nresidual agent with the smallest surface gap to the blocker, its position, the gap, and the blocker's\nclearance to the nearest wall).\nA failed (snapshot, condition) gets no noise amplitude: E3 / E4 skip it (selection.py, e4_escape.py).\nOne-agent snapshots: the three conditions are the same field (density 0 either way), computed once.\nOutput: data/BAR/gate.jsonl (resumable, one line per snapshot), data/BAR/barriers_gated.json.\n",
+ "n": 60,
+ "failed": [
+  {
+   "tag": "E1b_seed100",
+   "cond": "alone",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed100",
+   "cond": "frozen",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed100",
+   "cond": "full",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed108",
+   "cond": "alone",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1.5e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed108",
+   "cond": "frozen",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1.5e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed108",
+   "cond": "full",
+   "reasons": [
+    "alone vs 1-D on-axis differs by 1.5e+14%"
+   ]
+  },
+  {
+   "tag": "E1b_seed111",
+   "cond": "full",
+   "reasons": [
+    "image doubling changes the barrier by 1e+02%"
+   ]
+  },
+  {
+   "tag": "E1b_seed172",
+   "cond": "full",
+   "reasons": [
+    "string not converged (F_perp_max 54.4 / 1.92 N)",
+    "climbing image not converged"
+   ]
+  },
+  {
+   "tag": "E1b_seed174",
+   "cond": "full",
+   "reasons": [
+    "string not converged (F_perp_max 15.7 / 8.74 N)"
+   ]
+  },
+  {
+   "tag": "E1b_seed186",
+   "cond": "full",
+   "reasons": [
+    "string not converged (F_perp_max 129 / 10.3 N)"
+   ]
+  },
+  {
+   "tag": "E1b_seed209",
+   "cond": "full",
+   "reasons": [
+    "image doubling changes the barrier by 5.7%"
+   ]
+  },
+  {
+   "tag": "E1b_seed239",
+   "cond": "full",
+   "reasons": [
+    "string not converged (F_perp_max 12.6 / 0.264 N)"
+   ]
+  },
+  {
+   "tag": "E1b_seed46",
+   "cond": "full",
+   "reasons": [
+    "string not converged (F_perp_max 37.5 / 2.26 N)"
+   ]
+  },
+  {
+   "tag": "E1b_seed60",
+   "cond": "full",
+   "reasons": [
+    "image doubling changes the barrier by 1e+02%"
+   ]
+  },
+  {
+   "tag": "E1b_seed75",
+   "cond": "full",
+   "reasons": [
+    "image doubling changes the barrier by 11%"
+   ]
+  }
+ ],
+ "barriers": {
+  "E1b_seed100": {
+   "alone": {
+    "accepted": false,
+    "dU": 1.0047704364444883,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1e+14%"
+    ],
+    "dU_bar": 1.0047704364444883,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": false,
+    "dU": 1.0047704364444883,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1e+14%"
+    ],
+    "dU_bar": 1.0047704364444883,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": false,
+    "dU": 1.0047704364444883,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1e+14%"
+    ],
+    "dU_bar": 1.0047704364444883,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed103": {
+   "alone": {
+    "accepted": true,
+    "dU": 2.7426073251006073,
+    "reasons": [],
+    "dU_bar": 2.7426073251006073,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 0.2237075998370699,
+    "reasons": [],
+    "dU_bar": 0.2237075998370699,
+    "squeeze": {
+     "neighbour": 74,
+     "neighbour_pos": [
+      9.492642186435178,
+      5.735111366267958
+     ],
+     "gap_m": 0.28556838327611184,
+     "blocker_saddle_pos": [
+      9.857403897115832,
+      4.991896944814448
+     ],
+     "blocker_wall_clearance_m": 0.14931316908707154
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.08255991863921963,
+    "reasons": [],
+    "dU_bar": 0.08255991863921963,
+    "squeeze": {
+     "neighbour": 74,
+     "neighbour_pos": [
+      9.48971392898468,
+      5.717994320428404
+     ],
+     "gap_m": 0.26634208944870635,
+     "blocker_saddle_pos": [
+      9.83834909122328,
+      4.9883320355967
+     ],
+     "blocker_wall_clearance_m": 0.15291355151519553
+    },
+    "path": null
+   }
+  },
+  "E1b_seed104": {
+   "alone": {
+    "accepted": true,
+    "dU": 39.29585388615618,
+    "reasons": [],
+    "dU_bar": 39.29585388615618,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 23.68712593038464,
+    "reasons": [],
+    "dU_bar": 23.68712593038464,
+    "squeeze": {
+     "neighbour": 38,
+     "neighbour_pos": [
+      9.500218438334008,
+      4.266872602351844
+     ],
+     "gap_m": 0.28024380204540467,
+     "blocker_saddle_pos": [
+      9.938950999535312,
+      5.001866139508023
+     ],
+     "blocker_wall_clearance_m": 0.08560826777460012
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 5.270302267049146,
+    "reasons": [],
+    "dU_bar": 5.270302267049146,
+    "squeeze": {
+     "neighbour": 38,
+     "neighbour_pos": [
+      9.260746758804029,
+      4.398167384625272
+     ],
+     "gap_m": 0.19780660926821592,
+     "blocker_saddle_pos": [
+      9.734434621458076,
+      5.0097131988912675
+     ],
+     "blocker_wall_clearance_m": 0.1548896333732382
+    },
+    "path": null
+   }
+  },
+  "E1b_seed107": {
+   "alone": {
+    "accepted": true,
+    "dU": 9.560509741143278,
+    "reasons": [],
+    "dU_bar": 9.560509741143278,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 6.697849447706972,
+    "reasons": [],
+    "dU_bar": 6.697849447706972,
+    "squeeze": {
+     "neighbour": 20,
+     "neighbour_pos": [
+      9.531859198844916,
+      4.23639579744613
+     ],
+     "gap_m": 0.3224488770594828,
+     "blocker_saddle_pos": [
+      9.904925076920911,
+      5.002717195207591
+     ],
+     "blocker_wall_clearance_m": 0.10923825586377683
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 5.796685638675058,
+    "reasons": [],
+    "dU_bar": 5.7966856358569885,
+    "squeeze": {
+     "neighbour": 20,
+     "neighbour_pos": [
+      9.521157386617222,
+      4.293272852606346
+     ],
+     "gap_m": 0.2744165360965617,
+     "blocker_saddle_pos": [
+      9.89557978990448,
+      5.005076923988888
+     ],
+     "blocker_wall_clearance_m": 0.10923207254844519
+    },
+    "path": null
+   }
+  },
+  "E1b_seed108": {
+   "alone": {
+    "accepted": false,
+    "dU": 1.4887700115750988,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1.5e+14%"
+    ],
+    "dU_bar": 1.4887700115750988,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": false,
+    "dU": 1.4887700115750988,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1.5e+14%"
+    ],
+    "dU_bar": 1.4887700115750988,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": false,
+    "dU": 1.4887700115750988,
+    "reasons": [
+     "alone vs 1-D on-axis differs by 1.5e+14%"
+    ],
+    "dU_bar": 1.4887700115750988,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed111": {
+   "alone": {
+    "accepted": true,
+    "dU": 14.621331364560064,
+    "reasons": [],
+    "dU_bar": 14.621331364560064,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 56.44704928622414,
+    "reasons": [],
+    "dU_bar": 56.44704928622414,
+    "squeeze": {
+     "neighbour": 44,
+     "neighbour_pos": [
+      9.499747264392175,
+      5.4756612206567485
+     ],
+     "gap_m": 0.08790770971709028,
+     "blocker_saddle_pos": [
+      9.803498179235435,
+      4.901787765853196
+     ],
+     "blocker_wall_clearance_m": 0.07475016743419488
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": -3.069544618483633e-12,
+    "reasons": [
+     "image doubling changes the barrier by 1e+02%"
+    ],
+    "dU_bar": 0.5569873543583412,
+    "squeeze": {
+     "neighbour": 44,
+     "neighbour_pos": [
+      9.49974726260533,
+      5.4756612001359395
+     ],
+     "gap_m": 0.3163043095985326,
+     "blocker_saddle_pos": [
+      9.504331610697495,
+      4.597972822185551
+     ],
+     "blocker_wall_clearance_m": 0.21029521511267701
+    },
+    "path": null
+   }
+  },
+  "E1b_seed112": {
+   "alone": {
+    "accepted": true,
+    "dU": 11.314580291990694,
+    "reasons": [],
+    "dU_bar": 11.314580291990694,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.2642815777679743,
+    "reasons": [],
+    "dU_bar": 2.2642815777679743,
+    "squeeze": {
+     "neighbour": 50,
+     "neighbour_pos": [
+      9.448590914406655,
+      4.185610183810956
+     ],
+     "gap_m": 0.2922044997154397,
+     "blocker_saddle_pos": [
+      9.890336304851385,
+      5.000416756718012
+     ],
+     "blocker_wall_clearance_m": 0.1135385028440099
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.5991834725374474,
+    "reasons": [],
+    "dU_bar": 0.5991834725374474,
+    "squeeze": {
+     "neighbour": 50,
+     "neighbour_pos": [
+      9.443985740172607,
+      4.222841709298515
+     ],
+     "gap_m": 0.24381944853855975,
+     "blocker_saddle_pos": [
+      9.851445837593026,
+      5.001092869222564
+     ],
+     "blocker_wall_clearance_m": 0.12485042970121007
+    },
+    "path": null
+   }
+  },
+  "E1b_seed113": {
+   "alone": {
+    "accepted": true,
+    "dU": 43.04249365844339,
+    "reasons": [],
+    "dU_bar": 43.04249365844339,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 17.021774612325203,
+    "reasons": [],
+    "dU_bar": 17.021774612325203,
+    "squeeze": {
+     "neighbour": 66,
+     "neighbour_pos": [
+      9.535444311158706,
+      4.224530255862835
+     ],
+     "gap_m": 0.2782906248829167,
+     "blocker_saddle_pos": [
+      9.935021939436826,
+      5.000196836836742
+     ],
+     "blocker_wall_clearance_m": 0.08146776258981497
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 6.330431202292857,
+    "reasons": [],
+    "dU_bar": 6.330431202216914,
+    "squeeze": {
+     "neighbour": 66,
+     "neighbour_pos": [
+      9.528484307397548,
+      4.285897488804788
+     ],
+     "gap_m": 0.19727641747339392,
+     "blocker_saddle_pos": [
+      9.86446425847557,
+      5.002574475311829
+     ],
+     "blocker_wall_clearance_m": 0.09631989232188248
+    },
+    "path": null
+   }
+  },
+  "E1b_seed114": {
+   "alone": {
+    "accepted": true,
+    "dU": 16.06294569995339,
+    "reasons": [],
+    "dU_bar": 16.06294569995339,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 16.06294569995339,
+    "reasons": [],
+    "dU_bar": 16.06294569995339,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 16.06294569995339,
+    "reasons": [],
+    "dU_bar": 16.06294569995339,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed120": {
+   "alone": {
+    "accepted": true,
+    "dU": 5.624149307498556,
+    "reasons": [],
+    "dU_bar": 5.624149307498556,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 3.2205269071633325,
+    "reasons": [],
+    "dU_bar": 3.2205269071633325,
+    "squeeze": {
+     "neighbour": 33,
+     "neighbour_pos": [
+      9.529227976147679,
+      4.249415808927204
+     ],
+     "gap_m": 0.32157952102542775,
+     "blocker_saddle_pos": [
+      9.891879505333417,
+      5.003335134470141
+     ],
+     "blocker_wall_clearance_m": 0.1226885263366585
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 2.6174126500639545,
+    "reasons": [],
+    "dU_bar": 2.6174126807507605,
+    "squeeze": {
+     "neighbour": 33,
+     "neighbour_pos": [
+      9.520783338854708,
+      4.296420037017661
+     ],
+     "gap_m": 0.2807694951233386,
+     "blocker_saddle_pos": [
+      9.881478810587183,
+      5.0057795000960255
+     ],
+     "blocker_wall_clearance_m": 0.12320386929417493
+    },
+    "path": null
+   }
+  },
+  "E1b_seed128": {
+   "alone": {
+    "accepted": true,
+    "dU": 33.51516197273651,
+    "reasons": [],
+    "dU_bar": 33.51516197273651,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 29.603683882550342,
+    "reasons": [],
+    "dU_bar": 29.603683882550342,
+    "squeeze": {
+     "neighbour": 26,
+     "neighbour_pos": [
+      9.555497949970098,
+      4.225730044363805
+     ],
+     "gap_m": 0.318690741170095,
+     "blocker_saddle_pos": [
+      9.938034692042036,
+      5.001846096267253
+     ],
+     "blocker_wall_clearance_m": 0.07810594521864761
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 28.126054517630905,
+    "reasons": [],
+    "dU_bar": 28.126054503173464,
+    "squeeze": {
+     "neighbour": 26,
+     "neighbour_pos": [
+      9.537792645531495,
+      4.296075778972776
+     ],
+     "gap_m": 0.2632344370119907,
+     "blocker_saddle_pos": [
+      9.931639184027729,
+      5.003664322139638
+     ],
+     "blocker_wall_clearance_m": 0.07734699198792594
+    },
+    "path": null
+   }
+  },
+  "E1b_seed130": {
+   "alone": {
+    "accepted": true,
+    "dU": 14.924606562342063,
+    "reasons": [],
+    "dU_bar": 14.924606562342063,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 86.33659864641606,
+    "reasons": [],
+    "dU_bar": 86.33659864641606,
+    "squeeze": {
+     "neighbour": 30,
+     "neighbour_pos": [
+      9.504431717014262,
+      4.546208924163696
+     ],
+     "gap_m": 0.06275007561368096,
+     "blocker_saddle_pos": [
+      9.810351092707304,
+      5.112354597576481
+     ],
+     "blocker_wall_clearance_m": 0.05257291933789837
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.1833046060330616,
+    "reasons": [],
+    "dU_bar": 1.1833045989549191,
+    "squeeze": {
+     "neighbour": 30,
+     "neighbour_pos": [
+      9.473745496725806,
+      4.2861424253048215
+     ],
+     "gap_m": 0.2595043678412342,
+     "blocker_saddle_pos": [
+      9.90684557663748,
+      5.006192162454555
+     ],
+     "blocker_wall_clearance_m": 0.11271032113817836
+    },
+    "path": null
+   }
+  },
+  "E1b_seed132": {
+   "alone": {
+    "accepted": true,
+    "dU": 19.009994190412556,
+    "reasons": [],
+    "dU_bar": 19.009994190412556,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 19.009994190412556,
+    "reasons": [],
+    "dU_bar": 19.009994190412556,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 19.009994190412556,
+    "reasons": [],
+    "dU_bar": 19.009994190412556,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed140": {
+   "alone": {
+    "accepted": true,
+    "dU": 10.679618855105645,
+    "reasons": [],
+    "dU_bar": 10.679618855105645,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 10.679618855105645,
+    "reasons": [],
+    "dU_bar": 10.679618855105645,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 10.679618855105645,
+    "reasons": [],
+    "dU_bar": 10.679618855105645,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed141": {
+   "alone": {
+    "accepted": true,
+    "dU": 2.3954979034218127,
+    "reasons": [],
+    "dU_bar": 2.3954979034218127,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.3954979034218127,
+    "reasons": [],
+    "dU_bar": 2.3954979034218127,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 2.3954979034218127,
+    "reasons": [],
+    "dU_bar": 2.3954979034218127,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed150": {
+   "alone": {
+    "accepted": true,
+    "dU": 4.0220355945768915,
+    "reasons": [],
+    "dU_bar": 4.0220355945768915,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 4.0220355945768915,
+    "reasons": [],
+    "dU_bar": 4.0220355945768915,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 4.0220355945768915,
+    "reasons": [],
+    "dU_bar": 4.0220355945768915,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed155": {
+   "alone": {
+    "accepted": true,
+    "dU": 23.666524039961615,
+    "reasons": [],
+    "dU_bar": 23.666524039961615,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 23.666524039961615,
+    "reasons": [],
+    "dU_bar": 23.666524039961615,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 23.666524039961615,
+    "reasons": [],
+    "dU_bar": 23.666524039961615,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed158": {
+   "alone": {
+    "accepted": true,
+    "dU": 44.145615655870046,
+    "reasons": [],
+    "dU_bar": 44.145615655870046,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 20.716024807816382,
+    "reasons": [],
+    "dU_bar": 20.716024807816382,
+    "squeeze": {
+     "neighbour": 27,
+     "neighbour_pos": [
+      9.546304710358232,
+      4.23175092398307
+     ],
+     "gap_m": 0.2954762851205363,
+     "blocker_saddle_pos": [
+      9.94768367989395,
+      5.002136951401119
+     ],
+     "blocker_wall_clearance_m": 0.0883289740958107
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.5364166663862306,
+    "reasons": [],
+    "dU_bar": 1.5364166663862306,
+    "squeeze": {
+     "neighbour": 50,
+     "neighbour_pos": [
+      9.226061968808844,
+      5.542447574388803
+     ],
+     "gap_m": 0.20862782191553347,
+     "blocker_saddle_pos": [
+      9.778521228407035,
+      5.003247043729566
+     ],
+     "blocker_wall_clearance_m": 0.14142607305918714
+    },
+    "path": null
+   }
+  },
+  "E1b_seed162": {
+   "alone": {
+    "accepted": true,
+    "dU": 20.753059771050403,
+    "reasons": [],
+    "dU_bar": 20.753059771050403,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 11.37425178895802,
+    "reasons": [],
+    "dU_bar": 11.37425178895802,
+    "squeeze": {
+     "neighbour": 63,
+     "neighbour_pos": [
+      9.497464971253564,
+      4.208376030494252
+     ],
+     "gap_m": 0.31213629696704337,
+     "blocker_saddle_pos": [
+      9.92641514667289,
+      5.001479638347212
+     ],
+     "blocker_wall_clearance_m": 0.11392070285840833
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 6.499151625057834,
+    "reasons": [],
+    "dU_bar": 6.499151624070123,
+    "squeeze": {
+     "neighbour": 63,
+     "neighbour_pos": [
+      9.485857578162003,
+      4.280438699061619
+     ],
+     "gap_m": 0.2395939650922625,
+     "blocker_saddle_pos": [
+      9.892593532801081,
+      5.002948993187642
+     ],
+     "blocker_wall_clearance_m": 0.11998556997133486
+    },
+    "path": null
+   }
+  },
+  "E1b_seed170": {
+   "alone": {
+    "accepted": true,
+    "dU": 34.34308770974587,
+    "reasons": [],
+    "dU_bar": 34.34308770974587,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 18.303955855786825,
+    "reasons": [],
+    "dU_bar": 18.303955855786825,
+    "squeeze": {
+     "neighbour": 85,
+     "neighbour_pos": [
+      9.409343735893003,
+      4.277152646614255
+     ],
+     "gap_m": 0.30595638633076655,
+     "blocker_saddle_pos": [
+      9.939016958419232,
+      5.00126252586234
+     ],
+     "blocker_wall_clearance_m": 0.09570609721101181
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.1282046508346184,
+    "reasons": [],
+    "dU_bar": 0.1282046508346184,
+    "squeeze": {
+     "neighbour": 85,
+     "neighbour_pos": [
+      9.340726361608885,
+      4.312890519296114
+     ],
+     "gap_m": 0.20669695864803866,
+     "blocker_saddle_pos": [
+      9.713025883601027,
+      5.018604316065368
+     ],
+     "blocker_wall_clearance_m": 0.16963378897657783
+    },
+    "path": null
+   }
+  },
+  "E1b_seed172": {
+   "alone": {
+    "accepted": true,
+    "dU": 40.16400757700666,
+    "reasons": [],
+    "dU_bar": 40.16400757700666,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 9.08899485110038,
+    "reasons": [],
+    "dU_bar": 9.08899485110038,
+    "squeeze": {
+     "neighbour": 75,
+     "neighbour_pos": [
+      9.592607252803548,
+      4.213784816528867
+     ],
+     "gap_m": 0.2630982891738247,
+     "blocker_saddle_pos": [
+      9.922957732387102,
+      5.001247015090373
+     ],
+     "blocker_wall_clearance_m": 0.07049874672973538
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": 1.8326255375254732,
+    "reasons": [
+     "string not converged (F_perp_max 54.4 / 1.92 N)",
+     "climbing image not converged"
+    ],
+    "dU_bar": 1.8276287267535736,
+    "squeeze": {
+     "neighbour": 22,
+     "neighbour_pos": [
+      9.131044557124614,
+      5.329852151844179
+     ],
+     "gap_m": 0.20636347625630713,
+     "blocker_saddle_pos": [
+      9.850336124963276,
+      5.002015357712165
+     ],
+     "blocker_wall_clearance_m": 0.0895666695692805
+    },
+    "path": null
+   }
+  },
+  "E1b_seed174": {
+   "alone": {
+    "accepted": true,
+    "dU": 48.35045592208738,
+    "reasons": [],
+    "dU_bar": 48.35045592208738,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 33.91150522618011,
+    "reasons": [],
+    "dU_bar": 33.91150522618011,
+    "squeeze": {
+     "neighbour": 84,
+     "neighbour_pos": [
+      9.51420469438149,
+      4.246977131654446
+     ],
+     "gap_m": 0.2981256092566604,
+     "blocker_saddle_pos": [
+      9.946493267718067,
+      5.001041397924964
+     ],
+     "blocker_wall_clearance_m": 0.07653902402119456
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": 9.298538712739628,
+    "reasons": [
+     "string not converged (F_perp_max 15.7 / 8.74 N)"
+    ],
+    "dU_bar": 9.298538745408223,
+    "squeeze": {
+     "neighbour": 84,
+     "neighbour_pos": [
+      9.101518983979302,
+      4.932682118308955
+     ],
+     "gap_m": 0.2247949762900358,
+     "blocker_saddle_pos": [
+      9.894709091252814,
+      4.997774927158644
+     ],
+     "blocker_wall_clearance_m": 0.08548262046449201
+    },
+    "path": null
+   }
+  },
+  "E1b_seed178": {
+   "alone": {
+    "accepted": true,
+    "dU": 16.493470351032215,
+    "reasons": [],
+    "dU_bar": 16.493470351032215,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.321556532639363,
+    "reasons": [],
+    "dU_bar": 2.321556532639363,
+    "squeeze": {
+     "neighbour": 71,
+     "neighbour_pos": [
+      9.491961889618858,
+      4.277356466270893
+     ],
+     "gap_m": 0.23153214970081987,
+     "blocker_saddle_pos": [
+      9.888750207264247,
+      5.0049085953194945
+     ],
+     "blocker_wall_clearance_m": 0.10268405336720943
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.2669885088089359,
+    "reasons": [],
+    "dU_bar": 0.2669885009506743,
+    "squeeze": {
+     "neighbour": 71,
+     "neighbour_pos": [
+      9.48012883870723,
+      4.304013920112762
+     ],
+     "gap_m": 0.1911973972866962,
+     "blocker_saddle_pos": [
+      9.830561127804915,
+      5.01023267086114
+     ],
+     "blocker_wall_clearance_m": 0.11723218243158179
+    },
+    "path": null
+   }
+  },
+  "E1b_seed179": {
+   "alone": {
+    "accepted": true,
+    "dU": 6.5309913893989915,
+    "reasons": [],
+    "dU_bar": 6.5309913893989915,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 6.5309913893989915,
+    "reasons": [],
+    "dU_bar": 6.5309913893989915,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 6.5309913893989915,
+    "reasons": [],
+    "dU_bar": 6.5309913893989915,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed186": {
+   "alone": {
+    "accepted": true,
+    "dU": 49.15395874830176,
+    "reasons": [],
+    "dU_bar": 49.15395874830176,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 28.739933016182476,
+    "reasons": [],
+    "dU_bar": 28.739933016182476,
+    "squeeze": {
+     "neighbour": 85,
+     "neighbour_pos": [
+      9.536522100225017,
+      4.2201569406415915
+     ],
+     "gap_m": 0.255458353315,
+     "blocker_saddle_pos": [
+      9.938492609013643,
+      5.00272452440675
+     ],
+     "blocker_wall_clearance_m": 0.06268064902092574
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": 13.411658022866959,
+    "reasons": [
+     "string not converged (F_perp_max 129 / 10.3 N)"
+    ],
+    "dU_bar": 13.41165793331993,
+    "squeeze": {
+     "neighbour": 85,
+     "neighbour_pos": [
+      9.517715770125005,
+      4.289776958686601
+     ],
+     "gap_m": 0.18228023766464985,
+     "blocker_saddle_pos": [
+      9.886512387939915,
+      5.007117064432904
+     ],
+     "blocker_wall_clearance_m": 0.06961751010310974
+    },
+    "path": null
+   }
+  },
+  "E1b_seed187": {
+   "alone": {
+    "accepted": true,
+    "dU": 33.73985581229081,
+    "reasons": [],
+    "dU_bar": 33.73985581229081,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 25.36938336873115,
+    "reasons": [],
+    "dU_bar": 25.36938336873115,
+    "squeeze": {
+     "neighbour": 11,
+     "neighbour_pos": [
+      9.521940963663397,
+      5.807765970846347
+     ],
+     "gap_m": 0.3625486904121652,
+     "blocker_saddle_pos": [
+      9.947470603926478,
+      4.999958192593932
+     ],
+     "blocker_wall_clearance_m": 0.10382696636631056
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 18.875696983482612,
+    "reasons": [],
+    "dU_bar": 18.87569698250013,
+    "squeeze": {
+     "neighbour": 85,
+     "neighbour_pos": [
+      9.490758054501187,
+      4.291576258694306
+     ],
+     "gap_m": 0.2649561146326962,
+     "blocker_saddle_pos": [
+      9.922765977681197,
+      5.000018783634032
+     ],
+     "blocker_wall_clearance_m": 0.10780368420541142
+    },
+    "path": null
+   }
+  },
+  "E1b_seed192": {
+   "alone": {
+    "accepted": true,
+    "dU": 56.30984019997359,
+    "reasons": [],
+    "dU_bar": 56.30984019997359,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 46.38827582547833,
+    "reasons": [],
+    "dU_bar": 46.38827582547833,
+    "squeeze": {
+     "neighbour": 77,
+     "neighbour_pos": [
+      9.503519115552246,
+      5.826751254375753
+     ],
+     "gap_m": 0.33760476166213227,
+     "blocker_saddle_pos": [
+      9.96183446671966,
+      4.999142886432222
+     ],
+     "blocker_wall_clearance_m": 0.08415725327383289
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 36.91735160442147,
+    "reasons": [],
+    "dU_bar": 36.91735160277642,
+    "squeeze": {
+     "neighbour": 77,
+     "neighbour_pos": [
+      9.482855594571843,
+      5.717630128104625
+     ],
+     "gap_m": 0.24334934567729993,
+     "blocker_saddle_pos": [
+      9.939463618087794,
+      4.998572904744452
+     ],
+     "blocker_wall_clearance_m": 0.08633776099354662
+    },
+    "path": null
+   }
+  },
+  "E1b_seed200": {
+   "alone": {
+    "accepted": true,
+    "dU": 6.079586868701654,
+    "reasons": [],
+    "dU_bar": 6.079586868701654,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 6.079586868701654,
+    "reasons": [],
+    "dU_bar": 6.079586868701654,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 6.079586868701654,
+    "reasons": [],
+    "dU_bar": 6.079586868701654,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed202": {
+   "alone": {
+    "accepted": true,
+    "dU": 18.02876721948087,
+    "reasons": [],
+    "dU_bar": 18.02876721948087,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 11.775587797866763,
+    "reasons": [],
+    "dU_bar": 11.775587797866763,
+    "squeeze": {
+     "neighbour": 83,
+     "neighbour_pos": [
+      9.513244241449264,
+      4.211471179702601
+     ],
+     "gap_m": 0.3345308408791585,
+     "blocker_saddle_pos": [
+      9.923370215605997,
+      5.001081963568746
+     ],
+     "blocker_wall_clearance_m": 0.10925535553410565
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 8.38397282184917,
+    "reasons": [],
+    "dU_bar": 8.383972818662187,
+    "squeeze": {
+     "neighbour": 83,
+     "neighbour_pos": [
+      9.501090887097932,
+      4.287230814493041
+     ],
+     "gap_m": 0.26439075468541084,
+     "blocker_saddle_pos": [
+      9.901923581828832,
+      5.0021604386939105
+     ],
+     "blocker_wall_clearance_m": 0.11279421848948712
+    },
+    "path": null
+   }
+  },
+  "E1b_seed203": {
+   "alone": {
+    "accepted": true,
+    "dU": 29.041107899461792,
+    "reasons": [],
+    "dU_bar": 29.041107899461792,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 29.041107899461792,
+    "reasons": [],
+    "dU_bar": 29.041107899461792,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 29.041107899461792,
+    "reasons": [],
+    "dU_bar": 29.041107899461792,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed204": {
+   "alone": {
+    "accepted": true,
+    "dU": 9.30439368676005,
+    "reasons": [],
+    "dU_bar": 9.30439368676005,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 9.30439368676005,
+    "reasons": [],
+    "dU_bar": 9.30439368676005,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 9.30439368676005,
+    "reasons": [],
+    "dU_bar": 9.30439368676005,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed205": {
+   "alone": {
+    "accepted": true,
+    "dU": 3.9030137013058095,
+    "reasons": [],
+    "dU_bar": 3.9030137013058095,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.0481715615757707,
+    "reasons": [],
+    "dU_bar": 2.0481715615757707,
+    "squeeze": {
+     "neighbour": 17,
+     "neighbour_pos": [
+      9.552443787608816,
+      4.291805759743303
+     ],
+     "gap_m": 0.33511285022843207,
+     "blocker_saddle_pos": [
+      9.888847494001324,
+      5.0039981738778065
+     ],
+     "blocker_wall_clearance_m": 0.14948628156799176
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.640224218075673,
+    "reasons": [],
+    "dU_bar": 1.6402243867016182,
+    "squeeze": {
+     "neighbour": 17,
+     "neighbour_pos": [
+      9.54425391627306,
+      4.3339689919940705
+     ],
+     "gap_m": 0.29825108325955385,
+     "blocker_saddle_pos": [
+      9.877706996854439,
+      5.006639274545261
+     ],
+     "blocker_wall_clearance_m": 0.1501129692239515
+    },
+    "path": null
+   }
+  },
+  "E1b_seed209": {
+   "alone": {
+    "accepted": true,
+    "dU": 3.9474832840312786,
+    "reasons": [],
+    "dU_bar": 3.9474832840312786,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 41.61657985132763,
+    "reasons": [],
+    "dU_bar": 41.616579851327685,
+    "squeeze": {
+     "neighbour": 59,
+     "neighbour_pos": [
+      9.498272200815487,
+      4.541157064715308
+     ],
+     "gap_m": 0.09987889977166386,
+     "blocker_saddle_pos": [
+      9.794426595742975,
+      5.114708231633987
+     ],
+     "blocker_wall_clearance_m": 0.087239337751287
+    },
+    "path": "axis"
+   },
+   "full": {
+    "accepted": false,
+    "dU": -1.7053025658242404e-13,
+    "reasons": [
+     "image doubling changes the barrier by 5.7%"
+    ],
+    "dU_bar": -1.7053025658242404e-13,
+    "squeeze": {
+     "neighbour": 59,
+     "neighbour_pos": [
+      9.498272201035563,
+      4.541157070582113
+     ],
+     "gap_m": 0.3149186805917945,
+     "blocker_saddle_pos": [
+      9.526129817707332,
+      5.40124436666413
+     ],
+     "blocker_wall_clearance_m": 0.20946791608442694
+    },
+    "path": null
+   }
+  },
+  "E1b_seed211": {
+   "alone": {
+    "accepted": true,
+    "dU": 29.092479369606593,
+    "reasons": [],
+    "dU_bar": 29.092479369606593,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 29.092479369606593,
+    "reasons": [],
+    "dU_bar": 29.092479369606593,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 29.092479369606593,
+    "reasons": [],
+    "dU_bar": 29.092479369606593,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed215": {
+   "alone": {
+    "accepted": true,
+    "dU": 22.90354660003902,
+    "reasons": [],
+    "dU_bar": 22.90354660003902,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 22.90354660003902,
+    "reasons": [],
+    "dU_bar": 22.90354660003902,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 22.90354660003902,
+    "reasons": [],
+    "dU_bar": 22.90354660003902,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed223": {
+   "alone": {
+    "accepted": true,
+    "dU": 8.240880618631763,
+    "reasons": [],
+    "dU_bar": 8.240880618631763,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 71.21064721270909,
+    "reasons": [],
+    "dU_bar": 71.21064721270909,
+    "squeeze": {
+     "neighbour": 22,
+     "neighbour_pos": [
+      9.521415679602349,
+      4.560720671620388
+     ],
+     "gap_m": 0.07190434967266496,
+     "blocker_saddle_pos": [
+      9.809529788211867,
+      5.115512607427305
+     ],
+     "blocker_wall_clearance_m": 0.06136319614338798
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.06913735622072181,
+    "reasons": [],
+    "dU_bar": 0.06913735622072181,
+    "squeeze": {
+     "neighbour": 22,
+     "neighbour_pos": [
+      9.52086941999527,
+      4.525380945381768
+     ],
+     "gap_m": 0.29818119079822186,
+     "blocker_saddle_pos": [
+      9.517963089599881,
+      5.376795875021393
+     ],
+     "blocker_wall_clearance_m": 0.2015959302773611
+    },
+    "path": null
+   }
+  },
+  "E1b_seed227": {
+   "alone": {
+    "accepted": true,
+    "dU": 19.54954369302976,
+    "reasons": [],
+    "dU_bar": 19.54954369302976,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 19.54954369302976,
+    "reasons": [],
+    "dU_bar": 19.54954369302976,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 19.54954369302976,
+    "reasons": [],
+    "dU_bar": 19.54954369302976,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed230": {
+   "alone": {
+    "accepted": true,
+    "dU": 22.7070059983148,
+    "reasons": [],
+    "dU_bar": 22.7070059983148,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 99.46877550304134,
+    "reasons": [],
+    "dU_bar": 99.46877550304134,
+    "squeeze": {
+     "neighbour": 62,
+     "neighbour_pos": [
+      9.504468883999795,
+      5.455600617830269
+     ],
+     "gap_m": 0.057132714089616676,
+     "blocker_saddle_pos": [
+      9.81381170576534,
+      4.89258374876301
+     ],
+     "blocker_wall_clearance_m": 0.04710756311550007
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 10.47102964493024,
+    "reasons": [],
+    "dU_bar": 10.4710296316739,
+    "squeeze": {
+     "neighbour": 62,
+     "neighbour_pos": [
+      9.472274506723574,
+      5.713114857720914
+     ],
+     "gap_m": 0.2622213725162567,
+     "blocker_saddle_pos": [
+      9.922205417948865,
+      4.994920284982883
+     ],
+     "blocker_wall_clearance_m": 0.10281565283948968
+    },
+    "path": null
+   }
+  },
+  "E1b_seed237": {
+   "alone": {
+    "accepted": true,
+    "dU": 22.782515605632,
+    "reasons": [],
+    "dU_bar": 22.782515605632,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 88.9405077825956,
+    "reasons": [],
+    "dU_bar": 88.9405077825956,
+    "squeeze": {
+     "neighbour": 28,
+     "neighbour_pos": [
+      9.502493841078477,
+      5.4634915616388815
+     ],
+     "gap_m": 0.06417172083868578,
+     "blocker_saddle_pos": [
+      9.8121084787703,
+      4.897333841777723
+     ],
+     "blocker_wall_clearance_m": 0.05325867802264128
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 10.264818929721741,
+    "reasons": [],
+    "dU_bar": 10.264818917063678,
+    "squeeze": {
+     "neighbour": 28,
+     "neighbour_pos": [
+      9.470255180675853,
+      5.711875549063655
+     ],
+     "gap_m": 0.266967538700492,
+     "blocker_saddle_pos": [
+      9.923672075668025,
+      4.995176023521557
+     ],
+     "blocker_wall_clearance_m": 0.10401331314705242
+    },
+    "path": null
+   }
+  },
+  "E1b_seed238": {
+   "alone": {
+    "accepted": true,
+    "dU": 5.563592142409107,
+    "reasons": [],
+    "dU_bar": 5.563592142409107,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 5.563592142409107,
+    "reasons": [],
+    "dU_bar": 5.563592142409107,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 5.563592142409107,
+    "reasons": [],
+    "dU_bar": 5.563592142409107,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed239": {
+   "alone": {
+    "accepted": true,
+    "dU": 14.909111305528938,
+    "reasons": [],
+    "dU_bar": 14.909111305528938,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 11.207672878735025,
+    "reasons": [],
+    "dU_bar": 11.207672878735025,
+    "squeeze": {
+     "neighbour": 96,
+     "neighbour_pos": [
+      9.543533986216362,
+      4.2452331707542905
+     ],
+     "gap_m": 0.3090858564624644,
+     "blocker_saddle_pos": [
+      9.917166499521413,
+      5.0030251525529605
+     ],
+     "blocker_wall_clearance_m": 0.105400199809571
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": 10.056829782292084,
+    "reasons": [
+     "string not converged (F_perp_max 12.6 / 0.264 N)"
+    ],
+    "dU_bar": 10.056829771210005,
+    "squeeze": {
+     "neighbour": 96,
+     "neighbour_pos": [
+      9.53004681769322,
+      4.3044947247603496
+     ],
+     "gap_m": 0.2604745829401161,
+     "blocker_saddle_pos": [
+      9.90745498935143,
+      5.005660247045807
+     ],
+     "blocker_wall_clearance_m": 0.10492893321918417
+    },
+    "path": null
+   }
+  },
+  "E1b_seed46": {
+   "alone": {
+    "accepted": true,
+    "dU": 22.242315292403134,
+    "reasons": [],
+    "dU_bar": 22.242315292403134,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 77.72495415064799,
+    "reasons": [],
+    "dU_bar": 77.72495415064805,
+    "squeeze": {
+     "neighbour": 99,
+     "neighbour_pos": [
+      9.479638226126108,
+      5.516303242105038
+     ],
+     "gap_m": 0.06224401688106179,
+     "blocker_saddle_pos": [
+      9.803842379823065,
+      4.904650870775009
+     ],
+     "blocker_wall_clearance_m": 0.04865120835071529
+    },
+    "path": "axis"
+   },
+   "full": {
+    "accepted": false,
+    "dU": 2.346073141592001,
+    "reasons": [
+     "string not converged (F_perp_max 37.5 / 2.26 N)"
+    ],
+    "dU_bar": 2.3460731284301346,
+    "squeeze": {
+     "neighbour": 99,
+     "neighbour_pos": [
+      9.44801765039048,
+      5.744068202126614
+     ],
+     "gap_m": 0.2528869350080736,
+     "blocker_saddle_pos": [
+      9.915514946631651,
+      4.9950904123696604
+     ],
+     "blocker_wall_clearance_m": 0.09033410931113778
+    },
+    "path": null
+   }
+  },
+  "E1b_seed52": {
+   "alone": {
+    "accepted": true,
+    "dU": 27.90101959514206,
+    "reasons": [],
+    "dU_bar": 27.90101959514203,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 21.208647449037926,
+    "reasons": [],
+    "dU_bar": 21.208647449038466,
+    "squeeze": {
+     "neighbour": 54,
+     "neighbour_pos": [
+      9.559482335939613,
+      5.7705558118534395
+     ],
+     "gap_m": 0.3553120032411535,
+     "blocker_saddle_pos": [
+      9.941392596618241,
+      4.99966484388322
+     ],
+     "blocker_wall_clearance_m": 0.10772008389529858
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 16.584113901030605,
+    "reasons": [],
+    "dU_bar": 16.584113910826886,
+    "squeeze": {
+     "neighbour": 54,
+     "neighbour_pos": [
+      9.543443228506568,
+      5.681034716596153
+     ],
+     "gap_m": 0.27396836331807933,
+     "blocker_saddle_pos": [
+      9.920780249359499,
+      4.999565078368174
+     ],
+     "blocker_wall_clearance_m": 0.11112359390210086
+    },
+    "path": null
+   }
+  },
+  "E1b_seed55": {
+   "alone": {
+    "accepted": true,
+    "dU": 7.897813379818217,
+    "reasons": [],
+    "dU_bar": 7.897813379818217,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 3.0540990794210643,
+    "reasons": [],
+    "dU_bar": 3.0540990794210643,
+    "squeeze": {
+     "neighbour": 30,
+     "neighbour_pos": [
+      9.526393060843601,
+      5.752563494621056
+     ],
+     "gap_m": 0.3337595131559185,
+     "blocker_saddle_pos": [
+      9.897263331185007,
+      4.99891157891374
+     ],
+     "blocker_wall_clearance_m": 0.1319677964851792
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.5743550734428027,
+    "reasons": [],
+    "dU_bar": 1.5743550933403867,
+    "squeeze": {
+     "neighbour": 30,
+     "neighbour_pos": [
+      9.519242444524895,
+      5.705150361929918
+     ],
+     "gap_m": 0.28339974202437473,
+     "blocker_saddle_pos": [
+      9.871112860897643,
+      4.998284952128553
+     ],
+     "blocker_wall_clearance_m": 0.13865918727691695
+    },
+    "path": null
+   }
+  },
+  "E1b_seed58": {
+   "alone": {
+    "accepted": true,
+    "dU": 26.113437433315113,
+    "reasons": [],
+    "dU_bar": 26.11343743331517,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 17.082551553430193,
+    "reasons": [],
+    "dU_bar": 17.08255155343025,
+    "squeeze": {
+     "neighbour": 24,
+     "neighbour_pos": [
+      9.51947909953661,
+      4.203519463008305
+     ],
+     "gap_m": 0.340697939740787,
+     "blocker_saddle_pos": [
+      9.93649782506858,
+      5.000125339744603
+     ],
+     "blocker_wall_clearance_m": 0.11024545417831039
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 11.393277176221773,
+    "reasons": [],
+    "dU_bar": 11.393277176785318,
+    "squeeze": {
+     "neighbour": 24,
+     "neighbour_pos": [
+      9.505625974708167,
+      4.293610236854039
+     ],
+     "gap_m": 0.2543364131449394,
+     "blocker_saddle_pos": [
+      9.907133527829522,
+      5.000313980913558
+     ],
+     "blocker_wall_clearance_m": 0.11569285982221728
+    },
+    "path": null
+   }
+  },
+  "E1b_seed60": {
+   "alone": {
+    "accepted": true,
+    "dU": 7.659290953594024,
+    "reasons": [],
+    "dU_bar": 7.659290953594024,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 51.44866042414188,
+    "reasons": [],
+    "dU_bar": 51.44866042414188,
+    "squeeze": {
+     "neighbour": 83,
+     "neighbour_pos": [
+      9.492010776184124,
+      4.536556170843736
+     ],
+     "gap_m": 0.09125507255348247,
+     "blocker_saddle_pos": [
+      9.798304120805428,
+      5.111660151162728
+     ],
+     "blocker_wall_clearance_m": 0.07926103551479868
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": -1.2448708730516955e-11,
+    "reasons": [
+     "image doubling changes the barrier by 1e+02%"
+    ],
+    "dU_bar": -1.2448708730516955e-11,
+    "squeeze": {
+     "neighbour": 83,
+     "neighbour_pos": [
+      9.492010780445543,
+      4.536556211336125
+     ],
+     "gap_m": 0.3143168909694936,
+     "blocker_saddle_pos": [
+      9.517004968964994,
+      5.410843677835093
+     ],
+     "blocker_wall_clearance_m": 0.21037384745999027
+    },
+    "path": null
+   }
+  },
+  "E1b_seed61": {
+   "alone": {
+    "accepted": true,
+    "dU": 16.533788517544224,
+    "reasons": [],
+    "dU_bar": 16.533788517544906,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 4.329962913401232,
+    "reasons": [],
+    "dU_bar": 4.329962910033942,
+    "squeeze": {
+     "neighbour": 41,
+     "neighbour_pos": [
+      9.52011734774857,
+      5.680665036916904
+     ],
+     "gap_m": 0.2518772819428649,
+     "blocker_saddle_pos": [
+      9.896748781653208,
+      4.997066754737736
+     ],
+     "blocker_wall_clearance_m": 0.09638596524745519
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 0.8207319500409085,
+    "reasons": [],
+    "dU_bar": 0.820731951931748,
+    "squeeze": {
+     "neighbour": 41,
+     "neighbour_pos": [
+      9.448252156397828,
+      5.6142483970102575
+     ],
+     "gap_m": 0.2006687882652643,
+     "blocker_saddle_pos": [
+      9.830551401521454,
+      4.993206967994169
+     ],
+     "blocker_wall_clearance_m": 0.11427848050257255
+    },
+    "path": null
+   }
+  },
+  "E1b_seed69": {
+   "alone": {
+    "accepted": true,
+    "dU": 23.39341114799805,
+    "reasons": [],
+    "dU_bar": 23.393411147997995,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 23.39341114799805,
+    "reasons": [],
+    "dU_bar": 23.393411147997995,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 23.39341114799805,
+    "reasons": [],
+    "dU_bar": 23.393411147997995,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed71": {
+   "alone": {
+    "accepted": true,
+    "dU": 4.559903687333531,
+    "reasons": [],
+    "dU_bar": 4.559903687320002,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.224318184703037,
+    "reasons": [],
+    "dU_bar": 2.224318184740582,
+    "squeeze": {
+     "neighbour": 56,
+     "neighbour_pos": [
+      9.546794467539984,
+      4.296655498033352
+     ],
+     "gap_m": 0.3208348042640065,
+     "blocker_saddle_pos": [
+      9.89106243592662,
+      5.005074580356574
+     ],
+     "blocker_wall_clearance_m": 0.15388041997841828
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.7492034550030553,
+    "reasons": [],
+    "dU_bar": 1.7492034539412202,
+    "squeeze": {
+     "neighbour": 56,
+     "neighbour_pos": [
+      9.537923367077449,
+      4.338191187728105
+     ],
+     "gap_m": 0.28454137116558115,
+     "blocker_saddle_pos": [
+      9.87739474779227,
+      5.00847623741793
+     ],
+     "blocker_wall_clearance_m": 0.15447731811022852
+    },
+    "path": null
+   }
+  },
+  "E1b_seed72": {
+   "alone": {
+    "accepted": true,
+    "dU": 5.830842974522739,
+    "reasons": [],
+    "dU_bar": 5.83084297452956,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 2.5453096733446046,
+    "reasons": [],
+    "dU_bar": 2.545309673018778,
+    "squeeze": {
+     "neighbour": 47,
+     "neighbour_pos": [
+      9.528579045182168,
+      5.74385835448107
+     ],
+     "gap_m": 0.28897703320463164,
+     "blocker_saddle_pos": [
+      9.886516757926046,
+      4.994769799933196
+     ],
+     "blocker_wall_clearance_m": 0.12355124772045795
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.932417030591182,
+    "reasons": [],
+    "dU_bar": 1.9324170403172047,
+    "squeeze": {
+     "neighbour": 47,
+     "neighbour_pos": [
+      9.520653873502248,
+      5.704923524171714
+     ],
+     "gap_m": 0.25445563507939284,
+     "blocker_saddle_pos": [
+      9.87283908365412,
+      4.991417974383303
+     ],
+     "blocker_wall_clearance_m": 0.12434934798869718
+    },
+    "path": null
+   }
+  },
+  "E1b_seed73": {
+   "alone": {
+    "accepted": true,
+    "dU": 17.17647025151419,
+    "reasons": [],
+    "dU_bar": 17.17647025151419,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 9.106691533104197,
+    "reasons": [],
+    "dU_bar": 9.106691533104197,
+    "squeeze": {
+     "neighbour": 13,
+     "neighbour_pos": [
+      9.537207947743475,
+      4.257427693367154
+     ],
+     "gap_m": 0.32453272436885466,
+     "blocker_saddle_pos": [
+      9.928931558283011,
+      5.001688219151132
+     ],
+     "blocker_wall_clearance_m": 0.13849870280975074
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 4.876708225909056,
+    "reasons": [],
+    "dU_bar": 4.876708329109647,
+    "squeeze": {
+     "neighbour": 13,
+     "neighbour_pos": [
+      9.52514468258229,
+      4.323802016148028
+     ],
+     "gap_m": 0.2541718050397684,
+     "blocker_saddle_pos": [
+      9.889598476625498,
+      5.002875357312369
+     ],
+     "blocker_wall_clearance_m": 0.14608143603917334
+    },
+    "path": null
+   }
+  },
+  "E1b_seed74": {
+   "alone": {
+    "accepted": true,
+    "dU": 26.365183234597055,
+    "reasons": [],
+    "dU_bar": 26.365183234597055,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 14.355239941252876,
+    "reasons": [],
+    "dU_bar": 14.355239941252876,
+    "squeeze": {
+     "neighbour": 43,
+     "neighbour_pos": [
+      9.44822306599486,
+      4.27848674052088
+     ],
+     "gap_m": 0.30242446727929545,
+     "blocker_saddle_pos": [
+      9.931630993836396,
+      5.00168152480152
+     ],
+     "blocker_wall_clearance_m": 0.10489293979205677
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": true,
+    "dU": 1.3049097790362794,
+    "reasons": [],
+    "dU_bar": 1.3049097790362794,
+    "squeeze": {
+     "neighbour": 43,
+     "neighbour_pos": [
+      9.29164221465567,
+      4.3699080423113195
+     ],
+     "gap_m": 0.21567812540888381,
+     "blocker_saddle_pos": [
+      9.735953810969958,
+      5.014801807444651
+     ],
+     "blocker_wall_clearance_m": 0.16775916517306272
+    },
+    "path": null
+   }
+  },
+  "E1b_seed75": {
+   "alone": {
+    "accepted": true,
+    "dU": 14.637958186339858,
+    "reasons": [],
+    "dU_bar": 14.637958186339858,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 82.38275258903593,
+    "reasons": [],
+    "dU_bar": 82.38275258903593,
+    "squeeze": {
+     "neighbour": 80,
+     "neighbour_pos": [
+      9.507771443424021,
+      4.518105278198404
+     ],
+     "gap_m": 0.05774988377121276,
+     "blocker_saddle_pos": [
+      9.808184097967052,
+      5.105140158951624
+     ],
+     "blocker_wall_clearance_m": 0.04574926229233395
+    },
+    "path": "straight"
+   },
+   "full": {
+    "accepted": false,
+    "dU": -1.1368683772161603e-13,
+    "reasons": [
+     "image doubling changes the barrier by 11%"
+    ],
+    "dU_bar": -1.1368683772161603e-13,
+    "squeeze": {
+     "neighbour": 80,
+     "neighbour_pos": [
+      9.507771444663376,
+      4.518105281122275
+     ],
+     "gap_m": 0.2871450990931536,
+     "blocker_saddle_pos": [
+      9.51140117904726,
+      5.406930507550851
+     ],
+     "blocker_wall_clearance_m": 0.18258727511576106
+    },
+    "path": null
+   }
+  },
+  "E1b_seed80": {
+   "alone": {
+    "accepted": true,
+    "dU": 3.904931892819434,
+    "reasons": [],
+    "dU_bar": 3.9049318928194623,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 3.904931892819434,
+    "reasons": [],
+    "dU_bar": 3.9049318928194623,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 3.904931892819434,
+    "reasons": [],
+    "dU_bar": 3.9049318928194623,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed83": {
+   "alone": {
+    "accepted": true,
+    "dU": 56.93224528431438,
+    "reasons": [],
+    "dU_bar": 56.93224528431443,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 56.93224528431438,
+    "reasons": [],
+    "dU_bar": 56.93224528431443,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 56.93224528431438,
+    "reasons": [],
+    "dU_bar": 56.93224528431443,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed84": {
+   "alone": {
+    "accepted": true,
+    "dU": 13.75440406964455,
+    "reasons": [],
+    "dU_bar": 13.75440406964455,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 13.75440406964455,
+    "reasons": [],
+    "dU_bar": 13.75440406964455,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 13.75440406964455,
+    "reasons": [],
+    "dU_bar": 13.75440406964455,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed87": {
+   "alone": {
+    "accepted": true,
+    "dU": 31.541591112930263,
+    "reasons": [],
+    "dU_bar": 31.541591112930263,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 31.541591112930263,
+    "reasons": [],
+    "dU_bar": 31.541591112930263,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 31.541591112930263,
+    "reasons": [],
+    "dU_bar": 31.541591112930263,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed89": {
+   "alone": {
+    "accepted": true,
+    "dU": 9.000713698565903,
+    "reasons": [],
+    "dU_bar": 9.000713698565903,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 9.000713698565903,
+    "reasons": [],
+    "dU_bar": 9.000713698565903,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 9.000713698565903,
+    "reasons": [],
+    "dU_bar": 9.000713698565903,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed91": {
+   "alone": {
+    "accepted": true,
+    "dU": 7.16515883461912,
+    "reasons": [],
+    "dU_bar": 7.16515883461912,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 7.16515883461912,
+    "reasons": [],
+    "dU_bar": 7.16515883461912,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 7.16515883461912,
+    "reasons": [],
+    "dU_bar": 7.16515883461912,
+    "squeeze": null,
+    "path": null
+   }
+  },
+  "E1b_seed94": {
+   "alone": {
+    "accepted": true,
+    "dU": 15.205989329475415,
+    "reasons": [],
+    "dU_bar": 15.205989329475415,
+    "squeeze": null,
+    "path": null
+   },
+   "frozen": {
+    "accepted": true,
+    "dU": 15.205989329475415,
+    "reasons": [],
+    "dU_bar": 15.205989329475415,
+    "squeeze": null,
+    "path": null
+   },
+   "full": {
+    "accepted": true,
+    "dU": 15.205989329475415,
+    "reasons": [],
+    "dU_bar": 15.205989329475415,
+    "squeeze": null,
+    "path": null
+   }
+  }
+ }
+}
