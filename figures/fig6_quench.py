@@ -22,7 +22,7 @@ LABEL = {"C1": "C1", "C2": "C2", "C3_pub": "C3 pub", "C3_rvo2": "C3 RVO2", "driv
          "noise0p03": "$\\sigma=0.03$", "noise0p05": "$\\sigma=0.05$", "noise0p07": "$\\sigma=0.07$"}
 EDGE = "#3a3a3a"
 
-fig = fig_full(6.4)
+fig = fig_full(5.8)
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1.75, 1]})
 
 # ---- left: blocker freed within 120 s, Wilson 95% CI; filled = lone keystone, open = second trap

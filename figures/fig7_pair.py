@@ -24,7 +24,7 @@ for s in ("0p01", "0p02", "0p03", "0p05"):
 for k in ("bstarpubp", "bstarpubm", "bstarrvo2p", "bstarrvo2m"):
     COL[k] = YEL
 
-fig = fig_full(5.0)
+fig = fig_full(4.4)
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1, 1.45]})
 
 # ---- left: freed fraction against signed lateral bias b
@@ -42,7 +42,7 @@ axL.set_xticklabels(["$-0.03$", "0", "0.03", "0.06", "0.09"])
 axL.set_ylim(-0.03, 1.03)
 axL.set_yticks([0, 0.25, 0.5, 0.75, 1])
 axL.set_xlabel("lateral bias $b$")
-axL.set_ylabel("pair freed within 120 s")
+axL.set_ylabel("pair freed (120 s)")
 
 # ---- right: freed fraction per arm, Wilson 95% CI
 x, xs, labels = 0.0, [], []
@@ -64,7 +64,7 @@ axR.tick_params(axis="x", length=0, pad=2)
 axR.set_xlim(xs[0] - 0.6, xs[-1] + 0.6)
 axR.set_ylim(-0.03, 1.03)
 axR.set_yticks([0, 0.25, 0.5, 0.75, 1])
-axR.set_ylabel("pair freed within 120 s")
+axR.set_ylabel("pair freed (120 s)")
 
 save(fig, "fig7_pair")
 qa("fig7_pair")
