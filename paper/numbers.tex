@@ -599,3 +599,279 @@
 \newcommand{\ResidBarN}{60}
 % ResidAllMax <- field_residuals.json:overall_max_N
 \newcommand{\ResidAllMax}{\ensuremath{5\times10^{-7}}}
+% EsixN <- E6_analysis.json:n
+\newcommand{\EsixN}{186}
+% EsixSigmaStar <- E6_analysis.json:sigma_star
+\newcommand{\EsixSigmaStar}{0.0467}
+% EsixCThreeK <- E6_analysis.json:completion.C3_rvo2.k
+\newcommand{\EsixCThreeK}{101}
+% EsixCThreeLo <- E6_analysis.json:completion.C3_rvo2.wilson95.0
+\newcommand{\EsixCThreeLo}{0.47}
+% EsixCThreeHi <- E6_analysis.json:completion.C3_rvo2.wilson95.1
+\newcommand{\EsixCThreeHi}{0.61}
+% EsixNoiseK <- E6_analysis.json:completion.C1_sigma.k
+\newcommand{\EsixNoiseK}{99}
+% EsixNoiseLo <- E6_analysis.json:completion.C1_sigma.wilson95.0
+\newcommand{\EsixNoiseLo}{0.46}
+% EsixNoiseHi <- E6_analysis.json:completion.C1_sigma.wilson95.1
+\newcommand{\EsixNoiseHi}{0.60}
+% EsixDiff <- E6_analysis.json:completion.diff_sigma_minus_C3.diff
+\newcommand{\EsixDiff}{-0.01}
+% EsixDiffLo <- E6_analysis.json:completion.diff_sigma_minus_C3.ci95.0
+\newcommand{\EsixDiffLo}{-0.10}
+% EsixDiffHi <- E6_analysis.json:completion.diff_sigma_minus_C3.ci95.1
+\newcommand{\EsixDiffHi}{0.08}
+% EsixBothFail <- E6_analysis.json:identity.both_fail
+\newcommand{\EsixBothFail}{50}
+% EsixCThreeOnlyFail <- E6_analysis.json:identity.C3_only_fail
+\newcommand{\EsixCThreeOnlyFail}{35}
+% EsixNoiseOnlyFail <- E6_analysis.json:identity.sigma_only_fail
+\newcommand{\EsixNoiseOnlyFail}{37}
+% EsixMcNemarP <- E6_analysis.json:identity.mcnemar_exact_p
+\newcommand{\EsixMcNemarP}{0.906}
+% EsixJaccard <- E6_analysis.json:identity.jaccard
+\newcommand{\EsixJaccard}{0.41}
+% EsixJaccardLo <- E6_analysis.json:identity.jaccard_ci95.0
+\newcommand{\EsixJaccardLo}{0.32}
+% EsixJaccardHi <- E6_analysis.json:identity.jaccard_ci95.1
+\newcommand{\EsixJaccardHi}{0.50}
+% EsixJaccardIndep <- E6_analysis.json:identity.jaccard_independent_mean
+\newcommand{\EsixJaccardIndep}{0.30}
+% EsixKMCThree <- E6_analysis.json:time.km_C3_rvo2.median
+\newcommand{\EsixKMCThree}{132}
+% EsixKMNoise <- E6_analysis.json:time.km_C1_sigma.median
+\newcommand{\EsixKMNoise}{469}
+% EsixCThreeMaxT <- E6_analysis.json:time.completed_max_C3_rvo2
+\newcommand{\EsixCThreeMaxT}{161}
+% EsixNoiseLate <- E6_analysis.json:time.completed_after_300s_C1_sigma
+\newcommand{\EsixNoiseLate}{25}
+% EsixPairedN <- E6_analysis.json:time.paired_both_complete_n
+\newcommand{\EsixPairedN}{64}
+% EsixPairedCThreeFaster <- E6_analysis.json:time.paired_C3_faster_n
+\newcommand{\EsixPairedCThreeFaster}{64}
+% EsixPairedDelay <- E6_analysis.json:time.paired_median_diff_sigma_minus_C3
+\newcommand{\EsixPairedDelay}{66}
+% EsixLogrankP <- E6_analysis.json:time.logrank.p
+\newcommand{\EsixLogrankP}{\ensuremath{4.0\times10^{-3}}}
+% EsixCThreeFailRest <- E6_analysis.json:failure_state.C3_rvo2.stationary_deadlock
+\newcommand{\EsixCThreeFailRest}{31}
+% EsixCThreeFailMoving <- E6_analysis.json:failure_state.C3_rvo2.moving_at_600s
+\newcommand{\EsixCThreeFailMoving}{54}
+% EsixCThreeMovingTwo <- E6_analysis.json:failure_state.C3_rvo2.n_res_two_moving
+\newcommand{\EsixCThreeMovingTwo}{41}
+% EsixCThreeEndSpeed <- E6_analysis.json:failure_state.C3_rvo2.end_speed_median_moving
+\newcommand{\EsixCThreeEndSpeed}{0.22}
+% EsixCThreeLone <- E6_analysis.json:failure_state.C3_rvo2.class_counts.lone_keystone
+\newcommand{\EsixCThreeLone}{33}
+% EsixCThreeSecond <- E6_analysis.json:failure_state.C3_rvo2.class_counts.lone_keystone_second_trap
+\newcommand{\EsixCThreeSecond}{51}
+% EsixCThreeCollective <- E6_analysis.json:failure_state.C3_rvo2.class_counts.collective
+\newcommand{\EsixCThreeCollective}{1}
+% EsixNoiseLone <- E6_analysis.json:failure_state.C1_sigma.class_counts.lone_keystone
+\newcommand{\EsixNoiseLone}{56}
+% EsixNoiseSecond <- E6_analysis.json:failure_state.C1_sigma.class_counts.lone_keystone_second_trap
+\newcommand{\EsixNoiseSecond}{31}
+% EsixNoiseCollective <- E6_analysis.json:failure_state.C1_sigma.class_counts.collective
+\newcommand{\EsixNoiseCollective}{0}
+% EsixNoiseResOne <- E6_analysis.json:failure_state.C1_sigma.n_res_counts.1
+\newcommand{\EsixNoiseResOne}{56}
+% EsixStalls <- E6_analysis.json:lifetimes.n_stalls
+\newcommand{\EsixStalls}{349}
+% EsixStallWeib <- E6_analysis.json:lifetimes.weibull.k
+\newcommand{\EsixStallWeib}{0.64}
+% EsixStallWeibLo <- E6_analysis.json:lifetimes.weibull.ci95.0
+\newcommand{\EsixStallWeibLo}{0.58}
+% EsixStallWeibHi <- E6_analysis.json:lifetimes.weibull.ci95.1
+\newcommand{\EsixStallWeibHi}{0.70}
+% EsixStallMedObs <- E6_analysis.json:lifetimes.pred_vs_obs.median_obs_km_s
+\newcommand{\EsixStallMedObs}{59}
+% EsixStallMedPred <- E6_analysis.json:lifetimes.pred_vs_obs.median_pred_s
+\newcommand{\EsixStallMedPred}{69}
+% EsixStallMaxDiff <- E6_analysis.json:lifetimes.pred_vs_obs.max_abs_diff
+\newcommand{\EsixStallMaxDiff}{0.05}
+% EsixBarrierN <- E6_analysis.json:lifetimes.barrier_picture.n_barriers
+\newcommand{\EsixBarrierN}{56}
+% EsixKTMedian <- E6_analysis.json:lifetimes.barrier_picture.kT_eff_median
+\newcommand{\EsixKTMedian}{4.6}
+% EsixNoiseFail <- E6_analysis.json:failure_state.C1_sigma.n_fail
+\newcommand{\EsixNoiseFail}{87}
+% EsixCThreeFail <- E6_analysis.json:failure_state.C3_rvo2.n_fail
+\newcommand{\EsixCThreeFail}{85}
+% EsixClassP <- E6_analysis.json:failure_state.class_test.p_perm
+\newcommand{\EsixClassP}{\ensuremath{1.4\times10^{-3}}}
+% EsixCThreeSelfHold <- E6_analysis.json:failure_state.C3_rvo2.K0c_C3_holds_own_residual
+\newcommand{\EsixCThreeSelfHold}{78}
+% EsixCThreeMovingSecond <- E6_analysis.json:failure_state.C3_rvo2.class_counts_moving.lone_keystone_second_trap
+\newcommand{\EsixCThreeMovingSecond}{51}
+% PairN <- E7b_analysis.json:n_snapshots
+\newcommand{\PairN}{46}
+% PairAxisMin <- E7b_analysis.json:a_statics.axis_dist_m.min
+\newcommand{\PairAxisMin}{0.40}
+% PairAxisMax <- E7b_analysis.json:a_statics.axis_dist_m.max
+\newcommand{\PairAxisMax}{0.50}
+% PairGapMin <- E7b_analysis.json:a_statics.pair_gap_m.min
+\newcommand{\PairGapMin}{0.28}
+% PairGapMax <- E7b_analysis.json:a_statics.pair_gap_m.max
+\newcommand{\PairGapMax}{0.33}
+% PairResidMax <- E7b_analysis.json:a_statics.field_residual_max_N
+\newcommand{\PairResidMax}{\ensuremath{1\times10^{-7}}}
+% PairStrictMin <- E7b_analysis.json:a_statics.strict_min
+\newcommand{\PairStrictMin}{46}
+% PairLamOneMin <- E7b_analysis.json:a_statics.lambda1.min
+\newcommand{\PairLamOneMin}{65}
+% PairLamOneMax <- E7b_analysis.json:a_statics.lambda1.max
+\newcommand{\PairLamOneMax}{121}
+% PairLamOneMed <- E7b_analysis.json:a_statics.lambda1.median
+\newcommand{\PairLamOneMed}{94}
+% PairSoftCommon <- E7b_analysis.json:a_statics.softest_common_lateral
+\newcommand{\PairSoftCommon}{46}
+% PairLamRatioMin <- E7b_analysis.json:a_statics.lambda2_over_lambda1.min
+\newcommand{\PairLamRatioMin}{12}
+% PairLamRatioMax <- E7b_analysis.json:a_statics.lambda2_over_lambda1.max
+\newcommand{\PairLamRatioMax}{14}
+% PairPerturbN <- E7b_analysis.json:b_s9b.perturb_1e9_C1.n
+\newcommand{\PairPerturbN}{230}
+% PairPerturbFreed <- E7b_analysis.json:b_s9b.perturb_1e9_C1.freed
+\newcommand{\PairPerturbFreed}{0}
+% PairDeltaOneMmFreed <- E7b_analysis.json:b_s9b.delta0p001.freed
+\newcommand{\PairDeltaOneMmFreed}{0}
+% PairDeltaOneCmFreed <- E7b_analysis.json:b_s9b.delta0p01.freed
+\newcommand{\PairDeltaOneCmFreed}{1}
+% PairDeltaThreeCmFreed <- E7b_analysis.json:b_s9b.delta0p03.freed
+\newcommand{\PairDeltaThreeCmFreed}{10}
+% PairBstarMin <- E7b_analysis.json:a_statics.fold_threshold.min_both_signs.min
+\newcommand{\PairBstarMin}{0.001}
+% PairBstarMax <- E7b_analysis.json:a_statics.fold_threshold.min_both_signs.max
+\newcommand{\PairBstarMax}{0.038}
+% PairBstarMed <- E7b_analysis.json:a_statics.fold_threshold.min_both_signs.median
+\newcommand{\PairBstarMed}{0.016}
+% PairFoldAgree <- E7b_analysis.json:a_statics.fold_prediction.agree
+\newcommand{\PairFoldAgree}{363}
+% PairFoldN <- E7b_analysis.json:a_statics.fold_prediction.n
+\newcommand{\PairFoldN}{368}
+% PairFoldLo <- E7b_analysis.json:a_statics.fold_prediction.accuracy_wilson95.1
+\newcommand{\PairFoldLo}{0.969}
+% PairFoldFN <- E7b_analysis.json:a_statics.fold_prediction.FN
+\newcommand{\PairFoldFN}{5}
+% PairBiasOneFreed <- E7b_analysis.json:b_quench.bias0p01.freed
+\newcommand{\PairBiasOneFreed}{8}
+% PairBiasTenFreed <- E7b_analysis.json:b_quench.bias0p1.freed
+\newcommand{\PairBiasTenFreed}{46}
+% PairHandAll <- E7b_analysis.json:b_handedness.pooled.freed
+\newcommand{\PairHandAll}{202}
+% PairBarN <- E7b_analysis.json:d_barriers.accepted
+\newcommand{\PairBarN}{12}
+% PairBarMin <- E7b_analysis.json:d_barriers.dU.min
+\newcommand{\PairBarMin}{0.06}
+% PairBarMax <- E7b_analysis.json:d_barriers.dU.max
+\newcommand{\PairBarMax}{1.1}
+% PairBarMed <- E7b_analysis.json:d_barriers.dU.median
+\newcommand{\PairBarMed}{0.21}
+% PairBarSpearman <- E7b_analysis.json:d_barriers.spearman_lambda1_dU
+\newcommand{\PairBarSpearman}{-0.24}
+% PairNoiseLowFreed <- E7b_analysis.json:b_quench.noise0p01.freed
+\newcommand{\PairNoiseLowFreed}{224}
+% PairNoiseLowN <- E7b_analysis.json:b_quench.noise0p01.n
+\newcommand{\PairNoiseLowN}{230}
+% PairWeibLow <- E7b_analysis.json:b_quench.noise0p01.weibull.k
+\newcommand{\PairWeibLow}{2.3}
+% PairWeibHigh <- E7b_analysis.json:b_quench.noise0p05.weibull.k
+\newcommand{\PairWeibHigh}{2.8}
+% PairPubFreed <- E7b_analysis.json:b_quench.C3_pub.freed
+\newcommand{\PairPubFreed}{21}
+% PairRvoFreed <- E7b_analysis.json:b_quench.C3_rvo2.freed
+\newcommand{\PairRvoFreed}{7}
+% PairPubRvoA <- E7b_analysis.json:c_decomposition.pub_vs_rvo2.disc_a_only
+\newcommand{\PairPubRvoA}{14}
+% PairPubRvoB <- E7b_analysis.json:c_decomposition.pub_vs_rvo2.disc_b_only
+\newcommand{\PairPubRvoB}{0}
+% PairPubRvoP <- E7b_analysis.json:c_decomposition.pub_vs_rvo2.mcnemar_p
+\newcommand{\PairPubRvoP}{\ensuremath{1.2\times10^{-4}}}
+% PairConsPubFreed <- E7b_analysis.json:b_quench.constraint_only_pub.freed
+\newcommand{\PairConsPubFreed}{45}
+% PairConsRvoFreed <- E7b_analysis.json:b_quench.constraint_only_rvo2.freed
+\newcommand{\PairConsRvoFreed}{44}
+% PairDriveFreed <- E7b_analysis.json:b_quench.drive_only.freed
+\newcommand{\PairDriveFreed}{33}
+% PairFrozenPlusFreed <- E7b_analysis.json:b_quench.frozen_plus.freed
+\newcommand{\PairFrozenPlusFreed}{34}
+% PairFrozenMinusFreed <- E7b_analysis.json:b_quench.frozen_minus.freed
+\newcommand{\PairFrozenMinusFreed}{1}
+% PairDriveRvoA <- E7b_analysis.json:c_decomposition.drive_vs_rvo2.disc_a_only
+\newcommand{\PairDriveRvoA}{28}
+% PairDriveRvoB <- E7b_analysis.json:c_decomposition.drive_vs_rvo2.disc_b_only
+\newcommand{\PairDriveRvoB}{2}
+% PairDriveRvoP <- E7b_analysis.json:c_decomposition.drive_vs_rvo2.mcnemar_p
+\newcommand{\PairDriveRvoP}{\ensuremath{8.7\times10^{-7}}}
+% PairReplayN <- E7b_analysis.json:c_decomposition.replay_all_det_n
+\newcommand{\PairReplayN}{5520}
+% PairPubLower <- E7b_analysis.json:b_quench.C3_pub.first_lower
+\newcommand{\PairPubLower}{11}
+% CtwsixN <- E7b_analysis.json:e_c26.second_trap_one_neighbour.n
+\newcommand{\CtwsixN}{10}
+% CtwsixGapMin <- E7b_analysis.json:e_c26.second_trap_one_neighbour.gap_m.min
+\newcommand{\CtwsixGapMin}{0.27}
+% CtwsixGapMax <- E7b_analysis.json:e_c26.second_trap_one_neighbour.gap_m.max
+\newcommand{\CtwsixGapMax}{0.32}
+% CtwsixRvoFreed <- E7b_analysis.json:e_c26.second_trap_one_neighbour.C3_rvo2_freed
+\newcommand{\CtwsixRvoFreed}{2}
+% CtwsixDriveFreed <- E7b_analysis.json:e_c26.second_trap_one_neighbour.drive_only_freed
+\newcommand{\CtwsixDriveFreed}{9}
+% CtwsixCancel <- E7b_analysis.json:e_c26.second_trap_one_neighbour.cancel_frac_mean_held.median
+\newcommand{\CtwsixCancel}{0.27}
+% PairTraceCancel <- E7b_analysis.json:e_c26.pair_library.trace.cancel_frac_mean_held.median
+\newcommand{\PairTraceCancel}{0.26}
+% PairFoldMissGap <- E7b_analysis.json:a_statics.fold_prediction.disagree_max_rel_gap_pct
+\newcommand{\PairFoldMissGap}{2}
+% PairAsymCorr <- E7b_analysis.json:a_statics.fold_threshold.corr_asym_bstar_spearman
+\newcommand{\PairAsymCorr}{1.000}
+% PairBstarPub <- E7b_analysis.json:s3_matched.pub.b_star
+\newcommand{\PairBstarPub}{0.0223}
+% PairBstarRvo <- E7b_analysis.json:s3_matched.rvo2.b_star
+\newcommand{\PairBstarRvo}{0.0091}
+% PairBsPubFreed <- E7b_analysis.json:s3_matched.pub.rate.freed_a
+\newcommand{\PairBsPubFreed}{22}
+% PairBsPubA <- E7b_analysis.json:s3_matched.pub.rate.disc_a_only
+\newcommand{\PairBsPubA}{9}
+% PairBsPubB <- E7b_analysis.json:s3_matched.pub.rate.disc_b_only
+\newcommand{\PairBsPubB}{8}
+% PairBsPubP <- E7b_analysis.json:s3_matched.pub.rate.mcnemar_p
+\newcommand{\PairBsPubP}{1.000}
+% PairBsPubDiffLo <- E7b_analysis.json:s3_matched.pub.rate.diff_ci90.0
+\newcommand{\PairBsPubDiffLo}{-0.11}
+% PairBsPubDiffHi <- E7b_analysis.json:s3_matched.pub.rate.diff_ci90.1
+\newcommand{\PairBsPubDiffHi}{0.17}
+% PairBsRvoFreed <- E7b_analysis.json:s3_matched.rvo2.rate.freed_a
+\newcommand{\PairBsRvoFreed}{8}
+% PairBsRvoA <- E7b_analysis.json:s3_matched.rvo2.rate.disc_a_only
+\newcommand{\PairBsRvoA}{8}
+% PairBsRvoB <- E7b_analysis.json:s3_matched.rvo2.rate.disc_b_only
+\newcommand{\PairBsRvoB}{7}
+% PairBsRvoP <- E7b_analysis.json:s3_matched.rvo2.rate.mcnemar_p
+\newcommand{\PairBsRvoP}{1.000}
+% PairBsRvoBoth <- E7b_analysis.json:s3_matched.rvo2.jaccard_freed.both_freed
+\newcommand{\PairBsRvoBoth}{0}
+% PairBsRvoEither <- E7b_analysis.json:s3_matched.rvo2.jaccard_freed.either_freed
+\newcommand{\PairBsRvoEither}{15}
+% PairBsPubJac <- E7b_analysis.json:s3_matched.pub.jaccard_freed.value
+\newcommand{\PairBsPubJac}{0.43}
+% PairBsPubJacLo <- E7b_analysis.json:s3_matched.pub.jaccard_freed.ci95.0
+\newcommand{\PairBsPubJacLo}{0.26}
+% PairBsPubJacHi <- E7b_analysis.json:s3_matched.pub.jaccard_freed.ci95.1
+\newcommand{\PairBsPubJacHi}{0.61}
+% PairBsPubBoth <- E7b_analysis.json:s3_matched.pub.jaccard_freed.both_freed
+\newcommand{\PairBsPubBoth}{13}
+% PairBsPubEither <- E7b_analysis.json:s3_matched.pub.jaccard_freed.either_freed
+\newcommand{\PairBsPubEither}{30}
+% PairBsPubHand <- E7b_analysis.json:s3_matched.pub.handedness.plus_lower_first
+\newcommand{\PairBsPubHand}{22}
+% PairBsPubN <- E7b_analysis.json:s3_matched.pub.handedness.plus_n
+\newcommand{\PairBsPubN}{22}
+% PairBsPubMinusUpper <- E7b_analysis.json:s3_matched.pub.handedness.minus_upper_first
+\newcommand{\PairBsPubMinusUpper}{21}
+% PairBsPubMinusFreed <- E7b_analysis.json:s3_matched.pub.handedness.minus_n
+\newcommand{\PairBsPubMinusFreed}{21}
+% PairBsPubRevA <- E7b_analysis.json:s3_matched.pub.reversal.disc_a_only
+\newcommand{\PairBsPubRevA}{13}
+% PairBsPubRevB <- E7b_analysis.json:s3_matched.pub.reversal.disc_b_only
+\newcommand{\PairBsPubRevB}{14}

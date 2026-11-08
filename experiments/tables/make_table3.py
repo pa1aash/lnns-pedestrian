@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Write paper/tables/table3_matched.tex from data/derived/E2_analysis.json.
+r"""Write paper/tables/table3_matched.tex from data/derived/E2_analysis.json (and E3, E4, E6, E7b).
 
 Table 3: matched-control results. Only rows whose data exist are written: the lone-trap rows come from E2
 (experiments/E2/analyze.py); the signature rows from E3 (experiments/E3/analyze.py, Delta-t signature) and E4
-(experiments/E4/analyze.py, escape statistics per condition). Rows for the sigma sweep
-(E5), matched whole-run completion (E6) and the pair class (E7b) are added when those results exist; they are
-left out of the output until then, not filled with placeholders.
+(experiments/E4/analyze.py, escape statistics per condition); the matched-completion rows from E6
+(experiments/E6/analyze.py). The pair-class block (E7b, session 5A, data/derived/E7b_analysis.json) is printed
+as a \pending line until that file exists; rerun this script once it does.
 """
 import json
 import re
@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[2]
 E2 = json.loads((ROOT / "data" / "derived" / "E2_analysis.json").read_text())
 E3 = json.loads((ROOT / "data" / "derived" / "E3_analysis.json").read_text())
 E4 = json.loads((ROOT / "data" / "derived" / "E4_analysis.json").read_text())
+E6P = ROOT / "data" / "derived" / "E6_analysis.json"
+E6 = json.loads(E6P.read_text()) if E6P.exists() else None
+E7B = ROOT / "data" / "derived" / "E7b_analysis.json"
 OUT = ROOT / "paper" / "tables" / "table3_matched.tex"
 LK, ST, PL = "lone_keystone", "lone_keystone_second_trap", "pooled"
 R, D, P, F = (E2["a_rates_time_to_free"], E2["d_orca_decomposition"], E2["b_replay_determinism"],
@@ -105,11 +108,108 @@ def signature_rows():
     return rows
 
 
+def e6_rows():
+    """E6: matched completion of whole runs; free text across the six result columns (signs set in math)."""
+    c, i, t, fs, lt = E6["completion"], E6["identity"], E6["time"], E6["failure_state"], E6["lifetimes"]
+
+    def comp(a):
+        x = c[a]
+        return f"{x['k']}/{x['n']} [{x['wilson95'][0]:.2f}, {x['wilson95'][1]:.2f}]"
+
+    def cls(a):
+        k = fs[a]["class_counts"]
+        return f"{k['lone_keystone']}/{k['lone_keystone_second_trap']}/{k['collective']}"
+
+    def sg(x):
+        return f"${x:+.2f}$"
+    d = c["diff_sigma_minus_C3"]
+    a3 = fs["C3_rvo2"]
+    nb = t["paired_both_complete_n"]
+    faster = nb - round(t["paired_frac_C3_faster"] * nb)
+    return [
+        ("C3 RVO2 (target)", "---",
+         rf"completed {comp('C3_rvo2')}; KM median {t['km_C3_rvo2']['median']:.0f}\,s; failures "
+         rf"{a3['stationary_deadlock']} at rest and {a3['moving_at_600s']} still moving at 600\,s; classes {cls('C3_rvo2')}"),
+        (r"noise $\sigma^\ast$", "T",
+         rf"completed {comp('C1_sigma')}, $\Delta$ = {sg(d['diff'])} [{sg(d['ci95'][0])}, {sg(d['ci95'][1])}]; "
+         rf"failures {i['C3_only_fail']}:{i['sigma_only_fail']}, {pmath(i['mcnemar_exact_p'])}, "
+         rf"$J={i['jaccard']:.2f}$ [{i['jaccard_ci95'][0]:.2f}, {i['jaccard_ci95'][1]:.2f}] (independent {i['jaccard_independent_mean']:.2f}); "
+         rf"KM median {t['km_C1_sigma']['median']:.0f}\,s, faster than C3 RVO2 on {faster}/{nb} "
+         rf"seeds where both complete; classes {cls('C1_sigma')}; stall lifetimes Weibull $k={lt['weibull']['k']:.2f}$"),
+    ]
+
+
+def pmath(p):
+    """p in math: plain decimal for p >= 0.01, scientific below."""
+    if p >= 0.01:
+        return f"$p={p:.2f}$"
+    m, e = f"{p:.1e}".split("e")
+    return rf"$p={m}\times10^{{{int(e)}}}$"
+
+
+def pair_rows():
+    """E7b (session 5A): quench arms on the pair library; free text, from E7b_analysis.json only."""
+    E = json.loads(E7B.read_text())
+    q, n = E["b_quench"], E["n_snapshots"]
+
+    def f(a):
+        return f"{q[a]['freed']}/{q[a]['n']}" if a in q else None
+
+    def km_(a):
+        m = q.get(a, {}).get("km_median_s")
+        return f", $t_{{1/2}}$ = {m:.1f}\\,s" if m is not None else ""
+    rows = []
+    pv = E.get("c_decomposition", {}).get("pub_vs_rvo2")
+    rows.append(("C3 RVO2 (target)", "---", f"freed {f('C3_rvo2')}; replays identical "
+                 f"({q['C3_rvo2']['replays'] - q['C3_rvo2']['replay_discordant_snapshots']}/{q['C3_rvo2']['replays']})"))
+    if pv:
+        rows.append(("C3 published", "N", f"freed {f('C3_pub')}; vs C3 RVO2 {pv['disc_a_only']}:{pv['disc_b_only']}, "
+                     + pmath(pv['mcnemar_p'])))
+    rows.append(("ORCA parts", "L", f"drive only {f('drive_only')}{km_('drive_only')}; constraint only "
+                 f"{f('constraint_only_rvo2')} (RVO2), {f('constraint_only_pub')} (published); frozen mean $+$ "
+                 f"{f('frozen_plus')}, $-$ {f('frozen_minus')}"))
+    bs = [k for k in q if k.startswith("bias") and not k.startswith("biasm")]
+    bm = [k for k in q if k.startswith("biasm")]
+    if bs:
+        h = E.get("b_handedness", {}).get("pooled", {})
+        fp = E["a_statics"].get("fold_prediction", {})
+        txt = (f"$+b$ = 0.01--0.1: freed {q[bs[0]]['freed']}--{q[bs[-1]]['freed']}/{n}; $-b$: "
+               f"{', '.join(str(q[k]['freed']) for k in bm)}/{n}")
+        if h:
+            txt += f"; favoured member first in {h['favoured_first']}/{h['freed']}"
+        if fp:
+            txt += f"; static fold predicts {fp['agree']}/{fp['n']} outcomes"
+        rows.append(("lateral bias $\\pm b$", "D", txt))
+    ns = [k for k in q if k.startswith("noise")]
+    if ns:
+        rows.append(("noise $\\sigma$ = 0.01--0.05", "T", ", ".join(f"{q[k]['freed']}/{q[k]['n']}" for k in ns)
+                     + " runs freed" + km_(ns[0]).replace("$t_{1/2}$", "$t_{1/2}(0.01)$")))
+    ds = [k for k in q if k.startswith("delta")]
+    if ds:
+        rows.append(("displacement $+\\delta$", "D", "$\\delta$ = 1, 10, 30\\,mm: freed "
+                     + ", ".join(f"{q[k]['freed']}" for k in ds) + f"/{n}"))
+    mb = E.get("s3_matched")
+    if not mb:
+        rows.append(("matched bias $b^\\ast$", "D", r"\pending{fit of $b^\ast$ to C3 on rate and its held-out signatures (E7b, S9g)}"))
+    else:
+        for key, name in (("rvo2", "C3 RVO2"), ("pub", "C3 published")):
+            m = mb.get(key)
+            if not m:
+                continue
+            r, j, h = m["rate"], m["jaccard_unresolved"], m["handedness"]
+            rows.append((f"$b^\\ast$ = {m['b_star']:.3f} (to {name})", "D",
+                         f"freed {r['freed_a']}/{n} vs {r['freed_b']}/{n}, {r['disc_a_only']}:{r['disc_b_only']}, "
+                         + pmath(r["mcnemar_p"]) + f"; $J$ = {j['value']:.2f} [{j['ci95'][0]:.2f}, {j['ci95'][1]:.2f}]; "
+                         f"favoured member first {h['plus_lower_first']}/{h['plus_n']} ($+b^\\ast$), "
+                         f"{h['minus_upper_first']}/{h['minus_n']} ($-b^\\ast$)"))
+    return rows
+
+
 def main():
     lines = [
-        "% generated by experiments/tables/make_table3.py from data/derived/E2_analysis.json, E3_analysis.json and E4_analysis.json; do not edit",
+        "% generated by experiments/tables/make_table3.py from data/derived/E2_analysis.json, E3_analysis.json, E4_analysis.json and E6_analysis.json; do not edit",
         r"\begin{table}[t]",
-        r"\caption{Matched-control results at the lone trap: blocker freed within 120\,s from 60 corrected-forward "
+        r"\caption{Matched-control results. Lone trap: blocker freed within 120\,s from 60 corrected-forward "
         r"deadlock snapshots (Lone: 34 lone keystone; Second: 26 with a second trap), paired against C3 RVO2 by snapshot. Noise rows "
         r"count runs (5 seeds per snapshot) and C1 + noise is abbreviated noise; vs C3 RVO2 gives discordant counts with "
         r"the exact McNemar $p$, or the paired rate difference $\Delta$ for noise; $t_{1/2}$ is the Kaplan--Meier median "
@@ -119,7 +219,12 @@ def main():
         r"$\ell=\ln\hat\lambda(0.005)/\hat\lambda(0.02)$ against the Arrhenius prediction with the exact discrete "
         r"$k_BT_{\rm eff}$ (mean over 20 snapshots; slope of observed on predicted through the origin, 95\% CI); the "
         r"Arrhenius ratio is the fitted slope of $\ln\hat\lambda$ against $1/k_BT_{\rm eff}$ over $-\Delta U_{\rm cond}$ "
-        r"(median over snapshots), and $k$ the pooled Weibull shape.}",
+        r"(median over snapshots), and $k$ the pooled Weibull shape. Whole runs: completion within 600\\,s with Wilson "
+        r"intervals; $\\Delta$ is the paired difference from C3 RVO2 (Newcombe interval); failures gives the seeds that fail "
+        r"in one arm only (C3 RVO2 : noise) with the exact McNemar $p$; $J$ is the Jaccard overlap of the failing seeds, with its "
+        r"expectation for independent failures; KM is the Kaplan--Meier median completion time; classes count the "
+        r"rebuilt final states as lone keystone / with a second trap / collective; stalls are intervals of at least "
+        r"10\\,s without an exit.}",
         r"\label{tab:matched}",
         r"\centering\scriptsize\setlength{\tabcolsep}{2.5pt}",
         r"\begin{tabular}{@{}llcclrlc@{}}",
@@ -135,6 +240,18 @@ def main():
     for label, cls, text in signature_rows():
         text = re.sub(r"(?<![\w$])-(\d)", r"$-$\1", text)
         lines.append(f"{label} & {cls} & \\multicolumn{{6}}{{>{{\\raggedright\\arraybackslash}}p{{7.7cm}}}}{{{text}}} \\\\")
+    if E6 is not None:
+        lines += [r"\midrule", r"\multicolumn{8}{@{}l}{\emph{Matched completion of whole runs (E6): "
+                  rf"{E6['n']} seeds, $w=0.8$\,m, 600\,s, $\sigma^\ast={E6['sigma_star']}$\,m/s}}}} \\"]
+        for label, cls, text in e6_rows():
+            lines.append(f"{label} & {cls} & \\multicolumn{{6}}{{>{{\\raggedright\\arraybackslash}}p{{7.7cm}}}}{{{text}}} \\\\")
+    lines += [r"\midrule"]
+    lines += [r"\multicolumn{8}{@{}l}{\emph{Pair class (E7b): 46 corrected-forward pair snapshots ($B_w=0.04$), freed within 120\,s}} \\"]
+    if E7B.exists():
+        for label, cls, text in pair_rows():
+            lines.append(f"{label} & {cls} & \\multicolumn{{6}}{{>{{\\raggedright\\arraybackslash}}p{{7.7cm}}}}{{{text}}} \\\\")
+    else:
+        lines += [r"\multicolumn{8}{@{}l}{\pending{pair-class rows await data/derived/E7b\_analysis.json}} \\"]
     lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     OUT.write_text("\n".join(lines) + "\n")
     print(f"wrote {OUT} ({len(ROWS) + 1 + len(signature_rows())} rows)")

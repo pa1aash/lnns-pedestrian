@@ -1,1 +1,210 @@
 # Registry entries for E6-E10 (session 5B). Same format as core.yaml.
+# --- E6_analysis
+EsixN:
+  file: E6_analysis.json
+  key: "n"
+  fmt: "{:d}"
+EsixSigmaStar:
+  file: E6_analysis.json
+  key: "sigma_star"
+  fmt: "{:.4f}"
+EsixCThreeK:
+  file: E6_analysis.json
+  key: "completion.C3_rvo2.k"
+  fmt: "{:d}"
+EsixCThreeLo:
+  file: E6_analysis.json
+  key: "completion.C3_rvo2.wilson95.0"
+  fmt: "{:.2f}"
+EsixCThreeHi:
+  file: E6_analysis.json
+  key: "completion.C3_rvo2.wilson95.1"
+  fmt: "{:.2f}"
+EsixNoiseK:
+  file: E6_analysis.json
+  key: "completion.C1_sigma.k"
+  fmt: "{:d}"
+EsixNoiseLo:
+  file: E6_analysis.json
+  key: "completion.C1_sigma.wilson95.0"
+  fmt: "{:.2f}"
+EsixNoiseHi:
+  file: E6_analysis.json
+  key: "completion.C1_sigma.wilson95.1"
+  fmt: "{:.2f}"
+EsixDiff:
+  file: E6_analysis.json
+  key: "completion.diff_sigma_minus_C3.diff"
+  fmt: "{:.2f}"
+EsixDiffLo:
+  file: E6_analysis.json
+  key: "completion.diff_sigma_minus_C3.ci95.0"
+  fmt: "{:.2f}"
+EsixDiffHi:
+  file: E6_analysis.json
+  key: "completion.diff_sigma_minus_C3.ci95.1"
+  fmt: "{:.2f}"
+EsixBothFail:
+  file: E6_analysis.json
+  key: "identity.both_fail"
+  fmt: "{:d}"
+EsixCThreeOnlyFail:
+  file: E6_analysis.json
+  key: "identity.C3_only_fail"
+  fmt: "{:d}"
+EsixNoiseOnlyFail:
+  file: E6_analysis.json
+  key: "identity.sigma_only_fail"
+  fmt: "{:d}"
+EsixMcNemarP:
+  file: E6_analysis.json
+  key: "identity.mcnemar_exact_p"
+  fmt: p
+EsixJaccard:
+  file: E6_analysis.json
+  key: "identity.jaccard"
+  fmt: "{:.2f}"
+EsixJaccardLo:
+  file: E6_analysis.json
+  key: "identity.jaccard_ci95.0"
+  fmt: "{:.2f}"
+EsixJaccardHi:
+  file: E6_analysis.json
+  key: "identity.jaccard_ci95.1"
+  fmt: "{:.2f}"
+EsixJaccardIndep:
+  file: E6_analysis.json
+  key: "identity.jaccard_independent_mean"
+  fmt: "{:.2f}"
+EsixKMCThree:
+  file: E6_analysis.json
+  key: "time.km_C3_rvo2.median"
+  fmt: "{:.0f}"
+EsixKMNoise:
+  file: E6_analysis.json
+  key: "time.km_C1_sigma.median"
+  fmt: "{:.0f}"
+EsixCThreeMaxT:
+  file: E6_analysis.json
+  key: "time.completed_max_C3_rvo2"
+  fmt: "{:.0f}"
+EsixNoiseLate:
+  file: E6_analysis.json
+  key: "time.completed_after_300s_C1_sigma"
+  fmt: "{:d}"
+EsixPairedN:
+  file: E6_analysis.json
+  key: "time.paired_both_complete_n"
+  fmt: "{:d}"
+EsixPairedCThreeFaster:
+  file: E6_analysis.json
+  key: "time.paired_C3_faster_n"
+  fmt: "{:d}"
+EsixPairedDelay:
+  file: E6_analysis.json
+  key: "time.paired_median_diff_sigma_minus_C3"
+  fmt: "{:.0f}"
+EsixLogrankP:
+  file: E6_analysis.json
+  key: "time.logrank.p"
+  fmt: p
+EsixCThreeFailRest:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.stationary_deadlock"
+  fmt: "{:d}"
+EsixCThreeFailMoving:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.moving_at_600s"
+  fmt: "{:d}"
+EsixCThreeMovingTwo:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.n_res_two_moving"
+  fmt: "{:d}"
+EsixCThreeEndSpeed:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.end_speed_median_moving"
+  fmt: "{:.2f}"
+EsixCThreeLone:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.class_counts.lone_keystone"
+  fmt: "{:d}"
+EsixCThreeSecond:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.class_counts.lone_keystone_second_trap"
+  fmt: "{:d}"
+EsixCThreeCollective:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.class_counts.collective"
+  fmt: "{:d}"
+EsixNoiseLone:
+  file: E6_analysis.json
+  key: "failure_state.C1_sigma.class_counts.lone_keystone"
+  fmt: "{:d}"
+EsixNoiseSecond:
+  file: E6_analysis.json
+  key: "failure_state.C1_sigma.class_counts.lone_keystone_second_trap"
+  fmt: "{:d}"
+EsixNoiseCollective:
+  file: E6_analysis.json
+  key: "failure_state.C1_sigma.class_counts.collective"
+  fmt: "{:d}"
+EsixNoiseResOne:
+  file: E6_analysis.json
+  key: "failure_state.C1_sigma.n_res_counts.1"
+  fmt: "{:d}"
+EsixStalls:
+  file: E6_analysis.json
+  key: "lifetimes.n_stalls"
+  fmt: "{:d}"
+EsixStallWeib:
+  file: E6_analysis.json
+  key: "lifetimes.weibull.k"
+  fmt: "{:.2f}"
+EsixStallWeibLo:
+  file: E6_analysis.json
+  key: "lifetimes.weibull.ci95.0"
+  fmt: "{:.2f}"
+EsixStallWeibHi:
+  file: E6_analysis.json
+  key: "lifetimes.weibull.ci95.1"
+  fmt: "{:.2f}"
+EsixStallMedObs:
+  file: E6_analysis.json
+  key: "lifetimes.pred_vs_obs.median_obs_km_s"
+  fmt: "{:.0f}"
+EsixStallMedPred:
+  file: E6_analysis.json
+  key: "lifetimes.pred_vs_obs.median_pred_s"
+  fmt: "{:.0f}"
+EsixStallMaxDiff:
+  file: E6_analysis.json
+  key: "lifetimes.pred_vs_obs.max_abs_diff"
+  fmt: "{:.2f}"
+EsixBarrierN:
+  file: E6_analysis.json
+  key: "lifetimes.barrier_picture.n_barriers"
+  fmt: "{:d}"
+EsixKTMedian:
+  file: E6_analysis.json
+  key: "lifetimes.barrier_picture.kT_eff_median"
+  fmt: "{:.1f}"
+EsixNoiseFail:
+  file: E6_analysis.json
+  key: "failure_state.C1_sigma.n_fail"
+  fmt: "{:d}"
+EsixCThreeFail:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.n_fail"
+  fmt: "{:d}"
+EsixClassP:
+  file: E6_analysis.json
+  key: "failure_state.class_test.p_perm"
+  fmt: p
+EsixCThreeSelfHold:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.K0c_C3_holds_own_residual"
+  fmt: "{:d}"
+EsixCThreeMovingSecond:
+  file: E6_analysis.json
+  key: "failure_state.C3_rvo2.class_counts_moving.lone_keystone_second_trap"
+  fmt: "{:d}"
