@@ -9,6 +9,10 @@
 \usetikzlibrary{arrows.meta}
 \usepackage{booktabs,tabularx}
 \usepackage{url}
+\usepackage[section]{placeins}% floats stay in their own section
+% Float placement: let tall tables go on text pages near their first reference.
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}\setcounter{topnumber}{3}\setcounter{totalnumber}{4}
 %
 % Draft marker: \pending{...} prints its argument in red brackets. With \finaltrue
 % (uncomment the line below for the final build) any remaining \pending is a compile error.

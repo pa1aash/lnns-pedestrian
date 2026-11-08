@@ -20,7 +20,7 @@ Mode & published-reproduction & corrected-forward \\
 Integrator & semi-implicit Euler, then clamp; force clip $\pm10^{6}$\,N & clamp, then position update; no clip \\
 Noise & added after the position update & added to $v$, re-clamped, before the position update \\
 Spawn & uniform, overlaps allowed & rejection, non-overlapping \\
-ORCA & leg normal sign-flipped outside the obstacle; infeasible constraints dropped & line-by-line RVO2 port \\
+ORCA & leg normal sign-flipped outside the obstacle (source of replay flips); infeasible constraints dropped & line-by-line RVO2 port \\
 Crush & present in C4 & off \\
 Wall corners & sum over segments & convex-union rule \\
 \bottomrule
