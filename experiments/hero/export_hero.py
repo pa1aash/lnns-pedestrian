@@ -98,8 +98,9 @@ def export_lone(rep):
                        "partner_N": F["partner"][k_b].round(3).tolist(), "orca_rest_N": F_orca.round(3).tolist()}}
     # ribbons
     rb = hp.lone_ribbon(snap, blocker)
-    x, Uo, Ua = rb["x"], rb["U_own"], rb["U_added"]
+    x, Uo, Ua = rb["x"], rb["U_own"], rb["U_added"]            # both with the neighbours pinned (batch HF)
     mins_o, maxs_o = hp.stationary_points(x, Uo)
+    mins_oa, maxs_oa = hp.stationary_points(x, rb["U_own_alone"])
     mins_a, maxs_a = hp.stationary_points(x, Ua)
     mins_aa, maxs_aa = hp.stationary_points(x, rb["U_added_alone"])
     vs_model = hp.check_ribbon_vs_model(snap, blocker, rb)
@@ -115,8 +116,10 @@ def export_lone(rep):
     ribbon_checks = {
         "own_has_minimum_and_barrier": bool(len(mins_o) == 1 and len(maxs_o) == 1),
         "own_x_min": mins_o, "own_x_barrier": maxs_o, "own_barrier_J": barrier,
+        "own_alone_x_min": mins_oa, "own_alone_x_barrier": maxs_oa,
+        "own_alone_barrier_J": float(np.interp(maxs_oa[0], x, rb["U_own_alone"]) - np.interp(mins_oa[0], x, rb["U_own_alone"])),
         "gate_alone_barrier_J": gate["dU_bar"]["alone"], "gate_1d_axis_alone_J": gate["dU_1d_axis_alone"],
-        "gate_alone_x_min_x_top": [9.641, 9.95], "barrier_vs_gate_rel": abs(barrier / gate["dU_bar"]["alone"] - 1),
+        "barrier_vs_gate_frozen_rel": abs(barrier / gate["dU_bar"]["frozen"] - 1),
         "frozen_x": xf, "own_min_minus_frozen_m": mins_o[0] - xf,
         "own_U_frozen_above_min_J": float(np.interp(xf, x, Uo) - U0o),
         "gate_frozen_neighbours_barrier_J": gate["dU_bar"]["frozen"],
@@ -155,7 +158,7 @@ def export_lone(rep):
                         drive_N=F["drive"], wall_N=F["wall"], partner_N=F["partner"], orca_N=F_orca,
                         walls=walls_array(world), width=snap["width"],
                         rib_x=x, rib_Uown=Uo, rib_Uadd=Ua, rib_Uadd_alone=rb["U_added_alone"], rib_y=rb["y"],
-                        kT_J=kT, x_min_own=mins_o[0], x_top_own=maxs_o[0], **ff)
+                        kT_J=kT, frozen_x=xf, x_min_own=mins_o[0], x_top_own=maxs_o[0], **ff)
     rep["lone"] = {"snapshot": rel(LONE_SNAP), "time_s": snap["time"], "ids": ids, "blocker": blocker,
                    "pos": st.positions[ids].round(4).tolist(), "r": st.radii[ids].round(4).tolist(),
                    "margin_N": margin.round(2).tolist(), "wall_params": wp,

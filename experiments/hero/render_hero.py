@@ -44,17 +44,21 @@ def srgb_to_linear(c):
 def parse():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser()
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--overlay", default=str(ROOT / "figures" / "hero" / "mock_v2" / "fig1_overlay_v2.json"))
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--overlay", default=str(ROOT / "figures" / "hero" / "fig1_overlay.json"))
     ap.add_argument("--width-px", type=int, default=900)
     ap.add_argument("--samples", type=int, default=24)
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--device", choices=["GPU", "CPU"], default="GPU")
     ap.add_argument("--panels", default="lone,pair,rib_lone,rib_pair")
+    ap.add_argument("--cache-dir", default=None, help="save each rendered panel (pixels + anchors) here; with --panels a subset, nothing else is written")
+    ap.add_argument("--assemble", action="store_true", help="no rendering: load the four cached panels and write the composite and the overlay json")
+    ap.add_argument("--tile", type=int, default=256, help="Cycles tile size (px)")
     # layout, cm
     ap.add_argument("--width-cm", type=float, default=12.2)
     ap.add_argument("--col-cm", type=float, default=6.0)
-    ap.add_argument("--row-cm", type=float, default=3.65)
+    ap.add_argument("--row-cm", type=float, default=3.65, help="height of the lone row")
+    ap.add_argument("--row-pair-cm", type=float, default=2.65, help="height of the pair row (cropped from the top: same near edge, same kerb height above the bottom)")
     ap.add_argument("--gap-cm", type=float, default=0.2)
     # floor scenes
     ap.add_argument("--elev", type=float, default=65.0)
@@ -73,16 +77,17 @@ def parse():
     ap.add_argument("--force-max", type=float, default=1000.0)
     ap.add_argument("--arrow-m-per-n", type=float, default=0.003, help="floor metres per newton: 100 N = 0.30 m")
     # ribbons
-    ap.add_argument("--lone-x", default="9.45,10.0", help="m, door-axis range of the lone ribbons")
-    ap.add_argument("--lone-ej", type=float, default=45.0, help="J per cm of ribbon height (lone)")
+    ap.add_argument("--lone-x", default="9.54,10.0", help="m, door-axis range of the lone ribbons")
+    ap.add_argument("--lone-ej", type=float, default=35.0, help="J per cm of ribbon height (lone)")
     ap.add_argument("--pair-c", type=float, default=0.10, help="m, |common shift| of the pair ribbons")
-    ap.add_argument("--pair-ej", type=float, default=1.0, help="J per cm of ribbon height (pair)")
+    ap.add_argument("--pair-ej", type=float, default=1.5, help="J per cm of ribbon height (pair)")
     ap.add_argument("--rib-width-cm", type=float, default=4.1)
     ap.add_argument("--rib-thick-cm", type=float, default=0.11)
     ap.add_argument("--rib-depth-cm", type=float, default=0.40)
     ap.add_argument("--ball-cm", type=float, default=0.11, help="ball radius")
     ap.add_argument("--rib-elev", type=float, default=12.0)
-    ap.add_argument("--cluster-u", type=float, default=0.30, help="cm from the lone panel's left edge: scale cluster corner")
+    ap.add_argument("--cluster-u", type=float, default=0.95, help="cm from the lone panel's left edge: corner of the 100 N bar")
+    ap.add_argument("--cluster-gap", type=float, default=0.28, help="cm between the 100 N bar and the start of the 0.5 m bar")
     ap.add_argument("--cluster-v", type=float, default=1.17, help="cm from the lone panel's top edge: scale cluster corner")
     ap.add_argument("--light", type=float, default=0.25)
     ap.add_argument("--world-strength", type=float, default=0.35)
@@ -111,6 +116,9 @@ def setup_render(w, h):
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGBA"
     sc.cycles.device = "CPU"
+    sc.render.use_persistent_data = False
+    if hasattr(sc.cycles, "tile_size"):
+        sc.cycles.tile_size = A.tile
     if A.device == "GPU":
         prefs = bpy.context.preferences.addons["cycles"].preferences
         try:
@@ -297,7 +305,7 @@ class Anchors:
 
 # ------------------------------------------------------------------ floor scenes
 def floor_scene(D, anc, kind, extras):
-    h_cm = A.row_cm
+    h_cm = A.row_cm if kind == "lone" else A.row_pair_cm
     sin_el = math.sin(math.radians(A.elev))
     wm = A.col_cm / A.cm_per_m                           # metres across
     dx = h_cm / (A.cm_per_m * sin_el)                    # metres of depth
@@ -392,8 +400,8 @@ def strip(name, X, Z, thick, depth, rgb, rough=0.55):
     return ob
 
 
-def ribbons_scene(spec, anc):
-    w, h = A.col_cm, A.row_cm
+def ribbons_scene(spec, anc, h):
+    w = A.col_cm
     t, dep, rb = A.rib_thick_cm, A.rib_depth_cm, A.ball_cm
     xlo, xhi = spec["x_range"]
     hs = A.rib_width_cm / (xhi - xlo)
@@ -494,20 +502,27 @@ def main():
     pxcm = W / A.width_cm
     g = int(round(A.gap_cm * pxcm))
     cw, rh = (W - g) // 2, int(round(A.row_cm * pxcm))
+    rhp = int(round(A.row_pair_cm * pxcm))
     rg = int(round(0.15 * pxcm))
-    Wc, Hc = W, 2 * rh + rg
+    Wc, Hc = W, rh + rhp + rg
     canvas = np.ones((Hc, Wc, 3), np.float32) * np.array(BG, np.float32)
     pos = {"lone": (0, 0), "rib_lone": (cw + g, 0), "pair": (0, rh + rg), "rib_pair": (cw + g, rh + rg)}
+    hpx = {"lone": rh, "rib_lone": rh, "pair": rhp, "rib_pair": rhp}
     overlay = {"px": [Wc, Hc], "cm": [A.width_cm, round(A.width_cm * Hc / Wc, 3)], "args": {k: v for k, v in vars(A).items()},
-               "panels_px": {k: [*v, cw, rh] for k, v in pos.items()}, "panels": {}}
+               "panels_px": {k: [*v, cw, hpx[k]] for k, v in pos.items()}, "panels": {}}
     # ---- arrows (world vectors in newtons; floor-plane projection is done by the camera)
     bl = int(np.nonzero(L["ids"] == L["blocker"])[0][0])
     pb = L["pos"][bl]
     drive = L["drive_N"][bl]
-    ar_lone = {"drive": (pb, drive), "wall": (pb, L["wall_N"][bl])}
-    # ORCA starts at the tip of the drive arrow: expressed in world metres, convert back to a start point
-    ar_lone["orca"] = (pb + drive * A.arrow_m_per_n, L["orca_N"])
-    ar_lone["push"] = (pb + drive * A.arrow_m_per_n, L["partner_N"][bl])      # neighbours' push (17.5 N), stacked on the drive tip
+    # Force balance on the blocker, all along the door axis (the lateral components are <= 5 N and are not drawn): upward from the
+    # blocker centre the drive, then the neighbours' push from the drive tip, then ORCA's rest drive from the push tip; downward
+    # the wall force. drive + push = wall to 1e-3 N, so the stacked arrows and the wall arrow have equal length.
+    ax = lambda v: np.array([float(v[0]), 0.0])
+    drive_x, push_x, orca_x, wall_x = ax(drive), ax(L["partner_N"][bl]), ax(L["orca_N"]), ax(L["wall_N"][bl])
+    mpn = A.arrow_m_per_n
+    ar_lone = {"drive": (pb, drive_x), "wall": (pb, wall_x),
+               "push": (pb + drive_x * mpn, push_x),
+               "orca": (pb + (drive_x + push_x) * mpn, orca_x)}
     sin_el = math.sin(math.radians(A.elev))
     wm = A.col_cm / A.cm_per_m
     x_top = A.x0 + A.row_cm / (A.cm_per_m * sin_el)
@@ -521,8 +536,9 @@ def main():
     # force arrows), 0.5 m along y (screen right), sharing the lower-left corner
     x100, y100 = scr(A.cluster_u, A.cluster_v)
     ar_lone["scale100"] = ((x100, y100), np.array([100.0, 0.0]))
-    ar_lone["scale_half_m"] = ((x100, y100), np.array([0.0, -0.5 / A.arrow_m_per_n]))
+    ar_lone["scale_half_m"] = ((x100, y100 - A.cluster_gap / A.cm_per_m), np.array([0.0, -0.5 / A.arrow_m_per_n]))
     pts_lone = {"coord_0": (A.x0 + 0.02, pb[1]), "coord_1": (x_top - 0.14, pb[1]), "blocker": (pb[0], pb[1]),
+                "held_ul": (pb[0] + 0.5 * float(L["radius"][bl]), pb[1] + 0.866 * float(L["radius"][bl])),   # rim point 60 deg left of straight up
                 "n38": (L["pos"][1][0], L["pos"][1][1]), "n54": (L["pos"][2][0], L["pos"][2][1]),
                 "box_x0": (A.x0, A.yc - wm / 2)}
     k0, k1 = 0, 1                       # pair members: lower, upper
@@ -533,14 +549,14 @@ def main():
                 "member1": tuple(P["pos"][1]), "between": (xm, float(np.mean(P["pos"][:, 1])))}
     # ---- ribbons
     xlo, xhi = [float(v) for v in A.lone_x.split(",")]
-    xf = float(L["x_min_own"])        # the ball sits at the alone minimum (1.9 cm behind the frozen position: neighbours' push)
+    xf = float(L["frozen_x"])         # both balls sit at the frozen position, which is the own-drive minimum (neighbours pinned)
     x_rib = L["rib_x"]
     Uo, Ua = L["rib_Uown"], L["rib_Uadd"]
     rep = phys["lone"]["ribbon"]
     spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "bar_J": 10.0, "gap_cm": 0.52,
                  "curves": [{"x": x_rib, "U": Uo, "x_ref": xf, "rgb": OKABE["black"], "ghost_x": None},
                             {"x": x_rib, "U": Ua, "x_ref": xf, "rgb": OKABE["blue"], "ghost_x": xhi - 0.012}],
-                 "band": {"curve": 0, "kT": float(L["kT_J"]), "x": float(L["x_min_own"])}}
+                 "band": {"curve": 0, "kT": float(L["kT_J"]), "x": xf}}
     cs, U0, Ub = P["rib_c"], P["rib_U0"], P["rib_Ub"]
     c0 = float(np.interp(0.0, cs, Ub))
     spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "bar_J": 0.5, "gap_cm": 0.52,
@@ -548,18 +564,29 @@ def main():
                             {"x": cs, "U": Ub, "x_ref": 0.0, "rgb": OKABE["yellow"], "ghost_x": A.pair_c - 0.006}]}
     jobs = {"lone": lambda anc: floor_scene(L, anc, "lone", {"arrows": ar_lone, "points": pts_lone}),
             "pair": lambda anc: floor_scene(P, anc, "pair", {"arrows": ar_pair, "points": pts_pair}),
-            "rib_lone": lambda anc: ribbons_scene(spec_lone, anc),
-            "rib_pair": lambda anc: ribbons_scene(spec_pair, anc)}
+            "rib_lone": lambda anc: ribbons_scene(spec_lone, anc, A.row_cm),
+            "rib_pair": lambda anc: ribbons_scene(spec_pair, anc, A.row_pair_cm)}
     times, dev = {}, None
     for key in A.panels.split(","):
-        anc = Anchors(pos[key], (cw, rh), (Wc, Hc))
+        anc = Anchors(pos[key], (cw, hpx[key]), (Wc, Hc))
 
         # anchors need the camera: build, then re-project after construction (the camera is created inside build)
-        px, dt, dev, info = render_panel(lambda: _build_and_project(jobs[key], anc), cw, rh)
+        if A.assemble:
+            z = np.load(Path(A.cache_dir) / (key + ".npz"), allow_pickle=True)
+            px, dt, dev, info = z["px"], float(z["dt"]), str(z["dev"]), {}
+            anc.pts = json.loads(str(z["anchors"]))
+        else:
+            px, dt, dev, info = render_panel(lambda: _build_and_project(jobs[key], anc), cw, hpx[key])
+            if A.cache_dir:
+                os.makedirs(A.cache_dir, exist_ok=True)
+                np.savez(Path(A.cache_dir) / (key + ".npz"), px=px, dt=dt, dev=dev, anchors=json.dumps(anc.pts))
         times[key] = round(dt, 1)
         x, y = pos[key]
-        canvas[Hc - y - rh:Hc - y, x:x + cw] = px
+        canvas[Hc - y - hpx[key]:Hc - y, x:x + cw] = px
         overlay["panels"][key] = {"anchors": anc.pts, "info": info if isinstance(info, dict) else {}}
+    if A.cache_dir and not A.assemble:
+        print("PANEL", json.dumps({"panels": A.panels, "times": times, "device": dev}))
+        return
     reset()
     out = bpy.data.images.new("hero", Wc, Hc, alpha=False)
     out.colorspace_settings.name = "sRGB"

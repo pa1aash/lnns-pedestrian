@@ -1,7 +1,7 @@
 """Turn figures/hero/fig1_overlay.json (3-D anchors projected by render_hero.py) into figures/fig1_overlay.tex.
 
-    python3 tools/make_fig1_overlay.py [--overlay figures/hero/mock_v2/fig1_overlay_v2.json] [--png figures/fig1_hero.png]
-                                       [--out figures/hero/mock_v2/fig1_overlay_v2.tex]
+    python3 tools/make_fig1_overlay.py [--overlay figures/hero/fig1_overlay.json] [--png figures/fig1_hero.png]
+                                       [--out figures/fig1_overlay.tex]
 
 The TeX file is a fragment for a TikZ scope whose unit is the image width (x = y = \\textwidth, origin at the
 image's lower-left corner): force arrows (0.6 pt shafts, solid), coordinate lines, one scale-bar cluster, the 17 labels (6.5 pt
@@ -27,19 +27,19 @@ CHAR_W_CM = 0.118            # mean advance of 6.5 pt Computer Modern text, for 
 # junction); ribbon labels at the left end of each ribbon just above the curve.
 LABELS = [
     ("lone trap", "lone", "@tl", 0.10, -0.08, "north west"),
-    ("100 N", "lone", "scale100_mid", 0.10, 0.0, "west"),
+    ("100 N", "lone", "scale100_mid", -0.10, 0.0, "east"),
     ("0.5 m", "lone", "scale_half_m_mid", 0.0, 0.07, "south"),
-    ("held alone", "lone", "drive_1", -0.27, 0.12, "south east"),
-    ("passes alone", "lone", "n54", 0.0, 0.58, "south"),
-    ("drive", "lone", "drive_1", 0.20, 0.0, "south west"),
+    ("held alone", "lone", "held_ul", -0.02, 0.02, "south east"),
+    ("passes alone", "lone", "n38", 0.0, 0.58, "south"),
+    ("drive", "lone", "drive_f", 0.15, 0.0, "west"),
     ("wall", "lone", "wall_1", 0.12, -0.03, "west"),
     ("ORCA", "lone", "orca_mid", 0.12, 0.0, "west"),
     ("own drive", "rib_lone", "label0", 0.02, 0.03, "south west"),
     ("added drive", "rib_lone", "label1", 0.02, 0.03, "south west"),
-    ("noise", "rib_lone", "band_1", 0.0, 0.05, "south"),
+    ("noise", "rib_lone", "band_1", 0.08, 0.0, "south west"),
     ("10 J", "rib_lone", "scale_mid", 0.10, 0.0, "west"),
     ("pair standoff", "pair", "@tl", 0.10, -0.08, "north west"),
-    ("held together", "pair", "between", 0.0, 1.20, "south"),
+    ("held together", "pair", "between", 0.0, 1.0, "south"),
     ("no tilt", "rib_pair", "label0", 0.02, 0.03, "south west"),
     ("tilted", "rib_pair", "label1", 0.02, 0.03, "south west"),
     ("0.5 J", "rib_pair", "scale_mid", 0.10, 0.0, "west"),
@@ -60,6 +60,10 @@ class Ctx:
             x, y, w, h = self.ov["panels_px"][panel]
             u, v = {"@tl": (x, y), "@tr": (x + w, y), "@bl": (x, y + h), "@br": (x + w, y + h)}[name]
             return (u / self.W, (1 - v / self.H) * self.asp)
+        if name.endswith("_f"):                      # 84 % along the arrow (label beside its shaft, clear of the tip junction)
+            b = name[:-2]
+            p0, p1 = a[b + "_0"], a[b + "_1"]
+            return (p0[0] + 0.84 * (p1[0] - p0[0]), (p0[1] + 0.84 * (p1[1] - p0[1])) * self.asp)
         if name.endswith("_mid"):
             b = name[:-4]
             p0 = a.get(b + "_0") or a.get(b + "_start")
@@ -163,9 +167,9 @@ def label_checks(c, labels, png):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--overlay", default=str(ROOT / "figures/hero/mock_v2/fig1_overlay_v2.json"))
+    ap.add_argument("--overlay", default=str(ROOT / "figures/hero/fig1_overlay.json"))
     ap.add_argument("--inset", default=str(ROOT / "data/derived/hero/inset.json"))
-    ap.add_argument("--out", default=str(ROOT / "figures/hero/mock_v2/fig1_overlay_v2.tex"))
+    ap.add_argument("--out", default=str(ROOT / "figures/fig1_overlay.tex"))
     ap.add_argument("--png", default=None)
     ap.add_argument("--inset-cm", type=float, default=1.40)
     a = ap.parse_args()
@@ -182,7 +186,7 @@ def main():
             L.append(grey_line(c, c.pt(panel, "base%d_0" % k), c.pt(panel, "base%d_1" % k)))
     # arrows
     stats = {}
-    for panel, names in (("lone", [("wall", "wall", True), ("drive", "black", True), ("orca", "orca", False), ("push", "push", False)]),
+    for panel, names in (("lone", [("wall", "wall", True), ("drive", "black", True), ("push", "push", True), ("orca", "orca", True)]),
                          ("pair", [("wall", "wall", True), ("partner", "partner", True), ("drive", "black", True)])):
         for n, col, halo in names:
             o, Lc = arrow(c, c.pt(panel, n + "_0"), c.pt(panel, n + "_1"), C[col], halo=halo)

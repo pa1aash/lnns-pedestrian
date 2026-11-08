@@ -78,22 +78,25 @@
   "ribbon": {
    "own_has_minimum_and_barrier": true,
    "own_x_min": [
-    9.641155921212878
+    9.660104921846832
    ],
    "own_x_barrier": [
+    9.941506172205491
+   ],
+   "own_barrier_J": 21.265915803839306,
+   "own_alone_x_min": [
+    9.641155921212878
+   ],
+   "own_alone_x_barrier": [
     9.949751326005984
    ],
-   "own_barrier_J": 27.964153719517213,
+   "own_alone_barrier_J": 27.964153719517213,
    "gate_alone_barrier_J": 27.90101959514203,
    "gate_1d_axis_alone_J": 27.900875929470942,
-   "gate_alone_x_min_x_top": [
-    9.641,
-    9.95
-   ],
-   "barrier_vs_gate_rel": 0.0022627891486151075,
+   "barrier_vs_gate_frozen_rel": 0.002700236068256867,
    "frozen_x": 9.660105308799864,
-   "own_min_minus_frozen_m": -0.018949387586985722,
-   "own_U_frozen_above_min_J": 0.1638279671387295,
+   "own_min_minus_frozen_m": -3.869530313949099e-07,
+   "own_U_frozen_above_min_J": 4.6441584800049895e-08,
    "gate_frozen_neighbours_barrier_J": 21.208647449038466,
    "net_force_alone_at_frozen_N": -17.47127495448848,
    "added_has_no_stationary_point": true,
@@ -108,34 +111,54 @@
     "depth_J": 0.5312233074837991
    },
    "neighbour_push_Fx_N_at_frozen_and_along": [
-    17.471411459476798,
-    24.65251490849878,
-    25.418890769103236,
-    23.79831770562638
+    17.471593827868176,
+    24.652514908499814,
+    25.418890769104227,
+    23.798317705627067
    ],
    "ribbon_vs_code_force": {
-    "alone": {
+    "own_C1_neighbours_pinned": {
+     "max_abs_diff_N": 3.361151357239578e-10,
+     "max_abs_diff_N_all_x": 3.361151357239578e-10,
+     "x_of_max_diff_all": 10.02000000000088,
+     "min_Fx_N": -120.74592170814381,
+     "sign_changes": 2,
+     "x_from": 9.45,
+     "n_points": 48
+    },
+    "own_C1_alone": {
+     "max_abs_diff_N": 3.361151357239578e-10,
+     "max_abs_diff_N_all_x": 3.361151357239578e-10,
+     "x_of_max_diff_all": 10.02000000000088,
+     "min_Fx_N": -145.87258115585564,
+     "sign_changes": 2,
+     "x_from": 9.45,
+     "n_points": 48
+    },
+    "added_C3_neighbours_pinned": {
+     "max_abs_diff_N": 95.67142492726306,
+     "max_abs_diff_N_all_x": 119.04202179685174,
+     "x_of_max_diff_all": 9.3,
+     "min_Fx_N": 14.690069149094938,
+     "sign_changes": 0,
+     "x_from": 9.45,
+     "n_points": 48
+    },
+    "added_C3_alone": {
      "max_abs_diff_N": 3.361719791428186e-10,
      "max_abs_diff_N_all_x": 3.361719791428186e-10,
      "x_of_max_diff_all": 9.66000000000044,
      "min_Fx_N": -10.43659029861692,
      "sign_changes": 2,
-     "x_from": 9.55
-    },
-    "neighbours_pinned": {
-     "max_abs_diff_N": 3.361719791428186e-10,
-     "max_abs_diff_N_all_x": 119.04202179685174,
-     "x_of_max_diff_all": 9.3,
-     "min_Fx_N": 14.690069149094938,
-     "sign_changes": 0,
-     "x_from": 9.55
+     "x_from": 9.45,
+     "n_points": 48
     }
    },
-   "added_U_drop_frozen_to_x_end_J": 214.32111744189893,
+   "added_U_drop_frozen_to_x_end_J": 214.3213759137914,
    "kT_eff_J": 10.222607167721021,
    "sigma_m_s": 0.07,
    "tau_s": 0.5165127155495125,
-   "kT_over_barrier": 0.3655611133544258,
+   "kT_over_barrier": 0.48070382964064273,
    "c_own_N": 131.1573270732189,
    "c_orca_N": 135.43651599258015,
    "w_o": 0.9996137073467632,
@@ -310,7 +333,7 @@
    0.15031152950035676,
    0.29216323479025164
   ],
-  "ribbon_seconds": 7.1
+  "ribbon_seconds": 9.4
  },
- "seconds": 8.5
+ "seconds": 11.2
 }

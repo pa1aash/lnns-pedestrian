@@ -181,7 +181,7 @@ def lone_ribbon(snap, i, tau_orca=0.5, x0=9.30, x1=10.40, step=0.0005):
     nl = [[] for _ in range(st2.n)]
     for a in act:
         nl[a] = [j for j in act if j != a and np.linalg.norm(st.positions[j] - st.positions[a]) <= 3.0]
-    xc = xs[::10]
+    xc = np.unique(np.concatenate([xs[::2], [float(st.positions[i, 0])]]))      # 1 mm samples plus the frozen position
     Fc = np.empty(len(xc))
     for k, xv in enumerate(xc):
         st2.positions[i, 0] = xv
@@ -189,27 +189,32 @@ def lone_ribbon(snap, i, tau_orca=0.5, x0=9.30, x1=10.40, step=0.0005):
     Fp = np.interp(xs, xc, Fc)
     Up = -np.concatenate([[0.0], np.cumsum(0.5 * (Fp[1:] + Fp[:-1]) * np.diff(xs))])
     return {"x": xs, "y": y, "r": r, "v0": v0, "tau": tau, "m": m, "rho": float(rho), "c": c, "c_orca": co, "w_o": float(w_o),
-            "U_own": c * dist + Uw, "U_added_alone": (c + co) * dist + Uw, "U_added": (c + co) * dist + Uw + Up,
+            "U_own": c * dist + Uw + Up, "U_own_alone": c * dist + Uw,
+            "U_added_alone": (c + co) * dist + Uw, "U_added": (c + co) * dist + Uw + Up,
             "wall_Fx": Fw, "push_Fx": Fp}
 
 
-def check_ribbon_vs_model(snap, i, rb, config="C3", x_from=9.55):
-    """The code's full hybrid (C3, rvo2) force on agent i along the ribbon line at rest, density frozen, against the
-    ribbon's force (-dU/dx): alone (others inactive) and with the neighbours pinned. Returns max |difference| (N) and the
-    minimum x force along the line for each case."""
+def check_ribbon_vs_model(snap, i, rb, x_from=9.54):
+    """The code's rest-state force on agent i along the ribbon line (density frozen) against the ribbon's force.
+    own drive = C1 force with the neighbours pinned; added drive = C3 (rvo2) force with the neighbours pinned; the alone
+    variants (others inactive) are checked too. Sample points lie on the ribbon grid (every 20 mm) so no interpolation is
+    involved. Returns max |difference| (N) over the drawn range, the minimum x force and the sign changes."""
     st = snap["state"]
     params = dict(snap["params"])
     params.update(CF)
-    hm = HybridSteeringModel(get_config(config), params)
     world = world_of(snap)
     ids = sorted(int(j) for j in st.active_indices)
     rho = frozen_rho(st, ids)[ids.index(i)]
     xs = rb["x"][::40]
     e_x = (G[0] - xs) / np.hypot(G[0] - xs, G[1] - rb["y"])
-    pred_alone = (rb["c"] + rb["c_orca"]) * e_x + np.interp(xs, rb["x"], rb["wall_Fx"])
-    pred_nb = pred_alone + np.interp(xs, rb["x"], rb["push_Fx"])
+    wall = np.interp(xs, rb["x"], rb["wall_Fx"])
+    push = np.interp(xs, rb["x"], rb["push_Fx"])
     out = {}
-    for name, nb, pred in (("alone", False, pred_alone), ("neighbours_pinned", True, pred_nb)):
+    for name, cfg, nb, c in (("own_C1_neighbours_pinned", "C1", True, rb["c"]), ("own_C1_alone", "C1", False, rb["c"]),
+                             ("added_C3_neighbours_pinned", "C3", True, rb["c"] + rb["c_orca"]),
+                             ("added_C3_alone", "C3", False, rb["c"] + rb["c_orca"])):
+        hm = HybridSteeringModel(get_config(cfg), params)
+        pred = c * e_x + wall + (push if nb else 0.0)
         Fx = np.empty(len(xs))
         for k, xv in enumerate(xs):
             s = copy.deepcopy(st)
@@ -229,7 +234,7 @@ def check_ribbon_vs_model(snap, i, rb, config="C3", x_from=9.55):
         keep = xs >= x_from                       # the drawn range; left of it the blocker is beside the neighbours (ORCA constraints)
         out[name] = {"max_abs_diff_N": float(d[keep].max()), "max_abs_diff_N_all_x": float(d.max()),
                      "x_of_max_diff_all": float(xs[d.argmax()]), "min_Fx_N": float(Fx[keep].min()),
-                     "sign_changes": int(np.sum(np.sign(Fx[keep][1:]) != np.sign(Fx[keep][:-1]))), "x_from": x_from}
+                     "sign_changes": int(np.sum(np.sign(Fx[keep][1:]) != np.sign(Fx[keep][:-1]))), "x_from": x_from, "n_points": int(keep.sum())}
     return out
 
 
