@@ -683,3 +683,303 @@ EtwoSTMarginAUC:
   file: E2_analysis.json
   key: "f_noise_vs_C3.lone_keystone_second_trap.margin_predicts_C3_rvo2_failure.auc_margin_C3"
   fmt: "{:.2f}"
+# --- E3_analysis
+EthreeEllBA:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b1p5_obs"
+  fmt: "{:.2f}"
+EthreeEllBALo:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b1p5_lo"
+  fmt: "{:.2f}"
+EthreeEllBAHi:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b1p5_hi"
+  fmt: "{:.2f}"
+EthreeEllBAPred:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b1p5_pred"
+  fmt: "{:.2f}"
+EthreeEllBB:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b2p5_obs"
+  fmt: "{:.2f}"
+EthreeEllBBLo:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b2p5_lo"
+  fmt: "{:.2f}"
+EthreeEllBBHi:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b2p5_hi"
+  fmt: "{:.2f}"
+EthreeEllBBPred:
+  file: E3_analysis.json
+  key: "headline.ell_ps_b2p5_pred"
+  fmt: "{:.2f}"
+EthreeSlope:
+  file: E3_analysis.json
+  key: "headline.slope_origin"
+  fmt: "{:.2f}"
+EthreeSlopeLo:
+  file: E3_analysis.json
+  key: "headline.slope_origin_lo"
+  fmt: "{:.2f}"
+EthreeSlopeHi:
+  file: E3_analysis.json
+  key: "headline.slope_origin_hi"
+  fmt: "{:.2f}"
+EthreeSlopeOLS:
+  file: E3_analysis.json
+  key: "headline.slope"
+  fmt: "{:.2f}"
+EthreeSlopeOLSLo:
+  file: E3_analysis.json
+  key: "headline.slope_lo"
+  fmt: "{:.2f}"
+EthreeSlopeOLSHi:
+  file: E3_analysis.json
+  key: "headline.slope_hi"
+  fmt: "{:.2f}"
+EthreeEllScaled:
+  file: E3_analysis.json
+  key: "headline.ell_ds_obs"
+  fmt: "{:.2f}"
+EthreeEllScaledLo:
+  file: E3_analysis.json
+  key: "headline.ell_ds_lo"
+  fmt: "{:.2f}"
+EthreeEllScaledHi:
+  file: E3_analysis.json
+  key: "headline.ell_ds_hi"
+  fmt: "{:.2f}"
+EthreeEllScaledPred:
+  file: E3_analysis.json
+  key: "headline.ell_ds_pred"
+  fmt: "{:.2f}"
+EthreeCThreeLnRatio:
+  file: E3_analysis.json
+  key: "headline.c3_ln_ratio"
+  fmt: "{:.3f}"
+EthreeCThreeLnRatioMax:
+  file: E3_analysis.json
+  key: "headline.c3_ln_ratio_maxabs"
+  fmt: "{:.3f}"
+EthreeCThreeFreed:
+  file: E3_analysis.json
+  key: "headline.c3_n_freed"
+  fmt: "{:d}"
+EthreeCThreeHeld:
+  file: E3_analysis.json
+  key: "headline.c3_n_held"
+  fmt: "{:d}"
+EthreeCensLong:
+  file: E3_analysis.json
+  key: "headline.cens_ps_dt0p02"
+  fmt: "{:.2f}"
+EthreeWeibA:
+  file: E3_analysis.json
+  key: "headline.weib_ps_dt0p005"
+  fmt: "{:.2f}"
+EthreeWeibB:
+  file: E3_analysis.json
+  key: "headline.weib_ps_dt0p01"
+  fmt: "{:.2f}"
+EthreeWeibC:
+  file: E3_analysis.json
+  key: "headline.weib_ps_dt0p02"
+  fmt: "{:.2f}"
+EthreeCIsCover:
+  file: E3_analysis.json
+  key: "ell.per_step.snapshot_ci_covers_pred"
+  fmt: "{:d}"
+EthreeN:
+  file: E3_analysis.json
+  key: "n_snapshots"
+  fmt: "{:d}"
+# --- E4_analysis
+EfourEventsFull:
+  file: E4_analysis.json
+  key: "headline.events_full"
+  fmt: "{:d}"
+EfourEventsFrozen:
+  file: E4_analysis.json
+  key: "headline.events_frozen"
+  fmt: "{:d}"
+EfourEventsAlone:
+  file: E4_analysis.json
+  key: "headline.events_alone"
+  fmt: "{:d}"
+EfourWeib:
+  file: E4_analysis.json
+  key: "headline.weib_all"
+  fmt: "{:.2f}"
+EfourWeibLo:
+  file: E4_analysis.json
+  key: "headline.weib_all_lo"
+  fmt: "{:.2f}"
+EfourWeibHi:
+  file: E4_analysis.json
+  key: "headline.weib_all_hi"
+  fmt: "{:.2f}"
+EfourWeibFull:
+  file: E4_analysis.json
+  key: "headline.weib_full"
+  fmt: "{:.2f}"
+EfourWeibFrozen:
+  file: E4_analysis.json
+  key: "headline.weib_frozen"
+  fmt: "{:.2f}"
+EfourWeibAlone:
+  file: E4_analysis.json
+  key: "headline.weib_alone"
+  fmt: "{:.2f}"
+EfourRatioFull:
+  file: E4_analysis.json
+  key: "headline.ratio_med_full"
+  fmt: "{:.2f}"
+EfourRatioFrozen:
+  file: E4_analysis.json
+  key: "headline.ratio_med_frozen"
+  fmt: "{:.2f}"
+EfourRatioAlone:
+  file: E4_analysis.json
+  key: "headline.ratio_med_alone"
+  fmt: "{:.2f}"
+EfourCoverFull:
+  file: E4_analysis.json
+  key: "headline.ratio_cover_full"
+  fmt: "{:d}"
+EfourFitsFull:
+  file: E4_analysis.json
+  key: "headline.nfit_full"
+  fmt: "{:d}"
+EfourCoverFrozen:
+  file: E4_analysis.json
+  key: "headline.ratio_cover_frozen"
+  fmt: "{:d}"
+EfourFitsFrozen:
+  file: E4_analysis.json
+  key: "headline.nfit_frozen"
+  fmt: "{:d}"
+EfourCoverAlone:
+  file: E4_analysis.json
+  key: "headline.ratio_cover_alone"
+  fmt: "{:d}"
+EfourFitsAlone:
+  file: E4_analysis.json
+  key: "headline.nfit_alone"
+  fmt: "{:d}"
+EfourCollapseSlope:
+  file: E4_analysis.json
+  key: "headline.collapse_slope"
+  fmt: "{:.2f}"
+EfourSaddleBelow:
+  file: E4_analysis.json
+  key: "headline.saddle_below"
+  fmt: "{:d}"
+EfourSaddleN:
+  file: E4_analysis.json
+  key: "headline.saddle_n"
+  fmt: "{:d}"
+EfourSaddleRatio:
+  file: E4_analysis.json
+  key: "headline.saddle_ratio_med"
+  fmt: "{:.2f}"
+# --- E5_analysis
+EfiveSigmaFifty:
+  file: E5_analysis.json
+  key: "logistic_noise_levels.sigma50"
+  fmt: "{:.3f}"
+  unit: "m/s"
+EfiveSigmaFiftyLo:
+  file: E5_analysis.json
+  key: "logistic_noise_levels.ci95_profile.0"
+  fmt: "{:.3f}"
+  unit: "m/s"
+EfiveSigmaFiftyHi:
+  file: E5_analysis.json
+  key: "logistic_noise_levels.ci95_profile.1"
+  fmt: "{:.3f}"
+  unit: "m/s"
+EfiveConfSigmaFifty:
+  file: E5_analysis.json
+  key: "conference_sigma50"
+  fmt: "{:.3f}"
+  unit: "m/s"
+EfiveCompZero:
+  file: E5_analysis.json
+  key: "per_sigma.s0.k"
+  fmt: "{:d}"
+EfiveCompA:
+  file: E5_analysis.json
+  key: "per_sigma.s0p03.k"
+  fmt: "{:d}"
+EfiveCompE:
+  file: E5_analysis.json
+  key: "per_sigma.s0p07.k"
+  fmt: "{:d}"
+EfiveN:
+  file: E5_analysis.json
+  key: "per_sigma.s0p03.n"
+  fmt: "{:d}"
+# --- E2_second_trap
+StPairFreed:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.pair_vs_cluster.table.0.0"
+  fmt: "{:d}"
+StPairHeld:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.pair_vs_cluster.table.0.1"
+  fmt: "{:d}"
+StClusterFreed:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.pair_vs_cluster.table.1.0"
+  fmt: "{:d}"
+StClusterHeld:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.pair_vs_cluster.table.1.1"
+  fmt: "{:d}"
+StPairFisherP:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.pair_vs_cluster.fisher_p"
+  fmt: "{:.1e}"
+StHeldCancel:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.trace.rvo2.held.cancel_frac_mean.median"
+  fmt: "{:.2f}"
+StHeldConsMin:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.trace.rvo2.held.cons_x_min.median"
+  fmt: "{:.0f}"
+StHeldConsMean:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.trace.rvo2.held.cons_x_mean.median"
+  fmt: "{:.0f}"
+StFreedConsMean:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.trace.rvo2.freed.cons_x_mean.median"
+  fmt: "{:.0f}"
+StTtfDrive:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.drive_only.km_median"
+  fmt: "{:.1f}"
+StTtfCThree:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.C3_rvo2.km_median"
+  fmt: "{:.1f}"
+StTtfCThreePub:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.C3_pub.km_median"
+  fmt: "{:.1f}"
+StPairedSlower:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.paired_C3rvo2_minus_drive.C3_slower"
+  fmt: "{:d}"
+StPairedN:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.paired_C3rvo2_minus_drive.n"
+  fmt: "{:d}"
+StPairedDelay:
+  file: E2_second_trap.json
+  key: "strata.lone_keystone_second_trap.time_to_free.paired_C3rvo2_minus_drive.median_s"
+  fmt: "{:.2f}"

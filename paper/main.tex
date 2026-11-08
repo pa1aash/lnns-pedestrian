@@ -68,6 +68,17 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 \subsection{The Symmetric Pair Standoff}
 \subsection{No Persistent Contact Arches}
 \subsection{Noise as Collective Activated Escape}
+% §5.4 numbers (E4): events full/frozen/alone \EfourEventsFull/\EfourEventsFrozen/\EfourEventsAlone; pooled Weibull
+% k = \EfourWeib [\EfourWeibLo, \EfourWeibHi]; Arrhenius ratio (median) full \EfourRatioFull (CI covers 1 in
+% \EfourCoverFull/\EfourFitsFull), frozen \EfourRatioFrozen (\EfourCoverFrozen/\EfourFitsFrozen), alone \EfourRatioAlone
+% (\EfourCoverAlone/\EfourFitsAlone); collapse slope \EfourCollapseSlope; full barrier below alone in
+% \EfourSaddleBelow/\EfourSaddleN, median ratio \EfourSaddleRatio.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig4_escape.pdf}
+\caption{Left: Kaplan--Meier fraction of deadlock snapshots whose blocker has escaped against time at $\Delta U_{\rm cond}/k_BT_{\rm eff}=2.5$, pooled over snapshots; right: escape rate over the fitted attempt rate against $\Delta U_{\rm cond}/k_BT_{\rm eff}$ for every snapshot, condition and noise level, with the line of slope $-1$. All in vermillion (noise): all residual agents mobile is solid with filled circles, frozen neighbours dashed with open squares, and the blocker alone dotted with filled triangles.}
+\label{fig:escape}
+\end{figure}
 %
 \section{Attribution Results}
 % Budget 4.0 pages. Figs 5, 6, 7; Tables 3, 4.
@@ -75,6 +86,17 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 % §6.1 numbers: C3 RVO2 frees \EtwoAllCThreeRVOFreed/\EtwoAllCThreeRVON, drive only \EtwoAllDriveFreed/\EtwoAllDriveN,
 % frozen mean + \EtwoAllFrozenPlusFreed/\EtwoAllFrozenPlusN, frozen mean - \EtwoAllFrozenMinusFreed/\EtwoAllFrozenMinusN;
 % C2 = C1 in \EtwoLemmaIdentical/\EtwoLemmaPairs paired runs; Table 3 (tables/table3_matched) not yet input.
+% §6.1 Delta-t signature (E3): ell = \EthreeEllBA [\EthreeEllBALo, \EthreeEllBAHi] (pred. \EthreeEllBAPred) at beta_ref 1.5,
+% \EthreeEllBB [\EthreeEllBBLo, \EthreeEllBBHi] (pred. \EthreeEllBBPred) at 2.5; slope \EthreeSlope [\EthreeSlopeLo, \EthreeSlopeHi];
+% sqrt(dt)-scaled \EthreeEllScaled [\EthreeEllScaledLo, \EthreeEllScaledHi]; C3 RVO2 \EthreeCThreeLnRatio.
+% Second trap (C21 diagnosis): C3 RVO2 frees \StPairFreed/(\StPairFreed+\StPairHeld) pairs vs \StClusterFreed/(\StClusterFreed+\StClusterHeld)
+% clusters (Fisher p = \StPairFisherP); held: time-mean cancellation \StHeldCancel of the door-ward drive.
+\begin{figure}[t]
+\centering
+\includegraphics{../figures/fig5_dt.pdf}
+\caption{Escape rate from deadlock snapshots against time step, normalised per snapshot by its value at $\Delta t=0.01$\,s (geometric means over snapshots with 95\% bootstrap intervals). Per-step noise is vermillion with filled circles ($\beta_{\rm ref}=1.5$) and squares ($2.5$) and its Arrhenius prediction from the exact discrete $k_BT_{\rm eff}$ as lines, $\sqrt{\Delta t}$-scaled noise light vermillion with open markers, and C3 RVO2 blue diamonds (inverse escape time).}
+\label{fig:dt}
+\end{figure}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/fig6_quench.pdf}
