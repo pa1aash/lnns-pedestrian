@@ -983,3 +983,166 @@ StPairedDelay:
   file: E2_second_trap.json
   key: "strata.lone_keystone_second_trap.time_to_free.paired_C3rvo2_minus_drive.median_s"
   fmt: "{:.2f}"
+# --- W1 drafting additions
+# E5a (published-reproduction sigma sweep)
+EfiveASigmaFifty:
+  file: E5a_analysis.json
+  key: "logistic_core.sigma50"
+  fmt: "{:.3f}"
+EfiveASigmaFiftyLo:
+  file: E5a_analysis.json
+  key: "logistic_core.ci95_profile.0"
+  fmt: "{:.3f}"
+EfiveASigmaFiftyHi:
+  file: E5a_analysis.json
+  key: "logistic_core.ci95_profile.1"
+  fmt: "{:.3f}"
+EfiveACompZero:
+  file: E5a_analysis.json
+  key: "per_sigma.s0.k"
+  fmt: "{:d}"
+EfiveAN:
+  file: E5a_analysis.json
+  key: "per_sigma.s0.n"
+  fmt: "{:d}"
+EfiveACompLow:
+  file: E5a_analysis.json
+  key: "per_sigma.s0p02.k"
+  fmt: "{:d}"
+EfiveACompHigh:
+  file: E5a_analysis.json
+  key: "per_sigma.s0p2.k"
+  fmt: "{:d}"
+EfiveBSlope:
+  file: E5_analysis.json
+  key: "logistic_noise_levels.slope_b"
+  fmt: "{:.0f}"
+EfiveASlope:
+  file: E5a_analysis.json
+  key: "logistic_core.slope_b"
+  fmt: "{:.0f}"
+# E1: wall-force maxima on the door axis and drive levels (E1b)
+GmaxTwenty:
+  file: E1_analysis.json
+  key: "gmax_curve.gmax_N.80"
+  fmt: "{:.0f}"
+GmaxTwentyFive:
+  file: E1_analysis.json
+  key: "gmax_curve.gmax_N.130"
+  fmt: "{:.0f}"
+GmaxThirtyFive:
+  file: E1_analysis.json
+  key: "gmax_curve.gmax_N.230"
+  fmt: "{:.0f}"
+DriveCOneMedian:
+  file: E1_analysis.json
+  key: "E1b.drives_N.C1_free_m_v0_over_tau.p50"
+  fmt: "{:.0f}"
+DriveCOneLo:
+  file: E1_analysis.json
+  key: "E1b.drives_N.C1_free_m_v0_over_tau.p5"
+  fmt: "{:.0f}"
+DriveCOneHi:
+  file: E1_analysis.json
+  key: "E1b.drives_N.C1_free_m_v0_over_tau.p95"
+  fmt: "{:.0f}"
+DriveORCAMedian:
+  file: E1_analysis.json
+  key: "E1b.drives_N.C3_rest_orca_drive_w_o_m_v0_over_tau_orca.p50"
+  fmt: "{:.0f}"
+StuckAloneN:
+  file: E1_analysis.json
+  key: "E1b.stuck_alone_frac_C1.n"
+  fmt: "{:d}"
+StuckAloneFracCThree:
+  file: E1_analysis.json
+  key: "E1b.stuck_alone_frac_C3_rest.frac"
+  fmt: "{:.3f}"
+EOneBDeadlockK:
+  file: E1_analysis.json
+  key: "E1b.deadlock.k"
+  fmt: "{:d}"
+# E4: seed170 (C29) and the fits whose CI does not cover 1
+EfourSeedOneSeventyDU:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed170.conds.full.dU"
+  fmt: "{:.2f}"
+EfourSeedOneSeventyEvents:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed170.conds.full.levels.b1p5.events"
+  fmt: "{:d}"
+EfourSeedOneSeventyRestarts:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed170.conds.full.levels.b1p5.n"
+  fmt: "{:d}"
+EfourSeedOneSeventyResid:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed170.n_resid"
+  fmt: "{:d}"
+EfourNonCoverA:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed61.conds.full.arrhenius.ratio"
+  fmt: "{:.2f}"
+EfourNonCoverB:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed192.conds.frozen.arrhenius.ratio"
+  fmt: "{:.2f}"
+EfourNonCoverC:
+  file: E4_analysis.json
+  key: "snapshots.E1b_seed192.conds.alone.arrhenius.ratio"
+  fmt: "{:.2f}"
+EfourSkippedDU:
+  file: E4_analysis.json
+  key: "extension.skipped_no_barrier.0.dU"
+  fmt: "{:.2f}"
+EfourRestarts:
+  file: E4_analysis.json
+  key: "extension.n_restarts.full"
+  fmt: "{:d}"
+EfourNuFull:
+  file: E4_analysis.json
+  key: "per_condition.full.nu_hat_median"
+  fmt: "{:.2f}"
+EfourNuAlone:
+  file: E4_analysis.json
+  key: "per_condition.alone.nu_hat_median"
+  fmt: "{:.2f}"
+# T3 variance check
+TthreeRatioMean:
+  file: T3_variance.json
+  key: "ratio_measured_formula_mean"
+  fmt: "{:.2f}"
+TthreeCellsMedian:
+  file: T3_variance.json
+  key: "stored_moments.median"
+  fmt: "{:.2f}"
+TthreeCells:
+  file: T3_variance.json
+  key: "stored_moments.cells"
+  fmt: "{:d}"
+# E3 censoring and Weibull at the shortest step
+EthreeCensShort:
+  file: E3_analysis.json
+  key: "headline.cens_ps_dt0p005"
+  fmt: "{:.3f}"
+# E2 lone keystone: drive only vs C3 RVO2 and vs C3 published (discordant counts)
+EtwoLKDriveVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone.drive_only_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoLKDriveVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone.drive_only_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoLKDriveVsPubDiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone.drive_only_vs_C3_pub.discordant_first_only"
+  fmt: "{:d}"
+EtwoLKDriveVsPubDiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone.drive_only_vs_C3_pub.discordant_second_only"
+  fmt: "{:d}"
+EfourN:
+  file: E4_analysis.json
+  key: "n_snapshots"
+  fmt: "{:d}"

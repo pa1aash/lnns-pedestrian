@@ -20,3 +20,6 @@ __pycache__/
 figures/_qa/
 # literature PDFs
 lit/
+# single-file submission build (make submission); only the README is tracked
+paper/submission/*
+!paper/submission/README.md

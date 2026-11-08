@@ -1,0 +1,48 @@
+\section{Deadlock Physics}\label{sec:physics}
+% Budget 3.5 pages. Figs 2, 3, 4.
+\subsection{The Lone-Agent Trap at the Door Edges}\label{sec:lone}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig2_lone_trap.pdf}
+\caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the two blue lines the C3 boundary for $\tau=0.6$ and $0.4$\,s.}
+\label{fig:lone-trap}
+\end{figure}
+%
+Place one agent at rest on the door axis. The two door edges act on it through Eq.~\eqref{eq:wall}; their lateral components cancel and their axial components push it back. Let $g_{\max}(r)$ be the largest backward wall force met along the axis by an agent of radius $r$. It grows steeply with $r$: \GmaxTwenty, \GmaxTwentyFive\ and \GmaxThirtyFive\,N at $r=0.20$, $0.25$ and $0.35$\,m (Fig.~\ref{fig:lone-trap}, left). Against it stands the agent's drive at rest, $m v_{\rm eff}/\tau$. At the terminal rest state of a deadlock only a few agents remain within $R$, so $v_{\rm eff}=v_0$ (Sect.~\ref{sec:model}), and the agent is held when it is alone if and only if
+\begin{equation}\label{eq:stuck}
+g_{\max}(r)>\frac{m\,v_0}{\tau}.
+\end{equation}
+We call the difference of the two sides the stuck-alone margin. The C1 drive has median \DriveCOneMedian\,N (5--95\%: \DriveCOneLo--\DriveCOneHi\,N), comparable to $g_{\max}$ at the mean radius, so a fraction \EOneBStuckAloneFrac\ of the \StuckAloneN\ spawned agents are stuck alone; adding ORCA's rest drive (median \DriveORCAMedian\,N) lowers it to \StuckAloneFracCThree\ (Fig.~\ref{fig:lone-trap}, right).
+
+The criterion is exact at the rest state. In each of the \CriterionN\ deadlocks of both modes we removed every agent except the blocker, the agent nearest the door, and restarted (the keystone test): it stayed held in exactly the cases with positive margin, \CriterionAgree\ of \CriterionN. The \CriterionNegMargin\ blockers with negative margin are exactly the deadlocks that are not lone traps; they are pair standoffs at the jamb faces (Sect.~\ref{sec:pair}). Removing the blocker sorts the corrected-forward deadlocks into three classes: in \KeystoneBLone\ the others then leave (lone keystone); in \KeystoneBSecondTrap\ another agent takes the blocker's place and is held (lone keystone with a second trap); and \KeystoneBCollective\ are collective (published mode: \KeystoneALone, \KeystoneASecondTrap\ and \KeystoneACollective). The second trap is itself stuck alone in \SecondTrapHeld\ of \SecondTrapN\ cases, so a typical deadlock is a short stack of stuck-alone agents. Completion of whole runs is correspondingly rare: \EOneBCompletionK\ of \EOneBCompletionN\ in the corrected mode and \EOneACompletionK\ of \EOneACompletionN\ in the published mode. \pending{critical width and locality to the jambs: completion against width and wall-law variants, E7, Fig.~3}
+
+Why the blocker is a stuck-alone agent follows from the order of arrival. Agents that can pass alone leave first: the stuck-alone fraction rises from \ChainStuckFirstDecile\ in the first decile of arrivals at the door to \ChainStuckLastDecile\ in the last, and the final blocker is among the last three arrivals in \ChainBlockerLastThree\ of \ChainBlockerN\ deadlocks. A stuck-alone agent still exits if others push it through, and they need not be agents that could pass alone: with no such agent left, \ChainNoPassableExited\ of \ChainNoPassableN\ stuck-alone arrivals still exit. The number of others still active when a stuck-alone agent reaches the door predicts whether it exits with an area under the ROC curve of \EOneBAUCOthers\ [\EOneBAUCOthersLo, \EOneBAUCOthersHi], against an all-exit baseline accuracy of \EOneBAllExitBaseline. We report this rule descriptively; the mechanism is the chain of stuck-alone agents, and the deadlock forms when the push behind the last of them runs out.
+
+\begin{figure}[t]
+\centering
+\fbox{\parbox[c][2.2cm][c]{0.9\textwidth}{\centering\pending{Fig.~3: completion against exit width and wall-law variants (E7)}}}
+\caption{\pending{Fig.~3 caption (E7)}}
+\label{fig:width}
+\end{figure}
+
+\subsection{The Symmetric Pair Standoff}\label{sec:pair}
+\pending{Section 5.2 awaits E7b: the 46-snapshot pair library, Hessian of $U$ (strict minimum, soft common lateral mode), static fold prediction against the quenches, and the string-method pair barrier.}
+
+\subsection{No Persistent Contact Arches}\label{sec:arches}
+\pending{Section 5.3: absence of persistent contact arches (no static friction in the model); needs a contact statistic from the production runs (E1/E7).}
+
+\subsection{Noise as Collective Activated Escape}\label{sec:escape}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig4_escape.pdf}
+\caption{Left: Kaplan--Meier fraction of deadlock snapshots whose blocker has escaped against time at $\Delta U_{\rm cond}/k_BT_{\rm eff}=2.5$, pooled over snapshots; right: escape rate over the fitted attempt rate against $\Delta U_{\rm cond}/k_BT_{\rm eff}$ for every snapshot, condition and noise level, with the line of slope $-1$. All in vermillion (noise): all residual agents mobile is solid with filled circles, frozen neighbours dashed with open squares, and the blocker alone dotted with filled triangles.}
+\label{fig:escape}
+\end{figure}
+%
+To test whether noise frees the lone trap thermally, we took \EfourN\ corrected-forward snapshots with at least two residual agents, spread over the collective barrier, and computed the barrier in each of the three conditions of Sect.~\ref{sec:signatures}. For every snapshot and condition, the per-step noise was set by Eq.~\eqref{eq:teff} with the blocker's $\tau$ so that $\Delta U/k_BT_{\rm eff}$ took the values 1.5, 2.5 and 3.5, with \EfourRestarts\ restarts per level, censored at 300\,s (900\,s at 3.5). This gave \EfourEventsFull, \EfourEventsFrozen\ and \EfourEventsAlone\ escapes in the full, frozen and alone conditions.
+
+All three predictions of activated escape hold (Fig.~\ref{fig:escape}). The fitted slope of $\ln\lambda$ against $1/k_BT_{\rm eff}$, divided by $-\Delta U$ of the same condition, has median \EfourRatioFull\ (full), \EfourRatioFrozen\ (frozen) and \EfourRatioAlone\ (alone), and its confidence interval covers 1 in \EfourCoverFull\ of \EfourFitsFull, \EfourCoverFrozen\ of \EfourFitsFrozen\ and \EfourCoverAlone\ of \EfourFitsAlone\ fits; the three exceptions have ratios \EfourNonCoverA\ (one full condition), \EfourNonCoverB\ and \EfourNonCoverC\ (the frozen and alone conditions of one snapshot). Pooled over all points, the rates collapse onto a line of slope \EfourCollapseSlope\ against $\Delta U/k_BT_{\rm eff}$. The pooled Weibull shape of the escape times is \EfourWeib\ [\EfourWeibLo, \EfourWeibHi], close to the exponential value 1, and the median attempt rates are \EfourNuFull\,s$^{-1}$ (full) and \EfourNuAlone\,s$^{-1}$ (alone). The escape is collective: the full barrier lies below the alone barrier in \EfourSaddleBelow\ of \EfourSaddleN\ snapshots, with median ratio \EfourSaddleRatio, because the neighbours give way along the path.
+
+Two snapshots are reported separately. In one, the full barrier, \EfourSkippedDU\,J, is below the resolution of the gate; it is a marginally stable deadlock and no noise level can be set from it. In the other, with \EfourSeedOneSeventyResid\ residual agents, the gate accepts a full barrier of \EfourSeedOneSeventyDU\,J, yet none of the \EfourSeedOneSeventyRestarts\ restarts at each of the three noise levels escapes within 300\,s (\EfourSeedOneSeventyEvents\ events). The computed minimum-energy path is then not the route the dynamics takes, and the snapshot is left out of the Arrhenius fits.
+
+The same physics sets the noise level a whole run needs. The noise amplitude at which half of the runs complete is $\sigma_{50}=\EfiveSigmaFifty$ [\EfiveSigmaFiftyLo, \EfiveSigmaFiftyHi]\,m/s in the corrected mode and $\EfiveASigmaFifty$ [\EfiveASigmaFiftyLo, \EfiveASigmaFiftyHi]\,m/s in the published mode (\EfiveN\ runs per level, binomial-logit fits with profile-likelihood intervals). The two modes need the same noise. The conference estimate, \EfiveConfSigmaFifty\,m/s from 25 runs per level~\cite{gang2026}, lies just above both intervals.

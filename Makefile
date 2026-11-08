@@ -1,7 +1,13 @@
-.PHONY: venv paper figures numbers tables clean
+.PHONY: venv paper submission overlap figures numbers tables clean
 
 paper: numbers tables
 	cd paper && latexmk -pdf -interaction=nonstopmode main.tex
+
+submission: paper
+	bash tools/make_submission.sh
+
+overlap:
+	python3 tools/overlap_check.py
 
 numbers:
 	python3 tools/make_numbers.py

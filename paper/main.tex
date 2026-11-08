@@ -1,10 +1,19 @@
 \documentclass[runningheads]{llncs}
 %
 \usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \usepackage{booktabs,tabularx}
+\usepackage{url}
+%
+% Draft marker: \pending{...} prints its argument in red brackets. With \finaltrue
+% (uncomment the line below for the final build) any remaining \pending is a compile error.
+\newif\iffinal
+% \finaltrue
+\DeclareRobustCommand{\pending}[1]{\iffinal\errmessage{Unresolved \string\pending\space item in the final build}\else{\color{red}[#1]}\fi}
 %
 \begin{document}
 %
@@ -25,109 +34,17 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 %
 \input{numbers}
 %
-\begin{abstract}
-% TODO: abstract (150--250 words)
-\keywords{% TODO: keywords
-}
-\end{abstract}
-%
-\section{Introduction}
-% Budget 2.0 pages. Fig 1 (hero, raster 600 dpi) placed early.
-\begin{figure*}[t]
-\centering
-% Mock image until the production render is approved (figures/fig1_hero.png is then the new render).
-\providecommand{\heroimage}{}\renewcommand{\heroimage}{../figures/hero/mock/fig1_hero_mock.png}
-\input{../figures/fig1_hero.tex}
-\caption{Left: a lone-keystone deadlock at a 0.8 m door (top) and a symmetric pair standoff (bottom) on one floor scale, with agents coloured by stuck-alone margin (cividis, $-150$ N passes alone to $+150$ N held alone), the floor by the backward wall force on a lone 0.25 m agent (magma, log scale, 1--1000 N, light to dark) and arrows to scale (inset: the room). Right: rest-state energy of the blocker along the door axis with its own drive (black, thermal band at $\sigma=0.07$ m/s in vermillion) and with the ORCA rest drive added (blue), and of the pair along its common lateral shift without (black) and with (yellow) a lateral bias past the fold; each pair of ribbons has its own energy scale and the sphere marks the frozen state.}\label{fig:hero}
-\end{figure*}
-%
-\section{Background}
-% Budget 2.0 pages.
-%
-\section{Model and Scenarios}
-% Budget 2.5 pages. Table 1.
-\input{tables/table1_params}
-%
-\section{Mechanism Classes and Their Physical Signatures}
-% Budget 2.5 pages. Table 2.
-\input{tables/table2_signatures}
-%
-\section{Deadlock Physics}
-% Budget 3.5 pages. Figs 2, 3, 4.
-\subsection{The Lone-Agent Trap at the Door Edges}
-\begin{figure}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/fig2_lone_trap.pdf}
-\caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the two blue lines the C3 boundary for $\tau=0.6$ and $0.4$\,s.}
-\label{fig:lone-trap}
-\end{figure}
-% §5.1 numbers (paper/numbers.tex): stuck alone iff g_max(r) > m v0/tau; held-when-alone matches margin > 0 in
-% \CriterionAgree/\CriterionN deadlocks, the \CriterionNegMargin\ negative-margin blockers are the collective pair standoffs;
-% stuck-alone fraction \EOneBStuckAloneFrac; CF keystone classes \KeystoneBLone/\KeystoneBSecondTrap/\KeystoneBCollective;
-% completion \EOneBCompletionK/\EOneBCompletionN [\EOneBCompletionLo, \EOneBCompletionHi].
-% End of queue as a chain (C16b): stuck-alone fraction \ChainStuckFirstDecile -> \ChainStuckLastDecile by arrival decile;
-% blocker among the last three arrivals in \ChainBlockerLastThree/\ChainBlockerN; with no passable agent left
-% \ChainNoPassableExited/\ChainNoPassableN stuck-alone arrivals still exit; others-active AUC \EOneBAUCOthers
-% [\EOneBAUCOthersLo, \EOneBAUCOthersHi] against an all-exit baseline of \EOneBAllExitBaseline.
-\subsection{The Symmetric Pair Standoff}
-\subsection{No Persistent Contact Arches}
-\subsection{Noise as Collective Activated Escape}
-% §5.4 numbers (E4): events full/frozen/alone \EfourEventsFull/\EfourEventsFrozen/\EfourEventsAlone; pooled Weibull
-% k = \EfourWeib [\EfourWeibLo, \EfourWeibHi]; Arrhenius ratio (median) full \EfourRatioFull (CI covers 1 in
-% \EfourCoverFull/\EfourFitsFull), frozen \EfourRatioFrozen (\EfourCoverFrozen/\EfourFitsFrozen), alone \EfourRatioAlone
-% (\EfourCoverAlone/\EfourFitsAlone); collapse slope \EfourCollapseSlope; full barrier below alone in
-% \EfourSaddleBelow/\EfourSaddleN, median ratio \EfourSaddleRatio.
-\begin{figure}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/fig4_escape.pdf}
-\caption{Left: Kaplan--Meier fraction of deadlock snapshots whose blocker has escaped against time at $\Delta U_{\rm cond}/k_BT_{\rm eff}=2.5$, pooled over snapshots; right: escape rate over the fitted attempt rate against $\Delta U_{\rm cond}/k_BT_{\rm eff}$ for every snapshot, condition and noise level, with the line of slope $-1$. All in vermillion (noise): all residual agents mobile is solid with filled circles, frozen neighbours dashed with open squares, and the blocker alone dotted with filled triangles.}
-\label{fig:escape}
-\end{figure}
-%
-\section{Attribution Results}
-% Budget 4.0 pages. Figs 5, 6, 7; Tables 3, 4.
-\subsection{The Lone Trap}
-% §6.1 numbers: C3 RVO2 frees \EtwoAllCThreeRVOFreed/\EtwoAllCThreeRVON, drive only \EtwoAllDriveFreed/\EtwoAllDriveN,
-% frozen mean + \EtwoAllFrozenPlusFreed/\EtwoAllFrozenPlusN, frozen mean - \EtwoAllFrozenMinusFreed/\EtwoAllFrozenMinusN;
-% C2 = C1 in \EtwoLemmaIdentical/\EtwoLemmaPairs paired runs; Table 3 (tables/table3_matched) not yet input.
-% §6.1 Delta-t signature (E3): ell = \EthreeEllBA [\EthreeEllBALo, \EthreeEllBAHi] (pred. \EthreeEllBAPred) at beta_ref 1.5,
-% \EthreeEllBB [\EthreeEllBBLo, \EthreeEllBBHi] (pred. \EthreeEllBBPred) at 2.5; slope \EthreeSlope [\EthreeSlopeLo, \EthreeSlopeHi];
-% sqrt(dt)-scaled \EthreeEllScaled [\EthreeEllScaledLo, \EthreeEllScaledHi]; C3 RVO2 \EthreeCThreeLnRatio.
-% Second trap (C21 diagnosis): C3 RVO2 frees \StPairFreed/(\StPairFreed+\StPairHeld) pairs vs \StClusterFreed/(\StClusterFreed+\StClusterHeld)
-% clusters (Fisher p = \StPairFisherP); held: time-mean cancellation \StHeldCancel of the door-ward drive.
-\begin{figure}[t]
-\centering
-\includegraphics{../figures/fig5_dt.pdf}
-\caption{Escape rate from deadlock snapshots against time step, normalised per snapshot by its value at $\Delta t=0.01$\,s (geometric means over snapshots with 95\% bootstrap intervals). Per-step noise is vermillion with filled circles ($\beta_{\rm ref}=1.5$) and squares ($2.5$) and its Arrhenius prediction from the exact discrete $k_BT_{\rm eff}$ as lines, $\sqrt{\Delta t}$-scaled noise light vermillion with open markers, and C3 RVO2 blue diamonds (inverse escape time).}
-\label{fig:dt}
-\end{figure}
-\begin{figure}[t]
-\centering
-\includegraphics[width=\textwidth]{../figures/fig6_quench.pdf}
-\caption{Left: fraction of lone-trap deadlock snapshots whose blocker is freed within 120\,s under each intervention, with Wilson 95\% intervals; right: Kaplan--Meier cumulative fraction freed against time for the arms that free, both strata pooled. Filled markers are lone-keystone snapshots and open markers those with a second trap; C1 is black, C2 orange, C3 published sky blue, C3 RVO2 blue, the ORCA drive, constraint and frozen-mean arms reddish purple, lateral bias yellow and noise vermillion, and on the right the drive-only arm is dashed, frozen mean $+$ solid, and noise $\sigma=0.03$, $0.05$, $0.07$\,m/s dotted, dashed and solid.}
-\label{fig:quench}
-\end{figure}
-\subsection{The Pair Class}
-\subsection{Revisiting the Conference Findings}
-%
-\section{Validity Against Human Data}
-% Budget 2.0 pages. Fig 8.
-%
-\section{Discussion}
-% Budget 1.5 pages.
-%
-\section{Conclusions}
-% Budget 0.5 pages.
-%
-\subsubsection*{Main Differences from the Conference Version}
-% TODO placeholder
-%
-\begin{credits}
-\subsubsection*{Data and Code Availability}
-% TODO placeholder
-\subsubsection*{\ackname}
-% TODO placeholder
-\end{credits}
+\input{sections/00_abstract}
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_model}
+\input{sections/04_signatures}
+\input{sections/05_deadlock_physics}
+\input{sections/06_attribution}
+\input{sections/07_validity}
+\input{sections/08_discussion}
+\input{sections/09_conclusions}
+\input{sections/10_back_matter}
 %
 \nocite{gang2026}
 \bibliographystyle{splncs04}

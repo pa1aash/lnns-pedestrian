@@ -1,0 +1,56 @@
+\section{Mechanism Classes and Their Physical Signatures}\label{sec:signatures}
+% Budget 2.5 pages. Table 2.
+\input{tables/table2_signatures}
+%
+A deadlock snapshot is a rest state of Eq.~\eqref{eq:force}: every agent is still and the forces on it balance. An intervention can act on such a state in only a few physically distinct ways, and we name five classes.
+\begin{description}
+\item[P, prevent.] The intervention acts only while the crowd is moving. It changes how often deadlocks form but leaves a frozen deadlock exactly as it is.
+\item[L, reshape.] It adds a deterministic force that persists at rest. The rest-state landscape changes, and the fixed point moves or disappears.
+\item[T, heat.] It adds fluctuations. The fixed point survives, and the system leaves it over a barrier $\Delta U$ at a rate set by $\Delta U/k_BT_{\rm eff}$.
+\item[D, steer.] It breaks a symmetry by a finite directional bias. A strict minimum survives small biases and disappears at a fold, at bias $b^\ast$.
+\item[N, glitch.] The resolution is a numerical or geometric artefact and vanishes under corrected numerics.
+\end{description}
+Each class predicts a response to probes applied to the same frozen state (Table~\ref{tab:signatures}): a quench under the intervention; a replay with a $10^{-9}$\,m perturbation; a change of time step with the noise held fixed per step or scaled with $\sqrt{\Delta t}$; a constant goal-parallel push of either sign, equal to ORCA's rest drive (the frozen-mean arm, $\pm w_om v_0\hat{\mathbf e}/\tau_{\rm orca}$); reversal of a lateral tilt; and the corrected numerics. The probes are interventional and paired by snapshot, so a control tuned to a completion rate is not tuned to them.
+
+\subsection{Terms That Vanish at Rest}
+Stack the coordinates of the $n$ agents that remain in a snapshot into $\mathbf x,\mathbf v\in\mathbb R^{2n}$ and freeze the densities $\rho_i$ at their snapshot values. Split the deterministic force as
+\begin{equation}\label{eq:split}
+\mathbf F(\mathbf x,\mathbf v)=\mathbf F_0(\mathbf x)-\mathsf D\,\mathbf v+\mathbf G(\mathbf x,\mathbf v),
+\end{equation}
+where $\mathbf F_0(\mathbf x)=\mathbf F(\mathbf x,\mathbf 0)$ is the rest-state field, $\mathsf D={\rm diag}(m_i/\tau_i)$ is the damping in Eq.~\eqref{eq:des}, and $\mathbf G$ collects the remaining velocity dependence, so that $\mathbf G(\mathbf x,\mathbf 0)=\mathbf 0$.
+
+\begin{proposition}[rest-state lemma]\label{prop:rest}
+Suppose $\mathbf v\cdot\mathbf G(\mathbf x,\mathbf v)\le0$ for all $|\mathbf v|<\epsilon$. Then (i) the fixed points of $\mathsf M\dot{\mathbf v}=\mathbf F$, $\dot{\mathbf x}=\mathbf v$, with $\mathsf M$ the mass matrix, are exactly the states $(\mathbf x^\ast,\mathbf 0)$ with $\mathbf F_0(\mathbf x^\ast)=\mathbf 0$; and (ii) if $\mathbf F_0=-\nabla U$, every strict local minimum of $U$ is a Lyapunov-stable fixed point.
+\end{proposition}
+\begin{proof}
+(i) A fixed point has $\mathbf v=\mathbf 0$ and $\mathbf F(\mathbf x^\ast,\mathbf 0)=\mathbf F_0(\mathbf x^\ast)=\mathbf 0$; conversely such a state does not move. (ii) Let $E=\tfrac12\mathbf v^{\top}\mathsf M\mathbf v+U(\mathbf x)$. Along trajectories $\dot E=\mathbf v\cdot(\mathbf F+\nabla U)=-\mathbf v^{\top}\mathsf D\,\mathbf v+\mathbf v\cdot\mathbf G\le0$ while $|\mathbf v|<\epsilon$. Near a strict minimum $\mathbf x^\ast$, the sublevel sets of $E$ are small neighbourhoods of $(\mathbf x^\ast,\mathbf 0)$ that trajectories cannot leave, which is Lyapunov stability.
+\end{proof}
+
+The hypotheses hold term by term in the model. The SFM and wall frictions in Eqs.~\eqref{eq:sfm}--\eqref{eq:wall} vanish at rest; summed over a pair the friction power is $-\kappa\,g\,[(\mathbf v_i-\mathbf v_j)\cdot\mathbf t_{ij}]^2\le0$, and for a wall it is $-\kappa\,g\,(\mathbf v_i\cdot\mathbf t_{iW})^2\le0$. The TTC force of Eq.~\eqref{eq:ttc} is identically zero once all relative speeds fall below $10^{-4}$\,m/s, so it belongs to $\mathbf G$ and does nothing near rest. With the densities frozen, the C1 rest field is conservative, with
+\begin{equation}\label{eq:U}
+U(\mathbf x)=\sum_i c_i\,|\mathbf x_i-\mathbf g|+\sum_{i<j}\phi_{ij}(d_{ij})+\sum_{i,W}\phi_{iW}(d_{iW}),\qquad c_i=\frac{m_iv_{{\rm eff},i}}{\tau_i},
+\end{equation}
+where $\phi$ are the potentials of the exponential and compression terms. Hence C2 has exactly the fixed points of C1, with the same stability, and neither TTC nor friction can resolve a deadlock (a candidate for class P at most). ORCA is different: its rest drive does not vanish at rest, so it enters $\mathbf F_0$ and changes the landscape, which makes it a candidate for class L. The lemma covers the noise-free model only.
+
+\subsection{Effective Temperature of Per-Step Noise}\label{sec:teff}
+Near rest and away from contact, one velocity component of agent $i$ follows the corrected update with only the damping of Eq.~\eqref{eq:des} acting,
+\begin{equation}\label{eq:ar1}
+v_{n+1}=a\,v_n+\xi_n,\qquad a=1-\frac{\Delta t}{\tau_i},\qquad \langle\xi_n\xi_{n'}\rangle=\sigma^2\delta_{nn'}.
+\end{equation}
+This is a first-order autoregressive process with stationary variance $\langle v^2\rangle=\sigma^2/(1-a^2)$. Setting $m_i\langle v^2\rangle=k_BT_{\rm eff}$ gives
+\begin{equation}\label{eq:teff}
+k_BT_{\rm eff}=\frac{m_i\,\sigma^2}{1-(1-\Delta t/\tau_i)^2}=\frac{m_i\,\sigma^2\tau_i}{2\,\Delta t}\left(1-\frac{\Delta t}{2\tau_i}\right)^{-1}.
+\end{equation}
+A restoring force of curvature $K$ changes this by terms of order $(\omega\Delta t)^2$ with $\omega^2=K/m_i$, which are negligible at the curvatures of our snapshots. At fixed per-step $\sigma$, Eq.~\eqref{eq:teff} makes $k_BT_{\rm eff}$ nearly inversely proportional to $\Delta t$; scaling $\sigma$ with $\sqrt{\Delta t}$ holds it nearly fixed. The realised velocity variance of the blocker divided by Eq.~\eqref{eq:teff} is \TthreeRatioMean\ on average in dedicated runs and has median \TthreeCellsMedian\ over the \TthreeCells\ noise cells of the escape experiments.
+
+If escape is activated, $\lambda\propto\exp(-\Delta U/k_BT_{\rm eff})$, and the log ratio of rates at two time steps is predicted without free parameters,
+\begin{equation}\label{eq:ell}
+\ell\equiv\ln\frac{\lambda(\Delta t_1)}{\lambda(\Delta t_2)}=\Delta U\left(\frac{1}{k_BT_{\rm eff}(\Delta t_2)}-\frac{1}{k_BT_{\rm eff}(\Delta t_1)}\right),
+\end{equation}
+which is positive for $\Delta t_1<\Delta t_2$ at fixed per-step $\sigma$ and close to zero for $\sqrt{\Delta t}$-scaled noise. A deterministic resolver has no such dependence.
+
+\subsection{Collective Activated Escape}
+The barrier in Eq.~\eqref{eq:ell} is a property of the many-agent landscape of Eq.~\eqref{eq:U}, not of the blocker alone. We compute it with the string method~\cite{e2007} on the coordinates of all mobile agents, from the snapshot minimum to an exit state with the blocker past the door plane, in three conditions: all residual agents mobile (full), neighbours pinned at their snapshot positions (frozen), and the blocker with the others removed (alone). A barrier is used only if it passes a validity gate: the string has converged (perpendicular force below 5\,N on the uphill images, climbing image at a stationary point and at the path maximum, and less than 1\% change when the number of images is doubled), the end state is an exit, the saddle has no deep overlap, and the alone barrier agrees with a direct two-dimensional minimum-energy path. Kramers theory then predicts three things~\cite{kramers1940,hanggi1990}: escape times are exponential (Weibull shape $k=1$)~\cite{weibull1951}; $\ln\lambda$ is linear in $1/k_BT_{\rm eff}$ with slope $-\Delta U$ for the condition's own barrier; and, since the neighbours can move out of the way, the full barrier lies below the alone barrier.
+
+\subsection{Calibrate, Then Falsify}
+The protocol has four steps. (1) Choose the target, a paradigm credited with resolving deadlocks, and a control from a different class. (2) Tune the control's single parameter until its completion rate matches the target's; this is calibration and carries no evidence about mechanism. (3) Apply the probes of Table~\ref{tab:signatures} to target and control on a common library of frozen deadlock snapshots. (4) Assign each to the class whose predicted responses it shows. A matched control and its target share a mechanism only if they also agree on the probes; one disagreement is enough to separate them.

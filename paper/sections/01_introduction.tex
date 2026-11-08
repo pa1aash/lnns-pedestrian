@@ -1,0 +1,25 @@
+\section{Introduction}\label{sec:intro}
+% Budget 2.0 pages. Fig 1 (hero) placed early.
+\begin{figure*}[t]
+\centering
+% Mock image until the production render is approved (figures/fig1_hero.png is then the new render).
+\providecommand{\heroimage}{}\renewcommand{\heroimage}{../figures/hero/mock/fig1_hero_mock.png}
+\input{../figures/fig1_hero.tex}
+\IfFileExists{../figures/fig1_caption.tex}{\input{../figures/fig1_caption}}{\newcommand{\FigOneCaption}{\pending{Fig 1 caption}}}
+\caption{\FigOneCaption}\label{fig:hero}
+\end{figure*}
+%
+Fatal crowd crushes happen where many people press towards a narrow opening, as in Seoul in 2022~\cite{liang2024} and in Duisburg in 2010~\cite{helbing2012}. Simulations used to plan for such places are only as trustworthy as the steering model that moves each agent, and that includes the reasons the model gives for what it does at a bottleneck.
+
+Steering paradigms are routinely credited with mechanisms. The social force model (SFM) treats pedestrians as driven particles with repulsive and contact forces~\cite{helbing1995,helbing2000nature}; a time-to-collision (TTC) force adds a reaction to encounters predicted from the current velocities~\cite{karamouzas2014}; and optimal reciprocal collision avoidance (ORCA) picks each new velocity by solving a small linear program over velocity-obstacle constraints~\cite{vandenberg2011}. When a configuration that includes ORCA empties a room that pure SFM leaves jammed, it is tempting to say that reciprocal avoidance resolved the jam. That statement is about mechanism, and a completion rate cannot support it on its own.
+
+Our conference paper~\cite{gang2026} proposed that such statements be tested by pairing a failure-mode ablation with a minimal control: a perturbation of the baseline model that shares none of the paradigm's machinery, tuned until it reproduces the paradigm's headline score. If the tuned control reaches the same score, the score does not require the paradigm's distinctive machinery. The principle is useful but it stops short. A matched control shows that a simpler cause is sufficient for the score; it does not show that the paradigm and the control act in the same way. Two different physical processes can produce the same completion rate, and one number cannot separate them.
+
+This paper takes that gap as its subject. Our thesis is that matching a control to a paradigm's headline completion rate is not evidence of a shared mechanism, and that signatures derived from the physics of the model, measured on the same frozen deadlock states, decide the question. In two deadlock classes of a social-force bottleneck we show that the same headline score hides different mechanisms (Fig.~\ref{fig:hero}). The contributions are:
+\begin{itemize}
+\item \emph{Method.} A calibrate-then-falsify protocol: a resolution claim is assigned to one of five physically defined mechanism classes, each class predicts how a frozen deadlock responds to a set of probes (Table~\ref{tab:signatures}), and a rest-state lemma removes from consideration every force term that vanishes at rest (Sect.~\ref{sec:signatures}).
+\item \emph{Physics.} Narrow-exit deadlocks in the SFM fall into two classes: a lone-agent trap set by the wall force at the door edges, with a stuck-alone criterion that holds in \CriterionAgree\ of \CriterionN\ deadlocks, and a symmetric pair standoff \pending{pair Hessian and fold, E7b}. Velocity noise frees the lone trap by collective activated escape over barriers computed from the model's own energy landscape (Sect.~\ref{sec:physics}).
+\item \emph{Attribution.} At the lone trap ORCA acts as an added goal drive, deterministic and independent of the time step, whereas noise matched to its rate acts thermally; the two differ in which deadlocks they leave unresolved, in replay and in time-to-free. At the pair class \pending{pair-class verdicts, E7b}; matched completion of whole runs \pending{E6, E6p} (Sect.~\ref{sec:attribution}).
+\item \emph{Validity.} \pending{like-for-like comparison with the CroMa bottleneck experiments, E10} (Sect.~\ref{sec:validity}).
+\end{itemize}
+Section~\ref{sec:background} places the work in the literature on steering models, clogging, activated escape and multi-agent deadlock. Section~\ref{sec:model} states the model as the code implements it, Sect.~\ref{sec:signatures} the classes and signatures, Sect.~\ref{sec:physics} the physics of the two deadlock classes, and Sect.~\ref{sec:attribution} the attribution results.

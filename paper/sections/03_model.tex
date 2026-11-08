@@ -1,0 +1,51 @@
+\section{Model and Scenarios}\label{sec:model}
+% Budget 2.5 pages. Table 1.
+\input{tables/table1_params}
+%
+Each agent $i$ is a disc of radius $r_i$ and mass $m_i$ at position $\mathbf{x}_i$ with velocity $\mathbf{v}_i$, desired speed $v_{0,i}$ and relaxation time $\tau_i$; the distributions are listed in Table~\ref{tab:params}. The equation of motion is $m_i\dot{\mathbf{v}}_i=\mathbf{F}_i$ with
+\begin{equation}\label{eq:force}
+\mathbf{F}_i=(1-w_{c,i})\,\mathbf{F}^{\rm des}_i+\sum_{j}\mathbf{f}^{\rm sfm}_{ij}+\mathbf{F}^{\rm ttc}_i+w_{o,i}\,\mathbf{F}^{\rm orca}_i+w_{c,i}\,\mathbf{F}^{\rm crush}_i+\sum_{W}\mathbf{f}^{\rm wall}_{iW},
+\end{equation}
+where $j$ runs over the other active agents within $R=3$\,m and $W$ over the wall segments. The four configurations of the conference paper~\cite{gang2026} switch terms on: C1 is SFM only, C2 adds TTC, C3 adds ORCA, and C4 adds TTC, ORCA and the crush term.
+
+\paragraph{Desired force and density.}
+The drive relaxes the velocity towards a speed $v_{{\rm eff},i}$ along the unit vector $\hat{\mathbf e}_i$ from the agent to its goal $\mathbf g$,
+\begin{equation}\label{eq:des}
+\mathbf{F}^{\rm des}_i=\frac{m_i}{\tau_i}\bigl(v_{{\rm eff},i}\,\hat{\mathbf e}_i-\mathbf v_i\bigr),\qquad
+v_{{\rm eff},i}=v_{0,i}\,\mathrm{clip}\!\left[1-e^{-\gamma\,(1/\rho_i-1/\rho_{\max})},\,0.05,\,1\right],
+\end{equation}
+which is Weidmann's speed--density relation~\cite{weidmann1993} applied to the desired speed. The code uses $\gamma=1.913$ and $\rho_{\max}=5.4$\,ped/m$^2$; these, not the calibrated values reported in the conference paper, are the values every run applies. The local density is a disc count, $\rho_i=N_i/(\pi R^2)$, where $N_i$ is the number of other active agents within $R$ and $\rho_i$ is floored at $0.01$\,ped/m$^2$. It is not a Voronoi estimate~\cite{steffen2010}. With a handful of agents left near the door, as in every deadlock, the Weidmann factor is indistinguishable from one and $v_{{\rm eff},i}=v_{0,i}$.
+
+\paragraph{Social force and walls.}
+For a pair at centre distance $d_{ij}$ with $r_{ij}=r_i+r_j$, unit normal $\mathbf n_{ij}$ pointing from $j$ to $i$, tangent $\mathbf t_{ij}$ and $g(x)=\max(0,x)$,
+\begin{equation}\label{eq:sfm}
+\mathbf f^{\rm sfm}_{ij}=\bigl[A\,e^{(r_{ij}-d_{ij})/B}+k\,g(r_{ij}-d_{ij})\bigr]\mathbf n_{ij}+\kappa\,g(r_{ij}-d_{ij})\,\bigl[(\mathbf v_j-\mathbf v_i)\cdot\mathbf t_{ij}\bigr]\mathbf t_{ij},
+\end{equation}
+with $A$, $B$, $k$ and $\kappa$ in Table~\ref{tab:params}~\cite{helbing2000nature}. A wall segment acts through its point closest to the agent, at distance $d_{iW}$, with the same law and the friction taken against the agent's own velocity:
+\begin{equation}\label{eq:wall}
+\mathbf f^{\rm wall}_{iW}=\bigl[A_w\,e^{(r_i-d_{iW})/B_w}+k\,g(r_i-d_{iW})\bigr]\mathbf n_{iW}-\kappa\,g(r_i-d_{iW})\,(\mathbf v_i\cdot\mathbf t_{iW})\,\mathbf t_{iW}.
+\end{equation}
+In the published code the force is summed over all segments, so a point shared by two segments can be counted twice. The corrected mode applies a convex-union rule at shared end points: for two segments that meet at a point $P$, if the closest point on either of them is $P$ itself, only the nearer of the two closest points acts; otherwise both act. This removes the double count outside a convex corner and keeps both walls inside a concave one. The door edges of the room are the free ends of two wall segments, so they are sharp.
+
+\paragraph{Time to collision.}
+For a pair with relative position $\Delta\mathbf x$ and relative velocity $\Delta\mathbf v$, the first contact time $\tau_{ij}$ solves $|\Delta\mathbf x+\Delta\mathbf v\,\tau|=r_{ij}$. The force is
+\begin{equation}\label{eq:ttc}
+\mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-\tau_{ij}/\tau_0}}{\tau_{ij}^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
+\end{equation}
+where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the two predicted positions at contact. A pair contributes only if $|\Delta\mathbf v|^2\ge10^{-8}$\,m$^2$/s$^2$ and $0<\tau_{ij}\le\tau_{\max}$, so $\mathbf F^{\rm ttc}$ is exactly zero whenever all relative speeds are below $10^{-4}$\,m/s.
+
+\paragraph{ORCA as a force.}
+ORCA builds one half-plane of permitted velocities per neighbour, with time horizon $\tau_h$, and solves for the velocity $\mathbf v^{\rm orca}_i$ nearest to the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ (note $v_0$, not $v_{\rm eff}$) with speed at most $2v_{0,i}$. The model turns that velocity into a force and fades it out at high density:
+\begin{equation}\label{eq:orca}
+\mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad w_{o,i}=1-s(\rho_i;4,2),\qquad s(x;x_0,c)=\frac{1}{1+e^{-c(x-x_0)}}.
+\end{equation}
+Two solvers are used. The published one flips the sign of the leg normal outside the velocity obstacle in the leg region and drops constraints that make the program infeasible; the second is a line-by-line port of the RVO2 library~\cite{vandenberg2011rvo2}. An agent at rest with no binding constraint has $\mathbf v^{\rm orca}_i=v_{0,i}\hat{\mathbf e}_i$, so ORCA then adds a constant push $w_{o,i}m_iv_{0,i}\hat{\mathbf e}_i/\tau_{\rm orca}$ towards the goal. We call it ORCA's rest drive. The crush term of C4 has the SFM contact form with larger coefficients and gate $w_{c,i}=s(\rho_i;5.5,3)$; with the disc density it stays almost inert.
+
+\paragraph{Integration and noise.}
+The time step is $\Delta t=0.01$\,s. In the corrected mode the update is $\mathbf v'=\Pi(\mathbf v+\mathbf F\Delta t/m)$, then $\mathbf v'\leftarrow\Pi(\mathbf v'+\boldsymbol\xi)$, then $\mathbf x'=\mathbf x+\mathbf v'\Delta t$, where $\Pi$ caps the speed at $2v_0$ and $\boldsymbol\xi$ has independent Gaussian components of standard deviation $\sigma$. The published mode updates the position with the unclamped velocity, clips each force component at $\pm10^6$\,N and adds the noise after the position update. Noise can be per step ($\sigma$ fixed) or scaled as $\sigma\sqrt{\Delta t/0.01\,{\rm s}}$. The lateral-bias control replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by $(\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i)/|\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i|$, a deterministic tilt of fixed handedness.
+
+\paragraph{Two modes.}
+The published-reproduction mode keeps every published behaviour and is used only to explain published numbers. The corrected-forward mode fixes the integrator order, spawns agents without overlap, uses the RVO2 solver, switches the crush term off and applies the corner rule (Table~\ref{tab:params}, bottom); every forward claim uses it.
+
+\paragraph{The room bottleneck.}
+One hundred agents start in a $10\times10$\,m room, uniformly in $[1,8]\times[1,9]$\,m, and walk to a point goal 1\,m beyond a door of width $w=0.8$\,m centred in the wall $x=10$\,m; an agent leaves the simulation within 0.5\,m of the goal. A run is deadlocked when every remaining agent has $|\mathbf v|<0.01$\,m/s for 10\,s without an exit. At detection the full state is saved as a snapshot. A quench restarts a snapshot under one intervention (an arm) for at most 120\,s; deterministic arms stop early once all speeds stay below $10^{-3}$\,m/s for 10\,s. All arms see the same snapshots, so they are compared snapshot by snapshot. Two further geometries test the corrections and the comparison with people: a bottleneck built to match the CroMa experiments~\cite{fzj_ped20219} \pending{E10 results, Sect.~7} and open counterflow and crossing scenarios \pending{E8, E9 initial-density sweeps; Table~4}.
