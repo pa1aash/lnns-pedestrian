@@ -1,4 +1,4 @@
-"""Detached job queue for batch 2 (steps in experiments/queue.yaml).
+"""Detached job queue (steps in experiments/queue.yaml; the file is read once, when the queue starts).
 
   queue.py run      run every unfinished step in order (4 workers each); a step whose dependency
                     failed is skipped; finished steps are recorded in data/queue_state.json;
@@ -118,6 +118,20 @@ def status():
                 note = f"qualifying pairs {len(m.state()[1])}/{m.TARGET}"
             elif name == "E7":
                 m = _mod("E7/e7_cells.py"); J, out = m.jobs(), m.OUT
+            elif name in ("E7b_static", "E7b_quench", "E7b_barrier"):
+                m = _mod(f"E7b/{name.lower()}.py"); J, out = m.jobs(), m.OUT
+            elif name in ("E6a", "E6b", "E6p"):
+                m = _mod("E6/e6.py"); J, out = m.jobs(name), m.out_path(name)
+                if name == "E6b" and os.path.exists(m.SIGMA_STAR):
+                    note = "sigma* " + str(json.load(open(m.SIGMA_STAR)).get("sigma_star", "out of range"))
+            elif name == "E10":
+                m = _mod("E10/e10_croma.py"); J, out = m.jobs(sigma=0.0), m.OUT
+            elif name == "E11":
+                m = _mod("E11/e11_overlap.py"); J, out = m.jobs(), m.OUT
+            elif name == "E8":
+                m = _mod("E8/e8_counterflow.py"); J, out = m.jobs(), m.OUT
+            elif name == "E9":
+                m = _mod("E9/e9_crossing.py"); J, out = m.jobs(), m.OUT
         except Exception as e:  # noqa: BLE001
             J, out, note = None, None, f"status error: {e}"
         finally:

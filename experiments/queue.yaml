@@ -1,5 +1,8 @@
-# Batch-2 job queue. Steps run sequentially, each with 4 worker processes; each step is resumable
+# Job queue. Steps run sequentially, each with 4 worker processes; each step is resumable
 # (finished job_ids are skipped). Finished steps are recorded in data/queue_state.json.
+# queue.py reads this file once, at start: edits take effect only when the queue is restarted.
+# Queue 2 (from 2026-11-08, after E5a): E7b_static, E7b_quench, E7b_barrier, E6a, E6b, E10, E7, E11, E8,
+# E9, E6p. cpu_h for queue-2 steps: from the batch-4B smoke tests (reports/B4B_REPORT.md).
 # Paths are relative to the repository root. cpu_h: estimated CPU-hours (see reports/B2A_REPORT.md;
 # E2, BAR, E3 and E4 revised for plan change C15 in reports/B2C_REPORT.md).
 steps:
@@ -35,7 +38,47 @@ steps:
     cmd: [experiments/E5/e5_sweep.py, E5a]
     depends: []
     cpu_h: 18.0
+  - name: E7b_static
+    cmd: [experiments/E7b/e7b_static.py]
+    depends: [E7b_lib]
+    cpu_h: 0.2
+  - name: E7b_quench
+    cmd: [experiments/E7b/e7b_quench.py]
+    depends: [E7b_lib]
+    cpu_h: 4.0
+  - name: E7b_barrier
+    cmd: [experiments/E7b/e7b_barrier.py]
+    depends: [E7b_static]
+    cpu_h: 5.0
+  - name: E6a
+    cmd: [experiments/E6/e6.py, E6a]
+    depends: []
+    cpu_h: 15.0
+  - name: E6b
+    cmd: [experiments/E6/e6.py, E6b]
+    depends: [E6a, E5b]
+    cpu_h: 3.0
+  - name: E10
+    cmd: [experiments/E10/e10_croma.py]
+    depends: []
+    cpu_h: 12.0  # the C1 + sigma* cell needs data/derived/sigma_star.json (E6b); without it E10 exits 3
   - name: E7
     cmd: [experiments/E7/e7_cells.py]
     depends: []
     cpu_h: 10.0
+  - name: E11
+    cmd: [experiments/E11/e11_overlap.py]
+    depends: []
+    cpu_h: 1.5
+  - name: E8
+    cmd: [experiments/E8/e8_counterflow.py]
+    depends: []
+    cpu_h: 15.0
+  - name: E9
+    cmd: [experiments/E9/e9_crossing.py]
+    depends: []
+    cpu_h: 12.0
+  - name: E6p
+    cmd: [experiments/E6/e6.py, E6p]
+    depends: []
+    cpu_h: 30.0
