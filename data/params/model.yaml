@@ -57,6 +57,9 @@ parameters:
   force_clip:  {symbol: "", value: 1.0e6, unit: N, meaning: element-wise force clip in published mode; off in corrected mode (events counted), source: "sim/core/helpers.py:28-37; sim/core/simulation.py:100", plan: agrees}
   deactivation_radius: {symbol: "", value: 0.5, unit: m, meaning: an agent is removed when |x - g| < this, source: "config/params.yaml:1; sim/core/simulation.py:54,241-244", plan: agrees}
   goal:        {symbol: g, value: [11.0, 5.0], unit: m, meaning: point goal behind the door, source: "sim/scenarios/bottleneck.py:60", plan: agrees}
+  room:        {symbol: "", value: [10.0, 10.0], unit: m, meaning: "room size; door gap in the wall x = 10 m centred at y = 5 m", source: "sim/scenarios/bottleneck.py:1,32-43", plan: agrees}
+  door_width:  {symbol: w, value: 0.8, unit: m, meaning: "door width of the room experiments (E1-E6); E7 varies it (scenario default 1.2 is not used)", source: "experiments/E1/e1_library.py WIDTH; sim/scenarios/bottleneck.py:18", plan: agrees}
+  n_agents:    {symbol: n, value: 100, unit: "", meaning: agents per room run, source: "sim/scenarios/bottleneck.py:18", plan: agrees}
   spawn_area:  {symbol: "", value: [1.0, 8.0, 1.0, 9.0], unit: m, meaning: "x_min, x_max, y_min, y_max of the spawn box in the 10 m x 10 m room", source: "sim/scenarios/bottleneck.py:59", plan: agrees}
   deadlock_criterion: {symbol: "", value: {v_thr: 0.01, hold: 10.0, check_every_steps: 10}, unit: "m/s, s", meaning: "deadlock = no exit and every active |v| < v_thr for >= hold", source: "wave2/scripts/w2lib.py:146-166 (plan root; not on exec-v1)", plan: agrees}
 

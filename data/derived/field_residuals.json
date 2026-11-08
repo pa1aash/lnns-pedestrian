@@ -1,0 +1,50 @@
+{
+ "script": "experiments/E7b/residuals.py",
+ "doc": "max |F_code + grad U| (N) of the rest-state C1 potential, density frozen at the snapshot.",
+ "pair": {
+  "n": 46,
+  "max_N": 1.3876442039872927e-07,
+  "median_N": 3.867857982669024e-08,
+  "source": "data/E7b/e7b_static.jsonl",
+  "field": "check_max_abs_F_plus_gradU_N",
+  "script": "experiments/E7b/e7b_static.py",
+  "doc": "E7b_static pair snapshots, both members mobile"
+ },
+ "lone": {
+  "n": 60,
+  "max_N": 4.130447450734209e-08,
+  "median_N": 1.6903079187312493e-08,
+  "source": "data/BAR/barriers.jsonl",
+  "field": "force_check_frozen_maxabs_N",
+  "script": "experiments/BAR/bar.py",
+  "doc": "BAR, blocker mobile, neighbours pinned (all barrier snapshots)"
+ },
+ "collective": {
+  "n": 60,
+  "max_N": 4.902637797399301e-07,
+  "median_N": 2.8421229980590823e-08,
+  "source": "data/BAR/barriers.jsonl",
+  "field": "force_check_all_maxabs_N",
+  "script": "experiments/BAR/bar.py",
+  "doc": "BAR, every residual agent mobile (all barrier snapshots)"
+ },
+ "lone_E4": {
+  "n": 10,
+  "max_N": 3.52225697497488e-08,
+  "median_N": 1.3889028593894182e-08,
+  "source": "data/BAR/barriers.jsonl",
+  "field": "force_check_frozen_maxabs_N",
+  "script": "experiments/BAR/bar.py",
+  "doc": "as lone, E4 snapshots only (data/derived/selection.json)"
+ },
+ "collective_E4": {
+  "n": 10,
+  "max_N": 1.6411482306466496e-07,
+  "median_N": 6.356119941486327e-08,
+  "source": "data/BAR/barriers.jsonl",
+  "field": "force_check_all_maxabs_N",
+  "script": "experiments/BAR/bar.py",
+  "doc": "as collective, E4 snapshots only"
+ },
+ "overall_max_N": 4.902637797399301e-07
+}

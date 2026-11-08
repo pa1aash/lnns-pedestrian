@@ -1,7 +1,7 @@
 % Table 2: mechanism classes and their physical signatures (Plan §9; plan/CHANGELOG.md C6).
 % Cell sources: paper/tables/table2_NOTES.md. Needs \usepackage{booktabs,tabularx} in main.tex.
 \begin{table}[t]
-\caption{Predicted response of each mechanism class to each probe applied to a frozen deadlock state, where ``held'' and ``frees'' refer to the frozen state and ``---'' marks a probe that does not test that class. $k_BT_\mathrm{eff}$ is the effective temperature of per-step velocity noise, $\Delta U$ the escape barrier and $b^{*}$ the bias at which the energy minimum disappears.}
+\caption{Predicted response of each class to each probe of a frozen deadlock; ``---'': the probe does not test that class. N (glitch) is tested only by corrected numerics, under which its effect disappears. $k_BT_\mathrm{eff}$: effective temperature of per-step noise; $\Delta U$: barrier; $b^{*}$: fold bias.}
 \label{tab:signatures}
 \centering
 \scriptsize
@@ -10,54 +10,46 @@
 \begin{tabularx}{\textwidth}{@{}l*{7}{>{\raggedright\arraybackslash}X}@{}}
 \toprule
 Class
- & Quench from the frozen state
- & Replay, $10^{-9}$\,m perturbation
- & $\Delta t$ change, fixed per-step noise
- & $\Delta t$ change, $\sqrt{\Delta t}$-scaled noise
- & Constant goal-parallel push, $+$~vs~$-$
- & Lateral tilt $b\to-b$
+ & Quench
+ & Replay, $10^{-9}$\,m
+ & $\Delta t$, per-step noise
+ & $\Delta t$, $\sqrt{\Delta t}$ noise
+ & Goal push, $+$ vs $-$
+ & Tilt $b\to-b$
  & Corrected numerics \\
 \midrule
-P prevent
- & held, as without it
- & held, as without it
- & held, as without it
- & held, as without it
- & as without it
- & as without it
+P
+ & held
+ & held
+ & held
+ & held
+ & unchanged
+ & unchanged
  & persists \\
-L reshape
- & frees deterministically
+L
+ & frees, deterministic
  & identical replays
  & no $\Delta t$ dependence
  & no $\Delta t$ dependence
  & $+$ frees, $-$ does not
  & ---
  & persists \\
-T heat
- & frees at random times; exponential escape; $\ln$\,rate linear in $1/k_BT_\mathrm{eff}$ with slope~$-\Delta U$
+T
+ & frees at random, exponential times
  & replays disagree
- & rate falls as $\Delta t$ grows, since $k_BT_\mathrm{eff}\propto 1/\Delta t$
+ & rate falls as $\Delta t$ grows
  & no $\Delta t$ dependence
  & ---
  & ---
  & persists \\
-D steer
- & frees only beyond a finite fold threshold $b^{*}$
- & identical replays; infinitesimal perturbation does not free
+D
+ & frees only beyond $b^{*}$
+ & identical replays
  & no $\Delta t$ dependence
  & no $\Delta t$ dependence
  & ---
- & same rate; first member out switches side
+ & first out switches side
  & persists \\
-N glitch
- & ---
- & ---
- & ---
- & ---
- & ---
- & ---
- & effect disappears \\
 \bottomrule
 \end{tabularx}
 \end{table}

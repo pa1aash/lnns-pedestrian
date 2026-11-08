@@ -53,3 +53,5 @@ Kinds of provenance:
    1e-9 m perturbation (S9b). For T the cell reads "replays disagree" (S2); for D it carries both.
 3. Rest-state lemma (line 248) and the drive/constraint split (S4, S9d) are not columns; they belong in the text or Table 3.
 4. Vocabulary follows C6 (physics framing); "held" and "frees" refer to the frozen state.
+
+W2 (2026-11-09, page plan C35): headers shortened (probes are listed in the §4 text); P cells "held"/"unchanged" (same meaning as "held, as without it"); T quench "frees at random, exponential times" (the ln-rate slope prediction is stated in §4.3); D quench "frees only beyond b*", D replay "identical replays"; the N row moved into the caption ("tested only by corrected numerics, under which its effect disappears"). No prediction was changed.

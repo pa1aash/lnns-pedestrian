@@ -586,7 +586,8 @@ EtwoSTDriveVsRVODiscB:
 EtwoSTDriveVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.drive_only_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoSTFrozenVsRVODiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_C3_rvo2.discordant_first_only"
@@ -598,7 +599,8 @@ EtwoSTFrozenVsRVODiscB:
 EtwoSTFrozenVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoSTPubVsRVODiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.discordant_first_only"
@@ -610,7 +612,8 @@ EtwoSTPubVsRVODiscB:
 EtwoSTPubVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoSTFrozenPMDiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_frozen_minus.discordant_first_only"
@@ -630,7 +633,8 @@ EtwoAllDriveVsRVODiscB:
 EtwoAllDriveVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.drive_only_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoAllFrozenVsRVODiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.frozen_plus_vs_C3_rvo2.discordant_first_only"
@@ -642,7 +646,8 @@ EtwoAllFrozenVsRVODiscB:
 EtwoAllFrozenVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.frozen_plus_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoAllPubVsRVODiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.discordant_first_only"
@@ -654,7 +659,8 @@ EtwoAllPubVsRVODiscB:
 EtwoAllPubVsRVOP:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.mcnemar_exact_p"
-  fmt: "{:.2g}"
+  fmt: sci
+  digits: 2
 EtwoAllFrozenPMDiscA:
   file: E2_analysis.json
   key: "d_orca_decomposition.pooled.frozen_plus_vs_frozen_minus.discordant_first_only"
@@ -759,7 +765,8 @@ EthreeEllScaledPred:
 EthreeCThreeLnRatio:
   file: E3_analysis.json
   key: "headline.c3_ln_ratio"
-  fmt: "{:.3f}"
+  fmt: sci
+  digits: 2
 EthreeCThreeLnRatioMax:
   file: E3_analysis.json
   key: "headline.c3_ln_ratio_maxabs"
@@ -942,7 +949,8 @@ StClusterHeld:
 StPairFisherP:
   file: E2_second_trap.json
   key: "strata.lone_keystone_second_trap.pair_vs_cluster.fisher_p"
-  fmt: "{:.1e}"
+  fmt: sci
+  digits: 2
 StHeldCancel:
   file: E2_second_trap.json
   key: "strata.lone_keystone_second_trap.trace.rvo2.held.cancel_frac_mean.median"
@@ -1146,3 +1154,77 @@ EfourN:
   file: E4_analysis.json
   key: "n_snapshots"
   fmt: "{:d}"
+# --- E1_terminal (experiments/E1/terminal.py): blocker at deadlock detection, both modes
+TermN:
+  file: E1_terminal.json
+  key: "n"
+  fmt: "{:d}"
+TermRadius:
+  file: E1_terminal.json
+  key: "R_m"
+  fmt: "{:.0f}"
+TermRhoMax:
+  file: E1_terminal.json
+  key: "rho.max"
+  fmt: "{:.2f}"
+TermRhoMedian:
+  file: E1_terminal.json
+  key: "rho.median"
+  fmt: "{:.2f}"
+TermNbMedian:
+  file: E1_terminal.json
+  key: "n_neighbours.median"
+  fmt: "{:.0f}"
+TermNbMax:
+  file: E1_terminal.json
+  key: "n_neighbours.max"
+  fmt: "{:.0f}"
+TermWeidMin:
+  file: E1_terminal.json
+  key: "weidmann.min"
+  fmt: "{:.3f}"
+TermWeidMedian:
+  file: E1_terminal.json
+  key: "weidmann.median"
+  fmt: "{:.3f}"
+TermWeidMax:
+  file: E1_terminal.json
+  key: "weidmann.max"
+  fmt: "{:.3f}"
+TermFracHigh:
+  file: E1_terminal.json
+  key: "frac_ge_threshold"
+  fmt: "{:.2f}"
+TermNHigh:
+  file: E1_terminal.json
+  key: "n_ge_threshold"
+  fmt: "{:d}"
+# --- field_residuals (experiments/E7b/residuals.py): max |F_code + grad U| in N
+ResidPairMax:
+  file: field_residuals.json
+  key: "pair.max_N"
+  fmt: sci
+  digits: 1
+ResidPairN:
+  file: field_residuals.json
+  key: "pair.n"
+  fmt: "{:d}"
+ResidLoneMax:
+  file: field_residuals.json
+  key: "lone.max_N"
+  fmt: sci
+  digits: 1
+ResidCollMax:
+  file: field_residuals.json
+  key: "collective.max_N"
+  fmt: sci
+  digits: 1
+ResidBarN:
+  file: field_residuals.json
+  key: "lone.n"
+  fmt: "{:d}"
+ResidAllMax:
+  file: field_residuals.json
+  key: "overall_max_N"
+  fmt: sci
+  digits: 1

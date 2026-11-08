@@ -27,11 +27,13 @@ Gang, P. and Veluri, A. (2026). A Diagnostic Methodology for Failure-Mode Ablati
 
 ## Build
 
-Requires a TeX Live installation with `latexmk` and the `cm-super` fonts; figures also need Python 3 with matplotlib and a LaTeX installation (`type1cm`), plus poppler's `pdffonts` and `pdftoppm`.
+Requires a TeX Live installation with `latexmk` and the `cm-super` fonts; figures also need Python 3 with matplotlib and a LaTeX installation (`type1cm`), plus poppler's `pdffonts` and `pdftoppm`. `make submission` also needs `latexpand` (a TeX Live script; here installed in `~/Library/texmf/scripts`).
 
 ```
 make paper     # builds paper/main.pdf
+make submission  # single-file paper/submission/ (needs latexpand)
 make figures   # runs every figures/fig*.py
+python3 tools/page_map.py --pinned   # page usage per section
 make clean
 ```
 

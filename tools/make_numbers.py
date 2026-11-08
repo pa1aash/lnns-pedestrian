@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Generate paper/numbers.tex from paper/numbers_registry.yaml.
+r"""Generate paper/numbers.tex from paper/numbers_registry.yaml.
 
 Every number quoted in the paper text comes from a JSON file under data/derived/.
+
+Formats: `fmt` is a Python format string ("{:.2f}"), or "sci" for scientific notation in LaTeX,
+e.g. 0.000234 -> \ensuremath{2.3\times10^{-4}}. With "sci" the optional `digits` (default 2) is
+the number of significant digits of the mantissa; an exponent of 0 prints the mantissa alone.
 Fails with a non-zero exit status and a message naming the macro if a file or
 key is missing, a format string does not fit the value, or a name is invalid.
 """
@@ -29,6 +33,20 @@ def lookup(obj, path):
         else:
             raise KeyError(path)
     return obj
+
+
+def sci(val, digits=2):
+    """LaTeX scientific notation with `digits` significant digits in the mantissa."""
+    if isinstance(val, bool) or not isinstance(val, (int, float)):
+        raise TypeError(f"sci needs a number, got {type(val).__name__}")
+    if not isinstance(digits, int) or digits < 1:
+        raise ValueError("digits must be a positive integer")
+    if val == 0:
+        return "\\ensuremath{0}"
+    mant, exp = f"{val:.{digits - 1}e}".split("e")
+    exp = int(exp)
+    body = mant if exp == 0 else f"{mant}\\times10^{{{exp}}}"
+    return f"\\ensuremath{{{body}}}"
 
 
 def build(registry_path, derived_dir):
@@ -60,7 +78,12 @@ def build(registry_path, derived_dir):
         except KeyError:
             fail(f"key path '{spec['key']}' not found in {f}")
         try:
-            text = spec["fmt"].format(val)
+            if spec["fmt"] == "sci":
+                text = sci(val, spec.get("digits", 2))
+            else:
+                if "digits" in spec:
+                    fail("'digits' applies only to fmt: sci")
+                text = spec["fmt"].format(val)
         except (ValueError, TypeError, IndexError, KeyError) as e:
             fail(f"format '{spec['fmt']}' does not fit value {val!r} ({e})")
         src = f"{spec['file']}:{spec['key']}"

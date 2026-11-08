@@ -37,19 +37,25 @@ rows = [
     ("Speed--density",
      rf"$v_{{\rm eff}}=v_0\,\mathrm{{clip}}[1-e^{{-\gamma(1/\rho-1/\rho_{{\max}})}},0.05,1]$, "
      rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}$ ped/m$^2$; "
-     rf"$\rho$ = neighbours within $R={g(val('neighbor_radius'))}$ m over $\pi R^2$"),
+     rf"$\rho$ = neighbours within $R={g(val('neighbor_radius'))}$ m over $\pi R^2$, floored at {g(val('density_floor'))} ped/m$^2$; "
+     r"calibrated values of the conference paper are not applied"),
     ("SFM",
      rf"$A={g(val('A'))}$ N, $B={g(val('B'))}$ m, $k={g(val('k'))}$ kg/s$^2$, $\kappa={g(val('kappa'))}$ kg/(m\,s)"),
     ("Walls",
      rf"same law per segment, $A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ (within {g(val('edge_zone')[0])} m of the door edge), rounded edge $r={g(val('edge_radius'))}$ m"),
     ("TTC",
-     rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}$ s, $\tau_{{\max}}={g(val('tau_max'))}$ s"),
+     rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}$ s, $\tau_{{\max}}={g(val('tau_max'))}$ s; "
+     rf"pair counted only if $|\Delta v|^2\ge{g(val('ttc_min_dv2'))}$ m$^2$/s$^2$"),
     ("ORCA",
      rf"$\tau_h={g(val('time_horizon'))}$ s, $\tau_{{\rm ORCA}}={g(val('tau_orca'))}$ s, speed cap ${g(val('orca_speed_cap'))}v_0$, "
      rf"gate $w_o=1-\sigma(\rho;{g(val('orca_gate','rho0'))},{g(val('orca_gate','k'))})$"),
     ("Crush",
      rf"$k_{{\rm crush}}={g(val('k_crush'))}$, $\kappa_{{\rm crush}}={g(val('kappa_crush'))}$, "
      rf"gate $w_c=\sigma(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
+    ("Room",
+     rf"${g(val('n_agents'))}$ agents in a ${g(val('room')[0])}\times{g(val('room')[1])}$ m room, spawned in "
+     rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]$ m; "
+     rf"door $w={g(val('door_width'))}$ m in the wall $x={g(val('room')[0])}$ m; goal $g=({g(val('goal')[0])},{g(val('goal')[1])})$ m"),
     ("Run",
      rf"$\mathrm{{d}}t={g(val('dt'))}$ s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ per component, set per experiment; "
      rf"exit at $|x-g|<{g(val('deactivation_radius'))}$ m; deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}$ m/s for ${g(val('deadlock_criterion','hold'))}$ s"),
@@ -58,8 +64,9 @@ rows = [
 pub, cor = modes["published_reproduction"], modes["corrected_forward"]
 mode_rows = [
     ("Integrator", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$ N", "clamp, then position update; no clip"),
+    ("Noise", "added after the position update", "added to $v$, re-clamped, before the position update"),
     ("Spawn", "uniform, overlaps allowed", "rejection, non-overlapping"),
-    ("ORCA", "as implemented", "RVO2-faithful"),
+    ("ORCA", "leg normal sign-flipped outside the obstacle; infeasible constraints dropped", "line-by-line RVO2 port"),
     ("Crush", "present in C4", "off"),
     ("Wall corners", "sum over segments", "convex-union rule"),
 ]
