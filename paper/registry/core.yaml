@@ -1228,3 +1228,124 @@ ResidAllMax:
   key: "overall_max_N"
   fmt: sci
   digits: 1
+# --- Table 3 (experiments/tables/make_table3.py): matched-control blocks
+TabThreeLKDiff:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_noise_minus_C3"
+  fmt: "{:+.2f}"
+TabThreeLKDiffLo:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.0"
+  fmt: "{:.2f}"
+TabThreeLKDiffHi:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.1"
+  fmt: "{:.2f}"
+TabThreeLKNoiseMed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p07.time_to_free_km.median"
+  fmt: "{:.1f}"
+TabThreeLKRvoMed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C3_rvo2.time_to_free_km.median"
+  fmt: "{:.1f}"
+TabThreeLKNoiseDisagree:
+  file: E2_analysis.json
+  key: "b_replay_determinism.lone_keystone.noise0p07.seeds_disagree_on_freed"
+  fmt: "{:d}"
+TabThreeLKNoiseSnaps:
+  file: E2_analysis.json
+  key: "b_replay_determinism.lone_keystone.noise0p07.snapshots"
+  fmt: "{:d}"
+TabThreeLKRvoReplayDis:
+  file: E2_analysis.json
+  key: "b_replay_determinism.lone_keystone.C3_rvo2.freed_disagree"
+  fmt: "{:d}"
+TabThreeLKRvoReplays:
+  file: E2_analysis.json
+  key: "b_replay_determinism.lone_keystone.C3_rvo2.replays"
+  fmt: "{:d}"
+TabThreePairPubDiff:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.rate.diff"
+  fmt: "{:+.2f}"
+TabThreePairRvoDiff:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.rate.diff"
+  fmt: "{:+.2f}"
+TabThreePairRvoDiffLo:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.rate.diff_ci90.0"
+  fmt: "{:.2f}"
+TabThreePairRvoDiffHi:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.rate.diff_ci90.1"
+  fmt: "{:.2f}"
+TabThreePairPubJacU:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.jaccard_unresolved.value"
+  fmt: "{:.2f}"
+TabThreePairPubJacULo:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.jaccard_unresolved.ci95.0"
+  fmt: "{:.2f}"
+TabThreePairPubJacUHi:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.jaccard_unresolved.ci95.1"
+  fmt: "{:.2f}"
+TabThreePairRvoJacU:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.jaccard_unresolved.value"
+  fmt: "{:.2f}"
+TabThreePairRvoJacULo:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.jaccard_unresolved.ci95.0"
+  fmt: "{:.2f}"
+TabThreePairRvoJacUHi:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.jaccard_unresolved.ci95.1"
+  fmt: "{:.2f}"
+TabThreePairRvoHand:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.handedness.plus_lower_first"
+  fmt: "{:d}"
+TabThreePairRvoHandN:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.handedness.plus_n"
+  fmt: "{:d}"
+TabThreePairRvoOrcaLower:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.handedness.orca_lower_first"
+  fmt: "{:d}"
+TabThreePairRvoOrcaN:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.handedness.orca_n"
+  fmt: "{:d}"
+TabThreePairPubOrcaN:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.handedness.orca_n"
+  fmt: "{:d}"
+TabThreePairBsPubReplayDis:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.replay.plus.discordant"
+  fmt: "{:d}"
+TabThreePairBsRvoReplayDis:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.replay.plus.discordant"
+  fmt: "{:d}"
+TabThreePairBsReplays:
+  file: E7b_analysis.json
+  key: "s3_matched.pub.replay.plus.replays"
+  fmt: "{:d}"
+TabThreePairPubReplayDis:
+  file: E7b_analysis.json
+  key: "b_quench.C3_pub.replay_discordant_snapshots"
+  fmt: "{:d}"
+TabThreePairRvoReplayDis:
+  file: E7b_analysis.json
+  key: "b_quench.C3_rvo2.replay_discordant_snapshots"
+  fmt: "{:d}"
+TabThreePairOrcaReplays:
+  file: E7b_analysis.json
+  key: "b_quench.C3_rvo2.replays"
+  fmt: "{:d}"
