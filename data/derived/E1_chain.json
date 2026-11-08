@@ -1,0 +1,432 @@
+{
+ "script": "experiments/E1/chain.py",
+ "doc": "End-of-queue chain re-analysis (plan change C16b): the end of the queue as a chain of stuck-alone agents.\n\nInput:  data/E1/E1_runs.jsonl (both modes, 200 seeds each), data/derived/E1_keystone.json (second-trap class).\nOutput: data/derived/E1_chain.json.\n\nDefinitions (as experiments/E1/e1_analyze.py)\n  stuck-alone   margin_C1 = g_max(r) - m v0 / tau > 0; passable = margin_C1 <= 0.\n  arrival       first entry into the door zone (field \"arrive\": t, n_active, behind_1m, order).\n  active at t   spawned and not exited by t (exit_t[j] > t, or never exited).\n  exited        the agent exits before the run stops (completion, deadlock or 600 s cap).\n(a) per run: the arrival sequence (stuck-alone flags in arrival order); stuck-alone fraction by arrival decile\n    (decile of the arrival rank within the run, over agents that arrived); the length of the final run of\n    consecutive stuck-alone arrivals (deadlocked runs and all runs); the margin of the k-th last arrival;\n    succession in the second-trap class: K1b target held alone, its margin and arrival order relative to the\n    blocker.\n(b) for each stuck-alone agent at its door-zone arrival, predictors of exit, each by ROC AUC (Mann-Whitney, ties\n    1/2; positive class = exited) with a 95% CI from 2000 resamples of seeds (percentile, PCG64(12345)):\n      others_active         n_active - 1 (the k = 3 rule's score);\n      behind_1m             agents within 1 m behind (recorded at arrival);\n      passable_active       other agents with margin <= 0 still active;\n      stuck_active          other stuck-alone agents still active.\n    Also: the best single-threshold accuracy of each count score (exit iff score >= k), the exit rate by\n    (passable_active, stuck_active) cell, and the all-exit baseline.\n(c) the physical reading tested, with its numbers (field \"c_reading\").\n",
+ "E1a": {
+  "n_runs": 200,
+  "n_deadlock": 197,
+  "a_stuck_fraction_by_arrival_decile": {
+   "frac": [
+    0.1935,
+    0.1794871794871795,
+    0.1814070351758794,
+    0.17373737373737375,
+    0.15692307692307692,
+    0.14944834503510532,
+    0.13061018658598084,
+    0.17966784096628083,
+    0.30120481927710846,
+    0.6445974576271186
+   ],
+   "n": [
+    2000,
+    1989,
+    1990,
+    1980,
+    1950,
+    1994,
+    1983,
+    1987,
+    1992,
+    1888
+   ]
+  },
+  "a_final_stuck_run_length": {
+   "deadlocked_runs": 197,
+   "median": 3.0,
+   "p25": 1.0,
+   "p75": 5.0,
+   "min": 0,
+   "max": 12,
+   "hist": {
+    "0": 23,
+    "1": 31,
+    "2": 41,
+    "3": 25,
+    "4": 20,
+    "5": 19,
+    "6": 14,
+    "7": 9,
+    "8": 5,
+    "9": 4,
+    "10": 1,
+    "11": 1,
+    "12": 4
+   },
+   "completed_runs_tail_median": 0.0
+  },
+  "a_margin_last5_vs_rest": {
+   "last5_median_N": 42.67602946593543,
+   "rest_median_N": -62.00255139452484,
+   "last5_stuck_frac": 0.76,
+   "rest_stuck_frac": 0.19868820988641817
+  },
+  "a_blocker_arrival_rank_from_end": {
+   "n": 197,
+   "median": 1.0,
+   "within_last_3": 184,
+   "within_last_5": 192
+  },
+  "a_second_trap_succession": {
+   "n": 154,
+   "K1b_held": 145,
+   "K1b_held_target_stuck_alone": 145,
+   "K1b_freed": 9,
+   "K1b_freed_target_stuck_alone": 1,
+   "target_arrived_before_blocker": 20,
+   "target_arrived_after_blocker": 54,
+   "target_not_arrived": 80,
+   "target_margin_held_median_N": 87.00823351796029
+  },
+  "b_predictors": {
+   "n_stuck_alone_arrived": 4486,
+   "exited": 4179,
+   "all_exit_baseline": 0.9315648684797146,
+   "counts_consistent_with_n_active": 4486,
+   "scores": {
+    "others_active": {
+     "auc": 0.9739542290325522,
+     "ci95_seed_bootstrap": [
+      0.9684090227317319,
+      0.979427031163281
+     ],
+     "best_threshold_k": 3,
+     "best_threshold_accuracy": 0.9621043245653144,
+     "accuracy_at_k3": 0.9621043245653144,
+     "accuracy_at_k1": 0.9315648684797146
+    },
+    "behind_1m": {
+     "auc": 0.9260510712395543,
+     "ci95_seed_bootstrap": [
+      0.9080636279759285,
+      0.9430619563572397
+     ],
+     "best_threshold_k": 1,
+     "best_threshold_accuracy": 0.951627284886313,
+     "accuracy_at_k3": 0.7739634418189925,
+     "accuracy_at_k1": 0.951627284886313
+    },
+    "passable_active": {
+     "auc": 0.9384221401719315,
+     "ci95_seed_bootstrap": [
+      0.9306541554018906,
+      0.9464770732186247
+     ],
+     "best_threshold_k": 0,
+     "best_threshold_accuracy": 0.9315648684797146,
+     "accuracy_at_k3": 0.8481943825234062,
+     "accuracy_at_k1": 0.9206419973250112
+    },
+    "stuck_active": {
+     "auc": 0.9603360372515595,
+     "ci95_seed_bootstrap": [
+      0.9525214755725746,
+      0.9676623587958274
+     ],
+     "best_threshold_k": 3,
+     "best_threshold_accuracy": 0.9520731163620152,
+     "accuracy_at_k3": 0.9520731163620152,
+     "accuracy_at_k1": 0.93468568880963
+    }
+   }
+  },
+  "b_exit_rate_by_passable_x_stuck": {
+   "note": "keys 'p<passable_active>|s<stuck_active>', each capped at 3 (3 = 3 or more); value [exited, n]",
+   "cells": {
+    "p0|s1": [
+     0,
+     26
+    ],
+    "p0|s2": [
+     16,
+     87
+    ],
+    "p0|s3": [
+     194,
+     258
+    ],
+    "p1|s0": [
+     0,
+     4
+    ],
+    "p1|s1": [
+     6,
+     55
+    ],
+    "p1|s2": [
+     28,
+     46
+    ],
+    "p1|s3": [
+     197,
+     220
+    ],
+    "p2|s0": [
+     0,
+     9
+    ],
+    "p2|s1": [
+     14,
+     24
+    ],
+    "p2|s2": [
+     10,
+     15
+    ],
+    "p2|s3": [
+     203,
+     218
+    ],
+    "p3|s0": [
+     0,
+     1
+    ],
+    "p3|s1": [
+     3,
+     3
+    ],
+    "p3|s2": [
+     24,
+     24
+    ],
+    "p3|s3": [
+     3484,
+     3496
+    ]
+   }
+  },
+  "b_passable_zero_vs_positive": {
+   "passable0": {
+    "n": 371,
+    "exited": 210,
+    "stuck_active_median": 3.0
+   },
+   "passable_ge1": {
+    "n": 4115,
+    "exited": 3969
+   }
+  },
+  "b_k3_errors": {
+   "n": 170,
+   "of_which_passable0_not_exited": 64
+  }
+ },
+ "E1b": {
+  "n_runs": 200,
+  "n_deadlock": 196,
+  "a_stuck_fraction_by_arrival_decile": {
+   "frac": [
+    0.1975,
+    0.18652589240824535,
+    0.1731253145445395,
+    0.1635537607269056,
+    0.16494845360824742,
+    0.1399197592778335,
+    0.15651736285858078,
+    0.17112569409389197,
+    0.30526315789473685,
+    0.621292372881356
+   ],
+   "n": [
+    2000,
+    1989,
+    1987,
+    1981,
+    1940,
+    1994,
+    1987,
+    1981,
+    1995,
+    1888
+   ]
+  },
+  "a_final_stuck_run_length": {
+   "deadlocked_runs": 196,
+   "median": 3.0,
+   "p25": 1.0,
+   "p75": 4.0,
+   "min": 0,
+   "max": 13,
+   "hist": {
+    "0": 19,
+    "1": 46,
+    "2": 30,
+    "3": 35,
+    "4": 29,
+    "5": 13,
+    "6": 13,
+    "7": 4,
+    "8": 1,
+    "9": 0,
+    "10": 5,
+    "11": 0,
+    "12": 0,
+    "13": 1
+   },
+   "completed_runs_tail_median": 0.5
+  },
+  "a_margin_last5_vs_rest": {
+   "last5_median_N": 37.57047256914886,
+   "rest_median_N": -62.061856568601755,
+   "last5_stuck_frac": 0.727,
+   "rest_stuck_frac": 0.19944509657453846
+  },
+  "a_blocker_arrival_rank_from_end": {
+   "n": 196,
+   "median": 1.0,
+   "within_last_3": 184,
+   "within_last_5": 194
+  },
+  "a_second_trap_succession": {
+   "n": 160,
+   "K1b_held": 151,
+   "K1b_held_target_stuck_alone": 151,
+   "K1b_freed": 9,
+   "K1b_freed_target_stuck_alone": 1,
+   "target_arrived_before_blocker": 20,
+   "target_arrived_after_blocker": 65,
+   "target_not_arrived": 75,
+   "target_margin_held_median_N": 75.0658875744778
+  },
+  "b_predictors": {
+   "n_stuck_alone_arrived": 4465,
+   "exited": 4155,
+   "all_exit_baseline": 0.9305711086226204,
+   "counts_consistent_with_n_active": 4465,
+   "scores": {
+    "others_active": {
+     "auc": 0.9749784558052871,
+     "ci95_seed_bootstrap": [
+      0.9702286847342474,
+      0.9794510279069355
+     ],
+     "best_threshold_k": 3,
+     "best_threshold_accuracy": 0.9623740201567749,
+     "accuracy_at_k3": 0.9623740201567749,
+     "accuracy_at_k1": 0.9305711086226204
+    },
+    "behind_1m": {
+     "auc": 0.9245794029734871,
+     "ci95_seed_bootstrap": [
+      0.9078490237610878,
+      0.9395942579702609
+     ],
+     "best_threshold_k": 1,
+     "best_threshold_accuracy": 0.9552071668533034,
+     "accuracy_at_k3": 0.7731243001119821,
+     "accuracy_at_k1": 0.9552071668533034
+    },
+    "passable_active": {
+     "auc": 0.9482954854237025,
+     "ci95_seed_bootstrap": [
+      0.9410975045541209,
+      0.9550295101478213
+     ],
+     "best_threshold_k": 1,
+     "best_threshold_accuracy": 0.9319148936170213,
+     "accuracy_at_k3": 0.8658454647256439,
+     "accuracy_at_k1": 0.9319148936170213
+    },
+    "stuck_active": {
+     "auc": 0.9628752765808781,
+     "ci95_seed_bootstrap": [
+      0.9560848916162467,
+      0.9695896979560644
+     ],
+     "best_threshold_k": 3,
+     "best_threshold_accuracy": 0.9547592385218365,
+     "accuracy_at_k3": 0.9547592385218365,
+     "accuracy_at_k1": 0.9328107502799552
+    }
+   }
+  },
+  "b_exit_rate_by_passable_x_stuck": {
+   "note": "keys 'p<passable_active>|s<stuck_active>', each capped at 3 (3 = 3 or more); value [exited, n]",
+   "cells": {
+    "p0|s1": [
+     0,
+     28
+    ],
+    "p0|s2": [
+     10,
+     82
+    ],
+    "p0|s3": [
+     131,
+     178
+    ],
+    "p1|s0": [
+     0,
+     5
+    ],
+    "p1|s1": [
+     6,
+     56
+    ],
+    "p1|s2": [
+     33,
+     63
+    ],
+    "p1|s3": [
+     197,
+     231
+    ],
+    "p2|s0": [
+     1,
+     5
+    ],
+    "p2|s1": [
+     6,
+     9
+    ],
+    "p2|s2": [
+     8,
+     10
+    ],
+    "p2|s3": [
+     188,
+     204
+    ],
+    "p3|s0": [
+     0,
+     2
+    ],
+    "p3|s1": [
+     6,
+     8
+    ],
+    "p3|s2": [
+     21,
+     22
+    ],
+    "p3|s3": [
+     3548,
+     3562
+    ]
+   }
+  },
+  "b_passable_zero_vs_positive": {
+   "passable0": {
+    "n": 288,
+    "exited": 141,
+    "stuck_active_median": 3.0
+   },
+   "passable_ge1": {
+    "n": 4177,
+    "exited": 4014
+   }
+  },
+  "b_k3_errors": {
+   "n": 168,
+   "of_which_passable0_not_exited": 47
+  }
+ },
+ "second_trap_both_modes": {
+  "n": 314,
+  "K1b_held": 296
+ },
+ "c_reading": [
+  "E1a: stuck-alone fraction rises from 0.19 in the first arrival decile to 0.64 in the last; the last five arrivals have median margin 43 N (rest -62 N). Exit AUC: passable_active 0.938 [0.931, 0.946], others_active 0.974, stuck_active 0.960, behind_1m 0.926. With no passable agent left, 210/371 stuck-alone arrivals exit; with at least one, 3969/4115. Second trap: K1b held in 145/154, target stuck alone in 145 of those.",
+  "E1b: stuck-alone fraction rises from 0.20 in the first arrival decile to 0.62 in the last; the last five arrivals have median margin 38 N (rest -62 N). Exit AUC: passable_active 0.948 [0.941, 0.955], others_active 0.975, stuck_active 0.963, behind_1m 0.925. With no passable agent left, 141/288 stuck-alone arrivals exit; with at least one, 4014/4177. Second trap: K1b held in 151/160, target stuck alone in 151 of those.",
+  "Verdict (E1b). Supported: passable agents drain first, so the last arrivals are enriched in stuck-alone agents (0.62 in the last arrival decile against 0.14-0.20 in the first eight; the final blocker is among the last three arrivals in 184/196 deadlocked runs). Not supported: that only passable agents can push a stuck-alone agent through. With no passable agent left, 141/288 stuck-alone arrivals still exit (131/178 when three or more stuck-alone agents are still in the room), and stuck-alone pushers predict exit at least as well (AUC 0.963 against 0.948 for passable ones). Cleanest statement: a stuck-alone agent is pushed through by whoever is still in the room, whether or not those agents could pass alone; the total count is the best single predictor (AUC 0.975, [0.970, 0.979]), and the chain ends when fewer than about three others are still in the room as the last stuck-alone agent arrives."
+ ]
+}
