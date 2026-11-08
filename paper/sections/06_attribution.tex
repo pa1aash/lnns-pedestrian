@@ -2,11 +2,10 @@
 % Budget 4.5 pages (C54), Table 4 and Sect. 6.3 0.5 + 0.6 of it. Figs 5, 6, 7; Tables 3, 4.
 \subsection{The Lone Trap}\label{sec:att-lone}
 \begin{figure}[t]
-\begin{minipage}[b]{0.49\textwidth}\centering\includegraphics{../figures/fig5_dt.pdf}\end{minipage}\hfill
-\begin{minipage}[b]{0.47\textwidth}
+\centering
+\includegraphics{../figures/fig5_dt.pdf}
 \caption{Escape rate against time step, normalised per snapshot at $\Delta t=0.01$\,s (geometric means over snapshots, 95\% bootstrap intervals). Per-step noise is vermillion, filled circles at $\beta_{\rm ref}=1.5$ and squares at $2.5$, with its Arrhenius prediction from the exact discrete $k_BT_{\rm eff}$ as lines; $\sqrt{\Delta t}$-scaled noise light vermillion with open markers; C3 RVO2 blue diamonds (inverse escape time).}
 \label{fig:dt}
-\end{minipage}
 \end{figure}
 \begin{figure}[t]
 \centering
@@ -20,7 +19,7 @@
 The quench library holds \EtwoNAll\ corrected-forward snapshots, \EtwoNLK\ lone keystones and \EtwoNST\ with a second trap; the outcome is whether the blocker is freed within 120\,s (Fig.~\ref{fig:quench}). At the lone keystone C3 RVO2 frees \EtwoLKCThreeRVOFreed\ of \EtwoLKCThreeRVON\ blockers and ORCA's drive alone the same ones (discordant \EtwoLKDriveVsRVODiscA:\EtwoLKDriveVsRVODiscB; \EtwoLKDriveVsPubDiscA:\EtwoLKDriveVsPubDiscB\ against the published solver); the constraint part alone frees \EtwoLKConstrRVOFreed. A constant push equal to the rest drive frees \EtwoLKFrozenPlusFreed\ pointed at the door and \EtwoLKFrozenMinusFreed\ pointed away. C1 and C2 free none, C2 reproducing C1 in \EtwoLemmaIdentical\ of \EtwoLemmaPairs\ paired runs (Proposition~\ref{prop:rest}). $10^{-9}$\,m replays reproduce C3 RVO2 exactly (largest first-exit shift \EtwoReplayCThreeRVOMaxDt\,s in \EtwoReplayN), and it fails where the rest-state margin with ORCA's drive added stays positive (ROC area \EtwoLKMarginAUC). This is class L: a deterministic drive that removes the fixed point.
 
 \paragraph{Matched noise acts differently.}
-Per-step noise at $\sigma=0.07$\,m/s matches that rate and nothing else (Table~\ref{tab:matched}): it leaves other snapshots unresolved, its seeds disagree (within-snapshot standard deviation of the first exit \EtwoNoiseSDC\,s), and it waits. The lateral bias (class D) frees no lone keystone at any $b$ (upper Wilson bound \EtwoMaxBiasUpperLK): nothing is symmetric to break.
+Identity is compared throughout by the Jaccard index $J$ of the minority outcome sets: the unresolved snapshots or runs where most are freed, and the freed standoffs at the pair, where fewer than half are. Per-step noise at $\sigma=0.07$\,m/s matches that rate and nothing else (Table~\ref{tab:matched}): it leaves other snapshots unresolved, its seeds disagree (within-snapshot standard deviation of the first exit \EtwoNoiseSDC\,s), and it waits. The lateral bias (class D) frees no lone keystone at any $b$ (upper Wilson bound \EtwoMaxBiasUpperLK): nothing is symmetric to break.
 
 \paragraph{The time-step signature.}
 On \EthreeN\ snapshots spread over the collective barrier, with noise set so that $\beta_{\rm ref}=\Delta U/k_BT_{\rm eff}$ at $\Delta t=0.01$\,s is 1.5 or 2.5 (Fig.~\ref{fig:dt}), per-step noise gives $\ell=$ \EthreeEllBA\ [\EthreeEllBALo, \EthreeEllBAHi] (predicted \EthreeEllBAPred) and \EthreeEllBB\ [\EthreeEllBBLo, \EthreeEllBBHi] (predicted \EthreeEllBBPred, outside the interval); the slope of observed on predicted $\ell$ through the origin is \EthreeSlope\ [\EthreeSlopeLo, \EthreeSlopeHi]. Noise scaled with $\sqrt{\Delta t}$ removes the effect ($\ell=\EthreeEllScaled$ [$\EthreeEllScaledLo$, $\EthreeEllScaledHi$], predicted $\EthreeEllScaledPred$). C3 RVO2 has none ($|\ell|\le\EthreeCThreeLnRatioMax$) and frees the same \EthreeCThreeFreed\ snapshots at every step. Noise is thermal at the temperature of Eq.~\eqref{eq:teff}; ORCA is not thermal.

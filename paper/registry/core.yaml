@@ -1266,44 +1266,41 @@ TabThreeLKRvoReplays:
   key: "b_replay_determinism.lone_keystone.C3_rvo2.replays"
   fmt: "{:d}"
 TabThreePairPubDiff:
-  file: E7b_analysis.json
-  key: "s3_matched.pub.rate.diff"
+  file: table3_pair.json
+  key: "pub.diff"
   fmt: "{:+.2f}"
+TabThreePairPubDiffLo:
+  file: table3_pair.json
+  key: "pub.diff_ci95.0"
+  fmt: "{:.2f}"
+TabThreePairPubDiffHi:
+  file: table3_pair.json
+  key: "pub.diff_ci95.1"
+  fmt: "{:.2f}"
 TabThreePairRvoDiff:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.rate.diff"
+  file: table3_pair.json
+  key: "rvo2.diff"
   fmt: "{:+.2f}"
 TabThreePairRvoDiffLo:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.rate.diff_ci90.0"
+  file: table3_pair.json
+  key: "rvo2.diff_ci95.0"
   fmt: "{:.2f}"
 TabThreePairRvoDiffHi:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.rate.diff_ci90.1"
+  file: table3_pair.json
+  key: "rvo2.diff_ci95.1"
   fmt: "{:.2f}"
-TabThreePairPubJacU:
+# freed-set Jaccard (the minority outcome set at the pair; C56); the published match reuses PairBsPubJac*
+TabThreePairRvoJacF:
   file: E7b_analysis.json
-  key: "s3_matched.pub.jaccard_unresolved.value"
+  key: "s3_matched.rvo2.jaccard_freed.value"
   fmt: "{:.2f}"
-TabThreePairPubJacULo:
+TabThreePairRvoJacFLo:
   file: E7b_analysis.json
-  key: "s3_matched.pub.jaccard_unresolved.ci95.0"
+  key: "s3_matched.rvo2.jaccard_freed.ci95.0"
   fmt: "{:.2f}"
-TabThreePairPubJacUHi:
+TabThreePairRvoJacFHi:
   file: E7b_analysis.json
-  key: "s3_matched.pub.jaccard_unresolved.ci95.1"
-  fmt: "{:.2f}"
-TabThreePairRvoJacU:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.jaccard_unresolved.value"
-  fmt: "{:.2f}"
-TabThreePairRvoJacULo:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.jaccard_unresolved.ci95.0"
-  fmt: "{:.2f}"
-TabThreePairRvoJacUHi:
-  file: E7b_analysis.json
-  key: "s3_matched.rvo2.jaccard_unresolved.ci95.1"
+  key: "s3_matched.rvo2.jaccard_freed.ci95.1"
   fmt: "{:.2f}"
 TabThreePairRvoHand:
   file: E7b_analysis.json

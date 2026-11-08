@@ -6,19 +6,62 @@ Three matched-control blocks, each a control matched to ORCA on rate against the
       matches C3 RVO2 there) vs C3 RVO2;
   whole runs (E6): C1 + sigma* vs C3 RVO2;
   pair standoffs (E7b, S9g): bias +b*_pub vs C3 published and +b*_RVO2 vs C3 RVO2.
-Columns are the signatures that separate them: rate, paired difference, failure identity (Jaccard of the
-unresolved sets), median time to free, handedness, replay, and the time-step ratio ell (E3).
+Columns are the signatures that separate them: rate, paired difference (95% interval), identity (Jaccard
+index of the minority outcome set of each block: the unresolved sets for the lone-trap and whole-run blocks,
+where most runs free, and the freed sets for the pair block, where fewer than half free), median time to
+free, handedness, replay, and the time-step ratio ell (E3).
+
+`make_table3.py derive` writes data/derived/table3_pair.json: the 95% percentile bootstrap interval of the
+pair-block paired rate difference (bias +b* minus ORCA, unperturbed runs, per snapshot), 2000 resamples of
+the 46 snapshots, PCG64(12345). It replaces the 90% (equivalence-margin) interval of E7b_analysis.json, so
+every interval in the table is 95%. The freed-set Jaccard indices and their 95% intervals are read from
+E7b_analysis.json (s3_matched.*.jaccard_freed). Run it when data/E7b*/ change, before `make numbers`.
 
 Every number is a numbers.tex macro defined in paper/registry/*.yaml (values from data/derived/*.json);
 this script only lays them out and fails if a macro it uses is not in the registry. Cells an experiment
 did not measure are "---". Design constants (sigma = 0.07, the 120 s window) are written as such.
 """
+import json
+import sys
 from pathlib import Path
 
+import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "paper" / "tables" / "table3_matched.tex"
+DERIVED = ROOT / "data" / "derived" / "table3_pair.json"
+T_Q, N_BOOT, RNG_SEED = 120.0, 2000, 12345
+PAIR_ARMS = {"pub": ("bstar_pub+", "C3_pub"), "rvo2": ("bstar_rvo2+", "C3_rvo2")}
+
+
+def derive():
+    """Pair-block paired rate difference with a 95% bootstrap interval (see module doc)."""
+    freed = {}
+    for p in (ROOT / "data" / "E7b" / "e7b_quench.jsonl", ROOT / "data" / "E7b_bstar" / "bstar_quench.jsonl"):
+        for ln in p.read_text().splitlines():
+            if not ln.strip():
+                continue
+            r = json.loads(ln)
+            tag, arm, rep = r["job_id"].split("|")
+            if rep == "u":
+                freed[(tag, arm)] = bool(r["freed"] and r["first_t"] <= T_Q + 1e-9)
+    tags = sorted({t for t, _ in freed}, key=lambda t: int(t.rsplit("seed", 1)[1]))
+    rng = np.random.Generator(np.random.PCG64(RNG_SEED))
+    out = {"script": "experiments/tables/make_table3.py derive", "doc": __doc__, "n_snapshots": len(tags),
+           "n_boot": N_BOOT, "rng": f"PCG64({RNG_SEED})"}
+    for k, (a, b) in PAIR_ARMS.items():
+        x = np.array([freed[(t, a)] for t in tags], float)
+        y = np.array([freed[(t, b)] for t in tags], float)
+        n = len(tags)
+        v = [float(x[i].mean() - y[i].mean()) for i in (rng.integers(0, n, n) for _ in range(N_BOOT))]
+        out[k] = {"bias_arm": a, "orca_arm": b, "freed_bias": int(x.sum()), "freed_orca": int(y.sum()),
+                  "diff": float(x.mean() - y.mean()),
+                  "diff_ci95": [float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))]}
+    DERIVED.write_text(json.dumps(out, indent=1) + "\n")
+    print(f"wrote {DERIVED}: " + "; ".join(f"{k} {out[k]['diff']:+.3f} {out[k]['diff_ci95']}" for k in PAIR_ARMS))
+
+
 REG = {}
 for f in sorted((ROOT / "paper" / "registry").glob("*.yaml")):
     REG.update(yaml.safe_load(f.read_text()) or {})
@@ -79,8 +122,8 @@ BLOCKS = [
     (r"Pair standoffs (E7b): " + one("PairN") + r" snapshots, 120\,s", [
         (r"bias $b^\ast_{\rm pub}=" + one("PairBstarPub") + "$",
          frac("PairBsPubFreed", "PairN"),
-         diff("TabThreePairPubDiff", "PairBsPubDiffLo", "PairBsPubDiffHi"),
-         ci("TabThreePairPubJacU", "TabThreePairPubJacULo", "TabThreePairPubJacUHi"),
+         diff("TabThreePairPubDiff", "TabThreePairPubDiffLo", "TabThreePairPubDiffHi"),
+         ci("PairBsPubJac", "PairBsPubJacLo", "PairBsPubJacHi"),
          PAIR_T, frac("PairBsPubHand", "PairBsPubN"),
          frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"), NA),
         ("C3 published",
@@ -90,7 +133,7 @@ BLOCKS = [
         (r"bias $b^\ast_{\rm RVO2}=" + one("PairBstarRvo") + "$",
          frac("PairBsRvoFreed", "PairN"),
          diff("TabThreePairRvoDiff", "TabThreePairRvoDiffLo", "TabThreePairRvoDiffHi"),
-         ci("TabThreePairRvoJacU", "TabThreePairRvoJacULo", "TabThreePairRvoJacUHi") + "; freed disjoint",
+         ci("TabThreePairRvoJacF", "TabThreePairRvoJacFLo", "TabThreePairRvoJacFHi"),
          PAIR_T, frac("TabThreePairRvoHand", "TabThreePairRvoHandN"),
          frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"), NA),
         ("C3 RVO2",
@@ -102,10 +145,10 @@ BLOCKS = [
 
 CAPTION = (
     r"Controls matched to ORCA on rate, against the signatures that separate them: freed (whole runs: completed) "
-    r"count, paired difference $\Delta$ from ORCA (95\% interval; 90\% for pairs), Jaccard index $J$ of the "
-    r"unresolved sets, Kaplan--Meier median $t_{1/2}$, first exits by the lower member, $10^{-9}$\,m replays that "
+    r"count, paired difference $\Delta$ from ORCA, Jaccard index $J$ of the minority outcome sets (unresolved; "
+    r"pairs: freed), Kaplan--Meier median $t_{1/2}$, first exits by the lower member, $10^{-9}$\,m replays that "
     r"change the outcome (noise: snapshots whose seeds disagree), and $\ell=\ln\hat\lambda(0.005)/\hat\lambda(0.02)$ "
-    r"with its Arrhenius prediction (E3). Noise counts runs, five seeds per snapshot; --- is not measured."
+    r"with its Arrhenius prediction (E3). Intervals are 95\%. Noise counts runs, five seeds per snapshot; --- is not measured."
 )
 
 
@@ -133,4 +176,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["derive"]:
+        derive()
+    else:
+        main()

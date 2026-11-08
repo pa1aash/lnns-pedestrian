@@ -1,0 +1,29 @@
+{
+ "script": "experiments/tables/make_table3.py derive",
+ "doc": "Write paper/tables/table3_matched.tex: the thesis table (C53).\n\nThree matched-control blocks, each a control matched to ORCA on rate against the ORCA arm it matches:\n  lone-trap snapshots (E2, lone-keystone stratum): C1 + noise at sigma = 0.07 m/s (the level whose rate\n      matches C3 RVO2 there) vs C3 RVO2;\n  whole runs (E6): C1 + sigma* vs C3 RVO2;\n  pair standoffs (E7b, S9g): bias +b*_pub vs C3 published and +b*_RVO2 vs C3 RVO2.\nColumns are the signatures that separate them: rate, paired difference (95% interval), identity (Jaccard\nindex of the minority outcome set of each block: the unresolved sets for the lone-trap and whole-run blocks,\nwhere most runs free, and the freed sets for the pair block, where fewer than half free), median time to\nfree, handedness, replay, and the time-step ratio ell (E3).\n\n`make_table3.py derive` writes data/derived/table3_pair.json: the 95% percentile bootstrap interval of the\npair-block paired rate difference (bias +b* minus ORCA, unperturbed runs, per snapshot), 2000 resamples of\nthe 46 snapshots, PCG64(12345). It replaces the 90% (equivalence-margin) interval of E7b_analysis.json, so\nevery interval in the table is 95%. The freed-set Jaccard indices and their 95% intervals are read from\nE7b_analysis.json (s3_matched.*.jaccard_freed). Run it when data/E7b*/ change, before `make numbers`.\n\nEvery number is a numbers.tex macro defined in paper/registry/*.yaml (values from data/derived/*.json);\nthis script only lays them out and fails if a macro it uses is not in the registry. Cells an experiment\ndid not measure are \"---\". Design constants (sigma = 0.07, the 120 s window) are written as such.\n",
+ "n_snapshots": 46,
+ "n_boot": 2000,
+ "rng": "PCG64(12345)",
+ "pub": {
+  "bias_arm": "bstar_pub+",
+  "orca_arm": "C3_pub",
+  "freed_bias": 22,
+  "freed_orca": 21,
+  "diff": 0.02173913043478265,
+  "diff_ci95": [
+   -0.15217391304347827,
+   0.21739130434782605
+  ]
+ },
+ "rvo2": {
+  "bias_arm": "bstar_rvo2+",
+  "orca_arm": "C3_rvo2",
+  "freed_bias": 8,
+  "freed_orca": 7,
+  "diff": 0.021739130434782594,
+  "diff_ci95": [
+   -0.13043478260869568,
+   0.17391304347826086
+  ]
+ }
+}
