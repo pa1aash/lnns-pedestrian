@@ -1,0 +1,9 @@
+# --- Published ORCA in the published mode, whole runs (E6p; data/derived/E6p_analysis.json) ---
+EsixpK: {file: E6p_analysis.json, key: "completion.k", fmt: "{:d}"}
+EsixpN: {file: E6p_analysis.json, key: "completion.n", fmt: "{:d}"}
+EsixpLo: {file: E6p_analysis.json, key: "completion.wilson95.0", fmt: "{:.2f}"}
+EsixpHi: {file: E6p_analysis.json, key: "completion.wilson95.1", fmt: "{:.2f}"}
+EsixpDeadlocked: {file: E6p_analysis.json, key: "completion.deadlocked", fmt: "{:d}"}
+EsixpCapped: {file: E6p_analysis.json, key: "completion.capped_moving", fmt: "{:d}"}
+EsixpConfP: {file: E6p_analysis.json, key: "conference.fisher_p", fmt: p}
+EsixpEvacMed: {file: E6p_analysis.json, key: "evacuation.median_completed", fmt: "{:.0f}"}
