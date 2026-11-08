@@ -34,7 +34,7 @@ All 10 one-neighbour second-trap snapshots have the pair geometry: neighbour on 
 ## Fig 7, pages, build
 - Fig 7 (full width, 5.0 cm): fonts embedded, smallest text 6.97 pt, thinnest line 0.40 pt; colour, greyscale and CVD previews viewed; no legend or text. b* labels use a text-size star.
 - Pages (pinned page map, clean worktree): §5.2 ≈ 0.87 (budget 0.9); §6.2 ≈ 1.07 with Fig 7 (budget 1.0, **0.07 over**). overlap_check: 0 runs ≥ 8 words.
-- `make numbers`, `make paper` and `make submission` pass on the committed state in a clean worktree (19 pp, 0 undefined). The shared working tree currently fails only on 5B's uncommitted §5.3/§7 macros (\Arch*, \Eten*).
+- `make numbers` (reproduces numbers.tex), `make paper` and `make submission` pass on the committed state in a clean worktree (0 undefined); pushed 70f424c, 9a5867c; CI paper + tests green on 869ff0c (contains both). The shared working tree currently fails only on 5B's uncommitted §5.3/§7 macros (\Arch*, \Eten*).
 
 ## [NEEDS PALAASH: T5 sign-off]
 - [ ] Hessian of U, density frozen (experiments/lib/pairlib.py:46-98 PairField, hess h = 1e-4; experiments/E7b/e7b_static.py:51-64): positive definite 46/46; λ1 65–121, λ2 866–1569 N/m; softest mode = common lateral shift 46/46.
