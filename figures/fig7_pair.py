@@ -24,7 +24,7 @@ for s in ("0p01", "0p02", "0p03", "0p05"):
 for k in ("bstarpubp", "bstarpubm", "bstarrvo2p", "bstarrvo2m"):
     COL[k] = YEL
 
-fig = fig_full(5.6)
+fig = fig_full(5.0)
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1, 1.45]})
 
 # ---- left: freed fraction against signed lateral bias b

@@ -67,7 +67,7 @@ CtwsixDriveFreed: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbou
 CtwsixCancel: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.cancel_frac_mean_held.median", fmt: "{:.2f}"}
 PairTraceCancel: {file: E7b_analysis.json, key: "e_c26.pair_library.trace.cancel_frac_mean_held.median", fmt: "{:.2f}"}
 PairFoldMissGap: {file: E7b_analysis.json, key: "a_statics.fold_prediction.disagree_max_rel_gap_pct", fmt: "{:.0f}"}
-PairAsymCorr: {file: E7b_analysis.json, key: "a_statics.fold_threshold.corr_asym_bstar_spearman", fmt: "{:.3f}"}
+PairAsymCorr: {file: E7b_analysis.json, key: "a_statics.fold_threshold.corr_asym_bstar_spearman", fmt: "{:.4f}"}
 # --- 6.2 matched bias b* (data/E7b_bstar, experiments/E7b/matched_b.py)
 PairBstarPub: {file: E7b_analysis.json, key: "s3_matched.pub.b_star", fmt: "{:.4f}"}
 PairBstarRvo: {file: E7b_analysis.json, key: "s3_matched.rvo2.b_star", fmt: "{:.4f}"}
