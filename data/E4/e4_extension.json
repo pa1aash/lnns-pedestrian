@@ -1,0 +1,22 @@
+{
+ "target_events": 105,
+ "n_restarts": {
+  "full": 20,
+  "frozen": 20,
+  "alone": 20
+ },
+ "events": {
+  "full": 382,
+  "frozen": 581,
+  "alone": 554
+ },
+ "max_restarts": 60,
+ "skipped_no_barrier": [
+  {
+   "tag": "E1b_seed60",
+   "cond": "full",
+   "dU": 0.020907573958197645,
+   "reason": "dU < 0.1 J"
+  }
+ ]
+}
