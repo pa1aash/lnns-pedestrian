@@ -57,6 +57,14 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 \caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the blue band the C3 boundary for $\tau\in[0.4,0.6]$\,s.}
 \label{fig:lone-trap}
 \end{figure}
+% §5.1 numbers (paper/numbers.tex): stuck alone iff g_max(r) > m v0/tau; held-when-alone matches margin > 0 in
+% \CriterionAgree/\CriterionN deadlocks, the \CriterionNegMargin\ negative-margin blockers are the collective pair standoffs;
+% stuck-alone fraction \EOneBStuckAloneFrac; CF keystone classes \KeystoneBLone/\KeystoneBSecondTrap/\KeystoneBCollective;
+% completion \EOneBCompletionK/\EOneBCompletionN [\EOneBCompletionLo, \EOneBCompletionHi].
+% End of queue as a chain (C16b): stuck-alone fraction \ChainStuckFirstDecile -> \ChainStuckLastDecile by arrival decile;
+% blocker among the last three arrivals in \ChainBlockerLastThree/\ChainBlockerN; with no passable agent left
+% \ChainNoPassableExited/\ChainNoPassableN stuck-alone arrivals still exit; others-active AUC \EOneBAUCOthers
+% [\EOneBAUCOthersLo, \EOneBAUCOthersHi] against an all-exit baseline of \EOneBAllExitBaseline.
 \subsection{The Symmetric Pair Standoff}
 \subsection{No Persistent Contact Arches}
 \subsection{Noise as Collective Activated Escape}
@@ -64,6 +72,15 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 \section{Attribution Results}
 % Budget 4.0 pages. Figs 5, 6, 7; Tables 3, 4.
 \subsection{The Lone Trap}
+% §6.1 numbers: C3 RVO2 frees \EtwoAllCThreeRVOFreed/\EtwoAllCThreeRVON, drive only \EtwoAllDriveFreed/\EtwoAllDriveN,
+% frozen mean + \EtwoAllFrozenPlusFreed/\EtwoAllFrozenPlusN, frozen mean - \EtwoAllFrozenMinusFreed/\EtwoAllFrozenMinusN;
+% C2 = C1 in \EtwoLemmaIdentical/\EtwoLemmaPairs paired runs; Table 3 (tables/table3_matched) not yet input.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig6_quench.pdf}
+\caption{Left: fraction of lone-trap deadlock snapshots whose blocker is freed within 120\,s under each intervention, with Wilson 95\% intervals; right: Kaplan--Meier cumulative fraction freed against time for the arms that free, both strata pooled. Filled markers are lone-keystone snapshots and open markers those with a second trap; C1 is black, C2 orange, C3 published sky blue, C3 RVO2 blue, the ORCA drive, constraint and frozen-mean arms reddish purple, lateral bias yellow and noise vermillion, and on the right the drive-only arm is dashed, frozen mean $+$ solid, and noise $\sigma=0.03$, $0.05$, $0.07$\,m/s dotted, dashed and solid.}
+\label{fig:quench}
+\end{figure}
 \subsection{The Pair Class}
 \subsection{Revisiting the Conference Findings}
 %

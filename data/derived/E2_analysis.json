@@ -1,6 +1,6 @@
 {
  "script": "experiments/E2/analyze.py",
- "doc": "E2 analysis: lone-trap quench outcomes, per stratum and pooled.\n\nInput:  data/E2/e2_quench.jsonl (experiments/E2/e2_quench.py), data/derived/selection.json (E2 snapshots,\n        blocker, stratum), data/E1/E1_runs.jsonl (blocker C3 rest-state margin, E1b attrs).\nOutput: data/derived/E2_analysis.json.\n\nDefinitions\n  freed          the blocker (residual agent nearest (10, 5), selection.json) exits within 120 s.\n  deterministic  the primary run per (snapshot, arm) is the unperturbed one; the five 1e-9 m replays\n                 (perturbation seeds 900-904) enter only the replay-determinism check (b).\n  noise arms     every (snapshot, seed) run counts once for rates and Kaplan-Meier (n = 5 x snapshots);\n                 a snapshot is \"unresolved\" under a noise arm when the blocker is freed in fewer than 3 of\n                 its 5 seeds (majority rule); under a deterministic arm when the unperturbed run holds.\n  time-to-free   blocker exit time; held runs censored at 120 s. Kaplan-Meier product-limit estimate;\n                 quartiles = first time S(t) <= 0.75 / 0.5 / 0.25 (null when not reached).\n  paired tests   per snapshot (unperturbed runs): discordant counts b (first frees, second holds) and c;\n                 exact two-sided McNemar p = min(1, 2 * P[Bin(b + c, 1/2) <= min(b, c)]).\n  AUC            Mann-Whitney, ties 1/2. CIs: 2000 resamples of snapshots, percentile, PCG64(12345).\n  Equivalence    paired rate differences against +-0.10 are kept here only (field \"tost_0.10\"):\n                 90% percentile bootstrap interval of the paired difference inside (-0.10, 0.10).\n",
+ "doc": "E2 analysis: lone-trap quench outcomes, per stratum and pooled.\n\nInput:  data/E2/e2_quench.jsonl (experiments/E2/e2_quench.py), data/derived/selection.json (E2 snapshots,\n        blocker, stratum), data/E1/E1_runs.jsonl (blocker C3 rest-state margin, E1b attrs).\nOutput: data/derived/E2_analysis.json.\n\nDefinitions\n  freed          the blocker (residual agent nearest (10, 5), selection.json) exits within 120 s.\n  deterministic  the primary run per (snapshot, arm) is the unperturbed one; the five 1e-9 m replays\n                 (perturbation seeds 900-904) enter only the replay-determinism check (b).\n  noise arms     every (snapshot, seed) run counts once for rates and Kaplan-Meier (n = 5 x snapshots);\n                 a snapshot is \"unresolved\" under a noise arm when the blocker is freed in fewer than 3 of\n                 its 5 seeds (majority rule); under a deterministic arm when the unperturbed run holds.\n  time-to-free   blocker exit time; held runs censored at 120 s. Kaplan-Meier product-limit estimate;\n                 quartiles = first time S(t) <= 0.75 / 0.5 / 0.25 (null when not reached).\n  paired tests   per snapshot (unperturbed runs): discordant counts b (first frees, second holds) and c;\n                 exact two-sided McNemar p = min(1, 2 * P[Bin(b + c, 1/2) <= min(b, c)]).\n  keys           arm keys in the output have no dots (noise0p03 = sigma 0.03 m/s, bias0p05 = b 0.05).\n  AUC            Mann-Whitney, ties 1/2. CIs: 2000 resamples of snapshots, percentile, PCG64(12345).\n  Equivalence    paired rate differences against +-0.10 are kept here only (field \"tost_0.10\"):\n                 90% percentile bootstrap interval of the paired difference inside (-0.10, 0.10).\n",
  "n_snapshots": {
   "lone_keystone": 34,
   "lone_keystone_second_trap": 26,
@@ -714,7 +714,7 @@
      ]
     ]
    },
-   "bias0.05": {
+   "bias0p05": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 34,
@@ -743,7 +743,7 @@
      ]
     ]
    },
-   "bias0.1": {
+   "bias0p1": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 34,
@@ -772,7 +772,7 @@
      ]
     ]
    },
-   "bias0.2": {
+   "bias0p2": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 34,
@@ -801,7 +801,7 @@
      ]
     ]
    },
-   "bias0.5": {
+   "bias0p5": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 34,
@@ -830,7 +830,7 @@
      ]
     ]
    },
-   "noise0.03": {
+   "noise0p03": {
     "unit": "run (snapshot x seed)",
     "freed": 70,
     "n": 170,
@@ -1142,7 +1142,7 @@
     "snapshots_freed_any_seed": 19,
     "snapshots_freed_all_seeds": 10
    },
-   "noise0.05": {
+   "noise0p05": {
     "unit": "run (snapshot x seed)",
     "freed": 117,
     "n": 170,
@@ -1634,7 +1634,7 @@
     "snapshots_freed_any_seed": 29,
     "snapshots_freed_all_seeds": 18
    },
-   "noise0.07": {
+   "noise0p07": {
     "unit": "run (snapshot x seed)",
     "freed": 148,
     "n": 170,
@@ -2857,7 +2857,7 @@
      ]
     ]
    },
-   "bias0.05": {
+   "bias0p05": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 26,
@@ -2886,7 +2886,7 @@
      ]
     ]
    },
-   "bias0.1": {
+   "bias0p1": {
     "unit": "snapshot (unperturbed run)",
     "freed": 1,
     "n": 26,
@@ -2919,7 +2919,7 @@
      ]
     ]
    },
-   "bias0.2": {
+   "bias0p2": {
     "unit": "snapshot (unperturbed run)",
     "freed": 2,
     "n": 26,
@@ -2956,7 +2956,7 @@
      ]
     ]
    },
-   "bias0.5": {
+   "bias0p5": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 26,
@@ -2985,7 +2985,7 @@
      ]
     ]
    },
-   "noise0.03": {
+   "noise0p03": {
     "unit": "run (snapshot x seed)",
     "freed": 67,
     "n": 130,
@@ -3285,7 +3285,7 @@
     "snapshots_freed_any_seed": 16,
     "snapshots_freed_all_seeds": 9
    },
-   "noise0.05": {
+   "noise0p05": {
     "unit": "run (snapshot x seed)",
     "freed": 104,
     "n": 130,
@@ -3717,7 +3717,7 @@
     "snapshots_freed_any_seed": 24,
     "snapshots_freed_all_seeds": 16
    },
-   "noise0.07": {
+   "noise0p07": {
     "unit": "run (snapshot x seed)",
     "freed": 117,
     "n": 130,
@@ -5204,7 +5204,7 @@
      ]
     ]
    },
-   "bias0.05": {
+   "bias0p05": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 60,
@@ -5233,7 +5233,7 @@
      ]
     ]
    },
-   "bias0.1": {
+   "bias0p1": {
     "unit": "snapshot (unperturbed run)",
     "freed": 1,
     "n": 60,
@@ -5266,7 +5266,7 @@
      ]
     ]
    },
-   "bias0.2": {
+   "bias0p2": {
     "unit": "snapshot (unperturbed run)",
     "freed": 2,
     "n": 60,
@@ -5303,7 +5303,7 @@
      ]
     ]
    },
-   "bias0.5": {
+   "bias0p5": {
     "unit": "snapshot (unperturbed run)",
     "freed": 0,
     "n": 60,
@@ -5332,7 +5332,7 @@
      ]
     ]
    },
-   "noise0.03": {
+   "noise0p03": {
     "unit": "run (snapshot x seed)",
     "freed": 137,
     "n": 300,
@@ -5912,7 +5912,7 @@
     "snapshots_freed_any_seed": 35,
     "snapshots_freed_all_seeds": 19
    },
-   "noise0.05": {
+   "noise0p05": {
     "unit": "run (snapshot x seed)",
     "freed": 221,
     "n": 300,
@@ -6780,7 +6780,7 @@
     "snapshots_freed_any_seed": 53,
     "snapshots_freed_all_seeds": 34
    },
-   "noise0.07": {
+   "noise0p07": {
     "unit": "run (snapshot x seed)",
     "freed": 265,
     "n": 300,
@@ -7920,7 +7920,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.05": {
+   "bias0p05": {
     "replays": 170,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -7928,7 +7928,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.1": {
+   "bias0p1": {
     "replays": 170,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -7936,7 +7936,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.2": {
+   "bias0p2": {
     "replays": 170,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -7944,7 +7944,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.5": {
+   "bias0p5": {
     "replays": 170,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -7952,7 +7952,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "noise0.03": {
+   "noise0p03": {
     "snapshots": 34,
     "seeds_disagree_on_freed": 9,
     "D_wilson95": [
@@ -7968,7 +7968,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 36.12999999996714
    },
-   "noise0.05": {
+   "noise0p05": {
     "snapshots": 34,
     "seeds_disagree_on_freed": 11,
     "D_wilson95": [
@@ -7984,7 +7984,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 49.18999999995526
    },
-   "noise0.07": {
+   "noise0p07": {
     "snapshots": 34,
     "seeds_disagree_on_freed": 9,
     "D_wilson95": [
@@ -8074,7 +8074,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.05": {
+   "bias0p05": {
     "replays": 130,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8082,7 +8082,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.1": {
+   "bias0p1": {
     "replays": 130,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8090,7 +8090,7 @@
     "n_blocker_exit_pairs": 5,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.2": {
+   "bias0p2": {
     "replays": 130,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8098,7 +8098,7 @@
     "n_blocker_exit_pairs": 10,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.5": {
+   "bias0p5": {
     "replays": 130,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8106,7 +8106,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "noise0.03": {
+   "noise0p03": {
     "snapshots": 26,
     "seeds_disagree_on_freed": 7,
     "D_wilson95": [
@@ -8122,7 +8122,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 47.999999999956344
    },
-   "noise0.05": {
+   "noise0p05": {
     "snapshots": 26,
     "seeds_disagree_on_freed": 8,
     "D_wilson95": [
@@ -8138,7 +8138,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 29.339999999973315
    },
-   "noise0.07": {
+   "noise0p07": {
     "snapshots": 26,
     "seeds_disagree_on_freed": 5,
     "D_wilson95": [
@@ -8228,7 +8228,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.05": {
+   "bias0p05": {
     "replays": 300,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8236,7 +8236,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.1": {
+   "bias0p1": {
     "replays": 300,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8244,7 +8244,7 @@
     "n_blocker_exit_pairs": 5,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.2": {
+   "bias0p2": {
     "replays": 300,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8252,7 +8252,7 @@
     "n_blocker_exit_pairs": 10,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "bias0.5": {
+   "bias0p5": {
     "replays": 300,
     "freed_disagree": 0,
     "first_agent_disagree": 0,
@@ -8260,7 +8260,7 @@
     "n_blocker_exit_pairs": 0,
     "max_abs_dt_first_exit_s": 0.0
    },
-   "noise0.03": {
+   "noise0p03": {
     "snapshots": 60,
     "seeds_disagree_on_freed": 16,
     "D_wilson95": [
@@ -8276,7 +8276,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 41.704999999962084
    },
-   "noise0.05": {
+   "noise0p05": {
     "snapshots": 60,
     "seeds_disagree_on_freed": 19,
     "D_wilson95": [
@@ -8292,7 +8292,7 @@
     },
     "within_snapshot_range_first_exit_s_median": 30.954999999971847
    },
-   "noise0.07": {
+   "noise0p07": {
     "snapshots": 60,
     "seeds_disagree_on_freed": 14,
     "D_wilson95": [
@@ -8792,7 +8792,7 @@
  },
  "e_lateral_bias_vs_C1": {
   "lone_keystone": {
-   "bias0.05_vs_C1": {
+   "bias0p05_vs_C1": {
     "first": "bias0.05",
     "second": "C1",
     "n": 34,
@@ -8814,7 +8814,7 @@
      "within": true
     }
    },
-   "bias0.1_vs_C1": {
+   "bias0p1_vs_C1": {
     "first": "bias0.1",
     "second": "C1",
     "n": 34,
@@ -8836,7 +8836,7 @@
      "within": true
     }
    },
-   "bias0.2_vs_C1": {
+   "bias0p2_vs_C1": {
     "first": "bias0.2",
     "second": "C1",
     "n": 34,
@@ -8858,7 +8858,7 @@
      "within": true
     }
    },
-   "bias0.5_vs_C1": {
+   "bias0p5_vs_C1": {
     "first": "bias0.5",
     "second": "C1",
     "n": 34,
@@ -8882,7 +8882,7 @@
    }
   },
   "lone_keystone_second_trap": {
-   "bias0.05_vs_C1": {
+   "bias0p05_vs_C1": {
     "first": "bias0.05",
     "second": "C1",
     "n": 26,
@@ -8904,7 +8904,7 @@
      "within": true
     }
    },
-   "bias0.1_vs_C1": {
+   "bias0p1_vs_C1": {
     "first": "bias0.1",
     "second": "C1",
     "n": 26,
@@ -8926,7 +8926,7 @@
      "within": false
     }
    },
-   "bias0.2_vs_C1": {
+   "bias0p2_vs_C1": {
     "first": "bias0.2",
     "second": "C1",
     "n": 26,
@@ -8948,7 +8948,7 @@
      "within": false
     }
    },
-   "bias0.5_vs_C1": {
+   "bias0p5_vs_C1": {
     "first": "bias0.5",
     "second": "C1",
     "n": 26,
@@ -8972,7 +8972,7 @@
    }
   },
   "pooled": {
-   "bias0.05_vs_C1": {
+   "bias0p05_vs_C1": {
     "first": "bias0.05",
     "second": "C1",
     "n": 60,
@@ -8994,7 +8994,7 @@
      "within": true
     }
    },
-   "bias0.1_vs_C1": {
+   "bias0p1_vs_C1": {
     "first": "bias0.1",
     "second": "C1",
     "n": 60,
@@ -9016,7 +9016,7 @@
      "within": true
     }
    },
-   "bias0.2_vs_C1": {
+   "bias0p2_vs_C1": {
     "first": "bias0.2",
     "second": "C1",
     "n": 60,
@@ -9038,7 +9038,7 @@
      "within": true
     }
    },
-   "bias0.5_vs_C1": {
+   "bias0p5_vs_C1": {
     "first": "bias0.5",
     "second": "C1",
     "n": 60,
@@ -9074,22 +9074,22 @@
     "agents_exited": 12,
     "residual_agents": 48
    },
-   "bias0.05": {
+   "bias0p05": {
     "snapshots_with_any_exit": 0,
     "agents_exited": 0,
     "residual_agents": 48
    },
-   "bias0.1": {
+   "bias0p1": {
     "snapshots_with_any_exit": 0,
     "agents_exited": 0,
     "residual_agents": 48
    },
-   "bias0.2": {
+   "bias0p2": {
     "snapshots_with_any_exit": 1,
     "agents_exited": 1,
     "residual_agents": 48
    },
-   "bias0.5": {
+   "bias0p5": {
     "snapshots_with_any_exit": 7,
     "agents_exited": 7,
     "residual_agents": 48
@@ -9106,22 +9106,22 @@
     "agents_exited": 17,
     "residual_agents": 89
    },
-   "bias0.05": {
+   "bias0p05": {
     "snapshots_with_any_exit": 0,
     "agents_exited": 0,
     "residual_agents": 89
    },
-   "bias0.1": {
+   "bias0p1": {
     "snapshots_with_any_exit": 1,
     "agents_exited": 7,
     "residual_agents": 89
    },
-   "bias0.2": {
+   "bias0p2": {
     "snapshots_with_any_exit": 7,
     "agents_exited": 14,
     "residual_agents": 89
    },
-   "bias0.5": {
+   "bias0p5": {
     "snapshots_with_any_exit": 7,
     "agents_exited": 9,
     "residual_agents": 89
@@ -9138,22 +9138,22 @@
     "agents_exited": 29,
     "residual_agents": 137
    },
-   "bias0.05": {
+   "bias0p05": {
     "snapshots_with_any_exit": 0,
     "agents_exited": 0,
     "residual_agents": 137
    },
-   "bias0.1": {
+   "bias0p1": {
     "snapshots_with_any_exit": 1,
     "agents_exited": 7,
     "residual_agents": 137
    },
-   "bias0.2": {
+   "bias0p2": {
     "snapshots_with_any_exit": 8,
     "agents_exited": 15,
     "residual_agents": 137
    },
-   "bias0.5": {
+   "bias0p5": {
     "snapshots_with_any_exit": 14,
     "agents_exited": 16,
     "residual_agents": 137
@@ -9162,7 +9162,7 @@
  },
  "f_noise_vs_C3": {
   "lone_keystone": {
-   "noise0.03": {
+   "noise0p03": {
     "noise_rate_per_run": 0.4117647058823529,
     "C3_rvo2_rate": 0.8823529411764706,
     "paired_rate_diff_noise_minus_C3": -0.47058823529411764,
@@ -9217,7 +9217,7 @@
      0.3333333333333333
     ]
    },
-   "noise0.05": {
+   "noise0p05": {
     "noise_rate_per_run": 0.6882352941176471,
     "C3_rvo2_rate": 0.8823529411764706,
     "paired_rate_diff_noise_minus_C3": -0.19411764705882353,
@@ -9262,7 +9262,7 @@
      0.6666666666666666
     ]
    },
-   "noise0.07": {
+   "noise0p07": {
     "noise_rate_per_run": 0.8705882352941177,
     "C3_rvo2_rate": 0.8823529411764706,
     "paired_rate_diff_noise_minus_C3": -0.011764705882352941,
@@ -9340,7 +9340,7 @@
     "failed_with_margin_C3_le_0": 0,
     "freed_with_margin_C3_gt_0": 2
    },
-   "margin_predicts_noise0.03_failure": {
+   "margin_predicts_noise0p03_failure": {
     "n_fail": 20,
     "auc_margin_C1": 0.9535714285714286,
     "auc_margin_C1_ci95_boot": [
@@ -9348,7 +9348,7 @@
      1.0
     ]
    },
-   "margin_predicts_noise0.05_failure": {
+   "margin_predicts_noise0p05_failure": {
     "n_fail": 10,
     "auc_margin_C1": 0.9416666666666667,
     "auc_margin_C1_ci95_boot": [
@@ -9356,7 +9356,7 @@
      1.0
     ]
    },
-   "margin_predicts_noise0.07_failure": {
+   "margin_predicts_noise0p07_failure": {
     "n_fail": 2,
     "auc_margin_C1": 0.890625,
     "auc_margin_C1_ci95_boot": [
@@ -9366,7 +9366,7 @@
    }
   },
   "lone_keystone_second_trap": {
-   "noise0.03": {
+   "noise0p03": {
     "noise_rate_per_run": 0.5153846153846154,
     "C3_rvo2_rate": 0.6538461538461539,
     "paired_rate_diff_noise_minus_C3": -0.13846153846153847,
@@ -9420,7 +9420,7 @@
      0.75
     ]
    },
-   "noise0.05": {
+   "noise0p05": {
     "noise_rate_per_run": 0.8,
     "C3_rvo2_rate": 0.6538461538461539,
     "paired_rate_diff_noise_minus_C3": 0.1461538461538462,
@@ -9464,7 +9464,7 @@
      0.75
     ]
    },
-   "noise0.07": {
+   "noise0p07": {
     "noise_rate_per_run": 0.8999999999999999,
     "C3_rvo2_rate": 0.6538461538461539,
     "paired_rate_diff_noise_minus_C3": 0.24615384615384617,
@@ -9554,7 +9554,7 @@
     "failed_with_margin_C3_le_0": 2,
     "freed_with_margin_C3_gt_0": 7
    },
-   "margin_predicts_noise0.03_failure": {
+   "margin_predicts_noise0p03_failure": {
     "n_fail": 11,
     "auc_margin_C1": 0.7151515151515152,
     "auc_margin_C1_ci95_boot": [
@@ -9562,7 +9562,7 @@
      0.8970156926406924
     ]
    },
-   "margin_predicts_noise0.05_failure": {
+   "margin_predicts_noise0p05_failure": {
     "n_fail": 4,
     "auc_margin_C1": 0.5795454545454546,
     "auc_margin_C1_ci95_boot": [
@@ -9570,7 +9570,7 @@
      0.92
     ]
    },
-   "margin_predicts_noise0.07_failure": {
+   "margin_predicts_noise0p07_failure": {
     "n_fail": 3,
     "auc_margin_C1": 0.8260869565217391,
     "auc_margin_C1_ci95_boot": [
@@ -9580,7 +9580,7 @@
    }
   },
   "pooled": {
-   "noise0.03": {
+   "noise0p03": {
     "noise_rate_per_run": 0.45666666666666667,
     "C3_rvo2_rate": 0.7833333333333333,
     "paired_rate_diff_noise_minus_C3": -0.3266666666666667,
@@ -9662,7 +9662,7 @@
      0.45
     ]
    },
-   "noise0.05": {
+   "noise0p05": {
     "noise_rate_per_run": 0.7366666666666667,
     "C3_rvo2_rate": 0.7833333333333333,
     "paired_rate_diff_noise_minus_C3": -0.04666666666666666,
@@ -9724,7 +9724,7 @@
      0.6
     ]
    },
-   "noise0.07": {
+   "noise0p07": {
     "noise_rate_per_run": 0.8833333333333333,
     "C3_rvo2_rate": 0.7833333333333333,
     "paired_rate_diff_noise_minus_C3": 0.1,
@@ -9829,7 +9829,7 @@
     "failed_with_margin_C3_le_0": 2,
     "freed_with_margin_C3_gt_0": 9
    },
-   "margin_predicts_noise0.03_failure": {
+   "margin_predicts_noise0p03_failure": {
     "n_fail": 31,
     "auc_margin_C1": 0.7864293659621802,
     "auc_margin_C1_ci95_boot": [
@@ -9837,7 +9837,7 @@
      0.8971295283663704
     ]
    },
-   "margin_predicts_noise0.05_failure": {
+   "margin_predicts_noise0p05_failure": {
     "n_fail": 14,
     "auc_margin_C1": 0.7701863354037267,
     "auc_margin_C1_ci95_boot": [
@@ -9845,7 +9845,7 @@
      0.8768848862542433
     ]
    },
-   "margin_predicts_noise0.07_failure": {
+   "margin_predicts_noise0p07_failure": {
     "n_fail": 5,
     "auc_margin_C1": 0.8690909090909091,
     "auc_margin_C1_ci95_boot": [

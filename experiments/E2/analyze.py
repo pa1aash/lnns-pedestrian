@@ -15,6 +15,7 @@ Definitions
                  quartiles = first time S(t) <= 0.75 / 0.5 / 0.25 (null when not reached).
   paired tests   per snapshot (unperturbed runs): discordant counts b (first frees, second holds) and c;
                  exact two-sided McNemar p = min(1, 2 * P[Bin(b + c, 1/2) <= min(b, c)]).
+  keys           arm keys in the output have no dots (noise0p03 = sigma 0.03 m/s, bias0p05 = b 0.05).
   AUC            Mann-Whitney, ties 1/2. CIs: 2000 resamples of snapshots, percentile, PCG64(12345).
   Equivalence    paired rate differences against +-0.10 are kept here only (field "tost_0.10"):
                  90% percentile bootstrap interval of the paired difference inside (-0.10, 0.10).
@@ -326,8 +327,39 @@ def main():
                 "auc_margin_C1_ci95_boot": boot_ci(lambda i: auc(m1[i], fail[i]), len(T), rng)}
     out["f_noise_vs_C3"] = f
     out["g_physics_reading"] = reading(out)
+    out = dotless(out)
     json.dump(out, open(OUT, "w"), indent=1, default=float)
+    fig6_cache(out)
     return out
+
+
+def dotless(o):
+    """Arm keys without dots (noise0.03 -> noise0p03, bias0.05 -> bias0p05), so dotted key paths can reach them."""
+    if isinstance(o, dict):
+        return {k.replace(".", "p") if ("noise0." in k or "bias0." in k) else k: dotless(v) for k, v in o.items()}
+    if isinstance(o, list):
+        return [dotless(v) for v in o]
+    return o
+
+
+FIG6 = os.path.join(ROOT, "figures", "data", "fig6.json")
+FIG6_ORDER = [["C1", "C2"],
+              ["C3_pub", "C3_rvo2", "drive_only", "constraint_only_pub", "constraint_only_rvo2", "frozen_plus",
+               "frozen_minus"],
+              ["bias0p05", "bias0p1", "bias0p2", "bias0p5"],
+              ["noise0p03", "noise0p05", "noise0p07"]]
+FIG6_KM = ["C3_pub", "C3_rvo2", "drive_only", "frozen_plus", "noise0p03", "noise0p05", "noise0p07"]
+
+
+def fig6_cache(o):
+    """figures/data/fig6.json: Wilson rates per stratum and arm (left) and pooled Kaplan-Meier curves (right)."""
+    R = o["a_rates_time_to_free"]
+    d = {"source": "data/derived/E2_analysis.json (experiments/E2/analyze.py)", "groups": FIG6_ORDER,
+         "rates": {g: {a: {"k": R[g][a]["freed"], "n": R[g][a]["n"], "wilson": R[g][a]["rate_wilson95"]}
+                       for grp in FIG6_ORDER for a in grp} for g in STRATA},
+         "km_pooled": {a: R["pooled"][a]["km_curve"] for a in FIG6_KM}, "t_max_s": T_Q}
+    os.makedirs(os.path.dirname(FIG6), exist_ok=True)
+    json.dump(d, open(FIG6, "w"), indent=1)
 
 
 def reading(o):

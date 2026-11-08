@@ -253,6 +253,14 @@ def main():
     res["second_trap_both_modes"] = {
         "n": sum(res[m]["a_second_trap_succession"]["n"] for m in ("E1a", "E1b")),
         "K1b_held": sum(res[m]["a_second_trap_succession"]["K1b_held"] for m in ("E1a", "E1b"))}
+    agree = [(s["K1_held"] == (s["blocker_margin_C1"] > 0)) for m in ("E1a", "E1b") for s in ks[m]["per_snapshot"]]
+    neg = [x for m in ("E1a", "E1b") for x in ks[m]["negative_margin_blockers"]]
+    res["stuck_alone_criterion_check"] = {
+        "note": "keystone K1 (blocker held when alone) against blocker margin_C1 > 0, both modes",
+        "n_deadlocks": len(agree), "agree": int(sum(agree)),
+        "negative_margin_blockers": len(neg),
+        "negative_margin_blockers_collective": sum(x["class"] == "collective" for x in neg),
+        "class_counts": {m: {c: v["k"] for c, v in ks[m]["class_counts"].items()} for m in ("E1a", "E1b")}}
     res["c_reading"] = reading(res)
     json.dump(res, open(OUT, "w"), indent=1, default=float)
     return res

@@ -9,4 +9,677 @@
 #
 # tools/make_numbers.py turns this into paper/numbers.tex, with a comment above
 # every \newcommand naming its source, and fails on any missing file or key.
-# The registry is empty until result files exist.
+
+# --- E1_analysis
+EOneACompletionK:
+  file: E1_analysis.json
+  key: "E1a.completion.k"
+  fmt: "{:d}"
+EOneACompletionN:
+  file: E1_analysis.json
+  key: "E1a.completion.n"
+  fmt: "{:d}"
+EOneACompletionLo:
+  file: E1_analysis.json
+  key: "E1a.completion.rate_wilson95.1"
+  fmt: "{:.3f}"
+EOneACompletionHi:
+  file: E1_analysis.json
+  key: "E1a.completion.rate_wilson95.2"
+  fmt: "{:.3f}"
+EOneAStuckAloneFrac:
+  file: E1_analysis.json
+  key: "E1a.stuck_alone_frac_C1.frac"
+  fmt: "{:.3f}"
+EOneAAllExitBaseline:
+  file: E1_analysis.json
+  key: "E1a.k_rule_refined.all_exit_baseline_accuracy"
+  fmt: "{:.3f}"
+# --- E1_chain
+EOneAAUCOthers:
+  file: E1_chain.json
+  key: "E1a.b_predictors.scores.others_active.auc"
+  fmt: "{:.3f}"
+EOneAAUCOthersLo:
+  file: E1_chain.json
+  key: "E1a.b_predictors.scores.others_active.ci95_seed_bootstrap.0"
+  fmt: "{:.3f}"
+EOneAAUCOthersHi:
+  file: E1_chain.json
+  key: "E1a.b_predictors.scores.others_active.ci95_seed_bootstrap.1"
+  fmt: "{:.3f}"
+KeystoneALone:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1a.lone_keystone"
+  fmt: "{:d}"
+KeystoneASecondTrap:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1a.lone_keystone_second_trap"
+  fmt: "{:d}"
+KeystoneACollective:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1a.collective"
+  fmt: "{:d}"
+# --- E1_analysis
+EOneBCompletionK:
+  file: E1_analysis.json
+  key: "E1b.completion.k"
+  fmt: "{:d}"
+EOneBCompletionN:
+  file: E1_analysis.json
+  key: "E1b.completion.n"
+  fmt: "{:d}"
+EOneBCompletionLo:
+  file: E1_analysis.json
+  key: "E1b.completion.rate_wilson95.1"
+  fmt: "{:.3f}"
+EOneBCompletionHi:
+  file: E1_analysis.json
+  key: "E1b.completion.rate_wilson95.2"
+  fmt: "{:.3f}"
+EOneBStuckAloneFrac:
+  file: E1_analysis.json
+  key: "E1b.stuck_alone_frac_C1.frac"
+  fmt: "{:.3f}"
+EOneBAllExitBaseline:
+  file: E1_analysis.json
+  key: "E1b.k_rule_refined.all_exit_baseline_accuracy"
+  fmt: "{:.3f}"
+# --- E1_chain
+EOneBAUCOthers:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.others_active.auc"
+  fmt: "{:.3f}"
+EOneBAUCOthersLo:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.others_active.ci95_seed_bootstrap.0"
+  fmt: "{:.3f}"
+EOneBAUCOthersHi:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.others_active.ci95_seed_bootstrap.1"
+  fmt: "{:.3f}"
+KeystoneBLone:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1b.lone_keystone"
+  fmt: "{:d}"
+KeystoneBSecondTrap:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1b.lone_keystone_second_trap"
+  fmt: "{:d}"
+KeystoneBCollective:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.class_counts.E1b.collective"
+  fmt: "{:d}"
+CriterionAgree:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.agree"
+  fmt: "{:d}"
+CriterionN:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.n_deadlocks"
+  fmt: "{:d}"
+CriterionNegMargin:
+  file: E1_chain.json
+  key: "stuck_alone_criterion_check.negative_margin_blockers"
+  fmt: "{:d}"
+SecondTrapHeld:
+  file: E1_chain.json
+  key: "second_trap_both_modes.K1b_held"
+  fmt: "{:d}"
+SecondTrapN:
+  file: E1_chain.json
+  key: "second_trap_both_modes.n"
+  fmt: "{:d}"
+ChainStuckFirstDecile:
+  file: E1_chain.json
+  key: "E1b.a_stuck_fraction_by_arrival_decile.frac.0"
+  fmt: "{:.2f}"
+ChainStuckLastDecile:
+  file: E1_chain.json
+  key: "E1b.a_stuck_fraction_by_arrival_decile.frac.9"
+  fmt: "{:.2f}"
+ChainBlockerLastThree:
+  file: E1_chain.json
+  key: "E1b.a_blocker_arrival_rank_from_end.within_last_3"
+  fmt: "{:d}"
+ChainBlockerN:
+  file: E1_chain.json
+  key: "E1b.a_blocker_arrival_rank_from_end.n"
+  fmt: "{:d}"
+ChainFinalRunMedian:
+  file: E1_chain.json
+  key: "E1b.a_final_stuck_run_length.median"
+  fmt: "{:.0f}"
+ChainNoPassableExited:
+  file: E1_chain.json
+  key: "E1b.b_passable_zero_vs_positive.passable0.exited"
+  fmt: "{:d}"
+ChainNoPassableN:
+  file: E1_chain.json
+  key: "E1b.b_passable_zero_vs_positive.passable0.n"
+  fmt: "{:d}"
+ChainNoPassableThreeStuckExited:
+  file: E1_chain.json
+  key: "E1b.b_exit_rate_by_passable_x_stuck.cells.p0|s3.0"
+  fmt: "{:d}"
+ChainNoPassableThreeStuckN:
+  file: E1_chain.json
+  key: "E1b.b_exit_rate_by_passable_x_stuck.cells.p0|s3.1"
+  fmt: "{:d}"
+ChainAUCPassable:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.passable_active.auc"
+  fmt: "{:.3f}"
+ChainAUCStuck:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.stuck_active.auc"
+  fmt: "{:.3f}"
+ChainAUCBehind:
+  file: E1_chain.json
+  key: "E1b.b_predictors.scores.behind_1m.auc"
+  fmt: "{:.3f}"
+# --- E2_analysis
+EtwoNLK:
+  file: E2_analysis.json
+  key: "n_snapshots.lone_keystone"
+  fmt: "{:d}"
+EtwoLKCOneFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C1.freed"
+  fmt: "{:d}"
+EtwoLKCOneN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C1.n"
+  fmt: "{:d}"
+EtwoLKCTwoFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C2.freed"
+  fmt: "{:d}"
+EtwoLKCTwoN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C2.n"
+  fmt: "{:d}"
+EtwoLKCThreePubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C3_pub.freed"
+  fmt: "{:d}"
+EtwoLKCThreePubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C3_pub.n"
+  fmt: "{:d}"
+EtwoLKCThreeRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C3_rvo2.freed"
+  fmt: "{:d}"
+EtwoLKCThreeRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.C3_rvo2.n"
+  fmt: "{:d}"
+EtwoLKDriveFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.drive_only.freed"
+  fmt: "{:d}"
+EtwoLKDriveN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.drive_only.n"
+  fmt: "{:d}"
+EtwoLKConstrPubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.constraint_only_pub.freed"
+  fmt: "{:d}"
+EtwoLKConstrPubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.constraint_only_pub.n"
+  fmt: "{:d}"
+EtwoLKConstrRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.constraint_only_rvo2.freed"
+  fmt: "{:d}"
+EtwoLKConstrRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.constraint_only_rvo2.n"
+  fmt: "{:d}"
+EtwoLKFrozenPlusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.frozen_plus.freed"
+  fmt: "{:d}"
+EtwoLKFrozenPlusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.frozen_plus.n"
+  fmt: "{:d}"
+EtwoLKFrozenMinusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.frozen_minus.freed"
+  fmt: "{:d}"
+EtwoLKFrozenMinusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.frozen_minus.n"
+  fmt: "{:d}"
+EtwoLKNoiseAFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p03.freed"
+  fmt: "{:d}"
+EtwoLKNoiseAN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p03.n"
+  fmt: "{:d}"
+EtwoLKNoiseBFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p05.freed"
+  fmt: "{:d}"
+EtwoLKNoiseBN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p05.n"
+  fmt: "{:d}"
+EtwoLKNoiseCFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p07.freed"
+  fmt: "{:d}"
+EtwoLKNoiseCN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.noise0p07.n"
+  fmt: "{:d}"
+EtwoNST:
+  file: E2_analysis.json
+  key: "n_snapshots.lone_keystone_second_trap"
+  fmt: "{:d}"
+EtwoSTCOneFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C1.freed"
+  fmt: "{:d}"
+EtwoSTCOneN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C1.n"
+  fmt: "{:d}"
+EtwoSTCTwoFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C2.freed"
+  fmt: "{:d}"
+EtwoSTCTwoN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C2.n"
+  fmt: "{:d}"
+EtwoSTCThreePubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C3_pub.freed"
+  fmt: "{:d}"
+EtwoSTCThreePubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C3_pub.n"
+  fmt: "{:d}"
+EtwoSTCThreeRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C3_rvo2.freed"
+  fmt: "{:d}"
+EtwoSTCThreeRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.C3_rvo2.n"
+  fmt: "{:d}"
+EtwoSTDriveFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.drive_only.freed"
+  fmt: "{:d}"
+EtwoSTDriveN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.drive_only.n"
+  fmt: "{:d}"
+EtwoSTConstrPubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.constraint_only_pub.freed"
+  fmt: "{:d}"
+EtwoSTConstrPubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.constraint_only_pub.n"
+  fmt: "{:d}"
+EtwoSTConstrRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.constraint_only_rvo2.freed"
+  fmt: "{:d}"
+EtwoSTConstrRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.constraint_only_rvo2.n"
+  fmt: "{:d}"
+EtwoSTFrozenPlusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.frozen_plus.freed"
+  fmt: "{:d}"
+EtwoSTFrozenPlusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.frozen_plus.n"
+  fmt: "{:d}"
+EtwoSTFrozenMinusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.frozen_minus.freed"
+  fmt: "{:d}"
+EtwoSTFrozenMinusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.frozen_minus.n"
+  fmt: "{:d}"
+EtwoSTNoiseAFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p03.freed"
+  fmt: "{:d}"
+EtwoSTNoiseAN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p03.n"
+  fmt: "{:d}"
+EtwoSTNoiseBFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p05.freed"
+  fmt: "{:d}"
+EtwoSTNoiseBN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p05.n"
+  fmt: "{:d}"
+EtwoSTNoiseCFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p07.freed"
+  fmt: "{:d}"
+EtwoSTNoiseCN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone_second_trap.noise0p07.n"
+  fmt: "{:d}"
+EtwoNAll:
+  file: E2_analysis.json
+  key: "n_snapshots.pooled"
+  fmt: "{:d}"
+EtwoAllCOneFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C1.freed"
+  fmt: "{:d}"
+EtwoAllCOneN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C1.n"
+  fmt: "{:d}"
+EtwoAllCTwoFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C2.freed"
+  fmt: "{:d}"
+EtwoAllCTwoN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C2.n"
+  fmt: "{:d}"
+EtwoAllCThreePubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_pub.freed"
+  fmt: "{:d}"
+EtwoAllCThreePubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_pub.n"
+  fmt: "{:d}"
+EtwoAllCThreeRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_rvo2.freed"
+  fmt: "{:d}"
+EtwoAllCThreeRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_rvo2.n"
+  fmt: "{:d}"
+EtwoAllDriveFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.drive_only.freed"
+  fmt: "{:d}"
+EtwoAllDriveN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.drive_only.n"
+  fmt: "{:d}"
+EtwoAllConstrPubFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.constraint_only_pub.freed"
+  fmt: "{:d}"
+EtwoAllConstrPubN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.constraint_only_pub.n"
+  fmt: "{:d}"
+EtwoAllConstrRVOFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.constraint_only_rvo2.freed"
+  fmt: "{:d}"
+EtwoAllConstrRVON:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.constraint_only_rvo2.n"
+  fmt: "{:d}"
+EtwoAllFrozenPlusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_plus.freed"
+  fmt: "{:d}"
+EtwoAllFrozenPlusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_plus.n"
+  fmt: "{:d}"
+EtwoAllFrozenMinusFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_minus.freed"
+  fmt: "{:d}"
+EtwoAllFrozenMinusN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_minus.n"
+  fmt: "{:d}"
+EtwoAllNoiseAFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p03.freed"
+  fmt: "{:d}"
+EtwoAllNoiseAN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p03.n"
+  fmt: "{:d}"
+EtwoAllNoiseBFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p05.freed"
+  fmt: "{:d}"
+EtwoAllNoiseBN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p05.n"
+  fmt: "{:d}"
+EtwoAllNoiseCFreed:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p07.freed"
+  fmt: "{:d}"
+EtwoAllNoiseCN:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p07.n"
+  fmt: "{:d}"
+EtwoAllCThreeRVOLo:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_rvo2.rate_wilson95.1"
+  fmt: "{:.2f}"
+EtwoAllCThreeRVOHi:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_rvo2.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoAllCThreeRVOMedianT:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_rvo2.time_to_free_km.median"
+  fmt: "{:.1f}"
+EtwoAllCThreePubLo:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_pub.rate_wilson95.1"
+  fmt: "{:.2f}"
+EtwoAllCThreePubHi:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_pub.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoAllCThreePubMedianT:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.C3_pub.time_to_free_km.median"
+  fmt: "{:.1f}"
+EtwoAllDriveLo:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.drive_only.rate_wilson95.1"
+  fmt: "{:.2f}"
+EtwoAllDriveHi:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.drive_only.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoAllDriveMedianT:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.drive_only.time_to_free_km.median"
+  fmt: "{:.1f}"
+EtwoAllFrozenPlusLo:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_plus.rate_wilson95.1"
+  fmt: "{:.2f}"
+EtwoAllFrozenPlusHi:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_plus.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoAllFrozenPlusMedianT:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.frozen_plus.time_to_free_km.median"
+  fmt: "{:.1f}"
+EtwoAllNoiseCLo:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p07.rate_wilson95.1"
+  fmt: "{:.2f}"
+EtwoAllNoiseCHi:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p07.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoAllNoiseCMedianT:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.pooled.noise0p07.time_to_free_km.median"
+  fmt: "{:.1f}"
+EtwoMaxBiasUpperLK:
+  file: E2_analysis.json
+  key: "a_rates_time_to_free.lone_keystone.bias0p5.rate_wilson95.2"
+  fmt: "{:.2f}"
+EtwoReplayCThreeRVOMaxDt:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.C3_rvo2.max_abs_dt_blocker_exit_s"
+  fmt: "{:.3f}"
+EtwoReplayCThreePubFlips:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.C3_pub.freed_disagree"
+  fmt: "{:d}"
+EtwoReplayN:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.C3_pub.replays"
+  fmt: "{:d}"
+EtwoReplayCThreePubMaxDt:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.C3_pub.max_abs_dt_blocker_exit_s"
+  fmt: "{:.1f}"
+EtwoNoiseDisagreeC:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.noise0p07.seeds_disagree_on_freed"
+  fmt: "{:d}"
+EtwoNoiseSDC:
+  file: E2_analysis.json
+  key: "b_replay_determinism.pooled.noise0p07.within_snapshot_sd_first_exit_s.median"
+  fmt: "{:.1f}"
+EtwoLemmaPairs:
+  file: E2_analysis.json
+  key: "c_rest_state_lemma_C2_vs_C1.pairs"
+  fmt: "{:d}"
+EtwoLemmaIdentical:
+  file: E2_analysis.json
+  key: "c_rest_state_lemma_C2_vs_C1.identical_exits"
+  fmt: "{:d}"
+EtwoSTDriveVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.drive_only_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoSTDriveVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.drive_only_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoSTDriveVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.drive_only_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoSTFrozenVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoSTFrozenVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoSTFrozenVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoSTPubVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoSTPubVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoSTPubVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoSTFrozenPMDiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_frozen_minus.discordant_first_only"
+  fmt: "{:d}"
+EtwoSTFrozenPMDiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_frozen_minus.discordant_second_only"
+  fmt: "{:d}"
+EtwoAllDriveVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.drive_only_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoAllDriveVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.drive_only_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoAllDriveVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.drive_only_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoAllFrozenVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.frozen_plus_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoAllFrozenVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.frozen_plus_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoAllFrozenVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.frozen_plus_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoAllPubVsRVODiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.discordant_first_only"
+  fmt: "{:d}"
+EtwoAllPubVsRVODiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.discordant_second_only"
+  fmt: "{:d}"
+EtwoAllPubVsRVOP:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.mcnemar_exact_p"
+  fmt: "{:.2g}"
+EtwoAllFrozenPMDiscA:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.frozen_plus_vs_frozen_minus.discordant_first_only"
+  fmt: "{:d}"
+EtwoAllFrozenPMDiscB:
+  file: E2_analysis.json
+  key: "d_orca_decomposition.pooled.frozen_plus_vs_frozen_minus.discordant_second_only"
+  fmt: "{:d}"
+EtwoLKJaccardC:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.jaccard"
+  fmt: "{:.2f}"
+EtwoLKJaccardCLo:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.jaccard_ci95_boot.0"
+  fmt: "{:.2f}"
+EtwoLKJaccardCHi:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.noise0p07.jaccard_ci95_boot.1"
+  fmt: "{:.2f}"
+EtwoLKMarginAUC:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone.margin_predicts_C3_rvo2_failure.auc_margin_C3"
+  fmt: "{:.2f}"
+EtwoSTMarginAUC:
+  file: E2_analysis.json
+  key: "f_noise_vs_C3.lone_keystone_second_trap.margin_predicts_C3_rvo2_failure.auc_margin_C3"
+  fmt: "{:.2f}"

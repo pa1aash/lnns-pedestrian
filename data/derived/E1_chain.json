@@ -424,6 +424,25 @@
   "n": 314,
   "K1b_held": 296
  },
+ "stuck_alone_criterion_check": {
+  "note": "keystone K1 (blocker held when alone) against blocker margin_C1 > 0, both modes",
+  "n_deadlocks": 393,
+  "agree": 393,
+  "negative_margin_blockers": 7,
+  "negative_margin_blockers_collective": 7,
+  "class_counts": {
+   "E1a": {
+    "lone_keystone": 38,
+    "lone_keystone_second_trap": 154,
+    "collective": 5
+   },
+   "E1b": {
+    "lone_keystone": 34,
+    "lone_keystone_second_trap": 160,
+    "collective": 2
+   }
+  }
+ },
  "c_reading": [
   "E1a: stuck-alone fraction rises from 0.19 in the first arrival decile to 0.64 in the last; the last five arrivals have median margin 43 N (rest -62 N). Exit AUC: passable_active 0.938 [0.931, 0.946], others_active 0.974, stuck_active 0.960, behind_1m 0.926. With no passable agent left, 210/371 stuck-alone arrivals exit; with at least one, 3969/4115. Second trap: K1b held in 145/154, target stuck alone in 145 of those.",
   "E1b: stuck-alone fraction rises from 0.20 in the first arrival decile to 0.62 in the last; the last five arrivals have median margin 38 N (rest -62 N). Exit AUC: passable_active 0.948 [0.941, 0.955], others_active 0.975, stuck_active 0.963, behind_1m 0.925. With no passable agent left, 141/288 stuck-alone arrivals exit; with at least one, 4014/4177. Second trap: K1b held in 151/160, target stuck alone in 151 of those.",
