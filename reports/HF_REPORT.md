@@ -1,5 +1,5 @@
 # HF report: hero final (Fig 1)
-Final render and overlay are in; the paper includes them. Awaiting Palaash's last look.
+Final render and overlay are in; the paper includes them. Pushed at cea770e, CI (paper and tests) green. Awaiting Palaash's last look.
 
 ## The five changes
 1. Both lone ribbons include the pinned neighbours' push (own drive = own drive + push; added drive = that + ORCA rest drive, so they differ only by ORCA). Black ball at the frozen position on both; scale 35 J/cm; band at k_BT_eff = 10.22 J (0.48 of the barrier); drawn range x = 9.54-10.00 m.
