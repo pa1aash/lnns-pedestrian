@@ -17,7 +17,7 @@ class WallForces:
     Forces per wall:
         f_iw = A*exp((r_i - d_iw)/B) * n_iw              [social]
              + k * g(r_i - d_iw) * n_iw                   [body]
-             + kappa * g(r_i - d_iw) * dot(v_i, t_iw) * t_iw  [friction]
+             - kappa * g(r_i - d_iw) * dot(v_i, t_iw) * t_iw  [friction]
 
     Args:
         A: Social repulsion strength (N).
