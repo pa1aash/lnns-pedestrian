@@ -1,0 +1,289 @@
+{
+ "script": "experiments/fixan/fix_a5.py",
+ "n_blockers": 393,
+ "n_by_mode": {
+  "E1a": 197,
+  "E1b": 196
+ },
+ "margin_hist": {
+  "method": "blocker stuck-alone margin margin_C1 = g_max(r) - m v0/tau (N, rest on the door axis, alone), blocker = residual agent nearest the door centre; both modes pooled; outer edges = data range",
+  "edges_N": [
+   -50.0,
+   -25.0,
+   -10.0,
+   0.0,
+   10.0,
+   25.0,
+   50.0,
+   100.0,
+   150.0,
+   200.0,
+   300.0,
+   441.0
+  ],
+  "counts": [
+   3,
+   1,
+   3,
+   4,
+   17,
+   34,
+   111,
+   101,
+   56,
+   50,
+   13
+  ],
+  "counts_E1a": [
+   1,
+   1,
+   3,
+   3,
+   7,
+   18,
+   60,
+   48,
+   27,
+   21,
+   8
+  ],
+  "counts_E1b": [
+   2,
+   0,
+   0,
+   1,
+   10,
+   16,
+   51,
+   53,
+   29,
+   29,
+   5
+  ]
+ },
+ "margin_summary": {
+  "n": 393,
+  "min": -43.15989953117371,
+  "p05": 20.14900292057237,
+  "median": 109.10176873942137,
+  "median_ci95": [
+   101.76437765111274,
+   117.83181983006605
+  ],
+  "p95": 255.15428919559574,
+  "max": 439.9853021786597
+ },
+ "criterion": {
+  "method": "keystone K1: blocker alone restarted (C1, sigma 0, 120 s); held = not exited",
+  "n": 393,
+  "n_pos_margin": 386,
+  "n_pos_margin_held": 386,
+  "n_neg_margin": 7,
+  "n_neg_margin_held": 0,
+  "agree": 393,
+  "agree_wilson95": [
+   0.9903199154339236,
+   0.9999999999999999
+  ],
+  "n_within_10N": 7,
+  "n_pos_within_10N": 4,
+  "n_neg_within_10N": 3,
+  "n_within_25N": 25,
+  "min_pos_margin_N": 2.255023833742257,
+  "max_neg_margin_N": -3.743417921310737
+ },
+ "negative_margin": {
+  "method": "blockers with margin <= 0; deadlock_type from the E1 detector (agents within reach of the door); snapshot lateral offset dy = y - 5 of the blocker and of its nearest partner",
+  "n": 7,
+  "n_dtype_pair": 7,
+  "n_resid_hist": {
+   "2": 6,
+   "4": 1
+  },
+  "cases": [
+   {
+    "mode": "E1a",
+    "seed": 63,
+    "margin_N": -4.6569134027085965,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": 0.44608980405848264
+   },
+   {
+    "mode": "E1a",
+    "seed": 97,
+    "margin_N": -8.274822350669496,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": -0.42158750690191393
+   },
+   {
+    "mode": "E1a",
+    "seed": 119,
+    "margin_N": -3.743417921310737,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": -0.4033341193227793
+   },
+   {
+    "mode": "E1a",
+    "seed": 156,
+    "margin_N": -24.52925685772746,
+    "deadlock_type": "pair",
+    "n_resid": 4,
+    "class": "collective",
+    "blocker_dy_m": 0.42612668200512704
+   },
+   {
+    "mode": "E1a",
+    "seed": 198,
+    "margin_N": -26.774267833876735,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": 0.4278345923809166
+   },
+   {
+    "mode": "E1b",
+    "seed": 45,
+    "margin_N": -43.15989953117371,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": -0.41642588256416246
+   },
+   {
+    "mode": "E1b",
+    "seed": 101,
+    "margin_N": -29.797124921922887,
+    "deadlock_type": "pair",
+    "n_resid": 2,
+    "class": "collective",
+    "blocker_dy_m": 0.4066804848019876
+   }
+  ]
+ },
+ "lone_offsets": {
+  "method": "|y - 5| of the held-alone blockers: in the deadlock snapshot (others present) and at the end of the K1 restart alone (stationary rest state)",
+  "n": 386,
+  "snapshot_abs_dy_m": {
+   "n": 386,
+   "min": 4.059966585145958e-09,
+   "p05": 5.4278769923143955e-08,
+   "median": 0.013759026814599284,
+   "median_ci95": [
+    0.01094131178533907,
+    0.01656897083495501
+   ],
+   "p95": 0.42199574951214314,
+   "max": 0.4775024572422675
+  },
+  "snapshot_hist_edges_m": [
+   0.0,
+   0.01,
+   0.02,
+   0.05,
+   0.1,
+   0.2,
+   0.3,
+   0.5
+  ],
+  "snapshot_hist_counts": [
+   168,
+   64,
+   95,
+   0,
+   0,
+   2,
+   57
+  ],
+  "n_snapshot_beyond_0p5": 0,
+  "rest_abs_dy_m": {
+   "n": 386,
+   "min": 1.865174681370263e-14,
+   "p05": 4.203304371230843e-12,
+   "median": 2.2479125227903296e-09,
+   "median_ci95": [
+    1.749657307925645e-09,
+    3.0744454426745444e-09
+   ],
+   "p95": 2.8850004607505753e-08,
+   "max": 6.524781603900465e-08
+  },
+  "n_rest_dy_above_1mm": 0,
+  "rest_x_m": {
+   "n": 386,
+   "min": 9.54839157219221,
+   "p05": 9.5994645049545,
+   "median": 9.670815252433425,
+   "median_ci95": [
+    9.664054527796086,
+    9.676263283508067
+   ],
+   "p95": 9.753024896889093,
+   "max": 9.805977372884984
+  },
+  "neg_margin_snapshot_abs_dy_m": {
+   "n": 7,
+   "min": 0.4033341193227793,
+   "p05": 0.4043380289665418,
+   "median": 0.42158750690191393,
+   "median_ci95": [
+    0.4066804848019876,
+    0.4278345923809166
+   ],
+   "p95": 0.44061324055521284,
+   "max": 0.44608980405848264
+  }
+ },
+ "lone_hessian": {
+  "method": "K = -sym(dF/dx) of the static rest field F = wall force (simulator WallForces, mode's walls) + m v0/tau toward the goal (11, 5), at v = 0 and the K1 stationary rest position; central differences, h = 1e-5 m; lateral eigenvalue = eigenvector nearest the y direction (N/m)",
+  "n": 386,
+  "lateral_N_per_m": {
+   "n": 386,
+   "min": 593.8868079005898,
+   "p05": 941.8079184680332,
+   "median": 1737.5440914333321,
+   "median_ci95": [
+    1674.9394891740717,
+    1799.4730802819706
+   ],
+   "p95": 3064.1650340657225,
+   "max": 4071.43087984863
+  },
+  "axial_N_per_m": {
+   "n": 386,
+   "min": 193.2409726236983,
+   "p05": 530.7289471780008,
+   "median": 897.8416579878879,
+   "median_ci95": [
+    876.3771124221107,
+    916.5586963497672
+   ],
+   "p95": 1355.6089546668163,
+   "max": 1568.021191427246
+  },
+  "n_lateral_positive": 386,
+  "n_lateral_negative": 0,
+  "n_axial_positive": 386,
+  "ratio_axial_over_lateral": {
+   "n": 386,
+   "min": 0.0556779467892708,
+   "p05": 0.21499685930682566,
+   "median": 0.5448725126388587,
+   "median_ci95": [
+    0.5197957229972745,
+    0.5739517152394285
+   ],
+   "p95": 0.9170759266217143,
+   "max": 1.2349358988334953
+  },
+  "n_eigvec_off_axis": 0,
+  "max_field_residual_N": 9.8423086613907e-05,
+  "max_jacobian_asymmetry_N_per_m": 2.1060227434067044e-08,
+  "spearman_lateral_vs_margin": -0.5262270848390339
+ }
+}

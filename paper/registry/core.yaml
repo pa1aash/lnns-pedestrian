@@ -1581,3 +1581,363 @@ FixAtwoWholeSigmaHi:
   file: fix_a2.json
   key: "whole.random.sigma_fit.range95.1"
   fmt: "{:.4f}"
+
+# --- fix wave a5: experiments/fixan/fix_a5.py
+FixAfiveN: {file: fix_a5.json, key: "criterion.n", fmt: "{:d}"}
+FixAfivePosMarginN: {file: fix_a5.json, key: "criterion.n_pos_margin", fmt: "{:d}"}
+FixAfivePosMarginHeld: {file: fix_a5.json, key: "criterion.n_pos_margin_held", fmt: "{:d}"}
+FixAfiveNegMarginN: {file: fix_a5.json, key: "criterion.n_neg_margin", fmt: "{:d}"}
+FixAfiveNegMarginHeld: {file: fix_a5.json, key: "criterion.n_neg_margin_held", fmt: "{:d}"}
+FixAfiveNegMarginPair: {file: fix_a5.json, key: "negative_margin.n_dtype_pair", fmt: "{:d}"}
+FixAfiveNearZeroN: {file: fix_a5.json, key: "criterion.n_within_10N", fmt: "{:d}"}
+FixAfiveNearZeroPos: {file: fix_a5.json, key: "criterion.n_pos_within_10N", fmt: "{:d}"}
+FixAfiveNearTwentyFiveN: {file: fix_a5.json, key: "criterion.n_within_25N", fmt: "{:d}"}
+FixAfiveMinPosMargin: {file: fix_a5.json, key: "criterion.min_pos_margin_N", fmt: "{:.1f}"}
+FixAfiveMaxNegMargin: {file: fix_a5.json, key: "criterion.max_neg_margin_N", fmt: "{:.1f}"}
+FixAfiveMarginMed: {file: fix_a5.json, key: "margin_summary.median", fmt: "{:.0f}"}
+FixAfiveMarginMedLo: {file: fix_a5.json, key: "margin_summary.median_ci95.0", fmt: "{:.0f}"}
+FixAfiveMarginMedHi: {file: fix_a5.json, key: "margin_summary.median_ci95.1", fmt: "{:.0f}"}
+FixAfiveSnapDyMed: {file: fix_a5.json, key: "lone_offsets.snapshot_abs_dy_m.median", fmt: "{:.3f}"}
+FixAfiveSnapDyMax: {file: fix_a5.json, key: "lone_offsets.snapshot_abs_dy_m.max", fmt: "{:.2f}"}
+FixAfiveRestDyMax: {file: fix_a5.json, key: "lone_offsets.rest_abs_dy_m.max", fmt: "sci", digits: 1}
+FixAfiveLatStiffMed: {file: fix_a5.json, key: "lone_hessian.lateral_N_per_m.median", fmt: "{:.0f}"}
+FixAfiveLatStiffMedLo: {file: fix_a5.json, key: "lone_hessian.lateral_N_per_m.median_ci95.0", fmt: "{:.0f}"}
+FixAfiveLatStiffMedHi: {file: fix_a5.json, key: "lone_hessian.lateral_N_per_m.median_ci95.1", fmt: "{:.0f}"}
+FixAfiveLatStiffMin: {file: fix_a5.json, key: "lone_hessian.lateral_N_per_m.min", fmt: "{:.0f}"}
+FixAfiveLatStiffMax: {file: fix_a5.json, key: "lone_hessian.lateral_N_per_m.max", fmt: "{:.0f}"}
+FixAfiveAxStiffMed: {file: fix_a5.json, key: "lone_hessian.axial_N_per_m.median", fmt: "{:.0f}"}
+FixAfiveLatPositive: {file: fix_a5.json, key: "lone_hessian.n_lateral_positive", fmt: "{:d}"}
+# --- fix wave (05-2, NC L9): smallest stuck-alone fraction over the first eight arrival deciles (decile 6)
+ChainStuckEarlyMin: {file: E1_chain.json, key: "E1b.a_stuck_fraction_by_arrival_decile.frac.5", fmt: "{:.2f}"}
+
+# --- fix wave a6: experiments/fixan/fix_a6.py
+FixAsixLKNoiseCFreed: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.freed", fmt: "{:d}"}
+FixAsixLKNoiseCN: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.n_runs", fmt: "{:d}"}
+FixAsixLKNoiseCWilsonLo: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.wilson95.0", fmt: "{:.2f}"}
+FixAsixLKNoiseCWilsonHi: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.wilson95.1", fmt: "{:.2f}"}
+FixAsixLKNoiseCClLo: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixLKNoiseCClHi: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixLKNoiseCDeff: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p07.design_effect", fmt: "{:.1f}"}
+FixAsixLKNoiseBClLo: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p05.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixLKNoiseBClHi: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p05.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixLKNoiseAClLo: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p03.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixLKNoiseAClHi: {file: fix_a6.json, key: "lone_rates.lone_keystone.noise0p03.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixSTNoiseCClLo: {file: fix_a6.json, key: "lone_rates.lone_keystone_second_trap.noise0p07.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixSTNoiseCClHi: {file: fix_a6.json, key: "lone_rates.lone_keystone_second_trap.noise0p07.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixPoolNoiseCClLo: {file: fix_a6.json, key: "lone_rates.pooled.noise0p07.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixPoolNoiseCClHi: {file: fix_a6.json, key: "lone_rates.pooled.noise0p07.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixLKDiff: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.diff", fmt: "{:+.2f}"}
+FixAsixLKDiffLo: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.cluster_boot95.0", fmt: "{:.2f}"}
+FixAsixLKDiffHi: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.cluster_boot95.1", fmt: "{:.2f}"}
+FixAsixLKDiffSignP: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.signflip_exact_p", fmt: p}
+FixAsixLKMajMcNemarP: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.majority_mcnemar.mcnemar_exact_p", fmt: p}
+FixAsixLKSeedMcNemarPMin: {file: fix_a6.json, key: "lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.per_seed_mcnemar_p_min", fmt: p}
+FixAsixWholeMcNemarP: {file: fix_a6.json, key: "mcnemar.whole_runs_E6.mcnemar_exact_p", fmt: p}
+FixAsixWholeDiffLo: {file: fix_a6.json, key: "mcnemar.whole_runs_E6.seed_boot95.0", fmt: "{:.2f}"}
+FixAsixWholeDiffHi: {file: fix_a6.json, key: "mcnemar.whole_runs_E6.seed_boot95.1", fmt: "{:.2f}"}
+FixAsixPairPubMcNemarP: {file: fix_a6.json, key: "mcnemar.pair_pub.mcnemar_exact_p", fmt: p}
+FixAsixPairRvoMcNemarP: {file: fix_a6.json, key: "mcnemar.pair_rvo2.mcnemar_exact_p", fmt: p}
+FixAsixClassPWithinSeed: {file: fix_a6.json, key: "class_test.p_within_seed_perm", fmt: p}
+FixAsixClassPUnrestricted: {file: fix_a6.json, key: "class_test.p_unrestricted_perm", fmt: p}
+FixAsixClassSharedN: {file: fix_a6.json, key: "class_test.n_shared_seeds", fmt: "{:d}"}
+FixAsixClassSharedP: {file: fix_a6.json, key: "class_test.shared_seeds_only.p_within_seed_perm", fmt: p}
+FixAsixClassSingleP: {file: fix_a6.json, key: "class_test.single_solver_failures_only.p_perm", fmt: p}
+FixAsixFoldSnapAgree: {file: fix_a6.json, key: "fold_by_snapshot.snapshots_all_agree", fmt: "{:d}"}
+FixAsixFoldSnapN: {file: fix_a6.json, key: "fold_by_snapshot.n_snapshots", fmt: "{:d}"}
+FixAsixFoldSnapLo: {file: fix_a6.json, key: "fold_by_snapshot.snapshots_all_agree_wilson95.0", fmt: "{:.2f}"}
+FixAsixFoldSnapMaxDis: {file: fix_a6.json, key: "fold_by_snapshot.max_disagreements_one_snapshot", fmt: "{:d}"}
+FixAsixSigFifty: {file: fix_a6.json, key: "e5.E5b_corrected.sigma50", fmt: "{:.3f}"}
+FixAsixSigFiftyClLo: {file: fix_a6.json, key: "e5.E5b_corrected.seed_cluster_boot95.0", fmt: "{:.3f}"}
+FixAsixSigFiftyClHi: {file: fix_a6.json, key: "e5.E5b_corrected.seed_cluster_boot95.1", fmt: "{:.3f}"}
+FixAsixSigFiftyPubClLo: {file: fix_a6.json, key: "e5.E5a_published.seed_cluster_boot95.0", fmt: "{:.3f}"}
+FixAsixSigFiftyPubClHi: {file: fix_a6.json, key: "e5.E5a_published.seed_cluster_boot95.1", fmt: "{:.3f}"}
+
+# --- fix wave a3: experiments/fixan/fix_a3.py
+FixAthreeNuLangerFull: {file: fix_a3.json, key: "langer.summary.full.nu_langer_median", fmt: "{:.2f}"}
+FixAthreeNuLangerFrozen: {file: fix_a3.json, key: "langer.summary.frozen.nu_langer_median", fmt: "{:.2f}"}
+FixAthreeNuLangerAlone: {file: fix_a3.json, key: "langer.summary.alone.nu_langer_median", fmt: "{:.2f}"}
+FixAthreeNuRatioAll: {file: fix_a3.json, key: "langer.summary.all.ratio_nu_hat_over_langer_median", fmt: "{:.2f}"}
+FixAthreeNuRatioAllMin: {file: fix_a3.json, key: "langer.summary.all.ratio_range.0", fmt: "{:.2f}"}
+FixAthreeNuRatioAllMax: {file: fix_a3.json, key: "langer.summary.all.ratio_range.1", fmt: "{:.2f}"}
+FixAthreeNuRatioBelow: {file: fix_a3.json, key: "langer.summary.all.n_ratio_below_1", fmt: "{:d}"}
+FixAthreeNuRatioN: {file: fix_a3.json, key: "langer.summary.all.n", fmt: "{:d}"}
+FixAthreeNuRatioFull: {file: fix_a3.json, key: "langer.summary.full.ratio_nu_hat_over_langer_median", fmt: "{:.2f}"}
+FixAthreeNuRatioFullLo: {file: fix_a3.json, key: "langer.summary.full.ratio_median_ci95.0", fmt: "{:.2f}"}
+FixAthreeNuRatioFullHi: {file: fix_a3.json, key: "langer.summary.full.ratio_median_ci95.1", fmt: "{:.2f}"}
+FixAthreeNuRatioFrozen: {file: fix_a3.json, key: "langer.summary.frozen.ratio_nu_hat_over_langer_median", fmt: "{:.2f}"}
+FixAthreeNuRatioFrozenLo: {file: fix_a3.json, key: "langer.summary.frozen.ratio_median_ci95.0", fmt: "{:.2f}"}
+FixAthreeNuRatioFrozenHi: {file: fix_a3.json, key: "langer.summary.frozen.ratio_median_ci95.1", fmt: "{:.2f}"}
+FixAthreeNuRatioAlone: {file: fix_a3.json, key: "langer.summary.alone.ratio_nu_hat_over_langer_median", fmt: "{:.2f}"}
+FixAthreeNuRatioAloneLo: {file: fix_a3.json, key: "langer.summary.alone.ratio_median_ci95.0", fmt: "{:.2f}"}
+FixAthreeNuRatioAloneHi: {file: fix_a3.json, key: "langer.summary.alone.ratio_median_ci95.1", fmt: "{:.2f}"}
+FixAthreeNuOverdampedAlone: {file: fix_a3.json, key: "langer.summary.alone.nu_overdamped_median", fmt: "{:.2f}"}
+FixAthreeDampingFull: {file: fix_a3.json, key: "langer.summary.full.damping_ratio_median", fmt: "{:.2f}"}
+FixAthreePRMed: {file: fix_a3.json, key: "participation.fitted.pr_hessian_median", fmt: "{:.1f}"}
+FixAthreePRMin: {file: fix_a3.json, key: "participation.fitted.pr_hessian_range.0", fmt: "{:.2f}"}
+FixAthreePRMax: {file: fix_a3.json, key: "participation.fitted.pr_hessian_range.1", fmt: "{:.1f}"}
+FixAthreePRN: {file: fix_a3.json, key: "participation.fitted.n", fmt: "{:d}"}
+FixAthreeBlockerWeightMed: {file: fix_a3.json, key: "participation.fitted.blocker_weight_hessian_median", fmt: "{:.2f}"}
+FixAthreeNeighbourDispMed: {file: fix_a3.json, key: "participation.fitted.neighbour_weight_displacement_median", fmt: "{:.2f}"}
+FixAthreeNeighbourDispMin: {file: fix_a3.json, key: "participation.fitted.neighbour_weight_displacement_range.0", fmt: "{:.2f}"}
+FixAthreeNeighbourDispMax: {file: fix_a3.json, key: "participation.fitted.neighbour_weight_displacement_range.1", fmt: "{:.2f}"}
+FixAthreeLag: {file: fix_a3.json, key: "lag.all.shifted_exponential.t0_mle_s", fmt: "{:.2f}"}
+FixAthreeLagLo: {file: fix_a3.json, key: "lag.all.shifted_exponential.t0_ci95_s.0", fmt: "{:.2f}"}
+FixAthreeLagHi: {file: fix_a3.json, key: "lag.all.shifted_exponential.t0_ci95_s.1", fmt: "{:.2f}"}
+FixAthreeLagAIC: {file: fix_a3.json, key: "lag.all.aic_shiftexp_minus_weibull", fmt: "{:.0f}"}
+FixAthreeShapeAtLag: {file: fix_a3.json, key: "lag.all.shape_at_t0_mle.k", fmt: "{:.2f}"}
+FixAthreeShapeAtLagLo: {file: fix_a3.json, key: "lag.all.shape_at_t0_mle.ci95.0", fmt: "{:.2f}"}
+FixAthreeShapeAtLagHi: {file: fix_a3.json, key: "lag.all.shape_at_t0_mle.ci95.1", fmt: "{:.2f}"}
+FixAthreeLagCover: {file: fix_a3.json, key: "lag.all.lag_first_cover_1_s", fmt: "{:.1f}"}
+FixAthreeShapeTwo: {file: fix_a3.json, key: "lag.all.shape_at_2s.k", fmt: "{:.2f}"}
+FixAthreeShapeTwoLo: {file: fix_a3.json, key: "lag.all.shape_at_2s.ci95.0", fmt: "{:.2f}"}
+FixAthreeShapeTwoHi: {file: fix_a3.json, key: "lag.all.shape_at_2s.ci95.1", fmt: "{:.2f}"}
+FixAthreeShapeFrozenTen: {file: fix_a3.json, key: "lag.frozen.shape_at_10s.k", fmt: "{:.2f}"}
+FixAthreeShapeFrozenTenLo: {file: fix_a3.json, key: "lag.frozen.shape_at_10s.ci95.0", fmt: "{:.2f}"}
+FixAthreeShapeFrozenTenHi: {file: fix_a3.json, key: "lag.frozen.shape_at_10s.ci95.1", fmt: "{:.2f}"}
+FixAthreeCollapseSlope: {file: fix_a3.json, key: "collapse.free_intercepts.slope", fmt: "{:.2f}"}
+FixAthreeCollapseSlopeLo: {file: fix_a3.json, key: "collapse.free_intercepts.slope_ci95.0", fmt: "{:.2f}"}
+FixAthreeCollapseSlopeHi: {file: fix_a3.json, key: "collapse.free_intercepts.slope_ci95.1", fmt: "{:.2f}"}
+FixAthreeCommonSlope: {file: fix_a3.json, key: "collapse.common_intercept.slope", fmt: "{:.2f}"}
+FixAthreeCommonSlopeLo: {file: fix_a3.json, key: "collapse.common_intercept.slope_ci95.0", fmt: "{:.2f}"}
+FixAthreeCommonSlopeHi: {file: fix_a3.json, key: "collapse.common_intercept.slope_ci95.1", fmt: "{:.2f}"}
+FixAthreeCommonNu: {file: fix_a3.json, key: "collapse.common_intercept.nu_common", fmt: "{:.3f}"}
+FixAthreeCommonNuLo: {file: fix_a3.json, key: "collapse.common_intercept.nu_common_ci95.0", fmt: "{:.3f}"}
+FixAthreeCommonNuHi: {file: fix_a3.json, key: "collapse.common_intercept.nu_common_ci95.1", fmt: "{:.3f}"}
+FixAthreeOLSSlope: {file: fix_a3.json, key: "counts.e3_ols.slope", fmt: "{:.2f}"}
+FixAthreeOLSSlopeLo: {file: fix_a3.json, key: "counts.e3_ols.ci95.0", fmt: "{:.2f}"}
+FixAthreeOLSSlopeHi: {file: fix_a3.json, key: "counts.e3_ols.ci95.1", fmt: "{:.2f}"}
+FixAthreeCensLongPct: {file: fix_a3.json, key: "counts.e3_censoring.per_step_dt0p02_pct", fmt: "{:.0f}"}
+FixAthreeCensLongMaxPct: {file: fix_a3.json, key: "counts.e3_censoring.per_step_dt0p02_per_snapshot_max_pct", fmt: "{:.0f}"}
+FixAthreeEfourCensPct: {file: fix_a3.json, key: "counts.e4_censoring.all.pct", fmt: "{:.0f}"}
+FixAthreeEfourCensFullPct: {file: fix_a3.json, key: "counts.e4_censoring.full.pct", fmt: "{:.0f}"}
+FixAthreeOtherExitFull: {file: fix_a3.json, key: "counts.competing_exits.e4_full_flagged", fmt: "{:d}"}
+FixAthreeOtherExitFullRuns: {file: fix_a3.json, key: "counts.competing_exits.e4_full_runs", fmt: "{:d}"}
+FixAthreeOtherExitEthree: {file: fix_a3.json, key: "counts.competing_exits.e3_flagged", fmt: "{:d}"}
+FixAthreeOtherExitEthreeRuns: {file: fix_a3.json, key: "counts.competing_exits.e3_runs", fmt: "{:d}"}
+FixAthreeGateFailed: {file: fix_a3.json, key: "counts.selection.gate_failed", fmt: "{:d}"}
+FixAthreeGateTotal: {file: fix_a3.json, key: "counts.selection.gate_total", fmt: "{:d}"}
+FixAthreeEthreeUsed: {file: fix_a3.json, key: "counts.selection.e3_used", fmt: "{:d}"}
+FixAthreeEthreeQual: {file: fix_a3.json, key: "counts.selection.e3_qualifying", fmt: "{:d}"}
+FixAthreeEfourUsed: {file: fix_a3.json, key: "counts.selection.e4_used", fmt: "{:d}"}
+FixAthreeEfourQual: {file: fix_a3.json, key: "counts.selection.e4_qualifying", fmt: "{:d}"}
+FixAthreeSaddleRatioFitted: {file: fix_a3.json, key: "counts.saddle_ratio.median_fitted", fmt: "{:.2f}"}
+FixAthreeSaddleFittedN: {file: fix_a3.json, key: "counts.saddle_ratio.n_fitted", fmt: "{:d}"}
+FixAthreePairBelowOne: {file: fix_a3.json, key: "counts.pair.below1_every_level", fmt: "{:d}"}
+FixAthreePairN: {file: fix_a3.json, key: "counts.pair.n", fmt: "{:d}"}
+FixAthreeLoneBarMed: {file: fix_a3.json, key: "counts.lone.dU_median", fmt: "{:.1f}"}
+FixAthreeLoneBarN: {file: fix_a3.json, key: "counts.lone.n", fmt: "{:d}"}
+FixAthreeLoneBarLow: {file: fix_a3.json, key: "counts.lone.n_le_1p1J", fmt: "{:d}"}
+
+# --- fix wave a1: experiments/fixan/fix_a1.py
+FixAoneLoneJ: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.J_observed", fmt: "{:.2f}"}
+FixAoneLoneJLo: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.J_ci95_two_level_boot.0", fmt: "{:.2f}"}
+FixAoneLoneJHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.J_ci95_two_level_boot.1", fmt: "{:.2f}"}
+FixAoneLoneJInd: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.independence.expected_J", fmt: "{:.2f}"}
+FixAoneLoneJIndHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.independence.J_range95.1", fmt: "{:.2f}"}
+FixAoneLoneJIndP: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.independence.p_J_ge_observed", fmt: "{:.2f}"}
+FixAoneJNoiseNoise: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise_noise.median", fmt: "{:.2f}"}
+FixAoneJNoiseNoiseLo: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise_noise.range95.0", fmt: "{:.2f}"}
+FixAoneJNoiseNoiseHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise_noise.range95.1", fmt: "{:.2f}"}
+FixAoneJHalfNoiseOrca: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise2_orca.median", fmt: "{:.2f}"}
+FixAoneJHalfNoiseOrcaLo: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise2_orca.range95.0", fmt: "{:.2f}"}
+FixAoneJHalfNoiseOrcaHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.split_2v3.random_per_snapshot_splits.J_noise2_orca.range95.1", fmt: "{:.2f}"}
+FixAoneJRepNoiseNoise: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.replicate_5seed_parametric.plugin.J_noise5_noise5.median", fmt: "{:.2f}"}
+FixAoneJRepNoiseNoiseLo: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.replicate_5seed_parametric.plugin.J_noise5_noise5.range95.0", fmt: "{:.2f}"}
+FixAoneJRepNoiseNoiseHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.replicate_5seed_parametric.plugin.J_noise5_noise5.range95.1", fmt: "{:.2f}"}
+FixAoneJRepNoiseNoiseP: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.replicate_5seed_parametric.plugin.p_J_noise_noise_le_observed_J_noise_orca", fmt: "{:.2f}"}
+FixAoneLoneFreedOnHeld: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.noise_freed_runs_on_orca_unresolved.0", fmt: "{:d}"}
+FixAoneLoneRunsOnHeld: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.noise_freed_runs_on_orca_unresolved.1", fmt: "{:d}"}
+FixAoneLoneFreedOnFreed: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.noise_freed_runs_on_orca_freed.0", fmt: "{:d}"}
+FixAoneLoneRunsOnFreed: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.noise_freed_runs_on_orca_freed.1", fmt: "{:d}"}
+FixAoneLoneAssocAUC: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.auc_low_noise_freeing_for_orca_unresolved", fmt: "{:.2f}"}
+FixAoneLoneAssocAUCLo: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.auc_ci95_snapshot_boot.0", fmt: "{:.2f}"}
+FixAoneLoneAssocAUCHi: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.auc_ci95_snapshot_boot.1", fmt: "{:.2f}"}
+FixAoneLoneAssocP: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.perm_p_one_sided_auc", fmt: "{:.3f}"}
+FixAoneLoneOddsRatio: {file: fix_a1.json, key: "lone_keystone.noise.noise0p07.association_with_orca.odds_ratio", fmt: "{:.2f}"}
+FixAonePredOrcaAUCdU: {file: fix_a1.json, key: "lone_keystone.predictors.orca_fail_auc_dU", fmt: "{:.2f}"}
+FixAonePredOrcaAUCMargin: {file: fix_a1.json, key: "lone_keystone.predictors.orca_fail_auc_margin_C3", fmt: "{:.2f}"}
+FixAonePredOrcaAUCMarginLo: {file: fix_a1.json, key: "lone_keystone.predictors.orca_fail_auc_margin_C3_ci95.0", fmt: "{:.2f}"}
+FixAonePredNoiseRhodU: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_dU", fmt: "{:.2f}"}
+FixAonePredNoiseRhodULo: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_dU_ci95.0", fmt: "{:.2f}"}
+FixAonePredNoiseRhodUHi: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_dU_ci95.1", fmt: "{:.2f}"}
+FixAonePredNoiseRhoMargin: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_margin_C3", fmt: "{:.2f}"}
+FixAonePredNoiseRhoMarginLo: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_margin_C3_ci95.0", fmt: "{:.2f}"}
+FixAonePredNoiseRhoMarginHi: {file: fix_a1.json, key: "lone_keystone.predictors.noise0p07.spearman_freeing_margin_C3_ci95.1", fmt: "{:.2f}"}
+FixAonePredRhodUMargin: {file: fix_a1.json, key: "lone_keystone.predictors.spearman_dU_margin_C3", fmt: "{:.2f}"}
+FixAonePredN: {file: fix_a1.json, key: "lone_keystone.predictors.n_matched", fmt: "{:d}"}
+FixAoneWholeJ: {file: fix_a1.json, key: "whole_runs.J_observed", fmt: "{:.2f}"}
+FixAoneWholeJLo: {file: fix_a1.json, key: "whole_runs.J_ci95_seed_boot.0", fmt: "{:.2f}"}
+FixAoneWholeJHi: {file: fix_a1.json, key: "whole_runs.J_ci95_seed_boot.1", fmt: "{:.2f}"}
+FixAoneWholeJInd: {file: fix_a1.json, key: "whole_runs.independence.expected_J", fmt: "{:.2f}"}
+FixAoneWholeJIndLo: {file: fix_a1.json, key: "whole_runs.independence.J_range95.0", fmt: "{:.2f}"}
+FixAoneWholeJIndHi: {file: fix_a1.json, key: "whole_runs.independence.J_range95.1", fmt: "{:.2f}"}
+FixAoneWholeJIndP: {file: fix_a1.json, key: "whole_runs.independence.p_J_ge_observed", fmt: "{:.3f}"}
+FixAonePairPubJ: {file: fix_a1.json, key: "pair.pub.J_observed", fmt: "{:.2f}"}
+FixAonePairPubJInd: {file: fix_a1.json, key: "pair.pub.independence.expected_J", fmt: "{:.2f}"}
+FixAonePairPubJIndHi: {file: fix_a1.json, key: "pair.pub.independence.J_range95.1", fmt: "{:.2f}"}
+FixAonePairPubJIndP: {file: fix_a1.json, key: "pair.pub.independence.p_J_ge_observed", fmt: "{:.2f}"}
+FixAonePairRvoJInd: {file: fix_a1.json, key: "pair.rvo2.independence.expected_J", fmt: "{:.2f}"}
+FixAonePairRvoJIndP: {file: fix_a1.json, key: "pair.rvo2.independence.p_J_le_observed", fmt: "{:.2f}"}
+FixAonePairRvoJHi: {file: fix_a1.json, key: "pair.rvo2.J_upper95_cp", fmt: "{:.2f}"}
+
+# --- fix wave a4: experiments/fixan/fix_a4.py
+FixAfourNFlips:
+  file: fix_a4.json
+  key: "headline.n_flipping_replays"
+  fmt: "{:d}"
+FixAfourSnapNineMaxDv:
+  file: fix_a4.json
+  key: "headline.snapshot_state_pub_1e-9_max_dv"
+  fmt: sci
+  digits: 2
+  unit: "m/s"
+FixAfourCreepStates:
+  file: fix_a4.json
+  key: "headline.creep_scan_published.n_states"
+  fmt: "{:d}"
+FixAfourCreepPubNineMaxDv:
+  file: fix_a4.json
+  key: "headline.creep_scan_published.max_dv_by_eps.1e-09"
+  fmt: sci
+  digits: 2
+  unit: "m/s"
+FixAfourCreepPubSixMaxDv:
+  file: fix_a4.json
+  key: "headline.creep_scan_published.max_dv_by_eps.1e-06"
+  fmt: sci
+  digits: 2
+  unit: "m/s"
+FixAfourCreepPubMaxGain:
+  file: fix_a4.json
+  key: "headline.creep_scan_published.max_gain_per_s"
+  fmt: "{:.0f}"
+  unit: "1/s"
+FixAfourCreepRvoMaxGain:
+  file: fix_a4.json
+  key: "headline.creep_scan_rvo2.max_gain_per_s"
+  fmt: "{:.0f}"
+  unit: "1/s"
+FixAfourCreepPubJumpStates:
+  file: fix_a4.json
+  key: "headline.creep_scan_published.n_states_jump_any_eps"
+  fmt: "{:d}"
+FixAfourGrowthMin:
+  file: fix_a4.json
+  key: "headline.flip_twins.growth_rate_min_per_s"
+  fmt: "{:.1f}"
+  unit: "1/s"
+FixAfourGrowthMax:
+  file: fix_a4.json
+  key: "headline.flip_twins.growth_rate_max_per_s"
+  fmt: "{:.1f}"
+  unit: "1/s"
+FixAfourGrowthMed:
+  file: fix_a4.json
+  key: "headline.flip_twins.growth_rate_median_per_s"
+  fmt: "{:.1f}"
+  unit: "1/s"
+FixAfourSepMilliTMin:
+  file: fix_a4.json
+  key: "headline.flip_twins.t_sep_gt_1e-3_min_s"
+  fmt: "{:.0f}"
+  unit: "s"
+FixAfourSepMilliTMax:
+  file: fix_a4.json
+  key: "headline.flip_twins.t_sep_gt_1e-3_max_s"
+  fmt: "{:.0f}"
+  unit: "s"
+FixAfourDiscN:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.n"
+  fmt: "{:d}"
+FixAfourDiscSepMin:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.sep_min_m"
+  fmt: sci
+  digits: 2
+  unit: "m"
+FixAfourDiscSepMax:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.sep_max_m"
+  fmt: sci
+  digits: 2
+  unit: "m"
+FixAfourDiscDvMin:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.dv_min_m_per_s"
+  fmt: "{:.2f}"
+  unit: "m/s"
+FixAfourDiscDvMax:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.dv_max_m_per_s"
+  fmt: "{:.2f}"
+  unit: "m/s"
+FixAfourDiscTMin:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.t_min_s"
+  fmt: "{:.0f}"
+  unit: "s"
+FixAfourDiscTMax:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.t_max_s"
+  fmt: "{:.0f}"
+  unit: "s"
+FixAfourDiscLegFlip:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.n_leg_normal_flip"
+  fmt: "{:d}"
+FixAfourDiscBranch:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.n_halfplane_branch"
+  fmt: "{:d}"
+FixAfourDiscDrop:
+  file: fix_a4.json
+  key: "headline.first_discontinuity.n_lp_drop"
+  fmt: "{:d}"
+FixAfourAllDiscN:
+  file: fix_a4.json
+  key: "headline.all_discontinuity_events_flip_twins.n"
+  fmt: "{:d}"
+FixAfourAllDiscDrop:
+  file: fix_a4.json
+  key: "headline.all_discontinuity_events_flip_twins.n_dropped_constraint_either_twin"
+  fmt: "{:d}"
+FixAfourDiscScanPubMaxDv:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-04.max_dv"
+  fmt: "{:.2f}"
+  unit: "m/s"
+FixAfourDiscScanPubJumpK:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-04.n_jump"
+  fmt: "{:d}"
+FixAfourDiscScanPubJumpN:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-04.n"
+  fmt: "{:d}"
+FixAfourDiscScanPubJumpLo:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-04.jump_frac_ci95.0"
+  fmt: "{:.2f}"
+FixAfourDiscScanPubJumpHi:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-04.jump_frac_ci95.1"
+  fmt: "{:.2f}"
+FixAfourDiscScanRvoMaxDv:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_rvo2.1e-04.max_dv"
+  fmt: sci
+  digits: 2
+  unit: "m/s"
+FixAfourDiscScanPubSixMaxDv:
+  file: fix_a4.json
+  key: "headline.scan_at_first_discontinuity_published.1e-06.max_dv"
+  fmt: sci
+  digits: 2
+  unit: "m/s"
+FixAfourMinJumpEps:
+  file: fix_a4.json
+  key: "headline.smallest_eps_with_jump_published_m"
+  fmt: sci
+  digits: 2
+  unit: "m"

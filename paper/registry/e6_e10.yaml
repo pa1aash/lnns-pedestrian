@@ -735,3 +735,545 @@ EsixOneOnlyFail: {file: fix_reg.json, key: "whole_run_failures.one_only", fmt: "
 EsixFailAny: {file: fix_reg.json, key: "whole_run_failures.any", fmt: "{:d}"}
 EsixJaccardIndepLo: {file: E6_analysis.json, key: "identity.jaccard_independent_95.0", fmt: "{:.2f}"}
 EsixJaccardIndepHi: {file: E6_analysis.json, key: "identity.jaccard_independent_95.1", fmt: "{:.2f}"}
+
+# --- fix wave a7: experiments/fixan/fix_a7.py
+FixAsevenHumanN:
+  file: fix_a7.json
+  key: "humans.n_runs"
+  fmt: "{:d}"
+FixAsevenHumanFlow:
+  file: fix_a7.json
+  key: "humans.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenHumanFlowLo:
+  file: fix_a7.json
+  key: "humans.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenHumanFlowHi:
+  file: fix_a7.json
+  key: "humans.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenHumanGap:
+  file: fix_a7.json
+  key: "humans.longest_gap.mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenHumanGapMax:
+  file: fix_a7.json
+  key: "humans.longest_gap.max"
+  fmt: "{:.2f}"
+  unit: "s"
+FixAsevenHumanGapsTwoTotal:
+  file: fix_a7.json
+  key: "humans.gaps_gt_2s_total"
+  fmt: "{:d}"
+FixAsevenHumanGapGeo:
+  file: fix_a7.json
+  key: "humans.longest_gap.log.geo_mean"
+  fmt: "{:.2f}"
+  unit: "s"
+FixAsevenHumanGapGeoLo:
+  file: fix_a7.json
+  key: "humans.longest_gap.log.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenHumanGapGeoHi:
+  file: fix_a7.json
+  key: "humans.longest_gap.log.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenHumanWindowFlow:
+  file: fix_a7.json
+  key: "humans.window_obs.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenHumanWindowFlowLo:
+  file: fix_a7.json
+  key: "humans.window_obs.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenHumanWindowFlowHi:
+  file: fix_a7.json
+  key: "humans.window_obs.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenHumanTracksFourDforty:
+  file: fix_a7.json
+  key: "humans.runs.1.N_tracks"
+  fmt: "{:d}"
+FixAsevenHumanPassFourDforty:
+  file: fix_a7.json
+  key: "humans.runs.1.n_pass"
+  fmt: "{:d}"
+FixAsevenHumanLostTrackDist:
+  file: fix_a7.json
+  key: "humans.unmatched_tracks.4D040.0.dist_to_line_m"
+  fmt: "{:.2f}"
+  unit: "m"
+FixAsevenCPubComplete:
+  file: fix_a7.json
+  key: "cells.C1_pub.complete"
+  fmt: "{:d}"
+FixAsevenCPubCompleteLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.completion_wilson95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubCompleteHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.completion_wilson95.1"
+  fmt: "{:.2f}"
+FixAsevenCPubFlowRatio:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCPubFlowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubFlowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCPubFiellerLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio.fieller_ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubFiellerHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio.fieller_ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCPubMatchedRatio:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio_matched.geo_ratio"
+  fmt: "{:.2f}"
+FixAsevenCPubMatchedRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio_matched.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubMatchedRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.flow_ratio_matched.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCPubGapGeo:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap.log.geo_mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenCPubGapGeoLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap.log.ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCPubGapGeoHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap.log.ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCPubGapRatio:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap_ratio_log.geo_ratio"
+  fmt: "{:.1f}"
+FixAsevenCPubGapRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap_ratio_log.geo_ratio_ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCPubGapRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.longest_gap_ratio_log.geo_ratio_ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCPubWindowFlow:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenCPubWindowFlowLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubWindowFlowHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCPubWindowRatio:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCPubWindowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCPubWindowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_pub.window_obs.ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneComplete:
+  file: fix_a7.json
+  key: "cells.C1_cf.complete"
+  fmt: "{:d}"
+FixAsevenCOneCompleteLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.completion_wilson95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneCompleteHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.completion_wilson95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneFlowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCOneFlowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneFlowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneFiellerLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio.fieller_ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneFiellerHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio.fieller_ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneMatchedRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio_matched.geo_ratio"
+  fmt: "{:.2f}"
+FixAsevenCOneMatchedRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio_matched.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneMatchedRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.flow_ratio_matched.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneGapGeo:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap.log.geo_mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenCOneGapGeoLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap.log.ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCOneGapGeoHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap.log.ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCOneGapRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap_ratio_log.geo_ratio"
+  fmt: "{:.1f}"
+FixAsevenCOneGapRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap_ratio_log.geo_ratio_ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCOneGapRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.longest_gap_ratio_log.geo_ratio_ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCOneWindowFlow:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenCOneWindowFlowLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneWindowFlowHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCOneWindowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCOneWindowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCOneWindowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf.window_obs.ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeComplete:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.complete"
+  fmt: "{:d}"
+FixAsevenCEdgeCompleteLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.completion_wilson95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeCompleteHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.completion_wilson95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeFlowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCEdgeFlowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeFlowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeFiellerLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio.fieller_ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeFiellerHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio.fieller_ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeMatchedRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio_matched.geo_ratio"
+  fmt: "{:.2f}"
+FixAsevenCEdgeMatchedRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio_matched.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeMatchedRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.flow_ratio_matched.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeGapGeo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap.log.geo_mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenCEdgeGapGeoLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap.log.ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCEdgeGapGeoHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap.log.ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCEdgeGapRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap_ratio_log.geo_ratio"
+  fmt: "{:.1f}"
+FixAsevenCEdgeGapRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap_ratio_log.geo_ratio_ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCEdgeGapRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.longest_gap_ratio_log.geo_ratio_ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCEdgeWindowFlow:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenCEdgeWindowFlowLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeWindowFlowHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCEdgeWindowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCEdgeWindowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCEdgeWindowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_edge.window_obs.ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeComplete:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.complete"
+  fmt: "{:d}"
+FixAsevenCThreeCompleteLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.completion_wilson95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeCompleteHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.completion_wilson95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeFlowRatio:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCThreeFlowRatioLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeFlowRatioHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeFiellerLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio.fieller_ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeFiellerHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio.fieller_ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeMatchedRatio:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio_matched.geo_ratio"
+  fmt: "{:.2f}"
+FixAsevenCThreeMatchedRatioLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio_matched.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeMatchedRatioHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.flow_ratio_matched.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeGapGeo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap.log.geo_mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenCThreeGapGeoLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap.log.ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCThreeGapGeoHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap.log.ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCThreeGapRatio:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap_ratio_log.geo_ratio"
+  fmt: "{:.1f}"
+FixAsevenCThreeGapRatioLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap_ratio_log.geo_ratio_ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCThreeGapRatioHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.longest_gap_ratio_log.geo_ratio_ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCThreeWindowFlow:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenCThreeWindowFlowLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeWindowFlowHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCThreeWindowRatio:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCThreeWindowRatioLo:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCThreeWindowRatioHi:
+  file: fix_a7.json
+  key: "cells.C3_rvo2_cf.window_obs.ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigComplete:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.complete"
+  fmt: "{:d}"
+FixAsevenCSigCompleteLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.completion_wilson95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigCompleteHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.completion_wilson95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigFlowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCSigFlowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigFlowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigFiellerLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio.fieller_ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigFiellerHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio.fieller_ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigMatchedRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio_matched.geo_ratio"
+  fmt: "{:.2f}"
+FixAsevenCSigMatchedRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio_matched.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigMatchedRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.flow_ratio_matched.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigGapGeo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap.log.geo_mean"
+  fmt: "{:.1f}"
+  unit: "s"
+FixAsevenCSigGapGeoLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap.log.ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCSigGapGeoHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap.log.ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCSigGapRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap_ratio_log.geo_ratio"
+  fmt: "{:.1f}"
+FixAsevenCSigGapRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap_ratio_log.geo_ratio_ci95.0"
+  fmt: "{:.1f}"
+FixAsevenCSigGapRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.longest_gap_ratio_log.geo_ratio_ci95.1"
+  fmt: "{:.1f}"
+FixAsevenCSigWindowFlow:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.flow.mean"
+  fmt: "{:.2f}"
+  unit: "ped/s"
+FixAsevenCSigWindowFlowLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.flow.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigWindowFlowHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.flow.ci95.1"
+  fmt: "{:.2f}"
+FixAsevenCSigWindowRatio:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.ratio.ratio"
+  fmt: "{:.2f}"
+FixAsevenCSigWindowRatioLo:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.ratio.ci95.0"
+  fmt: "{:.2f}"
+FixAsevenCSigWindowRatioHi:
+  file: fix_a7.json
+  key: "cells.C1_cf_sig.window_obs.ratio.ci95.1"
+  fmt: "{:.2f}"

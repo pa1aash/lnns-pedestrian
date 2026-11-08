@@ -33,3 +33,19 @@ EsevenRoundCollective: {file: E7_analysis.json, key: "cells.rounded.classes.coun
 EsevenLineRoundCollective: {file: E7_analysis.json, key: "cells.line_rounded.classes.counts.collective", fmt: "{:d}"}
 EsevenWNineClassified: {file: E7_analysis.json, key: "cells.w0p9.classes.n_classified", fmt: "{:d}"}
 EsevenWNineCollective: {file: E7_analysis.json, key: "cells.w0p9.classes.counts.collective", fmt: "{:d}"}
+
+# --- fix wave a8: experiments/fixan/fix_a8.py
+FixAeightWcRef: {file: fix_a8.json, key: "reference_agent.w_c_exact_m", fmt: "{:.2f}"}
+FixAeightWcNaive: {file: fix_a8.json, key: "reference_agent.w_c_naive_m", fmt: "{:.2f}"}
+FixAeightWcApprox: {file: fix_a8.json, key: "reference_agent.w_c_approx_m", fmt: "{:.2f}"}
+FixAeightDrive: {file: fix_a8.json, key: "reference_agent.F_drive_N", fmt: "{:.0f}"}
+FixAeightWcMed: {file: fix_a8.json, key: "agents.w_c_median_m", fmt: "{:.2f}"}
+FixAeightWcPninetyFive: {file: fix_a8.json, key: "agents.w_c_p95_m", fmt: "{:.2f}"}
+FixAeightWfiftyPred: {file: fix_a8.json, key: "run_level.w50_pred_m", fmt: "{:.2f}"}
+FixAeightWfiftyPredLo: {file: fix_a8.json, key: "run_level.w50_pred_ci95.0", fmt: "{:.2f}"}
+FixAeightWfiftyPredHi: {file: fix_a8.json, key: "run_level.w50_pred_ci95.1", fmt: "{:.2f}"}
+FixAeightNineNoStuck: {file: fix_a8.json, key: "by_width.w0p9.predicted_complete_no_stuck_alone", fmt: "{:d}"}
+FixAeightNineSomeStuckDone: {file: fix_a8.json, key: "by_width.w0p9.complete_given_some_stuck_alone", fmt: "{:d}"}
+FixAeightNineSomeStuck: {file: fix_a8.json, key: "by_width.w0p9.n_some_stuck_alone", fmt: "{:d}"}
+# --- fix wave (05-1 e, NC L7)
+EsevenBallLone: {file: E7_analysis.json, key: "cells.B0p04.classes.counts.lone_keystone", fmt: "{:d}"}

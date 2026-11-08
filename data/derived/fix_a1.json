@@ -1,0 +1,2180 @@
+{
+ "script": "experiments/fixan/fix_a1.py",
+ "doc": "fix_a1: references for the Jaccard identity signature of Table 3 (referee issue S1.1).\n\nInput:  data/E2/e2_quench.jsonl, data/derived/selection.json, data/E1/E1_runs.jsonl (blocker rest-state\n        margins), data/BAR/barriers_gated.json (gated string-method barriers of the 60 E2 snapshots),\n        data/E6/e6a.jsonl + e6b.jsonl (whole runs), data/E7b/e7b_quench.jsonl +\n        data/E7b_bstar/bstar_quench.jsonl (pair standoffs).\nOutput: data/derived/fix_a1.json.\n\nRules (identical to experiments/E2/analyze.py, experiments/E6/analyze.py, experiments/E7b/analyze.py):\n  lone trap   blocker exits within 120 s; C3 RVO2 judged on its unperturbed run; a snapshot is\n              noise-unresolved when fewer than half of its noise seeds free it (5 seeds: k <= 2).\n              A half-sample of m seeds uses the same rule within the half (m = 2: k = 0; m = 3: k <= 1).\n  whole runs  a seed fails when the run is not complete at 600 s (C3 RVO2, E6a; C1 + sigma*, E6b).\n  pair block  freed within 120 s on the unperturbed run; Table 3 compares the freed sets.\n  J           |A & B| / |A | B| of the minority outcome sets.\nIndependence  both minority sets drawn uniformly at random with their observed sizes a, b from the same N\n              snapshots/seeds: the overlap X is hypergeometric(N, a, b) and J = X / (a + b - X); its exact\n              mean, 95% range and tail probabilities are reported.\nIntervals     95% percentile intervals; snapshot (or seed) bootstrap with multiplicity, B = 10000; the lone\n              trap also has a two-level bootstrap (snapshots, then the 5 seeds within each snapshot).\nRNG           numpy default_rng(20261109) for everything.\n",
+ "rng": "numpy default_rng(20261109)",
+ "n_boot": 10000,
+ "lone_keystone": {
+  "n_snapshots": 34,
+  "orca_arm": "C3_rvo2",
+  "orca_unresolved": 4,
+  "orca_unresolved_tags": [
+   "E1b_seed83",
+   "E1b_seed87",
+   "E1b_seed203",
+   "E1b_seed211"
+  ],
+  "noise": {
+   "noise0p03": {
+    "noise_freed_runs": 70,
+    "noise_runs": 170,
+    "noise_unresolved": 20,
+    "noise_unresolved_tags": [
+     "E1b_seed52",
+     "E1b_seed58",
+     "E1b_seed69",
+     "E1b_seed83",
+     "E1b_seed84",
+     "E1b_seed87",
+     "E1b_seed89",
+     "E1b_seed94",
+     "E1b_seed114",
+     "E1b_seed128",
+     "E1b_seed132",
+     "E1b_seed140",
+     "E1b_seed155",
+     "E1b_seed179",
+     "E1b_seed203",
+     "E1b_seed204",
+     "E1b_seed211",
+     "E1b_seed215",
+     "E1b_seed227",
+     "E1b_seed239"
+    ],
+    "shared": 4,
+    "J_observed": 0.2,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.047619047619047616,
+     0.3888888888888889
+    ],
+    "J_ci95_two_level_boot": [
+     0.045454545454545456,
+     0.3888888888888889
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 34,
+     "size_a": 4,
+     "size_b": 20,
+     "expected_overlap": 2.3529411764705883,
+     "expected_J": 0.11077583062249044,
+     "J_range95": [
+      0.043478260869565216,
+      0.2
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.10447214076246335,
+     "p_J_le_observed": 1.0
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.8571428571428571,
+       "J_noise2_orca": 0.2222222222222222,
+       "J_noise3_orca": 0.19047619047619047,
+       "size_2": 18,
+       "size_3": 21
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.8095238095238095,
+       "J_noise2_orca": 0.23529411764705882,
+       "J_noise3_orca": 0.19047619047619047,
+       "size_2": 17,
+       "size_3": 21
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.8636363636363636,
+       "J_noise2_orca": 0.21052631578947367,
+       "J_noise3_orca": 0.18181818181818182,
+       "size_2": 19,
+       "size_3": 22
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.9,
+       "J_noise2_orca": 0.2222222222222222,
+       "J_noise3_orca": 0.2,
+       "size_2": 18,
+       "size_3": 20
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.8,
+       "J_noise2_orca": 0.23529411764705882,
+       "J_noise3_orca": 0.21052631578947367,
+       "size_2": 17,
+       "size_3": 19
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.8571428571428571,
+       "J_noise2_orca": 0.21052631578947367,
+       "J_noise3_orca": 0.2,
+       "size_2": 19,
+       "size_3": 20
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.8095238095238095,
+       "J_noise2_orca": 0.2222222222222222,
+       "J_noise3_orca": 0.2,
+       "size_2": 18,
+       "size_3": 20
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.8095238095238095,
+       "J_noise2_orca": 0.2222222222222222,
+       "J_noise3_orca": 0.2,
+       "size_2": 18,
+       "size_3": 20
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.7619047619047619,
+       "J_noise2_orca": 0.23529411764705882,
+       "J_noise3_orca": 0.2,
+       "size_2": 17,
+       "size_3": 20
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.9,
+       "J_noise2_orca": 0.2222222222222222,
+       "J_noise3_orca": 0.2,
+       "size_2": 18,
+       "size_3": 20
+      }
+     ],
+     "global_J_noise_noise_median": 0.8333333333333333,
+     "global_J_noise_noise_range": [
+      0.7619047619047619,
+      0.9
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.8364653679653679,
+       "median": 0.85,
+       "range95": [
+        0.7272727272727273,
+        0.95
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.22438525781923618,
+       "median": 0.2222222222222222,
+       "range95": [
+        0.2,
+        0.25
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.19737117794486214,
+       "median": 0.2,
+       "range95": [
+        0.18181818181818182,
+        0.21052631578947367
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.6255871500833188,
+       "median": 0.6323529411764706,
+       "range95": [
+        0.5143119747899161,
+        0.7447368421052631
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 1.0,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.9085220804976869,
+       "median": 0.9047619047619048,
+       "range95": [
+        0.8095238095238095,
+        1.0
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.19852133144319373,
+       "median": 0.2,
+       "range95": [
+        0.18181818181818182,
+        0.2222222222222222
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.9386873437794091,
+       "median": 0.95,
+       "range95": [
+        0.8571428571428571,
+        1.0
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.8544709104880615,
+       "median": 0.8571428571428571,
+       "range95": [
+        0.7083333333333334,
+        1.0
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.19489914132216926,
+       "median": 0.2,
+       "range95": [
+        0.14285714285714285,
+        0.23529411764705882
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.8698467255136167,
+       "median": 0.8636363636363636,
+       "range95": [
+        0.7391304347826086,
+        1.0
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      0,
+      20
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      70,
+      150
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.0,
+     "mean_freeing_fraction_orca_freed": 0.4666666666666667,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.8166666666666667,
+     "auc_ci95_snapshot_boot": [
+      0.7286458333333333,
+      0.9
+     ],
+     "mannwhitney_two_sided_p": 0.033350433546894334,
+     "perm_p_one_sided_auc": 0.031596840315968405,
+     "log_odds_ratio": -3.5809275920980133,
+     "odds_ratio": 0.02784985296661477,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -4.5430303153586165,
+      -2.1734493118425613
+     ],
+     "fisher_runs_one_sided_p": 1.0265671157900114e-05,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   },
+   "noise0p05": {
+    "noise_freed_runs": 117,
+    "noise_runs": 170,
+    "noise_unresolved": 10,
+    "noise_unresolved_tags": [
+     "E1b_seed69",
+     "E1b_seed83",
+     "E1b_seed87",
+     "E1b_seed114",
+     "E1b_seed128",
+     "E1b_seed132",
+     "E1b_seed155",
+     "E1b_seed203",
+     "E1b_seed211",
+     "E1b_seed215"
+    ],
+    "shared": 4,
+    "J_observed": 0.4,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.1,
+     0.7146103896103849
+    ],
+    "J_ci95_two_level_boot": [
+     0.09090909090909091,
+     0.6666666666666666
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 34,
+     "size_a": 4,
+     "size_b": 10,
+     "expected_overlap": 1.1764705882352942,
+     "expected_J": 0.09695483919220335,
+     "J_range95": [
+      0.0,
+      0.2727272727272727
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.004528204243574262,
+     "p_J_le_observed": 1.0
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.5454545454545454,
+       "J_noise2_orca": 0.42857142857142855,
+       "J_noise3_orca": 0.36363636363636365,
+       "size_2": 6,
+       "size_3": 11
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.9,
+       "J_noise2_orca": 0.4444444444444444,
+       "J_noise3_orca": 0.4,
+       "size_2": 9,
+       "size_3": 10
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.8181818181818182,
+       "J_noise2_orca": 0.4,
+       "J_noise3_orca": 0.4,
+       "size_2": 10,
+       "size_3": 10
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.6666666666666666,
+       "J_noise2_orca": 0.4444444444444444,
+       "J_noise3_orca": 0.36363636363636365,
+       "size_2": 9,
+       "size_3": 11
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.5,
+       "J_noise2_orca": 0.42857142857142855,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 6,
+       "size_3": 12
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.5454545454545454,
+       "J_noise2_orca": 0.42857142857142855,
+       "J_noise3_orca": 0.36363636363636365,
+       "size_2": 6,
+       "size_3": 11
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.4166666666666667,
+       "J_noise2_orca": 0.5,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 5,
+       "size_3": 12
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.75,
+       "J_noise2_orca": 0.36363636363636365,
+       "J_noise3_orca": 0.4,
+       "size_2": 11,
+       "size_3": 10
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.7272727272727273,
+       "J_noise2_orca": 0.4444444444444444,
+       "J_noise3_orca": 0.4,
+       "size_2": 9,
+       "size_3": 10
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.8,
+       "J_noise2_orca": 0.4444444444444444,
+       "J_noise3_orca": 0.4444444444444444,
+       "size_2": 9,
+       "size_3": 9
+      }
+     ],
+     "global_J_noise_noise_median": 0.696969696969697,
+     "global_J_noise_noise_range": [
+      0.4166666666666667,
+      0.9
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.6646562703962704,
+       "median": 0.6666666666666666,
+       "range95": [
+        0.46153846153846156,
+        0.9
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.4350884487734487,
+       "median": 0.4444444444444444,
+       "range95": [
+        0.3,
+        0.5714285714285714
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.3802816317016317,
+       "median": 0.36363636363636365,
+       "range95": [
+        0.3333333333333333,
+        0.4444444444444444
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.2569712301587302,
+       "median": 0.2666666666666666,
+       "range95": [
+        0.030303030303030276,
+        0.4777777777777778
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 0.9948,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.7945691765179265,
+       "median": 0.8181818181818182,
+       "range95": [
+        0.6153846153846154,
+        1.0
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.37464147269397274,
+       "median": 0.36363636363636365,
+       "range95": [
+        0.2727272727272727,
+        0.4444444444444444
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.8556230802530801,
+       "median": 0.8333333333333334,
+       "range95": [
+        0.6666666666666666,
+        1.0
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.7265939969894227,
+       "median": 0.7272727272727273,
+       "range95": [
+        0.5,
+        0.9230769230769231
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.34121597860472863,
+       "median": 0.3333333333333333,
+       "range95": [
+        0.21428571428571427,
+        0.4444444444444444
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.7349104072724661,
+       "median": 0.75,
+       "range95": [
+        0.5333333333333333,
+        0.9090909090909091
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0025
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      1,
+      20
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      116,
+      150
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.05,
+     "mean_freeing_fraction_orca_freed": 0.7733333333333333,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.9458333333333333,
+     "auc_ci95_snapshot_boot": [
+      0.8551724137931035,
+      1.0
+     ],
+     "mannwhitney_two_sided_p": 0.002071510703453738,
+     "perm_p_one_sided_auc": 0.0006999300069993001,
+     "log_odds_ratio": -3.7818813064299777,
+     "odds_ratio": 0.02277979531198416,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -5.503664146344071,
+      -2.473649495263366
+     ],
+     "fisher_runs_one_sided_p": 2.7061495199150974e-10,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   },
+   "noise0p07": {
+    "noise_freed_runs": 148,
+    "noise_runs": 170,
+    "noise_unresolved": 2,
+    "noise_unresolved_tags": [
+     "E1b_seed69",
+     "E1b_seed83"
+    ],
+    "shared": 1,
+    "J_observed": 0.2,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.0,
+     0.6666666666666666
+    ],
+    "J_ci95_two_level_boot": [
+     0.0,
+     0.7
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 34,
+     "size_a": 4,
+     "size_b": 2,
+     "expected_overlap": 0.23529411764705882,
+     "expected_J": 0.04812834224598931,
+     "J_range95": [
+      0.0,
+      0.2
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.2245989304812834,
+     "p_J_le_observed": 0.9893048128342244
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.3333333333333333,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.5,
+       "size_2": 2,
+       "size_3": 2
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.25,
+       "J_noise2_orca": 0.25,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 1,
+       "size_3": 4
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.16666666666666666,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.2857142857142857,
+       "size_2": 2,
+       "size_3": 5
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.16666666666666666,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.2857142857142857,
+       "size_2": 2,
+       "size_3": 5
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.14285714285714285,
+       "J_noise2_orca": 0.3333333333333333,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 4,
+       "size_3": 4
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.3333333333333333,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.2,
+       "size_2": 2,
+       "size_3": 2
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.3333333333333333,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.2,
+       "size_2": 2,
+       "size_3": 2
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.5,
+       "J_noise2_orca": 0.25,
+       "J_noise3_orca": 0.2,
+       "size_2": 1,
+       "size_3": 2
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.25,
+       "J_noise2_orca": 0.25,
+       "J_noise3_orca": 0.14285714285714285,
+       "size_2": 1,
+       "size_3": 4
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.16666666666666666,
+       "J_noise2_orca": 0.5,
+       "J_noise3_orca": 0.2857142857142857,
+       "size_2": 2,
+       "size_3": 5
+      }
+     ],
+     "global_J_noise_noise_median": 0.25,
+     "global_J_noise_noise_range": [
+      0.14285714285714285,
+      0.5
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.2470940476190476,
+       "median": 0.25,
+       "range95": [
+        0.14285714285714285,
+        0.5
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.26163821428571427,
+       "median": 0.25,
+       "range95": [
+        0.16666666666666666,
+        0.5
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.278163253968254,
+       "median": 0.25,
+       "range95": [
+        0.125,
+        0.6
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": -0.02280668650793651,
+       "median": -0.050000000000000044,
+       "range95": [
+        -0.22499999999999998,
+        0.275
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 0.3974,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.4055581349206349,
+       "median": 0.4,
+       "range95": [
+        0.14285714285714285,
+        0.8
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.2911048809523809,
+       "median": 0.2857142857142857,
+       "range95": [
+        0.125,
+        0.6
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.4599379365079365,
+       "median": 0.4,
+       "range95": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.1782
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.4660612301587302,
+       "median": 0.4444444444444444,
+       "range95": [
+        0.14285714285714285,
+        0.8333333333333334
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.28133351093351094,
+       "median": 0.2857142857142857,
+       "range95": [
+        0.1111111111111111,
+        0.6
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.32970235930735936,
+       "median": 0.3333333333333333,
+       "range95": [
+        0.125,
+        0.6666666666666666
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0776
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      10,
+      20
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      138,
+      150
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.5,
+     "mean_freeing_fraction_orca_freed": 0.92,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.9041666666666667,
+     "auc_ci95_snapshot_boot": [
+      0.78125,
+      1.0
+     ],
+     "mannwhitney_two_sided_p": 0.0013769974465324484,
+     "perm_p_one_sided_auc": 0.0023997600239976003,
+     "log_odds_ratio": -2.4051416813191375,
+     "odds_ratio": 0.09025270758122746,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -4.744332248321266,
+      -1.132039684707779
+     ],
+     "fisher_runs_one_sided_p": 1.3662917821018062e-05,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   }
+  },
+  "predictors": {
+   "n_matched": 34,
+   "n_barrier_failed_gate": 0,
+   "barrier": "data/BAR/barriers_gated.json, condition full (all agents mobile), accepted values only",
+   "margin": "blocker rest-state margin under C3 (data/E1/E1_runs.jsonl attrs.margin_C3, as E2 uses)",
+   "spearman_dU_margin_C3": 0.8059587471352175,
+   "spearman_dU_margin_C3_ci95": [
+    0.6332897548591057,
+    0.897121487625594
+   ],
+   "spearman_dU_margin_C1": 0.8704354469060351,
+   "spearman_dU_alone_margin_C3": 0.8096256684491978,
+   "orca_fail_auc_margin_C3": 0.9833333333333333,
+   "orca_fail_auc_margin_C3_ci95": [
+    0.921875,
+    1.0
+   ],
+   "orca_fail_auc_dU": 1.0,
+   "orca_fail_auc_dU_ci95": [
+    1.0,
+    1.0
+   ],
+   "orca_fail_auc_margin_minus_dU_ci95": [
+    -0.08275862068965523,
+    0.0
+   ],
+   "orca_fail_perm_p_auc_dU": 9.999000099990002e-05,
+   "noise0p03": {
+    "n_snapshots_not_always_freed": 24,
+    "n_unresolved_majority": 20,
+    "spearman_freeing_dU": -0.9176874951327479,
+    "spearman_freeing_dU_ci95": [
+     -0.960517484546643,
+     -0.8233948881152284
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.756143354950313,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.8665703796016038,
+     -0.5631581344245282
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.3333011071097363,
+     -0.04577334707944354
+    ],
+    "auc_dU_for_noise_unresolved": 0.9964285714285714,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.9789473684210527,
+     1.0
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.8892857142857142,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.7612456747404844,
+     0.978021978021978
+    ]
+   },
+   "noise0p05": {
+    "n_snapshots_not_always_freed": 16,
+    "n_unresolved_majority": 10,
+    "spearman_freeing_dU": -0.9005922640015478,
+    "spearman_freeing_dU_ci95": [
+     -0.9472412365562185,
+     -0.7962722602158363
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.7896377025199849,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.8705346004379257,
+     -0.6387485296138173
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.2469502121371484,
+     -0.025145218659532016
+    ],
+    "auc_dU_for_noise_unresolved": 0.9875,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.9507575757575758,
+     1.0
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.9125,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.8,
+     0.9903846153846154
+    ]
+   },
+   "noise0p07": {
+    "n_snapshots_not_always_freed": 10,
+    "n_unresolved_majority": 2,
+    "spearman_freeing_dU": -0.763630778539947,
+    "spearman_freeing_dU_ci95": [
+     -0.8466117604922775,
+     -0.5958165136467557
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.7121885853748309,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.8319590548452502,
+     -0.5219189247885488
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.18601248194317738,
+     0.04838287835731026
+    ],
+    "auc_dU_for_noise_unresolved": 0.921875,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.7575757575757576,
+     1.0
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.890625,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.6875,
+     1.0
+    ]
+   },
+   "method": "Spearman rank correlation of the per-snapshot noise freeing fraction k_i/5 with dU and with the C3 margin; AUC (Mann-Whitney, ties 1/2) of each predictor for ORCA's unresolved snapshots and for noise's majority-unresolved snapshots; snapshot bootstrap 95% intervals (10000), two-sided permutation p (10000)"
+  },
+  "label": "lone keystones (Table 3)"
+ },
+ "pooled_60": {
+  "n_snapshots": 60,
+  "orca_arm": "C3_rvo2",
+  "orca_unresolved": 13,
+  "orca_unresolved_tags": [
+   "E1b_seed83",
+   "E1b_seed87",
+   "E1b_seed203",
+   "E1b_seed211",
+   "E1b_seed46",
+   "E1b_seed60",
+   "E1b_seed75",
+   "E1b_seed111",
+   "E1b_seed130",
+   "E1b_seed192",
+   "E1b_seed223",
+   "E1b_seed230",
+   "E1b_seed237"
+  ],
+  "noise": {
+   "noise0p03": {
+    "noise_freed_runs": 137,
+    "noise_runs": 300,
+    "noise_unresolved": 31,
+    "noise_unresolved_tags": [
+     "E1b_seed52",
+     "E1b_seed58",
+     "E1b_seed69",
+     "E1b_seed83",
+     "E1b_seed84",
+     "E1b_seed87",
+     "E1b_seed89",
+     "E1b_seed94",
+     "E1b_seed114",
+     "E1b_seed128",
+     "E1b_seed132",
+     "E1b_seed140",
+     "E1b_seed155",
+     "E1b_seed179",
+     "E1b_seed203",
+     "E1b_seed204",
+     "E1b_seed211",
+     "E1b_seed215",
+     "E1b_seed227",
+     "E1b_seed239",
+     "E1b_seed46",
+     "E1b_seed75",
+     "E1b_seed104",
+     "E1b_seed111",
+     "E1b_seed130",
+     "E1b_seed174",
+     "E1b_seed186",
+     "E1b_seed187",
+     "E1b_seed192",
+     "E1b_seed230",
+     "E1b_seed237"
+    ],
+    "shared": 11,
+    "J_observed": 0.3333333333333333,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.17857142857142858,
+     0.5
+    ],
+    "J_ci95_two_level_boot": [
+     0.18181818181818182,
+     0.5
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 60,
+     "size_a": 13,
+     "size_b": 31,
+     "expected_overlap": 6.716666666666667,
+     "expected_J": 0.18235838370203125,
+     "J_range95": [
+      0.1,
+      0.29411764705882354
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.00748533587774059,
+     "p_J_le_observed": 0.9991680158842524
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.8235294117647058,
+       "J_noise2_orca": 0.34375,
+       "J_noise3_orca": 0.3235294117647059,
+       "size_2": 30,
+       "size_3": 32
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.84375,
+       "J_noise2_orca": 0.3793103448275862,
+       "J_noise3_orca": 0.3235294117647059,
+       "size_2": 27,
+       "size_3": 32
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.8529411764705882,
+       "J_noise2_orca": 0.3870967741935484,
+       "J_noise3_orca": 0.3142857142857143,
+       "size_2": 30,
+       "size_3": 33
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.9032258064516129,
+       "J_noise2_orca": 0.36666666666666664,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 28,
+       "size_3": 31
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.84375,
+       "J_noise2_orca": 0.36666666666666664,
+       "J_noise3_orca": 0.375,
+       "size_2": 28,
+       "size_3": 31
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.90625,
+       "J_noise2_orca": 0.34375,
+       "J_noise3_orca": 0.3333333333333333,
+       "size_2": 30,
+       "size_3": 31
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.8484848484848485,
+       "J_noise2_orca": 0.3548387096774194,
+       "J_noise3_orca": 0.36363636363636365,
+       "size_2": 29,
+       "size_3": 32
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.8235294117647058,
+       "J_noise2_orca": 0.3548387096774194,
+       "J_noise3_orca": 0.3142857142857143,
+       "size_2": 29,
+       "size_3": 33
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.7714285714285715,
+       "J_noise2_orca": 0.36666666666666664,
+       "J_noise3_orca": 0.34285714285714286,
+       "size_2": 28,
+       "size_3": 34
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.8787878787878788,
+       "J_noise2_orca": 0.3548387096774194,
+       "J_noise3_orca": 0.3142857142857143,
+       "size_2": 29,
+       "size_3": 33
+      }
+     ],
+     "global_J_noise_noise_median": 0.8461174242424243,
+     "global_J_noise_noise_range": [
+      0.7714285714285715,
+      0.90625
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.8491915295763957,
+       "median": 0.8484848484848485,
+       "range95": [
+        0.7647058823529411,
+        0.9375
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.36203089575009345,
+       "median": 0.3548387096774194,
+       "range95": [
+        0.3333333333333333,
+        0.4
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.33383871959860933,
+       "median": 0.3333333333333333,
+       "range95": [
+        0.3055555555555556,
+        0.36363636363636365
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.5012567219020442,
+       "median": 0.5044563279857397,
+       "range95": [
+        0.4,
+        0.5917338709677419
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 1.0,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.8924564750798633,
+       "median": 0.8857142857142857,
+       "range95": [
+        0.8055555555555556,
+        0.9696969696969697
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.3365121561221546,
+       "median": 0.3333333333333333,
+       "range95": [
+        0.3055555555555556,
+        0.375
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.9248575691705497,
+       "median": 0.9375,
+       "range95": [
+        0.8529411764705882,
+        1.0
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.8405107934024644,
+       "median": 0.84375,
+       "range95": [
+        0.7222222222222222,
+        0.9411764705882353
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.3295711105020631,
+       "median": 0.3333333333333333,
+       "range95": [
+        0.2702702702702703,
+        0.3870967741935484
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.8511868915107113,
+       "median": 0.8529411764705882,
+       "range95": [
+        0.7428571428571429,
+        0.9393939393939394
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      7,
+      65
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      130,
+      235
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.10769230769230768,
+     "mean_freeing_fraction_orca_freed": 0.5531914893617021,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.795417348608838,
+     "auc_ci95_snapshot_boot": [
+      0.6816768280285856,
+      0.8863636363636364
+     ],
+     "mannwhitney_two_sided_p": 0.0006375010392242047,
+     "perm_p_one_sided_auc": 0.00029997000299970003,
+     "log_odds_ratio": -2.2667860075421733,
+     "odds_ratio": 0.10364475881717257,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -5.2262501164999104,
+      -1.0625639257623702
+     ],
+     "fisher_runs_one_sided_p": 1.920668181096536e-11,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   },
+   "noise0p05": {
+    "noise_freed_runs": 221,
+    "noise_runs": 300,
+    "noise_unresolved": 14,
+    "noise_unresolved_tags": [
+     "E1b_seed69",
+     "E1b_seed83",
+     "E1b_seed87",
+     "E1b_seed114",
+     "E1b_seed128",
+     "E1b_seed132",
+     "E1b_seed155",
+     "E1b_seed203",
+     "E1b_seed211",
+     "E1b_seed215",
+     "E1b_seed111",
+     "E1b_seed192",
+     "E1b_seed230",
+     "E1b_seed237"
+    ],
+    "shared": 8,
+    "J_observed": 0.42105263157894735,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.2,
+     0.6521739130434783
+    ],
+    "J_ci95_two_level_boot": [
+     0.17647058823529413,
+     0.6111111111111112
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 60,
+     "size_a": 13,
+     "size_b": 14,
+     "expected_overlap": 3.033333333333333,
+     "expected_J": 0.13028154459661445,
+     "J_range95": [
+      0.038461538461538464,
+      0.2857142857142857
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.0008629310246876478,
+     "p_J_le_observed": 0.9999337562343585
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.5,
+       "J_noise2_orca": 0.375,
+       "J_noise3_orca": 0.4,
+       "size_2": 9,
+       "size_3": 15
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.7857142857142857,
+       "J_noise2_orca": 0.3888888888888889,
+       "J_noise3_orca": 0.3684210526315789,
+       "size_2": 12,
+       "size_3": 13
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.6875,
+       "J_noise2_orca": 0.3157894736842105,
+       "J_noise3_orca": 0.4,
+       "size_2": 12,
+       "size_3": 15
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.5263157894736842,
+       "J_noise2_orca": 0.3157894736842105,
+       "J_noise3_orca": 0.42857142857142855,
+       "size_2": 12,
+       "size_3": 17
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.5,
+       "J_noise2_orca": 0.4117647058823529,
+       "J_noise3_orca": 0.3181818181818182,
+       "size_2": 11,
+       "size_3": 16
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.5625,
+       "J_noise2_orca": 0.375,
+       "J_noise3_orca": 0.38095238095238093,
+       "size_2": 9,
+       "size_3": 16
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.47058823529411764,
+       "J_noise2_orca": 0.4,
+       "J_noise3_orca": 0.42857142857142855,
+       "size_2": 8,
+       "size_3": 17
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.6666666666666666,
+       "J_noise2_orca": 0.4,
+       "J_noise3_orca": 0.4,
+       "size_2": 15,
+       "size_3": 15
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.7333333333333333,
+       "J_noise2_orca": 0.3888888888888889,
+       "J_noise3_orca": 0.42105263157894735,
+       "size_2": 12,
+       "size_3": 14
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.7333333333333333,
+       "J_noise2_orca": 0.3888888888888889,
+       "J_noise3_orca": 0.42105263157894735,
+       "size_2": 12,
+       "size_3": 14
+      }
+     ],
+     "global_J_noise_noise_median": 0.6145833333333333,
+     "global_J_noise_noise_range": [
+      0.47058823529411764,
+      0.7857142857142857
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.612429586159025,
+       "median": 0.6111111111111112,
+       "range95": [
+        0.4666666666666667,
+        0.7857142857142857
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.37702001125250734,
+       "median": 0.375,
+       "range95": [
+        0.2777777777777778,
+        0.5
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.3964458102684247,
+       "median": 0.4,
+       "range95": [
+        0.3181818181818182,
+        0.47368421052631576
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.225696675398559,
+       "median": 0.22352941176470587,
+       "range95": [
+        0.07777777777777772,
+        0.3690540689960194
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 1.0,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.739721110562188,
+       "median": 0.7368421052631579,
+       "range95": [
+        0.5789473684210527,
+        0.8948684210526296
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.3948391052646147,
+       "median": 0.4,
+       "range95": [
+        0.30434782608695654,
+        0.5
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.8103857517456743,
+       "median": 0.8125,
+       "range95": [
+        0.6470588235294118,
+        0.9333333333333333
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0001
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.6814578147718182,
+       "median": 0.6842105263157895,
+       "range95": [
+        0.5,
+        0.875
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.36997356958545513,
+       "median": 0.36363636363636365,
+       "range95": [
+        0.2608695652173913,
+        0.5
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.6782902050682164,
+       "median": 0.6842105263157895,
+       "range95": [
+        0.5,
+        0.8666666666666667
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0028
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      25,
+      65
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      196,
+      235
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.3846153846153847,
+     "mean_freeing_fraction_orca_freed": 0.8340425531914895,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.8134206219312602,
+     "auc_ci95_snapshot_boot": [
+      0.6651850198412699,
+      0.9366576819407008
+     ],
+     "mannwhitney_two_sided_p": 0.00014558330006944037,
+     "perm_p_one_sided_auc": 0.00019998000199980003,
+     "log_odds_ratio": -2.0669852813503526,
+     "odds_ratio": 0.12656677033267366,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -3.3737428902326645,
+      -1.0178808207800283
+     ],
+     "fisher_runs_one_sided_p": 5.612376136497173e-12,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   },
+   "noise0p07": {
+    "noise_freed_runs": 265,
+    "noise_runs": 300,
+    "noise_unresolved": 5,
+    "noise_unresolved_tags": [
+     "E1b_seed69",
+     "E1b_seed83",
+     "E1b_seed174",
+     "E1b_seed192",
+     "E1b_seed237"
+    ],
+    "shared": 3,
+    "J_observed": 0.2,
+    "J_observed_method": "minority (unresolved) sets, noise by majority of 5 seeds (k <= 2), ORCA unperturbed",
+    "J_ci95_snapshot_boot": [
+     0.0,
+     0.42857142857142855
+    ],
+    "J_ci95_two_level_boot": [
+     0.0,
+     0.4375
+    ],
+    "J_ci_method": "snapshot bootstrap with multiplicity; two-level: resample snapshots, then 5 seeds with replacement within each, majority rule recomputed; 10000 draws, percentile",
+    "independence": {
+     "N": 60,
+     "size_a": 13,
+     "size_b": 5,
+     "expected_overlap": 1.0833333333333333,
+     "expected_J": 0.06709179496031703,
+     "J_range95": [
+      0.0,
+      0.2
+     ],
+     "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+     "p_J_ge_observed": 0.06299684043539591,
+     "p_J_le_observed": 0.9936112929899267
+    },
+    "split_2v3": {
+     "rule": "split each snapshot's 5 seeds into 2 and 3; within each half a snapshot is noise-unresolved when fewer than half its seeds free it (2 seeds: none frees; 3 seeds: at most one frees); the same halves are also compared with ORCA, so both comparisons use equally few seeds",
+     "global_splits": [
+      {
+       "seeds_2": [
+        0,
+        1
+       ],
+       "J_noise2_noise3": 0.16666666666666666,
+       "J_noise2_orca": 0.06666666666666667,
+       "J_noise3_orca": 0.3076923076923077,
+       "size_2": 3,
+       "size_3": 4
+      },
+      {
+       "seeds_2": [
+        0,
+        2
+       ],
+       "J_noise2_noise3": 0.14285714285714285,
+       "J_noise2_orca": 0.07692307692307693,
+       "J_noise3_orca": 0.25,
+       "size_2": 1,
+       "size_3": 7
+      },
+      {
+       "seeds_2": [
+        0,
+        3
+       ],
+       "J_noise2_noise3": 0.1111111111111111,
+       "J_noise2_orca": 0.07142857142857142,
+       "J_noise3_orca": 0.23529411764705882,
+       "size_2": 2,
+       "size_3": 8
+      },
+      {
+       "seeds_2": [
+        0,
+        4
+       ],
+       "J_noise2_noise3": 0.09090909090909091,
+       "J_noise2_orca": 0.125,
+       "J_noise3_orca": 0.25,
+       "size_2": 5,
+       "size_3": 7
+      },
+      {
+       "seeds_2": [
+        1,
+        2
+       ],
+       "J_noise2_noise3": 0.08333333333333333,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.23529411764705882,
+       "size_2": 5,
+       "size_3": 8
+      },
+      {
+       "seeds_2": [
+        1,
+        3
+       ],
+       "J_noise2_noise3": 0.125,
+       "J_noise2_orca": 0.14285714285714285,
+       "J_noise3_orca": 0.1875,
+       "size_2": 3,
+       "size_3": 6
+      },
+      {
+       "seeds_2": [
+        1,
+        4
+       ],
+       "J_noise2_noise3": 0.16666666666666666,
+       "J_noise2_orca": 0.2,
+       "J_noise3_orca": 0.07142857142857142,
+       "size_2": 5,
+       "size_3": 2
+      },
+      {
+       "seeds_2": [
+        2,
+        3
+       ],
+       "J_noise2_noise3": 0.14285714285714285,
+       "J_noise2_orca": 0.07692307692307693,
+       "J_noise3_orca": 0.25,
+       "size_2": 1,
+       "size_3": 7
+      },
+      {
+       "seeds_2": [
+        2,
+        4
+       ],
+       "J_noise2_noise3": 0.14285714285714285,
+       "J_noise2_orca": 0.15384615384615385,
+       "J_noise3_orca": 0.11764705882352941,
+       "size_2": 2,
+       "size_3": 6
+      },
+      {
+       "seeds_2": [
+        3,
+        4
+       ],
+       "J_noise2_noise3": 0.1111111111111111,
+       "J_noise2_orca": 0.23076923076923078,
+       "J_noise3_orca": 0.17647058823529413,
+       "size_2": 3,
+       "size_3": 7
+      }
+     ],
+     "global_J_noise_noise_median": 0.13392857142857142,
+     "global_J_noise_noise_range": [
+      0.08333333333333333,
+      0.16666666666666666
+     ],
+     "random_per_snapshot_splits": {
+      "J_noise_noise": {
+       "n_draws_finite": 10000,
+       "mean": 0.12580054084804082,
+       "median": 0.125,
+       "range95": [
+        0.09090909090909091,
+        0.16666666666666666
+       ]
+      },
+      "J_noise2_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.1345834007860904,
+       "median": 0.14285714285714285,
+       "range95": [
+        0.06666666666666667,
+        0.26666666666666666
+       ]
+      },
+      "J_noise3_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.2091311001769129,
+       "median": 0.2,
+       "range95": [
+        0.06666666666666667,
+        0.35294117647058826
+       ]
+      },
+      "J_noise_noise_minus_J_noise_orca": {
+       "n_draws_finite": 10000,
+       "mean": -0.0460567096334608,
+       "median": -0.04225023342670403,
+       "range95": [
+        -0.13214285714285715,
+        0.034455128205128194
+       ]
+      },
+      "frac_J_noise_noise_gt_J_noise_orca": 0.1621,
+      "method": "10000 independent random 2|3 splits per snapshot; difference = J(n2,n3) - mean(J(n2,O), J(n3,O))"
+     }
+    },
+    "replicate_5seed_parametric": {
+     "plugin": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.4096496459096459,
+       "median": 0.4,
+       "range95": [
+        0.125,
+        0.7142857142857143
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.21162467205910707,
+       "median": 0.2,
+       "range95": [
+        0.06666666666666667,
+        0.35714285714285715
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.503250714008214,
+       "median": 0.5,
+       "range95": [
+        0.2222222222222222,
+        0.8333333333333334
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0812
+     },
+     "jeffreys": {
+      "J_noise5_noise5": {
+       "n_draws_finite": 10000,
+       "mean": 0.4590065895147165,
+       "median": 0.45454545454545453,
+       "range95": [
+        0.2,
+        0.75
+       ]
+      },
+      "J_noise5_orca": {
+       "n_draws_finite": 10000,
+       "mean": 0.2140609738111532,
+       "median": 0.21052631578947367,
+       "range95": [
+        0.0625,
+        0.375
+       ]
+      },
+      "J_observed_noise_vs_replicate": {
+       "n_draws_finite": 10000,
+       "mean": 0.37130599281437515,
+       "median": 0.36363636363636365,
+       "range95": [
+        0.125,
+        0.6666666666666666
+       ]
+      },
+      "p_J_noise_noise_le_observed_J_noise_orca": 0.0341
+     },
+     "method": "two independent 5-seed replicates per snapshot drawn as Binomial(5, p_i), majority rule; plugin: p_i = k_i/5; jeffreys: p_i ~ Beta(k_i + 1/2, 5 - k_i + 1/2) per draw; 10000 draws"
+    },
+    "association_with_orca": {
+     "noise_freed_runs_on_orca_unresolved": [
+      47,
+      65
+     ],
+     "noise_freed_runs_on_orca_freed": [
+      218,
+      235
+     ],
+     "mean_freeing_fraction_orca_unresolved": 0.7230769230769231,
+     "mean_freeing_fraction_orca_freed": 0.9276595744680851,
+     "auc_low_noise_freeing_for_orca_unresolved": 0.6923076923076923,
+     "auc_ci95_snapshot_boot": [
+      0.5404801974520046,
+      0.8494295194574614
+     ],
+     "mannwhitney_two_sided_p": 0.0056541308283139975,
+     "perm_p_one_sided_auc": 0.005099490050994901,
+     "log_odds_ratio": -1.58162615464986,
+     "odds_ratio": 0.2056404230317274,
+     "log_odds_ratio_ci95_cluster_boot": [
+      -2.806191264708989,
+      -0.3910286254393817
+     ],
+     "fisher_runs_one_sided_p": 3.148396904818248e-05,
+     "method": "AUC = Mann-Whitney P(noise freeing fraction k_i/5 lower on an ORCA-unresolved snapshot), ties 1/2; permutation p (ORCA labels across snapshots, 10000, one-sided); log odds ratio of a noise run freeing on ORCA-unresolved vs ORCA-freed snapshots = the binomial logistic regression coefficient on the ORCA-outcome indicator (+1/2 per cell), interval by snapshot (cluster) bootstrap; Fisher exact on runs ignores clustering and is given for reference"
+    }
+   }
+  },
+  "predictors": {
+   "n_matched": 56,
+   "n_barrier_failed_gate": 4,
+   "barrier": "data/BAR/barriers_gated.json, condition full (all agents mobile), accepted values only",
+   "margin": "blocker rest-state margin under C3 (data/E1/E1_runs.jsonl attrs.margin_C3, as E2 uses)",
+   "spearman_dU_margin_C3": 0.5639781271360218,
+   "spearman_dU_margin_C3_ci95": [
+    0.334744373958937,
+    0.7322655420950566
+   ],
+   "spearman_dU_margin_C1": 0.5162679425837321,
+   "spearman_dU_alone_margin_C3": 0.8876910252848015,
+   "orca_fail_auc_margin_C3": 0.6534090909090909,
+   "orca_fail_auc_margin_C3_ci95": [
+    0.4490028188865398,
+    0.8383838383838383
+   ],
+   "orca_fail_auc_dU": 0.571969696969697,
+   "orca_fail_auc_dU_ci95": [
+    0.31737614348853943,
+    0.8146406388642411
+   ],
+   "orca_fail_auc_margin_minus_dU_ci95": [
+    -0.028847789115646266,
+    0.20833333333333331
+   ],
+   "orca_fail_perm_p_auc_dU": 0.45465453454654536,
+   "noise0p03": {
+    "n_snapshots_not_always_freed": 39,
+    "n_unresolved_majority": 29,
+    "spearman_freeing_dU": -0.7471507507802561,
+    "spearman_freeing_dU_ci95": [
+     -0.8792584126514814,
+     -0.5672296246565909
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.528802695226932,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.7112999307913116,
+     -0.3165139700379902
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.4426267666031612,
+     -0.002110107359258599
+    ],
+    "auc_dU_for_noise_unresolved": 0.9208173690932312,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.8287136299885248,
+     0.9897828863346104
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.7713920817369093,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.6346153846153846,
+     0.8902784863945578
+    ]
+   },
+   "noise0p05": {
+    "n_snapshots_not_always_freed": 24,
+    "n_unresolved_majority": 14,
+    "spearman_freeing_dU": -0.7441187452455161,
+    "spearman_freeing_dU_ci95": [
+     -0.8634121865254271,
+     -0.555117693849743
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.56661660657618,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.7246496930149385,
+     -0.3650137837658376
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.38700415443978226,
+     0.030726537100731813
+    ],
+    "auc_dU_for_noise_unresolved": 0.9030612244897959,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.757719881744272,
+     0.9933333333333333
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.8095238095238095,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.6870748299319728,
+     0.9105753458850376
+    ]
+   },
+   "noise0p07": {
+    "n_snapshots_not_always_freed": 14,
+    "n_unresolved_majority": 4,
+    "spearman_freeing_dU": -0.6973960804008973,
+    "spearman_freeing_dU_ci95": [
+     -0.7925974358977216,
+     -0.5493726628115421
+    ],
+    "spearman_freeing_dU_perm_p": 9.999000099990002e-05,
+    "spearman_freeing_margin_C3": -0.55855675992305,
+    "spearman_freeing_margin_C3_ci95": [
+     -0.7059134971676589,
+     -0.38126282138658696
+    ],
+    "spearman_freeing_margin_C3_perm_p": 9.999000099990002e-05,
+    "spearman_dU_minus_margin_ci95": [
+     -0.28900766244984377,
+     -0.01198361307596793
+    ],
+    "auc_dU_for_noise_unresolved": 0.8942307692307693,
+    "auc_dU_for_noise_unresolved_ci95": [
+     0.7037037037037037,
+     1.0
+    ],
+    "auc_margin_C3_for_noise_unresolved": 0.8509615384615384,
+    "auc_margin_C3_for_noise_unresolved_ci95": [
+     0.6481481481481481,
+     1.0
+    ]
+   },
+   "method": "Spearman rank correlation of the per-snapshot noise freeing fraction k_i/5 with dU and with the C3 margin; AUC (Mann-Whitney, ties 1/2) of each predictor for ORCA's unresolved snapshots and for noise's majority-unresolved snapshots; snapshot bootstrap 95% intervals (10000), two-sided permutation p (10000)"
+  },
+  "label": "both lone strata (60 snapshots), supplementary"
+ },
+ "whole_runs": {
+  "n_seeds": 186,
+  "C3_rvo2_fail": 85,
+  "noise_sigma_star_fail": 87,
+  "both_fail": 50,
+  "discordant": 72,
+  "union": 122,
+  "J_observed": 0.4098360655737705,
+  "J_ci95_seed_boot": [
+   0.3240549289891395,
+   0.5
+  ],
+  "J_ci_method": "seed bootstrap with multiplicity, 10000 draws, percentile",
+  "independence": {
+   "N": 186,
+   "size_a": 85,
+   "size_b": 87,
+   "expected_overlap": 39.75806451612903,
+   "expected_J": 0.30150740608039384,
+   "J_range95": [
+    0.23741007194244604,
+    0.36507936507936506
+   ],
+   "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+   "p_J_ge_observed": 0.0019776906634262847,
+   "p_J_le_observed": 0.9992634354649707
+  },
+  "independence_perm_mean": 0.30164035536663303,
+  "independence_perm_range95": [
+   0.23741007194244604,
+   0.36507936507936506
+  ],
+  "noise_replicates_per_seed": 1,
+  "seeds_shared_with_E5b": 0,
+  "noise_noise_J": null,
+  "noise_noise_note": "E6b has one noise stream per start (seeds 242-427) and no other whole-run noise data share these starts (E5b uses seeds 42-141); J(noise, noise') needs run-N2"
+ },
+ "pair": {
+  "pub": {
+   "bias_arm": "bstar_pub+",
+   "orca_arm": "C3_pub",
+   "n_snapshots": 46,
+   "bias_freed": 22,
+   "orca_freed": 21,
+   "both_freed": 13,
+   "union": 30,
+   "J_observed": 0.43333333333333335,
+   "J_ci95_snapshot_boot": [
+    0.25,
+    0.6176470588235294
+   ],
+   "independence": {
+    "N": 46,
+    "size_a": 22,
+    "size_b": 21,
+    "expected_overlap": 10.043478260869565,
+    "expected_J": 0.3082749549072508,
+    "J_range95": [
+     0.19444444444444445,
+     0.43333333333333335
+    ],
+    "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+    "p_J_ge_observed": 0.07243186981592989,
+    "p_J_le_observed": 0.9802557638512631
+   },
+   "same_resolver_reference": "both resolvers deterministic (0 of 230 replays change the outcome): J = 1"
+  },
+  "rvo2": {
+   "bias_arm": "bstar_rvo2+",
+   "orca_arm": "C3_rvo2",
+   "n_snapshots": 46,
+   "bias_freed": 8,
+   "orca_freed": 7,
+   "both_freed": 0,
+   "union": 15,
+   "J_observed": 0.0,
+   "J_ci95_snapshot_boot": [
+    0.0,
+    0.0
+   ],
+   "independence": {
+    "N": 46,
+    "size_a": 8,
+    "size_b": 7,
+    "expected_overlap": 1.2173913043478262,
+    "expected_J": 0.09356970599535712,
+    "J_range95": [
+     0.0,
+     0.25
+    ],
+    "method": "exact hypergeometric overlap X ~ H(N, a, b), J = X/(a+b-X)",
+    "p_J_ge_observed": 1.0,
+    "p_J_le_observed": 0.2357838664332043
+   },
+   "same_resolver_reference": "both resolvers deterministic (0 of 230 replays change the outcome): J = 1",
+   "J_upper95_cp": 0.2363297760321288,
+   "J_upper95_method": "0 of the 7 snapshots of the smaller freed set are shared; Clopper-Pearson upper end (two-sided 95%) of the shared fraction, 0.410, converted to J with the observed set sizes",
+   "J_interval95": [
+    0.0,
+    0.2363297760321288
+   ]
+  }
+ },
+ "headline": {
+  "lone_J_noise_orca": 0.2,
+  "lone_J_noise_noise_split_median": 0.25,
+  "lone_J_noise_noise_split_range95": [
+   0.14285714285714285,
+   0.5
+  ],
+  "lone_J_noise_orca_split_median": 0.25,
+  "lone_J_independent": 0.04812834224598931,
+  "whole_J": 0.4098360655737705,
+  "whole_J_independent": 0.30150740608039384,
+  "pair_pub_J": 0.43333333333333335,
+  "pair_pub_J_independent": 0.3082749549072508,
+  "pair_rvo2_J": 0.0,
+  "pair_rvo2_J_independent": 0.09356970599535712
+ }
+}

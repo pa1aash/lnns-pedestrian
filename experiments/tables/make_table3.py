@@ -90,6 +90,11 @@ def ci(v, lo, hi):
     return f"{v} [{lo}, {hi}]"
 
 
+def jind(cell, ind):
+    """J cell followed by its expectation for independent sets of the same sizes (A-1), in parentheses."""
+    return "{} ({})".format(cell, m(ind)[0])
+
+
 def one(n):
     return m(n)[0]
 
@@ -98,7 +103,9 @@ def rvo2_pair_jaccard():
     """The RVO2 pair freed sets are disjoint (J = 0, interval [0, 0]): print "0 (disjoint)"; else value [CI]."""
     j = json.loads((ROOT / "data" / "derived" / "E7b_analysis.json").read_text())["s3_matched"]["rvo2"]["jaccard_freed"]
     if j["value"] == 0 and max(j["ci95"]) == 0:
-        return one("TabThreePairRvoJacFInt") + " (disjoint)"
+        # J = 0: the bootstrap interval is degenerate; the upper bound is the Clopper-Pearson bound on the
+        # shared fraction converted to J (experiments/fixan/fix_a1.py).
+        return jind("{} [0, {}]".format(*m("TabThreePairRvoJacFInt", "FixAonePairRvoJHi")), "FixAonePairRvoJInd")
     return ci("TabThreePairRvoJacF", "TabThreePairRvoJacFLo", "TabThreePairRvoJacFHi")
 
 
@@ -109,7 +116,7 @@ BLOCKS = [
         (r"C1 + noise $\sigma=0.07$\,m/s",
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
          diff("TabThreeLKDiff", "TabThreeLKDiffLo", "TabThreeLKDiffHi"),
-         ci("EtwoLKJaccardC", "EtwoLKJaccardCLo", "EtwoLKJaccardCHi"),
+         jind(ci("FixAoneLoneJ", "FixAoneLoneJLo", "FixAoneLoneJHi"), "FixAoneLoneJInd"),
          one("TabThreeLKNoiseMed"), NA,
          frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA),
         ("C3 RVO2",
@@ -128,7 +135,7 @@ BLOCKS = [
         (r"C1 + noise $\sigma^\ast$",
          frac("EsixNoiseK", "EsixN"),
          diff("EsixDiff", "EsixDiffLo", "EsixDiffHi"),
-         ci("EsixJaccard", "EsixJaccardLo", "EsixJaccardHi"),
+         jind(ci("EsixJaccard", "EsixJaccardLo", "EsixJaccardHi"), "FixAoneWholeJInd"),
          one("EsixKMNoise"), NA, NA, NA),
         ("C3 RVO2", frac("EsixCThreeK", "EsixN"), "", "", one("EsixKMCThree"), NA, NA, NA),
     ]),
@@ -136,7 +143,7 @@ BLOCKS = [
         (r"bias $b^\ast_{\rm pub}=" + one("PairBstarPub") + "$",
          frac("PairBsPubFreed", "PairN"),
          diff("TabThreePairPubDiff", "TabThreePairPubDiffLo", "TabThreePairPubDiffHi"),
-         ci("PairBsPubJac", "PairBsPubJacLo", "PairBsPubJacHi"),
+         jind(ci("PairBsPubJac", "PairBsPubJacLo", "PairBsPubJacHi"), "FixAonePairPubJInd"),
          PAIR_T, frac("PairBsPubHand", "PairBsPubN"),
          frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"), NA),
         ("C3 published",
@@ -157,11 +164,11 @@ BLOCKS = [
 ]
 
 CAPTION = (
-    r"Controls matched to ORCA on rate, against the signatures that separate them: freed count (whole runs: "
-    r"completed), paired difference $\Delta$ from ORCA, Jaccard index $J$ of the minority outcome sets, "
-    r"Kaplan--Meier median $t_{1/2}$, first exits by the lower member, outcome changes under $10^{-9}$\,m replays "
-    r"(noise: snapshots whose seeds disagree), and $\ell$ of Eq.~\eqref{eq:ell} with its prediction. "
-    r"Intervals are 95\%; noise rows count runs, five seeds per snapshot, and --- is not measured."
+    r"Controls matched to ORCA on rate, with their signatures: freed (whole runs: completed), paired difference "
+    r"$\Delta$ from ORCA, Jaccard $J$ of the minority outcome sets (independent sets in parentheses), Kaplan--Meier "
+    r"median $t_{1/2}$, first exits by the lower member, outcome changes under $10^{-9}$\,m replays (noise: snapshots "
+    r"whose seeds disagree), and $\ell$ of Eq.~\eqref{eq:ell} (prediction in parentheses). "
+    r"Intervals are 95\%; noise rows count runs, five seeds per snapshot; --- is not measured."
 )
 
 
