@@ -3,15 +3,15 @@
 \subsection{The Lone Trap}\label{sec:att-lone}
 \begin{figure}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/fig6_quench.pdf}
-\caption{Left: fraction of lone-trap deadlock snapshots whose blocker is freed within 120\,s under each intervention, with Wilson 95\% intervals; right: Kaplan--Meier cumulative fraction freed against time for the arms that free, both strata pooled. Filled markers are lone-keystone snapshots and open markers those with a second trap; C1 is black, C2 orange, C3 published sky blue, C3 RVO2 blue, the ORCA drive, constraint and frozen-mean arms reddish purple, lateral bias yellow and noise vermillion, and on the right the drive-only arm is dashed, frozen mean $+$ solid, and noise $\sigma=0.03$, $0.05$, $0.07$\,m/s dotted, dashed and solid.}
-\label{fig:quench}
-\end{figure}
-\begin{figure}[t]
-\centering
 \includegraphics{../figures/fig5_dt.pdf}
 \caption{Escape rate from deadlock snapshots against time step, normalised per snapshot by its value at $\Delta t=0.01$\,s (geometric means over snapshots with 95\% bootstrap intervals). Per-step noise is vermillion with filled circles ($\beta_{\rm ref}=1.5$) and squares ($2.5$) and its Arrhenius prediction from the exact discrete $k_BT_{\rm eff}$ as lines, $\sqrt{\Delta t}$-scaled noise light vermillion with open markers, and C3 RVO2 blue diamonds (inverse escape time).}
 \label{fig:dt}
+\end{figure}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig6_quench.pdf}
+\caption{Left: fraction of lone-trap deadlock snapshots whose blocker is freed within 120\,s under each intervention, with Wilson 95\% intervals; right: Kaplan--Meier cumulative fraction freed against time for the arms that free, both strata pooled. Filled markers are lone-keystone snapshots and open markers those with a second trap; C1 is black, C2 orange, C3 published sky blue, C3 RVO2 blue, the ORCA drive, constraint and frozen-mean arms reddish purple, lateral bias yellow and noise vermillion, and on the right the drive-only arm is dashed, frozen mean $+$ solid, and noise $\sigma=0.03$, $0.05$, $0.07$\,m/s dotted, dashed and solid.}
+\label{fig:quench}
 \end{figure}
 %
 The quench library holds \EtwoNAll\ corrected-forward snapshots in two strata: all \EtwoNLK\ lone-keystone deadlocks and \EtwoNST\ drawn from the class with a second trap. The outcome is whether the blocker is freed within 120\,s (Fig.~\ref{fig:quench}); \pending{Table~3 (matched-control results for both classes) is input once the pair-class rows (E7b) exist}.
