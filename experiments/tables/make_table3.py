@@ -94,6 +94,14 @@ def one(n):
     return m(n)[0]
 
 
+def rvo2_pair_jaccard():
+    """The RVO2 pair freed sets are disjoint (J = 0, interval [0, 0]): print "0 (disjoint)"; else value [CI]."""
+    j = json.loads((ROOT / "data" / "derived" / "E7b_analysis.json").read_text())["s3_matched"]["rvo2"]["jaccard_freed"]
+    if j["value"] == 0 and max(j["ci95"]) == 0:
+        return one("TabThreePairRvoJacFInt") + " (disjoint)"
+    return ci("TabThreePairRvoJacF", "TabThreePairRvoJacFLo", "TabThreePairRvoJacFHi")
+
+
 PAIR_T = r"$>$120"  # Kaplan--Meier median not reached within the 120 s window (fewer than half freed)
 
 BLOCKS = [
@@ -133,7 +141,7 @@ BLOCKS = [
         (r"bias $b^\ast_{\rm RVO2}=" + one("PairBstarRvo") + "$",
          frac("PairBsRvoFreed", "PairN"),
          diff("TabThreePairRvoDiff", "TabThreePairRvoDiffLo", "TabThreePairRvoDiffHi"),
-         ci("TabThreePairRvoJacF", "TabThreePairRvoJacFLo", "TabThreePairRvoJacFHi"),
+         rvo2_pair_jaccard(),
          PAIR_T, frac("TabThreePairRvoHand", "TabThreePairRvoHandN"),
          frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"), NA),
         ("C3 RVO2",

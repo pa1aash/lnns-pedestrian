@@ -131,3 +131,7 @@ C56 (2026-11-09) Table 3 overlap: J is computed on the minority outcome set of e
 C57 (2026-11-09) All intervals in the paper are 95%; the 90% interval of the pair block (from the internal equivalence margin) is replaced.
 C58 (2026-11-09) Figure captions sit below their figures (LNCS guidelines); Fig 5's side caption is reverted.
 C59 (2026-11-09) §6 may run about 0.3 page over its budget until the final page pass.
+C60 (2026-11-09) Fig 3 and the section 5.1 paragraph now report E7. Critical width at default walls is 0.88 m; the trap disappears with a short-range jamb wall law (B_w 0.04 m or 0.02 m, all walls or jambs only: 83-89% completion against 2%), is unchanged by rounded corners or a line goal (3-9%), and its residual deadlocks are collective pair standoffs (42 of 43) instead of lone traps. The wall-model assumption is therefore a first-order driver of the corrected-forward deadlock rate.
+C61 (2026-11-09) Prose standard: plan/PROSE_STANDARD.md (the authors' audit prompt) governs all drafting and fixing from now on.
+C62 (2026-11-09) Table 3: the RVO2 pair row prints its freed-set overlap as '0 (disjoint)'.
+C63 (2026-11-09) Framing: the critical width (0.88 m) holds for the default wall law; the jamb's wall range is the lever that sets both the trap and the deadlock class (lone traps under default walls, pair standoffs under short-range jambs).

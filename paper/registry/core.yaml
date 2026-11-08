@@ -1302,6 +1302,11 @@ TabThreePairRvoJacFHi:
   file: E7b_analysis.json
   key: "s3_matched.rvo2.jaccard_freed.ci95.1"
   fmt: "{:.2f}"
+# integer form for the disjoint case (Table 3 prints "0 (disjoint)" when the freed sets share no snapshot)
+TabThreePairRvoJacFInt:
+  file: E7b_analysis.json
+  key: "s3_matched.rvo2.jaccard_freed.value"
+  fmt: "{:.0f}"
 TabThreePairRvoHand:
   file: E7b_analysis.json
   key: "s3_matched.rvo2.handedness.plus_lower_first"
