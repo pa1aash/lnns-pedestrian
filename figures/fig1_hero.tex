@@ -1,0 +1,11 @@
+% Fig. 1 (hero): the Blender render with the vector overlay (arrows, coordinate lines, scale bars, labels, inset).
+% Input from paper/main.tex as \input{../figures/fig1_hero.tex}; the standalone mock defines \figdir and \heroimage.
+% Needs \usepackage{graphicx,tikz} and \usetikzlibrary{arrows.meta}.
+\providecommand{\figdir}{../figures/}%
+\providecommand{\heroimage}{\figdir fig1_hero.png}%
+\begin{tikzpicture}%
+  \node[anchor=south west,inner sep=0pt] at (0,0) {\includegraphics[width=\textwidth]{\heroimage}};%
+  \begin{scope}[x=\textwidth,y=\textwidth]%
+    \input{\figdir fig1_overlay.tex}%
+  \end{scope}%
+\end{tikzpicture}%

@@ -1,19 +1,16 @@
-"""Headless Blender render of the hero figure (Fig. 1, storyboard option C) from the .npz files of export_hero.py.
+"""Headless Blender render of the hero figure (Fig. 1): four panels from the .npz files of export_hero.py.
 
     blender -b -t 2 --factory-startup --python experiments/hero/render_hero.py -- \\
-        --width-px 900 --samples 24 --out figures/hero/storyboard/preview.png
+        --width-px 900 --samples 24 --out figures/hero/mock/fig1_hero_mock.png
 
-Nothing in the image but data. Agents are cylinders of their true radius (height stylised) coloured by
-stuck-alone margin, with a thin dark edge; walls are thin slabs along the model's zero-thickness segments;
-the floor carries the backward wall force on a lone r = 0.25 m agent (log colour scale).
-Both floor scenes (top: lone trap; bottom left: pair standoff) use the same orthographic camera elevation and
-the same pixels-per-metre, so a metre has one length in both. The two landscapes (bottom right, stacked)
-are the rest-state energy U over the common shift c = (dy_lo + dy_hi)/2 and the opposed shift
-o = (dy_hi - dy_lo)/2 of the pair, both in metres on one horizontal scale (true 1:1 aspect), height linear
-in U with one scale (--surf-zscale metres per joule), clipped to [--surf-umin, --surf-umax]. No text.
-
-Layout (canvas = 12.2 cm wide): top row lone-trap strip; bottom row pair floor | landscape before the fold
-over landscape after it.
+Layout (cm, 12.2 wide): 2 x 2, one white background, no panel borders.
+  top-left     lone scene (near-plan camera, elevation 65 deg, orthographic, 2.5 cm per metre of floor)
+  bottom-left  pair scene (same camera, elevation and scale)
+  top-right    lone-trap ribbons: own drive / added drive (front-on orthographic, one energy scale)
+  bottom-right pair ribbons: no tilt / tilted (its own energy scale)
+The image holds no text, arrows, lines or scale bars. Every overlay element is exported as 3-D anchor points
+projected to normalised image coordinates (bpy_extras.object_utils.world_to_camera_view) into
+figures/hero/fig1_overlay.json; tools/make_fig1_overlay.py turns that into figures/fig1_overlay.tex.
 """
 import argparse
 import json
@@ -26,14 +23,18 @@ from pathlib import Path
 
 import bpy
 import numpy as np
+from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data" / "derived" / "hero"
-ARGS = None
-BG = (0.955, 0.955, 0.950)          # neutral warm-white background (sRGB)
-WALL_RGB = (0.52, 0.52, 0.52)
-INACCESSIBLE_RGB = (0.86, 0.86, 0.85)
+A = None
+BG = (1.0, 1.0, 1.0)
+EDGE_RGB = (0.10, 0.10, 0.10)
+KERB_RGB = (0.62, 0.62, 0.60)
+INACCESSIBLE_RGB = (0.90, 0.90, 0.89)
+OKABE = {"black": (0.0, 0.0, 0.0), "blue": (0.0, 0.447, 0.698), "yellow": (0.941, 0.894, 0.259),
+         "vermillion": (0.835, 0.369, 0.0)}
 
 
 def srgb_to_linear(c):
@@ -45,115 +46,107 @@ def parse():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
+    ap.add_argument("--overlay", default=str(ROOT / "figures" / "hero" / "fig1_overlay.json"))
     ap.add_argument("--width-px", type=int, default=900)
-    ap.add_argument("--width-cm", type=float, default=12.2)
-    ap.add_argument("--height-cm", type=float, default=0.0, help="0: from the layout")
     ap.add_argument("--samples", type=int, default=24)
-    ap.add_argument("--tile", type=int, default=0, help="Cycles tile size (0: default)")
     ap.add_argument("--threads", type=int, default=2)
     ap.add_argument("--device", choices=["GPU", "CPU"], default="GPU")
-    ap.add_argument("--agent-cmap", default="cividis")
-    ap.add_argument("--field-cmap", default="magma_r")
-    ap.add_argument("--margin-span", type=float, default=150.0, help="N; margin +-span maps to ramp ends")
-    ap.add_argument("--force-max", type=float, default=1000.0, help="N; floor ramp top (clipped above)")
-    ap.add_argument("--force-min", type=float, default=1.0, help="N; floor ramp bottom for --force-scale log")
-    ap.add_argument("--force-scale", choices=["log", "linear"], default="log")
-    ap.add_argument("--light", type=float, default=0.6, help="overall light energy factor")
-    ap.add_argument("--agent-height", type=float, default=0.20, help="m, stylised")
-    ap.add_argument("--wall-height", type=float, default=0.42, help="m, stylised")
-    ap.add_argument("--wall-thickness", type=float, default=0.03, help="m, display only")
-    ap.add_argument("--elev", type=float, default=40.0, help="deg, camera elevation of both floor scenes")
-    ap.add_argument("--azim", type=float, default=0.0, help="deg, camera azimuth of both floor scenes (0: looking +x, screen right = +y)")
-    ap.add_argument("--floor-span-m", type=float, default=3.4, help="m of floor across the full-width top panel; sets the one pixels-per-metre")
-    ap.add_argument("--pair-span-m", type=float, default=1.56, help="m of floor across the pair panel (same pixels-per-metre)")
-    ap.add_argument("--land-frac", type=float, default=0.0, help="landscape column width fraction (0: whatever the pair panel leaves)")
-    ap.add_argument("--crop-x0", type=float, default=9.1)
-    ap.add_argument("--crop-x1", type=float, default=10.58)
-    ap.add_argument("--pair-x0", type=float, default=9.1, help="near crop edge of the pair panel (same elevation and scale)")
-    ap.add_argument("--panels", default="top,pair,b0,bfold")
-    ap.add_argument("--skirt", type=float, default=0.03, help="m, depth of the rim under the landscape edges")
-    ap.add_argument("--bevel", type=float, default=0.0, help="m, outward slope of the dark rim (outlines the landscape from above)")
-    ap.add_argument("--outline", type=float, default=0.006, help="m, width of the dark outline strip on the landscape boundary")
-    ap.add_argument("--edge", type=float, default=0.008, help="m, dark shading edge around each agent cylinder")
-    ap.add_argument("--land-elev", type=float, default=68.0, help="deg, camera elevation of the landscapes")
-    ap.add_argument("--land-azim", type=float, default=90.0, help="deg, landscape azimuth (90 = from -y, common axis left to right)")
-    ap.add_argument("--land-margin", type=float, default=0.04)
-    ap.add_argument("--surf-c", type=float, default=0.30, help="m, |common shift| shown")
-    ap.add_argument("--surf-o", type=float, default=0.04, help="m, |opposed shift| shown")
-    ap.add_argument("--surf-umin", type=float, default=-1.2, help="J, clip floor of the landscape")
-    ap.add_argument("--surf-umax", type=float, default=0.6, help="J, clip top of the landscape")
-    ap.add_argument("--surf-zscale", type=float, default=0.12, help="m of display height per joule (one scale for both landscapes)")
-    ap.add_argument("--world-strength", type=float, default=0.6)
-    ap.add_argument("--cam", default="{}", help="JSON overrides: {panel: {loc: [..], target: [..], lens: f}}")
+    ap.add_argument("--panels", default="lone,pair,rib_lone,rib_pair")
+    # layout, cm
+    ap.add_argument("--width-cm", type=float, default=12.2)
+    ap.add_argument("--col-cm", type=float, default=6.0)
+    ap.add_argument("--row-cm", type=float, default=3.65)
+    ap.add_argument("--gap-cm", type=float, default=0.2)
+    # floor scenes
+    ap.add_argument("--elev", type=float, default=65.0)
+    ap.add_argument("--cm-per-m", type=float, default=2.65, help="printed cm per metre of floor, both scenes")
+    ap.add_argument("--x0", type=float, default=9.18, help="m, near edge of both floor scenes")
+    ap.add_argument("--yc", type=float, default=5.0)
+    ap.add_argument("--agent-height", type=float, default=0.15, help="m, stylised")
+    ap.add_argument("--kerb-height", type=float, default=0.10, help="m, stylised")
+    ap.add_argument("--kerb-thick", type=float, default=0.035)
+    ap.add_argument("--edge", type=float, default=0.006, help="m, dark shading edge around each agent")
+    ap.add_argument("--bevel", type=float, default=0.008, help="m, bevel on discs and kerbs")
+    ap.add_argument("--margin-span", type=float, default=150.0)
+    ap.add_argument("--force-min", type=float, default=1.0)
+    ap.add_argument("--force-max", type=float, default=1000.0)
+    ap.add_argument("--arrow-m-per-n", type=float, default=0.003, help="floor metres per newton: 100 N = 0.30 m")
+    # ribbons
+    ap.add_argument("--lone-x", default="9.55,10.0", help="m, door-axis range of the lone ribbons")
+    ap.add_argument("--lone-ej", type=float, default=30.0, help="J per cm of ribbon height (lone)")
+    ap.add_argument("--pair-c", type=float, default=0.10, help="m, |common shift| of the pair ribbons")
+    ap.add_argument("--pair-ej", type=float, default=1.0, help="J per cm of ribbon height (pair)")
+    ap.add_argument("--rib-width-cm", type=float, default=4.1)
+    ap.add_argument("--rib-thick-cm", type=float, default=0.11)
+    ap.add_argument("--rib-depth-cm", type=float, default=0.40)
+    ap.add_argument("--ball-cm", type=float, default=0.11, help="ball radius")
+    ap.add_argument("--rib-elev", type=float, default=12.0)
+    ap.add_argument("--light", type=float, default=0.25)
+    ap.add_argument("--world-strength", type=float, default=0.35)
     a = ap.parse_args(argv)
-    a.cam = json.loads(a.cam)
     return a
 
 
-# ------------------------------------------------------------------ scene plumbing
+# ------------------------------------------------------------------ plumbing
 def reset():
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
 
-def setup_render(a, w, h):
+def setup_render(w, h):
     sc = bpy.context.scene
     sc.render.engine = "CYCLES"
     sc.render.resolution_x, sc.render.resolution_y = w, h
     sc.render.resolution_percentage = 100
     sc.render.threads_mode = "FIXED"
-    sc.render.threads = a.threads
-    sc.cycles.samples = a.samples
-    if a.tile:
-        sc.cycles.use_auto_tile = True
-        sc.cycles.tile_size = a.tile
+    sc.render.threads = A.threads
+    sc.cycles.samples = A.samples
     sc.cycles.use_denoising = True
     sc.cycles.max_bounces = 6
-    sc.view_settings.view_transform = "Standard"     # keep ramp colours as specified
+    sc.view_settings.view_transform = "Standard"
     sc.view_settings.look = "None"
-    sc.render.film_transparent = True              # composited over BG afterwards
+    sc.render.film_transparent = True
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGBA"
     sc.cycles.device = "CPU"
-    if a.device == "GPU":
+    if A.device == "GPU":
         prefs = bpy.context.preferences.addons["cycles"].preferences
-        for kind in ("METAL",):
-            try:
-                prefs.compute_device_type = kind
-                prefs.get_devices()
-                devs = [d for d in prefs.devices if d.type == kind]
-                if devs:
-                    for d in prefs.devices:
-                        d.use = d.type == kind
-                    sc.cycles.device = "GPU"
-                    break
-            except TypeError:
-                pass
+        try:
+            prefs.compute_device_type = "METAL"
+            prefs.get_devices()
+            devs = [d for d in prefs.devices if d.type == "METAL"]
+            if devs:
+                for d in prefs.devices:
+                    d.use = d.type == "METAL"
+                sc.cycles.device = "GPU"
+        except TypeError:
+            pass
     world = bpy.data.worlds.new("w")
     sc.world = world
     world.use_nodes = True
     world.node_tree.nodes["Background"].inputs[0].default_value = (*srgb_to_linear(BG), 1)
-    world.node_tree.nodes["Background"].inputs[1].default_value = a.world_strength
+    world.node_tree.nodes["Background"].inputs[1].default_value = A.world_strength
     return sc.cycles.device
 
 
-def material(name, rgb=None, attr=None, image=None, rough=0.55, spec=0.25):
+def material(name, rgb=None, image=None, rough=0.6, spec=0.25, alpha=1.0, metallic=0.0):
     m = bpy.data.materials.new(name)
     m.use_nodes = True
     nt = m.node_tree
     p = nt.nodes["Principled BSDF"]
     p.inputs["Roughness"].default_value = rough
     p.inputs["Specular IOR Level"].default_value = spec
+    p.inputs["Metallic"].default_value = metallic
+    p.inputs["Alpha"].default_value = alpha
     if rgb is not None:
         p.inputs["Base Color"].default_value = (*srgb_to_linear(rgb), 1)
-    if attr is not None:
-        n = nt.nodes.new("ShaderNodeVertexColor")
-        n.layer_name = attr
-        nt.links.new(n.outputs["Color"], p.inputs["Base Color"])
     if image is not None:
         n = nt.nodes.new("ShaderNodeTexImage")
         n.image = image
-        n.interpolation = "Closest"
+        n.interpolation = "Linear"
+        n.extension = "EXTEND"
         nt.links.new(n.outputs["Color"], p.inputs["Base Color"])
+    if alpha < 1.0:
+        m.blend_method = "BLEND" if hasattr(m, "blend_method") else None
     return m
 
 
@@ -162,33 +155,38 @@ def link(obj):
     return obj
 
 
-def mesh_obj(name, verts, faces, mat, colors=None, smooth=False):
+def mesh_obj(name, verts, faces, mat, smooth=False):
     me = bpy.data.meshes.new(name)
     me.from_pydata([tuple(v) for v in verts], [], [tuple(f) for f in faces])
     me.update()
-    if colors is not None:
-        ca = me.color_attributes.new("col", "FLOAT_COLOR", "POINT")
-        rgba = np.column_stack([srgb_to_linear(colors), np.ones(len(colors))])
-        ca.data.foreach_set("color", rgba.ravel().astype(np.float32))
     if smooth:
         me.shade_smooth()
     me.materials.append(mat)
     return link(bpy.data.objects.new(name, me))
 
 
-def cylinder(name, x, y, r, h, rgb, z0=0.0, n=96):
+def add_bevel(ob, width, segments=2):
+    md = ob.modifiers.new("bevel", "BEVEL")
+    md.width = width
+    md.segments = segments
+    md.limit_method = "ANGLE"
+    md.angle_limit = math.radians(35)
+
+
+def cylinder(name, x, y, r, h, rgb, z0=0.0, n=96, bevel=0.0, rough=0.5):
     th = np.linspace(0, 2 * np.pi, n, endpoint=False)
-    ring = np.column_stack([x + r * np.cos(th), y + r * np.sin(th)])
-    verts = [(*p, z0) for p in ring] + [(*p, z0 + h) for p in ring]
+    verts = [(x + r * math.cos(t), y + r * math.sin(t), z0) for t in th] + [(x + r * math.cos(t), y + r * math.sin(t), z0 + h) for t in th]
     faces = [(k, (k + 1) % n, n + (k + 1) % n, n + k) for k in range(n)]
     faces += [tuple(range(n - 1, -1, -1)), tuple(range(n, 2 * n))]
-    ob = mesh_obj(name, verts, faces, material(name, rgb, rough=0.45, spec=0.35))
-    for poly in ob.data.polygons:          # smooth sides, flat caps
+    ob = mesh_obj(name, verts, faces, material(name, rgb, rough=rough, spec=0.3))
+    for poly in ob.data.polygons:
         poly.use_smooth = len(poly.vertices) == 4
+    if bevel:
+        add_bevel(ob, bevel)
     return ob
 
 
-def slab(name, p0, p1, thick, h, rgb):
+def slab(name, p0, p1, thick, h, rgb, bevel=0.0):
     p0, p1 = np.asarray(p0, float), np.asarray(p1, float)
     d = p1 - p0
     L = np.linalg.norm(d)
@@ -199,21 +197,30 @@ def slab(name, p0, p1, thick, h, rgb):
     q = [p0 - nrm, p1 - nrm, p1 + nrm, p0 + nrm]
     verts = [(*c, 0.0) for c in q] + [(*c, h) for c in q]
     faces = [(0, 1, 2, 3)[::-1], (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
-    return mesh_obj(name, verts, faces, material(name, rgb, rough=0.7, spec=0.2))
+    ob = mesh_obj(name, verts, faces, material(name, rgb, rough=0.75, spec=0.2))
+    if bevel:
+        add_bevel(ob, bevel)
+    return ob
 
 
-def lut(name):
-    return np.load(DATA / "luts.npz")[name]
+def sphere(name, c, r, rgb, rough=0.25, alpha=1.0):
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=r, segments=48, ring_count=24, location=tuple(c))
+    ob = bpy.context.active_object
+    ob.name = name
+    ob.data.materials.append(material(name, rgb, rough=rough, spec=0.5, alpha=alpha))
+    bpy.ops.object.shade_smooth()
+    return ob
+
+
+LUTS = None
 
 
 def ramp(values, lo, hi, name):
-    L = lut(name)
     t = np.clip((np.asarray(values, float) - lo) / (hi - lo), 0, 1)
-    return L[np.round(t * 255).astype(int)]
+    return LUTS[name][np.round(t * 255).astype(int)]
 
 
 def clip_segment(p0, p1, box):
-    """Liang-Barsky clip of segment p0-p1 to box (x0, x1, y0, y1)."""
     x0, x1, y0, y1 = box
     p0, p1 = np.asarray(p0, float), np.asarray(p1, float)
     d = p1 - p0
@@ -233,117 +240,12 @@ def clip_segment(p0, p1, box):
     return p0 + t0 * d, p0 + t1 * d
 
 
-# ------------------------------------------------------------------ builders
-EDGE_RGB = (0.10, 0.10, 0.10)
-
-
-def build_floor_scene(a, D, box, margin_key="margin_N"):
-    """Floor field + walls + agents of one snapshot, in the snapshot's own world coordinates,
-    cropped to box = (x0, x1, y0, y1)."""
-    gx, gy = D["grid_x"], D["grid_y"]
-    ix = (gx >= box[0] - 1e-9) & (gx <= box[1] + 1e-9)
-    iy = (gy >= box[2] - 1e-9) & (gy <= box[3] + 1e-9)
-    F = D["wall_back_N"][np.ix_(iy, ix)]
-    feas = D["feasible"][np.ix_(iy, ix)]
-    if a.force_scale == "log":
-        rgb = ramp(np.log10(np.maximum(F, 1e-12)), np.log10(a.force_min), np.log10(a.force_max), a.field_cmap)
-    else:
-        rgb = ramp(F, 0.0, a.force_max, a.field_cmap)
-    rgb[~feas] = INACCESSIBLE_RGB
-    h_, w_ = F.shape
-    img = bpy.data.images.new("floor%d" % len(bpy.data.images), w_, h_, alpha=True)
-    img.colorspace_settings.name = "sRGB"
-    px = np.concatenate([rgb, np.ones((h_, w_, 1))], axis=2).astype(np.float32)
-    img.pixels.foreach_set(px.ravel())
-    img.pack()
-    x0, x1, y0, y1 = gx[ix][0], gx[ix][-1], gy[iy][0], gy[iy][-1]
-    dx, dy = gx[1] - gx[0], gy[1] - gy[0]
-    X0, X1, Y0, Y1 = x0 - dx / 2, x1 + dx / 2, y0 - dy / 2, y1 + dy / 2
-    me = bpy.data.meshes.new("floor")
-    me.from_pydata([(X0, Y0, 0), (X1, Y0, 0), (X1, Y1, 0), (X0, Y1, 0)], [], [(0, 1, 2, 3)])
-    uv = me.uv_layers.new()
-    for li, (u, v) in enumerate([(0, 0), (1, 0), (1, 1), (0, 1)]):
-        uv.data[li].uv = (u, v)
-    me.materials.append(material("floor", image=img, rough=0.9, spec=0.1))
-    link(bpy.data.objects.new("floor", me))
-    fb = (X0, X1, Y0, Y1)
-    for k, w in enumerate(D["walls"]):
-        seg = clip_segment(w[:2], w[2:], fb)
-        if seg is not None:
-            slab("wall%d" % k, seg[0], seg[1], a.wall_thickness, a.wall_height, WALL_RGB)
-    cols = ramp(D[margin_key], -a.margin_span, a.margin_span, a.agent_cmap)
-    for k, (p, r) in enumerate(zip(D["pos"], D["radius"])):
-        if fb[0] - r < p[0] < fb[1] + r and fb[2] - r < p[1] < fb[3] + r:
-            # dark edge: a slightly wider, slightly lower cylinder under the coloured one
-            cylinder("edge%d" % k, p[0], p[1], float(r) + a.edge, a.agent_height - 0.002, EDGE_RGB)
-            cylinder("agent%d" % k, p[0], p[1], float(r), a.agent_height, cols[k])
-    return fb
-
-
-def build_surface(a, P, tag):
-    """Landscape U(c, o) in metres: x = common shift c, y = opposed shift o (same metre scale),
-    z = (clip(U) - umin) * zscale. Coloured by U with the field ramp."""
-    cc, oo = P["co_c"], P["co_o"]
-    sel_c, sel_o = np.abs(cc) <= a.surf_c + 1e-9, np.abs(oo) <= a.surf_o + 1e-9
-    cc, oo = cc[sel_c], oo[sel_o]
-    U = P[f"U_co_{tag}_J"][np.ix_(sel_c, sel_o)]
-    # linear upsampling x2 (the export grid is 5 mm), then clip
-    f = 2
-    cu = np.linspace(cc[0], cc[-1], (len(cc) - 1) * f + 1)
-    ou = np.linspace(oo[0], oo[-1], (len(oo) - 1) * f + 1)
-    U = np.array([np.interp(ou, oo, row) for row in U])
-    U = np.array([np.interp(cu, cc, U[:, j]) for j in range(U.shape[1])]).T
-    cc, oo = cu, ou
-    n, m = U.shape
-    Uc = np.clip(U, a.surf_umin, a.surf_umax)
-    C, O = np.meshgrid(cc, oo, indexing="ij")
-    Z = (Uc - a.surf_umin) * a.surf_zscale
-    verts = np.column_stack([C.ravel(), O.ravel(), Z.ravel()])
-    faces = [(i * m + j, (i + 1) * m + j, (i + 1) * m + j + 1, i * m + j + 1) for i in range(n - 1) for j in range(m - 1)]
-    cols = ramp(Uc.ravel(), a.surf_umin, a.surf_umax, a.field_cmap)
-    # skirts: vertical walls from each edge down to the base plane, edge colours copied
-    idx = np.arange(n * m).reshape(n, m)
-    edges = [idx[:, 0], idx[:, -1], idx[0, :], idx[-1, :]]
-    normals = [(-1.0, 0.0), (1.0, 0.0), (0.0, -1.0), (0.0, 1.0)]    # outward, per edge in `edges`
-    normals = [(0.0, -1.0), (0.0, 1.0), (-1.0, 0.0), (1.0, 0.0)]
-    extra_v, extra_c = [], []
-    for e, nrm in zip(edges, normals):
-        base = len(verts) + len(extra_v)
-        for k in e:
-            extra_v.append((verts[k][0] + nrm[0] * a.bevel, verts[k][1] + nrm[1] * a.bevel, verts[k][2] - a.skirt))
-            extra_c.append(EDGE_RGB)
-        for q in range(len(e) - 1):
-            faces.append((e[q], e[q + 1], base + q + 1, base + q))
-    # thin dark outline on the top surface along its four boundary edges (keeps the pale low-energy ends visible)
-    for e, nrm in zip(edges, normals):
-        base = len(verts) + len(extra_v)
-        for k in e:
-            extra_v.append((verts[k][0] - nrm[0] * a.outline, verts[k][1] - nrm[1] * a.outline, verts[k][2] + 0.0006))
-            extra_v.append((verts[k][0], verts[k][1], verts[k][2] + 0.0006))
-            extra_c += [EDGE_RGB, EDGE_RGB]
-        for q in range(len(e) - 1):
-            faces.append((base + 2 * q, base + 2 * q + 1, base + 2 * q + 3, base + 2 * q + 2))
-    verts = np.vstack([verts, np.array(extra_v)])
-    cols = np.vstack([cols, np.array(extra_c)])
-    ob = mesh_obj("surf_" + tag, verts, faces, material("surf_" + tag, attr="col", rough=0.5, spec=0.3), cols, smooth=False)
-    for k, poly in enumerate(ob.data.polygons):      # smooth the relief, keep the skirts flat
-        poly.use_smooth = k < (n - 1) * (m - 1)
-    # frozen state (c = o = 0) as a small sphere resting on the surface
-    i0, j0 = int(np.argmin(np.abs(cc))), int(np.argmin(np.abs(oo)))
-    rad = 0.014
-    bpy.ops.mesh.primitive_uv_sphere_add(radius=rad, segments=32, ring_count=16, location=(0.0, 0.0, Z[i0, j0] + rad))
-    sp = bpy.context.active_object
-    sp.data.materials.append(material("state" + tag, (0.12, 0.12, 0.12), rough=0.4))
-    bpy.ops.object.shade_smooth()
-    return (cc[0] - a.bevel, cc[-1] + a.bevel, oo[0] - a.bevel, oo[-1] + a.bevel, float(Z.min() - a.skirt), float(Z.max() + 2 * rad))
-
-
-def lights(target, scale=1.0, k=None, az=0.0):
-    k = ARGS.light if k is None else k
+def area_lights(target, scale, k=None, az=0.0, spec=None):
+    k = A.light if k is None else k
     t = Vector(target)
     ca, sa = math.cos(math.radians(az)), math.sin(math.radians(az))
-    for nm, off, energy, size in (("key", (-2.2, -2.6, 3.6), 520, 2.6), ("fill", (3.0, -1.0, 2.2), 160, 3.0),
-                                  ("rim", (0.5, 3.2, 2.5), 140, 2.0)):
+    for nm, off, energy, size in (spec or (("key", (-2.2, -2.6, 3.6), 520, 2.6), ("fill", (3.0, -1.0, 2.2), 160, 3.0),
+                                           ("rim", (0.5, 3.2, 2.5), 140, 2.0))):
         ld = bpy.data.lights.new(nm, "AREA")
         ld.energy = energy * scale ** 2 * k
         ld.size = size * scale
@@ -354,7 +256,7 @@ def lights(target, scale=1.0, k=None, az=0.0):
 
 def view_vectors(azim, elev):
     az, el = math.radians(azim), math.radians(elev)
-    d = np.array([-math.cos(el) * math.cos(az), -math.cos(el) * math.sin(az), math.sin(el)])   # target -> camera
+    d = np.array([-math.cos(el) * math.cos(az), -math.cos(el) * math.sin(az), math.sin(el)])
     right = np.array([-math.sin(az), math.cos(az), 0.0])
     up = np.array([math.sin(el) * math.cos(az), math.sin(el) * math.sin(az), math.cos(el)])
     return d, right, up
@@ -366,53 +268,180 @@ def ortho_camera(target, azim, elev, ortho_scale):
     cd.type = "ORTHO"
     cd.ortho_scale = ortho_scale
     cd.sensor_fit = "HORIZONTAL"
-    cd.clip_start, cd.clip_end = 0.1, 200.0
+    cd.clip_start, cd.clip_end = 0.05, 400.0
     cam = link(bpy.data.objects.new("cam", cd))
     cam.location = Vector(target) + Vector(d.tolist()) * 40.0
     cam.rotation_euler = (Vector(target) - cam.location).to_track_quat("-Z", "Y").to_euler()
     bpy.context.scene.camera = cam
+    bpy.context.view_layer.update()
+    return cam
 
 
-def box_corners(box):
-    return np.array([(x, y, z) for x in box[:2] for y in box[2:4] for z in box[4:]], float)
+class Anchors:
+    """Projects 3-D anchor points of one panel to normalised coordinates of the full composite."""
+
+    def __init__(self, off, size, canvas):
+        self.off, self.size, self.canvas = off, size, canvas     # px (x, y from top), (w, h), (W, H)
+        self.pts = {}
+
+    def add(self, name, p):
+        sc = bpy.context.scene
+        u, v, _ = world_to_camera_view(sc, sc.camera, Vector([float(c) for c in p]))
+        W, H = self.canvas
+        self.pts[name] = [round((self.off[0] + u * self.size[0]) / W, 5), round(1.0 - (self.off[1] + (1.0 - v) * self.size[1]) / H, 5)]
+        return self.pts[name]
 
 
-def screen_extent(box, azim, elev):
-    _, right, up = view_vectors(azim, elev)
-    P = box_corners(box)
-    r, u = P @ right, P @ up
-    return r.min(), r.max(), u.min(), u.max()
+# ------------------------------------------------------------------ floor scenes
+def floor_scene(D, anc, kind, extras):
+    h_cm = A.row_cm
+    sin_el = math.sin(math.radians(A.elev))
+    wm = A.col_cm / A.cm_per_m                           # metres across
+    dx = h_cm / (A.cm_per_m * sin_el)                    # metres of depth
+    box = (A.x0, A.x0 + dx, A.yc - wm / 2, A.yc + wm / 2)
+    gx, gy = D["grid_x"], D["grid_y"]
+    ix = (gx >= box[0] - 0.02) & (gx <= box[1] + 0.02)
+    iy = (gy >= box[2] - 0.02) & (gy <= box[3] + 0.02)
+    F = D["wall_back_N"][np.ix_(iy, ix)]
+    feas = D["feasible"][np.ix_(iy, ix)]
+    rgb = ramp(np.log10(np.maximum(F, 1e-12)), math.log10(A.force_min), math.log10(A.force_max), "magma_r")
+    rgb[~feas] = INACCESSIBLE_RGB
+    h_, w_ = F.shape
+    img = bpy.data.images.new("floor", w_, h_, alpha=True)
+    img.colorspace_settings.name = "sRGB"
+    img.pixels.foreach_set(np.concatenate([rgb, np.ones((h_, w_, 1))], axis=2).astype(np.float32).ravel())
+    img.pack()
+    st = gx[1] - gx[0]
+    X0, X1 = gx[ix][0] - st / 2, gx[ix][-1] + st / 2
+    Y0, Y1 = gy[iy][0] - st / 2, gy[iy][-1] + st / 2
+    me = bpy.data.meshes.new("floor")
+    me.from_pydata([(X0, Y0, 0), (X1, Y0, 0), (X1, Y1, 0), (X0, Y1, 0)], [], [(0, 1, 2, 3)])
+    uv = me.uv_layers.new()
+    for li, (u, v) in enumerate([(0, 0), (1, 0), (1, 1), (0, 1)]):
+        uv.data[li].uv = (u, v)
+    me.materials.append(material("floor", image=img, rough=0.9, spec=0.1))
+    link(bpy.data.objects.new("floor", me))
+    fb = (X0, X1, Y0, Y1)
+    for k, w in enumerate(D["walls"]):
+        seg = clip_segment(w[:2], w[2:], fb)
+        if seg is not None:
+            slab("kerb%d" % k, seg[0], seg[1], A.kerb_thick, A.kerb_height, KERB_RGB, bevel=A.bevel)
+    cols = ramp(D["margin_N"], -A.margin_span, A.margin_span, "cividis")
+    for k, (p, r) in enumerate(zip(D["pos"], D["radius"])):
+        cylinder("edge%d" % k, p[0], p[1], float(r) + A.edge, A.agent_height - 0.003, EDGE_RGB, bevel=A.bevel / 2)
+        cylinder("agent%d" % k, p[0], p[1], float(r), A.agent_height, cols[k], bevel=A.bevel)
+    ortho_camera(((box[0] + box[1]) / 2, A.yc, 0.0), 0.0, A.elev, wm)
+    area_lights(((box[0] + box[1]) / 2, A.yc, 0.0), scale=1.4, az=0.0)
+    # anchors: arrows (floor plane at agent-top height), coordinate line, labels
+    zt = A.agent_height
+    mpn = A.arrow_m_per_n
+    arrows = extras["arrows"]
+    for name, (p0, vec) in arrows.items():
+        p0 = np.array([p0[0], p0[1], zt])
+        p1 = p0 + np.array([vec[0], vec[1], 0.0]) * mpn
+        anc.add(name + "_0", p0)
+        anc.add(name + "_1", p1)
+    for name, p in extras.get("points", {}).items():
+        anc.add(name, [p[0], p[1], zt if len(p) < 3 else p[2]])
+    return box
 
 
-# ------------------------------------------------------------------ panels
-def panel_floor(a, D, y_span, x0, w, h, ppm):
-    """Floor scene cropped to x0..crop_x1 and y_span metres about the door axis; orthographic camera
-    at the common elevation/azimuth with `ppm` pixels per metre (same for every floor panel)."""
-    box = (x0, a.crop_x1, 5.0 - y_span / 2 - 0.03, 5.0 + y_span / 2 + 0.03)
-    build_floor_scene(a, D, box)
-    tx, ty = (x0 + a.crop_x1) / 2, 5.0
-    ortho_camera((tx, ty, 0.0), a.azim, a.elev, w / ppm)
-    lights((tx, ty, 0.0), scale=1.4, az=a.azim)
+# ------------------------------------------------------------------ ribbons
+def strip(name, X, Z, thick, depth, rgb, rough=0.55):
+    """Extruded ribbon: top curve (X, Z) in cm, thickness `thick` below it, depth along y."""
+    n = len(X)
+    y0, y1 = -depth / 2, depth / 2
+    top = [(X[i], y, Z[i]) for y in (y0, y1) for i in range(n)]
+    bot = [(X[i], y, Z[i] - thick) for y in (y0, y1) for i in range(n)]
+    v = top + bot
+    T0, T1, B0, B1 = 0, n, 2 * n, 3 * n
+    faces = []
+    for i in range(n - 1):
+        faces.append((T0 + i, T0 + i + 1, T1 + i + 1, T1 + i))                  # top
+        faces.append((B0 + i + 1, B0 + i, B1 + i, B1 + i + 1))                  # bottom
+        faces.append((T0 + i + 1, T0 + i, B0 + i, B0 + i + 1))                  # front (y0)
+        faces.append((T1 + i, T1 + i + 1, B1 + i + 1, B1 + i))                  # back (y1)
+    faces.append((T0, B0, B1, T1))
+    faces.append((T0 + n - 1, T1 + n - 1, B1 + n - 1, B0 + n - 1))
+    ob = mesh_obj(name, v, faces, material(name, rgb, rough=rough, spec=0.3), smooth=True)
+    return ob
 
 
-def panel_surface(a, P, tag, w, h):
-    box = build_surface(a, P, tag)
-    r0, r1, u0, u1 = screen_extent(box, a.land_azim, a.land_elev)
-    m = a.land_margin
-    scale = max((r1 - r0) / (1 - 2 * m), (u1 - u0) / (1 - 2 * m) * w / h)
-    _, right, up = view_vectors(a.land_azim, a.land_elev)
-    ctr = np.array([(box[0] + box[1]) / 2, (box[2] + box[3]) / 2, (box[4] + box[5]) / 2])
-    # shift the target so the projected extent is centred
-    off = right * ((r0 + r1) / 2 - ctr @ right) + up * ((u0 + u1) / 2 - ctr @ up)
-    ortho_camera(tuple(ctr + off), a.land_azim, a.land_elev, scale)
-    lights(tuple(ctr), scale=0.6, az=a.land_azim - 90.0)
+def ribbons_scene(spec, anc):
+    w, h = A.col_cm, A.row_cm
+    t, dep, rb = A.rib_thick_cm, A.rib_depth_cm, A.ball_cm
+    xlo, xhi = spec["x_range"]
+    hs = A.rib_width_cm / (xhi - xlo)
+    X0 = spec.get("left_cm", 0.45)
+    ej = spec["ej"]
+    curves = []
+    cur_top = h - 0.52
+    for k, cv in enumerate(spec["curves"]):
+        x = np.linspace(xlo, xhi, 140)
+        U = np.interp(x, cv["x"], cv["U"])
+        U = (U - np.interp(cv["x_ref"], cv["x"], cv["U"])) / ej            # cm, zero at the ball's position
+        z_top = cur_top - (U.max())                                       # the curve's maximum at cur_top
+        Z = z_top + U                                                     # panel-local cm of the top surface
+        X = X0 + (x - xlo) * hs
+        curves.append((X, Z, cv, x, U, z_top))
+        cur_top = Z.min() - t - spec.get("gap_cm", 0.42)
+    low = min(c[1].min() for c in curves) - t
+    if low < 0.12:
+        print("WARNING ribbons do not fit: lowest point %.2f cm" % low)
+    out = {}
+    for k, (X, Z, cv, x, U, z_top) in enumerate(curves):
+        strip("rib%d" % k, X, Z, t, dep, cv["rgb"])
+        xs_ball = X0 + (cv["x_ref"] - xlo) * hs
+        zb = float(np.interp(xs_ball, X, Z))
+        slope = float(np.gradient(Z, X)[np.argmin(np.abs(X - xs_ball))])
+        nrm = np.array([-slope, 1.0]) / math.hypot(slope, 1.0)
+        c = (xs_ball + nrm[0] * rb * 1.0, 0.0, zb + nrm[1] * rb * 1.0)
+        sphere("ball%d" % k, c, rb, (0.02, 0.02, 0.02), rough=0.22)
+        anc.add("ball%d" % k, c)
+        if cv.get("ghost_x") is not None:
+            gx_ = X0 + (cv["ghost_x"] - xlo) * hs
+            gz = float(np.interp(gx_, X, Z))
+            sl = float(np.gradient(Z, X)[np.argmin(np.abs(X - gx_))])
+            nn = np.array([-sl, 1.0]) / math.hypot(sl, 1.0)
+            cg = (gx_ + nn[0] * rb, 0.0, gz + nn[1] * rb)
+            sphere("ghost%d" % k, cg, rb, (0.02, 0.02, 0.02), rough=0.3, alpha=0.28)
+            anc.add("ghost%d" % k, cg)
+        # baseline anchors: same x extent, below the curve
+        zb0 = float(Z.min() - t - 0.10)
+        anc.add("base%d_0" % k, (X[0], 0.0, zb0))
+        anc.add("base%d_1" % k, (X[-1], 0.0, zb0))
+        anc.add("label%d" % k, (X[0], 0.0, float(Z[0]) + 0.05))
+        anc.add("curve%d_top" % k, (float(X[np.argmax(Z)]), 0.0, float(Z.max())))
+        out[k] = dict(zmin=float(Z.min()), zmax=float(Z.max()), xs_ball=float(xs_ball))
+        if spec.get("band") and k == spec["band"]["curve"]:
+            kT = spec["band"]["kT"] / ej
+            xb = X0 + (spec["band"]["x"] - xlo) * hs - rb * 2.3
+            zb_floor = float(np.interp(xb, X, Z))
+            bw = 0.05
+            verts = [(xb - bw, -dep / 2 - 0.01, zb_floor), (xb + bw, -dep / 2 - 0.01, zb_floor),
+                     (xb + bw, -dep / 2 - 0.01, zb_floor + kT), (xb - bw, -dep / 2 - 0.01, zb_floor + kT)]
+            mesh_obj("band", verts + [(a_, b_ + dep + 0.02, c_) for a_, b_, c_ in verts],
+                     [(0, 1, 2, 3), (4, 7, 6, 5), (0, 4, 5, 1), (1, 5, 6, 2), (2, 6, 7, 3), (3, 7, 4, 0)],
+                     material("band", OKABE["vermillion"], rough=0.5))
+            anc.add("band_0", (xb, 0.0, zb_floor))
+            anc.add("band_1", (xb, 0.0, zb_floor + kT))
+    # energy scale bar (anchors only): vertical, at the right
+    barx = X0 + A.rib_width_cm + 0.30
+    anc.add("scale_0", (barx, 0.0, 0.40))
+    anc.add("scale_1", (barx, 0.0, 0.40 + spec["bar_J"] / ej))
+    cam = ortho_camera((w / 2, 0.0, h / 2), 90.0, A.rib_elev, w)
+    # lights: soft, from the front-top
+    area_lights((w / 2, 0.0, h / 2), scale=1.0, k=A.light, az=90.0 - 90.0,
+                spec=(("key", (-2.0, -1.4, 3.0), 400, 3.0), ("fill", (2.5, -0.6, 1.8), 150, 3.0), ("top", (0.0, 1.5, 3.2), 120, 3.0)))
+    # re-add anchors after the camera exists (positions were queued before it)
+    return out, curves
 
 
-# ------------------------------------------------------------------ compositing
-def render_panel(a, builder, w, h):
+# ------------------------------------------------------------------ driver
+def render_panel(build, w, h):
     reset()
-    dev = setup_render(a, w, h)
-    builder(a, w, h)
+    dev = setup_render(w, h)
+    info = build()
     tmp = Path(tempfile.mkdtemp()) / "p.png"
     bpy.context.scene.render.filepath = str(tmp)
     t0 = time.perf_counter()
@@ -423,51 +452,123 @@ def render_panel(a, builder, w, h):
     img.pixels.foreach_get(px)
     px = px.reshape(h, w, 4)
     al = px[:, :, 3:4]
-    px = px[:, :, :3] * al + np.array(BG, np.float32) * (1 - al)   # straight alpha over BG
+    px = px[:, :, :3] * al + np.array(BG, np.float32) * (1 - al)
     bpy.data.images.remove(img)
-    return px, dt, dev
+    return px, dt, dev, info
 
 
 def main():
-    global ARGS
-    a = ARGS = parse()
-    W = a.width_px
-    L = dict(np.load(DATA / "lone_trap.npz"))
-    P = dict(np.load(DATA / "pair_landscape.npz"))
-    g = max(2, W // 150)                                   # gutter
-    ppm = W / a.floor_span_m                               # pixels per metre, both floor scenes
-    el = math.radians(a.elev)
-    hf = int(round((a.crop_x1 - a.crop_x0) * math.sin(el) * ppm))       # top row: crop projected at the elevation
-    hb = int(round((a.crop_x1 - a.pair_x0) * math.sin(el) * ppm))       # bottom row (same elevation, same scale)
-    H = hf + hb + g
-    wp = int(round(a.pair_span_m * ppm))
-    wl = W - wp - g
-    hl = (hb - g) // 2
-    canvas = np.ones((H, W, 3), np.float32) * np.array(BG, np.float32)   # sRGB, bottom row first
-    panels = {"top": ((0, 0, W, hf), lambda a_, w, h: panel_floor(a_, L, a.floor_span_m, a.crop_x0, w, h, ppm)),
-              "pair": ((0, hf + g, wp, hb), lambda a_, w, h: panel_floor(a_, P, a.pair_span_m, a.pair_x0, w, h, ppm)),
-              "b0": ((wp + g, hf + g, wl, hl), lambda a_, w, h: panel_surface(a_, P, "b0", w, h)),
-              "bfold": ((wp + g, hf + g + hl + g, wl, hb - hl - g), lambda a_, w, h: panel_surface(a_, P, "bfold", w, h))}
-    times = []
-    dev = None
-    for key in a.panels.split(","):
-        (x, y, w, h), fn = panels[key]
-        px, dt, dev = render_panel(a, lambda a_, w_, h_, fn=fn: fn(a_, w_, h_), w, h)
-        times.append(round(dt, 1))
-        y0 = H - y - h                     # Blender pixel rows start at the bottom
-        canvas[y0:y0 + h, x:x + w] = px
+    global A, LUTS
+    A = parse()
+    LUTS = dict(np.load(DATA / "luts.npz"))
+    L = dict(np.load(DATA / "lone.npz"))
+    P = dict(np.load(DATA / "pair.npz"))
+    phys = json.load(open(DATA / "hero_physics.json"))
+    W = A.width_px
+    pxcm = W / A.width_cm
+    g = int(round(A.gap_cm * pxcm))
+    cw, rh = (W - g) // 2, int(round(A.row_cm * pxcm))
+    rg = int(round(0.15 * pxcm))
+    Wc, Hc = W, 2 * rh + rg
+    canvas = np.ones((Hc, Wc, 3), np.float32) * np.array(BG, np.float32)
+    pos = {"lone": (0, 0), "rib_lone": (cw + g, 0), "pair": (0, rh + rg), "rib_pair": (cw + g, rh + rg)}
+    overlay = {"px": [Wc, Hc], "cm": [A.width_cm, round(A.width_cm * Hc / Wc, 3)], "args": {k: v for k, v in vars(A).items()},
+               "panels_px": {k: [*v, cw, rh] for k, v in pos.items()}, "panels": {}}
+    # ---- arrows (world vectors in newtons; floor-plane projection is done by the camera)
+    bl = int(np.nonzero(L["ids"] == L["blocker"])[0][0])
+    pb = L["pos"][bl]
+    drive = L["drive_N"][bl]
+    ar_lone = {"drive": (pb, drive), "wall": (pb, L["wall_N"][bl]),
+               "orca": (pb + drive * A.arrow_m_per_n, L["orca_N"])}
+    # ORCA starts at the tip of the drive arrow: expressed in world metres, convert back to a start point
+    ar_lone["orca"] = (pb + drive * A.arrow_m_per_n, L["orca_N"])
+    sin_el = math.sin(math.radians(A.elev))
+    wm = A.col_cm / A.cm_per_m
+    x_top = A.x0 + A.row_cm / (A.cm_per_m * sin_el)
+    y_max = A.yc + wm / 2
+
+    def scr(u_cm, v_cm):
+        """floor point at printed offset (u from the panel's left edge, v from its top edge), in metres"""
+        return (x_top - v_cm / (A.cm_per_m * sin_el), y_max - u_cm / A.cm_per_m)
+
+    x100, y100 = scr(0.30, 1.27)
+    ar_lone["scale100"] = ((x100, y100), np.array([100.0, 0.0]))                      # parallel to the door axis
+    xh, yh = scr(1.40, 0.24)
+    ar_lone["scale_half_m"] = ((xh, yh), np.array([0.0, -0.5 / A.arrow_m_per_n]))     # 0.5 m along -y = to the screen right
+    pts_lone = {"coord_0": (A.x0 + 0.02, pb[1]), "coord_1": (x_top - 0.14, pb[1]), "blocker": (pb[0], pb[1]),
+                "n38": (L["pos"][1][0], L["pos"][1][1]), "n54": (L["pos"][2][0], L["pos"][2][1]),
+                "door": scr(3.55, 0.50), "box_x0": (A.x0, A.yc - wm / 2)}
+    k0, k1 = 0, 1                       # pair members: lower, upper
+    mp = P["pos"][k0]
+    ar_pair = {"drive": (mp, P["drive_N"][k0]), "wall": (mp, P["wall_N"][k0]), "partner": (mp, P["partner_N"][k0]),
+               "bias": (mp + P["drive_N"][k0] * A.arrow_m_per_n, P["bias_N"][k0])}
+    xm = float(np.mean(P["pos"][:, 0]))
+    pts_pair = {"coord_0": (xm, A.yc - 1.0 + 0.1), "coord_1": (xm, A.yc + 1.0 - 0.1), "member0": tuple(P["pos"][0]),
+                "member1": tuple(P["pos"][1]), "between": (xm, float(np.mean(P["pos"][:, 1])))}
+    # ---- ribbons
+    xlo, xhi = [float(v) for v in A.lone_x.split(",")]
+    xf = float(L["pos"][bl][0])
+    x_rib = L["rib_x"]
+    Uo, Ua = L["rib_Uown"], L["rib_Uadd"]
+    rep = phys["lone"]["ribbon"]
+    spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "bar_J": 10.0, "gap_cm": 0.40,
+                 "curves": [{"x": x_rib, "U": Uo, "x_ref": xf, "rgb": OKABE["black"], "ghost_x": None},
+                            {"x": x_rib, "U": Ua, "x_ref": xf, "rgb": OKABE["blue"], "ghost_x": xhi - 0.012}],
+                 "band": {"curve": 0, "kT": float(L["kT_J"]), "x": float(L["x_min_own"])}}
+    cs, U0, Ub = P["rib_c"], P["rib_U0"], P["rib_Ub"]
+    c0 = float(np.interp(0.0, cs, Ub))
+    spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "bar_J": 0.5, "gap_cm": 0.40,
+                 "curves": [{"x": cs, "U": U0, "x_ref": 0.0, "rgb": OKABE["black"], "ghost_x": None},
+                            {"x": cs, "U": Ub, "x_ref": 0.0, "rgb": OKABE["yellow"], "ghost_x": A.pair_c - 0.006}]}
+    jobs = {"lone": lambda anc: floor_scene(L, anc, "lone", {"arrows": ar_lone, "points": pts_lone}),
+            "pair": lambda anc: floor_scene(P, anc, "pair", {"arrows": ar_pair, "points": pts_pair}),
+            "rib_lone": lambda anc: ribbons_scene(spec_lone, anc),
+            "rib_pair": lambda anc: ribbons_scene(spec_pair, anc)}
+    times, dev = {}, None
+    for key in A.panels.split(","):
+        anc = Anchors(pos[key], (cw, rh), (Wc, Hc))
+
+        # anchors need the camera: build, then re-project after construction (the camera is created inside build)
+        px, dt, dev, info = render_panel(lambda: _build_and_project(jobs[key], anc), cw, rh)
+        times[key] = round(dt, 1)
+        x, y = pos[key]
+        canvas[Hc - y - rh:Hc - y, x:x + cw] = px
+        overlay["panels"][key] = {"anchors": anc.pts, "info": info if isinstance(info, dict) else {}}
     reset()
-    out = bpy.data.images.new("hero", W, H, alpha=False)
+    out = bpy.data.images.new("hero", Wc, Hc, alpha=False)
     out.colorspace_settings.name = "sRGB"
-    out.pixels.foreach_set(np.concatenate([canvas, np.ones((H, W, 1), np.float32)], axis=2).ravel())
-    os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    out.filepath_raw = os.path.abspath(a.out)
+    out.pixels.foreach_set(np.concatenate([canvas, np.ones((Hc, Wc, 1), np.float32)], axis=2).ravel())
+    os.makedirs(os.path.dirname(os.path.abspath(A.out)), exist_ok=True)
+    out.filepath_raw = os.path.abspath(A.out)
     out.file_format = "PNG"
     out.save()
-    meta = {"px": [W, H], "cm": [a.width_cm, round(a.width_cm * H / W, 2)], "samples": a.samples, "device": dev,
-            "threads": a.threads, "px_per_m_floor": round(ppm, 1), "panel_render_s": times, "total_render_s": round(sum(times), 1)}
-    print("HERO", json.dumps(meta))
-    Path(a.out).with_suffix(".json").write_text(json.dumps({**meta, "args": {k: v for k, v in vars(a).items()}}, indent=1))
+    overlay["render"] = {"samples": A.samples, "device": dev, "panel_render_s": times, "total_render_s": round(sum(times.values()), 1)}
+    overlay["arrows_N"] = {"lone": {k: [list(map(float, v[0])), list(map(float, v[1]))] for k, v in ar_lone.items()},
+                           "pair": {k: [list(map(float, v[0])), list(map(float, v[1]))] for k, v in ar_pair.items()},
+                           "metres_per_newton": A.arrow_m_per_n}
+    overlay["ribbons"] = {"lone": {"ej_J_per_cm": A.lone_ej, "x_range_m": [xlo, xhi], "rib_width_cm": A.rib_width_cm, "bar_J": 10.0,
+                                   "kT_J": float(L["kT_J"])},
+                          "pair": {"ej_J_per_cm": A.pair_ej, "c_range_m": [-A.pair_c, A.pair_c], "rib_width_cm": A.rib_width_cm, "bar_J": 0.5}}
+    overlay["lone_box_m"] = {"x": [A.x0, A.x0 + A.row_cm / (A.cm_per_m * math.sin(math.radians(A.elev)))],
+                             "y": [A.yc - A.col_cm / A.cm_per_m / 2, A.yc + A.col_cm / A.cm_per_m / 2]}
+    Path(A.overlay).parent.mkdir(parents=True, exist_ok=True)
+    Path(A.overlay).write_text(json.dumps(overlay, indent=1))
+    print("HERO", json.dumps({"px": [Wc, Hc], "cm": overlay["cm"], **overlay["render"]}))
+
+
+def _build_and_project(fn, anc):
+    """Build the scene with deferred anchors: the camera must exist before world_to_camera_view."""
+    pending = []
+
+    class Deferred:
+        off, size, canvas, pts = anc.off, anc.size, anc.canvas, anc.pts
+
+        def add(self, name, p):
+            pending.append((name, p))
+    info = fn(Deferred())
+    for name, p in pending:
+        anc.add(name, p)
+    return info
 
 
 main()

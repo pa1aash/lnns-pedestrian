@@ -1,394 +1,277 @@
-"""Export the physics data behind the hero figure (Fig. 1) as .npz files.
+"""Export the physics data behind the hero figure (Fig. 1) for the Blender render and the LaTeX overlay.
 
-Run with the plan root's interpreter, read-only against the plan root:
+    PYTHONPATH=code /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/export_hero.py
 
-    PYTHONDONTWRITEBYTECODE=1 \\
-    /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/export_hero.py
+Writes data/derived/hero/{lone.npz, pair.npz, inset.json, hero_physics.json}. Every number comes from the
+simulator's own routines (experiments/hero/hero_phys.py): corrected-forward flags (w2_numerics = fixed,
+spawn = rejection, w2_orca = rvo2, w2_crush = off, w2_wall_corner = convex_union).
 
-Every number comes from the simulator's own state and force routines:
-  * lone-trap scene: a published-mode C1 deadlock snapshot (wave2 library), agent state,
-    stuck-alone margins from w2lib.Passability, wall segments, and a floor grid of the
-    wall force on a lone r = 0.25 m agent at rest from the code's WallForces object built
-    by HybridSteeringModel with the snapshot's own parameters;
-  * pair scene: a corrected-forward B_w = 0.04 pair snapshot (wave2b A4 selection), and the
-    rest-state potential U (density frozen; wave2b/scripts/a3_pair_stability.Field) on a grid
-    of the two members' lateral displacements, at b = 0 and at the first bias the static
-    relaxation (wave2b/data/a5_predict.json) predicts to free the pair.
-
-Pilot data. Production swaps in an E1b corrected-forward snapshot (LONE_SNAP / PAIR_SNAP).
+  * lone scene: data/E1/library/E1b_seed52.pkl (lone keystone, blocker 19);
+  * pair scene: PAIR_SNAP, a production E7b pair (B_w = 0.04), chosen by experiments/hero/select_pair.py;
+  * inset: the whole room for seed 52 (walls, the 100 initial positions rebuilt with the simulator).
 """
-import argparse
 import copy
 import json
-import os
 import pickle
 import sys
 import time
 from pathlib import Path
 
-PLAN = Path("/Users/palaash/Developer/pedestrian-abs-plan")
-OUT = Path(__file__).resolve().parents[2] / "data" / "derived" / "hero"
-sys.dont_write_bytecode = True
-sys.path.insert(0, str(PLAN / "wave2b" / "scripts"))
-sys.path.insert(0, str(PLAN / "wave2" / "scripts"))
-
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import numpy as np  # noqa: E402
-from scipy.optimize import minimize  # noqa: E402
 
-import w2lib  # noqa: E402  (chdir to pedestrian-abs; library dirs already exist)
-from w2lib import DOOR, BottleneckScenario, Passability, get_config, HybridSteeringModel  # noqa: E402
-from a3_pair_stability import Field, code_force  # noqa: E402
+import hero_phys as hp  # noqa: E402
+import teff  # noqa: E402
+from w2lib import DOOR, Passability, build  # noqa: E402
 from sim.core.agent import AgentState  # noqa: E402
 from sim.core.world import agents_to_walls  # noqa: E402
+from sim.steering.hybrid import HybridSteeringModel  # noqa: E402
 
-REPO = Path(__file__).resolve().parents[2]
-# Lone trap: corrected-forward E1b lone-keystone snapshot (class list: data/derived/E1_keystone.json).
+REPO = hp.REPO
+OUT = REPO / "data" / "derived" / "hero"
 LONE_SNAP = REPO / "data/E1/library/E1b_seed52.pkl"
-# Pair: pilot snapshot (corrected numerics, B_w = 0.04 m). The production swap is this one line.
-PAIR_SNAP = PLAN / "wave2/data/library/w25_B0.04_seed43.pkl"   # listed in wave2b/data/a4_selected_snaps.txt
-# Landscape window in metres of per-member lateral displacement: common c = (dy_lo + dy_hi)/2, opposed o = (dy_hi - dy_lo)/2.
-CO_C, CO_O, CO_STEP = 0.30, 0.10, 0.005
+# Pair: nearest production analogue of the pilot w25_B0.04_seed43 (see data/derived/hero/pair_selection.json):
+# members at the jamb faces, near-symmetric, both passable alone, strict minimum at b = 0, fold at b = 0.031.
+PAIR_SNAP = REPO / "data/E7b/library/E7b_B0.04_seed397.pkl"
+B_TILT = 0.035            # the tilt of the "tilted" pair ribbon: just past the snapshot's fold
+SIGMA_T = 0.07            # m/s, per-step noise whose rate matches C3 RVO2 on the lone keystones (E2)
+G = hp.G
+LUTS = np.load(REPO / "data/derived/hero/luts.npz")
 
 
-def rel(path):
-    path = Path(os.path.normpath(path))
-    for base in (REPO, PLAN):
-        try:
-            return str(path.relative_to(base))
-        except ValueError:
-            pass
-    return str(path)
-G = np.array([11.0, 5.0])
+def rel(p):
+    return str(Path(p).relative_to(REPO))
 
 
-def frozen_rho(st, ids):
-    act = st.active_indices
-    P = st.positions
-    return np.array([(np.linalg.norm(P[act] - P[i], axis=1) < 3.0).sum() - 1 for i in ids]) / (9 * np.pi)
+def hexcol(name, v, lo, hi):
+    t = float(np.clip((v - lo) / (hi - lo), 0, 1))
+    r, g, b = (LUTS[name][int(round(t * 255))] * 255).round().astype(int)
+    return "#%02X%02X%02X" % (r, g, b)
 
 
-def walls_array(world):
-    return np.array([[*w.start, *w.end] for w in world.walls], float)
-
-
-# ------------------------------------------------------------------ floor field
-def floor_field(params, world, r_probe=0.25, step=0.01, x=(8.4, 10.6), y=(3.2, 6.8)):
-    """Wall force on a lone probe agent of radius r_probe at rest at every grid point, from the
-    WallForces instance HybridSteeringModel builds from `params` (same law, parameters, corner rule)."""
-    wf = HybridSteeringModel(get_config("C1"), params).wall_forces
+def floor_field(snap, r_probe=0.25, step=0.01, x=(8.8, 11.0), y=(3.6, 6.4)):
+    """Backward wall force on a lone probe agent of radius r_probe at rest at every grid point, from the
+    WallForces the simulator builds for this snapshot (same law, parameters, corner rule)."""
+    hm, _ = hp.model_of(snap)
+    wf = hm.wall_forces
+    world = hp.world_of(snap)
     xs = np.arange(x[0], x[1] + 1e-9, step)
     ys = np.arange(y[0], y[1] + 1e-9, step)
-    X, Y = np.meshgrid(xs, ys, indexing="xy")          # shape (ny, nx)
+    X, Y = np.meshgrid(xs, ys, indexing="xy")
     pts = np.column_stack([X.ravel(), Y.ravel()])
     n = len(pts)
     probe = AgentState(pts.copy(), np.zeros((n, 2)), np.tile(G, (n, 1)), np.full(n, r_probe), np.ones(n),
                        np.full(n, 80.0), np.full(n, 0.5), np.ones(n, bool))
     F = wf.compute_wall_forces(probe, world.walls)
     d, _ = agents_to_walls(pts, world.walls)
-    feasible = (d.min(axis=1) >= r_probe).reshape(X.shape)  # probe disc does not overlap a wall
-    Fx = F[:, 0].reshape(X.shape)
-    Fy = F[:, 1].reshape(X.shape)
-    back = np.maximum(0.0, -Fx)
+    feasible = (d.min(axis=1) >= r_probe).reshape(X.shape)
+    back = np.maximum(0.0, -F[:, 0]).reshape(X.shape)
     jy = int(np.argmin(np.abs(ys - 5.0)))
-    wp = {"A_w": wf.A, "B_w": wf.B, "k": wf.k, "kappa": wf.kappa, "corner": wf.corner, "B_edge": wf.B_edge}
-    return dict(grid_x=xs, grid_y=ys, r_probe=r_probe, wall_Fx_N=Fx, wall_Fy_N=Fy, wall_back_N=back,
-                feasible=feasible, wall_params=json.dumps(wp)), float(back[jy][feasible[jy]].max()), wp
+    return dict(grid_x=xs, grid_y=ys, wall_back_N=back, feasible=feasible), float(back[jy][feasible[jy]].max()), \
+        {"A_w": wf.A, "B_w": wf.B, "corner": wf.corner}
 
 
-# ------------------------------------------------------------------ lone trap
-def export_lone(path, r_probe=0.25, step=0.01):
-    snap = pickle.load(open(path, "rb"))
-    st, params = snap["state"], snap["params"]
-    width = snap["width"]
-    world, _ = BottleneckScenario(1, width, **snap["scen"]).build(seed=0)
-    ids = np.array(sorted(int(i) for i in st.active_indices))
-    rho = frozen_rho(st, ids)
-    wall_kw = {k: params[k] for k in ("A_w", "B_w") if k in params}   # published: none -> A, B defaults
-    pas = Passability(width=width, **wall_kw)
-    margin = np.array([pas.margin(st.radii[i], st.desired_speeds[i], st.taus[i], rho[k]) for k, i in enumerate(ids)])
-    gmax = np.array([pas.gmax(st.radii[i]) for i in ids])
-    drive = gmax - margin
+def walls_array(world):
+    return np.array([[*w.start, *w.end] for w in world.walls], float)
+
+
+# ------------------------------------------------------------------ lone
+def export_lone(rep):
+    snap = pickle.load(open(LONE_SNAP, "rb"))
+    st = snap["state"]
+    ids = sorted(int(i) for i in st.active_indices)
     blocker = int(ids[np.argmin(np.linalg.norm(st.positions[ids] - DOOR, axis=1))])
-
-    ff, on_axis_max, wp = floor_field(params, world, r_probe, step)
-    # check: on-axis maximum of the backward force equals Passability.gmax(r_probe)
-    check = {"gmax_probe_passability_N": pas.gmax(r_probe), "gmax_probe_grid_N": on_axis_max}
-    kj = REPO / "data/derived/E1_keystone.json"
-    if kj.exists() and path.name.startswith("E1b_seed"):
-        seed = int(path.stem.split("seed")[1])
-        row = next(r for r in json.load(open(kj))["modes"]["E1b"]["per_snapshot"] if r["seed"] == seed)
-        bi = int(np.nonzero(ids == blocker)[0][0])
-        check.update({"E1_class": row["class"], "E1_blocker": row["blocker"], "E1_blocker_margin_N": row["blocker_margin_C1"],
-                      "export_blocker_margin_N": float(margin[bi]), "blocker_matches_E1": bool(row["blocker"] == blocker),
-                      "margin_abs_diff_N": abs(float(margin[bi]) - row["blocker_margin_C1"])})
-
-    np.savez_compressed(
-        OUT / "lone_trap.npz",
-        snapshot=rel(path), ids=ids, blocker=blocker,
-        pos=st.positions[ids], radius=st.radii[ids], vel=st.velocities[ids],
-        v0=st.desired_speeds[ids], tau=st.taus[ids], mass=st.masses[ids], rho_frozen=rho,
-        gmax_N=gmax, drive_N=drive, margin_N=margin,
-        walls=walls_array(world), width=width, **ff)
-    return {"snapshot": rel(path), "time_s": snap["time"], "n_active": int(len(ids)),
-            "blocker": blocker, "agents": [{"id": int(i), "pos": np.round(st.positions[i], 4).tolist(),
-                                            "r": round(float(st.radii[i]), 4), "speed": float(np.linalg.norm(st.velocities[i])),
-                                            "gmax_N": round(float(g), 1), "drive_N": round(float(dr), 1),
-                                            "margin_N": round(float(m), 1)}
-                                           for i, g, dr, m in zip(ids, gmax, drive, margin)],
-            "wall_params": wp, "check": check, "grid_shape": list(ff["wall_back_N"].shape)}
+    pas = Passability(width=snap["width"], **{k: snap["params"][k] for k in ("A_w", "B_w") if k in snap["params"]})
+    rho = hp.frozen_rho(st, ids)
+    margin = np.array([pas.margin(st.radii[i], st.desired_speeds[i], st.taus[i], rho[k]) for k, i in enumerate(ids)])
+    F = hp.forces_at(snap, ids)
+    k_b = ids.index(blocker)
+    e_hat = (G - st.positions[blocker]) / np.linalg.norm(G - st.positions[blocker])
+    m, v0, tau = st.masses[blocker], st.desired_speeds[blocker], st.taus[blocker]
+    w_o = 1.0 - HybridSteeringModel._sigmoid(rho[k_b], 4.0, 2.0)
+    F_orca = float(w_o * m * v0 / 0.5) * e_hat
+    # force balance on the held agents (C1: drive + partner + wall) and the lone-blocker forces
+    bal = {"max_abs_total_N": float(np.abs(F["total"]).max()),
+           "max_abs_parts_minus_total_N": float(np.abs(F["sum_parts"] - F["total"]).max()),
+           "per_agent_total_N": {int(i): np.round(F["total"][k], 6).tolist() for k, i in enumerate(ids)},
+           "blocker": {"drive_N": F["drive"][k_b].round(3).tolist(), "wall_N": F["wall"][k_b].round(3).tolist(),
+                       "partner_N": F["partner"][k_b].round(3).tolist(), "orca_rest_N": F_orca.round(3).tolist()}}
+    # ribbons
+    rb = hp.lone_ribbon(snap, blocker)
+    x, Uo, Ua = rb["x"], rb["U_own"], rb["U_added"]
+    mins_o, maxs_o = hp.stationary_points(x, Uo)
+    mins_a, maxs_a = hp.stationary_points(x, Ua)
+    xf = float(st.positions[blocker, 0])
+    U0o = float(np.interp(mins_o[0], x, Uo))
+    barrier = float(np.interp(maxs_o[0], x, Uo)) - U0o
+    gate = [json.loads(l) for l in open(REPO / "data/BAR/gate.jsonl") if '"E1b_seed52"' in l][0]
+    kT = teff.kT_eff(SIGMA_T, 0.01, float(tau))
+    dimple = None
+    if mins_a:
+        dimple = {"x_min": mins_a, "x_max": maxs_a,
+                  "depth_J": float(np.interp(maxs_a[0], x, Ua) - np.interp(mins_a[0], x, Ua))}
+    ribbon_checks = {
+        "own_has_minimum_and_barrier": bool(len(mins_o) == 1 and len(maxs_o) == 1),
+        "own_x_min": mins_o, "own_x_barrier": maxs_o, "own_barrier_J": barrier,
+        "gate_alone_barrier_J": gate["dU_bar"]["alone"], "gate_1d_axis_alone_J": gate["dU_1d_axis_alone"],
+        "gate_alone_x_min_x_top": [9.641, 9.95], "barrier_vs_gate_rel": abs(barrier / gate["dU_bar"]["alone"] - 1),
+        "frozen_x": xf, "own_min_minus_frozen_m": mins_o[0] - xf,
+        "own_U_frozen_above_min_J": float(np.interp(xf, x, Uo) - U0o),
+        "gate_frozen_neighbours_barrier_J": gate["dU_bar"]["frozen"],
+        "net_force_alone_at_frozen_N": float(rb["c"] + np.interp(xf, x, rb["wall_Fx"])),
+        "added_has_no_stationary_point": bool(not mins_a and not maxs_a),
+        "added_dimple": dimple,
+        "added_U_drop_frozen_to_x_end_J": float(np.interp(xf, x, Ua) - Ua[-1]),
+        "kT_eff_J": kT, "sigma_m_s": SIGMA_T, "tau_s": float(tau), "kT_over_barrier": kT / barrier,
+        "c_own_N": rb["c"], "c_orca_N": rb["c_orca"], "w_o": rb["w_o"], "tau_orca_s": 0.5,
+        "c_v_eff_N": float(F["drive"][k_b] @ e_hat), "rho_frozen": float(rho[k_b])}
+    # added-drive ball: where it ends up (no stationary point -> the lower end of the drawn range)
+    ff, on_axis, wp = floor_field(snap)
+    # whole-room data for the inset: the 100 initial positions rebuilt with the simulator (seed 52, CF flags)
+    flags = dict(hp.CF, spawn="rejection")
+    sim = build("C1", seed=52, flags=flags)
+    s0 = sim.state
+    chk = {}
+    for i in ids:
+        chk[int(i)] = {"d_radius": float(abs(s0.radii[i] - st.radii[i])), "d_v0": float(abs(s0.desired_speeds[i] - st.desired_speeds[i])),
+                       "d_tau": float(abs(s0.taus[i] - st.taus[i]))}
+    world = hp.world_of(snap)
+    wall_all = walls_array(world)
+    inset = {"walls": wall_all.round(4).tolist(), "initial_positions": s0.positions.round(4).tolist(),
+             "residual": [{"id": int(i), "pos": st.positions[i].round(4).tolist(), "r": round(float(st.radii[i]), 4),
+                           "margin_N": round(float(margin[k]), 2), "colour": hexcol("cividis", margin[k], -150, 150)}
+                          for k, i in enumerate(ids)],
+             "n_initial": int(len(s0.positions)), "check_initial_vs_snapshot": chk,
+             "initial_inside_room": bool(np.all((s0.positions > 0) & (s0.positions < 10)))}
+    json.dump(inset, open(OUT / "inset.json", "w"))
+    np.savez_compressed(OUT / "lone.npz", snapshot=rel(LONE_SNAP), ids=np.array(ids), blocker=blocker,
+                        pos=st.positions[ids], radius=st.radii[ids], margin_N=margin,
+                        drive_N=F["drive"], wall_N=F["wall"], partner_N=F["partner"], orca_N=F_orca,
+                        walls=walls_array(world), width=snap["width"],
+                        rib_x=x, rib_Uown=Uo, rib_Uadd=Ua, rib_y=rb["y"],
+                        kT_J=kT, x_min_own=mins_o[0], x_top_own=maxs_o[0], **ff)
+    rep["lone"] = {"snapshot": rel(LONE_SNAP), "time_s": snap["time"], "ids": ids, "blocker": blocker,
+                   "pos": st.positions[ids].round(4).tolist(), "r": st.radii[ids].round(4).tolist(),
+                   "margin_N": margin.round(2).tolist(), "wall_params": wp,
+                   "floor_gmax_probe_grid_N": on_axis, "floor_gmax_probe_passability_N": pas.gmax(0.25),
+                   "force_balance": bal, "ribbon": ribbon_checks, "initial_position_check": chk}
 
 
 # ------------------------------------------------------------------ pair
-class BiasField(Field):
-    """Field.U plus a lateral-bias tilt of the goal drive.
-
-    Code (hybrid.py:138-142): desired direction (e + b e_perp)/|.|, e = unit(g - x),
-    e_perp = e rotated +90 deg, magnitude unchanged. The tilted field is not exactly
-    conservative (e_perp turns with x); U_b uses e_perp frozen at the snapshot position:
-        U_b = sum_i c_i/sqrt(1+b^2) [ |x_i - g| - b e_perp,i0 . (x_i - x_i0) ] + wall + pair.
-    The residual |F_code + grad U_b| is measured on the grid and reported."""
-
-    def __init__(self, snap, ids, b, **kw):
-        super().__init__(snap, ids, **kw)
-        self.b = b
-        P0 = snap["state"].positions[ids]
-        e = (G - P0) / np.linalg.norm(G - P0, axis=1)[:, None]
-        self.eperp0 = np.column_stack([-e[:, 1], e[:, 0]])
-        self.X0 = P0.copy()
-
-    def parts(self, X):
-        u_drive, u_wall, u_pair = super().parts(X)
-        if self.b == 0.0:
-            return u_drive, u_wall, u_pair
-        P = X.reshape(-1, 2)
-        s = 1.0 / np.sqrt(1.0 + self.b ** 2)
-        tilt = np.sum(self.c * np.einsum("ij,ij->i", self.eperp0, P - self.X0))
-        return s * u_drive - s * self.b * tilt, u_wall, u_pair
-
-
-def code_force_bias(snap, ids, field, b, X):
-    """The code's rest-state force at configuration X (v = 0, density frozen, others inactive)."""
+def relax_dynamic(snap, ids, bias, T=120.0, h=0.01):
+    """Overdamped relaxation of the code's rest-state force (as pilot A5): freed if a member passes x > 10.3 m."""
+    hm, _ = hp.model_of(snap, bias)
     st = copy.deepcopy(snap["state"])
     st.velocities[:] = 0
-    st.positions[ids] = X.reshape(-1, 2)
-    others = [i for i in st.active_indices if i not in ids]
-    st.active[others] = False
-    params = dict(snap["params"])
-    if b:
-        params.update({"w2_noise": "lateral_bias", "w2_bias_b": b})
-    hm = HybridSteeringModel(get_config("C1"), params)
+    world = hp.world_of(snap)
+    rho = hp.frozen_rho(st, ids)
+    dens = np.zeros(st.n)
+    dens[ids] = rho
+    k = np.array(ids)
+    gain = (st.taus[k] / st.masses[k])[:, None]
     nl = [[] for _ in range(st.n)]
     for i in ids:
         nl[i] = [j for j in ids if j != i]
-    dens = np.zeros(st.n)
-    dens[ids] = field.rho
-    return hm.compute_forces(st, nl, field.world.walls, dens)[ids].ravel()
+    t = 0.0
+    while t < T:
+        F = hm.compute_forces(st, nl, world.walls, dens)[k]
+        if np.abs(F).max() < 0.05:
+            return {"freed": False, "t": t}
+        st.positions[k] += h * gain * F
+        t += h
+        if (st.positions[k, 0] > 10.3).any():
+            return {"freed": True, "t": t}
+    return {"freed": None, "t": t}
 
 
-def surfaces(snap, ids, b, dy, dx_bounds=(-0.3, 0.3)):
-    """U on the (dy_lo, dy_hi) grid: slice (x held at the snapshot) and x-relaxed profile
-    min over (dx_lo, dx_hi) within dx_bounds. Values relative to U at the snapshot (b = 0)."""
-    f = BiasField(snap, ids, b, B_w=snap["params"].get("B_w", 0.08))
-    X0 = snap["state"].positions[ids].ravel().copy()
-    n = len(dy)
-    U_slice = np.empty((n, n))
-    U_relax = np.empty((n, n))
-    DX = np.zeros((n, n, 2))
-    hit = np.zeros((n, n), bool)
-    order = sorted(range(n), key=lambda k: abs(dy[k]))
-    for a in order:                 # dy_lo index (rows)
-        prev = np.zeros(2)
-        for c in order:             # dy_hi index (cols)
-            X = X0.copy()
-            X[1] += dy[a]
-            X[3] += dy[c]
-            U_slice[a, c] = f.U(X)
-
-            def obj(z, X=X):
-                Y = X.copy()
-                Y[0] += z[0]
-                Y[2] += z[1]
-                return f.U(Y)
-            res = minimize(obj, prev, method="L-BFGS-B", bounds=[dx_bounds, dx_bounds],
-                           options={"ftol": 1e-12, "gtol": 1e-8})
-            U_relax[a, c] = res.fun
-            DX[a, c] = res.x
-            hit[a, c] = bool(np.any(np.isclose(res.x, dx_bounds[1], atol=1e-6)))
-            prev = res.x
-    return f, U_slice, U_relax, DX, hit
+def hessian(f, X, h=1e-4):
+    n = len(X)
+    H = np.zeros((n, n))
+    U0 = f.U(X)
+    for a in range(n):
+        for b in range(a, n):
+            ea = np.zeros(n); ea[a] = h
+            eb = np.zeros(n); eb[b] = h
+            H[a, b] = H[b, a] = ((f.U(X + ea) - 2 * U0 + f.U(X - ea)) / h ** 2 if a == b else
+                                 (f.U(X + ea + eb) - f.U(X + ea - eb) - f.U(X - ea + eb) + f.U(X - ea - eb)) / (4 * h * h))
+    return H
 
 
-def fit_quadratic(dy, U, half=3):
-    """Least-squares quadratic on the (2 half + 1)^2 points around the grid centre -> 2x2 Hessian."""
-    c = len(dy) // 2
-    s = slice(c - half, c + half + 1)
-    A_, B_ = np.meshgrid(dy[s], dy[s], indexing="ij")
-    a, b_, u = A_.ravel(), B_.ravel(), U[s, s].ravel()
-    M = np.column_stack([np.ones_like(a), a, b_, a * a, a * b_, b_ * b_])
-    coef, *_ = np.linalg.lstsq(M, u, rcond=None)
-    return np.array([[2 * coef[3], coef[4]], [coef[4], 2 * coef[5]]]), coef[1:3]
-
-
-def barrier_on_grid(U, escaped, c):
-    """Lowest level at which the sublevel set {U < level} connects the grid centre to an
-    escaped point (forward displacement at its bound): a grid estimate of the escape barrier."""
-    from scipy.ndimage import label
-    if not escaped.any():
-        return None
-    levels = np.unique(U[np.isfinite(U)])
-    lo, hi = 0, len(levels) - 1
-    while lo < hi:
-        mid = (lo + hi) // 2
-        lab, _ = label(U <= levels[mid])
-        k = lab[c, c]
-        if k and np.any(escaped & (lab == k)):
-            hi = mid
-        else:
-            lo = mid + 1
-    return float(levels[lo] - U[c, c])
-
-
-def export_pair(path, n_grid=101, half_range=0.5):
-    snap = pickle.load(open(path, "rb"))
+def export_pair(rep):
+    snap = pickle.load(open(PAIR_SNAP, "rb"))
     st = snap["state"]
     ids = sorted((int(i) for i in st.active_indices), key=lambda i: st.positions[i, 1])
-    assert len(ids) == 2, "pair snapshot expected"
-    key = os.path.basename(path)
-    pred = json.load(open(PLAN / "wave2b/data/a5_predict.json"))[key]
-    biases = sorted(float(k[4:]) for k in pred if k.startswith("bias"))
-    held = [b for b in biases if pred[f"bias{b}"]["pred_freed"] is False]
-    freed = [b for b in biases if pred[f"bias{b}"]["pred_freed"] is True]
-    b_fold = min(freed)
-    b_held = max([b for b in held if b < b_fold], default=0.0)
-    stored = next(r for r in json.load(open(PLAN / "wave2b/data/a3_pair_stability.json"))
-                  if os.path.basename(r["snap"]) == key)
-
-    dy = np.linspace(-half_range, half_range, n_grid)
-    out = {}
-    for tag, b in (("b0", 0.0), ("bfold", b_fold)):
-        t0 = time.perf_counter()
-        f, Us, Ur, DX, hit = surfaces(snap, ids, b, dy)
-        out[tag] = (f, Us, Ur, DX, hit, time.perf_counter() - t0)
-
-    f0 = out["b0"][0]
-    X0 = st.positions[ids].ravel().copy()
-    U0 = f0.U(X0)
-    H = f0.hess(X0)                       # same routine and step as the stored A3 result
+    assert len(ids) == 2
+    pas = Passability(width=snap["width"], **{k: snap["params"][k] for k in ("A_w", "B_w") if k in snap["params"]})
+    rho = hp.frozen_rho(st, ids)
+    margin = np.array([pas.margin(st.radii[i], st.desired_speeds[i], st.taus[i], rho[k]) for k, i in enumerate(ids)])
+    F0 = hp.forces_at(snap, ids)
+    Fb = hp.forces_at(snap, ids, bias=B_TILT)
+    bias_inc = Fb["drive"] - F0["drive"]            # lateral-bias increment of the drive, per member
+    # potential checks
+    f0 = hp.RestField(snap, ids)
+    H = hessian(f0, f0.X0)
     ev = np.linalg.eigvalsh(H)
-    lat, lon = [1, 3], [0, 2]
-    H_lat = H[np.ix_(lat, lat)]
-    H_schur = H_lat - H[np.ix_(lat, lon)] @ np.linalg.solve(H[np.ix_(lon, lon)], H[np.ix_(lon, lat)])
-    _, Us0, Ur0, DX0, _, _ = out["b0"]
-    # curvature check on a dedicated fine stencil (step 1 mm) around the snapshot
-    dyf = np.linspace(-0.01, 0.01, 21)
-    _, Usf, Urf, _, _ = surfaces(snap, ids, 0.0, dyf)
-    Hs_fit, g_s = fit_quadratic(dyf, Usf, half=10)
-    Hr_fit, g_r = fit_quadratic(dyf, Urf, half=10)
-    c = n_grid // 2
-
-    def strict_min(U):
-        """Local: centre below its 8 neighbours on the export grid, and PD on the fine stencil."""
-        nb = U[c - 1:c + 2, c - 1:c + 2].copy()
-        nb[1, 1] = np.inf
-        return bool(U[c, c] < nb.min())
-
-    def local_minima(U, escaped=None):
-        """Interior grid points below all 8 neighbours, excluding points whose relaxed forward
-        displacement sits at its bound (those belong to the escape channel, not to a rest state)."""
-        from scipy.ndimage import minimum_filter
-        lm = U == minimum_filter(U, size=3, mode="nearest")
-        lm[0, :] = lm[-1, :] = lm[:, 0] = lm[:, -1] = False
-        if escaped is not None:
-            lm &= ~escaped
-        return [[round(float(dy[i]), 3), round(float(dy[j]), 3), round(float(U[i, j] - U0), 4)] for i, j in zip(*np.nonzero(lm))]
-
-    # conservative-field checks against the code's own force
-    chk = {}
-    for tag, b in (("b0", 0.0), ("bfold", b_fold)):
-        f = out[tag][0]
-        res, clamped = [], 0
-        q = lambda fr: c + int(round(fr * c))  # noqa: E731
-        for a_, c_ in [(c, c), (q(.25), q(-.25)), (q(-.4), q(.1)), (q(.5), q(.5)), (q(-.5), q(-.5)), (q(.9), q(-.9))]:
-            X = X0.copy()
-            X[1] += dy[a_]
-            X[3] += dy[c_]
-            Fc = code_force_bias(snap, ids, f, b, X)
-            if np.abs(Fc).max() >= 1e5:   # code clamps |F| at 1e6 N (deep overlap): not comparable
-                clamped += 1
-                continue
-            res.append(float(np.max(np.abs(Fc + f.grad(X)))))
-        chk[tag] = max(res)
-        chk[tag + "_clamped_points_skipped"] = clamped
-    # density-frozen check exactly as A3 (all residual agents active, snapshot state)
-    chk["a3_style_snapshot"] = float(np.max(np.abs(code_force(snap, ids, f0).ravel() + f0.grad(X0))))
-
-    params = snap["params"]
-    pas = Passability(width=snap["width"], **{k: params[k] for k in ("A_w", "B_w") if k in params})
-    margin = np.array([pas.margin(st.radii[i], st.desired_speeds[i], st.taus[i], f0.rho[k]) for k, i in enumerate(ids)])
-    ff, on_axis_max, wp = floor_field(params, f0.world)
-    save = {"snapshot": rel(path), "ids": np.array(ids),
-            "margin_N": margin, "gmax_N": np.array([pas.gmax(st.radii[i]) for i in ids]), **ff,
-            "pos": st.positions[ids], "radius": st.radii[ids], "vel": st.velocities[ids],
-            "rho_frozen": f0.rho, "drive_c_N": f0.c, "walls": walls_array(f0.world), "width": snap["width"],
-            "dy": dy, "b_fold": b_fold, "b_held": b_held, "U_ref_J": U0}
-    for tag in ("b0", "bfold"):
-        _, Us, Ur, DX, hit, _ = out[tag]
-        save[f"U_slice_{tag}_J"] = Us - U0
-        save[f"U_relax_{tag}_J"] = Ur - U0
-        save[f"dx_relax_{tag}_m"] = DX
-        save[f"dx_at_bound_{tag}"] = hit
-    from scipy.interpolate import RegularGridInterpolator
-    cc = np.arange(-CO_C, CO_C + 1e-9, CO_STEP)
-    oo = np.arange(-CO_O, CO_O + 1e-9, CO_STEP)
-    Cg, Og = np.meshgrid(cc, oo, indexing="ij")
-    save.update(co_c=cc, co_o=oo)
-    for tag in ("b0", "bfold"):
-        itp = RegularGridInterpolator((dy, dy), out[tag][2] - U0, method="linear")
-        save[f"U_co_{tag}_J"] = itp(np.column_stack([(Cg - Og).ravel(), (Cg + Og).ravel()])).reshape(Cg.shape)
-    np.savez_compressed(OUT / "pair_landscape.npz", **save)
-
-    return {"snapshot": save["snapshot"], "ids": ids, "pos": np.round(st.positions[ids], 4).tolist(),
-            "radius": np.round(st.radii[ids], 4).tolist(), "max_speed": float(np.linalg.norm(st.velocities[ids], axis=1).max()),
-            "b_held": b_held, "b_fold": b_fold, "grid": {"n": n_grid, "half_range_m": half_range},
-            "hessian_eig_recomputed_N_per_m": np.round(ev, 2).tolist(),
-            "hessian_eig_stored_N_per_m": np.round(stored["hess_eig_N_per_m"], 2).tolist(),
-            "H_lateral_block": np.round(H_lat, 2).tolist(), "H_lateral_schur": np.round(H_schur, 2).tolist(),
-            "fit_slice_H": np.round(Hs_fit, 2).tolist(), "fit_slice_grad": np.round(g_s, 4).tolist(),
-            "fit_relax_H": np.round(Hr_fit, 2).tolist(), "fit_relax_grad": np.round(g_r, 4).tolist(),
-            "eig_fit_slice": np.round(np.linalg.eigvalsh(Hs_fit), 2).tolist(),
-            "eig_H_lateral": np.round(np.linalg.eigvalsh(H_lat), 2).tolist(),
-            "eig_fit_relax": np.round(np.linalg.eigvalsh(Hr_fit), 2).tolist(),
-            "eig_H_schur": np.round(np.linalg.eigvalsh(H_schur), 2).tolist(),
-            "strict_min_b0_slice": strict_min(Us0) and bool(np.all(np.linalg.eigvalsh(Hs_fit) > 0)),
-            "strict_min_b0_relax": strict_min(Ur0) and bool(np.all(np.linalg.eigvalsh(Hr_fit) > 0)),
-            "strict_min_bfold_relax_at_snapshot": strict_min(out["bfold"][2]),
-            "barrier_relax_b0_J": barrier_on_grid(Ur0 - U0, out["b0"][4], c),
-            "barrier_relax_bfold_J": barrier_on_grid(out["bfold"][2] - U0, out["bfold"][4], c),
-            "local_minima_b0_slice": local_minima(out["b0"][1]),
-            "local_minima_b0_relax": local_minima(out["b0"][2], out["b0"][4]),
-            "local_minima_bfold_slice": local_minima(out["bfold"][1]),
-            "local_minima_bfold_relax": local_minima(out["bfold"][2], out["bfold"][4]),
-            "relax_hits_dx_bound_bfold": int(out["bfold"][4].sum()), "relax_hits_dx_bound_b0": int(out["b0"][4].sum()),
-            "max_abs_Fcode_plus_gradU_N": chk,
-            "stuck_alone_margin_N": np.round(margin, 1).tolist(), "floor_wall_params": wp,
-            "floor_gmax_probe_grid_N": on_axis_max, "floor_gmax_probe_passability_N": pas.gmax(0.25),
-            "grid_seconds": {t: round(out[t][5], 1) for t in out}}
+    res0 = float(np.abs(hp.forces_at(snap, ids)["total"].ravel() + f0.grad(f0.X0)).max())
+    # ribbons: common lateral shift c, relaxed over the opposed coordinate and the forward positions
+    cs = np.linspace(-0.25, 0.25, 101)
+    t0 = time.perf_counter()
+    U0, arg0 = hp.pair_ribbon(snap, ids, 0.0, cs)
+    Ub, argb = hp.pair_ribbon(snap, ids, B_TILT, cs)
+    mn0, mx0 = hp.stationary_points(cs, U0)
+    mnb, mxb = hp.stationary_points(cs, Ub)
+    # bracket the fold with the same ribbon criterion and with the code's relaxation
+    fold_lo, fold_hi = 0.0, 0.12
+    cf = np.linspace(-0.12, 0.12, 25)
+    for _ in range(9):
+        mid = 0.5 * (fold_lo + fold_hi)
+        Um, _ = hp.pair_ribbon(snap, ids, mid, cf)
+        d = np.diff(Um) / np.diff(cf)
+        if np.any((d[:-1] < 0) & (d[1:] > 0)):
+            fold_lo = mid
+        else:
+            fold_hi = mid
+    b_fold = 0.5 * (fold_lo + fold_hi)
+    dyn = {str(b): relax_dynamic(snap, ids, b) for b in (0.0, 0.5 * b_fold, 0.9 * b_fold, B_TILT, 0.05)}
+    # residual of the tilted potential against the code's tilted force
+    fb = hp.RestField(snap, ids, B_TILT)
+    resb = []
+    for dc in (0.0, 0.05, -0.05, 0.1):
+        X = f0.X0.copy()
+        X[1] += dc
+        X[3] += dc
+        Fc = hp.forces_at(snap, ids, bias=B_TILT, X=X.reshape(-1, 2))["total"].ravel()
+        resb.append(float(np.abs(Fc + fb.grad(X)).max()))
+    ff, on_axis, wp = floor_field(snap)
+    world = hp.world_of(snap)
+    np.savez_compressed(OUT / "pair.npz", snapshot=rel(PAIR_SNAP), ids=np.array(ids), pos=st.positions[ids],
+                        radius=st.radii[ids], margin_N=margin, drive_N=F0["drive"], wall_N=F0["wall"],
+                        partner_N=F0["partner"], bias_N=bias_inc, walls=walls_array(world), width=snap["width"],
+                        rib_c=cs, rib_U0=U0, rib_Ub=Ub, b_tilt=B_TILT, b_fold=b_fold, **ff)
+    rep["pair"] = {"snapshot": rel(PAIR_SNAP), "time_s": snap["time"], "ids": ids, "pos": st.positions[ids].round(4).tolist(),
+                   "r": st.radii[ids].round(4).tolist(), "margin_N": margin.round(2).tolist(), "wall_params": wp,
+                   "force_balance_b0": {"max_abs_total_N": float(np.abs(F0["total"]).max()),
+                                        "max_abs_parts_minus_total_N": float(np.abs(F0["sum_parts"] - F0["total"]).max()),
+                                        "member0_drive_wall_partner_N": [F0["drive"][0].round(3).tolist(), F0["wall"][0].round(3).tolist(),
+                                                                         F0["partner"][0].round(3).tolist()]},
+                   "bias": {"b_tilt": B_TILT, "b_fold_ribbon": b_fold, "increment_N_per_member": bias_inc.round(4).tolist(),
+                            "drive_tilted_total_N": Fb["drive"].round(3).tolist()},
+                   "hessian_eig_N_per_m": ev.round(2).tolist(), "strict_min_b0_hessian": bool((ev > 0).all()),
+                   "ribbon_b0_minima": mn0, "ribbon_b0_maxima": mx0, "ribbon_tilt_minima": mnb, "ribbon_tilt_maxima": mxb,
+                   "ribbon_b0_strict_min_at_0": bool(len(mn0) == 1 and abs(mn0[0]) < 2e-3),
+                   "ribbon_tilt_has_no_minimum": bool(len(mnb) == 0),
+                   "ribbon_U_range_J": {"b0": [float(U0.min()), float(U0.max())], "tilt": [float(Ub.min()), float(Ub.max())]},
+                   "ribbon_U_at_c": {str(c): [float(np.interp(c, cs, U0)), float(np.interp(c, cs, Ub))] for c in (-0.2, -0.1, 0.1, 0.2)},
+                   "relax_dynamic": dyn, "residual_force_plus_gradU_b0_N": res0, "residual_tilted_N": resb,
+                   "ribbon_seconds": round(time.perf_counter() - t0, 1)}
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--n-grid", type=int, default=101)
-    ap.add_argument("--half-range", type=float, default=0.5)
-    ap.add_argument("--only", choices=["lone", "pair"], default=None, help="re-export one scene, keep the other")
-    a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
+    rep = {}
     t0 = time.perf_counter()
-    rp = OUT / "export_report.json"
-    rep = json.load(open(rp)) if a.only and rp.exists() else {}
-    if a.only in (None, "lone"):
-        rep["lone"] = export_lone(LONE_SNAP)
-    if a.only in (None, "pair"):
-        rep["pair"] = export_pair(PAIR_SNAP, a.n_grid, a.half_range)
+    export_lone(rep)
+    export_pair(rep)
     rep["seconds"] = round(time.perf_counter() - t0, 1)
-    json.dump(rep, open(OUT / "export_report.json", "w"), indent=1)
+    json.dump(rep, open(OUT / "hero_physics.json", "w"), indent=1)
     print(json.dumps(rep, indent=1))

@@ -1,0 +1,13 @@
+% Standalone compile of the hero mock at the paper's text width (12.2 cm). Compile from the repository root:
+%   pdflatex -output-directory figures/hero/mock figures/hero/mock/fig1_mock.tex
+\documentclass[border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\newcommand{\figdir}{figures/}
+\newcommand{\heroimage}{figures/hero/mock/fig1_hero_mock.png}
+\begin{document}
+\setlength{\textwidth}{12.2cm}%
+\input{figures/fig1_hero.tex}
+\end{document}

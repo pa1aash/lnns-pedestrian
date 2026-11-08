@@ -2,6 +2,8 @@
 %
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \usepackage{booktabs,tabularx}
 %
 \begin{document}
@@ -33,8 +35,10 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 % Budget 2.0 pages. Fig 1 (hero, raster 600 dpi) placed early.
 \begin{figure*}[t]
 \centering
-\includegraphics[width=\textwidth]{../figures/fig1_hero.png}
-\caption{Top: a lone-agent trap frozen at a 0.8 m door with wall range $B_w=0.08$ m; bottom: a symmetric pair standoff at the same door with wall range $B_w=0.04$ m, and its rest-state energy over the common and opposed lateral shifts of the two members (metres, one horizontal scale), without bias and with a lateral bias just past the fold, the sphere marking the frozen state. Agents are drawn at true radius on one floor scale and coloured by stuck-alone margin (cividis, $-150$ N passes alone to $+150$ N held alone), the floor by the backward wall force on a lone 0.25 m agent (magma, log scale, 1--1000 N, light to dark) and the landscapes by energy (magma, $-1.2$ to $0.6$ J, light to dark; height linear in $U$ at 0.12 m per J and clipped).}\label{fig:hero}
+% Mock image until the production render is approved (figures/fig1_hero.png is then the new render).
+\providecommand{\heroimage}{}\renewcommand{\heroimage}{../figures/hero/mock/fig1_hero_mock.png}
+\input{../figures/fig1_hero.tex}
+\caption{Left: a lone-keystone deadlock at a 0.8 m door (top) and a symmetric pair standoff (bottom) on one floor scale, with agents coloured by stuck-alone margin (cividis, $-150$ N passes alone to $+150$ N held alone), the floor by the backward wall force on a lone 0.25 m agent (magma, log scale, 1--1000 N, light to dark) and arrows to scale (inset: the room). Right: rest-state energy of the blocker along the door axis with its own drive (black, thermal band at $\sigma=0.07$ m/s in vermillion) and with the ORCA rest drive added (blue), and of the pair along its common lateral shift without (black) and with (yellow) a lateral bias past the fold; each pair of ribbons has its own energy scale and the sphere marks the frozen state.}\label{fig:hero}
 \end{figure*}
 %
 \section{Background}
@@ -54,7 +58,7 @@ Arjun Veluri\inst{1}\orcidID{0009-0001-5940-3272}}
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/fig2_lone_trap.pdf}
-\caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the blue band the C3 boundary for $\tau\in[0.4,0.6]$\,s.}
+\caption{Left: backward wall force on a lone agent on the door axis ($w=0.8$\,m) against distance to the door plane for four radii, with the population drive bands; right: the stuck-alone margin over the $(r,v_0/\tau)$ plane, with the 20\,000 spawned agents. Dark grey curves are $r=0.20$, $0.25$, $0.30$, $0.35$\,m (dotted, dash-dotted, dashed, solid); bands show the 5--95\% range and lines the median of $m v_0/\tau$ for C1 (black) and of the rest-state drive for C3 RVO2 (blue); on the right the margin runs from $-150$\,N (passes alone) to $+150$\,N (held alone) in cividis, the black line is the C1 boundary and the two blue lines the C3 boundary for $\tau=0.6$ and $0.4$\,s.}
 \label{fig:lone-trap}
 \end{figure}
 % §5.1 numbers (paper/numbers.tex): stuck alone iff g_max(r) > m v0/tau; held-when-alone matches margin > 0 in
