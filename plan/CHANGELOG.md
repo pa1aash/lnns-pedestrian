@@ -127,3 +127,7 @@ C52 Data policy (2026-11-09): raw trajectory files (data/E10/raw/, about 430 MB)
 C53 Table 3 restructure (2026-11-09): Table 3 is the thesis table, about half a page: three matched-control blocks (lone-trap snapshots: noise σ vs ORCA; whole runs: C1 + σ* vs C3 RVO2; pair: bias b* vs ORCA, per solver) against the signatures that separate them (rate, identity, time to free, handedness, replay, Δt). Rows duplicating Figs 4-5 (E3/E4) are dropped.
 C54 Page plan (2026-11-09): target 24 pages including references. Indicative budgets: §1 1.8 (with Fig 1), §2 1.4, §3 2.5, §4 2.5, §5 3.8 (Figs 2-4), §6 4.5 (Figs 5-7, Tables 3-4), §7 1.9 (Fig 8), §8 1.0, §9 0.4, back matter 0.5, references 1.9, front matter 0.5.
 C55 Worktree rule (2026-11-09): each session edits only its own git worktree and pushes to main by fetch/rebase; the main folder is left to the experiment queue.
+C56 (2026-11-09) Table 3 overlap: J is computed on the minority outcome set of each block (the unresolved sets for the lone-trap and whole-run blocks, the freed sets for the pair block); the rule is stated once in §6.
+C57 (2026-11-09) All intervals in the paper are 95%; the 90% interval of the pair block (from the internal equivalence margin) is replaced.
+C58 (2026-11-09) Figure captions sit below their figures (LNCS guidelines); Fig 5's side caption is reverted.
+C59 (2026-11-09) §6 may run about 0.3 page over its budget until the final page pass.
