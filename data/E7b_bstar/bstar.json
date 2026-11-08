@@ -1,0 +1,75 @@
+{
+ "script": "experiments/E7b/matched_b.py fit",
+ "doc": "Matched lateral bias b* for the pair class (plan section 9, S9g) and its held-out runs.\n\nfit   b* is fitted on rate only. The target is the number of pair snapshots that ORCA frees in the E7b quench\n      (unperturbed runs, 120 s): C3 published (b*_pub, the paradigm as published, as in pilot A6) and C3 RVO2\n      (b*_rvo2, forward claims). The freed fraction under C1 + bias b > 0 is interpolated between the coarse\n      quench grid points with the per-snapshot static fold thresholds b*_i (fold_threshold.py): the static\n      curve F(b) = #{i : b*_i <= b} / 46 reproduces the quench at the grid points to within the static\n      prediction's disagreements (reported by analyze.py). b* is the midpoint of the interval of b on which\n      F(b) equals the ORCA count k (so the static prediction frees exactly k); if no such interval exists,\n      the midpoint between the k-th and (k+1)-th smallest thresholds. The fit uses the positive sign only\n      (b > 0 tilts toward +y); -b* is a held-out reversal. Written to data/E7b_bstar/bstar.json.\nrun   held-out quench at +b*, -b* for both fits on all 46 snapshots, each unperturbed and with 5 x 1e-9 m\n      perturbations (seeds 900-904), 120 s, dt 0.01 s, flags CF union {B_w: 0.04} union\n      {w2_noise: lateral_bias, w2_bias_b}, stationary stop as E7b_quench (run function reused unchanged).\n      Output: data/E7b_bstar/bstar_quench.jsonl (job_id \"<tag>|<arm>|<rep>\"), resumable.\n",
+ "n": 46,
+ "thresholds_plus": [
+  0.0030078125,
+  0.0043359375,
+  0.0055859375,
+  0.0062890625,
+  0.0072265624999999995,
+  0.007929687500000001,
+  0.009023437500000002,
+  0.0091015625,
+  0.0104296875,
+  0.0110546875,
+  0.012617187500000002,
+  0.012929687500000002,
+  0.013398437500000002,
+  0.0173046875,
+  0.0194921875,
+  0.019570312500000006,
+  0.0201953125,
+  0.0205078125,
+  0.0208203125,
+  0.0214453125,
+  0.021992187499999996,
+  0.022695312500000002,
+  0.023320312500000002,
+  0.0233984375,
+  0.0237109375,
+  0.0244921875,
+  0.024570312500000004,
+  0.0253515625,
+  0.025585937500000003,
+  0.027851562499999996,
+  0.0289453125,
+  0.0292578125,
+  0.031054687499999997,
+  0.0312890625,
+  0.0313671875,
+  0.0325390625,
+  0.0331640625,
+  0.0331640625,
+  0.034335937500000004,
+  0.0347265625,
+  0.0358203125,
+  0.039882812499999996,
+  0.041523437499999996,
+  0.0417578125,
+  0.053759765625,
+  0.055517578124999994
+ ],
+ "fits": {
+  "pub": {
+   "arm": "C3_pub",
+   "k_target": 21,
+   "interval": [
+    0.021992187499999996,
+    0.022695312500000002
+   ],
+   "b_star": 0.02234375,
+   "static_fraction_at_b_star": 0.45652173913043476
+  },
+  "rvo2": {
+   "arm": "C3_rvo2",
+   "k_target": 7,
+   "interval": [
+    0.009023437500000002,
+    0.0091015625
+   ],
+   "b_star": 0.009062500000000001,
+   "static_fraction_at_b_star": 0.15217391304347827
+  }
+ }
+}

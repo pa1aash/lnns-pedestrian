@@ -1,1 +1,96 @@
 # Registry entries for the pair library (session 5A). Same format as core.yaml.
+# Source: data/derived/E7b_analysis.json (experiments/E7b/analyze.py).
+
+# --- 5.2 statics
+PairN: {file: E7b_analysis.json, key: "n_snapshots", fmt: "{:d}"}
+PairAxisMin: {file: E7b_analysis.json, key: "a_statics.axis_dist_m.min", fmt: "{:.2f}"}
+PairAxisMax: {file: E7b_analysis.json, key: "a_statics.axis_dist_m.max", fmt: "{:.2f}"}
+PairGapMin: {file: E7b_analysis.json, key: "a_statics.pair_gap_m.min", fmt: "{:.2f}"}
+PairGapMax: {file: E7b_analysis.json, key: "a_statics.pair_gap_m.max", fmt: "{:.2f}"}
+PairResidMax: {file: E7b_analysis.json, key: "a_statics.field_residual_max_N", fmt: sci, digits: 1}
+PairStrictMin: {file: E7b_analysis.json, key: "a_statics.strict_min", fmt: "{:d}"}
+PairLamOneMin: {file: E7b_analysis.json, key: "a_statics.lambda1.min", fmt: "{:.0f}"}
+PairLamOneMax: {file: E7b_analysis.json, key: "a_statics.lambda1.max", fmt: "{:.0f}"}
+PairLamOneMed: {file: E7b_analysis.json, key: "a_statics.lambda1.median", fmt: "{:.0f}"}
+PairSoftCommon: {file: E7b_analysis.json, key: "a_statics.softest_common_lateral", fmt: "{:d}"}
+PairLamRatioMin: {file: E7b_analysis.json, key: "a_statics.lambda2_over_lambda1.min", fmt: "{:.0f}"}
+PairLamRatioMax: {file: E7b_analysis.json, key: "a_statics.lambda2_over_lambda1.max", fmt: "{:.0f}"}
+PairPerturbN: {file: E7b_analysis.json, key: "b_s9b.perturb_1e9_C1.n", fmt: "{:d}"}
+PairPerturbFreed: {file: E7b_analysis.json, key: "b_s9b.perturb_1e9_C1.freed", fmt: "{:d}"}
+PairDeltaOneMmFreed: {file: E7b_analysis.json, key: "b_s9b.delta0p001.freed", fmt: "{:d}"}
+PairDeltaOneCmFreed: {file: E7b_analysis.json, key: "b_s9b.delta0p01.freed", fmt: "{:d}"}
+PairDeltaThreeCmFreed: {file: E7b_analysis.json, key: "b_s9b.delta0p03.freed", fmt: "{:d}"}
+# --- 5.2 fold
+PairBstarMin: {file: E7b_analysis.json, key: "a_statics.fold_threshold.min_both_signs.min", fmt: "{:.3f}"}
+PairBstarMax: {file: E7b_analysis.json, key: "a_statics.fold_threshold.min_both_signs.max", fmt: "{:.3f}"}
+PairBstarMed: {file: E7b_analysis.json, key: "a_statics.fold_threshold.min_both_signs.median", fmt: "{:.3f}"}
+PairFoldAgree: {file: E7b_analysis.json, key: "a_statics.fold_prediction.agree", fmt: "{:d}"}
+PairFoldN: {file: E7b_analysis.json, key: "a_statics.fold_prediction.n", fmt: "{:d}"}
+PairFoldLo: {file: E7b_analysis.json, key: "a_statics.fold_prediction.accuracy_wilson95.1", fmt: "{:.3f}"}
+PairFoldFN: {file: E7b_analysis.json, key: "a_statics.fold_prediction.FN", fmt: "{:d}"}
+PairBiasOneFreed: {file: E7b_analysis.json, key: "b_quench.bias0p01.freed", fmt: "{:d}"}
+PairBiasTenFreed: {file: E7b_analysis.json, key: "b_quench.bias0p1.freed", fmt: "{:d}"}
+PairHandAll: {file: E7b_analysis.json, key: "b_handedness.pooled.freed", fmt: "{:d}"}
+# --- 5.2 barrier and noise
+PairBarN: {file: E7b_analysis.json, key: "d_barriers.accepted", fmt: "{:d}"}
+PairBarMin: {file: E7b_analysis.json, key: "d_barriers.dU.min", fmt: "{:.2f}"}
+PairBarMax: {file: E7b_analysis.json, key: "d_barriers.dU.max", fmt: "{:.1f}"}
+PairBarMed: {file: E7b_analysis.json, key: "d_barriers.dU.median", fmt: "{:.2f}"}
+PairBarSpearman: {file: E7b_analysis.json, key: "d_barriers.spearman_lambda1_dU", fmt: "{:.2f}"}
+PairNoiseLowFreed: {file: E7b_analysis.json, key: "b_quench.noise0p01.freed", fmt: "{:d}"}
+PairNoiseLowN: {file: E7b_analysis.json, key: "b_quench.noise0p01.n", fmt: "{:d}"}
+PairWeibLow: {file: E7b_analysis.json, key: "b_quench.noise0p01.weibull.k", fmt: "{:.1f}"}
+PairWeibHigh: {file: E7b_analysis.json, key: "b_quench.noise0p05.weibull.k", fmt: "{:.1f}"}
+
+# --- 6.2 ORCA decomposition
+PairPubFreed: {file: E7b_analysis.json, key: "b_quench.C3_pub.freed", fmt: "{:d}"}
+PairRvoFreed: {file: E7b_analysis.json, key: "b_quench.C3_rvo2.freed", fmt: "{:d}"}
+PairPubRvoA: {file: E7b_analysis.json, key: "c_decomposition.pub_vs_rvo2.disc_a_only", fmt: "{:d}"}
+PairPubRvoB: {file: E7b_analysis.json, key: "c_decomposition.pub_vs_rvo2.disc_b_only", fmt: "{:d}"}
+PairPubRvoP: {file: E7b_analysis.json, key: "c_decomposition.pub_vs_rvo2.mcnemar_p", fmt: p}
+PairConsPubFreed: {file: E7b_analysis.json, key: "b_quench.constraint_only_pub.freed", fmt: "{:d}"}
+PairConsRvoFreed: {file: E7b_analysis.json, key: "b_quench.constraint_only_rvo2.freed", fmt: "{:d}"}
+PairDriveFreed: {file: E7b_analysis.json, key: "b_quench.drive_only.freed", fmt: "{:d}"}
+PairFrozenPlusFreed: {file: E7b_analysis.json, key: "b_quench.frozen_plus.freed", fmt: "{:d}"}
+PairFrozenMinusFreed: {file: E7b_analysis.json, key: "b_quench.frozen_minus.freed", fmt: "{:d}"}
+PairDriveRvoA: {file: E7b_analysis.json, key: "c_decomposition.drive_vs_rvo2.disc_a_only", fmt: "{:d}"}
+PairDriveRvoB: {file: E7b_analysis.json, key: "c_decomposition.drive_vs_rvo2.disc_b_only", fmt: "{:d}"}
+PairDriveRvoP: {file: E7b_analysis.json, key: "c_decomposition.drive_vs_rvo2.mcnemar_p", fmt: p}
+PairReplayN: {file: E7b_analysis.json, key: "c_decomposition.replay_all_det_n", fmt: "{:d}"}
+PairPubLower: {file: E7b_analysis.json, key: "b_quench.C3_pub.first_lower", fmt: "{:d}"}
+# --- 6.2 second-trap link (C26)
+CtwsixN: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.n", fmt: "{:d}"}
+CtwsixGapMin: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.gap_m.min", fmt: "{:.2f}"}
+CtwsixGapMax: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.gap_m.max", fmt: "{:.2f}"}
+CtwsixRvoFreed: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.C3_rvo2_freed", fmt: "{:d}"}
+CtwsixDriveFreed: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.drive_only_freed", fmt: "{:d}"}
+CtwsixCancel: {file: E7b_analysis.json, key: "e_c26.second_trap_one_neighbour.cancel_frac_mean_held.median", fmt: "{:.2f}"}
+PairTraceCancel: {file: E7b_analysis.json, key: "e_c26.pair_library.trace.cancel_frac_mean_held.median", fmt: "{:.2f}"}
+PairFoldMissGap: {file: E7b_analysis.json, key: "a_statics.fold_prediction.disagree_max_rel_gap_pct", fmt: "{:.0f}"}
+PairAsymCorr: {file: E7b_analysis.json, key: "a_statics.fold_threshold.corr_asym_bstar_spearman", fmt: "{:.3f}"}
+# --- 6.2 matched bias b* (data/E7b_bstar, experiments/E7b/matched_b.py)
+PairBstarPub: {file: E7b_analysis.json, key: "s3_matched.pub.b_star", fmt: "{:.4f}"}
+PairBstarRvo: {file: E7b_analysis.json, key: "s3_matched.rvo2.b_star", fmt: "{:.4f}"}
+PairBsPubFreed: {file: E7b_analysis.json, key: "s3_matched.pub.rate.freed_a", fmt: "{:d}"}
+PairBsPubA: {file: E7b_analysis.json, key: "s3_matched.pub.rate.disc_a_only", fmt: "{:d}"}
+PairBsPubB: {file: E7b_analysis.json, key: "s3_matched.pub.rate.disc_b_only", fmt: "{:d}"}
+PairBsPubP: {file: E7b_analysis.json, key: "s3_matched.pub.rate.mcnemar_p", fmt: p}
+PairBsPubDiffLo: {file: E7b_analysis.json, key: "s3_matched.pub.rate.diff_ci90.0", fmt: "{:.2f}"}
+PairBsPubDiffHi: {file: E7b_analysis.json, key: "s3_matched.pub.rate.diff_ci90.1", fmt: "{:.2f}"}
+PairBsRvoFreed: {file: E7b_analysis.json, key: "s3_matched.rvo2.rate.freed_a", fmt: "{:d}"}
+PairBsRvoA: {file: E7b_analysis.json, key: "s3_matched.rvo2.rate.disc_a_only", fmt: "{:d}"}
+PairBsRvoB: {file: E7b_analysis.json, key: "s3_matched.rvo2.rate.disc_b_only", fmt: "{:d}"}
+PairBsRvoP: {file: E7b_analysis.json, key: "s3_matched.rvo2.rate.mcnemar_p", fmt: p}
+PairBsRvoBoth: {file: E7b_analysis.json, key: "s3_matched.rvo2.jaccard_freed.both_freed", fmt: "{:d}"}
+PairBsRvoEither: {file: E7b_analysis.json, key: "s3_matched.rvo2.jaccard_freed.either_freed", fmt: "{:d}"}
+PairBsPubJac: {file: E7b_analysis.json, key: "s3_matched.pub.jaccard_freed.value", fmt: "{:.2f}"}
+PairBsPubJacLo: {file: E7b_analysis.json, key: "s3_matched.pub.jaccard_freed.ci95.0", fmt: "{:.2f}"}
+PairBsPubJacHi: {file: E7b_analysis.json, key: "s3_matched.pub.jaccard_freed.ci95.1", fmt: "{:.2f}"}
+PairBsPubBoth: {file: E7b_analysis.json, key: "s3_matched.pub.jaccard_freed.both_freed", fmt: "{:d}"}
+PairBsPubEither: {file: E7b_analysis.json, key: "s3_matched.pub.jaccard_freed.either_freed", fmt: "{:d}"}
+PairBsPubHand: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.plus_lower_first", fmt: "{:d}"}
+PairBsPubN: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.plus_n", fmt: "{:d}"}
+PairBsPubMinusUpper: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.minus_upper_first", fmt: "{:d}"}
+PairBsPubMinusFreed: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.minus_n", fmt: "{:d}"}
+PairBsPubRevA: {file: E7b_analysis.json, key: "s3_matched.pub.reversal.disc_a_only", fmt: "{:d}"}
+PairBsPubRevB: {file: E7b_analysis.json, key: "s3_matched.pub.reversal.disc_b_only", fmt: "{:d}"}
