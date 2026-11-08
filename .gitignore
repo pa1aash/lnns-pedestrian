@@ -23,3 +23,5 @@ lit/
 # single-file submission build (make submission); only the README is tracked
 paper/submission/*
 !paper/submission/README.md
+# raw trajectory files (> 50 MB per folder) are archived on Zenodo at submission, not committed (C52)
+data/E10/raw/
