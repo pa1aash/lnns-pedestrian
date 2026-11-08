@@ -95,8 +95,8 @@ def ci(lo, hi):
 # ---- pending-row evidence: filled in as each production run is analysed --------------------------------
 
 def ev_throat():
-    return (f"{M('EelevenPersistentAll')} overlaps last 0.1\\,s, any arm, $w=1.0$--$1.8$\\,m; TTC removes shorter "
-            f"ones (C1 {M('EelevenCOneTimestepsMean')} steps, C2 and C4 0, $p={M('EelevenCFourVsCOneP')}$)")
+    return (f"C1 {M('EelevenCOneTimestepsMean')} (printed {M('TabFourConfThroatCOne')}), C2 and C4 0 steps "
+            f"($p={M('EelevenCFourVsCOneP')}$); {M('EelevenPersistentAll')} last 0.1\\,s")
 
 
 def st_throat():
@@ -122,10 +122,9 @@ def st_counterflow():
 
 def ev_counterflow():
     v = verdict("E8")
-    tail = "RVO2 agrees" if v.get("solvers_agree") else f"RVO2: {v['c3_rvo2']['status']}"
-    return (f"open corridor: published ORCA {M('EeightCThreePubRatio')} "
-            f"{ci('EeightCThreePubRatioLo', 'EeightCThreePubRatioHi')} of C1's throughput, gridlocks "
-            f"{M('EeightCThreePubGridlock')} vs {M('EeightCOneGridlock')}; {M('EeightLeaks')} leaks; {tail}")
+    tail = "" if v.get("solvers_agree") else f"; RVO2: {v['c3_rvo2']['status']}"
+    return (f"open corridor: {M('EeightCThreePubRatio')} {ci('EeightCThreePubRatioLo', 'EeightCThreePubRatioHi')} "
+            f"of C1's flow; gridlocks {M('EeightCThreePubGridlock')} vs {M('EeightCOneGridlock')}{tail}")
 
 
 def st_crossing():
@@ -134,8 +133,8 @@ def st_crossing():
 
 
 def ev_crossing():
-    return (f"open crossing: C2/C1 {M('EnineCTwoRatio')} {ci('EnineCTwoRatioLo', 'EnineCTwoRatioHi')}, "
-            f"{M('EnineLeaks')} leaks; the printed exits all passed through walls")
+    return (f"open crossing: C2/C1 {M('EnineCTwoRatio')} {ci('EnineCTwoRatioLo', 'EnineCTwoRatioHi')} "
+            f"(printed {M('TabFourConfCrossIRR')}); {M('EnineLeaks')} leaks")
 
 
 def st_published_orca():
@@ -144,84 +143,66 @@ def st_published_orca():
 
 
 def ev_published_orca():
-    return (f"{frac('EsixpK', 'EsixpN')} {ci('EsixpLo', 'EsixpHi')} in the published mode "
-            f"(against the printed count $p={M('EsixpConfP')}$)")
+    return f"{frac('EsixpK', 'EsixpN')} {ci('EsixpLo', 'EsixpHi')}; against the printed count $p={M('EsixpConfP')}$"
 
 
 ROWS = [
-    row(lambda: f"C1 completes {frac('TabFourConfCOneK', 'TabFourConfN')} at $w=0.8$\\,m",
-        "revised",
-        lambda: f"{frac('EOneACompletionK', 'EOneACompletionN')} {ci('EOneACompletionLo', 'EOneACompletionHi')} "
-                "in the published mode; the printed count is one realisation",
+    row(lambda: f"C1 completes {frac('TabFourConfCOneK', 'TabFourConfN')}", "revised",
+        lambda: f"{frac('EOneACompletionK', 'EOneACompletionN')} {ci('EOneACompletionLo', 'EOneACompletionHi')}",
         r"\ref{sec:lone}"),
-    row(lambda: f"TTC leaves C1's deadlock in place (C2 {frac('TabFourConfCTwoK', 'TabFourConfN')})",
-        "confirmed",
-        lambda: f"rest-state lemma: C2 reproduces C1 in {frac('EtwoLemmaIdentical', 'EtwoLemmaPairs')} paired runs",
+    row(lambda: f"C2 completes {frac('TabFourConfCTwoK', 'TabFourConfN')}, as C1", "confirmed",
+        lambda: f"rest-state lemma: C2 equals C1 in {frac('EtwoLemmaIdentical', 'EtwoLemmaPairs')} runs",
         r"\ref{sec:att-lone}"),
-    row(lambda: f"Published ORCA (C3) completes {frac('TabFourConfCThreeK', 'TabFourConfN')}",
+    row(lambda: f"Published ORCA {frac('TabFourConfCThreeK', 'TabFourConfN')}",
         st_published_orca, ev_published_orca, r"\ref{sec:conference}"),
-    row(lambda: f"Noise at $\\sigma={M('TabFourConfNoiseSigma')}$\\,m/s completes {frac('TabFourConfNoiseK', 'TabFourConfN')}",
-        "confirmed",
-        lambda: f"{frac('TabFourNoiseK', 'TabFourNoiseN')} {ci('TabFourNoiseLo', 'TabFourNoiseHi')} in the published mode",
+    row(lambda: f"Noise $\\sigma={M('TabFourConfNoiseSigma')}$\\,m/s: {frac('TabFourConfNoiseK', 'TabFourConfN')}",
+        "confirmed", lambda: f"{frac('TabFourNoiseK', 'TabFourNoiseN')} {ci('TabFourNoiseLo', 'TabFourNoiseHi')}",
         r"\ref{sec:escape}"),
-    row(lambda: f"$\\sigma_{{50}}={M('EfiveConfSigmaFifty')}$\\,m/s",
-        "revised",
+    row(lambda: f"$\\sigma_{{50}}={M('EfiveConfSigmaFifty')}$\\,m/s", "revised",
         lambda: f"{M('EfiveASigmaFifty')} {ci('EfiveASigmaFiftyLo', 'EfiveASigmaFiftyHi')}\\,m/s, "
-                f"{M('EfiveAN')} runs per level, logit fit",
+                f"{M('EfiveAN')} runs per level",
         r"\ref{sec:escape}"),
-    row("Noise and ORCA resolve deadlocks alike, by symmetry breaking",
-        "withdrawn",
-        lambda: f"published LP: its rest drive alone frees the same lone keystones (discordant "
-                f"{M('EtwoLKDriveVsPubDiscA')}:{M('EtwoLKDriveVsPubDiscB')}); a bias matched to it frees other "
-                f"standoffs ($J={M('PairBsPubJac')}$); RVO2 agrees",
+    row("Noise acts as ORCA does", "withdrawn",
+        lambda: f"rest drive alone frees ORCA's lone keystones "
+                f"({M('EtwoLKDriveVsPubDiscA')}:{M('EtwoLKDriveVsPubDiscB')}); a matched bias frees other "
+                f"standoffs ($J={M('PairBsPubJac')}$)",
         r"\ref{sec:attribution}"),
-    row(lambda: f"Ratio interval [{M('TabFourConfRatioLo')}, {M('TabFourConfRatioHi')}]; Cox HR {M('TabFourConfCoxHR')}",
-        "withdrawn",
-        "no code reproduces them; replaced by paired differences and Kaplan--Meier medians",
+    row(lambda: f"Ratio [{M('TabFourConfRatioLo')}, {M('TabFourConfRatioHi')}]; Cox HR {M('TabFourConfCoxHR')}",
+        "withdrawn", "no code reproduces them; replaced by Table~\\ref{tab:matched}",
         r"Table~\ref{tab:matched}"),
-    row(lambda: f"Frozen arch of {M('TabFourConfArchAgents')} agents in {M('TabFourConfArchSeeds')} seeds",
-        "revised",
-        lambda: f"lone wall-law trap (criterion exact in {frac('CriterionAgree', 'CriterionN')}); "
-                f"{M('ArchPersistent')} persistent arches",
+    row(lambda: f"Arch of {M('TabFourConfArchAgents')} agents", "revised",
+        lambda: f"lone wall-law trap ({frac('CriterionAgree', 'CriterionN')}); {M('ArchPersistent')} persistent arches",
         r"\ref{sec:lone}, \ref{sec:arches}"),
-    row("The deadlock belongs to the steering paradigm",
-        "revised",
-        lambda: f"critical width {M('EsevenWcrit')}\\,m for default walls; short-range jambs "
-                f"complete {frac('EsevenBjambK', 'EsevenN')}",
+    row("Deadlock set by the paradigm", "revised",
+        lambda: f"critical width {M('EsevenWcrit')}\\,m (default walls); short jambs "
+                f"{frac('EsevenBjambK', 'EsevenN')}",
         r"\ref{sec:lone}"),
-    row(lambda: f"TTC removes throat overlaps (C1 {M('TabFourConfThroatCOne')} steps, $w={M('TabFourConfThroatW')}$\\,m)",
+    row(lambda: f"TTC removes throat overlaps",
         st_throat, ev_throat, r"\ref{sec:conference}"),
-    row("Zonal overlap counts; evacuation unchanged by spawn cleaning",
-        "withdrawn",
-        "counts come from overlapping spawn positions; evacuation times do change",
-        "---"),
-    row(lambda: f"C4 shortens evacuation by {M('TabFourConfEvacRedA')}\\% and {M('TabFourConfEvacRedB')}\\%",
-        "withdrawn",
-        "no stored computation gives these values or the significance marks",
-        "---"),
+    row("Zonal overlaps; evacuation unchanged", "withdrawn",
+        "spawn-overlap artefacts; evacuation times change", "---"),
+    row(lambda: f"C4 cuts evacuation {M('TabFourConfEvacRedA')}\\%, {M('TabFourConfEvacRedB')}\\%", "withdrawn",
+        "no stored computation gives them", "---"),
     row("ORCA gridlocks counterflow", st_counterflow, ev_counterflow, r"\ref{sec:conference}"),
-    row(lambda: f"TTC triples crossing throughput (ratio {M('TabFourConfCrossIRR')})",
+    row(lambda: f"TTC triples crossing flow",
         st_crossing, ev_crossing, r"\ref{sec:conference}"),
-    row(lambda: f"Calibrated fundamental diagram; flow {M('TabFourConfOODLo')}--{M('TabFourConfOODHi')}\\% low",
-        "withdrawn",
-        lambda: f"like-for-like bottleneck: deadlock, or {M('EtenCSigFlowRatio')}--{M('EtenCThreeFlowRatio')} "
-                "of the human flow",
+    row(lambda: f"Flow {M('TabFourConfOODLo')}--{M('TabFourConfOODHi')}\\% below data", "withdrawn",
+        lambda: f"like for like: deadlock or {M('EtenCSigFlowRatio')}--{M('EtenCThreeFlowRatio')} of human flow",
         r"\ref{sec:validity}"),
 ]
 
-CAPTION = (r"Conference findings~\cite{gang2026} and their status in this paper, judged on the published ORCA "
-           r"solver with RVO2 as a check. Revised findings stand in the form given as evidence; withdrawn ones are "
-           r"not repeated.")
+CAPTION = (r"Conference findings~\cite{gang2026}, judged on the published ORCA solver with RVO2 as a check. "
+           r"Revised findings stand in the form given as evidence.")
 
 
 def write():
     lines = [
         "% generated by experiments/tables/make_table4.py from paper/registry/*.yaml macros; do not edit",
-        r"\begin{table}[t]",
+        r"\begin{table}[!htb]",
         r"\caption{" + CAPTION + "}",
         r"\label{tab:conference}",
         r"\centering\scriptsize\setlength{\tabcolsep}{3pt}",
-        r"\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{4.3cm}l>{\raggedright\arraybackslash}Xl@{}}",
+        r"\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.7cm}l>{\raggedright\arraybackslash}Xl@{}}",
         r"\toprule",
         r"Conference finding & Status & Evidence in this paper & Sect. \\",
         r"\midrule",
