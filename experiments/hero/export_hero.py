@@ -1,6 +1,6 @@
 """Export the physics data behind the hero figure (Fig. 1) for the Blender render and the LaTeX overlay.
 
-    PYTHONPATH=code /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/export_hero.py
+    PYTHONPATH=code .venv/bin/python experiments/hero/export_hero.py      (repository root, after make venv-sim)
 
 Writes data/derived/hero/{lone.npz, pair.npz, inset.json, hero_physics.json}. Every number comes from the
 simulator's own routines (experiments/hero/hero_phys.py): corrected-forward flags (w2_numerics = fixed,

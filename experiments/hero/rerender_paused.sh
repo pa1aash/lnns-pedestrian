@@ -1,8 +1,11 @@
 #!/bin/bash
 # Re-render the four hero panels one per Blender run (-t 2, Metal GPU, tile 256) and assemble, with the experiment queue
-# paused (SIGSTOP) for the duration only; always resumed (SIGCONT) on exit. Log: figures/hero/c43_render.log
+# paused (SIGSTOP) for the duration only; always resumed (SIGCONT) on exit. The queue is the process group of
+# QUEUE_PID, which must be set (e.g. QUEUE_PID=3074 bash experiments/hero/rerender_paused.sh). Log: figures/hero/c43_render.log
 cd "$(dirname "$0")/../.."
-PG=$(ps -o pgid= -p 3074 | tr -d ' ')
+[ -n "$QUEUE_PID" ] || { echo "set QUEUE_PID to the experiment queue's PID (or use final.sh, which needs no queue)" >&2; exit 1; }
+PG=$(ps -o pgid= -p "$QUEUE_PID" | tr -d ' ')
+[ -n "$PG" ] || { echo "QUEUE_PID $QUEUE_PID is not running" >&2; exit 1; }
 trap 'pkill -CONT -g $PG; echo "$(date "+%F %T") queue RESUMED (SIGCONT, pgid $PG)"' EXIT
 echo "$(date '+%F %T') queue PAUSED (SIGSTOP, pgid $PG), free $(memory_pressure | awk '/free percentage/ {print $5}')"
 pkill -STOP -g $PG

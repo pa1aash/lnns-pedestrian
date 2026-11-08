@@ -1,6 +1,6 @@
 """Rest-state physics behind the hero figure (Fig. 1), from the simulator's own routines.
 
-Run with the plan interpreter:  /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python
+Run with the simulator interpreter:  .venv/bin/python (repository root, after make venv-sim)
 Imports the repository's experiments/lib (which puts code/ on the path and changes the cwd to code/),
 so every path used here is absolute.
 

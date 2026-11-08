@@ -1,6 +1,6 @@
 """Add the signed wall clearance of the floor probe to data/derived/hero/{lone,pair}.npz (all other arrays unchanged).
 
-    PYTHONPATH=code /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/add_clearance.py
+    PYTHONPATH=code .venv/bin/python experiments/hero/add_clearance.py      (repository root, after make venv-sim)
 """
 import pickle
 import sys

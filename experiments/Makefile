@@ -1,7 +1,12 @@
 # Experiment targets. Run from the repository root as `make -C experiments <target>`.
-# Simulations use the plan-root interpreter (same versions => bit-identical results).
+# PY is the simulator interpreter. The default is the repository .venv with the simulator packages added
+# (`make venv-sim` at the root: the versions of requirements-figures.txt plus shapely, pandas, pyarrow and
+# pytest as pinned in .github/workflows/tests.yml; code/pyproject.toml lists the loose requirements).
+# Any other interpreter can be given as PY=... . The regression hash (`regress`) is bit-identical only
+# with Python 3.13 and exactly these pinned versions, on the Mac where the reference was recorded.
+# Queue 3 run scripts live in experiments/runs3/; the queue file is experiments/queue3.yaml.
 ROOT := $(abspath ..)
-PY ?= /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python
+PY ?= $(ROOT)/.venv/bin/python
 export PYTHONPATH := $(ROOT)/code
 
 .PHONY: regress test status keystone selection e1-analyze queue

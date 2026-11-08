@@ -1,6 +1,6 @@
 """Write 256-entry sRGB lookup tables for the hero render (Blender's Python has no Matplotlib).
 
-    /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python experiments/hero/make_luts.py
+    .venv/bin/python experiments/hero/make_luts.py      (from the repository root, after make venv)
 
   cividis - agents, stuck-alone margin (blue: passes alone, yellow: held alone)
   floor   - backward wall force on a lone 0.25 m agent, log scale from F_FADE = 5 N to 1000 N: a truncated magma range
