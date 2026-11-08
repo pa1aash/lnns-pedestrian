@@ -8,7 +8,7 @@ One or two sentences per figure, for the proof stage. Each describes what is dra
 
 **Fig. 3.** Left: the fraction of C1 runs completed falls as the exit width narrows from 1.0 m to 0.7 m. Right: at 0.8 m, one point with its interval per wall-law variant, each beside a stacked bar splitting the runs into completed (white), pair or group standoff (light grey) and lone trap (dark grey).
 
-**Fig. 4.** Left: three step curves of the fraction of blockers escaped against time under noise, for the full, pinned and alone barrier conditions. Right: the logarithm of the escape rate over the attempt rate falls along a straight line against the barrier height over the thermal energy, with points for every snapshot, condition and noise level.
+**Fig. 4.** Left: three step curves of the fraction of blockers escaped against time under noise, for the full, pinned and alone barrier conditions. Right: for every snapshot and condition, the ratio of the fitted Arrhenius slope to minus the computed barrier, with its 95% interval, against the barrier on a log axis; the ratios scatter around a horizontal line at 1.
 
 **Fig. 5.** Escape rate against time step on log–log axes, normalised at Δt = 0.01 s: per-step noise (vermilion, filled markers) falls with the time step along its Arrhenius prediction lines, while √Δt-scaled noise (light vermilion, open markers) and C3 with ORCA (blue diamonds) stay close to one.
 
