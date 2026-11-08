@@ -1,0 +1,1996 @@
+{
+ "script": "experiments/E11/analyze.py",
+ "doc": "E11 analysis: persistence-filtered agent-agent overlaps at the room bottleneck (CF, 50 agents, 300 s cap).\n\n  python3 experiments/E11/analyze.py        write data/derived/E11_analysis.json\n\nInput: data/E11/e11_overlap.jsonl (experiments/E11/e11_overlap.py; override the directory with E11_SRC=<dir>).\nCells: C1, C2, C3_rvo2, C4_rvo2 at w in {1.0, 1.2, 1.8} m, plus C3_pub at w = 1.0 m; 25 seeds (42-66) per cell, the\nsame seeds in every cell, so arms are paired by seed at each width.\n\nDefinitions (from the run script): an overlap is an active pair with |x_i - x_j| < r_i + r_j at the end of a step;\nzone of a pair = zone of its midpoint (upstream x < 8, throat 8 <= x <= 10.5, downstream x > 10.5 m). An episode is a\nmaximal run of consecutive overlapping steps of one pair (zone at its first step); a persistent episode lasts >= 0.1 s\n(>= 10 steps at dt = 0.01 s). \"Overlap timesteps\" (steps with at least one overlapping pair in the zone, unfiltered) is\nthe conference paper's metric and is reported for comparison.\n\nMethod, per cell (arm x width):\n  n runs, completions, deadlocks, runs with open persistent episodes at the end;\n  per zone: runs with >= 1 persistent episode, Wilson 95% interval; mean persistent episodes per run with a 95%\n  percentile bootstrap interval (2000 resamples of seeds, numpy PCG64(12345), one generator for the whole script,\n  consumed in a fixed cell/zone order); total persistent episodes; median / max persistent duration (s) and max depth\n  (m), null when there are none; unfiltered episodes (all durations) and overlap timesteps (mean, SD with ddof = 1).\nPaired comparisons at each width (C2, C4_rvo2, C3_rvo2 each against C1, matched on seed): on persistent throat\n  episodes per run (primary) and on unfiltered throat overlap timesteps (conference metric, secondary): Wilcoxon\n  signed-rank (scipy.stats.wilcoxon, zero_method = 'wilcox', two-sided; p is null when every paired difference is\n  zero, since the test is then undefined) with the number of non-zero pairs, and the paired mean difference (arm - C1)\n  with a 95% percentile bootstrap interval (2000 resamples of seed pairs).\nVerdict: the conference claim (rejection-sampled, 50 agents, 300 s, w = 1.0 m: C1 throat 1.20 +- 1.96 overlap\n  timesteps, C2 = C4 = 0, C3 0.80 +- 2.87, Wilcoxon C1 vs C4 p = 0.011; \"TTC (arms C2, C4) eliminates throat overlaps at\n  narrow exits\") is checked with the persistence filter: do the TTC arms have zero persistent throat episodes at each\n  width, does C1 have any; status confirmed / revised / withdrawn.\nKeys in the JSON avoid '.' (registry key paths split on '.'): cell \"C1|w1.0\" is stored as cells.C1.w1p0.\npython3 with numpy and scipy (system python3).\n",
+ "source": "data/E11/e11_overlap.jsonl",
+ "seeds": [
+  42,
+  66
+ ],
+ "n_bootstrap": 2000,
+ "rng": "PCG64(12345)",
+ "persistence_threshold_s": 0.1,
+ "cells": {
+  "C1": {
+   "w1p0": {
+    "arm": "C1",
+    "width_m": 1.0,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 55.235999999997574,
+     "sd": 3.140003980888572,
+     "total": 1380
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.44,
+        "sd": 0.7118052168020874,
+        "total": 11
+       },
+       "runs_with_episode": 8,
+       "overlap_timesteps": {
+        "mean": 1.16,
+        "sd": 1.8636880997992482,
+        "total": 29
+       },
+       "pair_steps": {
+        "mean": 1.16,
+        "sd": 1.8636880997992482,
+        "total": 29
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p2": {
+    "arm": "C1",
+    "width_m": 1.2,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 38.42760000000092,
+     "sd": 2.517093694454806,
+     "total": 960
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.24,
+        "sd": 0.5228129047119374,
+        "total": 6
+       },
+       "runs_with_episode": 5,
+       "overlap_timesteps": {
+        "mean": 0.64,
+        "sd": 1.7291616465790582,
+        "total": 16
+       },
+       "pair_steps": {
+        "mean": 0.64,
+        "sd": 1.7291616465790582,
+        "total": 16
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p8": {
+    "arm": "C1",
+    "width_m": 1.8,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 21.518400000000565,
+     "sd": 1.0780873495842982,
+     "total": 537
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.12,
+        "sd": 0.33166247903553997,
+        "total": 3
+       },
+       "runs_with_episode": 3,
+       "overlap_timesteps": {
+        "mean": 0.28,
+        "sd": 0.8426149773176358,
+        "total": 7
+       },
+       "pair_steps": {
+        "mean": 0.28,
+        "sd": 0.8426149773176358,
+        "total": 7
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   }
+  },
+  "C2": {
+   "w1p0": {
+    "arm": "C2",
+    "width_m": 1.0,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 54.584399999997714,
+     "sd": 3.6122074045281702,
+     "total": 1364
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p2": {
+    "arm": "C2",
+    "width_m": 1.2,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 38.314000000000945,
+     "sd": 2.565933878077151,
+     "total": 957
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p8": {
+    "arm": "C2",
+    "width_m": 1.8,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 21.318000000000534,
+     "sd": 0.9622542976436234,
+     "total": 532
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   }
+  },
+  "C3_rvo2": {
+   "w1p0": {
+    "arm": "C3_rvo2",
+    "width_m": 1.0,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 45.75359999999948,
+     "sd": 2.4848975163302427,
+     "total": 1143
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.28,
+        "sd": 0.8426149773176358,
+        "total": 7
+       },
+       "runs_with_episode": 4,
+       "overlap_timesteps": {
+        "mean": 1.04,
+        "sd": 4.004996878900157,
+        "total": 26
+       },
+       "pair_steps": {
+        "mean": 1.04,
+        "sd": 4.004996878900157,
+        "total": 26
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p2": {
+    "arm": "C3_rvo2",
+    "width_m": 1.2,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 33.257600000001865,
+     "sd": 1.7351855808527248,
+     "total": 831
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.12,
+        "sd": 0.33166247903553997,
+        "total": 3
+       },
+       "runs_with_episode": 3,
+       "overlap_timesteps": {
+        "mean": 0.28,
+        "sd": 0.7916228058025278,
+        "total": 7
+       },
+       "pair_steps": {
+        "mean": 0.28,
+        "sd": 0.7916228058025278,
+        "total": 7
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p8": {
+    "arm": "C3_rvo2",
+    "width_m": 1.8,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 20.278800000000366,
+     "sd": 0.879257830976543,
+     "total": 506
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.04,
+        "sd": 0.2,
+        "total": 1
+       },
+       "runs_with_episode": 1,
+       "overlap_timesteps": {
+        "mean": 0.04,
+        "sd": 0.2,
+        "total": 1
+       },
+       "pair_steps": {
+        "mean": 0.04,
+        "sd": 0.2,
+        "total": 1
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   }
+  },
+  "C4_rvo2": {
+   "w1p0": {
+    "arm": "C4_rvo2",
+    "width_m": 1.0,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 46.78359999999926,
+     "sd": 3.019144304820441,
+     "total": 1169
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p2": {
+    "arm": "C4_rvo2",
+    "width_m": 1.2,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 33.88800000000177,
+     "sd": 2.5584614517318296,
+     "total": 847
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   },
+   "w1p8": {
+    "arm": "C4_rvo2",
+    "width_m": 1.8,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 20.31760000000038,
+     "sd": 0.8337979371527717,
+     "total": 507
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   }
+  },
+  "C3_pub": {
+   "w1p0": {
+    "arm": "C3_pub",
+    "width_m": 1.0,
+    "n": 25,
+    "missing_seeds": [],
+    "k_complete": 25,
+    "k_deadlock": 0,
+    "open_persistent_episodes_at_end": 0,
+    "evacuation_time_s": {
+     "mean": 51.785199999998255,
+     "sd": 3.4972514445864196,
+     "total": 1294
+    },
+    "zones": {
+     "upstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     },
+     "throat": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.28,
+        "sd": 0.7371114795831993,
+        "total": 7
+       },
+       "runs_with_episode": 4,
+       "overlap_timesteps": {
+        "mean": 0.84,
+        "sd": 2.2854612955229263,
+        "total": 21
+       },
+       "pair_steps": {
+        "mean": 0.84,
+        "sd": 2.2854612955229263,
+        "total": 21
+       }
+      }
+     },
+     "downstream": {
+      "persistent": {
+       "runs_with": 0,
+       "runs_with_wilson95": [
+        0.0,
+        0.13319649395317873
+       ],
+       "mean_per_run": 0.0,
+       "mean_per_run_ci95": [
+        0.0,
+        0.0
+       ],
+       "total": 0,
+       "pairs_total": 0,
+       "dur_s_median": null,
+       "dur_s_max": null,
+       "depth_m_max": null
+      },
+      "unfiltered": {
+       "episodes": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "runs_with_episode": 0,
+       "overlap_timesteps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       },
+       "pair_steps": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "total": 0
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "paired": {
+  "w1p0": {
+   "C2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 8,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.011109224550098221,
+     "mean_diff": -1.16,
+     "mean_diff_ci95": [
+      -1.92,
+      -0.48
+     ],
+     "note": null
+    }
+   },
+   "C4_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 8,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.011109224550098221,
+     "mean_diff": -1.16,
+     "mean_diff_ci95": [
+      -1.88,
+      -0.52
+     ],
+     "note": null
+    }
+   },
+   "C3_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 11,
+     "wilcoxon_stat": 20.0,
+     "wilcoxon_p": 0.24563574665859533,
+     "mean_diff": -0.12,
+     "mean_diff_ci95": [
+      -1.281,
+      1.44
+     ],
+     "note": null
+    }
+   },
+   "C3_pub_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 10,
+     "wilcoxon_stat": 22.0,
+     "wilcoxon_p": 0.5728104719556514,
+     "mean_diff": -0.32,
+     "mean_diff_ci95": [
+      -1.36,
+      0.6009999999999945
+     ],
+     "note": null
+    }
+   }
+  },
+  "w1p2": {
+   "C2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 5,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.042168197097155954,
+     "mean_diff": -0.64,
+     "mean_diff_ci95": [
+      -1.4,
+      -0.12
+     ],
+     "note": null
+    }
+   },
+   "C4_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 5,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.042168197097155954,
+     "mean_diff": -0.64,
+     "mean_diff_ci95": [
+      -1.36,
+      -0.12
+     ],
+     "note": null
+    }
+   },
+   "C3_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 5,
+     "wilcoxon_stat": 2.5,
+     "wilcoxon_p": 0.17555430277323003,
+     "mean_diff": -0.36,
+     "mean_diff_ci95": [
+      -0.92,
+      0.08
+     ],
+     "note": null
+    }
+   }
+  },
+  "w1p8": {
+   "C2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 3,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.10247043485974941,
+     "mean_diff": -0.28,
+     "mean_diff_ci95": [
+      -0.64,
+      0.0
+     ],
+     "note": null
+    }
+   },
+   "C4_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 3,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.10247043485974941,
+     "mean_diff": -0.28,
+     "mean_diff_ci95": [
+      -0.64,
+      0.0
+     ],
+     "note": null
+    }
+   },
+   "C3_rvo2_vs_C1": {
+    "persistent_throat_episodes": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 0,
+     "wilcoxon_stat": null,
+     "wilcoxon_p": null,
+     "mean_diff": 0.0,
+     "mean_diff_ci95": [
+      0.0,
+      0.0
+     ],
+     "note": "all paired differences are zero; Wilcoxon undefined (p = null)"
+    },
+    "throat_overlap_timesteps": {
+     "n_pairs": 25,
+     "n_nonzero_pairs": 3,
+     "wilcoxon_stat": 0.0,
+     "wilcoxon_p": 0.10880943004054569,
+     "mean_diff": -0.24,
+     "mean_diff_ci95": [
+      -0.56,
+      0.0
+     ],
+     "note": null
+    }
+   }
+  }
+ },
+ "verdict": {
+  "conference": {
+   "setting": "rejection-sampled spawn, 50 agents, 300 s, w = 1.0 m",
+   "metric": "throat overlap timesteps per run (unfiltered)",
+   "C1_mean": 1.2,
+   "C1_sd": 1.96,
+   "C2_mean": 0.0,
+   "C4_mean": 0.0,
+   "C3_mean": 0.8,
+   "C3_sd": 2.87,
+   "wilcoxon_C1_vs_C4_p": 0.011,
+   "claim": "time-to-collision (TTC, arms C2 and C4) eliminates throat overlaps at narrow exits"
+  },
+  "reproduction_w1p0_unfiltered": {
+   "C1_mean": 1.16,
+   "C1_sd": 1.8636880997992482,
+   "C1_total": 29,
+   "C1_runs_with": 8,
+   "C2_mean": 0.0,
+   "C4_rvo2_mean": 0.0,
+   "C3_rvo2_mean": 1.04,
+   "C3_rvo2_sd": 4.004996878900157,
+   "C3_pub_mean": 0.84,
+   "C3_pub_sd": 2.2854612955229263,
+   "wilcoxon_C4_vs_C1_p": 0.011109224550098221,
+   "wilcoxon_C2_vs_C1_p": 0.011109224550098221
+  },
+  "ttc_zero_persistent_throat": {
+   "w1p0": true,
+   "w1p2": true,
+   "w1p8": true
+  },
+  "ttc_zero_unfiltered_throat": {
+   "w1p0": true,
+   "w1p2": true,
+   "w1p8": true
+  },
+  "C1_persistent_throat_total": {
+   "w1p0": 0,
+   "w1p2": 0,
+   "w1p8": 0
+  },
+  "C1_unfiltered_throat_timesteps_total": {
+   "w1p0": 29,
+   "w1p2": 16,
+   "w1p8": 7
+  },
+  "persistent_episodes_all_cells_all_zones": 0,
+  "status": "revised",
+  "reason": "No arm has any persistent (>= 0.1 s) overlap episode at any width or zone, so the C1 overlaps that TTC 'eliminates' are all sub-0.1 s transients: TTC removes transient contacts, not persistent interpenetration, and 'eliminates throat overlaps' holds only for the unfiltered metric.",
+  "table_cell": "0 persistent (>= 0.1 s) overlaps in every arm, w = 1.0-1.8 m; TTC removes only sub-0.1 s transients"
+ },
+ "anomalies": []
+}

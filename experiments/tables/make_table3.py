@@ -105,7 +105,7 @@ def rvo2_pair_jaccard():
 PAIR_T = r"$>$120"  # Kaplan--Meier median not reached within the 120 s window (fewer than half freed)
 
 BLOCKS = [
-    (r"Lone-trap snapshots (E2): " + one("EtwoNLK") + r" lone keystones, 120\,s", [
+    (r"Lone-trap snapshots: " + one("EtwoNLK") + r" lone keystones, 120\,s", [
         (r"C1 + noise $\sigma=0.07$",
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
          diff("TabThreeLKDiff", "TabThreeLKDiffLo", "TabThreeLKDiffHi"),
@@ -119,7 +119,7 @@ BLOCKS = [
          frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"),
          "$" + one("EthreeCThreeLnRatio") + "$"),
     ]),
-    (r"Whole runs (E6): " + one("EsixN") + r" seeds, 600\,s", [
+    (r"Whole runs: " + one("EsixN") + r" seeds, 600\,s", [
         (r"C1 + noise $\sigma^\ast$",
          frac("EsixNoiseK", "EsixN"),
          diff("EsixDiff", "EsixDiffLo", "EsixDiffHi"),
@@ -127,7 +127,7 @@ BLOCKS = [
          one("EsixKMNoise"), NA, NA, NA),
         ("C3 RVO2", frac("EsixCThreeK", "EsixN"), "", "", one("EsixKMCThree"), NA, NA, NA),
     ]),
-    (r"Pair standoffs (E7b): " + one("PairN") + r" snapshots, 120\,s", [
+    (r"Pair standoffs: " + one("PairN") + r" snapshots, 120\,s", [
         (r"bias $b^\ast_{\rm pub}=" + one("PairBstarPub") + "$",
          frac("PairBsPubFreed", "PairN"),
          diff("TabThreePairPubDiff", "TabThreePairPubDiffLo", "TabThreePairPubDiffHi"),
@@ -156,7 +156,7 @@ CAPTION = (
     r"count, paired difference $\Delta$ from ORCA, Jaccard index $J$ of the minority outcome sets (unresolved; "
     r"pairs: freed), Kaplan--Meier median $t_{1/2}$, first exits by the lower member, $10^{-9}$\,m replays that "
     r"change the outcome (noise: snapshots whose seeds disagree), and $\ell=\ln\hat\lambda(0.005)/\hat\lambda(0.02)$ "
-    r"with its Arrhenius prediction (E3). Intervals are 95\%. Noise counts runs, five seeds per snapshot; --- is not measured."
+    r"with its Arrhenius prediction; intervals are 95\%, noise counts runs (five seeds per snapshot) and --- is not measured."
 )
 
 

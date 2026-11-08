@@ -1,0 +1,63 @@
+# Registry entries for Table 4 and Sect. 6.3 (conference claims revisited).
+# --- E11 (throat overlaps) ---
+# Source: data/derived/E11_analysis.json (experiments/E11/analyze.py). CF, 50 agents, 300 s cap, seeds 42-66 (n = 25 per cell).
+# "Persistent" = overlap episode of one pair lasting >= 0.1 s; "timesteps" = unfiltered throat overlap timesteps per run (conference metric).
+EelevenN: {file: E11_analysis.json, key: "cells.C1.w1p0.n", fmt: "{:d}"}
+EelevenCOneRunsWTen: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.persistent.runs_with", fmt: "{:d}"}
+EelevenCTwoRunsWTen: {file: E11_analysis.json, key: "cells.C2.w1p0.zones.throat.persistent.runs_with", fmt: "{:d}"}
+EelevenCThreeRunsWTen: {file: E11_analysis.json, key: "cells.C3_rvo2.w1p0.zones.throat.persistent.runs_with", fmt: "{:d}"}
+EelevenCFourRunsWTen: {file: E11_analysis.json, key: "cells.C4_rvo2.w1p0.zones.throat.persistent.runs_with", fmt: "{:d}"}
+EelevenCThreePubRunsWTen: {file: E11_analysis.json, key: "cells.C3_pub.w1p0.zones.throat.persistent.runs_with", fmt: "{:d}"}
+EelevenCOneTotalWTen: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCTwoTotalWTen: {file: E11_analysis.json, key: "cells.C2.w1p0.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCThreeTotalWTen: {file: E11_analysis.json, key: "cells.C3_rvo2.w1p0.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCFourTotalWTen: {file: E11_analysis.json, key: "cells.C4_rvo2.w1p0.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCThreePubTotalWTen: {file: E11_analysis.json, key: "cells.C3_pub.w1p0.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCOneTotalWTwelve: {file: E11_analysis.json, key: "cells.C1.w1p2.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenCOneTotalWEighteen: {file: E11_analysis.json, key: "cells.C1.w1p8.zones.throat.persistent.total", fmt: "{:d}"}
+EelevenPersistentAll: {file: E11_analysis.json, key: "verdict.persistent_episodes_all_cells_all_zones", fmt: "{:d}"}
+EelevenCOneTimestepsMean: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.unfiltered.overlap_timesteps.mean", fmt: "{:.2f}"}
+EelevenCOneTimestepsSD: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.unfiltered.overlap_timesteps.sd", fmt: "{:.2f}"}
+EelevenCOneTimestepsTotal: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.unfiltered.overlap_timesteps.total", fmt: "{:d}"}
+EelevenCOneEpisodesAll: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.unfiltered.episodes.total", fmt: "{:d}"}
+EelevenCOneRunsAnyOverlap: {file: E11_analysis.json, key: "cells.C1.w1p0.zones.throat.unfiltered.runs_with_episode", fmt: "{:d}"}
+EelevenCThreeTimestepsMean: {file: E11_analysis.json, key: "cells.C3_rvo2.w1p0.zones.throat.unfiltered.overlap_timesteps.mean", fmt: "{:.2f}"}
+EelevenCThreeTimestepsSD: {file: E11_analysis.json, key: "cells.C3_rvo2.w1p0.zones.throat.unfiltered.overlap_timesteps.sd", fmt: "{:.2f}"}
+EelevenCThreePubTimestepsMean: {file: E11_analysis.json, key: "cells.C3_pub.w1p0.zones.throat.unfiltered.overlap_timesteps.mean", fmt: "{:.2f}"}
+EelevenCThreePubTimestepsSD: {file: E11_analysis.json, key: "cells.C3_pub.w1p0.zones.throat.unfiltered.overlap_timesteps.sd", fmt: "{:.2f}"}
+EelevenCOneTimestepsMeanWTwelve: {file: E11_analysis.json, key: "cells.C1.w1p2.zones.throat.unfiltered.overlap_timesteps.mean", fmt: "{:.2f}"}
+EelevenCOneTimestepsMeanWEighteen: {file: E11_analysis.json, key: "cells.C1.w1p8.zones.throat.unfiltered.overlap_timesteps.mean", fmt: "{:.2f}"}
+EelevenCFourVsCOneP: {file: E11_analysis.json, key: "paired.w1p0.C4_rvo2_vs_C1.throat_overlap_timesteps.wilcoxon_p", fmt: p}
+EelevenCTwoVsCOneP: {file: E11_analysis.json, key: "paired.w1p0.C2_vs_C1.throat_overlap_timesteps.wilcoxon_p", fmt: p}
+EelevenCFourVsCOneNonzero: {file: E11_analysis.json, key: "paired.w1p0.C4_rvo2_vs_C1.throat_overlap_timesteps.n_nonzero_pairs", fmt: "{:d}"}
+EelevenCFourVsCOnePersistNonzero: {file: E11_analysis.json, key: "paired.w1p0.C4_rvo2_vs_C1.persistent_throat_episodes.n_nonzero_pairs", fmt: "{:d}"}
+# --- Conference values (data/derived/table4_conference.json, written by make_table4.py derive) ---
+TabFourConfN: {file: table4_conference.json, key: "c1_complete.n", fmt: "{:d}"}
+TabFourConfCOneK: {file: table4_conference.json, key: "c1_complete.k", fmt: "{:d}"}
+TabFourConfCTwoK: {file: table4_conference.json, key: "c2_complete.k", fmt: "{:d}"}
+TabFourConfCThreeK: {file: table4_conference.json, key: "c3_complete.k", fmt: "{:d}"}
+TabFourConfCFourK: {file: table4_conference.json, key: "c4_complete.k", fmt: "{:d}"}
+TabFourConfNoiseSigma: {file: table4_conference.json, key: "noise_complete.sigma", fmt: "{:.2f}"}
+TabFourConfNoiseK: {file: table4_conference.json, key: "noise_complete.k", fmt: "{:d}"}
+TabFourConfRatioLo: {file: table4_conference.json, key: "ratio.ci.0", fmt: "{:.2f}"}
+TabFourConfRatioHi: {file: table4_conference.json, key: "ratio.ci.1", fmt: "{:.2f}"}
+TabFourConfCoxHR: {file: table4_conference.json, key: "cox_hr.c3", fmt: "{:.1f}"}
+TabFourConfArchAgents: {file: table4_conference.json, key: "arch.agents", fmt: "{:.1f}"}
+TabFourConfArchSeeds: {file: table4_conference.json, key: "arch.seeds", fmt: "{:d}"}
+TabFourConfThroatW: {file: table4_conference.json, key: "throat.width", fmt: "{:.1f}"}
+TabFourConfThroatCOne: {file: table4_conference.json, key: "throat.c1_mean", fmt: "{:.2f}"}
+TabFourConfThroatCThree: {file: table4_conference.json, key: "throat.c3_mean", fmt: "{:.2f}"}
+TabFourConfThroatP: {file: table4_conference.json, key: "throat.wilcoxon_c1_c4_p", fmt: p}
+TabFourConfEvacRedA: {file: table4_conference.json, key: "evac_reduction_pct.w1p0", fmt: "{:.1f}"}
+TabFourConfEvacRedB: {file: table4_conference.json, key: "evac_reduction_pct.w1p2", fmt: "{:.1f}"}
+TabFourConfCounterCoef: {file: table4_conference.json, key: "counterflow_coef.value", fmt: "{:.1f}"}
+TabFourConfCrossCTwo: {file: table4_conference.json, key: "crossing.c2", fmt: "{:.1f}"}
+TabFourConfCrossCOne: {file: table4_conference.json, key: "crossing.c1", fmt: "{:.1f}"}
+TabFourConfCrossIRR: {file: table4_conference.json, key: "crossing.irr", fmt: "{:.2f}"}
+TabFourConfOODLo: {file: table4_conference.json, key: "fd.ood_pct.0", fmt: "{:d}"}
+TabFourConfOODHi: {file: table4_conference.json, key: "fd.ood_pct.1", fmt: "{:d}"}
+# --- Noise control at the conference level, published mode (E5a, n = 100) ---
+TabFourNoiseK: {file: E5a_analysis.json, key: "per_sigma.s0p05.k", fmt: "{:d}"}
+TabFourNoiseN: {file: E5a_analysis.json, key: "per_sigma.s0p05.n", fmt: "{:d}"}
+TabFourNoiseLo: {file: E5a_analysis.json, key: "per_sigma.s0p05.wilson.1", fmt: "{:.2f}"}
+TabFourNoiseHi: {file: E5a_analysis.json, key: "per_sigma.s0p05.wilson.2", fmt: "{:.2f}"}

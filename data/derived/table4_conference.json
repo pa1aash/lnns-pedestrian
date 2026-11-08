@@ -1,0 +1,95 @@
+{
+ "script": "experiments/tables/make_table4.py derive",
+ "doc": "Write paper/tables/table4_conference.tex: the conference findings and their status in this paper.\n\nOne row per conference claim of plan/CORRECTIONS_TABLE.md, condensed: claim (with the printed value),\nstatus (confirmed / revised / withdrawn), one line of evidence, and where in this paper the evidence sits\n(a section, or the setting of a run reported only in Sect. 6.3).\n\n`make_table4.py derive` writes data/derived/table4_conference.json: the values printed in the conference\npaper (Gang & Veluri, SIMULTECH 2026, camera-ready text, line numbers CR:n as in plan/CORRECTIONS_TABLE.md),\nso that the claim column is macro-driven like every other number. Run it once (the values are constants);\n`make numbers` then defines the TabFourConf* macros of paper/registry/table4.yaml.\n\nEvery number is a numbers.tex macro defined in paper/registry/*.yaml. A row whose evidence needs macros that\nare not yet registered (its production run has not been analysed) prints \\pending in the status and\nevidence cells; the script never invents a value.\n",
+ "source": "Gang & Veluri, SIMULTECH 2026, pp. 474-481, DOI 10.5220/0015190200004094 (camera-ready text)",
+ "c1_complete": {
+  "k": 0,
+  "n": 25,
+  "cr": "CR:14, CR:780"
+ },
+ "c2_complete": {
+  "k": 0,
+  "n": 25,
+  "cr": "CR:14, CR:780"
+ },
+ "c3_complete": {
+  "k": 13,
+  "n": 25,
+  "cr": "CR:15, CR:780"
+ },
+ "c4_complete": {
+  "k": 14,
+  "n": 25,
+  "cr": "CR:15, CR:780"
+ },
+ "noise_complete": {
+  "sigma": 0.05,
+  "k": 13,
+  "n": 25,
+  "cr": "CR:806"
+ },
+ "sigma50": {
+  "value": 0.049,
+  "ci95": [
+   0.044,
+   0.053
+  ],
+  "cr": "CR:17"
+ },
+ "ratio": {
+  "value": 1.0,
+  "ci": [
+   0.54,
+   1.83
+  ],
+  "cr": "CR:815-816"
+ },
+ "cox_hr": {
+  "c3": 17.2,
+  "c4": 19.6,
+  "cr": "CR:852-853"
+ },
+ "arch": {
+  "seeds": 25,
+  "median_stall_s": 457,
+  "agents": 3.2,
+  "cr": "CR:857-860"
+ },
+ "throat": {
+  "width": 1.0,
+  "c1_mean": 1.2,
+  "c1_sd": 1.96,
+  "c3_mean": 0.8,
+  "c3_sd": 2.87,
+  "wilcoxon_c1_c4_p": 0.011,
+  "cr": "Sec 4.5"
+ },
+ "evac_reduction_pct": {
+  "w1p0": 9.3,
+  "w1p2": 7.4,
+  "cr": "CR:775"
+ },
+ "counterflow_coef": {
+  "value": -5.0,
+  "p_hs": 0.598,
+  "cr": "Sec 4.5"
+ },
+ "crossing": {
+  "c2": 16.1,
+  "c1": 5.9,
+  "irr": 2.72,
+  "cr": "Sec 4.5"
+ },
+ "fd": {
+  "rows": 4776,
+  "rmse": [
+   0.235,
+   0.099
+  ],
+  "ood_pct": [
+   26,
+   43
+  ],
+  "cr": "Abstract; 4.2; 4.3"
+ }
+}
