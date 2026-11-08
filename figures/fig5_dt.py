@@ -22,13 +22,13 @@ off = {"b1p5": 0.965, "b2p5": 1.035}
 for lv in ("b1p5", "b2p5"):
     ps, ds = d["per_step"][lv], d["dt_scaled"][lv]
     ax.plot(grid, ps["pred"], color=V, lw=0.7, zorder=2)
-    # dt-scaled noise: light vermillion, open markers
+    # dt-scaled noise: light vermilion, open markers
     m = np.array(ds["mean"])
     ax.plot(dts * off[lv] ** -1, m, color=V_LIGHT, lw=0.8, zorder=2)
     for x, (lo, hi) in zip(dts * off[lv] ** -1, ds["ci95"]):
         ax.plot([x, x], [lo, hi], color=V_LIGHT, lw=0.8, zorder=2)
     ax.plot(dts * off[lv] ** -1, m, ls="none", marker=MARK[lv], ms=3.2, mfc="white", mec=V_LIGHT, mew=0.8, zorder=3)
-    # per-step noise: vermillion, filled markers
+    # per-step noise: vermilion, filled markers
     m = np.array(ps["mean"])
     for x, (lo, hi) in zip(dts * off[lv], ps["ci95"]):
         ax.plot([x, x], [lo, hi], color=V, lw=0.8, zorder=4)

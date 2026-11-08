@@ -14,12 +14,12 @@ COL = {"humans": ARM_COLOURS["humans"], "C1_pub": ARM_COLOURS["C1"], "C1_cf": AR
 # published mode open, corrected-forward filled; the jamb wall variant as a square
 MARK = {"humans": ("o", True), "C1_pub": ("o", False), "C1_cf": ("o", True), "C1_cf_edge": ("s", True),
         "C3_rvo2_cf": ("o", True), "C1_cf_sig": ("o", True)}
-LABEL = {"humans": "humans", "C1_pub": "C1 published", "C1_cf": "C1", "C1_cf_edge": "C1 jamb $B_w$",
+LABEL = {"humans": "humans", "C1_pub": "C1 published", "C1_cf": "C1", "C1_cf_edge": r"C1 jamb $B_{w,\mathrm{edge}}$",
          "C3_rvo2_cf": "C3 RVO2", "C1_cf_sig": r"C1 $+\,\sigma^\ast$"}
 YLAB = {"flow": "flow (ped/s)", "longest_gap": "longest gap (s)", "fluct": "waiting-zone fluctuation (m/s)"}
 
 order = d["order"]
-fig = fig_full(5.6)
+fig = fig_full(6.2)
 axes = fig.subplots(1, 3)
 rng = np.random.default_rng(1)
 for ax, m in zip(axes, d["metrics"]):

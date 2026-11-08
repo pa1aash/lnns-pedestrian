@@ -6,7 +6,7 @@ import numpy as np
 from common import ARM_COLOURS, HERE, fig_full, qa, save
 
 d = json.load(open(HERE / "data" / "fig6.json"))
-PURPLE = ARM_COLOURS["frozen-mean / drive"]
+PURPLE = ARM_COLOURS["push / drive"]
 COL = {"C1": ARM_COLOURS["C1"], "C2": ARM_COLOURS["C2"],
        "C3_pub": ARM_COLOURS["C3 published"], "C3_rvo2": ARM_COLOURS["C3 RVO2"],
        "drive_only": PURPLE, "constraint_only_pub": PURPLE, "constraint_only_rvo2": PURPLE,
@@ -16,8 +16,8 @@ for b in ("0p05", "0p1", "0p2", "0p5"):
 for s in ("0p03", "0p05", "0p07"):
     COL[f"noise{s}"] = ARM_COLOURS["noise"]
 LABEL = {"C1": "C1", "C2": "C2", "C3_pub": "C3 pub", "C3_rvo2": "C3 RVO2", "drive_only": "drive",
-         "constraint_only_pub": "constr.\\ pub", "constraint_only_rvo2": "constr.\\ RVO2",
-         "frozen_plus": "frozen $+$", "frozen_minus": "frozen $-$",
+         "constraint_only_pub": "constraint pub", "constraint_only_rvo2": "constraint RVO2",
+         "frozen_plus": "push $+$", "frozen_minus": "push $-$",
          "bias0p05": "$b=0.05$", "bias0p1": "$b=0.1$", "bias0p2": "$b=0.2$", "bias0p5": "$b=0.5$",
          "noise0p03": "$\\sigma=0.03$", "noise0p05": "$\\sigma=0.05$", "noise0p07": "$\\sigma=0.07$"}
 EDGE = "#3a3a3a"
@@ -50,7 +50,7 @@ axL.set_yticks([0, 0.25, 0.5, 0.75, 1])
 axL.set_ylabel("blocker freed within 120 s")
 
 # ---- right: pooled Kaplan-Meier cumulative freed fraction, log time
-STYLE = {"C3_pub": "-", "C3_rvo2": "-", "drive_only": "--", "frozen_plus": "-",
+STYLE = {"C3_pub": "-.", "C3_rvo2": "-", "drive_only": "--", "frozen_plus": "-",
          "noise0p03": ":", "noise0p05": "--", "noise0p07": "-"}
 for arm, curve in d["km_pooled"].items():
     t = np.array([p[0] for p in curve])

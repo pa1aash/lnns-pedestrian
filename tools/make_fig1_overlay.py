@@ -5,7 +5,7 @@
 
 The TeX file is a fragment for a TikZ scope whose unit is the image width (x = y = \\textwidth, origin at the
 image's lower-left corner): force arrows (0.6 pt shafts, solid), coordinate lines, one scale-bar cluster, the 17 labels (6.5 pt
-serif, dark text on light areas, no boxes, halos or leader lines) and the vector context inset. Nothing here is hand-placed except the label table
+Latin Modern serif, dark text on light areas, no boxes, halos or leader lines) and the vector context inset. Nothing here is hand-placed except the label table
 below; every arrow, line and bar end point is a projected 3-D anchor.
 
 With --png the script also checks each label against the image: the estimated text box must sit on light
@@ -19,8 +19,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 GREY = "7F7F7F"
 C = {"black": "000000", "wall": "51127C", "orca": "0072B2", "partner": "51127C", "push": "777777", "scale": "333333"}
-FONT = r"\fontsize{6.5}{7.5}\selectfont"
-CHAR_W_CM = 0.118            # mean advance of 6.5 pt Computer Modern text, for the box estimate only
+# Latin Modern (lmr) is scalable, so the labels print at 6.5 pt without fix-cm in the preamble; T1 Computer
+# Modern has no 6.5 pt size and LaTeX substitutes 6 pt. Latin Modern matches the Computer Modern body text.
+FONT = r"\fontfamily{lmr}\fontsize{6.5}{7.8}\selectfont"
+CHAR_W_CM = 0.118            # mean advance of 6.5 pt Latin Modern text, for the box estimate only
 
 # (text, panel, anchor, dx_cm, dy_cm, tikz anchor). Offsets in printed cm; anchors "@tl" etc are panel corners.
 # Exactly 17 labels. Panel tags top-left; scene labels beside their object (never over an agent, never on an arrow

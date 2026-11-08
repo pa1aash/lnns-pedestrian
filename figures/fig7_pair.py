@@ -6,7 +6,7 @@ import numpy as np
 from common import ARM_COLOURS, HERE, fig_full, qa, save
 
 d = json.load(open(HERE / "data" / "fig7.json"))
-PURPLE = ARM_COLOURS["frozen-mean / drive"]
+PURPLE = ARM_COLOURS["push / drive"]
 YEL = ARM_COLOURS["lateral bias"]
 EDGE = "#3a3a3a"
 COL = {"C1": ARM_COLOURS["C1"], "C2": ARM_COLOURS["C2"],
@@ -14,8 +14,8 @@ COL = {"C1": ARM_COLOURS["C1"], "C2": ARM_COLOURS["C2"],
        "drive_only": PURPLE, "constraint_only_pub": PURPLE, "constraint_only_rvo2": PURPLE,
        "frozen_plus": PURPLE, "frozen_minus": PURPLE}
 LABEL = {"C1": "C1", "C2": "C2", "C3_pub": "C3 pub", "C3_rvo2": "C3 RVO2", "drive_only": "drive",
-         "constraint_only_pub": "constr.\\ pub", "constraint_only_rvo2": "constr.\\ RVO2",
-         "frozen_plus": "frozen $+$", "frozen_minus": "frozen $-$",
+         "constraint_only_pub": "constraint pub", "constraint_only_rvo2": "constraint RVO2",
+         "frozen_plus": "push $+$", "frozen_minus": "push $-$",
          "bstarpubp": "$+b^{\\textstyle\\ast}$ pub", "bstarpubm": "$-b^{\\textstyle\\ast}$ pub",
          "bstarrvo2p": "$+b^{\\textstyle\\ast}$ RVO2", "bstarrvo2m": "$-b^{\\textstyle\\ast}$ RVO2"}
 for s in ("0p01", "0p02", "0p03", "0p05"):
@@ -44,7 +44,7 @@ axL.set_yticks([0, 0.25, 0.5, 0.75, 1])
 axL.set_xlabel("lateral bias $b$")
 axL.set_ylabel("pair freed (120 s)")
 
-# ---- right: freed fraction per arm, Wilson 95% CI
+# ---- right: freed fraction per intervention, Wilson 95% CI
 x, xs, labels = 0.0, [], []
 for gi, grp in enumerate(d["groups"]):
     if gi:

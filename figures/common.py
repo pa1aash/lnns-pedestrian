@@ -1,4 +1,4 @@
-"""Shared figure helpers: style, widths, arm colours, save and font QA."""
+"""Shared figure helpers: style, widths, intervention colours, save and font QA."""
 import subprocess
 from pathlib import Path
 
@@ -12,7 +12,7 @@ CM = 1 / 2.54
 FULL_W_CM = 12.2   # llncs \textwidth
 HALF_W_CM = 5.9
 
-# Okabe-Ito, one colour per arm. Conditions within an arm differ by line style.
+# Okabe-Ito, one colour per intervention. Conditions within an intervention differ by line style.
 ARM_COLOURS = {
     "C1": "#000000",
     "C2": "#E69F00",
@@ -20,7 +20,7 @@ ARM_COLOURS = {
     "C3 RVO2": "#0072B2",
     "C4": "#009E73",
     "noise": "#D55E00",
-    "frozen-mean / drive": "#CC79A7",
+    "push / drive": "#CC79A7",
     "lateral bias": "#F0E442",
     "humans": "#999999",
 }
@@ -39,7 +39,8 @@ def save(fig, name):
     qa_dir = HERE / "_qa"
     qa_dir.mkdir(exist_ok=True)
     pdf = HERE / f"{name}.pdf"
-    fig.savefig(pdf)
+    # 600 ppi for rasterised layers; no CreationDate, so unchanged figures rebuild byte-identically
+    fig.savefig(pdf, dpi=600, metadata={"CreationDate": None})
     plt.close(fig)
     # PNG for visual QA, rendered from the PDF (the usetex Agg path needs dvipng)
     subprocess.run(["pdftoppm", "-png", "-r", "300", "-singlefile",

@@ -1,22 +1,23 @@
 """Cache the data for Fig 2 into figures/data/fig2.json.
 
-Run with the plan root's interpreter (it imports the simulator via wave2/scripts/w2lib):
-  /Users/palaash/Developer/pedestrian-abs-plan/.venv/bin/python tools/build_fig2_cache.py
-The plan root is read-only; nothing is written there.
+Reads only committed repository data: data/derived/E1_analysis.json (the E1 analysis) and
+data/E1/E1_runs.jsonl (mode E1a). The wall-force profiles come from the repository simulator
+(code/sim) through experiments/lib/w2lib.py. Run from the repository root:
+  .venv/bin/python tools/build_fig2_cache.py
 """
 import json
 import sys
 from pathlib import Path
 
-PLAN = Path("/Users/palaash/Developer/pedestrian-abs-plan")
-OUT = Path(__file__).resolve().parent.parent / "figures" / "data" / "fig2.json"
-sys.path.insert(0, str(PLAN / "wave2" / "scripts"))
-import w2lib  # noqa: E402  (chdir's into the simulator; OUT is absolute)
+ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "figures" / "data" / "fig2.json"
+sys.path.insert(0, str(ROOT / "experiments" / "lib"))
+import w2lib  # noqa: E402  (chdir's into code/; every path here is absolute)
 
-ana = json.load(open(PLAN / "exec/data/E1_analysis.json"))
+ana = json.load(open(ROOT / "data" / "derived" / "E1_analysis.json"))
 E1a = ana["E1a"]
 r, v0, tau = [], [], []
-for line in open(PLAN / "exec/data/E1_runs.jsonl"):
+for line in open(ROOT / "data" / "E1" / "E1_runs.jsonl"):
     run = json.loads(line)
     if run["mode"] != "E1a":
         continue
