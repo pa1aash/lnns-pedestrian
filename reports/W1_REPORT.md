@@ -30,7 +30,7 @@
 - Contact statistic (E1/E7): §5.3.
 - Written last: abstract, keywords, §8, §9, main differences, data and code availability, acknowledgements.
 
-**Not done.** No CI result yet at the time of writing; see the commit message thread. The 2026-11-09 changelog dates were kept as given.
+**CI.** paper and tests both green on 41bdf87 (runs 42489110386, 42489110390). The 2026-11-09 changelog dates were kept as given.
 
 **[NEEDS PALAASH]**
 1. Page plan: the draft runs to 19 pages with §§5.2, 5.3, 6.2, 6.3 and 7 still empty, and these hold about 8.5 pages of budget, so the full paper projects to ≈ 27 pages against 23-25. §3/§4 (≈ 0.6 page over each) and the 3.2-page reference list are the obvious places to cut. Which do you prefer?
