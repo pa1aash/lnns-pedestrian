@@ -77,3 +77,23 @@ C25 (2026-11-08) Fig 2 fixes:
 - the x range trimmed to the region with data;
 - the margin heat map lightened, with dark population points;
 - the C3 rest-state band drawn as two blue boundary lines without fill.
+C23 (2026-11-08) Queue 2.
+- After E5a the queue runs E7b_static, E7b_quench, E7b_barrier, E6a, E6b, E10, E7, E11, E8, E9, E6p (≈108 CPU-h).
+- E7b uses the 46 fresh CF ∪ {B_w = 0.04} pair snapshots (E7b_lib, seeds 242-561). The common lateral displacement shifts both members by +δ in y. The pair barrier is the lower of the two gated exit channels, on 12 snapshots spread over λ1.
+- σ* is the inverse of a binomial-logit fit of E5b completion at E6a's rate, with no extrapolation outside σ ∈ [0.03, 0.07] m/s. It is fixed in data/derived/sigma_star.json and used by E6b and E10.
+- The E8/E9 inflow sweep is a start-density sweep at fixed n, by the length of the start blocks (E8 1.39/0.93/0.56 m⁻²; E9 1.96/1.33/0.98 m⁻²; the densest level is the pilot geometry), with 60 s windows.
+- The published-LP infeasibility is counted as dropped constraints (a half-plane violated by the returned velocity).
+C26 (2026-11-09) Second trap is pair-like. When the blocker has exactly one trapped neighbour beside it at the jamb, ORCA's constraint part builds up against the door-ward drive once motion starts (mean 27% cancellation, up to ~100% in held cases), and C3 RVO2 frees 2/10 such snapshots against 15/16 with two or more neighbours. Reported with the pair class (§6.1, §6.2).
+C27 (2026-11-09) E8/E9 sweep the initial density at fixed agent number over a 60 s window; the paper calls it initial density, not inflow. Results feed Table 4 only.
+C28 (2026-11-09) Pair displacement arms shift both members by +δ (the common, soft lateral mode).
+C29 (2026-11-09) E4 seed170 (full-condition barrier 0.13 J, gate passed, 0/60 escapes in 300 s) is reported as a case where the computed minimum-energy path is not the dynamical escape route. It is excluded from the Arrhenius fits and listed.
+C30 (2026-11-09) T3 signed: k_BT_eff = m·σ²/(1 − (1 − Δt/τ)²); realised/formula velocity variance 1.00 (0.99 over 207 cells); harmonic correction ≤ 0.3%. T4 signed: collective escape over string-method barriers; Arrhenius slope/barrier CIs cover 1 in 25/28 fits (the 3 others listed); collapse slope −0.93; Weibull k = 1.09; conservative-field residual ~5e-8 N. The E3 β_ref = 2.5 shortfall (ℓ 3.23 vs 3.70; overall slope 0.91 [0.83, 1.01]) is reported with its CI; no extra arm.
+C31 (2026-11-09) Session rules: commit your own edits before any pull; never leave tracked edits uncommitted; pushes run with pipefail.
+C32 (2026-11-09) Hero mock v2 (supersedes the C24 label list):
+- labels at 6.5 pt, 17 in total; "door", "tilt" (with its arrow), "partner" and "10 m" removed;
+- the floor force ramp fades to a neutral off-white below about 5 N and contains no yellow hues, so it cannot be confused with the held-alone agent or the lateral-bias colour; one background across the figure;
+- wall-overlap mask regions are rendered as plain floor;
+- thinner arrows (about 0.6 pt); the neighbours' push as a short unlabelled neutral-grey arrow;
+- one scale-bar cluster in the lone scene, with the same metre and force scale in both scenes;
+- the caption lives in figures/fig1_caption.tex, owned by the hero sessions.
+C33 (2026-11-09) Single-file submission: section files are kept for drafting; `make submission` builds paper/submission/ with one self-contained main.tex (all \input files and the compiled bibliography inlined), the figures, and the unmodified llncs.cls and splncs04.bst. The folder compiles on its own.
