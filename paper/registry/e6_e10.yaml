@@ -240,7 +240,7 @@ EtenHumanGap:
 EtenHumanGapMax:
   file: E10_analysis.json
   key: "humans.longest_gap_max"
-  fmt: "{:.1f}"
+  fmt: "{:.2f}"
 EtenHumanGapsTwo:
   file: E10_analysis.json
   key: "humans.gaps_gt_2s.mean"
@@ -726,3 +726,12 @@ ArchEvacMedian:
   file: arch_analysis.json
   key: "evac_time_median"
   fmt: "{:.0f}"
+
+# --- fix wave (REG-2, REG-7): experiments/fixan/fix_reg.py and existing analyses
+EtenHumanGapsOverTwoTotal: {file: fix_reg.json, key: "human.gaps_over_two_total", fmt: "{:d}"}
+EtenCOneCompleteHi: {file: E10_analysis.json, key: "cells.C1_cf.completion_wilson95.1", fmt: "{:.2f}"}
+EsixPermP: {file: fix_reg.json, key: "whole_run_failures.perm_p", fmt: p}
+EsixOneOnlyFail: {file: fix_reg.json, key: "whole_run_failures.one_only", fmt: "{:d}"}
+EsixFailAny: {file: fix_reg.json, key: "whole_run_failures.any", fmt: "{:d}"}
+EsixJaccardIndepLo: {file: E6_analysis.json, key: "identity.jaccard_independent_95.0", fmt: "{:.2f}"}
+EsixJaccardIndepHi: {file: E6_analysis.json, key: "identity.jaccard_independent_95.1", fmt: "{:.2f}"}

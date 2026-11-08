@@ -565,7 +565,7 @@ EtwoNoiseDisagreeC:
   fmt: "{:d}"
 EtwoNoiseSDC:
   file: E2_analysis.json
-  key: "b_replay_determinism.pooled.noise0p07.within_snapshot_sd_first_exit_s.median"
+  key: "b_replay_determinism.lone_keystone.noise0p07.within_snapshot_sd_first_exit_s.median"
   fmt: "{:.1f}"
 EtwoLemmaPairs:
   file: E2_analysis.json
@@ -1204,7 +1204,7 @@ ResidPairMax:
   file: field_residuals.json
   key: "pair.max_N"
   fmt: sci
-  digits: 1
+  digits: 2
 ResidPairN:
   file: field_residuals.json
   key: "pair.n"
@@ -1218,7 +1218,7 @@ ResidCollMax:
   file: field_residuals.json
   key: "collective.max_N"
   fmt: sci
-  digits: 1
+  digits: 2
 ResidBarN:
   file: field_residuals.json
   key: "lone.n"
@@ -1351,3 +1351,233 @@ TabThreePairOrcaReplays:
   file: E7b_analysis.json
   key: "b_quench.C3_rvo2.replays"
   fmt: "{:d}"
+
+# --- fix wave (REG-3, REG-4, REG-7, REG-9): existing analyses and experiments/fixan/fix_reg.py
+LoneBarMed: {file: E6_analysis.json, key: "lifetimes.barrier_picture.dU_median", fmt: "{:.1f}"}
+LoneBarN: {file: E6_analysis.json, key: "lifetimes.barrier_picture.n_barriers", fmt: "{:d}"}
+EOneBRuleAcc: {file: E1_analysis.json, key: "E1b.k_rule_refined.rule_accuracy", fmt: "{:.3f}"}
+EtwoReplayRvoN: {file: E2_analysis.json, key: "b_replay_determinism.pooled.C3_rvo2.replays", fmt: "{:d}"}
+CriterionPosN: {file: fix_reg.json, key: "criterion.positive_margin", fmt: "{:d}"}
+CriterionNegTwoAgent: {file: fix_reg.json, key: "criterion.negative_margin_two_agent", fmt: "{:d}"}
+EthreeCThreeLnRatioFix: {file: E3_analysis.json, key: "headline.c3_ln_ratio", fmt: "{:.3f}"}
+
+# --- fix wave A-2: split-sample recalibration (experiments/fixan/fix_a2.py)
+FixAtwoPairPubDelta:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_static.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubDeltaLo:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_static.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubDeltaHi:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_static.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubQuenchDelta:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_quench.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubTransferLo:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_rate_transfer.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubTransferHi:
+  file: fix_a2.json
+  key: "pair.pub.random.delta_rate_transfer.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubAbsDelta:
+  file: fix_a2.json
+  key: "pair.pub.random.abs_delta_static_mean"
+  fmt: "{:.2f}"
+
+FixAtwoPairPubBstarLo:
+  file: fix_a2.json
+  key: "pair.pub.random.b_star_fit.range95.0"
+  fmt: "{:.4f}"
+
+FixAtwoPairPubBstarHi:
+  file: fix_a2.json
+  key: "pair.pub.random.b_star_fit.range95.1"
+  fmt: "{:.4f}"
+
+FixAtwoPairPubJaccard:
+  file: fix_a2.json
+  key: "pair.pub.random.jaccard_freed_static.mean"
+  fmt: "{:.2f}"
+
+FixAtwoPairPubCanonDelta:
+  file: fix_a2.json
+  key: "pair.pub.canonical.fit_even.delta_static"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubCanonDeltaLo:
+  file: fix_a2.json
+  key: "pair.pub.canonical.fit_even.delta_static_ci95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairPubCanonDeltaHi:
+  file: fix_a2.json
+  key: "pair.pub.canonical.fit_even.delta_static_ci95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoDelta:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_static.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoDeltaLo:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_static.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoDeltaHi:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_static.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoQuenchDelta:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_quench.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoTransferLo:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_rate_transfer.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoTransferHi:
+  file: fix_a2.json
+  key: "pair.rvo2.random.delta_rate_transfer.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoAbsDelta:
+  file: fix_a2.json
+  key: "pair.rvo2.random.abs_delta_static_mean"
+  fmt: "{:.2f}"
+
+FixAtwoPairRvoBstarLo:
+  file: fix_a2.json
+  key: "pair.rvo2.random.b_star_fit.range95.0"
+  fmt: "{:.4f}"
+
+FixAtwoPairRvoBstarHi:
+  file: fix_a2.json
+  key: "pair.rvo2.random.b_star_fit.range95.1"
+  fmt: "{:.4f}"
+
+FixAtwoPairRvoJaccard:
+  file: fix_a2.json
+  key: "pair.rvo2.random.jaccard_freed_static.mean"
+  fmt: "{:.2f}"
+
+FixAtwoPairRvoCanonDelta:
+  file: fix_a2.json
+  key: "pair.rvo2.canonical.fit_even.delta_static"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoCanonDeltaLo:
+  file: fix_a2.json
+  key: "pair.rvo2.canonical.fit_even.delta_static_ci95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoPairRvoCanonDeltaHi:
+  file: fix_a2.json
+  key: "pair.rvo2.canonical.fit_even.delta_static_ci95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoPairNTest:
+  file: fix_a2.json
+  key: "pair.pub.random.n_test"
+  fmt: "{:d}"
+
+FixAtwoNSplits:
+  file: fix_a2.json
+  key: "pair.pub.random.n_halvings"
+  fmt: "{:d}"
+
+FixAtwoLoneSameSigma:
+  file: fix_a2.json
+  key: "lone.random.frac_same_sigma"
+  fmt: "{:.3f}"
+
+FixAtwoLoneDelta:
+  file: fix_a2.json
+  key: "lone.random.delta.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneDeltaLo:
+  file: fix_a2.json
+  key: "lone.random.delta.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneDeltaHi:
+  file: fix_a2.json
+  key: "lone.random.delta.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneTransferLo:
+  file: fix_a2.json
+  key: "lone.random.delta_rate_transfer.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneTransferHi:
+  file: fix_a2.json
+  key: "lone.random.delta_rate_transfer.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneJaccard:
+  file: fix_a2.json
+  key: "lone.random.jaccard_unresolved.mean"
+  fmt: "{:.2f}"
+
+FixAtwoLoneNTest:
+  file: fix_a2.json
+  key: "lone.random.n_test"
+  fmt: "{:d}"
+
+FixAtwoLoneCanonDelta:
+  file: fix_a2.json
+  key: "lone.canonical.fit_even.delta"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneCanonDeltaLo:
+  file: fix_a2.json
+  key: "lone.canonical.fit_even.delta_ci95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoLoneCanonDeltaHi:
+  file: fix_a2.json
+  key: "lone.canonical.fit_even.delta_ci95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoWholeDelta:
+  file: fix_a2.json
+  key: "whole.random.delta_fit_shifted.mean"
+  fmt: "{:+.2f}"
+
+FixAtwoWholeDeltaLo:
+  file: fix_a2.json
+  key: "whole.random.delta_fit_shifted.range95.0"
+  fmt: "{:+.2f}"
+
+FixAtwoWholeDeltaHi:
+  file: fix_a2.json
+  key: "whole.random.delta_fit_shifted.range95.1"
+  fmt: "{:+.2f}"
+
+FixAtwoWholeSigmaLo:
+  file: fix_a2.json
+  key: "whole.random.sigma_fit.range95.0"
+  fmt: "{:.4f}"
+
+FixAtwoWholeSigmaHi:
+  file: fix_a2.json
+  key: "whole.random.sigma_fit.range95.1"
+  fmt: "{:.4f}"

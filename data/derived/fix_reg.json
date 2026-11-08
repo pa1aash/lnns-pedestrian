@@ -1,0 +1,46 @@
+{
+ "criterion": {
+  "n": 393,
+  "agree": 393,
+  "negative_margin": 7,
+  "positive_margin": 386,
+  "method": "positive-margin count = deadlocks minus negative-margin blockers (E1_chain.json)",
+  "negative_margin_sizes": [
+   2,
+   2,
+   2,
+   4,
+   2,
+   2,
+   2
+  ],
+  "negative_margin_two_agent": 6
+ },
+ "second_trap_geometry": {
+  "n": 10,
+  "abreast": 9,
+  "axis_min_m": 0.40124437106644617,
+  "axis_max_m": 0.516303242105038,
+  "other_behind_m": [
+   0.29977047136861046
+  ],
+  "other_blocker_axis_m": [
+   0.016660165649228453
+  ],
+  "method": "abreast = members on opposite sides of the axis with the blocker > 0.3 m from it"
+ },
+ "whole_run_failures": {
+  "any": 122,
+  "one_only": 72,
+  "both": 50,
+  "perm_p": 0.0022997700229977,
+  "indep_95": [
+   0.23741007194244604,
+   0.36507936507936506
+  ]
+ },
+ "human": {
+  "gaps_over_two_total": 1,
+  "unpassed": 1
+ }
+}

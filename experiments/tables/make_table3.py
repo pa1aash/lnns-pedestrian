@@ -106,18 +106,23 @@ PAIR_T = r"$>$120"  # Kaplan--Meier median not reached within the 120 s window (
 
 BLOCKS = [
     (r"Lone-trap snapshots: " + one("EtwoNLK") + r" lone keystones, 120\,s", [
-        (r"C1 + noise $\sigma=0.07$",
+        (r"C1 + noise $\sigma=0.07$\,m/s",
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
          diff("TabThreeLKDiff", "TabThreeLKDiffLo", "TabThreeLKDiffHi"),
          ci("EtwoLKJaccardC", "EtwoLKJaccardCLo", "EtwoLKJaccardCHi"),
          one("TabThreeLKNoiseMed"), NA,
-         frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"),
-         "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
+         frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA),
         ("C3 RVO2",
          frac("EtwoLKCThreeRVOFreed", "EtwoLKCThreeRVON"), "", "",
          one("TabThreeLKRvoMed"), NA,
-         frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"),
-         "$" + one("EthreeCThreeLnRatio") + "$"),
+         frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"), NA),
+    ]),
+    # K5: ell was measured on the time-step set, not at sigma = 0.07 on the lone keystones.
+    (r"Time-step test: " + one("EthreeN") + r" lone-trap snapshots", [
+        (r"C1 + noise, $\beta_{\rm ref}=1.5$", NA, NA, NA, NA, NA, NA,
+         "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
+        ("C3 RVO2", frac("EthreeCThreeFreed", "EthreeN"), NA, NA, NA, NA, NA,
+         "$" + one("EthreeCThreeLnRatioFix") + "$"),
     ]),
     (r"Whole runs: " + one("EsixN") + r" seeds, 600\,s", [
         (r"C1 + noise $\sigma^\ast$",
@@ -152,11 +157,11 @@ BLOCKS = [
 ]
 
 CAPTION = (
-    r"Controls matched to ORCA on rate, against the signatures that separate them: freed (whole runs: completed) "
-    r"count, paired difference $\Delta$ from ORCA, Jaccard index $J$ of the minority outcome sets (unresolved; "
-    r"pairs: freed), Kaplan--Meier median $t_{1/2}$, first exits by the lower member, $10^{-9}$\,m replays that "
-    r"change the outcome (noise: snapshots whose seeds disagree), and $\ell=\ln\hat\lambda(0.005)/\hat\lambda(0.02)$ "
-    r"with its Arrhenius prediction; intervals are 95\%, noise counts runs (five seeds per snapshot) and --- is not measured."
+    r"Controls matched to ORCA on rate, against the signatures that separate them: freed count (whole runs: "
+    r"completed), paired difference $\Delta$ from ORCA, Jaccard index $J$ of the minority outcome sets, "
+    r"Kaplan--Meier median $t_{1/2}$, first exits by the lower member, outcome changes under $10^{-9}$\,m replays "
+    r"(noise: snapshots whose seeds disagree), and $\ell$ of Eq.~\eqref{eq:ell} with its prediction. "
+    r"Intervals are 95\%; noise rows count runs, five seeds per snapshot, and --- is not measured."
 )
 
 
@@ -166,10 +171,10 @@ def main():
         r"\begin{table}[t]",
         r"\caption{" + CAPTION + "}",
         r"\label{tab:matched}",
-        r"\centering\scriptsize\setlength{\tabcolsep}{3pt}",
+        r"\centering\scriptsize\setlength{\tabcolsep}{1.5pt}",
         r"\begin{tabular}{@{}lccccccc@{}}",
         r"\toprule",
-        r"Arm & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ (s) & Lower first & Replay & $\ell$ \\",
+        r"Control & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ (s) & Lower & Replay & $\ell$ \\",
     ]
     nrows = 0
     for title, rows in BLOCKS:

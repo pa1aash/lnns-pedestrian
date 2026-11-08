@@ -1,0 +1,656 @@
+{
+ "script": "experiments/fixan/fix_a2.py",
+ "doc": "Split-sample recalibration of the rate-matched controls (FIX_PLAN A-2, referee issue S1.3).\n\nThe paper fits each matched control to ORCA's freed fraction on a snapshot library and then reports the\nrate match on the same library, where it holds by construction. Here the library is halved at random\n(N_SPLIT seeded halvings) and, for each halving, the control is fitted on one half (fit half) and\nevaluated on the other (test half), in both directions (2-fold). Delta is always\n  control freed fraction on the test half  -  ORCA freed fraction on the test half.\nAs a reference, delta_rate_transfer is ORCA's fit-half minus test-half freed fraction: the error of a\ncontrol that reproduces the fit-half rate exactly and is otherwise unrelated to the test half. A fixed\ncanonical split (snapshot index parity, even indices = half 0) is reported as well, with a 95%\npercentile bootstrap interval over the test-half snapshots (fit held fixed).\n\n(a) Pair standoffs (E7b, 46 snapshots). Fit rule as experiments/E7b/matched_b.py fit, applied to the fit\n    half: with k = ORCA count and t_(1) <= ... the sorted static fold thresholds (+ sign) of the fit half,\n    b* = midpoint of [t_(k), t_(k+1)] (t_(0) = 0). Test-half prediction:\n      static     freed iff t_i <= b* (the rule the fit uses);\n      quench     the unperturbed C1 + bias quench outcome at b*, bracketed from the quench levels that exist\n                 per snapshot (+0.01, 0.02, 0.03, 0.05, 0.1 and the two full-library b*): freed if some level\n                 <= b* frees, held if some level >= b* holds, else (no bracket or non-monotone) the static\n                 prediction is used; the number of fallbacks is reported.\n    Targets: C3 published and C3 RVO2. Signatures on the test half from the static prediction: freed-set\n    Jaccard against ORCA, and handedness (side of the first-out member at threshold, + sign).\n    Replay disagreements and median time to free need runs at b*; they exist only at the full-library b*,\n    and are given restricted to the canonical test halves.\n(b) Lone keystone (E2, 34 snapshots, 5 noise seeds each). sigma is re-picked on the fit half from the grid\n    {0.03, 0.05, 0.07} m/s as the level whose per-run freed fraction is nearest to C3 RVO2's freed fraction\n    (ties to the larger sigma). Test half: Delta, unresolved-set Jaccard (majority rule, < 3 of 5 seeds),\n    snapshots whose seeds disagree, Kaplan-Meier median time to free, and C3 RVO2 replay disagreements.\n(c) Whole runs (E6, 186 spawns, paired seeds). sigma* inverts the E5b logistic completion fit\n    (data/derived/sigma_star.json, independent spawns) at C3 RVO2's completion rate. Refit: sigma*_fit from\n    the fit half's C3 RVO2 rate. Noise runs exist only at the full-library sigma* = 0.0467 m/s, so the test\n    half is evaluated (i) as observed at sigma* = 0.0467 (only the target rate is shared with the test half)\n    and (ii) shifted by the logistic fit, P(sigma*_fit) - P(0.0467), added to the observed test-half rate.\n",
+ "rng": "numpy default_rng(20261109)",
+ "pair": {
+  "n_snapshots": 46,
+  "method": "fit b* on one half by the matched_b.py rule, predict the other half; Delta = control minus ORCA freed fraction on the test half",
+  "pub": {
+   "orca_arm": "C3_pub",
+   "b_star_full": 0.02234375,
+   "k_orca_full": 21,
+   "in_sample": {
+    "static_freed": 21,
+    "quench_freed_at_full_b": 22,
+    "delta_static": 0.0,
+    "delta_quench": 0.02173913043478265,
+    "jaccard_freed_static": 0.4482758620689655,
+    "jaccard_freed_quench": 0.43333333333333335,
+    "method": "full library, fit and evaluation on the same 46 snapshots"
+   },
+   "random": {
+    "n_halvings": 200,
+    "n_folds": 400,
+    "n_test": 23,
+    "b_star_fit": {
+     "mean": 0.02219384765625,
+     "median": 0.02234375,
+     "range95": [
+      0.016444335937500002,
+      0.027151367187499997
+     ],
+     "min": 0.011835937500000001,
+     "max": 0.031171874999999998,
+     "n": 400
+    },
+    "b_star_fit_rel_full": {
+     "mean": 0.993291083916084,
+     "median": 1.0,
+     "range95": [
+      0.7359702797202798,
+      1.215166083916084
+     ],
+     "min": 0.5297202797202798,
+     "max": 1.395104895104895,
+     "n": 400
+    },
+    "delta_static": {
+     "mean": 0.000652173913043476,
+     "median": 0.0,
+     "range95": [
+      -0.34782608695652173,
+      0.34782608695652173
+     ],
+     "min": -0.4782608695652174,
+     "max": 0.5217391304347827,
+     "n": 400
+    },
+    "delta_quench": {
+     "mean": 0.003913043478260869,
+     "median": 0.0,
+     "range95": [
+      -0.34782608695652173,
+      0.34782608695652173
+     ],
+     "min": -0.4782608695652174,
+     "max": 0.5217391304347827,
+     "n": 400
+    },
+    "delta_rate_transfer": {
+     "mean": 0.0,
+     "median": 0.0,
+     "range95": [
+      -0.30434782608695654,
+      0.30434782608695654
+     ],
+     "min": -0.391304347826087,
+     "max": 0.391304347826087,
+     "n": 400
+    },
+    "abs_delta_static_mean": 0.1482608695652174,
+    "frac_delta_static_zero": 0.1475,
+    "quench_fallback_mean": 3.4125,
+    "jaccard_freed_static": {
+     "mean": 0.4138984022620826,
+     "median": 0.4117647058823529,
+     "range95": [
+      0.21392857142857144,
+      0.6112179487179487
+     ],
+     "min": 0.13333333333333333,
+     "max": 0.7142857142857143,
+     "n": 400
+    },
+    "jaccard_freed_quench": {
+     "mean": 0.41160663704200856,
+     "median": 0.4117647058823529,
+     "range95": [
+      0.21392857142857144,
+      0.6112179487179487
+     ],
+     "min": 0.13333333333333333,
+     "max": 0.6923076923076923,
+     "n": 400
+    },
+    "handedness_bias_lower_first": 1.0,
+    "handedness_orca_lower_first": 0.5238095238095238,
+    "cross_fit_delta_static": {
+     "mean": 0.0006521739130434953,
+     "median": 0.0,
+     "range95": [
+      -0.08695652173913043,
+      0.08750000000000012
+     ],
+     "min": -0.15217391304347822,
+     "max": 0.17391304347826092,
+     "n": 200
+    },
+    "cross_fit_delta_quench": {
+     "mean": 0.003913043478260889,
+     "median": 0.0,
+     "range95": [
+      -0.08695652173913043,
+      0.08750000000000012
+     ],
+     "min": -0.15217391304347822,
+     "max": 0.17391304347826092,
+     "n": 200
+    },
+    "cross_fit_jaccard_static": {
+     "mean": 0.41631740921203686,
+     "median": 0.41935483870967744,
+     "range95": [
+      0.33308823529411763,
+      0.4827586206896552
+     ],
+     "min": 0.25,
+     "max": 0.5172413793103449,
+     "n": 200
+    },
+    "method": "200 seeded halvings x 2 directions; fit b* on fit half, Delta on test half; range95 = 2.5-97.5 percentiles over folds; cross_fit pools both test halves of a halving"
+   },
+   "canonical": {
+    "fit_even": {
+     "b_star_fit": 0.024960937500000002,
+     "n_test": 23,
+     "k_orca_test": 12,
+     "k_static": 18,
+     "k_quench": 18,
+     "quench_fallback": 3,
+     "delta_static": 0.26086956521739135,
+     "delta_static_ci95": [
+      0.0,
+      0.5217391304347826
+     ],
+     "delta_quench": 0.26086956521739135,
+     "delta_quench_ci95": [
+      0.0,
+      0.4782608695652174
+     ],
+     "jaccard_freed_static": 0.5,
+     "handedness_bias_lower_first": [
+      18,
+      18
+     ],
+     "handedness_orca_lower_first": [
+      9,
+      12
+     ],
+     "at_full_b_star": {
+      "replay_discordant_snapshots": {
+       "bstar_pubplus": 0,
+       "C3_pub": 0
+      },
+      "median_first_exit_s_bias": 7.309999999993352,
+      "median_first_exit_s_orca": 5.85999999999467,
+      "n_freed_bias": 15,
+      "n_freed_orca": 12,
+      "method": "existing runs at the full-library b*, test-half snapshots only"
+     },
+     "method": "canonical split by snapshot index parity (tags sorted by seed); CI = 2000-resample bootstrap of the paired test-half difference, fit held fixed",
+     "delta_static_mean_two_folds": 0.06521739130434784
+    },
+    "fit_odd": {
+     "b_star_fit": 0.0206640625,
+     "n_test": 23,
+     "k_orca_test": 9,
+     "k_static": 6,
+     "k_quench": 6,
+     "quench_fallback": 1,
+     "delta_static": -0.13043478260869568,
+     "delta_static_ci95": [
+      -0.34782608695652173,
+      0.13043478260869565
+     ],
+     "delta_quench": -0.13043478260869568,
+     "delta_quench_ci95": [
+      -0.391304347826087,
+      0.13043478260869565
+     ],
+     "jaccard_freed_static": 0.25,
+     "handedness_bias_lower_first": [
+      6,
+      6
+     ],
+     "handedness_orca_lower_first": [
+      2,
+      9
+     ],
+     "at_full_b_star": {
+      "replay_discordant_snapshots": {
+       "bstar_pubplus": 0,
+       "C3_pub": 0
+      },
+      "median_first_exit_s_bias": 7.049999999995421,
+      "median_first_exit_s_orca": 4.959999999997322,
+      "n_freed_bias": 7,
+      "n_freed_orca": 9,
+      "method": "existing runs at the full-library b*, test-half snapshots only"
+     },
+     "method": "canonical split by snapshot index parity (tags sorted by seed); CI = 2000-resample bootstrap of the paired test-half difference, fit held fixed"
+    }
+   }
+  },
+  "rvo2": {
+   "orca_arm": "C3_rvo2",
+   "b_star_full": 0.009062500000000001,
+   "k_orca_full": 7,
+   "in_sample": {
+    "static_freed": 7,
+    "quench_freed_at_full_b": 8,
+    "delta_static": 0.0,
+    "delta_quench": 0.021739130434782594,
+    "jaccard_freed_static": 0.0,
+    "jaccard_freed_quench": 0.0,
+    "method": "full library, fit and evaluation on the same 46 snapshots"
+   },
+   "random": {
+    "n_halvings": 200,
+    "n_folds": 400,
+    "n_test": 23,
+    "b_star_fit": {
+     "mean": 0.00954150390625,
+     "median": 0.009062500000000001,
+     "range95": [
+      0.0046484375,
+      0.016836914062499965
+     ],
+     "min": 0.00150390625,
+     "max": 0.0211328125,
+     "n": 400
+    },
+    "b_star_fit_rel_full": {
+     "mean": 1.0528556034482757,
+     "median": 1.0,
+     "range95": [
+      0.5129310344827586,
+      1.8578663793103407
+     ],
+     "min": 0.16594827586206895,
+     "max": 2.331896551724138,
+     "n": 400
+    },
+    "delta_static": {
+     "mean": 0.010869565217391308,
+     "median": 0.0,
+     "range95": [
+      -0.21739130434782608,
+      0.2619565217391295
+     ],
+     "min": -0.30434782608695654,
+     "max": 0.5217391304347827,
+     "n": 400
+    },
+    "delta_quench": {
+     "mean": 0.010978260869565222,
+     "median": 0.0,
+     "range95": [
+      -0.21739130434782608,
+      0.2619565217391295
+     ],
+     "min": -0.30434782608695654,
+     "max": 0.5217391304347827,
+     "n": 400
+    },
+    "delta_rate_transfer": {
+     "mean": 0.0,
+     "median": 0.0,
+     "range95": [
+      -0.21739130434782608,
+      0.21739130434782608
+     ],
+     "min": -0.30434782608695654,
+     "max": 0.30434782608695654,
+     "n": 400
+    },
+    "abs_delta_static_mean": 0.125,
+    "frac_delta_static_zero": 0.035,
+    "quench_fallback_mean": 3.11,
+    "jaccard_freed_static": {
+     "mean": 0.029843760406260404,
+     "median": 0.0,
+     "range95": [
+      0.0,
+      0.2
+     ],
+     "min": 0.0,
+     "max": 0.3333333333333333,
+     "n": 400
+    },
+    "jaccard_freed_quench": {
+     "mean": 0.029827734765234763,
+     "median": 0.0,
+     "range95": [
+      0.0,
+      0.2
+     ],
+     "min": 0.0,
+     "max": 0.3333333333333333,
+     "n": 400
+    },
+    "handedness_bias_lower_first": 1.0,
+    "handedness_orca_lower_first": 0.2857142857142857,
+    "cross_fit_delta_static": {
+     "mean": 0.010869565217391295,
+     "median": 0.0,
+     "range95": [
+      -0.04347826086956523,
+      0.10869565217391303
+     ],
+     "min": -0.06521739130434784,
+     "max": 0.15217391304347827,
+     "n": 200
+    },
+    "cross_fit_delta_quench": {
+     "mean": 0.010978260869565208,
+     "median": 0.0,
+     "range95": [
+      -0.04347826086956523,
+      0.10869565217391303
+     ],
+     "min": -0.06521739130434784,
+     "max": 0.15217391304347827,
+     "n": 200
+    },
+    "cross_fit_jaccard_static": {
+     "mean": 0.034808328410495595,
+     "median": 0.0,
+     "range95": [
+      0.0,
+      0.13333333333333333
+     ],
+     "min": 0.0,
+     "max": 0.16666666666666666,
+     "n": 200
+    },
+    "method": "200 seeded halvings x 2 directions; fit b* on fit half, Delta on test half; range95 = 2.5-97.5 percentiles over folds; cross_fit pools both test halves of a halving"
+   },
+   "canonical": {
+    "fit_even": {
+     "b_star_fit": 0.009765625,
+     "n_test": 23,
+     "k_orca_test": 4,
+     "k_static": 5,
+     "k_quench": 5,
+     "quench_fallback": 0,
+     "delta_static": 0.043478260869565216,
+     "delta_static_ci95": [
+      -0.21739130434782608,
+      0.30434782608695654
+     ],
+     "delta_quench": 0.043478260869565216,
+     "delta_quench_ci95": [
+      -0.21739130434782608,
+      0.30434782608695654
+     ],
+     "jaccard_freed_static": 0.0,
+     "handedness_bias_lower_first": [
+      5,
+      5
+     ],
+     "handedness_orca_lower_first": [
+      2,
+      4
+     ],
+     "at_full_b_star": {
+      "replay_discordant_snapshots": {
+       "bstar_rvo2plus": 0,
+       "C3_rvo2": 0
+      },
+      "median_first_exit_s_bias": 9.39999999999145,
+      "median_first_exit_s_orca": 4.099999999996271,
+      "n_freed_bias": 5,
+      "n_freed_orca": 4,
+      "method": "existing runs at the full-library b*, test-half snapshots only"
+     },
+     "method": "canonical split by snapshot index parity (tags sorted by seed); CI = 2000-resample bootstrap of the paired test-half difference, fit held fixed",
+     "delta_static_mean_two_folds": -0.021739130434782608
+    },
+    "fit_odd": {
+     "b_star_fit": 0.007656250000000002,
+     "n_test": 23,
+     "k_orca_test": 3,
+     "k_static": 1,
+     "k_quench": 1,
+     "quench_fallback": 3,
+     "delta_static": -0.08695652173913043,
+     "delta_static_ci95": [
+      -0.2608695652173913,
+      0.043478260869565216
+     ],
+     "delta_quench": -0.08695652173913043,
+     "delta_quench_ci95": [
+      -0.2608695652173913,
+      0.08695652173913043
+     ],
+     "jaccard_freed_static": 0.0,
+     "handedness_bias_lower_first": [
+      1,
+      1
+     ],
+     "handedness_orca_lower_first": [
+      0,
+      3
+     ],
+     "at_full_b_star": {
+      "replay_discordant_snapshots": {
+       "bstar_rvo2plus": 0,
+       "C3_rvo2": 0
+      },
+      "median_first_exit_s_bias": 10.399999999990541,
+      "median_first_exit_s_orca": 4.3699999999960255,
+      "n_freed_bias": 3,
+      "n_freed_orca": 3,
+      "method": "existing runs at the full-library b*, test-half snapshots only"
+     },
+     "method": "canonical split by snapshot index parity (tags sorted by seed); CI = 2000-resample bootstrap of the paired test-half difference, fit held fixed"
+    }
+   }
+  }
+ },
+ "lone": {
+  "n_snapshots": 34,
+  "n_seeds_per_snapshot": 5,
+  "sigma_grid": [
+   0.03,
+   0.05,
+   0.07
+  ],
+  "sigma_full": 0.07,
+  "in_sample": {
+   "delta_by_sigma": {
+    "s03": -0.47058823529411764,
+    "s05": -0.1941176470588235,
+    "s07": -0.0117647058823529
+   },
+   "c3_rvo2_freed": 30,
+   "method": "per-run noise freed fraction minus C3 RVO2 freed fraction, all 34 snapshots"
+  },
+  "random": {
+   "n_halvings": 200,
+   "n_folds": 400,
+   "n_test": 17,
+   "frac_same_sigma": 0.995,
+   "sigma_counts": {
+    "s03": 0,
+    "s05": 2,
+    "s07": 398
+   },
+   "delta": {
+    "mean": -0.012882352941176465,
+    "median": -0.0117647058823529,
+    "range95": [
+     -0.09441176470588244,
+     0.07088235294117629
+    ],
+    "min": -0.3647058823529411,
+    "max": 0.10588235294117654,
+    "n": 400
+   },
+   "delta_rate_transfer": {
+    "mean": 0.0,
+    "median": 0.0,
+    "range95": [
+     -0.23529411764705888,
+     0.23529411764705888
+    ],
+    "min": -0.23529411764705888,
+    "max": 0.23529411764705888,
+    "n": 400
+   },
+   "abs_delta_mean": 0.03623529411764706,
+   "jaccard_unresolved": {
+    "mean": 0.1872834120925724,
+    "median": 0.2,
+    "range95": [
+     0.0,
+     0.5
+    ],
+    "min": 0.0,
+    "max": 1.0,
+    "n": 393
+   },
+   "seeds_disagree": {
+    "mean": 4.505,
+    "median": 4.5,
+    "range95": [
+     2.0,
+     7.0
+    ],
+    "min": 0.0,
+    "max": 9.0,
+    "n": 400
+   },
+   "km_median_noise_s": {
+    "mean": 19.42775,
+    "median": 19.91,
+    "range95": [
+     11.212000000000002,
+     25.71349999999998
+    ],
+    "min": 9.77,
+    "max": 75.28,
+    "n": 400
+   },
+   "km_median_c3_s": {
+    "mean": 1.5403750000000003,
+    "median": 1.52,
+    "range95": [
+     1.31,
+     1.84
+    ],
+    "min": 1.27,
+    "max": 2.16,
+    "n": 400
+   },
+   "c3_replay_disc": {
+    "mean": 0.0,
+    "median": 0.0,
+    "range95": [
+     0.0,
+     0.0
+    ],
+    "min": 0.0,
+    "max": 0.0,
+    "n": 400
+   },
+   "method": "200 seeded halvings (17/17) x 2 directions; sigma re-picked on fit half from the grid (nearest per-run freed fraction to C3 RVO2's), evaluated on the test half"
+  },
+  "canonical": {
+   "fit_even": {
+    "sigma": 0.07,
+    "delta": -0.0117647058823529,
+    "jac": 0.25,
+    "seeds_disagree": 6,
+    "km_median_noise": 22.43,
+    "km_median_c3": 1.89,
+    "c3_replay_disc": 0,
+    "n_test": 17,
+    "k_c3_test": 14,
+    "noise_frac_test": 0.8117647058823529,
+    "delta_ci95": [
+     -0.16470588235294117,
+     0.15294117647058825
+    ],
+    "method": "canonical split by index parity in selection.json order; CI = snapshot bootstrap of the test-half paired difference, sigma held fixed"
+   },
+   "fit_odd": {
+    "sigma": 0.07,
+    "delta": -0.0117647058823529,
+    "jac": 0.0,
+    "seeds_disagree": 3,
+    "km_median_noise": 19.24,
+    "km_median_c3": 1.42,
+    "c3_replay_disc": 0,
+    "n_test": 17,
+    "k_c3_test": 16,
+    "noise_frac_test": 0.9294117647058824,
+    "delta_ci95": [
+     -0.09411764705882353,
+     0.08235294117647059
+    ],
+    "method": "canonical split by index parity in selection.json order; CI = snapshot bootstrap of the test-half paired difference, sigma held fixed"
+   }
+  }
+ },
+ "whole": {
+  "n_spawns": 186,
+  "sigma_star_full": 0.0467,
+  "fit": "E5b logistic, sigma_star.json",
+  "in_sample": {
+   "delta_observed": -0.010752688172043001,
+   "c3_complete": 101,
+   "noise_complete": 99
+  },
+  "random": {
+   "n_halvings": 200,
+   "n_folds": 400,
+   "sigma_fit": {
+    "mean": 0.0466696066252603,
+    "median": 0.046658116598046015,
+    "range95": [
+     0.043339179808798596,
+     0.05004628134761861
+    ],
+    "min": 0.04094090278509441,
+    "max": 0.052587013455991614,
+    "n": 400
+   },
+   "frac_sigma_in_e5b_range": 1.0,
+   "delta_observed_at_full_sigma": {
+    "mean": -0.010752688172043015,
+    "median": -0.010752688172043001,
+    "range95": [
+     -0.09677419354838712,
+     0.07526881720430112
+    ],
+    "min": -0.13978494623655918,
+    "max": 0.11827956989247312,
+    "n": 400
+   },
+   "delta_fit_shifted": {
+    "mean": -0.01150323572617169,
+    "median": -0.011503235726171679,
+    "range95": [
+     -0.1566645260487523,
+     0.133658054596409
+    ],
+    "min": -0.18892259056488142,
+    "max": 0.165916119112538,
+    "n": 400
+   },
+   "delta_fit_prediction": {
+    "mean": 2.67841304690819e-17,
+    "median": 0.0,
+    "range95": [
+     -0.11881720430107508,
+     0.1188172043010749
+    ],
+    "min": -0.20430107526881724,
+    "max": 0.2043010752688173,
+    "n": 400
+   },
+   "method": "sigma* re-inverted from the fit half's C3 RVO2 completion; test half evaluated observed at sigma* = 0.0467 and shifted by the logistic fit to sigma*_fit"
+  },
+  "canonical": {
+   "sigma_fit": 0.04696012565830888,
+   "delta_observed": -0.053763440860215006,
+   "delta_fit_shifted": -0.04913764432832224,
+   "delta_observed_ci95": [
+    -0.1827956989247312,
+    0.06451612903225806
+   ],
+   "method": "canonical split by seed-order parity, fit on even indices"
+  }
+ }
+}

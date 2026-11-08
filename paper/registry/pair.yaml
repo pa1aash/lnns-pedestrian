@@ -7,7 +7,7 @@ PairAxisMin: {file: E7b_analysis.json, key: "a_statics.axis_dist_m.min", fmt: "{
 PairAxisMax: {file: E7b_analysis.json, key: "a_statics.axis_dist_m.max", fmt: "{:.2f}"}
 PairGapMin: {file: E7b_analysis.json, key: "a_statics.pair_gap_m.min", fmt: "{:.2f}"}
 PairGapMax: {file: E7b_analysis.json, key: "a_statics.pair_gap_m.max", fmt: "{:.2f}"}
-PairResidMax: {file: E7b_analysis.json, key: "a_statics.field_residual_max_N", fmt: sci, digits: 1}
+PairResidMax: {file: E7b_analysis.json, key: "a_statics.field_residual_max_N", fmt: sci, digits: 2}
 PairStrictMin: {file: E7b_analysis.json, key: "a_statics.strict_min", fmt: "{:d}"}
 PairLamOneMin: {file: E7b_analysis.json, key: "a_statics.lambda1.min", fmt: "{:.0f}"}
 PairLamOneMax: {file: E7b_analysis.json, key: "a_statics.lambda1.max", fmt: "{:.0f}"}
@@ -94,3 +94,9 @@ PairBsPubMinusUpper: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.m
 PairBsPubMinusFreed: {file: E7b_analysis.json, key: "s3_matched.pub.handedness.minus_n", fmt: "{:d}"}
 PairBsPubRevA: {file: E7b_analysis.json, key: "s3_matched.pub.reversal.disc_a_only", fmt: "{:d}"}
 PairBsPubRevB: {file: E7b_analysis.json, key: "s3_matched.pub.reversal.disc_b_only", fmt: "{:d}"}
+
+# --- fix wave (REG-7): second-trap one-neighbour geometry, experiments/fixan/fix_reg.py
+CtwsixAbreastN: {file: fix_reg.json, key: "second_trap_geometry.abreast", fmt: "{:d}"}
+CtwsixAxisMin: {file: fix_reg.json, key: "second_trap_geometry.axis_min_m", fmt: "{:.2f}"}
+CtwsixAxisMax: {file: fix_reg.json, key: "second_trap_geometry.axis_max_m", fmt: "{:.2f}"}
+CtwsixOtherBehind: {file: fix_reg.json, key: "second_trap_geometry.other_behind_m.0", fmt: "{:.2f}"}

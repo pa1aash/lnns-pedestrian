@@ -273,8 +273,8 @@
 \newcommand{\EtwoReplayCThreePubMaxDt}{80.8}
 % EtwoNoiseDisagreeC <- E2_analysis.json:b_replay_determinism.pooled.noise0p07.seeds_disagree_on_freed
 \newcommand{\EtwoNoiseDisagreeC}{14}
-% EtwoNoiseSDC <- E2_analysis.json:b_replay_determinism.pooled.noise0p07.within_snapshot_sd_first_exit_s.median
-\newcommand{\EtwoNoiseSDC}{11.2}
+% EtwoNoiseSDC <- E2_analysis.json:b_replay_determinism.lone_keystone.noise0p07.within_snapshot_sd_first_exit_s.median
+\newcommand{\EtwoNoiseSDC}{13.3}
 % EtwoLemmaPairs <- E2_analysis.json:c_rest_state_lemma_C2_vs_C1.pairs
 \newcommand{\EtwoLemmaPairs}{360}
 % EtwoLemmaIdentical <- E2_analysis.json:c_rest_state_lemma_C2_vs_C1.identical_exits
@@ -588,13 +588,13 @@
 % TermNHigh <- E1_terminal.json:n_ge_threshold
 \newcommand{\TermNHigh}{393}
 % ResidPairMax <- field_residuals.json:pair.max_N
-\newcommand{\ResidPairMax}{\ensuremath{1\times10^{-7}}}
+\newcommand{\ResidPairMax}{\ensuremath{1.4\times10^{-7}}}
 % ResidPairN <- field_residuals.json:pair.n
 \newcommand{\ResidPairN}{46}
 % ResidLoneMax <- field_residuals.json:lone.max_N
 \newcommand{\ResidLoneMax}{\ensuremath{4\times10^{-8}}}
 % ResidCollMax <- field_residuals.json:collective.max_N
-\newcommand{\ResidCollMax}{\ensuremath{5\times10^{-7}}}
+\newcommand{\ResidCollMax}{\ensuremath{4.9\times10^{-7}}}
 % ResidBarN <- field_residuals.json:lone.n
 \newcommand{\ResidBarN}{60}
 % ResidAllMax <- field_residuals.json:overall_max_N
@@ -659,6 +659,108 @@
 \newcommand{\TabThreePairRvoReplayDis}{0}
 % TabThreePairOrcaReplays <- E7b_analysis.json:b_quench.C3_rvo2.replays
 \newcommand{\TabThreePairOrcaReplays}{230}
+% LoneBarMed <- E6_analysis.json:lifetimes.barrier_picture.dU_median
+\newcommand{\LoneBarMed}{6.4}
+% LoneBarN <- E6_analysis.json:lifetimes.barrier_picture.n_barriers
+\newcommand{\LoneBarN}{56}
+% EOneBRuleAcc <- E1_analysis.json:E1b.k_rule_refined.rule_accuracy
+\newcommand{\EOneBRuleAcc}{0.962}
+% EtwoReplayRvoN <- E2_analysis.json:b_replay_determinism.pooled.C3_rvo2.replays
+\newcommand{\EtwoReplayRvoN}{300}
+% CriterionPosN <- fix_reg.json:criterion.positive_margin
+\newcommand{\CriterionPosN}{386}
+% CriterionNegTwoAgent <- fix_reg.json:criterion.negative_margin_two_agent
+\newcommand{\CriterionNegTwoAgent}{6}
+% EthreeCThreeLnRatioFix <- E3_analysis.json:headline.c3_ln_ratio
+\newcommand{\EthreeCThreeLnRatioFix}{-0.005}
+% FixAtwoPairPubDelta <- fix_a2.json:pair.pub.random.delta_static.mean
+\newcommand{\FixAtwoPairPubDelta}{+0.00}
+% FixAtwoPairPubDeltaLo <- fix_a2.json:pair.pub.random.delta_static.range95.0
+\newcommand{\FixAtwoPairPubDeltaLo}{-0.35}
+% FixAtwoPairPubDeltaHi <- fix_a2.json:pair.pub.random.delta_static.range95.1
+\newcommand{\FixAtwoPairPubDeltaHi}{+0.35}
+% FixAtwoPairPubQuenchDelta <- fix_a2.json:pair.pub.random.delta_quench.mean
+\newcommand{\FixAtwoPairPubQuenchDelta}{+0.00}
+% FixAtwoPairPubTransferLo <- fix_a2.json:pair.pub.random.delta_rate_transfer.range95.0
+\newcommand{\FixAtwoPairPubTransferLo}{-0.30}
+% FixAtwoPairPubTransferHi <- fix_a2.json:pair.pub.random.delta_rate_transfer.range95.1
+\newcommand{\FixAtwoPairPubTransferHi}{+0.30}
+% FixAtwoPairPubAbsDelta <- fix_a2.json:pair.pub.random.abs_delta_static_mean
+\newcommand{\FixAtwoPairPubAbsDelta}{0.15}
+% FixAtwoPairPubBstarLo <- fix_a2.json:pair.pub.random.b_star_fit.range95.0
+\newcommand{\FixAtwoPairPubBstarLo}{0.0164}
+% FixAtwoPairPubBstarHi <- fix_a2.json:pair.pub.random.b_star_fit.range95.1
+\newcommand{\FixAtwoPairPubBstarHi}{0.0272}
+% FixAtwoPairPubJaccard <- fix_a2.json:pair.pub.random.jaccard_freed_static.mean
+\newcommand{\FixAtwoPairPubJaccard}{0.41}
+% FixAtwoPairPubCanonDelta <- fix_a2.json:pair.pub.canonical.fit_even.delta_static
+\newcommand{\FixAtwoPairPubCanonDelta}{+0.26}
+% FixAtwoPairPubCanonDeltaLo <- fix_a2.json:pair.pub.canonical.fit_even.delta_static_ci95.0
+\newcommand{\FixAtwoPairPubCanonDeltaLo}{+0.00}
+% FixAtwoPairPubCanonDeltaHi <- fix_a2.json:pair.pub.canonical.fit_even.delta_static_ci95.1
+\newcommand{\FixAtwoPairPubCanonDeltaHi}{+0.52}
+% FixAtwoPairRvoDelta <- fix_a2.json:pair.rvo2.random.delta_static.mean
+\newcommand{\FixAtwoPairRvoDelta}{+0.01}
+% FixAtwoPairRvoDeltaLo <- fix_a2.json:pair.rvo2.random.delta_static.range95.0
+\newcommand{\FixAtwoPairRvoDeltaLo}{-0.22}
+% FixAtwoPairRvoDeltaHi <- fix_a2.json:pair.rvo2.random.delta_static.range95.1
+\newcommand{\FixAtwoPairRvoDeltaHi}{+0.26}
+% FixAtwoPairRvoQuenchDelta <- fix_a2.json:pair.rvo2.random.delta_quench.mean
+\newcommand{\FixAtwoPairRvoQuenchDelta}{+0.01}
+% FixAtwoPairRvoTransferLo <- fix_a2.json:pair.rvo2.random.delta_rate_transfer.range95.0
+\newcommand{\FixAtwoPairRvoTransferLo}{-0.22}
+% FixAtwoPairRvoTransferHi <- fix_a2.json:pair.rvo2.random.delta_rate_transfer.range95.1
+\newcommand{\FixAtwoPairRvoTransferHi}{+0.22}
+% FixAtwoPairRvoAbsDelta <- fix_a2.json:pair.rvo2.random.abs_delta_static_mean
+\newcommand{\FixAtwoPairRvoAbsDelta}{0.12}
+% FixAtwoPairRvoBstarLo <- fix_a2.json:pair.rvo2.random.b_star_fit.range95.0
+\newcommand{\FixAtwoPairRvoBstarLo}{0.0046}
+% FixAtwoPairRvoBstarHi <- fix_a2.json:pair.rvo2.random.b_star_fit.range95.1
+\newcommand{\FixAtwoPairRvoBstarHi}{0.0168}
+% FixAtwoPairRvoJaccard <- fix_a2.json:pair.rvo2.random.jaccard_freed_static.mean
+\newcommand{\FixAtwoPairRvoJaccard}{0.03}
+% FixAtwoPairRvoCanonDelta <- fix_a2.json:pair.rvo2.canonical.fit_even.delta_static
+\newcommand{\FixAtwoPairRvoCanonDelta}{+0.04}
+% FixAtwoPairRvoCanonDeltaLo <- fix_a2.json:pair.rvo2.canonical.fit_even.delta_static_ci95.0
+\newcommand{\FixAtwoPairRvoCanonDeltaLo}{-0.22}
+% FixAtwoPairRvoCanonDeltaHi <- fix_a2.json:pair.rvo2.canonical.fit_even.delta_static_ci95.1
+\newcommand{\FixAtwoPairRvoCanonDeltaHi}{+0.30}
+% FixAtwoPairNTest <- fix_a2.json:pair.pub.random.n_test
+\newcommand{\FixAtwoPairNTest}{23}
+% FixAtwoNSplits <- fix_a2.json:pair.pub.random.n_halvings
+\newcommand{\FixAtwoNSplits}{200}
+% FixAtwoLoneSameSigma <- fix_a2.json:lone.random.frac_same_sigma
+\newcommand{\FixAtwoLoneSameSigma}{0.995}
+% FixAtwoLoneDelta <- fix_a2.json:lone.random.delta.mean
+\newcommand{\FixAtwoLoneDelta}{-0.01}
+% FixAtwoLoneDeltaLo <- fix_a2.json:lone.random.delta.range95.0
+\newcommand{\FixAtwoLoneDeltaLo}{-0.09}
+% FixAtwoLoneDeltaHi <- fix_a2.json:lone.random.delta.range95.1
+\newcommand{\FixAtwoLoneDeltaHi}{+0.07}
+% FixAtwoLoneTransferLo <- fix_a2.json:lone.random.delta_rate_transfer.range95.0
+\newcommand{\FixAtwoLoneTransferLo}{-0.24}
+% FixAtwoLoneTransferHi <- fix_a2.json:lone.random.delta_rate_transfer.range95.1
+\newcommand{\FixAtwoLoneTransferHi}{+0.24}
+% FixAtwoLoneJaccard <- fix_a2.json:lone.random.jaccard_unresolved.mean
+\newcommand{\FixAtwoLoneJaccard}{0.19}
+% FixAtwoLoneNTest <- fix_a2.json:lone.random.n_test
+\newcommand{\FixAtwoLoneNTest}{17}
+% FixAtwoLoneCanonDelta <- fix_a2.json:lone.canonical.fit_even.delta
+\newcommand{\FixAtwoLoneCanonDelta}{-0.01}
+% FixAtwoLoneCanonDeltaLo <- fix_a2.json:lone.canonical.fit_even.delta_ci95.0
+\newcommand{\FixAtwoLoneCanonDeltaLo}{-0.16}
+% FixAtwoLoneCanonDeltaHi <- fix_a2.json:lone.canonical.fit_even.delta_ci95.1
+\newcommand{\FixAtwoLoneCanonDeltaHi}{+0.15}
+% FixAtwoWholeDelta <- fix_a2.json:whole.random.delta_fit_shifted.mean
+\newcommand{\FixAtwoWholeDelta}{-0.01}
+% FixAtwoWholeDeltaLo <- fix_a2.json:whole.random.delta_fit_shifted.range95.0
+\newcommand{\FixAtwoWholeDeltaLo}{-0.16}
+% FixAtwoWholeDeltaHi <- fix_a2.json:whole.random.delta_fit_shifted.range95.1
+\newcommand{\FixAtwoWholeDeltaHi}{+0.13}
+% FixAtwoWholeSigmaLo <- fix_a2.json:whole.random.sigma_fit.range95.0
+\newcommand{\FixAtwoWholeSigmaLo}{0.0433}
+% FixAtwoWholeSigmaHi <- fix_a2.json:whole.random.sigma_fit.range95.1
+\newcommand{\FixAtwoWholeSigmaHi}{0.0500}
 % EsixN <- E6_analysis.json:n
 \newcommand{\EsixN}{186}
 % EsixSigmaStar <- E6_analysis.json:sigma_star
@@ -778,7 +880,7 @@
 % EtenHumanGap <- E10_analysis.json:humans.longest_gap.mean
 \newcommand{\EtenHumanGap}{1.7}
 % EtenHumanGapMax <- E10_analysis.json:humans.longest_gap_max
-\newcommand{\EtenHumanGapMax}{2.0}
+\newcommand{\EtenHumanGapMax}{2.04}
 % EtenHumanGapsTwo <- E10_analysis.json:humans.gaps_gt_2s.mean
 \newcommand{\EtenHumanGapsTwo}{0.2}
 % EtenHumanFluct <- E10_analysis.json:humans.fluct.mean
@@ -1021,6 +1123,18 @@
 \newcommand{\ArchSizeMax}{10}
 % ArchEvacMedian <- arch_analysis.json:evac_time_median
 \newcommand{\ArchEvacMedian}{77}
+% EtenHumanGapsOverTwoTotal <- fix_reg.json:human.gaps_over_two_total
+\newcommand{\EtenHumanGapsOverTwoTotal}{1}
+% EsixPermP <- fix_reg.json:whole_run_failures.perm_p
+\newcommand{\EsixPermP}{\ensuremath{2.3\times10^{-3}}}
+% EsixOneOnlyFail <- fix_reg.json:whole_run_failures.one_only
+\newcommand{\EsixOneOnlyFail}{72}
+% EsixFailAny <- fix_reg.json:whole_run_failures.any
+\newcommand{\EsixFailAny}{122}
+% EsixJaccardIndepLo <- E6_analysis.json:identity.jaccard_independent_95.0
+\newcommand{\EsixJaccardIndepLo}{0.24}
+% EsixJaccardIndepHi <- E6_analysis.json:identity.jaccard_independent_95.1
+\newcommand{\EsixJaccardIndepHi}{0.37}
 % EsevenN <- E7_analysis.json:cells.default.n
 \newcommand{\EsevenN}{100}
 % EsevenWSevenK <- E7_analysis.json:cells.w0p7.k_complete
@@ -1098,7 +1212,7 @@
 % PairGapMax <- E7b_analysis.json:a_statics.pair_gap_m.max
 \newcommand{\PairGapMax}{0.33}
 % PairResidMax <- E7b_analysis.json:a_statics.field_residual_max_N
-\newcommand{\PairResidMax}{\ensuremath{1\times10^{-7}}}
+\newcommand{\PairResidMax}{\ensuremath{1.4\times10^{-7}}}
 % PairStrictMin <- E7b_analysis.json:a_statics.strict_min
 \newcommand{\PairStrictMin}{46}
 % PairLamOneMin <- E7b_analysis.json:a_statics.lambda1.min
@@ -1259,6 +1373,14 @@
 \newcommand{\PairBsPubRevA}{13}
 % PairBsPubRevB <- E7b_analysis.json:s3_matched.pub.reversal.disc_b_only
 \newcommand{\PairBsPubRevB}{14}
+% CtwsixAbreastN <- fix_reg.json:second_trap_geometry.abreast
+\newcommand{\CtwsixAbreastN}{9}
+% CtwsixAxisMin <- fix_reg.json:second_trap_geometry.axis_min_m
+\newcommand{\CtwsixAxisMin}{0.40}
+% CtwsixAxisMax <- fix_reg.json:second_trap_geometry.axis_max_m
+\newcommand{\CtwsixAxisMax}{0.52}
+% CtwsixOtherBehind <- fix_reg.json:second_trap_geometry.other_behind_m.0
+\newcommand{\CtwsixOtherBehind}{0.30}
 % EelevenN <- E11_analysis.json:cells.C1.w1p0.n
 \newcommand{\EelevenN}{25}
 % EelevenCOneRunsWTen <- E11_analysis.json:cells.C1.w1p0.zones.throat.persistent.runs_with
