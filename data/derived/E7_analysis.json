@@ -1,0 +1,529 @@
+{
+ "script": "experiments/E7/analyze.py",
+ "doc": "E7 analysis: wall-model validity cells (CF, C1, seeds 42-141, 600 s cap).\n\n  python experiments/E7/analyze.py keystone [--workers 2]   K1/K2/K1b surgery on the E7 deadlock snapshots (resumable)\n  python experiments/E7/analyze.py summary                   write data/derived/E7_analysis.json\n\nInputs: data/E7/e7_cells.jsonl and data/E7/library (override the directory with E7_SRC=<dir containing e7_cells.jsonl and\nlibrary/>), data/E1/E1_runs.jsonl (E1b, seeds 42-141 = the w = 0.8 m default cell) and data/derived/E1_keystone.json\n(its keystone classes). Keystone surgery restarts each snapshot with the cell's own wall flags and the snapshot's width.\n\nClasses (experiments/E1/keystone.py): lone_keystone (blocker alone held, everyone else exits once it is removed),\nlone_keystone_second_trap (blocker alone held, but others stay behind when it is removed), collective (blocker alone is\nfreed: a pair or group standoff).\n",
+ "cells": {
+  "w0p7": {
+   "n": 100,
+   "k_complete": 0,
+   "k_deadlock": 100,
+   "k_capped": 0,
+   "completion": 0.0,
+   "wilson95": [
+    0.0,
+    0.03699480747600191
+   ],
+   "deadlock_time_s": {
+    "median": 169.54999999999077,
+    "q25": 156.50000000000264,
+    "q75": 186.29999999997554,
+    "min": 87.90000000000806,
+    "max": 231.0999999999348
+   },
+   "mean_remaining_at_deadlock": 13.69,
+   "width_m": 0.7,
+   "classes": {
+    "n_classified": 100,
+    "counts": {
+     "lone_keystone": 0,
+     "lone_keystone_second_trap": 100,
+     "collective": 0
+    },
+    "frac_collective": 0.0,
+    "frac_collective_wilson95": [
+     0.0,
+     0.03699480747600191
+    ],
+    "n_resid_hist": {
+     "4": 3,
+     "5": 5,
+     "6": 3,
+     "7": 9,
+     "8": 12,
+     "9": 6,
+     "10": 9,
+     "11": 4,
+     "12": 4,
+     "13": 3,
+     "14": 2,
+     "15": 7,
+     "16": 8,
+     "17": 5,
+     "18": 2,
+     "19": 2,
+     "20": 2,
+     "21": 2,
+     "22": 2,
+     "23": 3,
+     "24": 2,
+     "27": 1,
+     "29": 1,
+     "46": 1,
+     "56": 1,
+     "59": 1
+    },
+    "second_trap_K1b_held": 100,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "default": {
+   "n": 100,
+   "k_complete": 2,
+   "k_deadlock": 98,
+   "k_capped": 0,
+   "completion": 0.02,
+   "wilson95": [
+    0.005501852234968185,
+    0.07001316294199365
+   ],
+   "deadlock_time_s": {
+    "median": 154.60000000000437,
+    "q25": 145.125000000013,
+    "q75": 161.67499999999794,
+    "min": 130.6000000000262,
+    "max": 197.79999999996508
+   },
+   "mean_remaining_at_deadlock": 2.979591836734694,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 98,
+    "counts": {
+     "lone_keystone": 22,
+     "lone_keystone_second_trap": 74,
+     "collective": 2
+    },
+    "frac_collective": 0.02040816326530612,
+    "frac_collective_wilson95": [
+     0.005614496475772293,
+     0.07138350826885075
+    ],
+    "n_resid_hist": {
+     "1": 14,
+     "2": 31,
+     "3": 27,
+     "4": 15,
+     "5": 2,
+     "6": 2,
+     "7": 5,
+     "8": 1,
+     "10": 1
+    },
+    "second_trap_K1b_held": 70,
+    "second_trap_K1b_freed": 4
+   }
+  },
+  "w0p9": {
+   "n": 100,
+   "k_complete": 70,
+   "k_deadlock": 30,
+   "k_capped": 0,
+   "completion": 0.7,
+   "wilson95": [
+    0.6041496156718804,
+    0.7810524613377188
+   ],
+   "deadlock_time_s": {
+    "median": 130.20000000002656,
+    "q25": 125.97500000002753,
+    "q75": 136.02500000002127,
+    "min": 121.4000000000252,
+    "max": 150.90000000000774
+   },
+   "mean_remaining_at_deadlock": 1.2666666666666666,
+   "width_m": 0.9,
+   "classes": {
+    "n_classified": 30,
+    "counts": {
+     "lone_keystone": 27,
+     "lone_keystone_second_trap": 3,
+     "collective": 0
+    },
+    "frac_collective": 0.0,
+    "frac_collective_wilson95": [
+     0.0,
+     0.113517091390478
+    ],
+    "n_resid_hist": {
+     "1": 23,
+     "2": 6,
+     "3": 1
+    },
+    "second_trap_K1b_held": 3,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "w1p0": {
+   "n": 100,
+   "k_complete": 100,
+   "k_deadlock": 0,
+   "k_capped": 0,
+   "completion": 1.0,
+   "wilson95": [
+    0.9630051925239981,
+    0.9999999999999999
+   ],
+   "deadlock_time_s": null,
+   "mean_remaining_at_deadlock": null,
+   "width_m": 1.0,
+   "classes": {
+    "n_classified": 0,
+    "counts": {
+     "lone_keystone": 0,
+     "lone_keystone_second_trap": 0,
+     "collective": 0
+    },
+    "frac_collective": null,
+    "frac_collective_wilson95": null,
+    "n_resid_hist": {},
+    "second_trap_K1b_held": 0,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "B0p04": {
+   "n": 100,
+   "k_complete": 85,
+   "k_deadlock": 15,
+   "k_capped": 0,
+   "completion": 0.85,
+   "wilson95": [
+    0.7671626666784216,
+    0.906940968088377
+   ],
+   "deadlock_time_s": {
+    "median": 130.30000000002647,
+    "q25": 127.85000000002827,
+    "q75": 138.500000000019,
+    "min": 121.8000000000254,
+    "max": 149.10000000000937
+   },
+   "mean_remaining_at_deadlock": 2.2,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 15,
+    "counts": {
+     "lone_keystone": 1,
+     "lone_keystone_second_trap": 0,
+     "collective": 14
+    },
+    "frac_collective": 0.9333333333333333,
+    "frac_collective_wilson95": [
+     0.7018292244757601,
+     0.9881334113938051
+    ],
+    "n_resid_hist": {
+     "2": 12,
+     "3": 3
+    },
+    "second_trap_K1b_held": 0,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "B0p02": {
+   "n": 100,
+   "k_complete": 83,
+   "k_deadlock": 17,
+   "k_capped": 0,
+   "completion": 0.83,
+   "wilson95": [
+    0.7445181876635703,
+    0.8910652394022684
+   ],
+   "deadlock_time_s": {
+    "median": 128.20000000002838,
+    "q25": 122.80000000002592,
+    "q75": 130.90000000002593,
+    "min": 121.50000000002525,
+    "max": 134.0000000000231
+   },
+   "mean_remaining_at_deadlock": 2.235294117647059,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 17,
+    "counts": {
+     "lone_keystone": 0,
+     "lone_keystone_second_trap": 0,
+     "collective": 17
+    },
+    "frac_collective": 1.0,
+    "frac_collective_wilson95": [
+     0.8156763396284354,
+     1.0
+    ],
+    "n_resid_hist": {
+     "2": 13,
+     "3": 4
+    },
+    "second_trap_K1b_held": 0,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "Bedge0p04": {
+   "n": 100,
+   "k_complete": 89,
+   "k_deadlock": 11,
+   "k_capped": 0,
+   "completion": 0.89,
+   "wilson95": [
+    0.8136853697209698,
+    0.9374586804477487
+   ],
+   "deadlock_time_s": {
+    "median": 136.40000000002092,
+    "q25": 131.50000000002538,
+    "q75": 139.25000000001833,
+    "min": 126.90000000002802,
+    "max": 141.6000000000162
+   },
+   "mean_remaining_at_deadlock": 2.1818181818181817,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 11,
+    "counts": {
+     "lone_keystone": 0,
+     "lone_keystone_second_trap": 0,
+     "collective": 11
+    },
+    "frac_collective": 1.0,
+    "frac_collective_wilson95": [
+     0.7411599827511859,
+     1.0
+    ],
+    "n_resid_hist": {
+     "2": 9,
+     "3": 2
+    },
+    "second_trap_K1b_held": 0,
+    "second_trap_K1b_freed": 0
+   }
+  },
+  "rounded": {
+   "n": 100,
+   "k_complete": 7,
+   "k_deadlock": 93,
+   "k_capped": 0,
+   "completion": 0.07,
+   "wilson95": [
+    0.034318824364064096,
+    0.13749671006529757
+   ],
+   "deadlock_time_s": {
+    "median": 129.20000000002747,
+    "q25": 125.60000000002735,
+    "q75": 134.10000000002302,
+    "min": 115.80000000002234,
+    "max": 154.9000000000041
+   },
+   "mean_remaining_at_deadlock": 2.150537634408602,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 93,
+    "counts": {
+     "lone_keystone": 36,
+     "lone_keystone_second_trap": 57,
+     "collective": 0
+    },
+    "frac_collective": 0.0,
+    "frac_collective_wilson95": [
+     0.0,
+     0.0396689026203615
+    ],
+    "n_resid_hist": {
+     "1": 26,
+     "2": 38,
+     "3": 20,
+     "4": 8,
+     "6": 1
+    },
+    "second_trap_K1b_held": 54,
+    "second_trap_K1b_freed": 3
+   }
+  },
+  "line": {
+   "n": 100,
+   "k_complete": 3,
+   "k_deadlock": 97,
+   "k_capped": 0,
+   "completion": 0.03,
+   "wilson95": [
+    0.010254338223414816,
+    0.08452078080402699
+   ],
+   "deadlock_time_s": {
+    "median": 159.89999999999955,
+    "q25": 153.7000000000052,
+    "q75": 167.1999999999929,
+    "min": 126.00000000002755,
+    "max": 209.99999999995399
+   },
+   "mean_remaining_at_deadlock": 3.3402061855670104,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 97,
+    "counts": {
+     "lone_keystone": 16,
+     "lone_keystone_second_trap": 78,
+     "collective": 3
+    },
+    "frac_collective": 0.030927835051546393,
+    "frac_collective_wilson95": [
+     0.010573153364052894,
+     0.08702149011641547
+    ],
+    "n_resid_hist": {
+     "1": 7,
+     "2": 28,
+     "3": 29,
+     "4": 16,
+     "5": 7,
+     "6": 1,
+     "7": 5,
+     "8": 3,
+     "10": 1
+    },
+    "second_trap_K1b_held": 72,
+    "second_trap_K1b_freed": 6
+   }
+  },
+  "line_rounded": {
+   "n": 100,
+   "k_complete": 9,
+   "k_deadlock": 91,
+   "k_capped": 0,
+   "completion": 0.09,
+   "wilson95": [
+    0.04807199516388488,
+    0.16226374696643667
+   ],
+   "deadlock_time_s": {
+    "median": 134.60000000002256,
+    "q25": 128.55000000002806,
+    "q75": 139.80000000001783,
+    "min": 111.50000000002014,
+    "max": 160.499999999999
+   },
+   "mean_remaining_at_deadlock": 2.3736263736263736,
+   "width_m": 0.8,
+   "classes": {
+    "n_classified": 91,
+    "counts": {
+     "lone_keystone": 42,
+     "lone_keystone_second_trap": 49,
+     "collective": 0
+    },
+    "frac_collective": 0.0,
+    "frac_collective_wilson95": [
+     0.0,
+     0.04050543221539915
+    ],
+    "n_resid_hist": {
+     "1": 25,
+     "2": 29,
+     "3": 24,
+     "4": 10,
+     "5": 1,
+     "6": 1,
+     "10": 1
+    },
+    "second_trap_K1b_held": 45,
+    "second_trap_K1b_freed": 4
+   }
+  }
+ },
+ "critical_width": {
+  "widths_m": [
+   0.7,
+   0.8,
+   0.9,
+   1.0
+  ],
+  "completion": [
+   0.0,
+   0.02,
+   0.7,
+   1.0
+  ],
+  "w50_logit": 0.8803814880731486,
+  "w50_logit_ci95": [
+   0.8716791976683337,
+   0.8892733679880482
+  ],
+  "w50_linear": 0.8705882352941177,
+  "logit_slope_per_m": 42.28962991654538,
+  "pseudo_count": 0.5
+ },
+ "locality": {
+  "all_walls_B0p04_vs_jamb_only": {
+   "k_complete": [
+    85,
+    89
+   ],
+   "fisher_p": 0.5288600231927076
+  },
+  "jamb_only_vs_default": {
+   "k_complete": [
+    89,
+    2
+   ],
+   "fisher_p": 3.4791691083129726e-41
+  },
+  "B0p02_vs_B0p04": {
+   "k_complete": [
+    83,
+    85
+   ],
+   "fisher_p": 0.8473384549874299
+  },
+  "B0p04_vs_default": {
+   "k_complete": [
+    85,
+    2
+   ],
+   "fisher_p": 1.5008436066409026e-37
+  },
+  "B0p02_vs_default": {
+   "k_complete": [
+    83,
+    2
+   ],
+   "fisher_p": 6.907088345787278e-36
+  },
+  "Bedge0p04_vs_default": {
+   "k_complete": [
+    89,
+    2
+   ],
+   "fisher_p": 3.4791691083129726e-41
+  },
+  "rounded_vs_default": {
+   "k_complete": [
+    7,
+    2
+   ],
+   "fisher_p": 0.16972027756678768
+  },
+  "line_vs_default": {
+   "k_complete": [
+    3,
+    2
+   ],
+   "fisher_p": 1.0
+  },
+  "line_rounded_vs_default": {
+   "k_complete": [
+    9,
+    2
+   ],
+   "fisher_p": 0.058220717580287504
+  },
+  "collective_default_vs_jamb_only": {
+   "k_collective": [
+    2,
+    11
+   ],
+   "n_classified": [
+    98,
+    11
+   ],
+   "fisher_p": 2.0327961107657362e-13
+  }
+ }
+}

@@ -1,0 +1,35 @@
+# Registry entries for E7 (wall-model validity cells, session 6B). Source: data/derived/E7_analysis.json (experiments/E7/analyze.py).
+# CF, C1, seeds 42-141, 600 s cap; the w = 0.8 m default cell is E1b.
+EsevenN: {file: E7_analysis.json, key: "cells.default.n", fmt: "{:d}"}
+EsevenWSevenK: {file: E7_analysis.json, key: "cells.w0p7.k_complete", fmt: "{:d}"}
+EsevenWEightK: {file: E7_analysis.json, key: "cells.default.k_complete", fmt: "{:d}"}
+EsevenWNineK: {file: E7_analysis.json, key: "cells.w0p9.k_complete", fmt: "{:d}"}
+EsevenWTenK: {file: E7_analysis.json, key: "cells.w1p0.k_complete", fmt: "{:d}"}
+EsevenWNineLo: {file: E7_analysis.json, key: "cells.w0p9.wilson95.0", fmt: "{:.2f}"}
+EsevenWNineHi: {file: E7_analysis.json, key: "cells.w0p9.wilson95.1", fmt: "{:.2f}"}
+EsevenWTenLo: {file: E7_analysis.json, key: "cells.w1p0.wilson95.0", fmt: "{:.2f}"}
+EsevenWcrit: {file: E7_analysis.json, key: "critical_width.w50_logit", fmt: "{:.2f}"}
+EsevenWcritLo: {file: E7_analysis.json, key: "critical_width.w50_logit_ci95.0", fmt: "{:.2f}"}
+EsevenWcritHi: {file: E7_analysis.json, key: "critical_width.w50_logit_ci95.1", fmt: "{:.2f}"}
+EsevenBallK: {file: E7_analysis.json, key: "cells.B0p04.k_complete", fmt: "{:d}"}
+EsevenBallTwoK: {file: E7_analysis.json, key: "cells.B0p02.k_complete", fmt: "{:d}"}
+EsevenBjambK: {file: E7_analysis.json, key: "cells.Bedge0p04.k_complete", fmt: "{:d}"}
+EsevenRoundK: {file: E7_analysis.json, key: "cells.rounded.k_complete", fmt: "{:d}"}
+EsevenLineK: {file: E7_analysis.json, key: "cells.line.k_complete", fmt: "{:d}"}
+EsevenLineRoundK: {file: E7_analysis.json, key: "cells.line_rounded.k_complete", fmt: "{:d}"}
+EsevenJambVsAllP: {file: E7_analysis.json, key: "locality.all_walls_B0p04_vs_jamb_only.fisher_p", fmt: p}
+EsevenJambVsDefaultP: {file: E7_analysis.json, key: "locality.Bedge0p04_vs_default.fisher_p", fmt: p}
+EsevenRoundVsDefaultP: {file: E7_analysis.json, key: "locality.rounded_vs_default.fisher_p", fmt: p}
+EsevenDefaultCollective: {file: E7_analysis.json, key: "cells.default.classes.counts.collective", fmt: "{:d}"}
+EsevenDefaultClassified: {file: E7_analysis.json, key: "cells.default.classes.n_classified", fmt: "{:d}"}
+EsevenBallCollective: {file: E7_analysis.json, key: "cells.B0p04.classes.counts.collective", fmt: "{:d}"}
+EsevenBallClassified: {file: E7_analysis.json, key: "cells.B0p04.classes.n_classified", fmt: "{:d}"}
+EsevenBjambCollective: {file: E7_analysis.json, key: "cells.Bedge0p04.classes.counts.collective", fmt: "{:d}"}
+EsevenBjambClassified: {file: E7_analysis.json, key: "cells.Bedge0p04.classes.n_classified", fmt: "{:d}"}
+EsevenBallTwoCollective: {file: E7_analysis.json, key: "cells.B0p02.classes.counts.collective", fmt: "{:d}"}
+EsevenBallTwoClassified: {file: E7_analysis.json, key: "cells.B0p02.classes.n_classified", fmt: "{:d}"}
+EsevenCollectiveP: {file: E7_analysis.json, key: "locality.collective_default_vs_jamb_only.fisher_p", fmt: p}
+EsevenRoundCollective: {file: E7_analysis.json, key: "cells.rounded.classes.counts.collective", fmt: "{:d}"}
+EsevenLineRoundCollective: {file: E7_analysis.json, key: "cells.line_rounded.classes.counts.collective", fmt: "{:d}"}
+EsevenWNineClassified: {file: E7_analysis.json, key: "cells.w0p9.classes.n_classified", fmt: "{:d}"}
+EsevenWNineCollective: {file: E7_analysis.json, key: "cells.w0p9.classes.counts.collective", fmt: "{:d}"}
