@@ -323,7 +323,16 @@ def floor_scene(D, anc, kind, extras):
         tmp = np.array([np.interp(xi, np.arange(w), row) for row in a])
         return np.array([np.interp(yi, np.arange(h), col) for col in tmp.T]).T
     logF = upsample(np.log10(np.maximum(F, 1.0)))
-    mk = np.clip((upsample(feas.astype(float)) - 0.35) / 0.3, 0.0, 1.0)
+    if "clearance" in D:
+        # anti-aliased excluded zone: the signed wall clearance (m, exact) is upsampled 8x and the mask is a one-texel
+        # feathered step at zero, so no stair-steps show at the walls, the blocker or the pair jambs
+        K = 8
+        clr = upsample(D["clearance"][np.ix_(iy, ix)], K)
+        texel = (gx[1] - gx[0]) / K
+        mk = np.clip(clr / texel + 0.5, 0.0, 1.0)
+        logF = upsample(np.log10(np.maximum(F, 1.0)), K)
+    else:
+        mk = np.clip((upsample(feas.astype(float)) - 0.35) / 0.3, 0.0, 1.0)
     rgb = ramp(logF, math.log10(A.force_min), math.log10(A.force_max), "floor")
     rgb = np.asarray(BG, float) + mk[..., None] * (rgb - np.asarray(BG, float))   # probe would overlap a wall: plain floor
     F = logF

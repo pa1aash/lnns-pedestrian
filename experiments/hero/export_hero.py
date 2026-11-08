@@ -67,7 +67,8 @@ def floor_field(snap, r_probe=0.25, step=0.005, x=(8.8, 11.0), y=(3.6, 6.4)):
     feasible = (d.min(axis=1) >= r_probe).reshape(X.shape)
     back = np.maximum(0.0, -F[:, 0]).reshape(X.shape)
     jy = int(np.argmin(np.abs(ys - 5.0)))
-    return dict(grid_x=xs, grid_y=ys, wall_back_N=back, feasible=feasible), float(back[jy][feasible[jy]].max()), \
+    clearance = (d.min(axis=1) - r_probe).reshape(X.shape)      # signed distance to the excluded zone (m); >= 0 is feasible
+    return dict(grid_x=xs, grid_y=ys, wall_back_N=back, feasible=feasible, clearance=clearance), float(back[jy][feasible[jy]].max()), \
         {"A_w": wf.A, "B_w": wf.B, "corner": wf.corner}
 
 
