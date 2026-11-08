@@ -108,3 +108,10 @@ C35 (2026-11-09) Page plan: target 24 pages including references.
 - A final page pass follows once every section exists.
 C36 (2026-11-09) σ50 in published mode (E5a, n = 100 per level) is 0.045 [0.042, 0.047] m/s, equal to corrected mode (0.044 [0.041, 0.047]). The conference value 0.049 (n = 25) lies outside both intervals; this is a revised row of Table 4.
 C37 (2026-11-09) The refs.bib entry nicolas2018trap had its accented initial re-encoded (Á → {\'A}) because BibTeX truncated the byte. No bibliographic content was changed; noted in the entry's source comment. latexpand (TeX Live script) lives in ~/Library/texmf/scripts and is listed as a build requirement in README.md.
+
+C38 (2026-11-09) Field-residual wording, superseding the "~5e-8 N" of C30: max |F_code + ∇U| is 4.9e-7 N with all agents mobile (median about 5e-8 N), 4e-8 N with neighbours pinned, and 1e-7 N over the 46 pair snapshots (data/derived/field_residuals.json).
+C39 (2026-11-09) Citations restored: the crowd-disaster sources in the opening sentence (liang2024, helbing2012) and koster2013 where the dependence of results on the integration scheme motivates the corrected-forward mode.
+C40 (2026-11-09) p-values print as plain decimals for p ≥ 0.01 and in scientific notation below.
+C41 (2026-11-09) Matched noise σ* = 0.0467 m/s, from inverting the corrected-mode E5b completion fit at E6a's C3 RVO2 completion rate (data/derived/sigma_star.json).
+C42 (2026-11-09) The numbers registry is split into per-topic files under paper/registry/; make_numbers rejects duplicate macro names.
+C43 (2026-11-09) Hero polish: the caption states that white next to the walls marks positions an agent centre cannot occupy; the floor field's boundary at that zone is anti-aliased (floor panels re-rendered only).
