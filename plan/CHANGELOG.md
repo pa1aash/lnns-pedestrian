@@ -97,3 +97,14 @@ C32 (2026-11-09) Hero mock v2 (supersedes the C24 label list):
 - one scale-bar cluster in the lone scene, with the same metre and force scale in both scenes;
 - the caption lives in figures/fig1_caption.tex, owned by the hero sessions.
 C33 (2026-11-09) Single-file submission: section files are kept for drafting; `make submission` builds paper/submission/ with one self-contained main.tex (all \input files and the compiled bibliography inlined), the figures, and the unmodified llncs.cls and splncs04.bst. The folder compiles on its own.
+C34 (2026-11-09) Hero final:
+- both lone ribbons show the blocker's rest-state energy along the door axis with the neighbours pinned, so they differ only by ORCA's added drive; the own-drive minimum sits at the frozen position;
+- the alone barrier (27.96 J) is the one quoted for the stuck-alone test;
+- the lone-scene arrows are stacked drive → push → ORCA against the wall force;
+- the two scenes share framing; the scale bars are separated.
+C35 (2026-11-09) Page plan: target 24 pages including references.
+- References trimmed to the citations that each support a specific claim (target ≤ 2.2 pages).
+- §3 and §4 tightened to 2.5 pages each: equations kept; parameter detail moved to Table 1; derivations compact.
+- A final page pass follows once every section exists.
+C36 (2026-11-09) σ50 in published mode (E5a, n = 100 per level) is 0.045 [0.042, 0.047] m/s, equal to corrected mode (0.044 [0.041, 0.047]). The conference value 0.049 (n = 25) lies outside both intervals; this is a revised row of Table 4.
+C37 (2026-11-09) The refs.bib entry nicolas2018trap had its accented initial re-encoded (Á → {\'A}) because BibTeX truncated the byte. No bibliographic content was changed; noted in the entry's source comment. latexpand (TeX Live script) lives in ~/Library/texmf/scripts and is listed as a build requirement in README.md.
