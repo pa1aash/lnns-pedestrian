@@ -7,7 +7,7 @@
 \caption{\FigOneCaption}\label{fig:hero}
 \end{figure*}
 %
-Fatal crowd crushes happen where many people press towards a narrow opening. Simulations used to plan for such places are only as trustworthy as the steering model that moves each agent, and that includes the reasons the model gives for what it does at a bottleneck.
+Fatal crowd crushes happen where many people press towards a narrow opening~\cite{liang2024,helbing2012}. Simulations used to plan for such places are only as trustworthy as the steering model that moves each agent, and that includes the reasons the model gives for what it does at a bottleneck.
 
 Steering models are commonly described by the mechanism each one adds. The social force model (SFM) treats pedestrians as driven particles with repulsive and contact forces~\cite{helbing1995,helbing2000nature}; a time-to-collision (TTC) force adds a reaction to encounters predicted from the current velocities~\cite{karamouzas2014}; and optimal reciprocal collision avoidance (ORCA) picks each new velocity by solving a small linear program over velocity-obstacle constraints~\cite{vandenberg2011}. When a configuration that includes ORCA empties a room that pure SFM leaves jammed, it is tempting to say that reciprocal avoidance resolved the jam. That statement is about mechanism, and a completion rate cannot support it on its own.
 
