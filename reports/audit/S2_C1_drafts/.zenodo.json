@@ -1,0 +1,42 @@
+{
+  "title": "One Matched Control Is Not Enough: Physics-Based Attribution of Deadlock Resolution in Pedestrian Steering Models (code, data and paper sources)",
+  "upload_type": "software",
+  "description": "<p>Simulator, experiment and analysis scripts, per-run results and the scripts that build every figure, table and number of the extended (Springer Lecture Notes in Networks and Systems) version of the SIMULTECH 2026 paper by P. Gang and A. Veluri, DOI 10.5220/0015190200004094. Third-party material keeps its own licence: the CroMa 2021 trajectories in data/ext/croma/ (CC BY 4.0) and the conference paper in ref/ (CC BY-NC-ND 4.0).</p>",
+  "creators": [
+    {
+      "name": "Gang, Palaash",
+      "affiliation": "Indus International School, Pune, India",
+      "orcid": "0009-0006-7448-9488"
+    },
+    {
+      "name": "Veluri, Arjun",
+      "affiliation": "Indus International School, Pune, India",
+      "orcid": "0009-0001-5940-3272"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "language": "eng",
+  "keywords": [
+    "pedestrian dynamics",
+    "bottleneck deadlock",
+    "social force model",
+    "reciprocal collision avoidance",
+    "activated escape",
+    "mechanism attribution"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5220/0015190200004094",
+      "relation": "references",
+      "scheme": "doi",
+      "resource_type": "publication-conferencepaper"
+    },
+    {
+      "identifier": "10.34735/ped.2021.9",
+      "relation": "references",
+      "scheme": "doi",
+      "resource_type": "dataset"
+    }
+  ]
+}

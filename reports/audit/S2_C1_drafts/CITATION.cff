@@ -1,0 +1,60 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software or data, please cite it using the metadata
+  from this file, and cite the conference paper given under
+  preferred-citation.
+type: software
+title: >-
+  One Matched Control Is Not Enough: Physics-Based Attribution of
+  Deadlock Resolution in Pedestrian Steering Models (code, data and
+  paper sources)
+abstract: >-
+  Simulator, experiment and analysis scripts, per-run results and the
+  scripts that build every figure, table and number of the extended
+  (Springer LNNS) version of the SIMULTECH 2026 paper by Gang and Veluri.
+authors:
+  - family-names: Gang
+    given-names: Palaash
+    email: palaash.gang@indusschoolpune.com
+    affiliation: Indus International School, Pune, India
+    orcid: "https://orcid.org/0009-0006-7448-9488"
+  - family-names: Veluri
+    given-names: Arjun
+    email: arjun.v@indusschoolpune.com
+    affiliation: Indus International School, Pune, India
+    orcid: "https://orcid.org/0009-0001-5940-3272"
+repository-code: "https://github.com/pa1aash/lnns-pedestrian"
+url: "https://github.com/pa1aash/lnns-pedestrian"
+license: MIT
+keywords:
+  - pedestrian dynamics
+  - bottleneck deadlock
+  - social force model
+  - reciprocal collision avoidance
+  - activated escape
+  - mechanism attribution
+preferred-citation:
+  type: conference-paper
+  title: >-
+    A Diagnostic Methodology for Failure-Mode Ablation of SFM, TTC, and
+    ORCA Pedestrian Steering Paradigms
+  authors:
+    - family-names: Gang
+      given-names: Palaash
+      orcid: "https://orcid.org/0009-0006-7448-9488"
+    - family-names: Veluri
+      given-names: Arjun
+      orcid: "https://orcid.org/0009-0001-5940-3272"
+  collection-title: >-
+    Proceedings of the 16th International Conference on Simulation and
+    Modeling Methodologies, Technologies and Applications (SIMULTECH 2026)
+  conference:
+    name: >-
+      16th International Conference on Simulation and Modeling
+      Methodologies, Technologies and Applications (SIMULTECH 2026)
+  publisher:
+    name: SCITEPRESS - Science and Technology Publications
+  year: 2026
+  start: 474
+  end: 481
+  doi: 10.5220/0015190200004094

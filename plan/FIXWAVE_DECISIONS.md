@@ -1,0 +1,19 @@
+# Fix-wave decisions (Palaash, 2026-11-09) — rulings on FIX_PLAN.md §6
+- D1 Runs: do run-N1, N2, N3, N5, N6 and the static solver scan (A-4). Skip N4 (state the Kramers-regime limit in the text instead), N7, N8, N9, N13. Queue 3 starts when queue 2 ends.
+- D2 Title: keep. Scope in the abstract and §3 (ORCA is used as an additive force; velocity-level ORCA is outside scope).
+- D3 (a) Identity (Jaccard) is a separating signature only at the pair block. At the lone trap and in whole runs, separation rests on replay, Δt, time to free and final-state class. (b) Category tick labels are axis labels and allowed; relabel them with the glossary. (c) Cite Beven 2006 (equifinality) in §1/§2. The contribution is the protocol, not the principle. No new keyword.
+- D4 Agreement criterion, no arbitrary margins: a probe separates two resolvers when their 95% intervals for that signature exclude each other, or when one shows the predicted effect and the other its absence. Replay and handedness are exact counts. State it in the §4 protocol box. The box also states that the informative test is on the paradigm (it could have shown any class's signature), and cites the positive control: the rest-drive push matches ORCA on every probe, so the protocol confirms as well as separates.
+- D5 Say nothing about when signatures were fixed. Call J, time to free, final-state class and stall survival "descriptive signatures beyond Table 2".
+- D6 Multiplicity: one sentence. The probes are read jointly as a signature, not as a family of tests, so no correction is applied.
+- D7 Soft-core arches: one framing sentence in §5.3 and §8 ("soft-core analogues of arches, held by repulsion of range B_w rather than by contact and friction"). No renaming.
+- D8 Keep the crowd-crush opening and its citations. Scope the regime in the abstract and contributions: the last agents at a narrow door, at the end of an evacuation.
+- D9 (a) Whole runs get their own subsection in §6, after the lone trap. (b) Reorder §5: lone trap → noise as collective escape → pair standoff → no persistent contact arches (figure numbers unchanged). (c) No time-lapse panel.
+- D10 Yes to the §8 modeller checklist (merging the §7 advice) and to "applying the protocol" (+0.15 page).
+- D11 Velocity-level ORCA: scope in the text only.
+- D12 Corresponding-author mark: keep the plain label; Palaash asks the volume editors.
+- D13 Acknowledgements and disclosure: written by Palaash. Keep \pending, but add the mandatory "Disclosure of Interests" heading through the llncs credits mechanism.
+- D14 Fig 1 caption: cut to about 85 words, keeping the colour and arrow key. Physical explanations move to (or already live in) §5.1/§5.2.
+- D15 T1-T5 are all signed (changelog C19, C30, C51). Mark them signed in plan/DECISIONS_OPEN.md.
+- D16 RVO2 version: read the provenance note of the RVO2 port in code/ (commit or version). Cite the exact source the port was made from, plus the Zenodo record with its true version. No CMakeLists remark.
+- Conflicts K1-K17 in FIX_PLAN §2: resolved as written there, except where these rulings differ.
+- Page plan: the final length must be ≤ 25 pages (target 24). Remove duplicate DOI URLs (BIB-2). Each section stays at its budget (FIX_PLAN §5).

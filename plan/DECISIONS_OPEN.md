@@ -1,17 +1,17 @@
 # Decisions (Plan v1)
 
-Status as of Plan v1 (plan/FINAL_PLAN.md, 2026-11-02). Decisions D1–D8 of wave2/DECISIONS_NEEDED.md remain applied as before. Items below that are resolved carry the decision text; only the derivation sign-offs T1–T5 remain open.
+Status as of Plan v1 (plan/FINAL_PLAN.md, 2026-11-02). Decisions D1–D8 of wave2/DECISIONS_NEEDED.md remain applied as before. Items below that are resolved carry the decision text; the derivation sign-offs T1–T5 are signed (fix-wave decision D15, 2026-11-09).
 
-## 1. Derivation sign-offs [NEEDS PALAASH: derivation sign-off] (OPEN)
-Each derivation is stated in plan/FINAL_PLAN.md §8 with its evidence file. Check each against the code lines cited there. None blocks E1–E4.
+## 1. Derivation sign-offs (SIGNED)
+All five signed by Palaash (changelog C19, C30, C51; fix-wave decision D15, 2026-11-09). Each derivation is stated in plan/FINAL_PLAN.md §8 with its evidence file.
 
-| # | Item | What to check | Where |
-|---|---|---|---|
-| T1 | Rest-state lemma, dissipative form | G(x, 0) = 0 and v·G(x, v) ≤ 0 near rest imply that the fixed points and their Lyapunov stability are unchanged. Check the sign convention for SFM sliding friction (sfm.py:106-108) and wall friction (walls.py), and that the TTC force is identically zero in a neighbourhood of v = 0 (ttc.py:91-97: the 1e-8 test). Stated for the noise-free skeleton only. | FINAL_PLAN §8 T1 |
-| T2 | Stuck-alone criterion and the k = 3 rule | g_max(r) > m·v_eff/τ, with g_max from the code's wall force on the door axis; and "exits iff ≥ k = 3 others are active at arrival". k is fitted; production reports its leave-one-seed-out accuracy and AUC (E1). | FINAL_PLAN §8 T2 |
-| T3 | T_eff form | k_BT_eff = m·σ²/(1 − (1 − dt/τ)²), per agent with its own τ. Check the variance identity for the clamp-then-noise order (published numerics) and for noise-before-position (numerics = fixed). | FINAL_PLAN §8 T3 |
-| T4 | Collective Kramers escape over string-method barriers | The 2N-D minimum-energy path with all residual agents mobile; the Arrhenius slope test (slope = barrier within ≈ 25%); the conservative rest field with density frozen (2e-7 N); the density switch along the path ignored. | FINAL_PLAN §8 T4 |
-| T5 | Pair Hessian and fold | Hessian of U at the pair state, density frozen: positive definite in 26/26, softest mode the common lateral shift (48–129 N/m, median 89); fold reading of the bias threshold (static prediction 182/182; wave2b/data/a5_predict.json, a5_analysis.json). | FINAL_PLAN §8 T5 |
+| # | Item | What was checked | Where | Status |
+|---|---|---|---|---|
+| T1 | Rest-state lemma, dissipative form | G(x, 0) = 0 and v·G(x, v) ≤ 0 near rest imply that the fixed points and their Lyapunov stability are unchanged. Check the sign convention for SFM sliding friction (sfm.py:106-108) and wall friction (walls.py), and that the TTC force is identically zero in a neighbourhood of v = 0 (ttc.py:91-97: the 1e-8 test). Stated for the noise-free skeleton only. | FINAL_PLAN §8 T1 | SIGNED |
+| T2 | Stuck-alone criterion and the k = 3 rule | g_max(r) > m·v_eff/τ, with g_max from the code's wall force on the door axis; and "exits iff ≥ k = 3 others are active at arrival". k is fitted; production reports its leave-one-seed-out accuracy and AUC (E1). | FINAL_PLAN §8 T2 | SIGNED |
+| T3 | T_eff form | k_BT_eff = m·σ²/(1 − (1 − dt/τ)²), per agent with its own τ. Check the variance identity for the clamp-then-noise order (published numerics) and for noise-before-position (numerics = fixed). | FINAL_PLAN §8 T3 | SIGNED |
+| T4 | Collective Kramers escape over string-method barriers | The 2N-D minimum-energy path with all residual agents mobile; the Arrhenius slope test (slope = barrier within ≈ 25%); the conservative rest field with density frozen (2e-7 N); the density switch along the path ignored. | FINAL_PLAN §8 T4 | SIGNED |
+| T5 | Pair Hessian and fold | Hessian of U at the pair state, density frozen: positive definite in 26/26, softest mode the common lateral shift (48–129 N/m, median 89); fold reading of the bias threshold (static prediction 182/182; wave2b/data/a5_predict.json, a5_analysis.json). | FINAL_PLAN §8 T5 | SIGNED |
 
 ## 2. People and permissions (RESOLVED)
 - **D-open-1 Second author — RESOLVED.** Decision: the second author agrees to every change. The earlier request for missing data and scripts is not needed by Plan v1 (FD dropped; every number regenerated) and is not pursued as a blocking item.
