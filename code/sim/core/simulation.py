@@ -187,6 +187,18 @@ class Simulation:
             sigma = 0.0
         elif noise_mode == "dt_scaled":
             sigma = sigma * np.sqrt(self.params["dt"] / 0.01)
+        # Queue 3 (run N3): w2_noise_equal_T = tau_ref (s) gives every agent the effective temperature
+        # that sigma gives an agent of relaxation time tau_ref and mass w2_noise_m_ref (default 80 kg):
+        # sigma_i = sigma sqrt(m_ref g(tau_i) / (m_i g(tau_ref))), g(tau) = 1 - (1 - dt/tau)^2
+        # (experiments/lib/teff.py). Default None: one sigma for all agents (unchanged).
+        noise_on = sigma > 0
+        tau_ref = p.get("w2_noise_equal_T")
+        if noise_on and tau_ref is not None:
+            dt_ = self.params["dt"]
+            g_i = 1.0 - (1.0 - dt_ / self.state.taus) ** 2
+            g_r = 1.0 - (1.0 - dt_ / float(tau_ref)) ** 2
+            m_r = float(p.get("w2_noise_m_ref", 80.0))
+            sigma = (sigma * np.sqrt(m_r * g_i / (self.state.masses * g_r)))[:, None]
 
         # 4. Integrate
         dt = self.params["dt"]
@@ -197,7 +209,7 @@ class Simulation:
             max_speeds = 2.0 * self.state.desired_speeds
             new_vel = clamp_speed(self.state.velocities + forces / self.state.masses[:, None] * dt,
                                   max_speeds)
-            if sigma > 0:
+            if noise_on:
                 noise = self._rng.normal(0, sigma, new_vel.shape)
                 active_mask = self.state.active
                 new_vel[active_mask] += noise[active_mask]
@@ -217,7 +229,7 @@ class Simulation:
             new_vel = clamp_speed(new_vel, max_speeds)
 
             # 5b. Velocity noise injection (R3.1, default 0 = off, no-op)
-            if sigma > 0:
+            if noise_on:
                 noise = self._rng.normal(0, sigma, new_vel.shape)
                 active_mask = self.state.active
                 new_vel[active_mask] += noise[active_mask]

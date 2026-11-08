@@ -1,0 +1,30 @@
+# Queue 3: runs N1, N2, N3, N5, N6 of reports/audit/FIX_PLAN.md (work package WP-RUN; decision D1 of
+# plan/FIXWAVE_DECISIONS.md).
+# Runner: experiments/runs3/queue3.py (experiments/queue.py with this file, data/queue3_state.json and
+# data/logs/queue3.log; queue 2's files are not touched). Steps run in order, 4 workers each, resumable.
+# cpu_h: from the smoke tests at reduced size (reports/F3_REPORT.md).
+steps:
+  - name: N1
+    cmd: [experiments/runs3/N1.py]
+    depends: []
+    cpu_h: 2.5
+  - name: N6_static
+    cmd: [experiments/runs3/N6.py, static]
+    depends: []
+    cpu_h: 0.9
+  - name: N6_quench
+    cmd: [experiments/runs3/N6.py, quench]
+    depends: [N6_static]
+    cpu_h: 0.8
+  - name: N3
+    cmd: [experiments/runs3/N3.py]
+    depends: []
+    cpu_h: 4.0
+  - name: N2
+    cmd: [experiments/runs3/N2.py]
+    depends: []
+    cpu_h: 4.5
+  - name: N5
+    cmd: [experiments/runs3/N5.py]
+    depends: []
+    cpu_h: 5.5
