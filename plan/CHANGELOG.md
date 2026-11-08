@@ -52,3 +52,28 @@ C16 (2026-11-08) T2 signed as split.
 - (b) The k = 3 end-of-queue rule is reported descriptively (AUC 0.975 against an all-exit baseline of 93.2%), not as a mechanism; the end of the queue is analysed as a chain of stuck-alone agents.
 C17 (2026-11-08) Hero: storyboard option C, with four fixes: one camera elevation and metre scale for both floor scenes; landscapes at true 1:1 horizontal aspect over the full opposed range, with no stretch; the lone trap taken from an E1b lone-keystone snapshot; encodings shared with Fig 2 (cividis margin ±150 N, magma wall force), with thin shading edges on agents.
 C18 (2026-11-08) Collective barriers below the gate's resolution (seed60 0.02 J; seed75 near 0 J) are reported as marginally stable deadlocks, a physical category, not as numerical failures. They stay out of E3/E4 because no noise level can be set from them.
+C19 (2026-11-08) T1 signed: the rest-state lemma in dissipative form.
+- TTC is exactly zero for relative speed below 1e-4 m/s, and SFM and wall sliding friction dissipate and vanish at rest, so C2 has C1's fixed points and stability.
+- ORCA is not rest-vanishing (rest drive m·v0/τ_ORCA).
+- E2 evidence: C2 = C1 in 360/360 paired runs.
+- The walls.py docstring sign of the wall friction is corrected; the code was already right.
+C20 (2026-11-08) Replay test reading: 1e-9 m replays test sensitivity, not randomness.
+- RVO2 ORCA and every other deterministic arm reproduce exactly (300/300).
+- The published LP flips the outcome in 5/300 (second trap, slow creep, Δt up to 81 s). This is reported as ill-conditioning of that implementation (class N, consistent with its pair-class defect).
+- Forward claims use RVO2.
+C21 (2026-11-08) E2 is reported per stratum.
+- At the lone keystone, ORCA frees through its rest drive (drive only = C3 RVO2 = C3 published, 0:0).
+- At the second trap, full ORCA frees fewer than its drive alone (17/26 vs 24/26, 7:0), so the constraint part acts against the drive when a trapped neighbour is present. This is diagnosed in batch 4.
+C22 (2026-11-08) End of the queue.
+- Agents that can pass alone leave first: the stuck-alone fraction rises 0.20 → 0.62 over arrival deciles, and the blocker is among the last 3 arrivals in 184/196.
+- A stuck-alone agent is pushed through by whoever is still present, passable or not; the number still active is the best predictor (AUC 0.975).
+- This replaces the passable-pusher reading.
+C24 (2026-11-08) Hero (Fig 1) redesign, superseding the C17 layout (C17's encodings stand). "Two traps, two tilts", 2 × 2:
+- the lone-trap scene, with its energy ribbon along the door axis: own drive vs ORCA's added drive, plus a thermal band at k_BT_eff;
+- the pair scene, with its ribbon along the soft lateral mode: no tilt vs tilted past the fold;
+- force arrows to scale; a context inset of the whole room; scientific-realism rendering; no dotted or dashed elements.
+Fig 1 is the only figure with in-figure text: short labels of 1-2 words set in the paper's serif by LaTeX/TikZ over the render, plus scale bars. Figs 2-8 stay label-free. Final render only after Palaash approves a 900 px mock.
+C25 (2026-11-08) Fig 2 fixes:
+- the x range trimmed to the region with data;
+- the margin heat map lightened, with dark population points;
+- the C3 rest-state band drawn as two blue boundary lines without fill.
