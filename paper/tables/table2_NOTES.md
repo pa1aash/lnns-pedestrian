@@ -34,7 +34,7 @@ Kinds of provenance:
 | T | constant push ± | --- | none | --- |
 | T | lateral tilt | --- | none | --- |
 | T | corrected numerics | persists | 246; C14 | complement |
-| D | quench | frees only beyond a finite fold threshold b* | 245 ("fold threshold", "finite"); 272 S9a | direct |
+| D | quench | frees only beyond a finite threshold b_f (was b*; glossary G4) | 245 ("fold threshold", "finite"); 272 S9a | direct |
 | D | 1e-9 m replay | identical replays; infinitesimal perturbation does not free | 245 ("deterministic"); 265 S2 ("L/D iff D = 0"); 273 S9b (1e-9 m frees ≤ 0.10) | direct |
 | D | Δt, fixed per-step noise | no Δt dependence | definition: a static tilt is deterministic | definition |
 | D | Δt, √Δt-scaled noise | no Δt dependence | definition: a static tilt is deterministic | definition |
@@ -55,3 +55,6 @@ Kinds of provenance:
 4. Vocabulary follows C6 (physics framing); "held" and "frees" refer to the frozen state.
 
 W2 (2026-11-09, page plan C35): headers shortened (probes are listed in the §4 text); P cells "held"/"unchanged" (same meaning as "held, as without it"); T quench "frees at random, exponential times" (the ln-rate slope prediction is stated in §4.3); D quench "frees only beyond b*", D replay "identical replays"; the N row moved into the caption ("tested only by corrected numerics, under which its effect disappears"). No prediction was changed.
+
+## Row N (fix wave, FIX_PLAN T2-1 / 04-3)
+N (glitch): quench "frees or holds, depending on solver details"; replay "outcome changes under 1e-9 m"; Delta t, push, tilt "---"; corrected numerics "effect disappears". Definition in Sect. 4 text: the outcome is not robust to a perturbation far below the physical scales, or vanishes under corrected numerics. Symbol definitions (k_BT_eff, Delta U, b_f) moved from the caption to Sect. 4.

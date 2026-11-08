@@ -1,7 +1,7 @@
 % Table 2: mechanism classes and their physical signatures (Plan §9; plan/CHANGELOG.md C6).
 % Cell sources: paper/tables/table2_NOTES.md. Needs \usepackage{booktabs,tabularx} in main.tex.
 \begin{table}[t]
-\caption{Predicted response of each class to each probe of a frozen deadlock; ``---'': the probe does not test that class. N (glitch) is tested only by corrected numerics, under which its effect disappears. $k_BT_\mathrm{eff}$: effective temperature of per-step noise; $\Delta U$: barrier; $b^{*}$: fold bias.}
+\caption{Predicted response of each mechanism class to each probe of a frozen deadlock. ``---'': the probe does not test that class.}
 \label{tab:signatures}
 \centering
 \scriptsize
@@ -14,7 +14,7 @@ Class
  & Replay, $10^{-9}$\,m
  & $\Delta t$, per-step noise
  & $\Delta t$, $\sqrt{\Delta t}$ noise
- & Goal push, $+$ vs $-$
+ & Rest-drive push, $+$ vs $-$
  & Tilt $b\to-b$
  & Corrected numerics \\
 \midrule
@@ -43,13 +43,21 @@ T
  & ---
  & persists \\
 D
- & frees only beyond $b^{*}$
+ & frees only beyond $b_f$
  & identical replays
  & no $\Delta t$ dependence
  & no $\Delta t$ dependence
  & ---
  & first out switches side
  & persists \\
+N
+ & frees or holds, depending on solver details
+ & outcome changes under $10^{-9}$\,m
+ & ---
+ & ---
+ & ---
+ & ---
+ & effect disappears \\
 \bottomrule
 \end{tabularx}
 \end{table}

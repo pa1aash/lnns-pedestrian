@@ -19,6 +19,12 @@ def val(key, sub=None):
     return v if sub is None else v[sub]
 
 
+def calibrated(key):
+    """Conference-calibrated value recorded in the parameter's meaning field (never applied)."""
+    import re
+    return float(re.search(r"calibrated ([0-9.]+)", par[key]["meaning"]).group(1))
+
+
 def g(x):
     """Plain decimal or scientific notation in LaTeX math."""
     if isinstance(x, float) and (abs(x) >= 1e4 or (0 < abs(x) < 1e-2)):
@@ -29,41 +35,45 @@ def g(x):
 
 
 v0, r, tau = val("v0"), val("radius"), val("tau")
+U = r"\,"  # thin space between every number and its unit (glossary G6)
+ez = val("edge_zone")
 rows = [
     ("Agents",
-     rf"$m={g(val('mass'))}$ kg; $v_0\sim\mathcal N({g(v0['mean'])},{g(v0['std'])})$ m/s, $\ge{g(v0['min'])}$; "
-     rf"$r\sim\mathcal N({g(r['mean'])},{g(r['std'])})$ m, $\ge{g(r['min'])}$; "
-     rf"$\tau\sim U({g(tau['low'])},{g(tau['high'])})$ s"),
+     rf"$m={g(val('mass'))}${U}kg; $v_0\sim\mathcal N({g(v0['mean'])},{g(v0['std'])})${U}m/s, $\ge{g(v0['min'])}${U}m/s; "
+     rf"$r\sim\mathcal N({g(r['mean'])},{g(r['std'])})${U}m, $\ge{g(r['min'])}${U}m; "
+     rf"$\tau\sim U({g(tau['low'])},{g(tau['high'])})${U}s"),
     ("Speed--density",
      rf"$v_{{\rm eff}}=v_0\,\mathrm{{clip}}[1-e^{{-\gamma(1/\rho-1/\rho_{{\max}})}},0.05,1]$, "
-     rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}$ ped/m$^2$; "
-     rf"$\rho$ = neighbours within $R={g(val('neighbor_radius'))}$ m over $\pi R^2$, floored at {g(val('density_floor'))} ped/m$^2$; "
-     r"calibrated values of the conference paper are not applied"),
+     rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}${U}ped/m$^2$; "
+     rf"$\rho$ = neighbours within $R={g(val('neighbor_radius'))}${U}m over $\pi R^2$, floored at {g(val('density_floor'))}{U}ped/m$^2$; "
+     rf"the conference paper's calibrated $\gamma={g(calibrated('weidmann_gamma'))}$, $\rho_{{\max}}={g(calibrated('weidmann_rho_max'))}${U}ped/m$^2$ are not applied"),
     ("SFM",
-     rf"$A={g(val('A'))}$ N, $B={g(val('B'))}$ m, $k={g(val('k'))}$ kg/s$^2$, $\kappa={g(val('kappa'))}$ kg/(m\,s)"),
+     rf"$A={g(val('A'))}${U}N, $B={g(val('B'))}${U}m, $k={g(val('k'))}${U}kg/s$^2$, $\kappa={g(val('kappa'))}${U}kg/(m\,s)"),
     ("Walls",
-     rf"same law per segment, $A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ (within {g(val('edge_zone')[0])} m of the door edge), rounded edge $r={g(val('edge_radius'))}$ m"),
+     rf"same law per segment, $A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ "
+     rf"(within {ez[0]:.1f}{U}m of the door edge, blended linearly to $B_w$ by {ez[1]:.1f}{U}m; jamb-only variant), "
+     rf"rounded edge $r={g(val('edge_radius'))}${U}m"),
     ("TTC",
-     rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}$ s, $\tau_{{\max}}={g(val('tau_max'))}$ s; "
-     rf"pair counted only if $|\Delta v|^2\ge{g(val('ttc_min_dv2'))}$ m$^2$/s$^2$"),
+     rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}${U}s, $\tau_{{\max}}={g(val('tau_max'))}${U}s; "
+     rf"pair counted only if $|\Delta v|^2\ge{g(val('ttc_min_dv2'))}${U}m$^2$/s$^2$"),
     ("ORCA",
-     rf"$\tau_h={g(val('time_horizon'))}$ s, $\tau_{{\rm ORCA}}={g(val('tau_orca'))}$ s, speed cap ${g(val('orca_speed_cap'))}v_0$, "
-     rf"gate $w_o=1-\sigma(\rho;{g(val('orca_gate','rho0'))},{g(val('orca_gate','k'))})$"),
+     rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm ORCA}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$, "
+     rf"gate $w_o=1-s(\rho;{g(val('orca_gate','rho0'))},{g(val('orca_gate','k'))})$"),
     ("Crush",
-     rf"$k_{{\rm crush}}={g(val('k_crush'))}$, $\kappa_{{\rm crush}}={g(val('kappa_crush'))}$, "
-     rf"gate $w_c=\sigma(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
+     rf"$k_{{\rm crush}}={g(val('k_crush'))}${U}kg/s$^2$, $\kappa_{{\rm crush}}={g(val('kappa_crush'))}${U}kg/(m\,s), "
+     rf"gate $w_c=s(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
     ("Room",
-     rf"${g(val('n_agents'))}$ agents in a ${g(val('room')[0])}\times{g(val('room')[1])}$ m room, spawned in "
-     rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]$ m; "
-     rf"door $w={g(val('door_width'))}$ m in the wall $x={g(val('room')[0])}$ m; goal $g=({g(val('goal')[0])},{g(val('goal')[1])})$ m"),
+     rf"${g(val('n_agents'))}$ agents in a ${g(val('room')[0])}\times{g(val('room')[1])}${U}m room, spawned in "
+     rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]${U}m; "
+     rf"door $w={g(val('door_width'))}${U}m in the wall $x={g(val('room')[0])}${U}m; goal $g=({g(val('goal')[0])},{g(val('goal')[1])})${U}m"),
     ("Run",
-     rf"$\mathrm{{d}}t={g(val('dt'))}$ s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ per component, set per experiment; "
-     rf"exit at $|x-g|<{g(val('deactivation_radius'))}$ m; deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}$ m/s for ${g(val('deadlock_criterion','hold'))}$ s"),
+     rf"$\Delta t={g(val('dt'))}${U}s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ per component, set per experiment; "
+     rf"exit at $|x-g|<{g(val('deactivation_radius'))}${U}m; deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}${U}m/s for ${g(val('deadlock_criterion','hold'))}${U}s"),
 ]
 
 pub, cor = modes["published_reproduction"], modes["corrected_forward"]
 mode_rows = [
-    ("Integrator", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$ N", "clamp, then position update; no clip"),
+    ("Integrator", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$\\,N", "clamp, then position update; no clip"),
     ("Noise", "added after the position update", "added to $v$, re-clamped, before the position update"),
     ("Spawn", "uniform, overlaps allowed", "rejection, non-overlapping"),
     ("ORCA", "leg normal sign-flipped outside the obstacle; infeasible constraints dropped", "line-by-line RVO2 port"),
@@ -79,8 +89,8 @@ assert pub["w2_orca"] == "published" and cor["w2_orca"] == "rvo2"
 
 L = ["% generated by experiments/tables/make_table1.py from data/params/model.yaml; do not edit",
      "\\begin{table}[t]",
-     "\\caption{Model parameters as used by the simulator (top) and the two declared modes (bottom). "
-     "Values are read from the code and listed in \\texttt{data/params/model.yaml}.}",
+     "\\caption{Model parameters (top) and the differences between the published-reproduction and "
+     "corrected-forward modes (bottom); values agree with the conference paper~\\cite{gang2026} except where noted.}",
      "\\label{tab:params}",
      "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
      "\\begin{tabular}{@{}p{1.75cm}p{4.9cm}p{4.9cm}@{}}",
