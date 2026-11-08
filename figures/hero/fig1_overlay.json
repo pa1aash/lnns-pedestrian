@@ -337,12 +337,12 @@
   "samples": 128,
   "device": "GPU",
   "panel_render_s": {
-   "lone": 46.6,
+   "lone": 31.2,
    "pair": 27.2,
    "rib_lone": 13.4,
    "rib_pair": 10.2
   },
-  "total_render_s": 97.4
+  "total_render_s": 82.0
  },
  "arrows_N": {
   "lone": {

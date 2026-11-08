@@ -331,6 +331,17 @@ def floor_scene(D, anc, kind, extras):
         texel = (gx[1] - gx[0]) / K
         mk = np.clip(clr / texel + 0.5, 0.0, 1.0)
         logF = upsample(np.log10(np.maximum(F, 1.0)), K)
+        if kind == "lone":
+            # sliver fix: floor texels between the blocker's rendered footprint (radius + edge ring) and the door-line corners,
+            # where the wall clearance is < 6 cm, peek out from behind the raised disc as a thin red wedge. They are masked
+            # (plain floor) within 7 cm of the disc and 6 cm of the wall-exclusion edge; no field value is changed.
+            pb_ = D["pos"][0]; rb_ = float(D["radius"][0]) + A.edge
+            gx2 = (np.arange(clr.shape[1]) + 0.5) / K - 0.5
+            gy2 = (np.arange(clr.shape[0]) + 0.5) / K - 0.5
+            xs = np.interp(gx2, np.arange(ix.sum()), gx[ix]); ys = np.interp(gy2, np.arange(iy.sum()), gy[iy])
+            dd = np.hypot(xs[None, :] - pb_[0], ys[:, None] - pb_[1])
+            hole = np.clip((rb_ + 0.07 - dd) / texel + 0.5, 0, 1) * np.clip((0.06 - clr) / texel + 0.5, 0, 1)
+            mk = mk * (1.0 - hole)
     else:
         mk = np.clip((upsample(feas.astype(float)) - 0.35) / 0.3, 0.0, 1.0)
     rgb = ramp(logF, math.log10(A.force_min), math.log10(A.force_max), "floor")
