@@ -20,8 +20,9 @@ Method (experiments/lib/openstats.py, which carries the full definitions):
   bootstrap 95% interval over seed pairs, ratio of means arm / C1 with a paired bootstrap 95% interval, Wilcoxon
   signed-rank p; pooled over L by a stratified bootstrap (seed pairs resampled within each L; ratio = sum / sum).
 Verdict on the conference claim "ORCA (C3) gridlocks counterflow / reduces counterflow throughput (coefficient
-  -5.0, p_HS = 0.598)", evaluated on the pooled comparison for C3_rvo2 (corrected-forward ORCA; headline) and,
-  separately, for C3_pub. Two parts: (i) reduction = the pooled C3 - C1 difference interval lies below 0;
+  -5.0, p_HS = 0.598)", evaluated on the pooled comparison for C3_pub (the published LP, the solver the conference
+  used, here in the corrected leak-free geometry; headline, decision C64) and, as the solver check, for C3_rvo2;
+  "solvers_agree" records whether the two statuses match. Two parts: (i) reduction = the pooled C3 - C1 difference interval lies below 0;
   (ii) gridlock = C3 has >= 1 gridlock run and more gridlock runs than C1 (pooled over L).
   confirmed: (i) and (ii). withdrawn: C3 pooled mean >= C1 pooled mean, or neither (i) nor (ii).
   revised: exactly one of (i), (ii) holds with the C3 mean below C1. null (pending) when the pairs are absent.
@@ -102,8 +103,9 @@ def main():
     v_rvo2 = verdict_one(pooled["c3_rvo2_over_c1"], cells, "C3_rvo2")
     v_pub = verdict_one(pooled["c3_pub_over_c1"], cells, "C3_pub")
     agree = None if v_pub["status"] is None or v_rvo2["status"] is None else v_pub["status"] == v_rvo2["status"]
-    verdict = {"conference": CONFERENCE, "status": v_rvo2["status"], "evidence": v_rvo2["evidence"],
-               "headline_arm": "C3_rvo2", "c3_rvo2": v_rvo2, "c3_pub": v_pub, "pub_agrees_with_rvo2": agree,
+    verdict = {"conference": CONFERENCE, "status": v_pub["status"], "evidence": v_pub["evidence"],
+               "headline_arm": "C3_pub", "solver_check_arm": "C3_rvo2", "c3_pub": v_pub, "c3_rvo2": v_rvo2,
+               "solvers_agree": agree,
                "rule": ("(i) pooled C3 - C1 throughput interval below 0; (ii) C3 gridlock runs >= 1 and > C1. "
                         "confirmed: (i) and (ii); withdrawn: C3 mean >= C1 or neither; revised: exactly one."),
                "gridlock_definition": (f"window ran to the end with agents left AND (censored stall >= {S.GRID_S:g} s "

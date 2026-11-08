@@ -1990,6 +1990,16 @@
   "persistent_episodes_all_cells_all_zones": 0,
   "status": "revised",
   "reason": "No arm has any persistent (>= 0.1 s) overlap episode at any width or zone, so the C1 overlaps that TTC 'eliminates' are all sub-0.1 s transients: TTC removes transient contacts, not persistent interpenetration, and 'eliminates throat overlaps' holds only for the unfiltered metric.",
+  "solver": {
+   "headline": "C3_pub (w = 1.0 m)",
+   "check": "C3_rvo2",
+   "c4_solver": "rvo2 only (no published-LP C4 cell)",
+   "persistent_throat_w1p0": {
+    "C3_pub": 0,
+    "C3_rvo2": 0
+   },
+   "solvers_agree": true
+  },
   "table_cell": "0 persistent (>= 0.1 s) overlaps in every arm, w = 1.0-1.8 m; TTC removes only sub-0.1 s transients"
  },
  "anomalies": []

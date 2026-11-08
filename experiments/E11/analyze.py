@@ -190,6 +190,14 @@ def main():
         "C1_unfiltered_throat_timesteps_total": c1_unf,
         "persistent_episodes_all_cells_all_zones": int(any_pers),
         "status": status, "reason": reason,
+        # decision C64: Table 4 judges each claim on the conference's model, published ORCA (C3_pub, run at
+        # w = 1.0 m only); RVO2 is the solver check. The claim concerns the TTC arms: C2 has no ORCA and C4 was
+        # run with RVO2 only, so the published-solver judgement rests on C2; C3 published and C3 RVO2 are compared.
+        "solver": {"headline": "C3_pub (w = 1.0 m)", "check": "C3_rvo2",
+                   "c4_solver": "rvo2 only (no published-LP C4 cell)",
+                   "persistent_throat_w1p0": {"C3_pub": th("C3_pub", 1.0)["persistent"]["total"],
+                                              "C3_rvo2": th("C3_rvo2", 1.0)["persistent"]["total"]},
+                   "solvers_agree": th("C3_pub", 1.0)["persistent"]["total"] == th("C3_rvo2", 1.0)["persistent"]["total"]},
         "table_cell": ("0 persistent (>= 0.1 s) overlaps in every arm, w = 1.0-1.8 m; TTC removes only sub-0.1 s "
                        "transients" if status == "revised" else reason)}
     out = {"script": "experiments/E11/analyze.py", "doc": __doc__, "source": os.path.relpath(RUNS, ROOT),

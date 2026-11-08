@@ -104,16 +104,48 @@ def st_throat():
     return "revised"
 
 
+def verdict(name):
+    """Status words come from the analysis JSON (data/derived/<name>_analysis.json, key verdict)."""
+    f = ROOT / "data" / "derived" / f"{name}_analysis.json"
+    if not f.is_file():
+        raise KeyError(f"{name}_analysis.json")
+    return json.loads(f.read_text())["verdict"]
+
+
+# Decision C64: each claim is judged on the conference's model, published ORCA (the published LP) in the
+# corrected leak-free geometry; RVO2 is the solver check, and a row says when the two disagree.
+
+def st_counterflow():
+    M("EeightCThreePubRatio")
+    return verdict("E8")["status"]
+
+
 def ev_counterflow():
-    raise KeyError("EeightPending")
+    v = verdict("E8")
+    tail = "RVO2 agrees" if v.get("solvers_agree") else f"RVO2: {v['c3_rvo2']['status']}"
+    return (f"open corridor: published ORCA {M('EeightCThreePubRatio')} "
+            f"{ci('EeightCThreePubRatioLo', 'EeightCThreePubRatioHi')} of C1's throughput, gridlocks "
+            f"{M('EeightCThreePubGridlock')} vs {M('EeightCOneGridlock')}; {M('EeightLeaks')} leaks; {tail}")
+
+
+def st_crossing():
+    M("EnineCTwoRatio")
+    return verdict("E9")["status"]
 
 
 def ev_crossing():
-    raise KeyError("EninePending")
+    return (f"open crossing: C2/C1 {M('EnineCTwoRatio')} {ci('EnineCTwoRatioLo', 'EnineCTwoRatioHi')}, "
+            f"{M('EnineLeaks')} leaks; the printed exits all passed through walls")
+
+
+def st_published_orca():
+    M("EsixpK")
+    return verdict("E6p")["status"]
 
 
 def ev_published_orca():
-    raise KeyError("EsixpPending")
+    return (f"{frac('EsixpK', 'EsixpN')} {ci('EsixpLo', 'EsixpHi')} in the published mode "
+            f"(against the printed count $p={M('EsixpConfP')}$)")
 
 
 ROWS = [
@@ -127,7 +159,7 @@ ROWS = [
         lambda: f"rest-state lemma: C2 reproduces C1 in {frac('EtwoLemmaIdentical', 'EtwoLemmaPairs')} paired runs",
         r"\ref{sec:att-lone}"),
     row(lambda: f"Published ORCA (C3) completes {frac('TabFourConfCThreeK', 'TabFourConfN')}",
-        ev_published_orca, ev_published_orca, r"\ref{sec:att-conf}"),
+        st_published_orca, ev_published_orca, r"\ref{sec:att-conf}"),
     row(lambda: f"Noise at $\\sigma={M('TabFourConfNoiseSigma')}$\\,m/s completes {frac('TabFourConfNoiseK', 'TabFourConfN')}",
         "confirmed",
         lambda: f"{frac('TabFourNoiseK', 'TabFourNoiseN')} {ci('TabFourNoiseLo', 'TabFourNoiseHi')} in the published mode",
@@ -139,7 +171,9 @@ ROWS = [
         r"\ref{sec:escape}"),
     row("Noise and ORCA resolve deadlocks alike, by symmetry breaking",
         "withdrawn",
-        lambda: f"equal completion, other failures ($J={M('EsixJaccard')}$); ORCA acts as a goal drive",
+        lambda: f"published LP: its rest drive alone frees the same lone keystones (discordant "
+                f"{M('EtwoLKDriveVsPubDiscA')}:{M('EtwoLKDriveVsPubDiscB')}); a bias matched to it frees other "
+                f"standoffs ($J={M('PairBsPubJac')}$); RVO2 agrees",
         r"\ref{sec:attribution}"),
     row(lambda: f"Ratio interval [{M('TabFourConfRatioLo')}, {M('TabFourConfRatioHi')}]; Cox HR {M('TabFourConfCoxHR')}",
         "withdrawn",
@@ -165,9 +199,9 @@ ROWS = [
         "withdrawn",
         "no stored computation gives these values or the significance marks",
         "---"),
-    row("ORCA gridlocks counterflow", ev_counterflow, ev_counterflow, r"\ref{sec:att-conf}"),
+    row("ORCA gridlocks counterflow", st_counterflow, ev_counterflow, r"\ref{sec:att-conf}"),
     row(lambda: f"TTC triples crossing throughput (ratio {M('TabFourConfCrossIRR')})",
-        ev_crossing, ev_crossing, r"\ref{sec:att-conf}"),
+        st_crossing, ev_crossing, r"\ref{sec:att-conf}"),
     row(lambda: f"Calibrated fundamental diagram; flow {M('TabFourConfOODLo')}--{M('TabFourConfOODHi')}\\% low",
         "withdrawn",
         lambda: f"like-for-like bottleneck: deadlock, or {M('EtenCSigFlowRatio')}--{M('EtenCThreeFlowRatio')} "
@@ -175,8 +209,9 @@ ROWS = [
         r"\ref{sec:validity}"),
 ]
 
-CAPTION = (r"Conference findings~\cite{gang2026} and their status in this paper. Revised findings stand in the "
-           r"form given as evidence; withdrawn ones are not repeated.")
+CAPTION = (r"Conference findings~\cite{gang2026} and their status in this paper, judged on the published ORCA "
+           r"solver with RVO2 as a check. Revised findings stand in the form given as evidence; withdrawn ones are "
+           r"not repeated.")
 
 
 def write():

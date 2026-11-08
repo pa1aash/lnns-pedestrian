@@ -100,6 +100,10 @@ def main():
               f"vs C1 {e1:.1f}; leaks {sum(cells[x][k]['leaks']['total'] for x in ('C1', 'C2') for k in lv)}) "
               f"against the printed 2.72")
     verdict = {"conference": CONFERENCE, "status": st, "evidence": ev,
+               # decision C64: Table 4 judges each claim on the conference's model (published ORCA). This claim is
+               # C2 (SFM + TTC) against C1 and involves no ORCA, so the solver does not enter; the ORCA arms
+               # (C3, C4) were run with RVO2 only and are reported as context.
+               "solver": {"headline": "not involved (C2 vs C1)", "orca_arms": "rvo2 only"},
                "per_L": {S.lkey(L): status(paired[S.lkey(L)]["c2_over_c1"]) for L in LENGTHS},
                "rule": ("pooled C2/C1 ratio interval [lo, hi]: withdrawn if lo <= 1 or hi < 1.5; confirmed if "
                         "lo <= 2.72 <= hi or lo > 2; else revised"),
