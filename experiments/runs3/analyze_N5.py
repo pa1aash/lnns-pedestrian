@@ -1,7 +1,7 @@
 """Analysis of run-N5 (contact arches at dt = 0.0025 s and at lower drives).
 
 Inputs: data/N5/n5.jsonl; data/derived/arch_analysis.json (the v0 = 5 m/s, dt = 0.01 s cell) for comparison.
-Output: data/derived/N5_analysis.json. Per cell: completed, deadlocked and capped runs; runs with an arch and
+Output: data/derived/N5_analysis.json. Per cell: completed, deadlocked and capped runs; runs with an arch and Cell names with "." written with "p" (dt0p0025_v5).
 with an arch of size >= 3; episodes; lifetime median, 95th percentile and maximum; episodes lasting >= 1 s and
 >= 5 s; persistent runs (an episode >= 10 s) with Wilson interval; share of 0.1 s checks with an arch; peak
 body force and largest relative tangential speed; deadlocks with an arch at the stop.
@@ -35,7 +35,7 @@ def main():
         n = len(rr)
         pers = sum(r["n_persistent"] > 0 for r in rr)
         dl = [r for r in rr if r["deadlock"]]
-        cells[c] = {"n": n, "v0_mean": rr[0]["v0_mean"], "dt": rr[0]["dt"],
+        cells[c.replace(".", "p")] = {"n": n, "v0_mean": rr[0]["v0_mean"], "dt": rr[0]["dt"],
                     "complete": sum(r["complete"] for r in rr), "deadlock": len(dl),
                     "capped": sum((not r["complete"]) and (not r["deadlock"]) for r in rr),
                     "runs_with_arch": sum(r["n_episodes"] > 0 for r in rr),

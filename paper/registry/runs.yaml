@@ -415,43 +415,43 @@ RunNTwoFailMoving:
 # --- N5_analysis
 RunNFiveFineN:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.n"
+  key: "cells.dt0p0025_v5.n"
   fmt: "{:d}"
 RunNFiveFineComplete:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.complete"
+  key: "cells.dt0p0025_v5.complete"
   fmt: "{:d}"
 RunNFiveFineDeadlock:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.deadlock"
+  key: "cells.dt0p0025_v5.deadlock"
   fmt: "{:d}"
 RunNFiveFineRunsArch:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.runs_with_arch"
+  key: "cells.dt0p0025_v5.runs_with_arch"
   fmt: "{:d}"
 RunNFiveFineEpisodes:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.episodes"
+  key: "cells.dt0p0025_v5.episodes"
   fmt: "{:d}"
 RunNFiveFineLifeMax:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.lifetime_max_s"
+  key: "cells.dt0p0025_v5.lifetime_max_s"
   fmt: "{:.1f}"
 RunNFiveFinePersistent:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.persistent_runs"
+  key: "cells.dt0p0025_v5.persistent_runs"
   fmt: "{:d}"
 RunNFiveFinePersistentHi:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.persistent_wilson95.1"
+  key: "cells.dt0p0025_v5.persistent_wilson95.1"
   fmt: "{:.2f}"
 RunNFiveFinePeakForce:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.peak_body_force_kN"
+  key: "cells.dt0p0025_v5.peak_body_force_kN"
   fmt: "{:.1f}"
 RunNFiveFineArchAtStop:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.deadlocks_with_arch_at_stop"
+  key: "cells.dt0p0025_v5.deadlocks_with_arch_at_stop"
   fmt: "{:d}"
 RunNFiveDefaultN:
   file: N5_analysis.json
@@ -575,9 +575,9 @@ RunNFiveVThreeArchAtStop:
   fmt: "{:d}"
 RunNFiveFineLifePNinetyFive:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.lifetime_p95_s"
+  key: "cells.dt0p0025_v5.lifetime_p95_s"
   fmt: "{:.1f}"
 RunNFiveFineTimeFrac:
   file: N5_analysis.json
-  key: "cells.dt0.0025_v5.time_frac_arch_pct"
+  key: "cells.dt0p0025_v5.time_frac_arch_pct"
   fmt: "{:.0f}"
