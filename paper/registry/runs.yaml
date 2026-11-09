@@ -7,7 +7,7 @@ RunNOneSigma:
   fmt: "{:.4f}"
 RunNOneUnresNoise:
   file: N1_analysis.json
-  key: "identity.noise_vs_noise_halves.n_b"
+  key: "identity.noise_vs_C3_rvo2.n_a"
   fmt: "{:d}"
 RunNOneUnresOrca:
   file: N1_analysis.json
@@ -40,15 +40,15 @@ RunNOneFracHi:
 RunNOneDiff:
   file: N1_analysis.json
   key: "rate.diff_vs_C3_rvo2.diff"
-  fmt: "{:.3f}"
+  fmt: "{:.2f}"
 RunNOneDiffLo:
   file: N1_analysis.json
   key: "rate.diff_vs_C3_rvo2.ci95.0"
-  fmt: "{:.3f}"
+  fmt: "{:.2f}"
 RunNOneDiffHi:
   file: N1_analysis.json
   key: "rate.diff_vs_C3_rvo2.ci95.1"
-  fmt: "{:.3f}"
+  fmt: "{:.2f}"
 RunNOneJNoiseNoise:
   file: N1_analysis.json
   key: "identity.noise_vs_noise_halves.jaccard"
@@ -133,7 +133,7 @@ RunNSixAtEnd:
 RunNSixDistSlopeMed:
   file: N6_analysis.json
   key: "slopes.dist.median"
-  fmt: "{:.3f}"
+  fmt: "{:.2f}"
 RunNSixDistSlopeMin:
   file: N6_analysis.json
   key: "slopes.dist.min"
@@ -145,7 +145,7 @@ RunNSixDistSlopeMax:
 RunNSixWSlopeMed:
   file: N6_analysis.json
   key: "slopes.W.median"
-  fmt: "{:.3f}"
+  fmt: "{:.2f}"
 RunNSixWSlopeMin:
   file: N6_analysis.json
   key: "slopes.W.min"
@@ -589,3 +589,32 @@ RunNFiveFineTimeFrac:
   file: N5_analysis.json
   key: "cells.dt0p0025_v5.time_frac_arch_pct"
   fmt: "{:.0f}"
+# --- integration: per-condition Weibull intervals (E4) cited beside N3
+EfourWeibFrozenLo:
+  file: E4_analysis.json
+  key: "per_condition.frozen.weibull.ci95.0"
+  fmt: "{:.2f}"
+EfourWeibFrozenHi:
+  file: E4_analysis.json
+  key: "per_condition.frozen.weibull.ci95.1"
+  fmt: "{:.2f}"
+EfourWeibAloneLo:
+  file: E4_analysis.json
+  key: "per_condition.alone.weibull.ci95.0"
+  fmt: "{:.3f}"
+EfourWeibAloneHi:
+  file: E4_analysis.json
+  key: "per_condition.alone.weibull.ci95.1"
+  fmt: "{:.2f}"
+EelevenCTwoTimestepsMean:
+  file: E11_analysis.json
+  key: "cells.C2.w1p0.zones.throat.unfiltered.overlap_timesteps.mean"
+  fmt: "{:.0f}"
+EelevenCFourTimestepsMean:
+  file: E11_analysis.json
+  key: "cells.C4_rvo2.w1p0.zones.throat.unfiltered.overlap_timesteps.mean"
+  fmt: "{:.0f}"
+EtenHumanUnpassed:
+  file: fix_reg.json
+  key: "human.unpassed"
+  fmt: "{:d}"

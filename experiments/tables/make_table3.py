@@ -165,9 +165,9 @@ BLOCKS = [
 
 CAPTION = (
     r"Controls matched to ORCA on rate: freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
-    r"the unresolved sets (pair: freed; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$, first exits "
+    r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$, first exits "
     r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
-    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows count runs, five seeds per snapshot."
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
 )
 
 

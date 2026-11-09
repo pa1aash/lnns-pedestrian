@@ -1510,17 +1510,17 @@ FixAtwoLoneSameSigma:
 FixAtwoLoneDelta:
   file: fix_a2.json
   key: "lone.random.delta.mean"
-  fmt: "{:+.2f}"
+  fmt: "{:.2f}"
 
 FixAtwoLoneDeltaLo:
   file: fix_a2.json
   key: "lone.random.delta.range95.0"
-  fmt: "{:+.2f}"
+  fmt: "{:.2f}"
 
 FixAtwoLoneDeltaHi:
   file: fix_a2.json
   key: "lone.random.delta.range95.1"
-  fmt: "{:+.2f}"
+  fmt: "{:.2f}"
 
 FixAtwoLoneTransferLo:
   file: fix_a2.json

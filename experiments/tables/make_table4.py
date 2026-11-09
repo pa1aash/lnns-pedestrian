@@ -95,7 +95,7 @@ def ci(lo, hi):
 # ---- pending-row evidence: filled in as each production run is analysed --------------------------------
 
 def ev_throat():
-    return (f"C1 {M('EelevenCOneTimestepsMean')} (printed {M('TabFourConfThroatCOne')}), C2 and C4 0 steps "
+    return (f"C1 {M('EelevenCOneTimestepsMean')} (printed {M('TabFourConfThroatCOne')}), C2 {M('EelevenCTwoTimestepsMean')} and C4 {M('EelevenCFourTimestepsMean')} steps "
             f"($p={M('EelevenCFourVsCOneP')}$); {M('EelevenPersistentAll')} last 0.1\\,s")
 
 
@@ -163,18 +163,18 @@ ROWS = [
                 f"{M('EfiveAN')} runs per level",
         r"\ref{sec:escape}"),
     row("Noise acts as ORCA does", "withdrawn",
-        lambda: f"rest drive alone frees ORCA's lone keystones "
-                f"({M('EtwoLKDriveVsPubDiscA')}:{M('EtwoLKDriveVsPubDiscB')}); a matched bias frees other "
+        lambda: f"drive part alone frees ORCA's lone keystones "
+                f"({M('EtwoLKDriveVsPubDiscA')}:{M('EtwoLKDriveVsPubDiscB')}); a matched bias frees partly different "
                 f"standoffs ($J={M('PairBsPubJac')}$)",
         r"\ref{sec:attribution}"),
     row(lambda: f"Ratio [{M('TabFourConfRatioLo')}, {M('TabFourConfRatioHi')}]; Cox HR {M('TabFourConfCoxHR')}",
-        "withdrawn", "no code reproduces them; replaced by Table~\\ref{tab:matched}",
+        "withdrawn", "no computation reproduces them; replaced by Table~\\ref{tab:matched}",
         r"Table~\ref{tab:matched}"),
     row(lambda: f"Arch of {M('TabFourConfArchAgents')} agents", "revised",
-        lambda: f"lone wall-law trap ({frac('CriterionAgree', 'CriterionN')}); {M('ArchPersistent')} persistent arches",
+        lambda: f"lone trap, criterion exact in {frac('CriterionAgree', 'CriterionN')}; {M('ArchPersistent')} persistent arches",
         r"\ref{sec:lone}, \ref{sec:arches}"),
     row("Deadlock set by the paradigm", "revised",
-        lambda: f"critical width {M('EsevenWcrit')}\\,m (default walls); short jambs "
+        lambda: f"critical width {M('EsevenWcrit')}\\,m (default walls); $B_{{w,\\rm edge}}$ "
                 f"{frac('EsevenBjambK', 'EsevenN')}",
         r"\ref{sec:lone}"),
     row(lambda: f"TTC removes throat overlaps",
@@ -182,17 +182,17 @@ ROWS = [
     row("Zonal overlaps; evacuation unchanged", "withdrawn",
         "spawn-overlap artefacts; evacuation times change", "---"),
     row(lambda: f"C4 cuts evacuation {M('TabFourConfEvacRedA')}\\%, {M('TabFourConfEvacRedB')}\\%", "withdrawn",
-        "no stored computation gives them", "---"),
+        "no computation reproduces them", "---"),
     row("ORCA gridlocks counterflow", st_counterflow, ev_counterflow, r"\ref{sec:conference}"),
     row(lambda: f"TTC triples crossing flow",
         st_crossing, ev_crossing, r"\ref{sec:conference}"),
     row(lambda: f"Flow {M('TabFourConfOODLo')}--{M('TabFourConfOODHi')}\\% below data", "withdrawn",
-        lambda: f"like for like: deadlock or {M('EtenCSigFlowRatio')}--{M('EtenCThreeFlowRatio')} of human flow",
+        lambda: f"like for like: deadlock or {M('FixAsevenCSigFlowRatio')}--{M('FixAsevenCThreeFlowRatio')} of human flow",
         r"\ref{sec:validity}"),
 ]
 
 CAPTION = (r"Conference findings~\cite{gang2026}, judged on the published ORCA solver with RVO2 as a check. "
-           r"Revised findings stand in the form given as evidence.")
+           r"A revised finding holds in the form given under Evidence.")
 
 
 def write():
