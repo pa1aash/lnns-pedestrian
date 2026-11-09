@@ -58,3 +58,6 @@ W2 (2026-11-09, page plan C35): headers shortened (probes are listed in the §4 
 
 ## Row N (fix wave, FIX_PLAN T2-1 / 04-3)
 N (glitch): quench "frees or holds, depending on solver details"; replay "outcome changes under 1e-9 m"; Delta t, push, tilt "---"; corrected numerics "effect disappears". Definition in Sect. 4 text: the outcome is not robust to a perturbation far below the physical scales, or vanishes under corrected numerics. Symbol definitions (k_BT_eff, Delta U, b_f) moved from the caption to Sect. 4.
+
+## Page pass (2026-11-09)
+Headers: "Replay, 10^-9 m", "Δt, per step", "Δt, √Δt", "Push ±" (rest-drive push, defined in §4 text), "Tilt ±b", "Corrected numerics"; Class header left blank. Cells reworded without changing any prediction: "no change"/"no Δt dependence" → "flat" (key in caption: "flat: no dependence on Δt"); L push "+ frees, − not"; L/D replay "identical"; T replay "disagree"; T quench "frees; exponential times"; T Δt per step "falls as Δt grows"; D quench "frees only past b_f"; D tilt "handedness flips" (= first agent out switches side); N quench "set by solver details", replay "outcome flips" (the published solver's flips come from the leg-normal sign defect, a half-plane switch after smooth amplification), corrected numerics "effect vanishes".

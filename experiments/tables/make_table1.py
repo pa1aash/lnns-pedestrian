@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write paper/tables/table1_params.tex from data/params/model.yaml.
 
-Compact LNCS-width (12.2 cm) table: a parameter block (spanning the two mode
+Compact LNCS-width (12.2 cm; columns 1.2 + 6.5 + 3.75 cm + 4 x 3 pt) table: a parameter block (spanning the two mode
 columns) and a two-column block for the two model modes. Every number is read
 from the YAML, so the table cannot drift from the recorded code values.
 """
@@ -38,47 +38,42 @@ v0, r, tau = val("v0"), val("radius"), val("tau")
 U = r"\,"  # thin space between every number and its unit (glossary G6)
 ez = val("edge_zone")
 rows = [
-    ("Agents",
+    ("Agents, room",
      rf"$m={g(val('mass'))}${U}kg; $v_0\sim\mathcal N({g(v0['mean'])},{g(v0['std'])})${U}m/s, $\ge{g(v0['min'])}${U}m/s; "
      rf"$r\sim\mathcal N({g(r['mean'])},{g(r['std'])})${U}m, $\ge{g(r['min'])}${U}m; "
-     rf"$\tau\sim U({g(tau['low'])},{g(tau['high'])})${U}s"),
-    ("Speed--density",
-     rf"$v_{{\rm eff}}=v_0\,\mathrm{{clip}}[1-e^{{-\gamma(1/\rho-1/\rho_{{\max}})}},0.05,1]$, "
-     rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}${U}ped/m$^2$; "
-     rf"$\rho$ = neighbours within $R={g(val('neighbor_radius'))}${U}m over $\pi R^2$, floored at {g(val('density_floor'))}{U}ped/m$^2$; "
+     rf"$\tau\sim U({g(tau['low'])},{g(tau['high'])})${U}s. "
+     rf"${g(val('n_agents'))}$ agents spawned in "
+     rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]${U}m of a "
+     rf"${g(val('room')[0])}\times{g(val('room')[1])}${U}m room; door $w={g(val('door_width'))}${U}m in the wall $x={g(val('room')[0])}${U}m; "
+     rf"goal $g=({g(val('goal')[0])},{g(val('goal')[1])})${U}m, exit at $|x-g|<{g(val('deactivation_radius'))}${U}m. "
+     rf"$\Delta t={g(val('dt'))}${U}s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ set per experiment; "
+     rf"deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}${U}m/s for ${g(val('deadlock_criterion','hold'))}${U}s"),
+    ("Density",
+     rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}${U}ped/m$^2$, "
+     rf"$\rho$ floored at {g(val('density_floor'))}{U}ped/m$^2$; "
      rf"the conference paper's calibrated $\gamma={g(calibrated('weidmann_gamma'))}$, $\rho_{{\max}}={g(calibrated('weidmann_rho_max'))}${U}ped/m$^2$ are not applied"),
-    ("SFM",
-     rf"$A={g(val('A'))}${U}N, $B={g(val('B'))}${U}m, $k={g(val('k'))}${U}kg/s$^2$, $\kappa={g(val('kappa'))}${U}kg/(m\,s)"),
-    ("Walls",
-     rf"same law per segment, $A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ "
-     rf"(within {ez[0]:.1f}{U}m of the door edge, blended linearly to $B_w$ by {ez[1]:.1f}{U}m; jamb-only variant), "
+    ("SFM, walls",
+     rf"$A={g(val('A'))}${U}N, $B={g(val('B'))}${U}m, $k={g(val('k'))}${U}kg/s$^2$, $\kappa={g(val('kappa'))}${U}kg/(m\,s); "
+     rf"$A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ "
+     rf"(jamb-only: within {ez[0]:.1f}{U}m of the door edge, blended linearly to $B_w$ by {ez[1]:.1f}{U}m), "
      rf"rounded edge $r={g(val('edge_radius'))}${U}m"),
-    ("TTC",
+    ("Other forces",
      rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}${U}s, $\tau_{{\max}}={g(val('tau_max'))}${U}s; "
-     rf"pair counted only if $|\Delta v|^2\ge{g(val('ttc_min_dv2'))}${U}m$^2$/s$^2$"),
-    ("ORCA",
-     rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm ORCA}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$, "
-     rf"gate $w_o=1-s(\rho;{g(val('orca_gate','rho0'))},{g(val('orca_gate','k'))})$"),
-    ("Crush",
+     rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm orca}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$; "
      rf"$k_{{\rm crush}}={g(val('k_crush'))}${U}kg/s$^2$, $\kappa_{{\rm crush}}={g(val('kappa_crush'))}${U}kg/(m\,s), "
-     rf"gate $w_c=s(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
-    ("Room",
-     rf"${g(val('n_agents'))}$ agents in a ${g(val('room')[0])}\times{g(val('room')[1])}${U}m room, spawned in "
-     rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]${U}m; "
-     rf"door $w={g(val('door_width'))}${U}m in the wall $x={g(val('room')[0])}${U}m; goal $g=({g(val('goal')[0])},{g(val('goal')[1])})${U}m"),
-    ("Run",
-     rf"$\Delta t={g(val('dt'))}${U}s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ per component, set per experiment; "
-     rf"exit at $|x-g|<{g(val('deactivation_radius'))}${U}m; deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}${U}m/s for ${g(val('deadlock_criterion','hold'))}${U}s"),
+     rf"$w_c=s(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
 ]
+# the TTC velocity cut and the ORCA gate are stated in the text (Eqs. ttc, orca); check they match the YAML
+assert val("ttc_min_dv2") == 1e-8 and (val("orca_gate", "rho0"), val("orca_gate", "k")) == (4.0, 2.0)
 
 pub, cor = modes["published_reproduction"], modes["corrected_forward"]
 mode_rows = [
-    ("Integrator", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$\\,N", "clamp, then position update; no clip"),
-    ("Noise", "added after the position update", "added to $v$, re-clamped, before the position update"),
-    ("Spawn", "uniform, overlaps allowed", "rejection, non-overlapping"),
-    ("ORCA", "leg normal sign-flipped outside the obstacle (source of replay flips); infeasible constraints dropped", "line-by-line RVO2 port"),
-    ("Crush", "present in C4", "off"),
-    ("Wall corners", "sum over segments", "convex-union rule"),
+    ("Update", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$\\,N; noise after the $x$ update",
+     "update of Sect.~\\ref{sec:model}; no clip"),
+    ("ORCA", "leg-normal sign defect (source of outcome flips under replay); infeasible constraints dropped",
+     "line-by-line RVO2 port~\\cite{vandenberg2011rvo2}"),
+    ("Other", "crush term in C4; uniform spawn with overlaps; wall segments summed at corners",
+     "no crush term or overlaps; convex-union corners"),
 ]
 # the wording above must match the YAML flags
 assert pub["w2_numerics"] == "published" and cor["w2_numerics"] == "fixed"
@@ -89,14 +84,14 @@ assert pub["w2_orca"] == "published" and cor["w2_orca"] == "rvo2"
 
 L = ["% generated by experiments/tables/make_table1.py from data/params/model.yaml; do not edit",
      "\\begin{table}[t]",
-     "\\caption{Model parameters (top) and the differences between the published-reproduction and "
-     "corrected-forward modes (bottom); values agree with the conference paper~\\cite{gang2026} except where noted.}",
+     "\\caption{Model parameters (top) and mode differences (bottom); values agree with the conference "
+     "paper~\\cite{gang2026} except where noted.}",
      "\\label{tab:params}",
      "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
-     "\\begin{tabular}{@{}p{1.75cm}p{4.9cm}p{4.9cm}@{}}",
+     "\\begin{tabular}{@{}p{1.2cm}>{\\raggedright\\arraybackslash}p{6.5cm}>{\\raggedright\\arraybackslash}p{3.75cm}@{}}",
      "\\toprule"]
 for name, body in rows:
-    L.append(f"{name} & \\multicolumn{{2}}{{p{{9.9cm}}}}{{{body}}} \\\\")
+    L.append(f"{name} & \\multicolumn{{2}}{{p{{10.45cm}}@{{}}}}{{{body}}} \\\\")
 L += ["\\midrule", "Mode & published-reproduction & corrected-forward \\\\", "\\midrule"]
 for a, b, c in mode_rows:
     L.append(f"{a} & {b} & {c} \\\\")

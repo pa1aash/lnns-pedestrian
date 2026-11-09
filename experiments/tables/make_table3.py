@@ -164,11 +164,10 @@ BLOCKS = [
 ]
 
 CAPTION = (
-    r"Controls matched to ORCA on rate, with their signatures: freed (whole runs: completed), paired difference "
-    r"$\Delta$ from ORCA, Jaccard $J$ of the minority outcome sets (independent sets in parentheses), Kaplan--Meier "
-    r"median $t_{1/2}$, first exits by the lower member, outcome changes under $10^{-9}$\,m replays (noise: snapshots "
-    r"whose seeds disagree), and $\ell$ of Eq.~\eqref{eq:ell} (prediction in parentheses). "
-    r"Intervals are 95\%; noise rows count runs, five seeds per snapshot; --- is not measured."
+    r"Controls matched to ORCA on rate: freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
+    r"the unresolved sets (pair: freed; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$, first exits "
+    r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows count runs, five seeds per snapshot."
 )
 
 

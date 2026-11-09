@@ -1,63 +1,28 @@
 % Table 2: mechanism classes and their physical signatures (Plan §9; plan/CHANGELOG.md C6).
 % Cell sources: paper/tables/table2_NOTES.md. Needs \usepackage{booktabs,tabularx} in main.tex.
 \begin{table}[t]
-\caption{Predicted response of each mechanism class to each probe of a frozen deadlock. ``---'': the probe does not test that class.}
+\caption{Predicted response of each mechanism class to each probe of a frozen deadlock. ``---'': the probe does not test that class; flat: no dependence on $\Delta t$.}
 \label{tab:signatures}
 \centering
 \scriptsize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\textwidth}{@{}l*{7}{>{\raggedright\arraybackslash}X}@{}}
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.1}
+\newcolumntype{Y}[1]{>{\raggedright\arraybackslash\hsize=#1\hsize}X}
+\begin{tabularx}{\textwidth}{@{}l@{\hspace{5pt}}Y{1.48} Y{0.74} Y{0.94} Y{0.69} Y{1.11} Y{1.26} Y{0.78}@{}}
 \toprule
-Class
  & Quench
  & Replay, $10^{-9}$\,m
- & $\Delta t$, per-step noise
- & $\Delta t$, $\sqrt{\Delta t}$ noise
- & Rest-drive push, $+$ vs $-$
- & Tilt $b\to-b$
+ & $\Delta t$, per step
+ & $\Delta t$, $\sqrt{\Delta t}$
+ & Push $\pm$
+ & Tilt $\pm b$
  & Corrected numerics \\
 \midrule
-P
- & held
- & held
- & held
- & held
- & unchanged
- & unchanged
- & persists \\
-L
- & frees, deterministic
- & identical replays
- & no $\Delta t$ dependence
- & no $\Delta t$ dependence
- & $+$ frees, $-$ does not
- & ---
- & persists \\
-T
- & frees at random, exponential times
- & replays disagree
- & rate falls as $\Delta t$ grows
- & no $\Delta t$ dependence
- & ---
- & ---
- & persists \\
-D
- & frees only beyond $b_f$
- & identical replays
- & no $\Delta t$ dependence
- & no $\Delta t$ dependence
- & ---
- & first out switches side
- & persists \\
-N
- & depends on solver details
- & outcome changes
- & ---
- & ---
- & ---
- & ---
- & effect disappears \\
+P & held & held & held & held & unchanged & unchanged & persists \\
+L & frees, deterministic & identical & flat & flat & $+$ frees, $-$ not & --- & persists \\
+T & frees; exponential times & disagree & falls as $\Delta t$ grows & flat & --- & --- & persists \\
+D & frees only past $b_f$ & identical & flat & flat & --- & handedness flips & persists \\
+N & set by solver details & outcome flips & --- & --- & --- & --- & effect vanishes \\
 \bottomrule
 \end{tabularx}
 \end{table}
