@@ -1,0 +1,204 @@
+# Registry for queue 3 (runs N1, N2, N3, N5, N6); same format as core.yaml.
+
+# --- N1_analysis
+RunNOneSigma:
+  file: N1_analysis.json
+  key: "sigma_n1"
+  fmt: "{:.3f}"
+RunNOneSnapN:
+  file: N1_analysis.json
+  key: "n_snapshots"
+  fmt: "{:d}"
+RunNOneRunsN:
+  file: N1_analysis.json
+  key: "rate.n"
+  fmt: "{:d}"
+RunNOneFreed:
+  file: N1_analysis.json
+  key: "rate.freed"
+  fmt: "{:d}"
+RunNOneFrac:
+  file: N1_analysis.json
+  key: "rate.fraction"
+  fmt: "{:.3f}"
+RunNOneFracLo:
+  file: N1_analysis.json
+  key: "rate.wilson95.0"
+  fmt: "{:.3f}"
+RunNOneFracHi:
+  file: N1_analysis.json
+  key: "rate.wilson95.1"
+  fmt: "{:.3f}"
+RunNOneDiff:
+  file: N1_analysis.json
+  key: "rate.diff_vs_C3_rvo2.diff"
+  fmt: "{:.3f}"
+RunNOneDiffLo:
+  file: N1_analysis.json
+  key: "rate.diff_vs_C3_rvo2.ci95.0"
+  fmt: "{:.3f}"
+RunNOneDiffHi:
+  file: N1_analysis.json
+  key: "rate.diff_vs_C3_rvo2.ci95.1"
+  fmt: "{:.3f}"
+RunNOneJNoiseNoise:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.jaccard"
+  fmt: "{:.2f}"
+RunNOneJNoiseNoiseLo:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.ci95.0"
+  fmt: "{:.2f}"
+RunNOneJNoiseNoiseHi:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.ci95.1"
+  fmt: "{:.2f}"
+RunNOneJNoiseNoiseIndep:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.independent_mean"
+  fmt: "{:.2f}"
+RunNOneJNoiseNoiseP:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.p_perm_above_independent"
+  fmt: "p"
+RunNOneJNoiseOrca:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.jaccard"
+  fmt: "{:.2f}"
+RunNOneJNoiseOrcaLo:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.ci95.0"
+  fmt: "{:.2f}"
+RunNOneJNoiseOrcaHi:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.ci95.1"
+  fmt: "{:.2f}"
+RunNOneJNoiseOrcaIndep:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.independent_mean"
+  fmt: "{:.2f}"
+RunNOneJNoiseOrcaP:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.p_perm_above_independent"
+  fmt: "p"
+RunNOneFreedOnHeld:
+  file: N1_analysis.json
+  key: "identity.noise_freed_on_unresolved_C3_rvo2.k"
+  fmt: "{:d}"
+RunNOneRunsOnHeld:
+  file: N1_analysis.json
+  key: "identity.noise_freed_on_unresolved_C3_rvo2.n"
+  fmt: "{:d}"
+RunNOneAUC:
+  file: N1_analysis.json
+  key: "association.C3_rvo2.auc"
+  fmt: "{:.3f}"
+RunNOneAUCP:
+  file: N1_analysis.json
+  key: "association.C3_rvo2.p"
+  fmt: "p"
+RunNOneSeedsDisagree:
+  file: N1_analysis.json
+  key: "seeds_disagree.snapshots"
+  fmt: "{:d}"
+RunNOneKMMedian:
+  file: N1_analysis.json
+  key: "time_to_free_km.median"
+  fmt: "{:.1f}"
+# --- N6_analysis
+RunNSixN:
+  file: N6_analysis.json
+  key: "n_jobs"
+  fmt: "{:d}"
+RunNSixFoldN:
+  file: N6_analysis.json
+  key: "n_fold"
+  fmt: "{:d}"
+RunNSixFallbackN:
+  file: N6_analysis.json
+  key: "fallback.n"
+  fmt: "{:d}"
+RunNSixAtEnd:
+  file: N6_analysis.json
+  key: "all.member_at_segment_end"
+  fmt: "{:d}"
+RunNSixDistSlopeMed:
+  file: N6_analysis.json
+  key: "slopes.dist.median"
+  fmt: "{:.3f}"
+RunNSixDistSlopeMin:
+  file: N6_analysis.json
+  key: "slopes.dist.min"
+  fmt: "{:.3f}"
+RunNSixDistSlopeMax:
+  file: N6_analysis.json
+  key: "slopes.dist.max"
+  fmt: "{:.3f}"
+RunNSixWSlopeMed:
+  file: N6_analysis.json
+  key: "slopes.W.median"
+  fmt: "{:.3f}"
+RunNSixWSlopeMin:
+  file: N6_analysis.json
+  key: "slopes.W.min"
+  fmt: "{:.3f}"
+RunNSixWSlopeMax:
+  file: N6_analysis.json
+  key: "slopes.W.max"
+  fmt: "{:.3f}"
+RunNSixMuRatioMin:
+  file: N6_analysis.json
+  key: "mu1_ratio.min"
+  fmt: "{:.3f}"
+RunNSixMuRatioMax:
+  file: N6_analysis.json
+  key: "mu1_ratio.max"
+  fmt: "{:.3f}"
+RunNSixMuLossMin:
+  file: N6_analysis.json
+  key: "all.mu1_at_loss_min"
+  fmt: "{:.0f}"
+RunNSixMuLossMax:
+  file: N6_analysis.json
+  key: "all.mu1_at_loss_max"
+  fmt: "{:.0f}"
+RunNSixMuLossMed:
+  file: N6_analysis.json
+  key: "all.mu1_at_loss_median"
+  fmt: "{:.0f}"
+RunNSixFallbackReachMin:
+  file: N6_analysis.json
+  key: "fallback.b_last_over_bstar.min"
+  fmt: "{:.2f}"
+RunNSixFallbackReachMed:
+  file: N6_analysis.json
+  key: "fallback.b_last_over_bstar.median"
+  fmt: "{:.2f}"
+RunNSixJacJumpMed:
+  file: N6_analysis.json
+  key: "jac_jump.median"
+  fmt: "{:.3f}"
+RunNSixBfBisMed:
+  file: N6_analysis.json
+  key: "b_f_over_bisection.median"
+  fmt: "{:.3f}"
+RunNSixBfBisMin:
+  file: N6_analysis.json
+  key: "b_f_over_bisection.min"
+  fmt: "{:.2f}"
+RunNSixQuenchN:
+  file: N6_analysis.json
+  key: "quench.n_runs"
+  fmt: "{:d}"
+RunNSixQuenchSlopeMed:
+  file: N6_analysis.json
+  key: "quench.slope_passage_vs_eps.median"
+  fmt: "{:.2f}"
+RunNSixQuenchSlopeMin:
+  file: N6_analysis.json
+  key: "quench.slope_passage_vs_eps.min"
+  fmt: "{:.2f}"
+RunNSixQuenchSlopeMax:
+  file: N6_analysis.json
+  key: "quench.slope_passage_vs_eps.max"
+  fmt: "{:.2f}"

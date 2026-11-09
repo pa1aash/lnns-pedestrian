@@ -1,0 +1,468 @@
+{
+ "script": "experiments/runs3/analyze_N1.py",
+ "doc": "Analysis of run-N1 (lone-trap noise at the calibrated sigma, 20 seeds per lone keystone).\n\nInputs: data/N1/n1.jsonl, data/N1/sigma_n1.json, data/E2/e2_quench.jsonl (C3 outcomes, E2 noise at 0.07).\nOutput: data/derived/N1_analysis.json.\n  rate        freed fraction over runs (Wilson) and the paired difference noise - C3 RVO2 over snapshots\n              (mean of p_i - c_i, bootstrap over snapshots); the same against C3 published.\n  per snapshot p_i = k_i / 20; seeds disagree where 0 < k_i < 20.\n  identity    unresolved under noise: p_i < 0.5; under C3: not freed in the unperturbed run. J(noise, C3 RVO2),\n              J(noise, C3 published) and the noise-versus-noise reference J(noise, noise') from the seed halves\n              0-9 and 10-19 (unresolved: k < 5 of 10), each with its bootstrap interval and independence reference.\n  association p_i between snapshots that C3 RVO2 frees and does not (Mann-Whitney, AUC); the same for C3 published.\n  time        Kaplan-Meier median time to free the blocker over runs (censored at 120 s).\n  E2 check    freed fraction at sigma = 0.07 in E2 (5 seeds) beside N1.\n",
+ "sigma_n1": 0.0717,
+ "sigma_fit": {
+  "inversion": {
+   "x_star": 0.07174752715575175,
+   "se": 0.010055818538176137,
+   "logit_p": 2.0149030205422647
+  },
+  "targets": {
+   "C3_rvo2": {
+    "k": 30,
+    "n": 34
+   },
+   "C3_pub": {
+    "k": 30,
+    "n": 34
+   }
+  },
+  "E2_noise": {
+   "sigma": [
+    0.03,
+    0.05,
+    0.07
+   ],
+   "k": [
+    70,
+    117,
+    148
+   ],
+   "n": [
+    170,
+    170,
+    170
+   ]
+  }
+ },
+ "n_snapshots": 34,
+ "n_runs": 680,
+ "seeds_per_snapshot": 20,
+ "rate": {
+  "freed": 588,
+  "n": 680,
+  "fraction": 0.8647058823529412,
+  "wilson95": [
+   0.8369397915563188,
+   0.8883745245065995
+  ],
+  "diff_vs_C3_rvo2": {
+   "diff": -0.01764705882352942,
+   "ci95": [
+    -0.07352941176470588,
+    0.044117647058823525
+   ],
+   "C3_freed": 30,
+   "C3_n": 34
+  },
+  "diff_vs_C3_pub": {
+   "diff": -0.01764705882352942,
+   "ci95": [
+    -0.075,
+    0.04264705882352941
+   ],
+   "C3_freed": 30,
+   "C3_n": 34
+  }
+ },
+ "identity": {
+  "unresolved_noise": [
+   "E1b_seed203",
+   "E1b_seed83",
+   "E1b_seed87"
+  ],
+  "noise_vs_noise_halves": {
+   "jaccard": 0.75,
+   "ci95": [
+    0.0,
+    1.0
+   ],
+   "independent_mean": 0.060308333333333325,
+   "independent_95": [
+    0.0,
+    0.4
+   ],
+   "p_perm_above_independent": 0.0007999200079992001,
+   "n_a": 4,
+   "n_b": 3,
+   "both": 3,
+   "n_units": 34
+  },
+  "halves_unresolved": [
+   [
+    "E1b_seed128",
+    "E1b_seed203",
+    "E1b_seed83",
+    "E1b_seed87"
+   ],
+   [
+    "E1b_seed203",
+    "E1b_seed83",
+    "E1b_seed87"
+   ]
+  ],
+  "noise_vs_C3_rvo2": {
+   "jaccard": 0.75,
+   "ci95": [
+    0.0,
+    1.0
+   ],
+   "independent_mean": 0.061404999999999994,
+   "independent_95": [
+    0.0,
+    0.4
+   ],
+   "p_perm_above_independent": 0.00039996000399960006,
+   "n_a": 3,
+   "n_b": 4,
+   "both": 3,
+   "n_units": 34
+  },
+  "unresolved_C3_rvo2": [
+   "E1b_seed203",
+   "E1b_seed211",
+   "E1b_seed83",
+   "E1b_seed87"
+  ],
+  "noise_freed_on_unresolved_C3_rvo2": {
+   "k": 24,
+   "n": 80
+  },
+  "noise_vs_C3_pub": {
+   "jaccard": 0.75,
+   "ci95": [
+    0.0,
+    1.0
+   ],
+   "independent_mean": 0.06106666666666667,
+   "independent_95": [
+    0.0,
+    0.4
+   ],
+   "p_perm_above_independent": 0.00029997000299970003,
+   "n_a": 3,
+   "n_b": 4,
+   "both": 3,
+   "n_units": 34
+  },
+  "unresolved_C3_pub": [
+   "E1b_seed203",
+   "E1b_seed211",
+   "E1b_seed83",
+   "E1b_seed87"
+  ],
+  "noise_freed_on_unresolved_C3_pub": {
+   "k": 24,
+   "n": 80
+  }
+ },
+ "association": {
+  "C3_rvo2": {
+   "U": 119.5,
+   "p": 0.0004040439341459003,
+   "auc": 0.9958333333333333,
+   "n_x": 30,
+   "n_y": 4
+  },
+  "C3_pub": {
+   "U": 119.5,
+   "p": 0.0004040439341459003,
+   "auc": 0.9958333333333333,
+   "n_x": 30,
+   "n_y": 4
+  }
+ },
+ "per_snapshot": {
+  "E1b_seed100": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed107": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed108": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed114": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed120": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed128": {
+   "k": 12,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed132": {
+   "k": 13,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed140": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed141": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed150": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed155": {
+   "k": 13,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed179": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed200": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed203": {
+   "k": 5,
+   "n": 20,
+   "C3_rvo2_freed": false,
+   "C3_pub_freed": false,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed204": {
+   "k": 19,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed205": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed211": {
+   "k": 12,
+   "n": 20,
+   "C3_rvo2_freed": false,
+   "C3_pub_freed": false,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed215": {
+   "k": 19,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed227": {
+   "k": 19,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 4,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed238": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed239": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed52": {
+   "k": 17,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 3,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed58": {
+   "k": 17,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed61": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed69": {
+   "k": 16,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 2,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed71": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed72": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed80": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed83": {
+   "k": 1,
+   "n": 20,
+   "C3_rvo2_freed": false,
+   "C3_pub_freed": false,
+   "E2_sigma0.07_k": 0,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed84": {
+   "k": 19,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed87": {
+   "k": 6,
+   "n": 20,
+   "C3_rvo2_freed": false,
+   "C3_pub_freed": false,
+   "E2_sigma0.07_k": 4,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed89": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed91": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  },
+  "E1b_seed94": {
+   "k": 20,
+   "n": 20,
+   "C3_rvo2_freed": true,
+   "C3_pub_freed": true,
+   "E2_sigma0.07_k": 5,
+   "E2_sigma0.07_n": 5
+  }
+ },
+ "seeds_disagree": {
+  "snapshots": 14,
+  "n": 34
+ },
+ "time_to_free_km": {
+  "n": 680,
+  "events": 588,
+  "S_end": 0.13529411764705973,
+  "median": 15.76
+ },
+ "E2_sigma0.07": {
+  "freed": 148,
+  "n": 170,
+  "wilson95": [
+   0.8118357452733787,
+   0.9129625902603826
+  ]
+ }
+}

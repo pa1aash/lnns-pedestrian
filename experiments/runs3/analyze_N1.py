@@ -53,12 +53,12 @@ def main():
     c3 = {}
     e207 = {}
     for r in E2:
-        t, arm, rep = r["job_id"].split("|")
+        t, solver, rep = r["job_id"].split("|")
         if t not in k:
             continue
-        if arm in ("C3_rvo2", "C3_pub") and rep == "u":
-            c3.setdefault(arm, {})[t] = freed(r)[0]
-        if arm == "noise0.07":
+        if solver in ("C3_rvo2", "C3_pub") and rep == "u":
+            c3.setdefault(solver, {})[t] = freed(r)[0]
+        if solver == "noise0.07":
             e207.setdefault(t, []).append(freed(r)[0])
     n_runs = len(R)
     kk = int(sum(events))
@@ -68,11 +68,11 @@ def main():
          "sigma_fit": {"inversion": sig["inversion"], "targets": sig["targets"], "E2_noise": sig["E2_noise"]},
          "n_snapshots": len(tags), "n_runs": n_runs, "seeds_per_snapshot": 20,
          "rate": {"freed": kk, "n": n_runs, "fraction": kk / n_runs, "wilson95": stats3.wilson(kk, n_runs)}}
-    for arm in ("C3_rvo2", "C3_pub"):
-        c = np.array([float(c3[arm][t]) for t in tags])
+    for solver in ("C3_rvo2", "C3_pub"):
+        c = np.array([float(c3[solver][t]) for t in tags])
         d = p - c
         bs = [d[rng.integers(0, len(d), len(d))].mean() for _ in range(stats3.B)]
-        o["rate"][f"diff_vs_{arm}"] = {"diff": float(d.mean()), "ci95": [float(np.percentile(bs, 2.5)),
+        o["rate"][f"diff_vs_{solver}"] = {"diff": float(d.mean()), "ci95": [float(np.percentile(bs, 2.5)),
                                                                         float(np.percentile(bs, 97.5))],
                                         "C3_freed": int(c.sum()), "C3_n": len(c)}
     U_n = {t for t in tags if np.mean(k[t]) < 0.5}
@@ -81,12 +81,14 @@ def main():
     o["identity"] = {"unresolved_noise": sorted(U_n),
                      "noise_vs_noise_halves": stats3.jaccard_stats(U_h1, U_h2, tags, rng),
                      "halves_unresolved": [sorted(U_h1), sorted(U_h2)]}
-    for arm in ("C3_rvo2", "C3_pub"):
-        U_c = {t for t in tags if not c3[arm][t]}
-        o["identity"][f"noise_vs_{arm}"] = stats3.jaccard_stats(U_n, U_c, tags, rng)
-        o["identity"][f"unresolved_{arm}"] = sorted(U_c)
-        o.setdefault("association", {})[arm] = stats3.mann_whitney(
-            [p[i] for i, t in enumerate(tags) if c3[arm][t]], [p[i] for i, t in enumerate(tags) if not c3[arm][t]])
+    for solver in ("C3_rvo2", "C3_pub"):
+        U_c = {t for t in tags if not c3[solver][t]}
+        o["identity"][f"noise_vs_{solver}"] = stats3.jaccard_stats(U_n, U_c, tags, rng)
+        o["identity"][f"unresolved_{solver}"] = sorted(U_c)
+        o["identity"][f"noise_freed_on_unresolved_{solver}"] = {"k": int(sum(sum(k[t]) for t in U_c)),
+                                                               "n": 20 * len(U_c)}
+        o.setdefault("association", {})[solver] = stats3.mann_whitney(
+            [p[i] for i, t in enumerate(tags) if c3[solver][t]], [p[i] for i, t in enumerate(tags) if not c3[solver][t]])
     o["per_snapshot"] = {t: {"k": sum(k[t]), "n": 20, "C3_rvo2_freed": c3["C3_rvo2"][t], "C3_pub_freed": c3["C3_pub"][t],
                              "E2_sigma0.07_k": int(sum(e207.get(t, []))), "E2_sigma0.07_n": len(e207.get(t, []))}
                          for t in tags}

@@ -73,6 +73,21 @@ def main():
          "mu1_ratio": summ([v["mu1_ratio_smallest_to_largest_delta"] for v in fold_rows]),
          "jac_jump": summ([v["jac_jump_smallest_delta"] for v in fold_rows]),
          "b_f_over_bisection": summ([v["b_f_over_bisection"] for v in fold_rows]), "per_job": rows}
+    # mu1 at the minimum at the smallest delta (fold cases) and at the last converged b (fallback cases)
+    mu_near = [x["scan"][-1]["mu1_min"] for x in S if x.get("b_f") is not None and x["scan"][-1].get("converged")]
+    o["mu1_min_smallest_delta"] = summ(mu_near)
+    FB = jl(os.path.join(DATA, "N6", "n6_fallback.jsonl"))
+    if FB:
+        fe = [any(w["t"] <= 1e-3 or w["t"] >= 1 - 1e-3 for m in r["geom_last"]["walls"] for w in m if w["gap"] < 0.2)
+              for r in FB]
+        o["fallback"] = {"n": len(FB), "member_at_segment_end": int(sum(fe)),
+                         "b_last_over_bstar": summ([r["b_last_over_bstar"] for r in FB]),
+                         "mu1_last": summ([r["mu1_last"] for r in FB]),
+                         "mu1_last_over_b0": summ([r["mu1_last"] / r["mu1_b0"] for r in FB])}
+        mu_all = mu_near + [r["mu1_last"] for r in FB]
+        o["all"] = {"n": len(fold_rows) + len(FB), "member_at_segment_end": int(at_end + sum(fe)),
+                    "mu1_at_loss_min": float(min(mu_all)), "mu1_at_loss_max": float(max(mu_all)),
+                    "mu1_at_loss_median": float(np.median(mu_all))}
     if Q:
         by = defaultdict(dict)
         for r in Q:
@@ -101,3 +116,4 @@ if __name__ == "__main__":
     print("fold", o["n_fold"], "/", o["n_jobs"], o["status_counts"], "at end", o["member_at_segment_end_at_fold"])
     print("slopes", o["slopes"], "mu1 ratio", o["mu1_ratio"], "bf/bis", o["b_f_over_bisection"])
     print("quench", o.get("quench"))
+    print("fallback", o.get("fallback"), "all", o.get("all"), "mu1 near fold", o["mu1_min_smallest_delta"])
