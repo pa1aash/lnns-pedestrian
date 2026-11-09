@@ -1,0 +1,1464 @@
+{
+ "script": "experiments/E8/analyze.py",
+ "doc": "E8 analysis: open bidirectional corridor (counterflow), corrected-forward (CF), 50 + 50 agents, 60 s window.\n\n  python3 experiments/E8/analyze.py [--in data/E8/e8_counterflow.jsonl] [--out data/derived/E8_analysis.json]\n\nInput: experiments/E8/e8_counterflow.py (opengeo.open_run records). Arms C1, C2, C3_pub (published ORCA), C3_rvo2,\nC4_rvo2 (crush off); start-block lengths L in {12, 18, 30} m (start densities 1.39, 0.93, 0.56 m^-2); seeds 42-66,\nthe same seeds in every cell, so arms are paired by seed at each L. Partial input is allowed: every cell and\ncomparison of the full design is present in the JSON, with n = 0 / null where runs are missing.\n\nMethod (experiments/lib/openstats.py, which carries the full definitions):\n  per cell: n; throughput (sunk agents / t_end, per s) mean with a 95% percentile bootstrap interval (2000\n  resamples of seeds, numpy PCG64(12345), one generator, consumed in the fixed cell then comparison order); mean\n  speed in the measurement section x in [0, 20] m; wall leaks (total, runs with >= 1); stall episodes (>= 2 agents\n  below 0.05 m/s within 1.0 m single linkage in the section, persisting >= 2 s): runs with >= 1 (Wilson 95%),\n  episodes per run (bootstrap 95%), median / max lifetime, fraction censored at the window end, median / max size;\n  LP infeasibility per agent-step with ORCA (C3_pub: the published LP returned a velocity violating a half-plane,\n  i.e. constraints were dropped; C3_rvo2, C4_rvo2: RVO2 linearProgram3 used); gridlock runs = the window ran to the\n  end with agents left AND (a censored stall >= 20 s OR no agent sunk in the last 20 s).\n  paired by seed and L: C3_rvo2, C3_pub, C4_rvo2, C2 each against C1: mean throughput difference (arm - C1) with a\n  bootstrap 95% interval over seed pairs, ratio of means arm / C1 with a paired bootstrap 95% interval, Wilcoxon\n  signed-rank p; pooled over L by a stratified bootstrap (seed pairs resampled within each L; ratio = sum / sum).\nVerdict on the conference claim \"ORCA (C3) gridlocks counterflow / reduces counterflow throughput (coefficient\n  -5.0, p_HS = 0.598)\", evaluated on the pooled comparison for C3_pub (the published LP, the solver the conference\n  used, here in the corrected leak-free geometry; headline, decision C64) and, as the solver check, for C3_rvo2;\n  \"solvers_agree\" records whether the two statuses match. Two parts: (i) reduction = the pooled C3 - C1 difference interval lies below 0;\n  (ii) gridlock = C3 has >= 1 gridlock run and more gridlock runs than C1 (pooled over L).\n  confirmed: (i) and (ii). withdrawn: C3 pooled mean >= C1 pooled mean, or neither (i) nor (ii).\n  revised: exactly one of (i), (ii) holds with the C3 mean below C1. null (pending) when the pairs are absent.\nKeys avoid '.' (registry key paths split on '.'): L = 12 is stored as L12; comparison \"<arm>_over_c1\".\n",
+ "source": "/Users/palaash/Developer/lnns-wt/7B/data/E8/e8_counterflow.jsonl",
+ "n_lines": 375,
+ "complete": true,
+ "seeds": [
+  42,
+  66
+ ],
+ "n_bootstrap": 2000,
+ "rng": "PCG64(12345)",
+ "window_s": 60.0,
+ "gridlock_s": 20.0,
+ "cells": {
+  "C1": {
+   "L12": {
+    "arm": "C1",
+    "L_m": 12.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3888888888888888,
+    "throughput": {
+     "mean": 1.0372367628992898,
+     "sd": 0.6496148338626756,
+     "ci95": [
+      0.757966356037544,
+      1.2658537804294816
+     ],
+     "min": 0.0,
+     "max": 1.7699115044248626
+    },
+    "n_sunk_mean": 61.92,
+    "runs_all_sunk_before_window": 2,
+    "mean_speed_zone": {
+     "mean": 0.47955774621138836,
+     "sd": 0.175622301391448,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 15,
+     "runs_with_wilson95": [
+      0.40739127785127344,
+      0.7659694233580909
+     ],
+     "per_run_mean": 1.8,
+     "per_run_ci95": [
+      1.04,
+      2.6
+     ],
+     "total": 45,
+     "formation_rate_per_occupied_s": 0.030122498159180378,
+     "lifetime_median_s": 3.3000000000001433,
+     "lifetime_max_s": 47.39999999999686,
+     "n_censored": 3,
+     "frac_censored": 0.06666666666666667,
+     "size_median": 34.0,
+     "size_max": 100
+    },
+    "gridlock": {
+     "runs": 4,
+     "wilson95": [
+      0.06403347608577989,
+      0.34654013980238163
+     ],
+     "runs_censored_ge_20s": 2,
+     "runs_no_sink_last_20s": 4
+    },
+    "lp": null
+   },
+   "L18": {
+    "arm": "C1",
+    "L_m": 18.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9259259259259259,
+    "throughput": {
+     "mean": 1.0748943427319126,
+     "sd": 0.49722012608490274,
+     "ci95": [
+      0.8886195585359536,
+      1.256508863915475
+     ],
+     "min": 0.18333333333334362,
+     "max": 1.8125793003444692
+    },
+    "n_sunk_mean": 64.12,
+    "runs_all_sunk_before_window": 2,
+    "mean_speed_zone": {
+     "mean": 0.5285277066150517,
+     "sd": 0.14161169682604224,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 7,
+     "runs_with_wilson95": [
+      0.1428367383738157,
+      0.47576971896558296
+     ],
+     "per_run_mean": 1.04,
+     "per_run_ci95": [
+      0.36,
+      1.84
+     ],
+     "total": 26,
+     "formation_rate_per_occupied_s": 0.017412268952584884,
+     "lifetime_median_s": 2.899999999999443,
+     "lifetime_max_s": 11.30000000000175,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 24.0,
+     "size_max": 77
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   },
+   "L30": {
+    "arm": "C1",
+    "L_m": 30.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.5555555555555556,
+    "throughput": {
+     "mean": 1.076666666666727,
+     "sd": 0.3992469763794913,
+     "ci95": [
+      0.9206666666667184,
+      1.2266833333334022
+     ],
+     "min": 0.333333333333352,
+     "max": 1.6166666666667575
+    },
+    "n_sunk_mean": 64.6,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.6093534151887973,
+     "sd": 0.12865843770477825,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 6,
+     "runs_with_wilson95": [
+      0.11496157730326725,
+      0.43430059955238565
+     ],
+     "per_run_mean": 0.28,
+     "per_run_ci95": [
+      0.08,
+      0.48
+     ],
+     "total": 7,
+     "formation_rate_per_occupied_s": 0.004666666666666621,
+     "lifetime_median_s": 2.4999999999999134,
+     "lifetime_max_s": 3.2999999999993634,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 14.0,
+     "size_max": 20
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   }
+  },
+  "C2": {
+   "L12": {
+    "arm": "C2",
+    "L_m": 12.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3888888888888888,
+    "throughput": {
+     "mean": 0.9975810726270251,
+     "sd": 0.5999693919212457,
+     "ci95": [
+      0.768656193482384,
+      1.217631072627037
+     ],
+     "min": 0.0,
+     "max": 1.7061934823409874
+    },
+    "n_sunk_mean": 59.76,
+    "runs_all_sunk_before_window": 1,
+    "mean_speed_zone": {
+     "mean": 0.4841315642153691,
+     "sd": 0.15356084790031999,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 15,
+     "runs_with_wilson95": [
+      0.40739127785127344,
+      0.7659694233580909
+     ],
+     "per_run_mean": 2.4,
+     "per_run_ci95": [
+      1.32,
+      3.56
+     ],
+     "total": 60,
+     "formation_rate_per_occupied_s": 0.04005607850991349,
+     "lifetime_median_s": 2.85000000000043,
+     "lifetime_max_s": 16.800000000002363,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 33.0,
+     "size_max": 100
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": null
+   },
+   "L18": {
+    "arm": "C2",
+    "L_m": 18.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9259259259259259,
+    "throughput": {
+     "mean": 1.0856993487919777,
+     "sd": 0.5604552510919525,
+     "ci95": [
+      0.8646000000000487,
+      1.2823993487919885
+     ],
+     "min": 0.0,
+     "max": 1.8258170531313538
+    },
+    "n_sunk_mean": 64.76,
+    "runs_all_sunk_before_window": 1,
+    "mean_speed_zone": {
+     "mean": 0.5209013002415271,
+     "sd": 0.1586585583144696,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 9,
+     "runs_with_wilson95": [
+      0.20247656431735636,
+      0.5548184539895337
+     ],
+     "per_run_mean": 0.84,
+     "per_run_ci95": [
+      0.36,
+      1.4
+     ],
+     "total": 21,
+     "formation_rate_per_occupied_s": 0.01405716580761751,
+     "lifetime_median_s": 2.5999999999995027,
+     "lifetime_max_s": 40.29999999999634,
+     "n_censored": 2,
+     "frac_censored": 0.09523809523809523,
+     "size_median": 22.0,
+     "size_max": 100
+    },
+    "gridlock": {
+     "runs": 2,
+     "wilson95": [
+      0.02221993369109193,
+      0.24966512122957818
+     ],
+     "runs_censored_ge_20s": 2,
+     "runs_no_sink_last_20s": 2
+    },
+    "lp": null
+   },
+   "L30": {
+    "arm": "C2",
+    "L_m": 30.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.5555555555555556,
+    "throughput": {
+     "mean": 1.1253333333333966,
+     "sd": 0.38051865190087686,
+     "ci95": [
+      0.9746500000000546,
+      1.271400000000071
+     ],
+     "min": 0.20000000000001122,
+     "max": 1.633333333333425
+    },
+    "n_sunk_mean": 67.52,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.6239691110389757,
+     "sd": 0.13174029315501948,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 5,
+     "runs_with_wilson95": [
+      0.08860454100652487,
+      0.3913133553653824
+     ],
+     "per_run_mean": 0.32,
+     "per_run_ci95": [
+      0.08,
+      0.64
+     ],
+     "total": 8,
+     "formation_rate_per_occupied_s": 0.005333333333333282,
+     "lifetime_median_s": 2.799999999999463,
+     "lifetime_max_s": 8.400000000000302,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 23.0,
+     "size_max": 77
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   }
+  },
+  "C3_rvo2": {
+   "L12": {
+    "arm": "C3_rvo2",
+    "L_m": 12.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3888888888888888,
+    "throughput": {
+     "mean": 0.9008552779653891,
+     "sd": 0.5637959187187176,
+     "ci95": [
+      0.6846666666667051,
+      1.1069172293496001
+     ],
+     "min": 0.0,
+     "max": 1.6880486158002268
+    },
+    "n_sunk_mean": 54.0,
+    "runs_all_sunk_before_window": 1,
+    "mean_speed_zone": {
+     "mean": 0.4510113272548834,
+     "sd": 0.15240358591637865,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 16,
+     "runs_with_wilson95": [
+      0.44518154601046633,
+      0.7975234356826436
+     ],
+     "per_run_mean": 2.08,
+     "per_run_ci95": [
+      1.24,
+      2.92
+     ],
+     "total": 52,
+     "formation_rate_per_occupied_s": 0.03470600013348428,
+     "lifetime_median_s": 3.099999999999936,
+     "lifetime_max_s": 41.999999999996604,
+     "n_censored": 2,
+     "frac_censored": 0.038461538461538464,
+     "size_median": 24.0,
+     "size_max": 98
+    },
+    "gridlock": {
+     "runs": 2,
+     "wilson95": [
+      0.02221993369109193,
+      0.24966512122957818
+     ],
+     "runs_censored_ge_20s": 2,
+     "runs_no_sink_last_20s": 2
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.33561305684905374,
+     "rate_pct": 33.56130568490538,
+     "run_rate_mean": 0.33996744347141095,
+     "run_rate_ci95": [
+      0.3082903836945868,
+      0.3668357166681933
+     ],
+     "calls_total": 13052460,
+     "infeasible_total": 4380576,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L18": {
+    "arm": "C3_rvo2",
+    "L_m": 18.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9259259259259259,
+    "throughput": {
+     "mean": 1.2861462006164102,
+     "sd": 0.43692520137797397,
+     "ci95": [
+      1.1203712424924508,
+      1.4477551324764566
+     ],
+     "min": 0.033333333333335206,
+     "max": 2.0938023450586676
+    },
+    "n_sunk_mean": 76.0,
+    "runs_all_sunk_before_window": 2,
+    "mean_speed_zone": {
+     "mean": 0.5897537109916036,
+     "sd": 0.13053335535509425,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 5,
+     "runs_with_wilson95": [
+      0.08860454100652487,
+      0.3913133553653824
+     ],
+     "per_run_mean": 0.48,
+     "per_run_ci95": [
+      0.08,
+      1.2
+     ],
+     "total": 12,
+     "formation_rate_per_occupied_s": 0.008096073404398788,
+     "lifetime_median_s": 3.7499999999992735,
+     "lifetime_max_s": 12.700000000000797,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 35.5,
+     "size_max": 85
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.36476791928091257,
+     "rate_pct": 36.47679192809126,
+     "run_rate_mean": 0.3648458276413988,
+     "run_rate_ci95": [
+      0.34790451314967563,
+      0.3789637658111927
+     ],
+     "calls_total": 11691708,
+     "infeasible_total": 4264760,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L30": {
+    "arm": "C3_rvo2",
+    "L_m": 30.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.5555555555555556,
+    "throughput": {
+     "mean": 1.3980000000000785,
+     "sd": 0.23030374468258383,
+     "ci95": [
+      1.3033333333334065,
+      1.4833333333334167
+     ],
+     "min": 0.7333333333333745,
+     "max": 1.6500000000000927
+    },
+    "n_sunk_mean": 83.88,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.7169890290595298,
+     "sd": 0.08938143592421727,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "per_run_mean": 0.0,
+     "per_run_ci95": [
+      0.0,
+      0.0
+     ],
+     "total": 0,
+     "formation_rate_per_occupied_s": 0.0,
+     "lifetime_median_s": null,
+     "lifetime_max_s": null,
+     "n_censored": 0,
+     "frac_censored": null,
+     "size_median": null,
+     "size_max": null
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.31513666879524455,
+     "rate_pct": 31.513666879524454,
+     "run_rate_mean": 0.31294532521634977,
+     "run_rate_ci95": [
+      0.2997892076240866,
+      0.3265422160930915
+     ],
+     "calls_total": 11209362,
+     "infeasible_total": 3532481,
+     "n_runs_with_calls": 25
+    }
+   }
+  },
+  "C4_rvo2": {
+   "L12": {
+    "arm": "C4_rvo2",
+    "L_m": 12.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3888888888888888,
+    "throughput": {
+     "mean": 0.9253333333333853,
+     "sd": 0.5146492872713598,
+     "ci95": [
+      0.7332833333333745,
+      1.1147000000000624
+     ],
+     "min": 0.0,
+     "max": 1.6500000000000927
+    },
+    "n_sunk_mean": 55.52,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.45085219504202073,
+     "sd": 0.13894877928015154,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 16,
+     "runs_with_wilson95": [
+      0.44518154601046633,
+      0.7975234356826436
+     ],
+     "per_run_mean": 1.44,
+     "per_run_ci95": [
+      0.92,
+      2.0
+     ],
+     "total": 36,
+     "formation_rate_per_occupied_s": 0.024016010673782288,
+     "lifetime_median_s": 3.050000000000106,
+     "lifetime_max_s": 43.799999999996885,
+     "n_censored": 2,
+     "frac_censored": 0.05555555555555555,
+     "size_median": 33.0,
+     "size_max": 100
+    },
+    "gridlock": {
+     "runs": 2,
+     "wilson95": [
+      0.02221993369109193,
+      0.24966512122957818
+     ],
+     "runs_censored_ge_20s": 2,
+     "runs_no_sink_last_20s": 2
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.33831495790997196,
+     "rate_pct": 33.831495790997195,
+     "run_rate_mean": 0.3422871633087692,
+     "run_rate_ci95": [
+      0.3104757863729812,
+      0.36595603436016527
+     ],
+     "calls_total": 13032897,
+     "infeasible_total": 4409224,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L18": {
+    "arm": "C4_rvo2",
+    "L_m": 18.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9259259259259259,
+    "throughput": {
+     "mean": 1.4115759172170417,
+     "sd": 0.3658074773894499,
+     "ci95": [
+      1.2646404831531828,
+      1.5426027782590042
+     ],
+     "min": 0.5666666666666985,
+     "max": 1.7717930545713096
+    },
+    "n_sunk_mean": 83.96,
+    "runs_all_sunk_before_window": 4,
+    "mean_speed_zone": {
+     "mean": 0.6236995615276257,
+     "sd": 0.10905643558234404,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 3,
+     "runs_with_wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "per_run_mean": 0.28,
+     "per_run_ci95": [
+      0.0,
+      0.64
+     ],
+     "total": 7,
+     "formation_rate_per_occupied_s": 0.004713804713804668,
+     "lifetime_median_s": 2.2000000000003284,
+     "lifetime_max_s": 5.500000000000844,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 16.0,
+     "size_max": 21
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.3595017093121559,
+     "rate_pct": 35.95017093121559,
+     "run_rate_mean": 0.35727946104377956,
+     "run_rate_ci95": [
+      0.3465940019684122,
+      0.3675714998234592
+     ],
+     "calls_total": 11271493,
+     "infeasible_total": 4052121,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L30": {
+    "arm": "C4_rvo2",
+    "L_m": 30.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.5555555555555556,
+    "throughput": {
+     "mean": 1.442265377141172,
+     "sd": 0.2872035944437769,
+     "ci95": [
+      1.318775585904643,
+      1.5455998989411432
+     ],
+     "min": 0.5500000000000309,
+     "max": 1.7205781142464753
+    },
+    "n_sunk_mean": 86.36,
+    "runs_all_sunk_before_window": 2,
+    "mean_speed_zone": {
+     "mean": 0.746353396617126,
+     "sd": 0.13254731076915272,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "per_run_mean": 0.0,
+     "per_run_ci95": [
+      0.0,
+      0.0
+     ],
+     "total": 0,
+     "formation_rate_per_occupied_s": 0.0,
+     "lifetime_median_s": null,
+     "lifetime_max_s": null,
+     "n_censored": 0,
+     "frac_censored": null,
+     "size_median": null,
+     "size_max": null
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.2928135968793067,
+     "rate_pct": 29.281359687930667,
+     "run_rate_mean": 0.28796425744019766,
+     "run_rate_ci95": [
+      0.26907569377205387,
+      0.3060694536929476
+     ],
+     "calls_total": 10832721,
+     "infeasible_total": 3171968,
+     "n_runs_with_calls": 25
+    }
+   }
+  },
+  "C3_pub": {
+   "L12": {
+    "arm": "C3_pub",
+    "L_m": 12.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3888888888888888,
+    "throughput": {
+     "mean": 0.8040000000000451,
+     "sd": 0.5109966659310233,
+     "ci95": [
+      0.6033166666667005,
+      0.994683333333389
+     ],
+     "min": 0.0,
+     "max": 1.5833333333334223
+    },
+    "n_sunk_mean": 48.24,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.422807050519493,
+     "sd": 0.12652713459097814,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 18,
+     "runs_with_wilson95": [
+      0.5242302810344169,
+      0.8571632616261843
+     ],
+     "per_run_mean": 1.84,
+     "per_run_ci95": [
+      1.12,
+      2.64
+     ],
+     "total": 46,
+     "formation_rate_per_occupied_s": 0.03066666666666637,
+     "lifetime_median_s": 2.8499999999999317,
+     "lifetime_max_s": 44.69999999999692,
+     "n_censored": 1,
+     "frac_censored": 0.021739130434782608,
+     "size_median": 29.0,
+     "size_max": 100
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 1,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": {
+     "kind": "published_dropped_constraints",
+     "rate": 0.6424392141340197,
+     "rate_pct": 64.24392141340196,
+     "run_rate_mean": 0.6497098451306771,
+     "run_rate_ci95": [
+      0.5886165433270412,
+      0.6981786850049778
+     ],
+     "calls_total": 13430178,
+     "infeasible_total": 8628073,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L18": {
+    "arm": "C3_pub",
+    "L_m": 18.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9259259259259259,
+    "throughput": {
+     "mean": 1.176000000000066,
+     "sd": 0.34156773635478455,
+     "ci95": [
+      1.0406500000000585,
+      1.30266666666674
+     ],
+     "min": 0.40000000000002245,
+     "max": 1.5333333333334194
+    },
+    "n_sunk_mean": 70.56,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.5519224097598934,
+     "sd": 0.09107707472025675,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 6,
+     "runs_with_wilson95": [
+      0.11496157730326725,
+      0.43430059955238565
+     ],
+     "per_run_mean": 0.52,
+     "per_run_ci95": [
+      0.16,
+      1.0
+     ],
+     "total": 13,
+     "formation_rate_per_occupied_s": 0.008666666666666583,
+     "lifetime_median_s": 2.800000000000422,
+     "lifetime_max_s": 4.5000000000006875,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 27.0,
+     "size_max": 56
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "published_dropped_constraints",
+     "rate": 0.7175337411924979,
+     "rate_pct": 71.75337411924978,
+     "run_rate_mean": 0.7180516964339603,
+     "run_rate_ci95": [
+      0.7077250968542426,
+      0.7284134530920341
+     ],
+     "calls_total": 12261422,
+     "infeasible_total": 8797984,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L30": {
+    "arm": "C3_pub",
+    "L_m": 30.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.5555555555555556,
+    "throughput": {
+     "mean": 1.182666666666733,
+     "sd": 0.2646835986747484,
+     "ci95": [
+      1.0766000000000604,
+      1.2780000000000717
+     ],
+     "min": 0.40000000000002245,
+     "max": 1.5166666666667519
+    },
+    "n_sunk_mean": 70.96,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.6264788564904252,
+     "sd": 0.0916077912702403,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "stalls": {
+     "runs_with": 1,
+     "runs_with_wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "per_run_mean": 0.16,
+     "per_run_ci95": [
+      0.0,
+      0.48
+     ],
+     "total": 4,
+     "formation_rate_per_occupied_s": 0.002666666666666641,
+     "lifetime_median_s": 2.999999999999423,
+     "lifetime_max_s": 6.099999999998806,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 29.5,
+     "size_max": 51
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "published_dropped_constraints",
+     "rate": 0.6726871415378854,
+     "rate_pct": 67.26871415378855,
+     "run_rate_mean": 0.6719221447673205,
+     "run_rate_ci95": [
+      0.6566436324109278,
+      0.6858692792705942
+     ],
+     "calls_total": 12060898,
+     "infeasible_total": 8113211,
+     "n_runs_with_calls": 25
+    }
+   }
+  }
+ },
+ "totals": {
+  "C1": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_stall": 28,
+   "stalls": 78,
+   "gridlock_runs": 4,
+   "lp_rate_pct": null
+  },
+  "C2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_stall": 29,
+   "stalls": 89,
+   "gridlock_runs": 3,
+   "lp_rate_pct": null
+  },
+  "C3_rvo2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_stall": 21,
+   "stalls": 64,
+   "gridlock_runs": 2,
+   "lp_rate_pct": 33.870991248981674
+  },
+  "C4_rvo2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_stall": 19,
+   "stalls": 43,
+   "gridlock_runs": 2,
+   "lp_rate_pct": 33.10833665294793
+  },
+  "C3_pub": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_stall": 25,
+   "stalls": 63,
+   "gridlock_runs": 1,
+   "lp_rate_pct": 67.64921356992059
+  },
+  "all": {
+   "n": 375,
+   "leaks": 0
+  }
+ },
+ "paired": {
+  "L12": {
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.9008552779653891,
+    "c1_mean": 1.0372367628992898,
+    "diff": -0.13638148493390045,
+    "diff_ci95": [
+     -0.35706062961334417,
+     0.11043069809362674
+    ],
+    "ratio": 0.8685146055248887,
+    "ratio_ci95": [
+     0.6851953524257144,
+     1.1251725341144811
+    ],
+    "wilcoxon_p": 0.15725685130357636,
+    "levels": [
+     12.0
+    ]
+   },
+   "c3_pub_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.8040000000000451,
+    "c1_mean": 1.0372367628992898,
+    "diff": -0.23323676289924453,
+    "diff_ci95": [
+     -0.5087165564095838,
+     0.07209362058159861
+    ],
+    "ratio": 0.7751364285938921,
+    "ratio_ci95": [
+     0.5764899693516463,
+     1.085139517406383
+    ],
+    "wilcoxon_p": 0.11597146171308616,
+    "levels": [
+     12.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.9253333333333853,
+    "c1_mean": 1.0372367628992898,
+    "diff": -0.11190342956590438,
+    "diff_ci95": [
+     -0.34040732025243914,
+     0.13212990376744244
+    ],
+    "ratio": 0.8921138995757233,
+    "ratio_ci95": [
+     0.711600252769715,
+     1.1519867509628066
+    ],
+    "wilcoxon_p": 0.24137852624781375,
+    "levels": [
+     12.0
+    ]
+   },
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.9975810726270251,
+    "c1_mean": 1.0372367628992898,
+    "diff": -0.03965569027226465,
+    "diff_ci95": [
+     -0.21389011314017345,
+     0.15224597925568362
+    ],
+    "ratio": 0.9617679475981753,
+    "ratio_ci95": [
+     0.8078971175457837,
+     1.1672066279385596
+    ],
+    "wilcoxon_p": 0.3680958129277412,
+    "levels": [
+     12.0
+    ]
+   }
+  },
+  "L18": {
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.2861462006164102,
+    "c1_mean": 1.0748943427319126,
+    "diff": 0.2112518578844975,
+    "diff_ci95": [
+     0.0035175638238528293,
+     0.4173799386812142
+    ],
+    "ratio": 1.196532672548622,
+    "ratio_ci95": [
+     1.002941977014122,
+     1.4493893108077516
+    ],
+    "wilcoxon_p": 0.0653224086718329,
+    "levels": [
+     18.0
+    ]
+   },
+   "c3_pub_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.176000000000066,
+    "c1_mean": 1.0748943427319126,
+    "diff": 0.10110565726815335,
+    "diff_ci95": [
+     -0.09108278753881538,
+     0.28783899060149665
+    ],
+    "ratio": 1.0940610190683366,
+    "ratio_ci95": [
+     0.9244735300114081,
+     1.3141228192839447
+    ],
+    "wilcoxon_p": 0.3129483293204478,
+    "levels": [
+     18.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.4115759172170417,
+    "c1_mean": 1.0748943427319126,
+    "diff": 0.3366815744851291,
+    "diff_ci95": [
+     0.12181816059846923,
+     0.5555870301790352
+    ],
+    "ratio": 1.3132229476893806,
+    "ratio_ci95": [
+     1.1017854741194275,
+     1.6172479821460863
+    ],
+    "wilcoxon_p": 0.0049249886136962595,
+    "levels": [
+     18.0
+    ]
+   },
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.0856993487919777,
+    "c1_mean": 1.0748943427319126,
+    "diff": 0.010805006060065013,
+    "diff_ci95": [
+     -0.1912248983594,
+     0.21246716630248852
+    ],
+    "ratio": 1.0100521564125116,
+    "ratio_ci95": [
+     0.8258454552615883,
+     1.2172991343525437
+    ],
+    "wilcoxon_p": 0.6091728904475721,
+    "levels": [
+     18.0
+    ]
+   }
+  },
+  "L30": {
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.3980000000000785,
+    "c1_mean": 1.076666666666727,
+    "diff": 0.3213333333333514,
+    "diff_ci95": [
+     0.18200000000001026,
+     0.4720333333333598
+    ],
+    "ratio": 1.298452012383901,
+    "ratio_ci95": [
+     1.151968426067623,
+     1.4989387627021324
+    ],
+    "wilcoxon_p": 0.0009171097134594482,
+    "levels": [
+     30.0
+    ]
+   },
+   "c3_pub_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.182666666666733,
+    "c1_mean": 1.076666666666727,
+    "diff": 0.10600000000000592,
+    "diff_ci95": [
+     -0.05936666666667011,
+     0.27536666666668197
+    ],
+    "ratio": 1.098452012383901,
+    "ratio_ci95": [
+     0.9501725500683698,
+     1.293978209847251
+    ],
+    "wilcoxon_p": 0.3036317629719919,
+    "levels": [
+     30.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.442265377141172,
+    "c1_mean": 1.076666666666727,
+    "diff": 0.36559871047444475,
+    "diff_ci95": [
+     0.15474735248545657,
+     0.572669389647646
+    ],
+    "ratio": 1.3395653657657192,
+    "ratio_ci95": [
+     1.1317145861248874,
+     1.6172323851920982
+    ],
+    "wilcoxon_p": 0.0030878782272338867,
+    "levels": [
+     30.0
+    ]
+   },
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 1.1253333333333966,
+    "c1_mean": 1.076666666666727,
+    "diff": 0.04866666666666937,
+    "diff_ci95": [
+     -0.15401666666667554,
+     0.23336666666667963
+    ],
+    "ratio": 1.0452012383900928,
+    "ratio_ci95": [
+     0.8707505557479905,
+     1.2436720055542865
+    ],
+    "wilcoxon_p": 0.40411023794053835,
+    "levels": [
+     30.0
+    ]
+   }
+  }
+ },
+ "pooled": {
+  "c3_rvo2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 1.1950004928606257,
+   "c1_mean": 1.0629325907659766,
+   "diff": 0.13206790209464947,
+   "diff_ci95": [
+    0.019699584509516095,
+    0.24911688103217025
+   ],
+   "ratio": 1.124248614862282,
+   "ratio_ci95": [
+    1.0171844632702178,
+    1.2558653110277236
+   ],
+   "wilcoxon_p": 0.05320150773215078,
+   "levels": [
+    12.0,
+    18.0,
+    30.0
+   ]
+  },
+  "c3_pub_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 1.0542222222222812,
+   "c1_mean": 1.0629325907659766,
+   "diff": -0.008710368543695076,
+   "diff_ci95": [
+    -0.13306585545206048,
+    0.12518812854753544
+   ],
+   "ratio": 0.991805342484213,
+   "ratio_ci95": [
+    0.8863440544191412,
+    1.1285310138756373
+   ],
+   "wilcoxon_p": 0.9430231760410078,
+   "levels": [
+    12.0,
+    18.0,
+    30.0
+   ]
+  },
+  "c4_rvo2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 1.2597248758971997,
+   "c1_mean": 1.0629325907659766,
+   "diff": 0.19679228513122315,
+   "diff_ci95": [
+    0.07384900810292168,
+    0.3193731482101077
+   ],
+   "ratio": 1.1851408893102144,
+   "ratio_ci95": [
+    1.0642731621276518,
+    1.334382697513247
+   ],
+   "wilcoxon_p": 0.006896690612976466,
+   "levels": [
+    12.0,
+    18.0,
+    30.0
+   ]
+  },
+  "c2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 1.0695379182507998,
+   "c1_mean": 1.0629325907659766,
+   "diff": 0.006605327484823234,
+   "diff_ci95": [
+    -0.10825550516128929,
+    0.12221697380172886
+   ],
+   "ratio": 1.0062142487136114,
+   "ratio_ci95": [
+    0.9027315207304282,
+    1.1238395581919907
+   ],
+   "wilcoxon_p": 0.6625584906425435,
+   "levels": [
+    12.0,
+    18.0,
+    30.0
+   ]
+  }
+ },
+ "verdict": {
+  "conference": {
+   "claim": "ORCA (C3) gridlocks counterflow / reduces counterflow throughput",
+   "coefficient": -5.0,
+   "p_HS": 0.598
+  },
+  "status": "withdrawn",
+  "evidence": "C3_pub/C1 throughput 0.99 [0.89, 1.13] pooled over L = 12, 18, 30 m (diff -0.009 [-0.133, +0.125] sunk/s, 75 seed pairs); gridlock runs C3_pub 1 vs C1 4 of 75",
+  "headline_arm": "C3_pub",
+  "solver_check_arm": "C3_rvo2",
+  "c3_pub": {
+   "status": "withdrawn",
+   "reduction_significant": false,
+   "gridlock_excess": false,
+   "gridlock_runs_c3": 1,
+   "gridlock_runs_c1": 4,
+   "evidence": "C3_pub/C1 throughput 0.99 [0.89, 1.13] pooled over L = 12, 18, 30 m (diff -0.009 [-0.133, +0.125] sunk/s, 75 seed pairs); gridlock runs C3_pub 1 vs C1 4 of 75"
+  },
+  "c3_rvo2": {
+   "status": "withdrawn",
+   "reduction_significant": false,
+   "gridlock_excess": false,
+   "gridlock_runs_c3": 2,
+   "gridlock_runs_c1": 4,
+   "evidence": "C3_rvo2/C1 throughput 1.12 [1.02, 1.26] pooled over L = 12, 18, 30 m (diff +0.132 [+0.020, +0.249] sunk/s, 75 seed pairs); gridlock runs C3_rvo2 2 vs C1 4 of 75"
+  },
+  "solvers_agree": true,
+  "rule": "(i) pooled C3 - C1 throughput interval below 0; (ii) C3 gridlock runs >= 1 and > C1. confirmed: (i) and (ii); withdrawn: C3 mean >= C1 or neither; revised: exactly one.",
+  "gridlock_definition": "window ran to the end with agents left AND (censored stall >= 20 s OR no agent sunk in the last 20 s)"
+ },
+ "anomalies": []
+}

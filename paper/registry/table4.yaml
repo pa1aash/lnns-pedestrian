@@ -61,3 +61,37 @@ TabFourNoiseK: {file: E5a_analysis.json, key: "per_sigma.s0p05.k", fmt: "{:d}"}
 TabFourNoiseN: {file: E5a_analysis.json, key: "per_sigma.s0p05.n", fmt: "{:d}"}
 TabFourNoiseLo: {file: E5a_analysis.json, key: "per_sigma.s0p05.wilson.1", fmt: "{:.2f}"}
 TabFourNoiseHi: {file: E5a_analysis.json, key: "per_sigma.s0p05.wilson.2", fmt: "{:.2f}"}
+
+# ---- open counterflow corridor (experiments/E8/analyze.py; verdict on published ORCA, RVO2 as check, decision C64)
+# Source: data/derived/E8_analysis.json (experiments/E8/analyze.py). CF, 50 + 50 agents, 60 s, seeds 42-66 (n = 25 per arm and L).
+# L12 = densest start (1.39 m^-2). Ratios = mean throughput arm / C1, paired by seed; pooled = stratified over L = 12, 18, 30 m.
+# Gridlock run: window ran to the end with agents left AND (censored stall >= 20 s OR no agent sunk in the last 20 s).
+EeightN: {file: E8_analysis.json, key: "cells.C1.L12.n", fmt: "{:d}"}
+EeightCThreeRatio: {file: E8_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio", fmt: "{:.2f}"}
+EeightCThreeRatioLo: {file: E8_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EeightCThreeRatioHi: {file: E8_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EeightCThreePubRatio: {file: E8_analysis.json, key: "pooled.c3_pub_over_c1.ratio", fmt: "{:.2f}"}
+EeightCThreePubRatioLo: {file: E8_analysis.json, key: "pooled.c3_pub_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EeightCThreePubRatioHi: {file: E8_analysis.json, key: "pooled.c3_pub_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EeightCThreeRatioDense: {file: E8_analysis.json, key: "paired.L12.c3_rvo2_over_c1.ratio", fmt: "{:.2f}"}
+EeightCThreeRatioDenseLo: {file: E8_analysis.json, key: "paired.L12.c3_rvo2_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EeightCThreeRatioDenseHi: {file: E8_analysis.json, key: "paired.L12.c3_rvo2_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EeightCTwoRatio: {file: E8_analysis.json, key: "pooled.c2_over_c1.ratio", fmt: "{:.2f}"}
+EeightCFourRatio: {file: E8_analysis.json, key: "pooled.c4_rvo2_over_c1.ratio", fmt: "{:.2f}"}
+EeightCOneTpDense: {file: E8_analysis.json, key: "cells.C1.L12.throughput.mean", fmt: "{:.2f}"}
+EeightCThreeTpDense: {file: E8_analysis.json, key: "cells.C3_rvo2.L12.throughput.mean", fmt: "{:.2f}"}
+EeightLeaks: {file: E8_analysis.json, key: "totals.all.leaks", fmt: "{:d}"}
+EeightCOneStallRuns: {file: E8_analysis.json, key: "totals.C1.runs_with_stall", fmt: "{:d}"}
+EeightCThreeStallRuns: {file: E8_analysis.json, key: "totals.C3_rvo2.runs_with_stall", fmt: "{:d}"}
+EeightCThreePubStallRuns: {file: E8_analysis.json, key: "totals.C3_pub.runs_with_stall", fmt: "{:d}"}
+EeightCOneGridlock: {file: E8_analysis.json, key: "totals.C1.gridlock_runs", fmt: "{:d}"}
+EeightCThreeGridlock: {file: E8_analysis.json, key: "totals.C3_rvo2.gridlock_runs", fmt: "{:d}"}
+EeightCThreePubGridlock: {file: E8_analysis.json, key: "totals.C3_pub.gridlock_runs", fmt: "{:d}"}
+EeightRunsTotal: {file: E8_analysis.json, key: "totals.C1.n", fmt: "{:d}"}
+EeightLPPub: {file: E8_analysis.json, key: "totals.C3_pub.lp_rate_pct", fmt: "{:.1f}"}
+EeightLPRvo: {file: E8_analysis.json, key: "totals.C3_rvo2.lp_rate_pct", fmt: "{:.1f}"}
+# Published LP (headline arm for Table 4, decision C64), densest start
+EeightCThreePubRatioDense: {file: E8_analysis.json, key: "paired.L12.c3_pub_over_c1.ratio", fmt: "{:.2f}"}
+EeightCThreePubRatioDenseLo: {file: E8_analysis.json, key: "paired.L12.c3_pub_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EeightCThreePubRatioDenseHi: {file: E8_analysis.json, key: "paired.L12.c3_pub_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EeightCThreePubTpDense: {file: E8_analysis.json, key: "cells.C3_pub.L12.throughput.mean", fmt: "{:.2f}"}
