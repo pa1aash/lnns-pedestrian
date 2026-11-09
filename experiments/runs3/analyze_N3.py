@@ -103,6 +103,7 @@ def main():
                           "sign_test_p": float(stats.binomtest(pos, len(diffs)).pvalue) if diffs else None},
          "E4_full": {"ratio_median": E4["per_condition"]["full"]["ratio_median"],
                      "weibull_k": E4["per_condition"]["full"]["weibull"]["k"],
+                     "weibull_ci95": E4["per_condition"]["full"]["weibull"]["ci95"],
                      "n_fits": E4["per_condition"]["full"]["n_arrhenius_fits"],
                      "ratio_ci_covers_1": E4["per_condition"]["full"]["ratio_ci_covers_1"]},
          "ratio_sign_test_vs_1": {"above": int(sum(r > 1 for r in ratios)), "n": len(ratios),

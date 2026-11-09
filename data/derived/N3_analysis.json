@@ -1,0 +1,584 @@
+{
+ "script": "experiments/runs3/analyze_N3.py",
+ "doc": "Analysis of run-N3 (E4 full condition at equal temperature across agents).\n\nInputs: data/N3/n3.jsonl; data/derived/E4_analysis.json (E4 full, blocker-only temperature) for comparison.\nOutput: data/derived/N3_analysis.json.\nDefinitions as experiments/E4/analyze.py: lambda_hat per (snapshot, level), censored exponential, exact\nPoisson 95% interval (experiments/E3/survival.exp_rate); Arrhenius weighted least squares of ln lambda_hat\non 1 / k_B T_eff over the three levels (weights = events), ratio r = -slope / dU_full, 95% interval from\n2000 parametric resamples (Poisson, PCG64(12345)); fitted where every level has >= 3 events; prefactor nu_hat\nwith the slope held at -dU_full; Weibull shape shared over the (snapshot, level) groups with a scale per group\n(experiments/E3/survival.weibull_pool). Paired with E4: per snapshot, r(N3) - r(E4); the sign of the\ndifference over snapshots (sign test).\n",
+ "n_snapshots": 9,
+ "n_runs": 540,
+ "events": 397,
+ "snapshots": {
+  "E1b_seed158": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.011529836333983726,
+     "ci95": [
+      0.00704272356953071,
+      0.017806897092003875
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 1734.6299999984224,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.020955023486343392,
+     "kT_eff": 1.0242777795348654,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.0032263508482850266,
+     "ci95": [
+      0.0017178959454722132,
+      0.005517158209866452
+     ],
+     "events": 13,
+     "n": 20,
+     "exposure_s": 4029.3199999963354,
+     "censored_frac": 0.35,
+     "sigma_blocker": 0.016231691396398646,
+     "kT_eff": 0.6145666677209192,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.002049125987499784,
+     "ci95": [
+      0.0011936914003746637,
+      0.0032808492079442644
+     ],
+     "events": 17,
+     "n": 20,
+     "exposure_s": 8296.219999992456,
+     "censored_frac": 0.15,
+     "sigma_blocker": 0.013718283045106574,
+     "kT_eff": 0.438976191229228,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 1.536416669302298,
+   "arrhenius": {
+    "slope": -1.3404377524760438,
+    "intercept": -3.252544279175792,
+    "ratio": 0.8724441613125362,
+    "ratio_ci95": [
+     0.5127310568323336,
+     1.2383692959748027
+    ],
+    "nu_hat": 0.052796623837898
+   },
+   "E4_ratio": 1.1752898417586741
+  },
+  "E1b_seed162": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.04717982590648531,
+     "ci95": [
+      0.02881866336112631,
+      0.07286541459909576
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 423.90999999961446,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.042924598209376934,
+     "kT_eff": 4.332767700802151,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.023009399339651165,
+     "ci95": [
+      0.014054738884061451,
+      0.03553615110583482
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 869.2099999992095,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.03324925080151231,
+     "kT_eff": 2.5996606204812904,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.006081319403063216,
+     "ci95": [
+      0.00371462787963094,
+      0.009392104593434203
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 3288.7599999970103,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.02810074578143367,
+     "kT_eff": 1.856900443200922,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 6.4991515512032265,
+   "arrhenius": {
+    "slope": -6.657551162034666,
+    "intercept": -1.4151274440977177,
+    "ratio": 1.024372352234518,
+    "ratio_ci95": [
+     0.7510867447991874,
+     1.285258443023708
+    ],
+    "nu_hat": 0.22853673294796364
+   },
+   "E4_ratio": 0.9689143505748651
+  },
+  "E1b_seed170": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.0,
+     "ci95": [
+      0.0,
+      0.0006148132423528818
+     ],
+     "events": 0,
+     "n": 20,
+     "exposure_s": 5999.999999994543,
+     "censored_frac": 1.0,
+     "sigma_blocker": 0.006463912201673543,
+     "kT_eff": 0.08546976601299623,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.0,
+     "ci95": [
+      0.0,
+      0.0006148132423528818
+     ],
+     "events": 0,
+     "n": 20,
+     "exposure_s": 5999.999999994543,
+     "censored_frac": 1.0,
+     "sigma_blocker": 0.00500692486168571,
+     "kT_eff": 0.05128185960779774,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.0,
+     "ci95": [
+      0.0,
+      0.00020493774745096056
+     ],
+     "events": 0,
+     "n": 20,
+     "exposure_s": 17999.999999983633,
+     "censored_frac": 1.0,
+     "sigma_blocker": 0.004231623849959667,
+     "kT_eff": 0.03662989971985553,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 0.12820464901949435,
+   "arrhenius": null
+  },
+  "E1b_seed192": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.0029192431198773925,
+     "ci95": [
+      0.0014572756474726869,
+      0.005223332319556236
+     ],
+     "events": 11,
+     "n": 20,
+     "exposure_s": 3768.0999999965734,
+     "censored_frac": 0.45,
+     "sigma_blocker": 0.10296456473508842,
+     "kT_eff": 24.611567735420294,
+     "t_cens": 300.0,
+     "other_exit_first": 19
+    },
+    "b2p5": {
+     "lam": 0.0013578777276381205,
+     "ci95": [
+      0.0004983171942382654,
+      0.0029555281516411226
+     ],
+     "events": 6,
+     "n": 20,
+     "exposure_s": 4418.659999995981,
+     "censored_frac": 0.7,
+     "sigma_blocker": 0.07975600889369859,
+     "kT_eff": 14.766940641252177,
+     "t_cens": 300.0,
+     "other_exit_first": 15
+    },
+    "b3p5": {
+     "lam": 0.0003389157272490649,
+     "ci95": [
+      0.00011004501411718871,
+      0.0007909162504894473
+     ],
+     "events": 5,
+     "n": 20,
+     "exposure_s": 14752.929999986583,
+     "censored_frac": 0.75,
+     "sigma_blocker": 0.06740613025667477,
+     "kT_eff": 10.547814743751555,
+     "t_cens": 900.0,
+     "other_exit_first": 17
+    }
+   },
+   "dU": 36.91735160313044,
+   "arrhenius": {
+    "slope": -38.43848599493711,
+    "intercept": -4.215524721758522,
+    "ratio": 1.0412037788668915,
+    "ratio_ci95": [
+     0.6020308527327574,
+     1.5270969181169918
+    ],
+    "nu_hat": 0.013469912632119505
+   },
+   "E4_ratio": 1.3050630510108485
+  },
+  "E1b_seed237": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.00672713614602982,
+     "ci95": [
+      0.003986927223751736,
+      0.010631775353848802
+     ],
+     "events": 18,
+     "n": 20,
+     "exposure_s": 2675.7299999975667,
+     "censored_frac": 0.1,
+     "sigma_blocker": 0.06068024086322892,
+     "kT_eff": 6.843212618825835,
+     "t_cens": 300.0,
+     "other_exit_first": 13
+    },
+    "b2p5": {
+     "lam": 0.0009619232308316687,
+     "ci95": [
+      0.0003123338547187908,
+      0.0022448079384317734
+     ],
+     "events": 5,
+     "n": 20,
+     "exposure_s": 5197.9199999952725,
+     "censored_frac": 0.75,
+     "sigma_blocker": 0.04700271246142807,
+     "kT_eff": 4.105927571295501,
+     "t_cens": 300.0,
+     "other_exit_first": 10
+    },
+    "b3p5": {
+     "lam": 0.00041254097047550544,
+     "ci95": [
+      0.0001513952653699257,
+      0.0008979280145249185
+     ],
+     "events": 6,
+     "n": 20,
+     "exposure_s": 14544.009999986774,
+     "censored_frac": 0.7,
+     "sigma_blocker": 0.03972454242055701,
+     "kT_eff": 2.9328054080682153,
+     "t_cens": 900.0,
+     "other_exit_first": 12
+    }
+   },
+   "dU": 10.264818928238753,
+   "arrhenius": {
+    "slope": -14.94022545610377,
+    "intercept": -2.8780817675754893,
+    "ratio": 1.4554787142910885,
+    "ratio_ci95": [
+     0.9707497939021339,
+     2.0106634704468638
+    ],
+    "nu_hat": 0.021746453274966677
+   },
+   "E4_ratio": 1.4251297423532727
+  },
+  "E1b_seed52": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.012999096904858433,
+     "ci95": [
+      0.007826305495455198,
+      0.020299700043521367
+     ],
+     "events": 19,
+     "n": 20,
+     "exposure_s": 1461.6399999986706,
+     "censored_frac": 0.05,
+     "sigma_blocker": 0.0727977087425653,
+     "kT_eff": 11.056075936997786,
+     "t_cens": 300.0,
+     "other_exit_first": 8
+    },
+    "b2p5": {
+     "lam": 0.013458092209193492,
+     "ci95": [
+      0.008102650652276285,
+      0.02101647806799352
+     ],
+     "events": 19,
+     "n": 20,
+     "exposure_s": 1411.789999998716,
+     "censored_frac": 0.05,
+     "sigma_blocker": 0.0563888627204027,
+     "kT_eff": 6.633645562198671,
+     "t_cens": 300.0,
+     "other_exit_first": 2
+    },
+    "b3p5": {
+     "lam": 0.004039613727886787,
+     "ci95": [
+      0.002432111349693868,
+      0.006308357231889256
+     ],
+     "events": 19,
+     "n": 20,
+     "exposure_s": 4703.419999995724,
+     "censored_frac": 0.05,
+     "sigma_blocker": 0.047657287247450573,
+     "kT_eff": 4.738318258713337,
+     "t_cens": 900.0,
+     "other_exit_first": 1
+    }
+   },
+   "dU": 16.58411390549668,
+   "arrhenius": {
+    "slope": -9.69118244474521,
+    "intercept": -3.2599719195909125,
+    "ratio": 0.5843654053493411,
+    "ratio_ci95": [
+     0.3312058431578208,
+     0.8483534029665649
+    ],
+    "nu_hat": 0.10851298530153299
+   },
+   "E4_ratio": 1.1700691169120638
+  },
+  "E1b_seed61": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.04730592743275034,
+     "ci95": [
+      0.028895689449394614,
+      0.07306016817896467
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 422.7799999996155,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.018199579632771804,
+     "kT_eff": 0.5471546442363433,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.02280111725476622,
+     "ci95": [
+      0.013927514775597167,
+      0.03521447631842066
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 877.1499999992022,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.014097333765140179,
+     "kT_eff": 0.328292786541806,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.005790790327069103,
+     "ci95": [
+      0.0035371651722803706,
+      0.008943405998883153
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 3453.7599999968593,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.0119144216119362,
+     "kT_eff": 0.2344948475298614,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 0.820731966354515,
+   "arrhenius": {
+    "slope": -0.8619190961273573,
+    "intercept": -1.3690587771165363,
+    "ratio": 1.0501834112247208,
+    "ratio_ci95": [
+     0.7546873063273271,
+     1.3135925620958289
+    ],
+    "nu_hat": 0.22435687449932987
+   },
+   "E4_ratio": 0.5363364679434937
+  },
+  "E1b_seed72": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.04793863854270899,
+     "ci95": [
+      0.029282165832730238,
+      0.07403733917234584
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 417.19999999962056,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.02361943942474172,
+     "kT_eff": 1.2882780088480104,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.018708548871423803,
+     "ci95": [
+      0.011427667685111787,
+      0.028893836377559736
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 1069.0299999990277,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.01829553910775592,
+     "kT_eff": 0.7729668053088062,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.008024490745763346,
+     "ci95": [
+      0.00490156741792553,
+      0.012393175131582662
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 2492.3699999977334,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.01546255271947188,
+     "kT_eff": 0.5521191466491473,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 1.9324170132720155,
+   "arrhenius": {
+    "slope": -1.7270239074561704,
+    "intercept": -1.71300888080376,
+    "ratio": 0.8937118104398861,
+    "ratio_ci95": [
+     0.5710951229736293,
+     1.1999690137647099
+    ],
+    "nu_hat": 0.23520721041446632
+   },
+   "E4_ratio": 1.1313987009035265
+  },
+  "E1b_seed73": {
+   "levels": {
+    "b1p5": {
+     "lam": 0.03712572627205396,
+     "ci95": [
+      0.02267735810624465,
+      0.05733767315012286
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 538.70999999951,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.036887909552842726,
+     "kT_eff": 3.2511387948165975,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b2p5": {
+     "lam": 0.012892911477281522,
+     "ci95": [
+      0.00787532527875445,
+      0.019912056098800108
+     ],
+     "events": 20,
+     "n": 20,
+     "exposure_s": 1551.2399999985894,
+     "censored_frac": 0.0,
+     "sigma_blocker": 0.02857325187491307,
+     "kT_eff": 1.9506832768899585,
+     "t_cens": 300.0,
+     "other_exit_first": 0
+    },
+    "b3p5": {
+     "lam": 0.0033927662651924108,
+     "ci95": [
+      0.002042666922203358,
+      0.005298224792481017
+     ],
+     "events": 19,
+     "n": 20,
+     "exposure_s": 5600.149999994907,
+     "censored_frac": 0.05,
+     "sigma_blocker": 0.024148805393512347,
+     "kT_eff": 1.3933451977785418,
+     "t_cens": 900.0,
+     "other_exit_first": 0
+    }
+   },
+   "dU": 4.876708192224896,
+   "arrhenius": {
+    "slope": -5.82828171462602,
+    "intercept": -1.4549245908402155,
+    "ratio": 1.1951261967895168,
+    "ratio_ci95": [
+     0.8890665309347311,
+     1.487687503208126
+    ],
+    "nu_hat": 0.1437854732748895
+   },
+   "E4_ratio": 1.0908781572026827
+  }
+ },
+ "weibull": {
+  "k": 1.03839706018844,
+  "ci95": [
+   0.9582908665664287,
+   1.1218950116960278
+  ],
+  "events": 397,
+  "groups": 24
+ },
+ "n_arrhenius_fits": 8,
+ "ratio_median": 1.032788065550705,
+ "ratio_min": 0.5843654053493411,
+ "ratio_max": 1.4554787142910885,
+ "ratio_ci_covers_1": 7,
+ "ratio_above_1": 5,
+ "paired_vs_E4": {
+  "n": 8,
+  "median_diff": -0.10366895926291225,
+  "n_N3_above_E4": 4,
+  "sign_test_p": 1.0
+ },
+ "E4_full": {
+  "ratio_median": 1.150733908907795,
+  "weibull_k": 1.0526055763761544,
+  "weibull_ci95": [
+   0.9699874591256229,
+   1.1387591638911367
+  ],
+  "n_fits": 8,
+  "ratio_ci_covers_1": 7
+ },
+ "ratio_sign_test_vs_1": {
+  "above": 5,
+  "n": 8,
+  "p": 0.7265625
+ }
+}
