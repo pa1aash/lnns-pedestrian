@@ -1,0 +1,45 @@
+{
+ "script": "experiments/E6p/analyze.py",
+ "doc": "E6p analysis: published ORCA in the published mode, whole runs, against the conference's printed count.\n\nInput: data/E6/e6p.jsonl (experiments/E6/e6.py E6p: room bottleneck w = 0.8 m, 100 agents, 600 s cap,\npublished-reproduction flags, C3 with the published ORCA, seeds 428-477, n = 50; a run stops at completion\nor at deadlock, every active |v| < 0.01 m/s for 10 s with no exit).\nOptional: data/E6/e6a.jsonl (C3 RVO2, corrected-forward, n = 186) for the cross-mode comparison.\n\nOutput: data/derived/E6p_analysis.json:\n  completion        k/n, Wilson 95% interval; final states (deadlocked / capped while moving)\n  evacuation        median and range of evacuation time over completed runs; Kaplan-Meier is not needed\n                    because every censored run is censored at the same 600 s cap (median from the empirical\n                    distribution with incomplete runs at +inf)\n  conference        the printed 13/25 (camera-ready CR:15, CR:780; data/derived/table4_conference.json):\n                    whether its rate lies inside the Wilson interval, and a two-sided Fisher exact test of\n                    13/25 against k/n\n  vs_e6a            two-sided Fisher exact test of E6p against E6a completion (different modes and seeds;\n                    descriptive)\n  verdict           confirmed when the printed rate lies inside the 95% interval and Fisher p >= 0.05,\n                    revised otherwise; evidence line\n",
+ "input": "data/E6/e6p.jsonl",
+ "seeds": [
+  428,
+  477
+ ],
+ "completion": {
+  "k": 29,
+  "n": 50,
+  "rate": 0.58,
+  "wilson95": [
+   0.4423344176857823,
+   0.7062499664528802
+  ],
+  "deadlocked": 11,
+  "capped_moving": 10,
+  "remaining_median": 1,
+  "remaining_max": 7
+ },
+ "evacuation": {
+  "median_completed": 142.67000000001522,
+  "min_completed": 130.99000000002584,
+  "max_completed": 405.02999999977663,
+  "median_all": 154.6900000000043
+ },
+ "conference": {
+  "k": 13,
+  "n": 25,
+  "rate": 0.52,
+  "inside_wilson95": true,
+  "fisher_p": 0.6317902104790784
+ },
+ "vs_e6a": {
+  "k": 101,
+  "n": 186,
+  "rate": 0.543010752688172,
+  "fisher_p": 0.7490703257518302
+ },
+ "verdict": {
+  "status": "confirmed",
+  "evidence": "29/50 [0.44, 0.71] in the published mode; printed 13/25 inside the interval (Fisher p = 0.632)"
+ }
+}

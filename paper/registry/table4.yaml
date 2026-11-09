@@ -124,3 +124,13 @@ EnineCTwoStandoffLifeDense: {file: E9_analysis.json, key: "cells.C2.L17.standoff
 EnineCOneGridlock: {file: E9_analysis.json, key: "totals.C1.gridlock_runs", fmt: "{:d}"}
 EnineCTwoGridlock: {file: E9_analysis.json, key: "totals.C2.gridlock_runs", fmt: "{:d}"}
 EnineLPRvo: {file: E9_analysis.json, key: "totals.C3_rvo2.lp_rate_pct", fmt: "{:.1f}"}
+
+# ---- published ORCA in the published-reproduction mode, n = 50 (experiments/E6p/analyze.py)
+EsixpK: {file: E6p_analysis.json, key: "completion.k", fmt: "{:d}"}
+EsixpN: {file: E6p_analysis.json, key: "completion.n", fmt: "{:d}"}
+EsixpLo: {file: E6p_analysis.json, key: "completion.wilson95.0", fmt: "{:.2f}"}
+EsixpHi: {file: E6p_analysis.json, key: "completion.wilson95.1", fmt: "{:.2f}"}
+EsixpDeadlocked: {file: E6p_analysis.json, key: "completion.deadlocked", fmt: "{:d}"}
+EsixpCapped: {file: E6p_analysis.json, key: "completion.capped_moving", fmt: "{:d}"}
+EsixpConfP: {file: E6p_analysis.json, key: "conference.fisher_p", fmt: p}
+EsixpEvacMed: {file: E6p_analysis.json, key: "evacuation.median_completed", fmt: "{:.0f}"}
