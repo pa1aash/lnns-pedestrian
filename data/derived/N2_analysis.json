@@ -1,0 +1,176 @@
+{
+ "script": "experiments/runs3/analyze_N2.py",
+ "doc": "Analysis of run-N2 (E6b repeated with an independent noise stream, same spawns).\n\nInputs: data/N2/n2.jsonl, data/E6/e6a.jsonl (C3 RVO2), data/E6/e6b.jsonl (C1 + sigma*).\nOutput: data/derived/N2_analysis.json.\n  completion  per resolver, Wilson; paired difference N2 - E6b and N2 - E6a (Newcombe).\n  identity    failure set = runs not completed in 600 s. J(E6b, N2) is the noise-versus-noise reference;\n              J(E6a, N2) and J(E6a, E6b) beside it; each with its bootstrap interval over seeds and the\n              independence reference (labels permuted).\n  association odds ratio (conditional MLE, exact interval, Fisher p) that a seed fails under one resolver\n              given it fails under the other: E6b-N2, E6a-N2, E6a-E6b.\n",
+ "n": 186,
+ "sigma": 0.0467,
+ "completion": {
+  "E6a": {
+   "k": 101,
+   "n": 186,
+   "wilson95": [
+    0.47127367574310397,
+    0.613007176813513
+   ]
+  },
+  "E6b": {
+   "k": 99,
+   "n": 186,
+   "wilson95": [
+    0.4606254489776162,
+    0.6025851904398465
+   ]
+  },
+  "N2": {
+   "k": 90,
+   "n": 186,
+   "wilson95": [
+    0.4131085596999807,
+    0.5552861205912878
+   ]
+  },
+  "diff_N2_minus_E6b": {
+   "diff": -0.048387096774193505,
+   "ci95": [
+    -0.13226393733772196,
+    0.03665334118897905
+   ]
+  },
+  "diff_N2_minus_E6a": {
+   "diff": -0.05913978494623651,
+   "ci95": [
+    -0.13882154624897106,
+    0.021894737915472598
+   ]
+  },
+  "diff_E6b_minus_E6a": {
+   "diff": -0.010752688172043001,
+   "ci95": [
+    -0.09973355608529517,
+    0.07849918547147954
+   ]
+  }
+ },
+ "identity": {
+  "E6b_vs_N2": {
+   "jaccard": 0.47580645161290325,
+   "ci95": [
+    0.38792268110130984,
+    0.5636431989063567
+   ],
+   "independent_mean": 0.325655544779836,
+   "independent_95": [
+    0.2620689655172414,
+    0.38636363636363635
+   ],
+   "p_perm_above_independent": 9.999000099990002e-05,
+   "n_a": 87,
+   "n_b": 96,
+   "both": 59,
+   "n_units": 186
+  },
+  "E6a_vs_N2": {
+   "jaccard": 0.5083333333333333,
+   "ci95": [
+    0.42063492063492064,
+    0.5967773193298325
+   ],
+   "independent_mean": 0.32104783892522937,
+   "independent_95": [
+    0.2569444444444444,
+    0.3923076923076923
+   ],
+   "p_perm_above_independent": 9.999000099990002e-05,
+   "n_a": 85,
+   "n_b": 96,
+   "both": 61,
+   "n_units": 186
+  },
+  "E6a_vs_E6b": {
+   "jaccard": 0.4098360655737705,
+   "ci95": [
+    0.3247863247863248,
+    0.5
+   ],
+   "independent_mean": 0.30169956973484263,
+   "independent_95": [
+    0.23741007194244604,
+    0.376
+   ],
+   "p_perm_above_independent": 0.001999800019998,
+   "n_a": 85,
+   "n_b": 87,
+   "both": 50,
+   "n_units": 186
+  }
+ },
+ "association": {
+  "E6b_vs_N2": {
+   "table": [
+    [
+     59,
+     28
+    ],
+    [
+     37,
+     62
+    ]
+   ],
+   "odds_ratio": 3.5054852526216376,
+   "ci95": [
+    1.8452007260082472,
+    6.786108137714492
+   ],
+   "fisher_p": 3.798425302341545e-05
+  },
+  "E6a_vs_N2": {
+   "table": [
+    [
+     61,
+     24
+    ],
+    [
+     35,
+     66
+    ]
+   ],
+   "odds_ratio": 4.748702849373324,
+   "ci95": [
+    2.454777489994981,
+    9.420085095430228
+   ],
+   "fisher_p": 4.726191786897483e-07
+  },
+  "E6a_vs_E6b": {
+   "table": [
+    [
+     50,
+     35
+    ],
+    [
+     37,
+     64
+    ]
+   ],
+   "odds_ratio": 2.4586214224751135,
+   "ci95": [
+    1.3116429119427158,
+    4.664828305141892
+   ],
+   "fisher_p": 0.00315960781808048
+  }
+ },
+ "outcomes": {
+  "E6a": {
+   "deadlock": 31,
+   "capped_moving": 54
+  },
+  "E6b": {
+   "deadlock": 0,
+   "capped_moving": 87
+  },
+  "N2": {
+   "deadlock": 0,
+   "capped_moving": 96
+  }
+ }
+}

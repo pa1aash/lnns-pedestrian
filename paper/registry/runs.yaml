@@ -271,3 +271,144 @@ RunNThreeEfourFullWeibHi:
   file: N3_analysis.json
   key: "E4_full.weibull_ci95.1"
   fmt: "{:.2f}"
+# --- N2_analysis
+RunNTwoN:
+  file: N2_analysis.json
+  key: "n"
+  fmt: "{:d}"
+RunNTwoDone:
+  file: N2_analysis.json
+  key: "completion.N2.k"
+  fmt: "{:d}"
+RunNTwoDoneLo:
+  file: N2_analysis.json
+  key: "completion.N2.wilson95.0"
+  fmt: "{:.3f}"
+RunNTwoDoneHi:
+  file: N2_analysis.json
+  key: "completion.N2.wilson95.1"
+  fmt: "{:.3f}"
+RunNTwoDiffNoise:
+  file: N2_analysis.json
+  key: "completion.diff_N2_minus_E6b.diff"
+  fmt: "{:.3f}"
+RunNTwoDiffNoiseLo:
+  file: N2_analysis.json
+  key: "completion.diff_N2_minus_E6b.ci95.0"
+  fmt: "{:.3f}"
+RunNTwoDiffNoiseHi:
+  file: N2_analysis.json
+  key: "completion.diff_N2_minus_E6b.ci95.1"
+  fmt: "{:.3f}"
+RunNTwoJNoiseNoise:
+  file: N2_analysis.json
+  key: "identity.E6b_vs_N2.jaccard"
+  fmt: "{:.2f}"
+RunNTwoJNoiseNoiseLo:
+  file: N2_analysis.json
+  key: "identity.E6b_vs_N2.ci95.0"
+  fmt: "{:.2f}"
+RunNTwoJNoiseNoiseHi:
+  file: N2_analysis.json
+  key: "identity.E6b_vs_N2.ci95.1"
+  fmt: "{:.2f}"
+RunNTwoJNoiseNoiseIndep:
+  file: N2_analysis.json
+  key: "identity.E6b_vs_N2.independent_mean"
+  fmt: "{:.2f}"
+RunNTwoJNoiseNoiseP:
+  file: N2_analysis.json
+  key: "identity.E6b_vs_N2.p_perm_above_independent"
+  fmt: "p"
+RunNTwoORNoiseNoise:
+  file: N2_analysis.json
+  key: "association.E6b_vs_N2.odds_ratio"
+  fmt: "{:.1f}"
+RunNTwoORNoiseNoiseLo:
+  file: N2_analysis.json
+  key: "association.E6b_vs_N2.ci95.0"
+  fmt: "{:.1f}"
+RunNTwoORNoiseNoiseHi:
+  file: N2_analysis.json
+  key: "association.E6b_vs_N2.ci95.1"
+  fmt: "{:.1f}"
+RunNTwoORNoiseNoiseP:
+  file: N2_analysis.json
+  key: "association.E6b_vs_N2.fisher_p"
+  fmt: "p"
+RunNTwoJOrcaNew:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_N2.jaccard"
+  fmt: "{:.2f}"
+RunNTwoJOrcaNewLo:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_N2.ci95.0"
+  fmt: "{:.2f}"
+RunNTwoJOrcaNewHi:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_N2.ci95.1"
+  fmt: "{:.2f}"
+RunNTwoJOrcaNewIndep:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_N2.independent_mean"
+  fmt: "{:.2f}"
+RunNTwoJOrcaNewP:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_N2.p_perm_above_independent"
+  fmt: "p"
+RunNTwoOROrcaNew:
+  file: N2_analysis.json
+  key: "association.E6a_vs_N2.odds_ratio"
+  fmt: "{:.1f}"
+RunNTwoOROrcaNewLo:
+  file: N2_analysis.json
+  key: "association.E6a_vs_N2.ci95.0"
+  fmt: "{:.1f}"
+RunNTwoOROrcaNewHi:
+  file: N2_analysis.json
+  key: "association.E6a_vs_N2.ci95.1"
+  fmt: "{:.1f}"
+RunNTwoOROrcaNewP:
+  file: N2_analysis.json
+  key: "association.E6a_vs_N2.fisher_p"
+  fmt: "p"
+RunNTwoJOrcaOld:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_E6b.jaccard"
+  fmt: "{:.2f}"
+RunNTwoJOrcaOldLo:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_E6b.ci95.0"
+  fmt: "{:.2f}"
+RunNTwoJOrcaOldHi:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_E6b.ci95.1"
+  fmt: "{:.2f}"
+RunNTwoJOrcaOldIndep:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_E6b.independent_mean"
+  fmt: "{:.2f}"
+RunNTwoJOrcaOldP:
+  file: N2_analysis.json
+  key: "identity.E6a_vs_E6b.p_perm_above_independent"
+  fmt: "p"
+RunNTwoOROrcaOld:
+  file: N2_analysis.json
+  key: "association.E6a_vs_E6b.odds_ratio"
+  fmt: "{:.1f}"
+RunNTwoOROrcaOldLo:
+  file: N2_analysis.json
+  key: "association.E6a_vs_E6b.ci95.0"
+  fmt: "{:.1f}"
+RunNTwoOROrcaOldHi:
+  file: N2_analysis.json
+  key: "association.E6a_vs_E6b.ci95.1"
+  fmt: "{:.1f}"
+RunNTwoOROrcaOldP:
+  file: N2_analysis.json
+  key: "association.E6a_vs_E6b.fisher_p"
+  fmt: "p"
+RunNTwoFailMoving:
+  file: N2_analysis.json
+  key: "outcomes.N2.capped_moving"
+  fmt: "{:d}"
