@@ -4,7 +4,15 @@
 RunNOneSigma:
   file: N1_analysis.json
   key: "sigma_n1"
-  fmt: "{:.3f}"
+  fmt: "{:.4f}"
+RunNOneUnresNoise:
+  file: N1_analysis.json
+  key: "identity.noise_vs_noise_halves.n_b"
+  fmt: "{:d}"
+RunNOneUnresOrca:
+  file: N1_analysis.json
+  key: "identity.noise_vs_C3_rvo2.n_b"
+  fmt: "{:d}"
 RunNOneSnapN:
   file: N1_analysis.json
   key: "n_snapshots"

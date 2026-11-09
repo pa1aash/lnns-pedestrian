@@ -136,3 +136,23 @@ C61 (2026-11-09) Prose standard: plan/PROSE_STANDARD.md (the authors' audit prom
 C62 (2026-11-09) Table 3: the RVO2 pair row prints its freed-set overlap as '0 (disjoint)'.
 C63 (2026-11-09) Framing: the critical width (0.88 m) holds for the default wall law; the jamb's wall range is the lever that sets both the trap and the deadlock class (lone traps under default walls, pair standoffs under short-range jambs).
 C64 (2026-11-09) Table 4 verdicts: each conference claim is judged on the model the conference used, published ORCA (the published LP) in the corrected, leak-free geometry; RVO2 is reported beside it as the solver check, and the row says when the two disagree. Table 4 tests the conference's own claims; the RVO2 rule (C20) governs this paper's forward claims, not the audit of the earlier ones. Applied to every Table 4 row (open corridor, open crossing, throat overlaps, published ORCA whole runs; the ORCA-mechanism row now cites the published solver).
+C65 (2026-11-09) Glossary G1–G6 published as plan/GLOSSARY.md, with decisions D3a and D4–D8 applied; T1–T5 recorded as signed (D15).
+C66 (2026-11-09) Protocol stated in §4 with the D4 criterion (95% intervals exclude each other, or the predicted effect against its absence; replay and handedness exact) and the rest-drive push as positive control; the old "Calibrate, then falsify" paragraph removed.
+C67 (2026-11-09) Table 2 gains row N; caption two sentences; "goal push" → "rest-drive push"; threshold written $b_f$.
+C68 (2026-11-09) §3 defines the two modes, the blocker and ORCA's drive and constraint parts, scopes ORCA to the additive force form, and adds a Statistics paragraph with the D6 sentence.
+C69 (2026-11-09) References: DOI-duplicate URLs removed (including CroMa and Weidmann), article numbers and book-series data added, nine entries added from S1_LIT_candidates.bib, RVO2 version note per D16; A4 paper, fix-cm, `\nocite` removed; Disclosure of Interests heading added.
+C70 (2026-11-09) §5 reordered (D9b): lone trap → noise as activated escape → pair standoff at the jamb faces → arches; labels unchanged; D7 sentence in §5.4 and §8.
+C71 (2026-11-09) Whole runs are §6.2 (D9a); identity is a separating signature only at the pair (D3a), with same-resolver and independence references from A-1.
+C72 (2026-11-09) Rate matches stated as calibrations with split-sample results (A-2); "not used in the calibration" (K3). The pair bias is an in-sample match by construction; split-half differences of ±0.35 make the rate a weak calibration target at n = 46.
+C73 (2026-11-09) Class N for the published solver rests on A-4: smooth amplification ending in a half-plane switch (leg-normal sign defect), no dropped constraints; "ill-conditioning" retired; Table 1, Table 2 and §6 aligned.
+C74 (2026-11-09) Activated escape restated with A-3: collapse slope excludes −1, lag fit, Langer prefactor; the blocker carries the unstable mode (participation ratio 1.2) and the neighbours lower the barrier through their configuration (10/10, median 0.30); "collective escape" retired; §5.2 heading "Noise as Activated Escape"; σ50 intervals by seed resampling (A-6).
+C75 (2026-11-09) Table 3: Control column, ℓ in a time-step block (K5), J with its independence expectation, `\tabcolsep` 1.5 pt, two-sentence caption.
+C76 (2026-11-09) §7: log-ratio flow intervals, 10–90% window, motivation conditions, human-gap wording (A-7).
+C77 (2026-11-09) Critical width bracketed by 0.75 and 0.92 m (A-8).
+C78 (2026-11-09) Float placement (placeins section barriers, float fractions); page pass 26.5 → 24.0 pages pinned; Tables 1–3 compressed.
+C79 (2026-11-10) Fig. 4 right: per-fit Arrhenius slope ratio with intervals replaces the earlier collapse panel.
+C80 (2026-11-10) Fig. 1 caption cut to two sentences; overlay labels at 6.5 pt; Figs 2–8 glossary tick labels, 600 dpi, reproducible PDFs; alt text.
+C81 (2026-11-10) Repository: venv make targets, Reproduce section, CITATION.cff, .zenodo.json, SEEDS.md; a fresh clone builds.
+C82 (2026-11-10) Noise identity tests repeated with 20 seeds per lone-trap snapshot (N1) and with an independent whole-run noise stream (N2); escape at equal temperatures (N3); arch check at Δt = 0.0025 s and lower drives (N5).
+C83 (2026-11-10) T5 amended: the bias threshold is a non-smooth loss of the minimum at a jamb segment end (N6, 92/92), not a smooth fold; the Hessian stays positive definite up to the loss (softest eigenvalue 65-121 N/m).
+C84 (2026-11-10) Fig 1 caption kept at 89 words; CroMa dataset year 2026 per its DataCite record; release tag v1.0-lnns deferred until after the authors' read.
