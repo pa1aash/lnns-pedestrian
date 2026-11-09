@@ -1,0 +1,1146 @@
+{
+ "script": "experiments/E9/analyze.py",
+ "doc": "E9 analysis: open 90-degree crossing, corrected-forward (CF), 100 + 100 agents, line goals, 60 s window.\n\n  python3 experiments/E9/analyze.py [--in data/E9/e9_crossing.jsonl] [--out data/derived/E9_analysis.json]\n\nInput: experiments/E9/e9_crossing.py (opengeo.open_run records). Arms C1, C2, C3_rvo2, C4_rvo2 (crush off);\nstart-block lengths L in {17, 25, 34} m (start densities 1.96, 1.33, 0.98 m^-2); seeds 42-66, the same seeds in\nevery cell, so arms are paired by seed at each L. Partial input is allowed: every cell and comparison of the full\ndesign is present in the JSON, with n = 0 / null where runs are missing.\n\nMethod (experiments/lib/openstats.py, which carries the full definitions):\n  per cell: n; throughput (sunk agents / t_end, per s) mean with a 95% percentile bootstrap interval (2000\n  resamples of seeds, numpy PCG64(12345), one generator, consumed in the fixed cell then comparison order); exits\n  per run (n_sunk, the conference's \"exits per 200 agents in 60 s\"); mean speed in the crossing zone [3.2, 6.8]^2;\n  wall leaks (total, runs with >= 1); standoffs (>= 2 agents below 0.05 m/s within 1.0 m single linkage in the\n  crossing zone, persisting >= 2 s): runs with >= 1 (Wilson 95%), standoffs per run (bootstrap 95%), formation rate\n  per zone-occupied second, median / max lifetime, fraction censored at the window end, median / max size; RVO2 LP\n  infeasibility per agent-step (linearProgram3 used) for C3_rvo2 and C4_rvo2; gridlock runs = the window ran to\n  the end with agents left AND (a censored standoff >= 20 s OR no agent sunk in the last 20 s).\n  paired by seed and L: C2, C3_rvo2, C4_rvo2 each against C1: ratio of mean throughputs arm / C1 with a paired\n  bootstrap 95% interval over seed pairs, mean difference with a bootstrap 95% interval, Wilcoxon signed-rank p;\n  pooled over L by a stratified bootstrap (seed pairs resampled within each L; ratio = sum / sum).\nVerdict on the conference claim \"TTC (C2) triples crossing throughput (C2 16.1 vs C1 5.9 exits per 200 agents in\n  60 s; IRR 2.72)\", on the pooled C2/C1 ratio interval [lo, hi]:\n  withdrawn if lo <= 1 (interval includes 1) or hi < 1.5; else confirmed if lo <= 2.72 <= hi or lo > 2;\n  else revised (an effect above 1 but not a tripling). null (pending) when no C2-C1 pairs exist.\n  The per-L verdicts use the same rule on each level's interval.\nKeys avoid '.' (registry key paths split on '.'): L = 17 is stored as L17; comparison \"<arm>_over_c1\".\n",
+ "source": "/Users/palaash/Developer/lnns-wt/7B/data/E9/e9_crossing.jsonl",
+ "n_lines": 300,
+ "complete": true,
+ "seeds": [
+  42,
+  66
+ ],
+ "n_bootstrap": 2000,
+ "rng": "PCG64(12345)",
+ "window_s": 60.0,
+ "gridlock_s": 20.0,
+ "cells": {
+  "C1": {
+   "L17": {
+    "arm": "C1",
+    "L_m": 17.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.9607843137254901,
+    "throughput": {
+     "mean": 0.2526666666666808,
+     "sd": 0.0795938765558375,
+     "ci95": [
+      0.22333333333334587,
+      0.2846666666666826
+     ],
+     "min": 0.11666666666667322,
+     "max": 0.43333333333335766
+    },
+    "n_sunk_mean": 15.16,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.31394523353743503,
+     "sd": 0.02293607051298973,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 15,
+     "runs_with_wilson95": [
+      0.40739127785127344,
+      0.7659694233580909
+     ],
+     "per_run_mean": 1.16,
+     "per_run_ci95": [
+      0.64,
+      1.76
+     ],
+     "total": 29,
+     "formation_rate_per_occupied_s": 0.020242914979756894,
+     "lifetime_median_s": 2.899999999999443,
+     "lifetime_max_s": 7.799999999998468,
+     "n_censored": 2,
+     "frac_censored": 0.06896551724137931,
+     "size_median": 9.0,
+     "size_max": 20
+    },
+    "gridlock": {
+     "runs": 3,
+     "wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 3
+    },
+    "lp": null
+   },
+   "L25": {
+    "arm": "C1",
+    "L_m": 25.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3333333333333333,
+    "throughput": {
+     "mean": 0.3586666666666868,
+     "sd": 0.07936670633253456,
+     "ci95": [
+      0.32866666666668515,
+      0.392000000000022
+     ],
+     "min": 0.23333333333334644,
+     "max": 0.5833333333333661
+    },
+    "n_sunk_mean": 21.52,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.33074419768129715,
+     "sd": 0.017899613436018997,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 7,
+     "runs_with_wilson95": [
+      0.1428367383738157,
+      0.47576971896558296
+     ],
+     "per_run_mean": 0.6,
+     "per_run_ci95": [
+      0.2,
+      1.04
+     ],
+     "total": 15,
+     "formation_rate_per_occupied_s": 0.010512299390286537,
+     "lifetime_median_s": 2.799999999999463,
+     "lifetime_max_s": 10.29999999999797,
+     "n_censored": 3,
+     "frac_censored": 0.2,
+     "size_median": 9.0,
+     "size_max": 17
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": null
+   },
+   "L34": {
+    "arm": "C1",
+    "L_m": 34.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9803921568627451,
+    "throughput": {
+     "mean": 0.5233333333333627,
+     "sd": 0.16541194367733603,
+     "ci95": [
+      0.45866666666669237,
+      0.5913333333333666
+     ],
+     "min": 0.23333333333334644,
+     "max": 0.8333333333333801
+    },
+    "n_sunk_mean": 31.4,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3548218930854771,
+     "sd": 0.028415285315239073,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 3,
+     "runs_with_wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "per_run_mean": 0.16,
+     "per_run_ci95": [
+      0.0,
+      0.36
+     ],
+     "total": 4,
+     "formation_rate_per_occupied_s": 0.002813928948294029,
+     "lifetime_median_s": 2.4499999999995326,
+     "lifetime_max_s": 4.399999999999144,
+     "n_censored": 1,
+     "frac_censored": 0.25,
+     "size_median": 11.5,
+     "size_max": 16
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   }
+  },
+  "C2": {
+   "L17": {
+    "arm": "C2",
+    "L_m": 17.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.9607843137254901,
+    "throughput": {
+     "mean": 0.26800000000001506,
+     "sd": 0.06887320610018856,
+     "ci95": [
+      0.2420000000000136,
+      0.2933333333333498
+     ],
+     "min": 0.166666666666676,
+     "max": 0.43333333333335766
+    },
+    "n_sunk_mean": 16.08,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3058700504421836,
+     "sd": 0.02155112313428055,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 16,
+     "runs_with_wilson95": [
+      0.44518154601046633,
+      0.7975234356826436
+     ],
+     "per_run_mean": 1.68,
+     "per_run_ci95": [
+      1.04,
+      2.36
+     ],
+     "total": 42,
+     "formation_rate_per_occupied_s": 0.02931937172774841,
+     "lifetime_median_s": 3.049999999999413,
+     "lifetime_max_s": 7.199999999998587,
+     "n_censored": 3,
+     "frac_censored": 0.07142857142857142,
+     "size_median": 9.0,
+     "size_max": 32
+    },
+    "gridlock": {
+     "runs": 3,
+     "wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 3
+    },
+    "lp": null
+   },
+   "L25": {
+    "arm": "C2",
+    "L_m": 25.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3333333333333333,
+    "throughput": {
+     "mean": 0.36066666666668695,
+     "sd": 0.10125142888795695,
+     "ci95": [
+      0.32266666666668475,
+      0.398016666666689
+     ],
+     "min": 0.25000000000001404,
+     "max": 0.6000000000000337
+    },
+    "n_sunk_mean": 21.64,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.33449325810373876,
+     "sd": 0.024850337803946267,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 3,
+     "runs_with_wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "per_run_mean": 0.16,
+     "per_run_ci95": [
+      0.0,
+      0.36
+     ],
+     "total": 4,
+     "formation_rate_per_occupied_s": 0.0028032798374097428,
+     "lifetime_median_s": 3.249999999999373,
+     "lifetime_max_s": 4.299999999999164,
+     "n_censored": 1,
+     "frac_censored": 0.25,
+     "size_median": 11.5,
+     "size_max": 16
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   },
+   "L34": {
+    "arm": "C2",
+    "L_m": 34.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9803921568627451,
+    "throughput": {
+     "mean": 0.5120000000000288,
+     "sd": 0.14509894452995192,
+     "ci95": [
+      0.4586666666666925,
+      0.5686833333333652
+     ],
+     "min": 0.26666666666668165,
+     "max": 0.7833333333333773
+    },
+    "n_sunk_mean": 30.72,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3503370484665198,
+     "sd": 0.024722916523614226,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 7,
+     "runs_with_wilson95": [
+      0.1428367383738157,
+      0.47576971896558296
+     ],
+     "per_run_mean": 0.4,
+     "per_run_ci95": [
+      0.12,
+      0.76
+     ],
+     "total": 10,
+     "formation_rate_per_occupied_s": 0.0070348223707350725,
+     "lifetime_median_s": 4.049999999999214,
+     "lifetime_max_s": 6.999999999998627,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 7.0,
+     "size_max": 21
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": null
+   }
+  },
+  "C3_rvo2": {
+   "L17": {
+    "arm": "C3_rvo2",
+    "L_m": 17.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.9607843137254901,
+    "throughput": {
+     "mean": 0.2873333333333495,
+     "sd": 0.06442049363362924,
+     "ci95": [
+      0.2620000000000147,
+      0.31066666666668413
+     ],
+     "min": 0.15000000000000843,
+     "max": 0.40000000000002245
+    },
+    "n_sunk_mean": 17.24,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.31677943985449253,
+     "sd": 0.020292289060386562,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 12,
+     "runs_with_wilson95": [
+      0.30031003928960015,
+      0.6650178204685269
+     ],
+     "per_run_mean": 0.84,
+     "per_run_ci95": [
+      0.4,
+      1.32
+     ],
+     "total": 21,
+     "formation_rate_per_occupied_s": 0.01465252581635487,
+     "lifetime_median_s": 2.899999999999443,
+     "lifetime_max_s": 6.499999999998726,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 8.0,
+     "size_max": 28
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.31411687123855603,
+     "rate_pct": 31.411687123855604,
+     "run_rate_mean": 0.31414343579156584,
+     "run_rate_ci95": [
+      0.307394973763281,
+      0.3206402183043207
+     ],
+     "calls_total": 28528439,
+     "infeasible_total": 8961264,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L25": {
+    "arm": "C3_rvo2",
+    "L_m": 25.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3333333333333333,
+    "throughput": {
+     "mean": 0.37333333333335433,
+     "sd": 0.09052317076000689,
+     "ci95": [
+      0.338000000000019,
+      0.4093333333333563
+     ],
+     "min": 0.25000000000001404,
+     "max": 0.5833333333333661
+    },
+    "n_sunk_mean": 22.4,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3311051457128751,
+     "sd": 0.027890501620467693,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 11,
+     "runs_with_wilson95": [
+      0.2666537494700256,
+      0.6293298298043557
+     ],
+     "per_run_mean": 0.8,
+     "per_run_ci95": [
+      0.36,
+      1.32
+     ],
+     "total": 20,
+     "formation_rate_per_occupied_s": 0.013991884706869883,
+     "lifetime_median_s": 2.799999999999463,
+     "lifetime_max_s": 6.099999999998806,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 8.5,
+     "size_max": 20
+    },
+    "gridlock": {
+     "runs": 3,
+     "wilson95": [
+      0.04166741357068093,
+      0.2995619218337349
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 3
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.3149139524665053,
+     "rate_pct": 31.49139524665053,
+     "run_rate_mean": 0.3149837500833263,
+     "run_rate_ci95": [
+      0.30966258800795227,
+      0.320905755571779
+     ],
+     "calls_total": 28076749,
+     "infeasible_total": 8841760,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L34": {
+    "arm": "C3_rvo2",
+    "L_m": 34.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9803921568627451,
+    "throughput": {
+     "mean": 0.5593333333333647,
+     "sd": 0.1785408968607905,
+     "ci95": [
+      0.48866666666669417,
+      0.6300000000000354
+     ],
+     "min": 0.30000000000001686,
+     "max": 0.9500000000000534
+    },
+    "n_sunk_mean": 33.56,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3539933226733104,
+     "sd": 0.028225105148343053,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 5,
+     "runs_with_wilson95": [
+      0.08860454100652487,
+      0.3913133553653824
+     ],
+     "per_run_mean": 0.28,
+     "per_run_ci95": [
+      0.08,
+      0.6
+     ],
+     "total": 7,
+     "formation_rate_per_occupied_s": 0.004912625447399771,
+     "lifetime_median_s": 2.4999999999995226,
+     "lifetime_max_s": 6.299999999998766,
+     "n_censored": 1,
+     "frac_censored": 0.14285714285714285,
+     "size_median": 10.0,
+     "size_max": 16
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.30575142509480707,
+     "rate_pct": 30.57514250948071,
+     "run_rate_mean": 0.3058352175021468,
+     "run_rate_ci95": [
+      0.29926819800590077,
+      0.313167942367969
+     ],
+     "calls_total": 27187314,
+     "infeasible_total": 8312560,
+     "n_runs_with_calls": 25
+    }
+   }
+  },
+  "C4_rvo2": {
+   "L17": {
+    "arm": "C4_rvo2",
+    "L_m": 17.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.9607843137254901,
+    "throughput": {
+     "mean": 0.26600000000001495,
+     "sd": 0.07224572267231485,
+     "ci95": [
+      0.23733333333334666,
+      0.29266666666668306
+     ],
+     "min": 0.15000000000000843,
+     "max": 0.38333333333335484
+    },
+    "n_sunk_mean": 15.96,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.31180992161174814,
+     "sd": 0.021221761895793258,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 14,
+     "runs_with_wilson95": [
+      0.37067017019564436,
+      0.7333462505299744
+     ],
+     "per_run_mean": 0.92,
+     "per_run_ci95": [
+      0.52,
+      1.36
+     ],
+     "total": 23,
+     "formation_rate_per_occupied_s": 0.016046884811274528,
+     "lifetime_median_s": 3.0999999999994032,
+     "lifetime_max_s": 14.399999999997155,
+     "n_censored": 2,
+     "frac_censored": 0.08695652173913043,
+     "size_median": 9.0,
+     "size_max": 27
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.3065915258764017,
+     "rate_pct": 30.659152587640172,
+     "run_rate_mean": 0.30657249720718616,
+     "run_rate_ci95": [
+      0.30026744165248864,
+      0.3129159931650845
+     ],
+     "calls_total": 28617213,
+     "infeasible_total": 8773795,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L25": {
+    "arm": "C4_rvo2",
+    "L_m": 25.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 1.3333333333333333,
+    "throughput": {
+     "mean": 0.36733333333335394,
+     "sd": 0.07320063751999661,
+     "ci95": [
+      0.34066666666668577,
+      0.3966666666666889
+     ],
+     "min": 0.26666666666668165,
+     "max": 0.5333333333333633
+    },
+    "n_sunk_mean": 22.04,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.3258566470024342,
+     "sd": 0.01859686953778843,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 9,
+     "runs_with_wilson95": [
+      0.20247656431735636,
+      0.5548184539895337
+     ],
+     "per_run_mean": 0.6,
+     "per_run_ci95": [
+      0.24,
+      1.04
+     ],
+     "total": 15,
+     "formation_rate_per_occupied_s": 0.010493913530152412,
+     "lifetime_median_s": 2.2999999999995624,
+     "lifetime_max_s": 5.6999999999988855,
+     "n_censored": 1,
+     "frac_censored": 0.06666666666666667,
+     "size_median": 8.0,
+     "size_max": 14
+    },
+    "gridlock": {
+     "runs": 1,
+     "wilson95": [
+      0.007096050386699165,
+      0.19544472405022525
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 1
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.3062539271430838,
+     "rate_pct": 30.625392714308383,
+     "run_rate_mean": 0.30627799278306483,
+     "run_rate_ci95": [
+      0.3009287827736735,
+      0.3121932768716948
+     ],
+     "calls_total": 28062703,
+     "infeasible_total": 8594313,
+     "n_runs_with_calls": 25
+    }
+   },
+   "L34": {
+    "arm": "C4_rvo2",
+    "L_m": 34.0,
+    "n": 25,
+    "missing_seeds": [],
+    "start_density_per_m2": 0.9803921568627451,
+    "throughput": {
+     "mean": 0.5593333333333647,
+     "sd": 0.1506989886667715,
+     "ci95": [
+      0.5040000000000283,
+      0.6206666666667014
+     ],
+     "min": 0.26666666666668165,
+     "max": 0.8666666666667153
+    },
+    "n_sunk_mean": 33.56,
+    "runs_all_sunk_before_window": 0,
+    "mean_speed_zone": {
+     "mean": 0.35688095808977915,
+     "sd": 0.02685340630225739,
+     "n": 25
+    },
+    "leaks": {
+     "total": 0,
+     "runs_with": 0,
+     "runs_with_wilson95": [
+      0.0,
+      0.13319649395317873
+     ]
+    },
+    "standoffs": {
+     "runs_with": 4,
+     "runs_with_wilson95": [
+      0.06403347608577989,
+      0.34654013980238163
+     ],
+     "per_run_mean": 0.2,
+     "per_run_ci95": [
+      0.04,
+      0.4
+     ],
+     "total": 5,
+     "formation_rate_per_occupied_s": 0.003509018176714122,
+     "lifetime_median_s": 2.3999999999995425,
+     "lifetime_max_s": 3.4999999999993237,
+     "n_censored": 0,
+     "frac_censored": 0.0,
+     "size_median": 7.0,
+     "size_max": 10
+    },
+    "gridlock": {
+     "runs": 0,
+     "wilson95": [
+      0.0,
+      0.13319649395317873
+     ],
+     "runs_censored_ge_20s": 0,
+     "runs_no_sink_last_20s": 0
+    },
+    "lp": {
+     "kind": "rvo2_linearProgram3",
+     "rate": 0.3032531069483568,
+     "rate_pct": 30.325310694835675,
+     "run_rate_mean": 0.30320702953724654,
+     "run_rate_ci95": [
+      0.29685752086114514,
+      0.3093135890386341
+     ],
+     "calls_total": 27242326,
+     "infeasible_total": 8261320,
+     "n_runs_with_calls": 25
+    }
+   }
+  }
+ },
+ "totals": {
+  "C1": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_standoff": 25,
+   "standoffs": 48,
+   "gridlock_runs": 4,
+   "lp_rate_pct": null
+  },
+  "C2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_standoff": 26,
+   "standoffs": 56,
+   "gridlock_runs": 3,
+   "lp_rate_pct": null
+  },
+  "C3_rvo2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_standoff": 28,
+   "standoffs": 48,
+   "gridlock_runs": 5,
+   "lp_rate_pct": 31.166970047033566
+  },
+  "C4_rvo2": {
+   "n": 75,
+   "leaks": 0,
+   "runs_with_standoff": 27,
+   "standoffs": 43,
+   "gridlock_runs": 2,
+   "lp_rate_pct": 30.539493928200823
+  },
+  "all": {
+   "n": 300,
+   "leaks": 0
+  }
+ },
+ "paired": {
+  "L17": {
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.26800000000001506,
+    "c1_mean": 0.2526666666666808,
+    "diff": 0.015333333333334191,
+    "diff_ci95": [
+     -0.017350000000001004,
+     0.04668333333333588
+    ],
+    "ratio": 1.0606860158311346,
+    "ratio_ci95": [
+     0.9358427046219319,
+     1.2023138590696394
+    ],
+    "wilcoxon_p": 0.3212130017267488,
+    "levels": [
+     17.0
+    ]
+   },
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.2873333333333495,
+    "c1_mean": 0.2526666666666808,
+    "diff": 0.0346666666666686,
+    "diff_ci95": [
+     0.007983333333333769,
+     0.05933333333333664
+    ],
+    "ratio": 1.137203166226913,
+    "ratio_ci95": [
+     1.0274558375115694,
+     1.2535612535612535
+    ],
+    "wilcoxon_p": 0.022967042653445294,
+    "levels": [
+     17.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.26600000000001495,
+    "c1_mean": 0.2526666666666808,
+    "diff": 0.013333333333334078,
+    "diff_ci95": [
+     -0.014666666666667468,
+     0.040000000000002235
+    ],
+    "ratio": 1.0527704485488127,
+    "ratio_ci95": [
+     0.9466283741723728,
+     1.1671561061529103
+    ],
+    "wilcoxon_p": 0.3473902052595996,
+    "levels": [
+     17.0
+    ]
+   }
+  },
+  "L25": {
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.36066666666668695,
+    "c1_mean": 0.3586666666666868,
+    "diff": 0.0020000000000001284,
+    "diff_ci95": [
+     -0.037333333333335335,
+     0.042000000000002376
+    ],
+    "ratio": 1.0055762081784387,
+    "ratio_ci95": [
+     0.9008714229236994,
+     1.1173491459884421
+    ],
+    "wilcoxon_p": 0.9657857420515128,
+    "levels": [
+     25.0
+    ]
+   },
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.37333333333335433,
+    "c1_mean": 0.3586666666666868,
+    "diff": 0.014666666666667496,
+    "diff_ci95": [
+     -0.012666666666667369,
+     0.04133333333333575
+    ],
+    "ratio": 1.0408921933085504,
+    "ratio_ci95": [
+     0.9652973348695378,
+     1.1184798550338175
+    ],
+    "wilcoxon_p": 0.22287720920060317,
+    "levels": [
+     25.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.36733333333335394,
+    "c1_mean": 0.3586666666666868,
+    "diff": 0.008666666666667157,
+    "diff_ci95": [
+     -0.027333333333334837,
+     0.040000000000002346
+    ],
+    "ratio": 1.0241635687732342,
+    "ratio_ci95": [
+     0.9289174356332068,
+     1.1175590468506502
+    ],
+    "wilcoxon_p": 0.25337844572706714,
+    "levels": [
+     25.0
+    ]
+   }
+  },
+  "L34": {
+   "c2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.5120000000000288,
+    "c1_mean": 0.5233333333333627,
+    "diff": -0.01133333333333397,
+    "diff_ci95": [
+     -0.042000000000002376,
+     0.019333333333334365
+    ],
+    "ratio": 0.978343949044586,
+    "ratio_ci95": [
+     0.923536093563754,
+     1.0391325660699062
+    ],
+    "wilcoxon_p": 0.41554987505454033,
+    "levels": [
+     34.0
+    ]
+   },
+   "c3_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.5593333333333647,
+    "c1_mean": 0.5233333333333627,
+    "diff": 0.036000000000002,
+    "diff_ci95": [
+     -0.011350000000000773,
+     0.08601666666667142
+    ],
+    "ratio": 1.0687898089171974,
+    "ratio_ci95": [
+     0.9793241279069765,
+     1.168265932110885
+    ],
+    "wilcoxon_p": 0.2137334565746063,
+    "levels": [
+     34.0
+    ]
+   },
+   "c4_rvo2_over_c1": {
+    "n_pairs": 25,
+    "arm_mean": 0.5593333333333647,
+    "c1_mean": 0.5233333333333627,
+    "diff": 0.036000000000002016,
+    "diff_ci95": [
+     -0.01733333333333434,
+     0.08800000000000488
+    ],
+    "ratio": 1.0687898089171974,
+    "ratio_ci95": [
+     0.9681709328934065,
+     1.1772101398925328
+    ],
+    "wilcoxon_p": 0.25227562847796936,
+    "levels": [
+     34.0
+    ]
+   }
+  }
+ },
+ "pooled": {
+  "c2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 0.38022222222224356,
+   "c1_mean": 0.3782222222222435,
+   "diff": 0.002000000000000119,
+   "diff_ci95": [
+    -0.017338888888889892,
+    0.021777777777779006
+   ],
+   "ratio": 1.0052878965922443,
+   "ratio_ci95": [
+    0.9553764404274105,
+    1.0603154519443134
+   ],
+   "wilcoxon_p": 0.8784383447623104,
+   "levels": [
+    17.0,
+    25.0,
+    34.0
+   ]
+  },
+  "c3_rvo2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 0.40666666666668955,
+   "c1_mean": 0.3782222222222435,
+   "diff": 0.02844444444444603,
+   "diff_ci95": [
+    0.0073333333333337695,
+    0.0486666666666694
+   ],
+   "ratio": 1.0752056404230317,
+   "ratio_ci95": [
+    1.0193857933332342,
+    1.1324872985839507
+   ],
+   "wilcoxon_p": 0.007758736348726332,
+   "levels": [
+    17.0,
+    25.0,
+    34.0
+   ]
+  },
+  "c4_rvo2_over_c1": {
+   "n_pairs": 75,
+   "arm_mean": 0.3975555555555779,
+   "c1_mean": 0.3782222222222435,
+   "diff": 0.01933333333333442,
+   "diff_ci95": [
+    -0.004444444444444666,
+    0.040666666666668995
+   ],
+   "ratio": 1.0511163337250293,
+   "ratio_ci95": [
+    0.9888257190034997,
+    1.111392439818512
+   ],
+   "wilcoxon_p": 0.06506785281202385,
+   "levels": [
+    17.0,
+    25.0,
+    34.0
+   ]
+  }
+ },
+ "verdict": {
+  "conference": {
+   "claim": "TTC (C2) triples crossing throughput",
+   "c2_exits": 16.1,
+   "c1_exits": 5.9,
+   "per": "200 agents in 60 s",
+   "irr": 2.72
+  },
+  "status": "withdrawn",
+  "evidence": "C2/C1 throughput 1.01 [0.96, 1.06] pooled over L = 17, 25, 34 m (75 seed pairs; exits per run C2 22.8 vs C1 22.7; leaks 0) against the printed 2.72",
+  "solver": {
+   "headline": "not involved (C2 vs C1)",
+   "orca_arms": "rvo2 only"
+  },
+  "per_L": {
+   "L17": "withdrawn",
+   "L25": "withdrawn",
+   "L34": "withdrawn"
+  },
+  "rule": "pooled C2/C1 ratio interval [lo, hi]: withdrawn if lo <= 1 or hi < 1.5; confirmed if lo <= 2.72 <= hi or lo > 2; else revised",
+  "gridlock_definition": "window ran to the end with agents left AND (censored standoff >= 20 s OR no agent sunk in the last 20 s)"
+ },
+ "anomalies": []
+}

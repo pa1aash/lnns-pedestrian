@@ -95,3 +95,32 @@ EeightCThreePubRatioDense: {file: E8_analysis.json, key: "paired.L12.c3_pub_over
 EeightCThreePubRatioDenseLo: {file: E8_analysis.json, key: "paired.L12.c3_pub_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
 EeightCThreePubRatioDenseHi: {file: E8_analysis.json, key: "paired.L12.c3_pub_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
 EeightCThreePubTpDense: {file: E8_analysis.json, key: "cells.C3_pub.L12.throughput.mean", fmt: "{:.2f}"}
+
+# ---- open crossing (experiments/E9/analyze.py; C2 vs C1, no ORCA involved, decision C64)
+# Source: data/derived/E9_analysis.json (experiments/E9/analyze.py). CF, 100 + 100 agents, line goals, 60 s, seeds 42-66 (n = 25 per arm and L).
+# L17 = densest start (1.96 m^-2, the pilot geometry). Ratios = mean throughput arm / C1, paired by seed; pooled = stratified over L = 17, 25, 34 m.
+# Exits = agents sunk per run (conference: "exits per 200 agents in 60 s"). Gridlock run as in E8 (censored standoff >= 20 s or no sink in the last 20 s).
+EnineN: {file: E9_analysis.json, key: "cells.C1.L17.n", fmt: "{:d}"}
+EnineCTwoRatio: {file: E9_analysis.json, key: "pooled.c2_over_c1.ratio", fmt: "{:.2f}"}
+EnineCTwoRatioLo: {file: E9_analysis.json, key: "pooled.c2_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EnineCTwoRatioHi: {file: E9_analysis.json, key: "pooled.c2_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EnineCTwoRatioDense: {file: E9_analysis.json, key: "paired.L17.c2_over_c1.ratio", fmt: "{:.2f}"}
+EnineCTwoRatioDenseLo: {file: E9_analysis.json, key: "paired.L17.c2_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EnineCTwoRatioDenseHi: {file: E9_analysis.json, key: "paired.L17.c2_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EnineCThreeRatio: {file: E9_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio", fmt: "{:.2f}"}
+EnineCThreeRatioLo: {file: E9_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio_ci95.0", fmt: "{:.2f}"}
+EnineCThreeRatioHi: {file: E9_analysis.json, key: "pooled.c3_rvo2_over_c1.ratio_ci95.1", fmt: "{:.2f}"}
+EnineCFourRatio: {file: E9_analysis.json, key: "pooled.c4_rvo2_over_c1.ratio", fmt: "{:.2f}"}
+EnineCOneExitsDense: {file: E9_analysis.json, key: "cells.C1.L17.n_sunk_mean", fmt: "{:.1f}"}
+EnineCTwoExitsDense: {file: E9_analysis.json, key: "cells.C2.L17.n_sunk_mean", fmt: "{:.1f}"}
+EnineLeaks: {file: E9_analysis.json, key: "totals.all.leaks", fmt: "{:d}"}
+EnineRunsTotal: {file: E9_analysis.json, key: "totals.C1.n", fmt: "{:d}"}
+EnineCOneStandoffRuns: {file: E9_analysis.json, key: "totals.C1.runs_with_standoff", fmt: "{:d}"}
+EnineCTwoStandoffRuns: {file: E9_analysis.json, key: "totals.C2.runs_with_standoff", fmt: "{:d}"}
+EnineCOneStandoffs: {file: E9_analysis.json, key: "totals.C1.standoffs", fmt: "{:d}"}
+EnineCTwoStandoffs: {file: E9_analysis.json, key: "totals.C2.standoffs", fmt: "{:d}"}
+EnineCOneStandoffLifeDense: {file: E9_analysis.json, key: "cells.C1.L17.standoffs.lifetime_median_s", fmt: "{:.1f}"}
+EnineCTwoStandoffLifeDense: {file: E9_analysis.json, key: "cells.C2.L17.standoffs.lifetime_median_s", fmt: "{:.1f}"}
+EnineCOneGridlock: {file: E9_analysis.json, key: "totals.C1.gridlock_runs", fmt: "{:d}"}
+EnineCTwoGridlock: {file: E9_analysis.json, key: "totals.C2.gridlock_runs", fmt: "{:d}"}
+EnineLPRvo: {file: E9_analysis.json, key: "totals.C3_rvo2.lp_rate_pct", fmt: "{:.1f}"}
