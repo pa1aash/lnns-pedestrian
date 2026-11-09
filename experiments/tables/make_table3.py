@@ -113,7 +113,7 @@ PAIR_T = r"$>$120"  # Kaplan--Meier median not reached within the 120 s window (
 
 BLOCKS = [
     (r"Lone-trap snapshots: " + one("EtwoNLK") + r" lone keystones, 120\,s", [
-        (r"C1 + noise $\sigma=0.07$\,m/s",
+        (r"noise $\sigma=0.07$\,m/s",
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
          diff("TabThreeLKDiff", "TabThreeLKDiffLo", "TabThreeLKDiffHi"),
          jind(ci("FixAoneLoneJ", "FixAoneLoneJLo", "FixAoneLoneJHi"), "FixAoneLoneJInd"),
@@ -126,13 +126,13 @@ BLOCKS = [
     ]),
     # K5: ell was measured on the time-step set, not at sigma = 0.07 on the lone keystones.
     (r"Time-step test: " + one("EthreeN") + r" lone-trap snapshots", [
-        (r"C1 + noise, $\beta_{\rm ref}=1.5$", NA, NA, NA, NA, NA, NA,
+        (r"noise, $\beta_{\rm ref}=1.5$", NA, NA, NA, NA, NA, NA,
          "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
         ("C3 RVO2", frac("EthreeCThreeFreed", "EthreeN"), NA, NA, NA, NA, NA,
          "$" + one("EthreeCThreeLnRatioFix") + "$"),
     ]),
     (r"Whole runs: " + one("EsixN") + r" seeds, 600\,s", [
-        (r"C1 + noise $\sigma^\ast$",
+        (r"noise $\sigma^\ast$",
          frac("EsixNoiseK", "EsixN"),
          diff("EsixDiff", "EsixDiffLo", "EsixDiffHi"),
          jind(ci("EsixJaccard", "EsixJaccardLo", "EsixJaccardHi"), "FixAoneWholeJInd"),
@@ -165,9 +165,9 @@ BLOCKS = [
 
 CAPTION = (
     r"Controls matched to ORCA on rate: freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
-    r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$, first exits "
+    r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$ (s), first exits "
     r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
-    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are C1 + noise; lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
 )
 
 
@@ -178,9 +178,9 @@ def main():
         r"\caption{" + CAPTION + "}",
         r"\label{tab:matched}",
         r"\centering\scriptsize\setlength{\tabcolsep}{1.5pt}",
-        r"\begin{tabular}{@{}lccccccc@{}}",
+        r"\resizebox{\textwidth}{!}{\begin{tabular}{@{}lccccccc@{}}",
         r"\toprule",
-        r"Control & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ (s) & Lower & Replay & $\ell$ \\",
+        r"Control & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ & Lower & Replay & $\ell$ \\",
     ]
     nrows = 0
     for title, rows in BLOCKS:
@@ -188,7 +188,7 @@ def main():
         for r in rows:
             lines.append(" & ".join(r) + r" \\")
             nrows += 1
-    lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
+    lines += [r"\bottomrule", r"\end{tabular}}", r"\end{table}"]
     text = "\n".join(lines) + "\n"
     OUT.write_text(text)
     print(f"wrote {OUT} ({nrows} rows, 8 columns, 3 blocks)")
