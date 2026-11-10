@@ -1,0 +1,49 @@
+# A4 trend of the Arrhenius slope ratio (Fig. 4 right) with ln Delta U
+# Source: data/derived/rev_A4.json (experiments/revision/A4_ratio_trend.py)
+RevAfourFits: {file: rev_A4.json, key: "n_fits", fmt: "{:d}"}
+RevAfourSnaps: {file: rev_A4.json, key: "n_snapshots", fmt: "{:d}"}
+# pooled, one intercept per condition
+RevAfourPoolCondB: {file: rev_A4.json, key: "pooled_cond_int.ols_b", fmt: "{:.3f}"}
+RevAfourPoolCondBootLo: {file: rev_A4.json, key: "pooled_cond_int.ols_boot_snap.ci95.0", fmt: "{:.2f}"}
+RevAfourPoolCondBootHi: {file: rev_A4.json, key: "pooled_cond_int.ols_boot_snap.ci95.1", fmt: "{:.2f}"}
+RevAfourPoolCondWlsB: {file: rev_A4.json, key: "pooled_cond_int.wls.b", fmt: "{:.2f}"}
+RevAfourPoolCondWlsLo: {file: rev_A4.json, key: "pooled_cond_int.wls.ci95_scaled.0", fmt: "{:.2f}"}
+RevAfourPoolCondWlsHi: {file: rev_A4.json, key: "pooled_cond_int.wls.ci95_scaled.1", fmt: "{:.2f}"}
+# pooled, common intercept
+RevAfourPoolComB: {file: rev_A4.json, key: "pooled_common.ols_b", fmt: "{:.2f}"}
+RevAfourPoolComBootLo: {file: rev_A4.json, key: "pooled_common.ols_boot_snap.ci95.0", fmt: "{:.2f}"}
+RevAfourPoolComBootHi: {file: rev_A4.json, key: "pooled_common.ols_boot_snap.ci95.1", fmt: "{:.2f}"}
+RevAfourPoolComWlsB: {file: rev_A4.json, key: "pooled_common.wls.b", fmt: "{:.2f}"}
+RevAfourPoolComWlsLo: {file: rev_A4.json, key: "pooled_common.wls.ci95_scaled.0", fmt: "{:.2f}"}
+RevAfourPoolComWlsHi: {file: rev_A4.json, key: "pooled_common.wls.ci95_scaled.1", fmt: "{:.3f}"}
+RevAfourPoolSpearman: {file: rev_A4.json, key: "pooled_common.spearman.rho", fmt: "{:.2f}"}
+RevAfourPoolSpearmanP: {file: rev_A4.json, key: "pooled_common.spearman.p", fmt: p}
+# per condition
+RevAfourFullB: {file: rev_A4.json, key: "per_condition.full.ols_b", fmt: "{:.2f}"}
+RevAfourFullBootLo: {file: rev_A4.json, key: "per_condition.full.ols_boot_snap.ci95.0", fmt: "{:.3f}"}
+RevAfourFullBootHi: {file: rev_A4.json, key: "per_condition.full.ols_boot_snap.ci95.1", fmt: "{:.2f}"}
+RevAfourFullWlsLo: {file: rev_A4.json, key: "per_condition.full.wls.ci95_scaled.0", fmt: "{:.2f}"}
+RevAfourFullWlsHi: {file: rev_A4.json, key: "per_condition.full.wls.ci95_scaled.1", fmt: "{:.2f}"}
+RevAfourFullLooMin: {file: rev_A4.json, key: "per_condition.full.loo_snap.b_min", fmt: "{:.2f}"}
+RevAfourPinB: {file: rev_A4.json, key: "per_condition.frozen.ols_b", fmt: "{:.2f}"}
+RevAfourPinBootLo: {file: rev_A4.json, key: "per_condition.frozen.ols_boot_snap.ci95.0", fmt: "{:.2f}"}
+RevAfourPinBootHi: {file: rev_A4.json, key: "per_condition.frozen.ols_boot_snap.ci95.1", fmt: "{:.2f}"}
+RevAfourPinWlsLo: {file: rev_A4.json, key: "per_condition.frozen.wls.ci95_scaled.0", fmt: "{:.2f}"}
+RevAfourPinWlsHi: {file: rev_A4.json, key: "per_condition.frozen.wls.ci95_scaled.1", fmt: "{:.3f}"}
+RevAfourAloneB: {file: rev_A4.json, key: "per_condition.alone.ols_b", fmt: "{:.2f}"}
+RevAfourAloneBootLo: {file: rev_A4.json, key: "per_condition.alone.ols_boot_snap.ci95.0", fmt: "{:.2f}"}
+RevAfourAloneBootHi: {file: rev_A4.json, key: "per_condition.alone.ols_boot_snap.ci95.1", fmt: "{:.3f}"}
+RevAfourAloneWlsLo: {file: rev_A4.json, key: "per_condition.alone.wls.ci95_scaled.0", fmt: "{:.2f}"}
+RevAfourAloneWlsHi: {file: rev_A4.json, key: "per_condition.alone.wls.ci95_scaled.1", fmt: "{:.2f}"}
+RevAfourAloneSpearman: {file: rev_A4.json, key: "per_condition.alone.spearman.rho", fmt: "{:.2f}"}
+RevAfourAloneRMin: {file: rev_A4.json, key: "per_condition.alone.r_range.0", fmt: "{:.2f}"}
+RevAfourAloneRMax: {file: rev_A4.json, key: "per_condition.alone.r_range.1", fmt: "{:.2f}"}
+RevAfourAloneDUMin: {file: rev_A4.json, key: "per_condition.alone.dU_range.0", fmt: "{:.1f}"}
+RevAfourAloneDUMax: {file: rev_A4.json, key: "per_condition.alone.dU_range.1", fmt: "{:.0f}"}
+# realised-temperature refit
+RevAfourRealAloneB: {file: rev_A4.json, key: "realised_T.alone.ols_b", fmt: "{:.2f}"}
+RevAfourRealAloneLo: {file: rev_A4.json, key: "realised_T.alone.ci95.0", fmt: "{:.2f}"}
+RevAfourRealAloneHi: {file: rev_A4.json, key: "realised_T.alone.ci95.1", fmt: "{:.2f}"}
+RevAfourRealPoolCondB: {file: rev_A4.json, key: "realised_T.pooled_cond_int.ols_b", fmt: "{:.2f}"}
+RevAfourRealPoolCondLo: {file: rev_A4.json, key: "realised_T.pooled_cond_int.ci95.0", fmt: "{:.2f}"}
+RevAfourRealPoolCondHi: {file: rev_A4.json, key: "realised_T.pooled_cond_int.ci95.1", fmt: "{:.2f}"}

@@ -1,0 +1,56 @@
+# Registry entries for A5 (snapshot selection and second-trap balance). Source: data/derived/rev_A5.json
+# (experiments/revision/A5_selection.py).
+
+# --- funnel: whole runs -> deadlocks -> keystone classes -> E2 strata
+RevAfiveRuns: {file: rev_A5.json, key: "funnel.runs", fmt: "{:d}"}
+RevAfiveComplete: {file: rev_A5.json, key: "funnel.complete", fmt: "{:d}"}
+RevAfiveDeadlocks: {file: rev_A5.json, key: "funnel.deadlocks", fmt: "{:d}"}
+RevAfiveSaved: {file: rev_A5.json, key: "funnel.snapshots_saved", fmt: "{:d}"}
+RevAfiveLoneKeystone: {file: rev_A5.json, key: "funnel.lone_keystone", fmt: "{:d}"}
+RevAfiveSecondTrap: {file: rev_A5.json, key: "funnel.second_trap", fmt: "{:d}"}
+RevAfiveGroupStandoff: {file: rev_A5.json, key: "funnel.group_standoff", fmt: "{:d}"}
+RevAfiveSecondDrawn: {file: rev_A5.json, key: "funnel.e2_second_trap", fmt: "{:d}"}
+RevAfiveSecondNotDrawn: {file: rev_A5.json, key: "funnel.second_trap_not_drawn", fmt: "{:d}"}
+RevAfivePoolMissing: {file: rev_A5.json, key: "funnel.pool_missing_pickle", fmt: "{:d}"}
+
+# --- barrier gate, E3 and E4 selection
+RevAfiveGateFail: {file: rev_A5.json, key: "bar_e3_e4.gate_fail", fmt: "{:d}"}
+RevAfiveGateFailSecond: {file: rev_A5.json, key: "bar_e3_e4.gate_fail_second_trap", fmt: "{:d}"}
+RevAfiveGateAccepted: {file: rev_A5.json, key: "bar_e3_e4.gate_accepted", fmt: "{:d}"}
+RevAfiveGateAccSecond: {file: rev_A5.json, key: "bar_e3_e4.gate_accepted_by_class.second_trap", fmt: "{:d}"}
+RevAfiveEthreeQual: {file: rev_A5.json, key: "bar_e3_e4.e3.qualifying", fmt: "{:d}"}
+RevAfiveEthreeBelow: {file: rev_A5.json, key: "bar_e3_e4.e3.below_3J", fmt: "{:d}"}
+RevAfiveEthreeQualLK: {file: rev_A5.json, key: "bar_e3_e4.e3.qualifying_by_class.lone_keystone", fmt: "{:d}"}
+RevAfiveEthreeQualST: {file: rev_A5.json, key: "bar_e3_e4.e3.qualifying_by_class.second_trap", fmt: "{:d}"}
+RevAfiveEthreeN: {file: rev_A5.json, key: "bar_e3_e4.e3.n", fmt: "{:d}"}
+RevAfiveEthreeLK: {file: rev_A5.json, key: "bar_e3_e4.e3.by_class.lone_keystone", fmt: "{:d}"}
+RevAfiveEthreeST: {file: rev_A5.json, key: "bar_e3_e4.e3.by_class.second_trap", fmt: "{:d}"}
+RevAfiveEfourQual: {file: rev_A5.json, key: "bar_e3_e4.e4.qualifying", fmt: "{:d}"}
+RevAfiveEfourSingle: {file: rev_A5.json, key: "bar_e3_e4.e4.single_agent", fmt: "{:d}"}
+RevAfiveEfourQualLK: {file: rev_A5.json, key: "bar_e3_e4.e4.qualifying_by_class.lone_keystone", fmt: "{:d}"}
+RevAfiveEfourQualST: {file: rev_A5.json, key: "bar_e3_e4.e4.qualifying_by_class.second_trap", fmt: "{:d}"}
+RevAfiveEfourN: {file: rev_A5.json, key: "bar_e3_e4.e4.n", fmt: "{:d}"}
+
+# --- pair barriers
+RevAfivePairLibrary: {file: rev_A5.json, key: "pair.library", fmt: "{:d}"}
+RevAfivePairBarN: {file: rev_A5.json, key: "pair.n", fmt: "{:d}"}
+RevAfivePairChAcc: {file: rev_A5.json, key: "pair.channels_accepted", fmt: "{:d}"}
+RevAfivePairChN: {file: rev_A5.json, key: "pair.channels_total", fmt: "{:d}"}
+
+# --- balance of the 26 drawn second traps against the 134 not drawn
+RevAfiveBalTests: {file: rev_A5.json, key: "balance.n_tests", fmt: "{:d}"}
+RevAfiveBalMinP: {file: rev_A5.json, key: "balance.min_p_raw", fmt: "p"}
+RevAfiveBalMinPHolm: {file: rev_A5.json, key: "balance.min_p_holm", fmt: "p"}
+RevAfiveBalMaxSMD: {file: rev_A5.json, key: "balance.max_abs_smd", fmt: "{:.2f}"}
+RevAfiveBalOmniP: {file: rev_A5.json, key: "balance.omnibus_p", fmt: "p"}
+RevAfiveBalMarginP: {file: rev_A5.json, key: "balance.covariates.blocker_margin_C1.p_mw", fmt: "p"}
+RevAfiveBalResidP: {file: rev_A5.json, key: "balance.covariates.n_resid.p_mw", fmt: "p"}
+RevAfiveHeldDrawnK: {file: rev_A5.json, key: "balance.covariates.second_held_alone.k_drawn", fmt: "{:d}"}
+RevAfiveHeldRestK: {file: rev_A5.json, key: "balance.covariates.second_held_alone.k_rest", fmt: "{:d}"}
+RevAfiveHeldP: {file: rev_A5.json, key: "balance.covariates.second_held_alone.p_fisher", fmt: "p"}
+
+# --- cost of screening the 134 not drawn
+RevAfiveCostJobs: {file: rev_A5.json, key: "cost.n_jobs", fmt: "{:d}"}
+RevAfiveCostPerSnap: {file: rev_A5.json, key: "cost.per_snapshot_s", fmt: "{:.0f}"}
+RevAfiveCostCPUh: {file: rev_A5.json, key: "cost.cpu_hours", fmt: "{:.1f}"}
+RevAfiveCostSmokeCPUh: {file: rev_A5.json, key: "cost.smoke.cpu_hours_134_snapshots", fmt: "{:.1f}"}

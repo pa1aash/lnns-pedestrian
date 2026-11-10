@@ -1,0 +1,111 @@
+{
+ "doc": "A1: numerical check of the rest-drive identity of force-coupled ORCA.\n\nWith no binding constraint ORCA returns v_pref = v0 e, so the drive part of force-coupled ORCA is\nw_o m (v0 e - v)/tau_orca and\n\n    F_des + w_o F_drive = m (v_eff/tau + w_o v0/tau_orca) e - m (1/tau + w_o/tau_orca) v.\n\nFor w_o = 1 this is the SFM drive m (v_target e - v)/tau' with\n    tau' = tau tau_orca / (tau + tau_orca),   v_target = (v_eff/tau + v0/tau_orca) tau'  (= v0 when v_eff = v0).\n\nCheck 1 (forces): on every E2 snapshot (34 lone keystones, 26 second traps) compare the total force of\nC3 with w2_orca_split = drive_only against C1 with tau -> tau' and v0 -> v0' (two substitutions:\n\"tau\" keeps v0' = v0; \"exact\" sets v0' so that W(rho) v0' / tau' equals the C3 drive coefficient at the\nsnapshot densities, W the Weidmann factor), at v = 0 and at random velocities (|v| ~ 0.3 m/s).\nCheck 2 (dynamics): quench every snapshot under C1 with each substitution exactly as E2's deterministic\narms (CF flags, dt = 0.01 s, 120 s, stationary stop |v| < 1e-3 m/s for 10 s; unperturbed run) and compare\nblocker freed / exit time paired with E2's drive_only arm (data/E2/e2_quench.jsonl, job \"<tag>|drive_only|u\").\n\nOutput: data/revision/A1/a1_quench.jsonl, data/derived/rev_A1.json.\n",
+ "force_check": {
+  "tau_rest": {
+   "max_abs_dF_N": 0.22473057694105592,
+   "max_rel_dF": 0.0010604540455059997,
+   "n": 60
+  },
+  "tau_moving": {
+   "max_abs_dF_N": 0.2613703435636694,
+   "max_rel_dF": 0.001591505646172018,
+   "n": 60
+  },
+  "exact_rest": {
+   "max_abs_dF_N": 1.7053025658242404e-13,
+   "max_rel_dF": 1.0013095207992466e-15,
+   "n": 60
+  },
+  "exact_moving": {
+   "max_abs_dF_N": 0.040480087889136485,
+   "max_rel_dF": 0.0007392836113147476,
+   "n": 60
+  }
+ },
+ "quench": {
+  "tau_lone": {
+   "n": 34,
+   "freed_sub": 30,
+   "freed_drive": 30,
+   "both": 30,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 4,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.03999999999996362,
+   "median_abs_dt_exit_s": 0.0
+  },
+  "tau_second": {
+   "n": 26,
+   "freed_sub": 24,
+   "freed_drive": 24,
+   "both": 24,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 2,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.009999999999990905,
+   "median_abs_dt_exit_s": 0.0
+  },
+  "tau_all": {
+   "n": 60,
+   "freed_sub": 54,
+   "freed_drive": 54,
+   "both": 54,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 6,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.03999999999996362,
+   "median_abs_dt_exit_s": 0.0
+  },
+  "exact_lone": {
+   "n": 34,
+   "freed_sub": 30,
+   "freed_drive": 30,
+   "both": 30,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 4,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.009999999999990905,
+   "median_abs_dt_exit_s": 0.0
+  },
+  "exact_second": {
+   "n": 26,
+   "freed_sub": 24,
+   "freed_drive": 24,
+   "both": 24,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 2,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.0,
+   "median_abs_dt_exit_s": 0.0
+  },
+  "exact_all": {
+   "n": 60,
+   "freed_sub": 54,
+   "freed_drive": 54,
+   "both": 54,
+   "sub_only": 0,
+   "drive_only": 0,
+   "neither": 6,
+   "mcnemar_p": 1.0,
+   "max_abs_dt_exit_s": 0.009999999999990905,
+   "median_abs_dt_exit_s": 0.0
+  }
+ },
+ "tau_prime_range_s": [
+  0.22302187055880787,
+  0.27245210401961195
+ ],
+ "tau_range_s": [
+  0.40259834054182936,
+  0.5986697939916222
+ ],
+ "drive_ratio_range": [
+  1.8051966810836588,
+  2.1973395879832447
+ ]
+}

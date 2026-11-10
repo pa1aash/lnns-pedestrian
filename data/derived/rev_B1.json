@@ -1,0 +1,54 @@
+{
+ "doc": "B1: converse of the stuck-alone criterion g_max(r) > m v0/tau (Eq. (stuck)).\n\nPopulation: the spawned agents of the E1b whole runs (data/E1/E1_runs.jsonl, mode E1b; attrs r, v0, tau,\nm = 80 kg), with the stuck-alone margin g_max(r) - m v0/tau of experiments/lib/w2lib.Passability (default\nwalls A_w = 2000 N, B_w = 0.08 m, sharp edges, w = 0.8 m, rho = 0 so v_eff = v0).\nSamples: 200 agents with negative margin and 200 with positive margin, each spread over the margin: the\nagents of that sign sorted by (margin, run seed, id), ranks round(linspace(0, n - 1, 200)).\nPlacement (alone, at rest, on the door axis y = 5, goal (11, 5) as in the bottleneck scenario):\n  positive margin  at the rest state: the first x upstream of the door plane where the backward wall force\n                   equals the drive (the stable equilibrium on the rising side of the profile);\n  negative margin  no rest state exists on the axis; the agent is placed at the axial position of g_max(r),\n                   where the backward force is largest, and (start \"upstream\") 1.0 m upstream of it.\nRun: C1, CF flags, dt = 0.01 s, 60 s, one agent active; \"pass\" = the agent's centre reaches x >= 10 (door\nplane) or the agent exits. Output data/revision/B1/b1.jsonl (job_id \"<sign>|<rank>|<start>\"), resumable.\nUsage: B1_converse.py [qargs options]   |   B1_converse.py analyse\n",
+ "neg_peak": {
+  "n": 200,
+  "passed": 200,
+  "frac": 1.0,
+  "ci95": [
+   0.9811539940816791,
+   1.0
+  ],
+  "n_pool": 15314,
+  "margin_range_N": [
+   -346.1212947249736,
+   -0.0068940596437983
+  ],
+  "t_pass_median_s": 0.6700000000000004,
+  "t_pass_max_s": 46.42999999999933,
+  "exceptions": []
+ },
+ "neg_upstream": {
+  "n": 200,
+  "passed": 200,
+  "frac": 1.0,
+  "ci95": [
+   0.9811539940816791,
+   1.0
+  ],
+  "n_pool": 15314,
+  "margin_range_N": [
+   -346.1212947249736,
+   -0.0068940596437983
+  ],
+  "t_pass_median_s": 1.410000000000001,
+  "t_pass_max_s": 2.53999999999999,
+  "exceptions": []
+ },
+ "pos_rest": {
+  "n": 200,
+  "passed": 0,
+  "frac": 0.0,
+  "ci95": [
+   0.0,
+   0.018846005918320894
+  ],
+  "n_pool": 4686,
+  "margin_range_N": [
+   0.008079575810910455,
+   453.56461132354207
+  ],
+  "t_pass_median_s": null,
+  "t_pass_max_s": null,
+  "exceptions": []
+ }
+}

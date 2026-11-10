@@ -1,0 +1,15 @@
+# B1 converse of the stuck-alone criterion (experiments/revision/B1_converse.py)
+RevBoneNegN: {file: rev_B1.json, key: "neg_peak.n", fmt: "{:d}"}
+RevBoneNegPassPeak: {file: rev_B1.json, key: "neg_peak.passed", fmt: "{:d}"}
+RevBoneNegPassUp: {file: rev_B1.json, key: "neg_upstream.passed", fmt: "{:d}"}
+RevBoneNegLo: {file: rev_B1.json, key: "neg_peak.ci95.0", fmt: "{:.2f}"}
+RevBoneNegMarginMax: {file: rev_B1.json, key: "neg_peak.margin_range_N.1", fmt: "{:.3f}"}
+RevBoneNegTmedPeak: {file: rev_B1.json, key: "neg_peak.t_pass_median_s", fmt: "{:.2f}"}
+RevBoneNegTmaxPeak: {file: rev_B1.json, key: "neg_peak.t_pass_max_s", fmt: "{:.0f}"}
+RevBoneNegTmaxUp: {file: rev_B1.json, key: "neg_upstream.t_pass_max_s", fmt: "{:.1f}"}
+RevBonePosN: {file: rev_B1.json, key: "pos_rest.n", fmt: "{:d}"}
+RevBonePosPass: {file: rev_B1.json, key: "pos_rest.passed", fmt: "{:d}"}
+RevBonePosHi: {file: rev_B1.json, key: "pos_rest.ci95.1", fmt: "{:.3f}"}
+RevBonePosMarginMin: {file: rev_B1.json, key: "pos_rest.margin_range_N.0", fmt: "{:.3f}"}
+RevBoneNegPool: {file: rev_B1.json, key: "neg_peak.n_pool", fmt: "{:d}"}
+RevBonePosPool: {file: rev_B1.json, key: "pos_rest.n_pool", fmt: "{:d}"}

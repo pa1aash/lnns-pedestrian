@@ -1,0 +1,17 @@
+# A14: legacy ORCA solver, leg-normal sign defect. Source: data/derived/rev_A14.json (experiments/revision/A14_legnormal.py).
+RevAfourteenCommitIntro: {file: rev_A14.json, key: "identity.introduced_commit_short", fmt: "{}"}
+RevAfourteenCommitConf: {file: rev_A14.json, key: "identity.conference_commit_short", fmt: "{}"}
+RevAfourteenBlobConf: {file: rev_A14.json, key: "identity.conference_blob_short", fmt: "{}"}
+RevAfourteenDefectLine: {file: rev_A14.json, key: "identity.defect_lineno_worktree", fmt: "{:d}"}
+RevAfourteenPairsN: {file: rev_A14.json, key: "random_pairs.n", fmt: "{:d}"}
+RevAfourteenLegN: {file: rev_A14.json, key: "random_pairs.leg", fmt: "{:d}"}
+RevAfourteenLegOutsideN: {file: rev_A14.json, key: "random_pairs.leg_outside", fmt: "{:d}"}
+RevAfourteenLegInsideN: {file: rev_A14.json, key: "random_pairs.leg_inside", fmt: "{:d}"}
+RevAfourteenOutsideFlipFrac: {file: rev_A14.json, key: "random_pairs.frac_leg_outside_flipped", fmt: "{:.2f}"}
+RevAfourteenInsideAgreeFrac: {file: rev_A14.json, key: "random_pairs.frac_leg_inside_agree", fmt: "{:.2f}"}
+RevAfourteenViViolatesFrac: {file: rev_A14.json, key: "random_pairs.frac_leg_legacy_vi_violates", fmt: "{:.2f}"}
+RevAfourteenSideAgreeFrac: {file: rev_A14.json, key: "random_pairs.frac_side_agree", fmt: "{:.2f}"}
+RevAfourteenFixAgreeFrac: {file: rev_A14.json, key: "random_pairs.frac_leg_fix_agree", fmt: "{:.2f}"}
+RevAfourteenCapN: {file: rev_A14.json, key: "random_pairs.cap", fmt: "{:d}"}
+RevAfourteenCapMaxAngle: {file: rev_A14.json, key: "random_pairs.cap_max_angle_rad", fmt: "sci"}
+RevAfourteenCreepLegN: {file: rev_A14.json, key: "creep_pairs.leg", fmt: "{:d}"}

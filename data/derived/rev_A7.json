@@ -1,0 +1,1196 @@
+{
+ "script": "experiments/revision/A7_paired.py",
+ "doc": "A7: paired difference tests replace the interval-overlap decision rule of protocol step 5.\n\nFor every comparison (rate-matched surrogate or reference perturbation against force-coupled ORCA) and every\nprobe, one paired test on the DIFFERENCE between the two perturbations on the same snapshots (or spawn seeds),\nwith Holm's step-down correction across the probes of each comparison (revlib.holm). Existing data only.\n\nInputs (read only)\n  data/E2/e2_quench.jsonl, data/derived/selection.json   lone-trap quenches (34 lone keystones, 26 second traps)\n  data/N1/n1.jsonl                                      noise sigma = 0.0717 m/s, 20 seeds per lone keystone\n  data/E3/e3_dt.jsonl                                   time-step test (20 lone-trap snapshots)\n  data/E6/e6a.jsonl, e6b.jsonl, data/N2/n2.jsonl         whole runs (186 spawn seeds): ORCA (RVO2), noise sigma*,\n                                                        noise sigma* with an independent stream\n  data/derived/E6_analysis.json (via experiments/fixan/fix_a6.part_class)   final-state class of failed runs\n  data/E7b/e7b_quench.jsonl, data/E7b_bstar/bstar_quench.jsonl              pair standoffs (46 snapshots)\nOutput: data/derived/rev_A7.json.\n\nComparisons (surrogate first, ORCA second; differences are surrogate minus ORCA)\n  lone_E2   noise sigma = 0.07 m/s (E2, 5 seeds) vs force-coupled ORCA (RVO2), 34 lone keystones\n  lone_N1   noise sigma = 0.0717 m/s (N1, 20 seeds) vs ORCA (RVO2), same 34 lone keystones\n  second    noise sigma = 0.07 m/s (E2) vs ORCA (RVO2), 26 second traps\n  whole_E6  noise sigma* (E6b) vs ORCA (RVO2) (E6a), 186 seeds, 600 s\n  whole_N2  noise sigma*, independent stream (N2) vs ORCA (RVO2) (E6a)\n  pair_pub  bias +b*_legacy vs ORCA (legacy), 46 pair standoffs, 120 s\n  pair_rvo2 bias +b*_RVO2 vs ORCA (RVO2)\n  push_lone rest-drive push + (E2 arm frozen_plus) vs ORCA (RVO2), lone keystones\n  push_second  the same at the second traps\n\nUnit of a deterministic arm: the unperturbed run (\"u\") per snapshot. Unit of a noise arm: the snapshot with all\nits seeds (snapshot = resampling unit); whole runs: the spawn seed.\n\nProbes and tests\n  freed       paired freed fraction at T (the match). Noise: per-snapshot freed fraction p_i (over seeds) minus\n              ORCA's outcome c_i in {0, 1}; effect = mean(p_i - c_i), 95% percentile bootstrap over snapshots;\n              p from the paired sign-flip permutation test of mean(p_i - c_i) (exact enumeration when at most 20\n              differences are non-zero, else 200 000 random sign flips, p = (count + 1)/(B + 1)). The\n              majority-rule McNemar (freed in more than half the seeds) is stored beside it. Deterministic pairs\n              and whole runs: exact McNemar on the discordant counts; effect = paired difference of proportions\n              with the bootstrap interval.\n  replay      outcome changes. Noise: snapshot \"changes\" when its seeds disagree on freed (0 < k < n_seeds);\n              whole-run noise: seed changes when the two noise streams (E6b, N2) disagree on completion;\n              deterministic: snapshot changes when any of its five 1e-9 m replays changes the freed outcome.\n              Exact McNemar on the paired indicators (surrogate changes, ORCA changes). Effect = difference of\n              the fractions of units that change. Whole runs have no ORCA replays: not tested there.\n  time        time to free, restricted mean up to the horizon T (RMST_T): per unit the mean of min(t_free, T)\n              over its runs, a held run counting T. Every run is observed to T, so RMST_T has no censoring.\n              Effect = mean paired difference (s), bootstrap CI; p from the paired sign-flip test. Kaplan-Meier\n              medians with a cluster bootstrap of their difference are stored as a secondary summary.\n  ell         per-step Delta t dependence (E3): per snapshot freed by ORCA at all three Delta t, ell_i(noise,\n              per step, beta_ref = 1.5 or 2.5) minus ell_i(ORCA) = ln t_esc(0.02)/t_esc(0.005); exact sign-flip.\n              Shared by the two lone-keystone noise comparisons (E3 sets sigma per snapshot from beta_ref), listed\n              under lone_E2 only.\n  overlap     identity of the outcome sets. Stochastic surrogate: per unit, the disagreement indicator of\n              (noise, ORCA) against that of (noise, independent noise); lone keystones (N1): seed halves 0-9 and\n              10-19, unresolved = freed in fewer than 5 of 10, disagreement of ORCA averaged over the two halves;\n              whole runs: [E6a != E6b] against [N2 != E6b] (and [E6a != N2] against [E6b != N2] for whole_N2).\n              Paired sign-flip test (or exact McNemar for 0/1 indicators). Effect = excess disagreement rate.\n              Deterministic pairs: [surrogate != ORCA] against [ORCA's replays != ORCA] (the replay reference),\n              exact McNemar. Jaccard indices stored beside.\n  handed      pair only: first member out on the lower side among freed standoffs, bias +b* against ORCA,\n              Fisher's exact test (the freed sets differ, so the comparison is unpaired); exact binomial against\n              1/2 per arm and the paired McNemar on standoffs both free stored beside.\n  class       whole runs (E6 only): final-state class of failed runs, within-seed permutation test of\n              experiments/fixan/fix_a6.part_class (10 000 permutations, this script's generator).\nHolm: within each comparison over its probes. \"separates\" = Holm-adjusted p < 0.05.\nKind: \"definitional\" when the difference follows from the construction of the surrogate (stochastic against\ndeterministic for replay; per-step noise amplitude for ell; the bias sign for handedness) and only ORCA's side is\nmeasured; \"empirical\" otherwise.\nBootstrap: 10 000 resamples, percentile; generator numpy default_rng(20261110).\n",
+ "n_boot": 10000,
+ "rng": "default_rng(20261110)",
+ "lone_E2": {
+  "freed": {
+   "test": "paired sign-flip on per-snapshot freed fraction",
+   "method": "exact sign-flip, 9 non-zero",
+   "n": 34,
+   "effect": -0.011764705882352941,
+   "ci95": [
+    -0.09999999999999999,
+    0.08235294117647059
+   ],
+   "p": 0.90234375,
+   "majority_mcnemar": {
+    "test": "exact McNemar",
+    "b_first_only": 3,
+    "c_second_only": 1,
+    "n": 34,
+    "first": 32,
+    "second": 30,
+    "effect": 0.058823529411764705,
+    "ci95": [
+     -0.058823529411764705,
+     0.17647058823529413
+    ],
+    "p": 0.625
+   },
+   "noise_freed_runs": 148,
+   "noise_runs": 170,
+   "orca_freed": 30,
+   "p_holm": 0.90234375,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.902",
+   "p_holm_disp": "0.902",
+   "effect_2sf": -0.012,
+   "ci95_2sf": [
+    -0.1,
+    0.082
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 9,
+   "c_second_only": 0,
+   "n": 34,
+   "first": 9,
+   "second": 0,
+   "effect": 0.2647058823529412,
+   "ci95": [
+    0.11764705882352941,
+    0.4117647058823529
+   ],
+   "p": 0.00390625,
+   "definition": "noise: seeds disagree on freed (5 seeds); ORCA: any of five 1e-9 m replays changes the outcome",
+   "p_holm": 0.0078125,
+   "separates": true,
+   "kind": "definitional",
+   "p_disp": "0.0039",
+   "p_holm_disp": "0.0078",
+   "effect_2sf": 0.26,
+   "ci95_2sf": [
+    0.12,
+    0.41
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 33 non-zero",
+   "n": 34,
+   "effect": 19.31323529410136,
+   "ci95": [
+    9.061145588219269,
+    29.14202058821904
+   ],
+   "p": 0.0005499972500137499,
+   "rmst_first_s": 34.994999999982305,
+   "rmst_second_s": 15.68176470588093,
+   "km": {
+    "median_first_s": 19.839999999981956,
+    "median_second_s": 1.5099999999986267,
+    "diff_s_held_as_T": 18.32999999998333,
+    "cluster_boot95": [
+     9.159999999991669,
+     23.650499999978486
+    ],
+    "note": "median not reached is set to T for the difference"
+   },
+   "p_holm": 0.0016499917500412498,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-3}",
+   "p_holm_disp": "0.0016",
+   "effect_2sf": 19.0,
+   "ci95_2sf": [
+    9.1,
+    29.0
+   ]
+  },
+  "ell": {
+   "test": "exact sign-flip on per-snapshot ell(noise) - ell(ORCA)",
+   "method": "exact sign-flip, 16 non-zero",
+   "n": 16,
+   "effect": 2.6531694039851503,
+   "ci95": [
+    2.280354051884048,
+    3.0484080161769347
+   ],
+   "p": 3.0517578125e-05,
+   "n_snapshots_E3": 20,
+   "orca_held_all_dt": 4,
+   "ell_noise_mean": 2.648365635956675,
+   "ell_orca_mean": -0.004803768028475985,
+   "ell_orca_maxabs": 0.017699577097979823,
+   "rows": [
+    {
+     "tag": "E1b_seed113",
+     "beta_ref": 1.5,
+     "ell_noise": 1.6818053832419235,
+     "ell_orca": -0.012220111333354194,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed114",
+     "beta_ref": 1.5,
+     "ell_noise": 1.879794628788226,
+     "ell_orca": -0.0073260400906518764,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed140",
+     "beta_ref": 2.5,
+     "ell_noise": 3.1613668297757918,
+     "ell_orca": 0.00522194398257282,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed155",
+     "beta_ref": 1.5,
+     "ell_noise": 1.5595191985355283,
+     "ell_orca": 0.013403030128761454,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed179",
+     "beta_ref": 2.5,
+     "ell_noise": 3.4922369498404473,
+     "ell_orca": -0.017699577097979823,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed187",
+     "beta_ref": 2.5,
+     "ell_noise": 3.4003734222259108,
+     "ell_orca": 0.0038835000278187193,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed200",
+     "beta_ref": 2.5,
+     "ell_noise": 4.2076874230662105,
+     "ell_orca": -0.006734032179922993,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed202",
+     "beta_ref": 1.5,
+     "ell_noise": 2.035602235041247,
+     "ell_orca": -0.012739025776008625,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed203",
+     "beta_ref": 2.5,
+     "ell_noise": 3.000767575174745,
+     "ell_orca": null,
+     "orca_freed_all_dt": false
+    },
+    {
+     "tag": "E1b_seed204",
+     "beta_ref": 2.5,
+     "ell_noise": 3.5525890753204328,
+     "ell_orca": -0.004796172262071943,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed227",
+     "beta_ref": 1.5,
+     "ell_noise": 2.1689198385424375,
+     "ell_orca": -0.0073260400906518764,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed237",
+     "beta_ref": 1.5,
+     "ell_noise": 4.225392899552734,
+     "ell_orca": null,
+     "orca_freed_all_dt": false
+    },
+    {
+     "tag": "E1b_seed238",
+     "beta_ref": 1.5,
+     "ell_noise": 2.010680084492356,
+     "ell_orca": -0.015504186534544122,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed58",
+     "beta_ref": 1.5,
+     "ell_noise": 1.8653544387528451,
+     "ell_orca": 0.002721090115781796,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed69",
+     "beta_ref": 2.5,
+     "ell_noise": 2.5267618923011947,
+     "ell_orca": -0.0029368596718886797,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed73",
+     "beta_ref": 2.5,
+     "ell_noise": 3.0917633869376417,
+     "ell_orca": -0.01096903136915289,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed80",
+     "beta_ref": 1.5,
+     "ell_noise": 2.5423310661677765,
+     "ell_orca": 1.4210854715191906e-12,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed83",
+     "beta_ref": 2.5,
+     "ell_noise": 2.6721098009678834,
+     "ell_orca": null,
+     "orca_freed_all_dt": false
+    },
+    {
+     "tag": "E1b_seed84",
+     "beta_ref": 2.5,
+     "ell_noise": 3.197064322276827,
+     "ell_orca": -0.0038387763057446227,
+     "orca_freed_all_dt": true
+    },
+    {
+     "tag": "E1b_seed87",
+     "beta_ref": 1.5,
+     "ell_noise": 1.6685368092909185,
+     "ell_orca": null,
+     "orca_freed_all_dt": false
+    }
+   ],
+   "p_holm": 0.0001220703125,
+   "separates": true,
+   "kind": "definitional",
+   "p_disp": "<10^{-4}",
+   "p_holm_disp": "<10^{-3}",
+   "effect_2sf": 2.7,
+   "ci95_2sf": [
+    2.3,
+    3.0
+   ]
+  }
+ },
+ "lone_N1": {
+  "freed": {
+   "test": "paired sign-flip on per-snapshot freed fraction",
+   "method": "exact sign-flip, 14 non-zero",
+   "n": 34,
+   "effect": -0.017647058823529415,
+   "ci95": [
+    -0.07352941176470588,
+    0.04268382352941124
+   ],
+   "p": 0.6046142578125,
+   "majority_mcnemar": {
+    "test": "exact McNemar",
+    "b_first_only": 1,
+    "c_second_only": 0,
+    "n": 34,
+    "first": 31,
+    "second": 30,
+    "effect": 0.029411764705882353,
+    "ci95": [
+     0.0,
+     0.08823529411764706
+    ],
+    "p": 1.0
+   },
+   "noise_freed_runs": 588,
+   "noise_runs": 680,
+   "orca_freed": 30,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.605",
+   "p_holm_disp": "1.000",
+   "effect_2sf": -0.018,
+   "ci95_2sf": [
+    -0.074,
+    0.043
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 14,
+   "c_second_only": 0,
+   "n": 34,
+   "first": 14,
+   "second": 0,
+   "effect": 0.4117647058823529,
+   "ci95": [
+    0.23529411764705882,
+    0.5882352941176471
+   ],
+   "p": 0.0001220703125,
+   "definition": "noise: seeds disagree on freed (20 seeds); ORCA: any of five 1e-9 m replays changes the outcome",
+   "p_holm": 0.0003662109375,
+   "separates": true,
+   "kind": "definitional",
+   "p_disp": "<10^{-3}",
+   "p_holm_disp": "<10^{-3}",
+   "effect_2sf": 0.41,
+   "ci95_2sf": [
+    0.24,
+    0.59
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 34 non-zero",
+   "n": 34,
+   "effect": 19.44905882351365,
+   "ci95": [
+    11.184610294102525,
+    27.337127573513555
+   ],
+   "p": 2.4999875000624998e-05,
+   "rmst_first_s": 35.130823529394576,
+   "rmst_second_s": 15.68176470588093,
+   "km": {
+    "median_first_s": 15.759999999985666,
+    "median_second_s": 1.5099999999986267,
+    "diff_s_held_as_T": 14.24999999998704,
+    "cluster_boot95": [
+     9.289499999991552,
+     22.399999999979627
+    ],
+    "note": "median not reached is set to T for the difference"
+   },
+   "p_holm": 9.999950000249999e-05,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-4}",
+   "p_holm_disp": "<10^{-4}",
+   "effect_2sf": 19.0,
+   "ci95_2sf": [
+    11.0,
+    27.0
+   ]
+  },
+  "overlap": {
+   "test": "paired sign-flip on disagreement (noise half vs ORCA) - (noise half vs half)",
+   "method": "exact sign-flip, 2 non-zero",
+   "n": 34,
+   "effect": 0.014705882352941176,
+   "ci95": [
+    -0.04411764705882353,
+    0.08823529411764706
+   ],
+   "p": 1.0,
+   "J_noise_orca": 0.75,
+   "J_half_half": 0.75,
+   "J_half_orca": [
+    0.6,
+    0.75
+   ],
+   "disagree_rate_noise_orca": 0.04411764705882353,
+   "disagree_rate_half_half": 0.029411764705882353,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.015,
+   "ci95_2sf": [
+    -0.044,
+    0.088
+   ]
+  }
+ },
+ "second": {
+  "freed": {
+   "test": "paired sign-flip on per-snapshot freed fraction",
+   "method": "exact sign-flip, 11 non-zero",
+   "n": 26,
+   "effect": 0.24615384615384617,
+   "ci95": [
+    0.06923076923076923,
+    0.43076923076923074
+   ],
+   "p": 0.0205078125,
+   "majority_mcnemar": {
+    "test": "exact McNemar",
+    "b_first_only": 7,
+    "c_second_only": 1,
+    "n": 26,
+    "first": 23,
+    "second": 17,
+    "effect": 0.23076923076923078,
+    "ci95": [
+     0.038461538461538464,
+     0.4230769230769231
+    ],
+    "p": 0.0703125
+   },
+   "noise_freed_runs": 117,
+   "noise_runs": 130,
+   "orca_freed": 17,
+   "p_holm": 0.0615234375,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.021",
+   "p_holm_disp": "0.062",
+   "effect_2sf": 0.25,
+   "ci95_2sf": [
+    0.069,
+    0.43
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 5,
+   "c_second_only": 0,
+   "n": 26,
+   "first": 5,
+   "second": 0,
+   "effect": 0.19230769230769232,
+   "ci95": [
+    0.038461538461538464,
+    0.34615384615384615
+   ],
+   "p": 0.0625,
+   "definition": "noise: seeds disagree on freed (5 seeds); ORCA: any of five 1e-9 m replays changes the outcome",
+   "p_holm": 0.125,
+   "separates": false,
+   "kind": "definitional",
+   "p_disp": "0.062",
+   "p_holm_disp": "0.125",
+   "effect_2sf": 0.19,
+   "ci95_2sf": [
+    0.038,
+    0.35
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 26 non-zero",
+   "n": 26,
+   "effect": -16.03576923078145,
+   "ci95": [
+    -35.7751365384727,
+    3.0669903846060347
+   ],
+   "p": 0.12257438712806436,
+   "rmst_first_s": 27.089615384601775,
+   "rmst_second_s": 43.125384615383226,
+   "km": {
+    "median_first_s": 10.189999999990732,
+    "median_second_s": 1.8699999999982992,
+    "diff_s_held_as_T": 8.319999999992433,
+    "cluster_boot95": [
+     -100.47000000001776,
+     14.381499999986913
+    ],
+    "note": "median not reached is set to T for the difference"
+   },
+   "p_holm": 0.125,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.123",
+   "p_holm_disp": "0.125",
+   "effect_2sf": -16.0,
+   "ci95_2sf": [
+    -36.0,
+    3.1
+   ]
+  }
+ },
+ "whole_noise_stream_changes": {
+  "seeds_changed": 65,
+  "n": 186,
+  "note": "E6b vs N2 completion differs; ORCA has no whole-run replays, so replay is not a paired probe here"
+ },
+ "whole_E6": {
+  "freed": {
+   "test": "exact McNemar on completion",
+   "b_first_only": 35,
+   "c_second_only": 37,
+   "n": 186,
+   "first": 99,
+   "second": 101,
+   "effect": -0.010752688172043012,
+   "ci95": [
+    -0.10215053763440861,
+    0.08064516129032258
+   ],
+   "p": 0.906294324703081,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.906",
+   "p_holm_disp": "1.000",
+   "effect_2sf": -0.011,
+   "ci95_2sf": [
+    -0.1,
+    0.081
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [ORCA != ref noise] vs [noise != ref noise]",
+   "b_first_only": 33,
+   "c_second_only": 39,
+   "n": 186,
+   "first": 59,
+   "second": 65,
+   "effect": -0.03225806451612903,
+   "ci95": [
+    -0.12365591397849462,
+    0.05913978494623656
+   ],
+   "p": 0.555997717760971,
+   "J_noise_orca": 0.4098360655737705,
+   "J_noise_noise": 0.47580645161290325,
+   "reference_stream": "N2",
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.556",
+   "p_holm_disp": "1.000",
+   "effect_2sf": -0.032,
+   "ci95_2sf": [
+    -0.12,
+    0.059
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(600 s)",
+   "method": "sign-flip, 200000 random flips, 136 non-zero",
+   "n": 186,
+   "effect": 71.89177419349353,
+   "ci95": [
+    33.17182392467872,
+    110.09830510747315
+   ],
+   "p": 0.00036999815000924994,
+   "rmst_first_s": 411.8598387096353,
+   "rmst_second_s": 339.9680645161417,
+   "both_complete": 64,
+   "orca_faster_on_both": 64,
+   "sign_test_both_p": 1.0842021724855044e-19,
+   "km": {
+    "median_first_s": 468.8199999997186,
+    "median_second_s": 132.32000000002463
+   },
+   "p_holm": 0.0014799926000369998,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-3}",
+   "p_holm_disp": "0.0015",
+   "effect_2sf": 72.0,
+   "ci95_2sf": [
+    33.0,
+    110.0
+   ]
+  },
+  "class": {
+   "test": "within-seed permutation of final-state class (chi-square)",
+   "p": 0.0007999200079992001,
+   "chi2": 11.800208676471971,
+   "effect": null,
+   "ci95": null,
+   "n_fail_orca": 85,
+   "n_fail_noise": 87,
+   "shared_failed_seeds": 50,
+   "p_shared_seeds_only": 0.040495950404959506,
+   "p_single_solver_failures_only": 0.0091990800919908,
+   "p_holm": 0.0023997600239976003,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-3}",
+   "p_holm_disp": "0.0024"
+  }
+ },
+ "whole_N2": {
+  "freed": {
+   "test": "exact McNemar on completion",
+   "b_first_only": 24,
+   "c_second_only": 35,
+   "n": 186,
+   "first": 90,
+   "second": 101,
+   "effect": -0.05913978494623656,
+   "ci95": [
+    -0.13978494623655913,
+    0.021505376344086023
+   ],
+   "p": 0.19252645776146274,
+   "p_holm": 0.3850529155229255,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.193",
+   "p_holm_disp": "0.385",
+   "effect_2sf": -0.059,
+   "ci95_2sf": [
+    -0.14,
+    0.022
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [ORCA != ref noise] vs [noise != ref noise]",
+   "b_first_only": 33,
+   "c_second_only": 26,
+   "n": 186,
+   "first": 72,
+   "second": 65,
+   "effect": 0.03763440860215054,
+   "ci95": [
+    -0.043010752688172046,
+    0.11827956989247312
+   ],
+   "p": 0.43499280512215344,
+   "J_noise_orca": 0.5083333333333333,
+   "J_noise_noise": 0.47580645161290325,
+   "reference_stream": "E6b",
+   "p_holm": 0.43499280512215344,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.435",
+   "p_holm_disp": "0.435",
+   "effect_2sf": 0.038,
+   "ci95_2sf": [
+    -0.043,
+    0.12
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(600 s)",
+   "method": "sign-flip, 200000 random flips, 125 non-zero",
+   "n": 186,
+   "effect": 83.26231182791122,
+   "ci95": [
+    48.25638844081805,
+    118.59586155908853
+   ],
+   "p": 1.4999925000374999e-05,
+   "rmst_first_s": 423.2303763440529,
+   "rmst_second_s": 339.9680645161417,
+   "both_complete": 66,
+   "orca_faster_on_both": 66,
+   "sign_test_both_p": 2.710505431213761e-20,
+   "km": {
+    "median_first_s": null,
+    "median_second_s": 132.32000000002463
+   },
+   "p_holm": 4.4999775001124996e-05,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-4}",
+   "p_holm_disp": "<10^{-4}",
+   "effect_2sf": 83.0,
+   "ci95_2sf": [
+    48.0,
+    120.0
+   ]
+  }
+ },
+ "pair_pub": {
+  "freed": {
+   "test": "exact McNemar",
+   "b_first_only": 9,
+   "c_second_only": 8,
+   "n": 46,
+   "first": 22,
+   "second": 21,
+   "effect": 0.021739130434782608,
+   "ci95": [
+    -0.15217391304347827,
+    0.1956521739130435
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.022,
+   "ci95_2sf": [
+    -0.15,
+    0.2
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "n": 46,
+   "first": 0,
+   "second": 0,
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "replays_per_arm": 230,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.0
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [bias != ORCA] vs [replay != unperturbed]",
+   "b_first_only": 17,
+   "c_second_only": 0,
+   "n": 46,
+   "first": 17,
+   "second": 0,
+   "effect": 0.3695652173913043,
+   "ci95": [
+    0.2391304347826087,
+    0.5
+   ],
+   "p": 1.52587890625e-05,
+   "J_freed": 0.43333333333333335,
+   "p_holm": 7.62939453125e-05,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-4}",
+   "p_holm_disp": "<10^{-4}",
+   "effect_2sf": 0.37,
+   "ci95_2sf": [
+    0.24,
+    0.5
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 30 non-zero",
+   "n": 46,
+   "effect": -2.056739130434895,
+   "ci95": [
+    -21.20931521739326,
+    17.51293478260945
+   ],
+   "p": 0.8621406892965535,
+   "rmst_first_s": 66.78673913043173,
+   "rmst_second_s": 68.84347826086662,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "0.862",
+   "p_holm_disp": "1.000",
+   "effect_2sf": -2.1,
+   "ci95_2sf": [
+    -21.0,
+    18.0
+   ]
+  },
+  "handed": {
+   "test": "Fisher exact, lower-first fraction",
+   "p": 0.000183961613343349,
+   "table": [
+    [
+     22,
+     0
+    ],
+    [
+     11,
+     10
+    ]
+   ],
+   "effect": 0.47619047619047616,
+   "ci95": [
+    0.2857142857142857,
+    0.6666666666666667
+   ],
+   "bias_lower_first": [
+    22,
+    22
+   ],
+   "orca_lower_first": [
+    11,
+    21
+   ],
+   "bias_binom_p": 4.76837158203125e-07,
+   "orca_binom_p": 1.0,
+   "paired_on_both_freed": {
+    "test": "exact McNemar",
+    "b_first_only": 3,
+    "c_second_only": 0,
+    "n": 13,
+    "first": 13,
+    "second": 10,
+    "effect": 0.23076923076923078,
+    "ci95": [
+     0.0,
+     0.46153846153846156
+    ],
+    "p": 0.25
+   },
+   "p_holm": 0.000735846453373396,
+   "separates": true,
+   "kind": "definitional",
+   "p_disp": "<10^{-3}",
+   "p_holm_disp": "<10^{-3}",
+   "effect_2sf": 0.48,
+   "ci95_2sf": [
+    0.29,
+    0.67
+   ]
+  }
+ },
+ "pair_rvo2": {
+  "freed": {
+   "test": "exact McNemar",
+   "b_first_only": 8,
+   "c_second_only": 7,
+   "n": 46,
+   "first": 8,
+   "second": 7,
+   "effect": 0.021739130434782608,
+   "ci95": [
+    -0.15217391304347827,
+    0.1956521739130435
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.022,
+   "ci95_2sf": [
+    -0.15,
+    0.2
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "n": 46,
+   "first": 0,
+   "second": 0,
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "replays_per_arm": 230,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.0
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [bias != ORCA] vs [replay != unperturbed]",
+   "b_first_only": 15,
+   "c_second_only": 0,
+   "n": 46,
+   "first": 15,
+   "second": 0,
+   "effect": 0.32608695652173914,
+   "ci95": [
+    0.1956521739130435,
+    0.45652173913043476
+   ],
+   "p": 6.103515625e-05,
+   "J_freed": 0.0,
+   "p_holm": 0.00030517578125,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-4}",
+   "p_holm_disp": "<10^{-3}",
+   "effect_2sf": 0.33,
+   "ci95_2sf": [
+    0.2,
+    0.46
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "exact sign-flip, 15 non-zero",
+   "n": 46,
+   "effect": -1.3245652173921731,
+   "ci95": [
+    -20.210885869567992,
+    18.08953260869592
+   ],
+   "p": 1.0,
+   "rmst_first_s": 101.01391304347685,
+   "rmst_second_s": 102.33847826086902,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": -1.3,
+   "ci95_2sf": [
+    -20.0,
+    18.0
+   ]
+  },
+  "handed": {
+   "test": "Fisher exact, lower-first fraction",
+   "p": 0.006993006993006993,
+   "table": [
+    [
+     8,
+     0
+    ],
+    [
+     2,
+     5
+    ]
+   ],
+   "effect": 0.7142857142857143,
+   "ci95": [
+    0.4285714285714286,
+    1.0
+   ],
+   "bias_lower_first": [
+    8,
+    8
+   ],
+   "orca_lower_first": [
+    2,
+    7
+   ],
+   "bias_binom_p": 0.0078125,
+   "orca_binom_p": 0.453125,
+   "paired_on_both_freed": null,
+   "p_holm": 0.027972027972027972,
+   "separates": true,
+   "kind": "definitional",
+   "p_disp": "0.007",
+   "p_holm_disp": "0.028",
+   "effect_2sf": 0.71,
+   "ci95_2sf": [
+    0.43,
+    1.0
+   ]
+  }
+ },
+ "push_lone": {
+  "freed": {
+   "test": "exact McNemar",
+   "b_first_only": 1,
+   "c_second_only": 0,
+   "n": 34,
+   "first": 31,
+   "second": 30,
+   "effect": 0.029411764705882353,
+   "ci95": [
+    0.0,
+    0.08823529411764706
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.029,
+   "ci95_2sf": [
+    0.0,
+    0.088
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "n": 34,
+   "first": 0,
+   "second": 0,
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.0
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [push != ORCA] vs [replay != unperturbed]",
+   "b_first_only": 1,
+   "c_second_only": 0,
+   "n": 34,
+   "first": 1,
+   "second": 0,
+   "effect": 0.029411764705882353,
+   "ci95": [
+    0.0,
+    0.08823529411764706
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.029,
+   "ci95_2sf": [
+    0.0,
+    0.088
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 31 non-zero",
+   "n": 34,
+   "effect": -4.0108823529407385,
+   "ci95": [
+    -11.117132352940695,
+    -0.36764705882319504
+   ],
+   "p": 4.9999750001249995e-06,
+   "rmst_first_s": 11.670882352940191,
+   "rmst_second_s": 15.68176470588093,
+   "median_paired_dt_both_freed_s": -0.3449999999996862,
+   "both_freed_n": 30,
+   "push_faster_n": 30,
+   "paired_dt_range_s": [
+    -4.709999999995716,
+    -0.1799999999998363
+   ],
+   "p_holm": 1.9999900000499998e-05,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-5}",
+   "p_holm_disp": "<10^{-4}",
+   "effect_2sf": -4.0,
+   "ci95_2sf": [
+    -11.0,
+    -0.37
+   ]
+  }
+ },
+ "push_second": {
+  "freed": {
+   "test": "exact McNemar",
+   "b_first_only": 8,
+   "c_second_only": 0,
+   "n": 26,
+   "first": 25,
+   "second": 17,
+   "effect": 0.3076923076923077,
+   "ci95": [
+    0.15384615384615385,
+    0.5
+   ],
+   "p": 0.0078125,
+   "p_holm": 0.0234375,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "0.0078",
+   "p_holm_disp": "0.023",
+   "effect_2sf": 0.31,
+   "ci95_2sf": [
+    0.15,
+    0.5
+   ]
+  },
+  "replay": {
+   "test": "exact McNemar",
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "n": 26,
+   "first": 0,
+   "second": 0,
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "p_holm": 1.0,
+   "separates": false,
+   "kind": "empirical",
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "effect_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.0
+   ]
+  },
+  "overlap": {
+   "test": "exact McNemar: [push != ORCA] vs [replay != unperturbed]",
+   "b_first_only": 8,
+   "c_second_only": 0,
+   "n": 26,
+   "first": 8,
+   "second": 0,
+   "effect": 0.3076923076923077,
+   "ci95": [
+    0.15384615384615385,
+    0.5
+   ],
+   "p": 0.0078125,
+   "p_holm": 0.0234375,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "0.0078",
+   "p_holm_disp": "0.023",
+   "effect_2sf": 0.31,
+   "ci95_2sf": [
+    0.15,
+    0.5
+   ]
+  },
+  "time": {
+   "test": "paired sign-flip on RMST(120 s)",
+   "method": "sign-flip, 200000 random flips, 25 non-zero",
+   "n": 26,
+   "effect": -36.54000000000036,
+   "ci95": [
+    -58.40100000000145,
+    -18.11670192307725
+   ],
+   "p": 4.9999750001249995e-06,
+   "rmst_first_s": 6.585384615382863,
+   "rmst_second_s": 43.125384615383226,
+   "median_paired_dt_both_freed_s": -0.529999999999518,
+   "both_freed_n": 17,
+   "push_faster_n": 17,
+   "paired_dt_range_s": [
+    -10.529999999990423,
+    -0.22999999999979082
+   ],
+   "p_holm": 1.9999900000499998e-05,
+   "separates": true,
+   "kind": "empirical",
+   "p_disp": "<10^{-5}",
+   "p_holm_disp": "<10^{-4}",
+   "effect_2sf": -37.0,
+   "ci95_2sf": [
+    -58.0,
+    -18.0
+   ]
+  }
+ },
+ "n_units": {
+  "lone": 34,
+  "second": 26,
+  "whole": 186,
+  "pair": 46
+ },
+ "summary": {
+  "tests": 36,
+  "separating": 16,
+  "separating_empirical": 11
+ },
+ "_markdown_table": "| Comparison | Probe | Test | Effect [95% CI] (discordant) | raw p | Holm p | Separates | Kind |\n|---|---|---|---|---|---|---|---|\n| Lone keystone: noise sigma=0.07 (E2, 5 seeds) vs ORCA (RVO2) | freed fraction | sign-flip | -0.012 [-0.1, +0.082] | 0.902 | 0.902 | no | empirical |\n| Lone keystone: noise sigma=0.07 (E2, 5 seeds) vs ORCA (RVO2) | replay changes | McNemar | +0.26 [+0.12, +0.41] (9:0) | 0.0039 | 0.0078 | yes | definitional |\n| Lone keystone: noise sigma=0.07 (E2, 5 seeds) vs ORCA (RVO2) | time to free (RMST) | sign-flip | +19 s [+9.1, +29] | <10^{-3} | 0.0016 | yes | empirical |\n| Lone keystone: noise sigma=0.07 (E2, 5 seeds) vs ORCA (RVO2) | Delta t dependence ell | sign-flip | +2.7 [+2.3, +3] | <10^{-4} | <10^{-3} | yes | definitional |\n| Lone keystone: noise sigma=0.0717 (N1, 20 seeds) vs ORCA (RVO2) | freed fraction | sign-flip | -0.018 [-0.074, +0.043] | 0.605 | 1.000 | no | empirical |\n| Lone keystone: noise sigma=0.0717 (N1, 20 seeds) vs ORCA (RVO2) | replay changes | McNemar | +0.41 [+0.24, +0.59] (14:0) | <10^{-3} | <10^{-3} | yes | definitional |\n| Lone keystone: noise sigma=0.0717 (N1, 20 seeds) vs ORCA (RVO2) | time to free (RMST) | sign-flip | +19 s [+11, +27] | <10^{-4} | <10^{-4} | yes | empirical |\n| Lone keystone: noise sigma=0.0717 (N1, 20 seeds) vs ORCA (RVO2) | outcome identity | sign-flip | +0.015 [-0.044, +0.088] | 1.000 | 1.000 | no | empirical |\n| Second trap: noise sigma=0.07 (E2) vs ORCA (RVO2) | freed fraction | sign-flip | +0.25 [+0.069, +0.43] | 0.021 | 0.062 | no | empirical |\n| Second trap: noise sigma=0.07 (E2) vs ORCA (RVO2) | replay changes | McNemar | +0.19 [+0.038, +0.35] (5:0) | 0.062 | 0.125 | no | definitional |\n| Second trap: noise sigma=0.07 (E2) vs ORCA (RVO2) | time to free (RMST) | sign-flip | -16 s [-36, +3.1] | 0.123 | 0.125 | no | empirical |\n| Whole runs: noise sigma^ast (E6b) vs ORCA (RVO2) | freed fraction | McNemar | -0.011 [-0.1, +0.081] (35:37) | 0.906 | 1.000 | no | empirical |\n| Whole runs: noise sigma^ast (E6b) vs ORCA (RVO2) | outcome identity | McNemar | -0.032 [-0.12, +0.059] (33:39) | 0.556 | 1.000 | no | empirical |\n| Whole runs: noise sigma^ast (E6b) vs ORCA (RVO2) | time to free (RMST) | sign-flip | +72 s [+33, +110] | <10^{-3} | 0.0015 | yes | empirical |\n| Whole runs: noise sigma^ast (E6b) vs ORCA (RVO2) | final-state class | perm. (within seed) | chi2 = 11.8 | <10^{-3} | 0.0024 | yes | empirical |\n| Whole runs: noise sigma^ast, independent stream (N2) vs ORCA (RVO2) | freed fraction | McNemar | -0.059 [-0.14, +0.022] (24:35) | 0.193 | 0.385 | no | empirical |\n| Whole runs: noise sigma^ast, independent stream (N2) vs ORCA (RVO2) | outcome identity | McNemar | +0.038 [-0.043, +0.12] (33:26) | 0.435 | 0.435 | no | empirical |\n| Whole runs: noise sigma^ast, independent stream (N2) vs ORCA (RVO2) | time to free (RMST) | sign-flip | +83 s [+48, +120] | <10^{-4} | <10^{-4} | yes | empirical |\n| Pair standoff: bias +b^ast_{rm legacy} vs ORCA (legacy) | freed fraction | McNemar | +0.022 [-0.15, +0.2] (9:8) | 1.000 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm legacy} vs ORCA (legacy) | replay changes | McNemar | 0 [0, 0] (0:0) | 1.000 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm legacy} vs ORCA (legacy) | outcome identity | McNemar | +0.37 [+0.24, +0.5] (17:0) | <10^{-4} | <10^{-4} | yes | empirical |\n| Pair standoff: bias +b^ast_{rm legacy} vs ORCA (legacy) | time to free (RMST) | sign-flip | -2.1 s [-21, +18] | 0.862 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm legacy} vs ORCA (legacy) | handedness (lower first) | Fisher | +0.48 [+0.29, +0.67] | <10^{-3} | <10^{-3} | yes | definitional |\n| Pair standoff: bias +b^ast_{rm RVO2} vs ORCA (RVO2) | freed fraction | McNemar | +0.022 [-0.15, +0.2] (8:7) | 1.000 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm RVO2} vs ORCA (RVO2) | replay changes | McNemar | 0 [0, 0] (0:0) | 1.000 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm RVO2} vs ORCA (RVO2) | outcome identity | McNemar | +0.33 [+0.2, +0.46] (15:0) | <10^{-4} | <10^{-3} | yes | empirical |\n| Pair standoff: bias +b^ast_{rm RVO2} vs ORCA (RVO2) | time to free (RMST) | sign-flip | -1.3 s [-20, +18] | 1.000 | 1.000 | no | empirical |\n| Pair standoff: bias +b^ast_{rm RVO2} vs ORCA (RVO2) | handedness (lower first) | Fisher | +0.71 [+0.43, +1] | 0.007 | 0.028 | yes | definitional |\n| Lone keystone: rest-drive push + vs ORCA (RVO2) | freed fraction | McNemar | +0.029 [0, +0.088] (1:0) | 1.000 | 1.000 | no | empirical |\n| Lone keystone: rest-drive push + vs ORCA (RVO2) | replay changes | McNemar | 0 [0, 0] (0:0) | 1.000 | 1.000 | no | empirical |\n| Lone keystone: rest-drive push + vs ORCA (RVO2) | outcome identity | McNemar | +0.029 [0, +0.088] (1:0) | 1.000 | 1.000 | no | empirical |\n| Lone keystone: rest-drive push + vs ORCA (RVO2) | time to free (RMST) | sign-flip | -4 s [-11, -0.37] | <10^{-5} | <10^{-4} | yes | empirical |\n| Second trap: rest-drive push + vs ORCA (RVO2) | freed fraction | McNemar | +0.31 [+0.15, +0.5] (8:0) | 0.0078 | 0.023 | yes | empirical |\n| Second trap: rest-drive push + vs ORCA (RVO2) | replay changes | McNemar | 0 [0, 0] (0:0) | 1.000 | 1.000 | no | empirical |\n| Second trap: rest-drive push + vs ORCA (RVO2) | outcome identity | McNemar | +0.31 [+0.15, +0.5] (8:0) | 0.0078 | 0.023 | yes | empirical |\n| Second trap: rest-drive push + vs ORCA (RVO2) | time to free (RMST) | sign-flip | -37 s [-58, -18] | <10^{-5} | <10^{-4} | yes | empirical |"
+}

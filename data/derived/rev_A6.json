@@ -1,0 +1,267 @@
+{
+ "script": "experiments/revision/A6_second_trap_rows.py",
+ "doc": "A6: second-trap rows for Table 3 (noise sigma = 0.07 m/s against force-coupled ORCA, RVO2 solver).\n\nInputs (existing data only):\n  data/E2/e2_quench.jsonl            E2 lone-trap quench library (arms noise0.07, C3_rvo2, C3_pub)\n  data/derived/selection.json        E2 snapshots: tag, blocker id, stratum (class)\n  data/derived/E2_analysis.json      the published Table 3 lone-keystone row (experiments/E2/analyze.py)\n  experiments/fixan/fix_a1.py        lone_block(): J of the unresolved sets, two-level bootstrap, independence\nOutput: data/derived/rev_A6.json\n\nEvery definition is the one of the lone-keystone row of Table 3 (macros EtwoLKNoiseC*, TabThreeLK*,\nFixAoneLoneJ*), applied to the 26 snapshots of stratum lone_keystone_second_trap:\n  freed       the blocker (selection.json) exits within 120 s.\n  noise       every (snapshot, seed) run counts once (5 seeds per snapshot, 130 runs).\n  ORCA        the unperturbed run per snapshot (26 runs); the five 1e-9 m replays (perturb seeds 900-904,\n              130 replays) enter only the replay column.\n  Delta       mean over snapshots of (noise per-snapshot freed fraction k_i/5 minus ORCA outcome c_i);\n              95% percentile bootstrap over snapshots, 2000 resamples, PCG64(12345) (E2 analyze.py rule).\n              The value printed in the table is the one stored by E2 analyze.py (same code, same data);\n              this script recomputes it from the raw runs and checks the point value.\n  t_1/2       Kaplan-Meier median time to free (held runs censored at 120 s; product-limit; first time\n              S(t) <= 0.5), over runs (noise) or unperturbed runs (ORCA).\n  replay      ORCA: replays whose freed/held outcome differs from the unperturbed run (of 130); also the\n              largest |exit-time shift|. Noise: snapshots whose five runs disagree on freed/held (of 26).\n  J           Jaccard index of the unresolved sets: noise unresolved when fewer than half of its 5 seeds\n              free it (k <= 2), ORCA unresolved when the unperturbed run holds. Two-level bootstrap interval\n              (snapshots, then seeds within snapshot; 10000) and the exact independence expectation of J\n              (hypergeometric overlap of sets of the observed sizes), both from fix_a1.lone_block, so the\n              second-trap J is computed by the very function that produced FixAoneLoneJ*.\nThe legacy-solver ORCA (C3_pub) outcome is given beside it for reference.\n",
+ "lone_keystone": {
+  "n_snapshots": 34,
+  "noise0p07": {
+   "freed": 148,
+   "n_runs": 170,
+   "fraction": 0.8705882352941176,
+   "wilson95": [
+    0.8118345185308337,
+    0.9129632283835988
+   ],
+   "km_median_s": 19.84,
+   "km_q25_s": 6.14,
+   "km_q75_s": 42.87,
+   "S_end": 0.12941176470588264,
+   "snapshots_runs_disagree": 9,
+   "snapshots_freed_all_seeds": 24,
+   "snapshots_freed_no_seed": 1,
+   "per_snapshot_k": {
+    "E1b_seed52": 3,
+    "E1b_seed58": 5,
+    "E1b_seed61": 5,
+    "E1b_seed69": 2,
+    "E1b_seed71": 5,
+    "E1b_seed72": 5,
+    "E1b_seed80": 5,
+    "E1b_seed83": 0,
+    "E1b_seed84": 5,
+    "E1b_seed87": 4,
+    "E1b_seed89": 5,
+    "E1b_seed91": 5,
+    "E1b_seed94": 5,
+    "E1b_seed100": 5,
+    "E1b_seed107": 5,
+    "E1b_seed108": 5,
+    "E1b_seed114": 5,
+    "E1b_seed120": 5,
+    "E1b_seed128": 3,
+    "E1b_seed132": 3,
+    "E1b_seed140": 5,
+    "E1b_seed141": 5,
+    "E1b_seed150": 5,
+    "E1b_seed155": 3,
+    "E1b_seed179": 5,
+    "E1b_seed200": 5,
+    "E1b_seed203": 3,
+    "E1b_seed204": 5,
+    "E1b_seed205": 5,
+    "E1b_seed211": 3,
+    "E1b_seed215": 5,
+    "E1b_seed227": 4,
+    "E1b_seed238": 5,
+    "E1b_seed239": 5
+   }
+  },
+  "C3_rvo2": {
+   "freed": 30,
+   "n": 34,
+   "fraction": 0.8823529411764706,
+   "wilson95": [
+    0.7337882520370121,
+    0.9532862902656388
+   ],
+   "km_median_s": 1.51,
+   "km_q25_s": 1.26,
+   "km_q75_s": 2.17,
+   "S_end": 0.1176470588235294,
+   "replays": 170,
+   "replays_outcome_differs": 0,
+   "replay_max_abs_exit_shift_s": 0.0,
+   "unresolved_tags": [
+    "E1b_seed83",
+    "E1b_seed87",
+    "E1b_seed203",
+    "E1b_seed211"
+   ]
+  },
+  "C3_pub_reference": {
+   "freed": 30,
+   "n": 34,
+   "replays_outcome_differs": 0,
+   "replays": 170
+  },
+  "delta": {
+   "value": -0.011764705882352941,
+   "ci95": [
+    -0.09999999999999999,
+    0.07647058823529412
+   ],
+   "definition": "mean_i (k_i/5 - c_i), bootstrap over snapshots, 2000, PCG64(12345)",
+   "E2_analysis_value": -0.011764705882352941,
+   "E2_analysis_ci95": [
+    -0.09999999999999999,
+    0.0823529411764706
+   ]
+  }
+ },
+ "lone_keystone_second_trap": {
+  "n_snapshots": 26,
+  "noise0p07": {
+   "freed": 117,
+   "n_runs": 130,
+   "fraction": 0.9,
+   "wilson95": [
+    0.8364128541090128,
+    0.9406250772964695
+   ],
+   "km_median_s": 10.19,
+   "km_q25_s": 4.58,
+   "km_q75_s": 30.71,
+   "S_end": 0.1000000000000001,
+   "snapshots_runs_disagree": 5,
+   "snapshots_freed_all_seeds": 21,
+   "snapshots_freed_no_seed": 0,
+   "per_snapshot_k": {
+    "E1b_seed46": 5,
+    "E1b_seed55": 5,
+    "E1b_seed60": 5,
+    "E1b_seed73": 5,
+    "E1b_seed74": 5,
+    "E1b_seed75": 5,
+    "E1b_seed103": 5,
+    "E1b_seed104": 5,
+    "E1b_seed111": 5,
+    "E1b_seed112": 5,
+    "E1b_seed113": 5,
+    "E1b_seed130": 5,
+    "E1b_seed158": 5,
+    "E1b_seed162": 5,
+    "E1b_seed170": 5,
+    "E1b_seed172": 5,
+    "E1b_seed174": 2,
+    "E1b_seed178": 5,
+    "E1b_seed186": 5,
+    "E1b_seed187": 3,
+    "E1b_seed192": 2,
+    "E1b_seed202": 5,
+    "E1b_seed209": 5,
+    "E1b_seed223": 5,
+    "E1b_seed230": 3,
+    "E1b_seed237": 2
+   }
+  },
+  "C3_rvo2": {
+   "freed": 17,
+   "n": 26,
+   "fraction": 0.6538461538461539,
+   "wilson95": [
+    0.46220229009632996,
+    0.8058798502714787
+   ],
+   "km_median_s": 1.87,
+   "km_q25_s": 1.39,
+   "km_q75_s": null,
+   "S_end": 0.34615384615384603,
+   "replays": 130,
+   "replays_outcome_differs": 0,
+   "replay_max_abs_exit_shift_s": 0.0,
+   "unresolved_tags": [
+    "E1b_seed46",
+    "E1b_seed60",
+    "E1b_seed75",
+    "E1b_seed111",
+    "E1b_seed130",
+    "E1b_seed192",
+    "E1b_seed223",
+    "E1b_seed230",
+    "E1b_seed237"
+   ]
+  },
+  "C3_pub_reference": {
+   "freed": 22,
+   "n": 26,
+   "replays_outcome_differs": 5,
+   "replays": 130
+  },
+  "delta": {
+   "value": 0.24615384615384617,
+   "ci95": [
+    0.06923076923076922,
+    0.4307692307692308
+   ],
+   "definition": "mean_i (k_i/5 - c_i), bootstrap over snapshots, 2000, PCG64(12345)",
+   "E2_analysis_value": 0.24615384615384617,
+   "E2_analysis_ci95": [
+    0.0846153846153846,
+    0.43846153846153846
+   ]
+  },
+  "J": {
+   "value": 0.2,
+   "ci95_two_level_boot": [
+    0.0,
+    0.4444444444444444
+   ],
+   "ci95_snapshot_boot": [
+    0.0,
+    0.5
+   ],
+   "noise_unresolved": 3,
+   "noise_unresolved_tags": [
+    "E1b_seed174",
+    "E1b_seed192",
+    "E1b_seed237"
+   ],
+   "orca_unresolved": 9,
+   "orca_unresolved_tags": [
+    "E1b_seed46",
+    "E1b_seed60",
+    "E1b_seed75",
+    "E1b_seed111",
+    "E1b_seed130",
+    "E1b_seed192",
+    "E1b_seed223",
+    "E1b_seed230",
+    "E1b_seed237"
+   ],
+   "shared": 2,
+   "independence_expected_J": 0.10064335664335668,
+   "independence_J_range95": [
+    0.0,
+    0.3333333333333333
+   ],
+   "independence_expected_overlap": 1.0384615384615385,
+   "p_J_ge_observed": 0.26769230769230773,
+   "p_J_ge_observed_disp": "0.268",
+   "noise_freed_runs_on_orca_unresolved": [
+    37,
+    45
+   ],
+   "noise_freed_runs_on_orca_freed": [
+    80,
+    85
+   ],
+   "auc_low_noise_freeing_for_orca_unresolved": 0.6111111111111112,
+   "auc_ci95": [
+    0.44047619047619047,
+    0.8
+   ],
+   "auc_perm_p_one_sided": 0.15508449155084492,
+   "rule": "noise unresolved: k <= 2 of 5 seeds free; ORCA unresolved: unperturbed run holds (fix_a1.lone_block)"
+  }
+ },
+ "headline": {
+  "noise_freed": 117,
+  "noise_runs": 130,
+  "orca_freed": 17,
+  "orca_n": 26,
+  "delta": 0.25,
+  "delta_lo": 0.069,
+  "delta_hi": 0.43,
+  "delta_ci_covers_0": false,
+  "J": 0.2,
+  "J_lo": 0.0,
+  "J_hi": 0.4444444444444444,
+  "J_ind": 0.10064335664335668,
+  "J_p": 0.26769230769230773,
+  "noise_km_median": 10.19,
+  "orca_km_median": 1.87,
+  "noise_disagree": 5,
+  "snapshots": 26,
+  "orca_replay_dis": 0,
+  "orca_replays": 130
+ }
+}

@@ -1,0 +1,14 @@
+# A1 identity check (experiments/revision/A1_identity.py)
+RevAoneLoneFreed: {file: rev_A1.json, key: "quench.exact_lone.freed_sub", fmt: "{:d}"}
+RevAoneLoneN: {file: rev_A1.json, key: "quench.exact_lone.n", fmt: "{:d}"}
+RevAoneSecondFreed: {file: rev_A1.json, key: "quench.exact_second.freed_sub", fmt: "{:d}"}
+RevAoneSecondN: {file: rev_A1.json, key: "quench.exact_second.n", fmt: "{:d}"}
+RevAoneDiscA: {file: rev_A1.json, key: "quench.tau_all.sub_only", fmt: "{:d}"}
+RevAoneDiscB: {file: rev_A1.json, key: "quench.tau_all.drive_only", fmt: "{:d}"}
+RevAoneMaxDtExit: {file: rev_A1.json, key: "quench.tau_all.max_abs_dt_exit_s", fmt: "{:.2f}"}
+RevAoneForceRestMax: {file: rev_A1.json, key: "force_check.exact_rest.max_abs_dF_N", fmt: sci, digits: 1}
+RevAoneForceTauRel: {file: rev_A1.json, key: "force_check.tau_rest.max_rel_dF", fmt: sci, digits: 1}
+RevAoneTauPrimeLo: {file: rev_A1.json, key: "tau_prime_range_s.0", fmt: "{:.2f}"}
+RevAoneTauPrimeHi: {file: rev_A1.json, key: "tau_prime_range_s.1", fmt: "{:.2f}"}
+RevAoneDriveRatioLo: {file: rev_A1.json, key: "drive_ratio_range.0", fmt: "{:.1f}"}
+RevAoneDriveRatioHi: {file: rev_A1.json, key: "drive_ratio_range.1", fmt: "{:.1f}"}

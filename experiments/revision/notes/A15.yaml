@@ -1,0 +1,20 @@
+# A15: thresholds and horizons; stop-rule audit. Source: data/derived/rev_A15.json (experiments/revision/A15_thresholds.py).
+RevAfifteenRowsN: {file: rev_A15.json, key: "n_rows", fmt: "{:d}"}
+RevAfifteenEtwoLatestFree: {file: rev_A15.json, key: "audit.E2.latest_free_s", fmt: "{:.0f}"}
+RevAfifteenEtwoHeld: {file: rev_A15.json, key: "audit.E2.n_held", fmt: "{:d}"}
+RevAfifteenEtwoHeldMoving: {file: rev_A15.json, key: "audit.E2.held_ran_to_window", fmt: "{:d}"}
+RevAfifteenEtwoRvoHeld: {file: rev_A15.json, key: "audit.E2.by_arm.C3_rvo2.held", fmt: "{:d}"}
+RevAfifteenEtwoRvoMoving: {file: rev_A15.json, key: "audit.E2.by_arm.C3_rvo2.held_ran_to_window", fmt: "{:d}"}
+RevAfifteenEtwoPubHeld: {file: rev_A15.json, key: "audit.E2.by_arm.C3_pub.held", fmt: "{:d}"}
+RevAfifteenEtwoPubMoving: {file: rev_A15.json, key: "audit.E2.by_arm.C3_pub.held_ran_to_window", fmt: "{:d}"}
+RevAfifteenPairLatestFree: {file: rev_A15.json, key: "audit.E7b.latest_free_s", fmt: "{:.0f}"}
+RevAfifteenPairRvoHeld: {file: rev_A15.json, key: "audit.E7b.by_arm.C3_rvo2.held", fmt: "{:d}"}
+RevAfifteenPairRvoMoving: {file: rev_A15.json, key: "audit.E7b.by_arm.C3_rvo2.held_ran_to_window", fmt: "{:d}"}
+RevAfifteenPairPubHeld: {file: rev_A15.json, key: "audit.E7b.by_arm.C3_pub.held", fmt: "{:d}"}
+RevAfifteenPairPubMoving: {file: rev_A15.json, key: "audit.E7b.by_arm.C3_pub.held_ran_to_window", fmt: "{:d}"}
+RevAfifteenEthreeCensFrac: {file: rev_A15.json, key: "audit.E3.t300.censored_frac", fmt: "{:.2f}"}
+RevAfifteenEthreeLongCensFrac: {file: rev_A15.json, key: "audit.E3.t900.censored_frac", fmt: "{:.2f}"}
+RevAfifteenEfourCensFrac: {file: rev_A15.json, key: "audit.E4.t300.censored_frac", fmt: "{:.2f}"}
+RevAfifteenEfourLongCensFrac: {file: rev_A15.json, key: "audit.E4.t900.censored_frac", fmt: "{:.2f}"}
+RevAfifteenEsixRvoCapped: {file: rev_A15.json, key: "audit.E6a_C3_rvo2.capped_600s", fmt: "{:d}"}
+RevAfifteenEsixNoiseCapped: {file: rev_A15.json, key: "audit.E6b_noise.capped_600s", fmt: "{:d}"}

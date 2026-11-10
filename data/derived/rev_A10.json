@@ -1,0 +1,4186 @@
+{
+ "doc": "A10: full-space Hessians of the rest-state potential U at the 60 E2 lone-trap snapshots.\n\nInputs: data/derived/selection.json (\"E2\": 34 lone keystones + 26 second-trap snapshots, blocker per\nsnapshot), snapshots data/E1/library/<tag>.pkl. No dynamics is run.\n\nRest field. Each snapshot is restored under config C1 with the corrected-forward flags CF\n(w2lib.restore, as every E2 quench). The rest field is the code's own force at zero velocity,\nF0(x) = HybridSteeringModel.compute_forces(state with v = 0, x), on all residual (active) agents, with the\nneighbour lists (KD-tree radius 3 m) and the grid densities (count / 9 pi) frozen at their snapshot\nvalues, and helpers.CLIP_MODE = \"none\" as set by Simulation.step under w2_numerics = \"fixed\". With the\ndensities frozen F0 = -grad U, U of Eq. (U) in 04_protocol.tex.\n\nHessian. H = -dF0/dx in all 2n residual-agent coordinates by central differences of F0,\nH[:, k] = -(F0(x + h e_k) - F0(x - h e_k)) / 2h, at h = 1e-5 m (reported) and h = 5e-6 m (step check:\nmax |H_h - H_h/2| / max |H|). Asymmetry ||H - H^T||_F / ||H||_F is reported before symmetrising\nH_s = (H + H^T)/2. Cross-check: the Hessian of the independently coded potential U of\nexperiments/BAR/bar.py (Field, all agents mobile, snapshot densities; central second differences of U,\nh = 1e-4 m), max |H_s - H_U| / max |H_s|.\n\nPer snapshot: residual max |F0| at the snapshot (rest-state tolerance), eigenvalues of H_s (ascending),\nstrict minimum (all eigenvalues > 0), softest eigenvector: weight of each agent p_a = |e_a|^2, the\nblocker's weight, the agent carrying the largest weight, participation ratio 1 / sum p_a^2, and the\nblocker's axial (x) / lateral (y) share of its own component. Blocker-only 2x2 block of H_s (the\n\"blocker alone with neighbours frozen\" stiffness) for comparison with the full softest eigenvalue.\nOutput: data/derived/rev_A10.json.\n",
+ "n": 60,
+ "fd_h_m": 1e-05,
+ "fd_h_check_m": 5e-06,
+ "rows": [
+  {
+   "tag": "E1b_seed52",
+   "stratum": "lone_keystone",
+   "n_resid": 3,
+   "ids": [
+    19,
+    38,
+    54
+   ],
+   "blocker": 19,
+   "pos": [
+    [
+     9.660105308799864,
+     4.996714011759091
+    ],
+    [
+     9.534764386851354,
+     4.204423843116204
+    ],
+    [
+     9.559482335939613,
+     5.7705558118534395
+    ]
+   ],
+   "resid_F0_max_N": 0.00023316257807894786,
+   "resid_F0_per_agent_N": [
+    0.00015507520265752836,
+    0.00010174234108611025,
+    0.00024130255922246357
+   ],
+   "snapshot_max_speed": 8.892288488690225e-07,
+   "fd_step_rel_change": 1.0157299431915036e-09,
+   "asym_rel_frobenius": 4.036520137229162e-10,
+   "asym_max_abs_N_per_m": 5.000775189500928e-07,
+   "bar_U_rel_diff": 2.710040238284153e-07,
+   "eig_N_per_m": [
+    388.0381682697028,
+    631.3975312162926,
+    985.6580974772909,
+    1192.543273172829,
+    1337.548876634571,
+    3520.169837050622
+   ],
+   "mu1": 388.0381682697028,
+   "mu2": 631.3975312162926,
+   "strict_min": true,
+   "soft_weights": [
+    0.13927803435762726,
+    0.5058085463090995,
+    0.35491341933327325
+   ],
+   "soft_blocker_weight": 0.13927803435762726,
+   "soft_top_agent": 38,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.4924963919750414,
+   "soft_top_agent_dir": [
+    0.0464204539902,
+    -0.9989219896725388
+   ],
+   "soft_top_agent_pos": [
+    9.534764386851354,
+    4.204423843116204
+   ],
+   "soft_blocker_lateral_share": 0.9442979976609271,
+   "blocker_block_eig_N_per_m": [
+    827.5070936074184,
+    3083.6972255236597
+   ],
+   "soft_lateral_share": 0.9911519867760519,
+   "soft_second_agent": 54,
+   "soft_cos_top2": 0.998925435150526,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed58",
+   "stratum": "lone_keystone",
+   "n_resid": 3,
+   "ids": [
+    17,
+    24,
+    82
+   ],
+   "blocker": 17,
+   "pos": [
+    [
+     9.678357740532002,
+     5.002020876167374
+    ],
+    [
+     9.51947909953661,
+     4.203519463008305
+    ],
+    [
+     9.529476610252665,
+     5.792769803558041
+    ]
+   ],
+   "resid_F0_max_N": 0.00011043562605550505,
+   "resid_F0_per_agent_N": [
+    0.00011056681453250472,
+    0.00010187438753820531,
+    2.0887719248228116e-05
+   ],
+   "snapshot_max_speed": 5.509375892807441e-07,
+   "fd_step_rel_change": 1.0604700337224845e-09,
+   "asym_rel_frobenius": 5.338911164665727e-10,
+   "asym_max_abs_N_per_m": 8.265200790447125e-07,
+   "bar_U_rel_diff": 2.802063184438385e-07,
+   "eig_N_per_m": [
+    477.46236478062656,
+    612.7246649676831,
+    1228.650847818988,
+    1541.9389125447647,
+    1650.2846053490923,
+    4387.423849240295
+   ],
+   "mu1": 477.46236478062656,
+   "mu2": 612.7246649676831,
+   "strict_min": true,
+   "soft_weights": [
+    0.14530783269156347,
+    0.3725096020419239,
+    0.48218256526651365
+   ],
+   "soft_blocker_weight": 0.14530783269156347,
+   "soft_top_agent": 82,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.548564189753948,
+   "soft_top_agent_dir": [
+    0.05145022807989401,
+    0.9986755599445333
+   ],
+   "soft_top_agent_pos": [
+    9.529476610252665,
+    5.792769803558041
+   ],
+   "soft_blocker_lateral_share": 0.963936441291109,
+   "blocker_block_eig_N_per_m": [
+    850.2957213096507,
+    3793.5144910431545
+   ],
+   "soft_lateral_share": 0.99315500826062,
+   "soft_second_agent": 24,
+   "soft_cos_top2": 0.9967080697880566,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed61",
+   "stratum": "lone_keystone",
+   "n_resid": 4,
+   "ids": [
+    29,
+    41,
+    52,
+    94
+   ],
+   "blocker": 52,
+   "pos": [
+    [
+     9.535237588041918,
+     4.205064117436208
+    ],
+    [
+     9.52011734774857,
+     5.680665036916904
+    ],
+    [
+     9.754205663760603,
+     4.986285239732191
+    ],
+    [
+     9.521082405744684,
+     6.379977799959273
+    ]
+   ],
+   "resid_F0_max_N": 0.0001628930957480179,
+   "resid_F0_per_agent_N": [
+    8.444750178543819e-05,
+    0.00017936070101052604,
+    0.00015106084130151544,
+    0.0001590412743465141
+   ],
+   "snapshot_max_speed": 2.737501068134706e-07,
+   "fd_step_rel_change": 1.0203670648410762e-09,
+   "asym_rel_frobenius": 7.274269449407212e-10,
+   "asym_max_abs_N_per_m": 2.381739250267856e-06,
+   "bar_U_rel_diff": 2.6948227230822045e-07,
+   "eig_N_per_m": [
+    238.7923303055812,
+    525.7193792249473,
+    818.7708022360811,
+    1157.6226435329081,
+    1254.8313493430715,
+    1607.6692912751648,
+    3139.864168447825,
+    8670.785503466803
+   ],
+   "mu1": 238.7923303055812,
+   "mu2": 525.7193792249473,
+   "strict_min": true,
+   "soft_weights": [
+    0.044824611104180685,
+    0.47237761485040236,
+    0.187377529954852,
+    0.2954202440905657
+   ],
+   "soft_blocker_weight": 0.187377529954852,
+   "soft_top_agent": 41,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.8774219725349863,
+   "soft_top_agent_dir": [
+    -0.7734101733771618,
+    -0.6339059107759671
+   ],
+   "soft_top_agent_pos": [
+    9.52011734774857,
+    5.680665036916904
+   ],
+   "soft_blocker_lateral_share": 0.0039156526386233985,
+   "blocker_block_eig_N_per_m": [
+    949.4245534371695,
+    7875.862996346497
+   ],
+   "soft_lateral_share": 0.5195146294912554,
+   "soft_second_agent": 94,
+   "soft_cos_top2": 0.4835459812619533,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed69",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    66
+   ],
+   "blocker": 66,
+   "pos": [
+    [
+     9.66233222191186,
+     4.9999999162392355
+    ]
+   ],
+   "resid_F0_max_N": 0.00014417107941663574,
+   "resid_F0_per_agent_N": [
+    0.00016106287572631496
+   ],
+   "snapshot_max_speed": 2.675434687315055e-07,
+   "fd_step_rel_change": 3.5089050112863704e-10,
+   "asym_rel_frobenius": 6.9399680571394185e-12,
+   "asym_max_abs_N_per_m": 9.785073684480394e-09,
+   "bar_U_rel_diff": 9.291002525985335e-08,
+   "eig_N_per_m": [
+    1006.656671664234,
+    1721.2244944065126
+   ],
+   "mu1": 1006.656671664234,
+   "mu2": 1721.2244944065126,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 66,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999978044,
+    -2.095552216922902e-06
+   ],
+   "soft_top_agent_pos": [
+    9.66233222191186,
+    4.9999999162392355
+   ],
+   "soft_blocker_lateral_share": 4.391339093850488e-12,
+   "blocker_block_eig_N_per_m": [
+    1006.656671664234,
+    1721.2244944065126
+   ],
+   "soft_lateral_share": 4.3913390938504885e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed71",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    56,
+    78
+   ],
+   "blocker": 78,
+   "pos": [
+    [
+     9.546794467539984,
+     4.296655498033352
+    ],
+    [
+     9.73995039895298,
+     5.0248261175328395
+    ]
+   ],
+   "resid_F0_max_N": 0.00042140658428024835,
+   "resid_F0_per_agent_N": [
+    3.519295745257886e-05,
+    0.00042269754188510074
+   ],
+   "snapshot_max_speed": 1.373922471147526e-06,
+   "fd_step_rel_change": 8.298044546375679e-10,
+   "asym_rel_frobenius": 7.637639945175859e-10,
+   "asym_max_abs_N_per_m": 1.4345857834996423e-06,
+   "bar_U_rel_diff": 2.2030003862173945e-07,
+   "eig_N_per_m": [
+    381.5721824667445,
+    511.7266572494152,
+    1203.7541468509105,
+    3229.348178387913
+   ],
+   "mu1": 381.5721824667445,
+   "mu2": 511.7266572494152,
+   "strict_min": true,
+   "soft_weights": [
+    0.03123053387284181,
+    0.968769466127158
+   ],
+   "soft_blocker_weight": 0.968769466127158,
+   "soft_top_agent": 78,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0644077099521563,
+   "soft_top_agent_dir": [
+    -0.9698751079291821,
+    0.243602699121659
+   ],
+   "soft_top_agent_pos": [
+    9.73995039895298,
+    5.0248261175328395
+   ],
+   "soft_blocker_lateral_share": 0.05934227501935751,
+   "blocker_block_eig_N_per_m": [
+    391.08580943966535,
+    3025.9729848808165
+   ],
+   "soft_lateral_share": 0.0766407870300634,
+   "soft_second_agent": 56,
+   "soft_cos_top2": -0.7939302277556773,
+   "soft_type": "axial_one_agent"
+  },
+  {
+   "tag": "E1b_seed72",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    21,
+    47
+   ],
+   "blocker": 21,
+   "pos": [
+    [
+     9.749563389177515,
+     4.977689606604058
+    ],
+    [
+     9.528579045182168,
+     5.74385835448107
+    ]
+   ],
+   "resid_F0_max_N": 0.00013244865800743355,
+   "resid_F0_per_agent_N": [
+    0.00015827432737708597,
+    5.495517855703809e-06
+   ],
+   "snapshot_max_speed": 1.497715426501158e-06,
+   "fd_step_rel_change": 8.429631295103133e-10,
+   "asym_rel_frobenius": 7.678685001819814e-10,
+   "asym_max_abs_N_per_m": 2.2524204723595176e-06,
+   "bar_U_rel_diff": 2.2453073068436314e-07,
+   "eig_N_per_m": [
+    541.0404552188705,
+    763.1640327929017,
+    1664.2673538488941,
+    4998.9391574967085
+   ],
+   "mu1": 541.0404552188705,
+   "mu2": 763.1640327929017,
+   "strict_min": true,
+   "soft_weights": [
+    0.8836642085720671,
+    0.11633579142793302
+   ],
+   "soft_blocker_weight": 0.8836642085720671,
+   "soft_top_agent": 21,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.2588173073444564,
+   "soft_top_agent_dir": [
+    0.9831832305954572,
+    0.18262183625152836
+   ],
+   "soft_top_agent_pos": [
+    9.749563389177515,
+    4.977689606604058
+   ],
+   "soft_blocker_lateral_share": 0.03335073507588003,
+   "blocker_block_eig_N_per_m": [
+    572.4635620132749,
+    4723.652672215956
+   ],
+   "soft_lateral_share": 0.12855639085501408,
+   "soft_second_agent": 47,
+   "soft_cos_top2": -0.5471348431342142,
+   "soft_type": "axial_one_agent"
+  },
+  {
+   "tag": "E1b_seed80",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    65
+   ],
+   "blocker": 65,
+   "pos": [
+    [
+     9.730096157293675,
+     4.999999805153057
+    ]
+   ],
+   "resid_F0_max_N": 0.00036415187470810294,
+   "resid_F0_per_agent_N": [
+    0.00038673958128548544
+   ],
+   "snapshot_max_speed": 9.945227674517474e-08,
+   "fd_step_rel_change": 5.340858829119307e-10,
+   "asym_rel_frobenius": 6.876827552766861e-13,
+   "asym_max_abs_N_per_m": 9.479423539529575e-10,
+   "bar_U_rel_diff": 1.431696388955241e-07,
+   "eig_N_per_m": [
+    554.4940926438348,
+    1868.9124363213
+   ],
+   "mu1": 554.4940926438348,
+   "mu2": 1868.9124363213,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 65,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999966482,
+    -2.5891589267404982e-06
+   ],
+   "soft_top_agent_pos": [
+    9.730096157293675,
+    4.999999805153057
+   ],
+   "soft_blocker_lateral_share": 6.703743947920007e-12,
+   "blocker_block_eig_N_per_m": [
+    554.4940926438348,
+    1868.9124363213
+   ],
+   "soft_lateral_share": 6.703743947920009e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed83",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    36
+   ],
+   "blocker": 36,
+   "pos": [
+    [
+     9.583369643977779,
+     5.0000001102511025
+    ]
+   ],
+   "resid_F0_max_N": 0.00010505166490304418,
+   "resid_F0_per_agent_N": [
+    0.00014217871501888396
+   ],
+   "snapshot_max_speed": 1.2963123270881746e-06,
+   "fd_step_rel_change": 1.1110047839200384e-10,
+   "asym_rel_frobenius": 1.7240572263400672e-12,
+   "asym_max_abs_N_per_m": 1.5075946404891766e-09,
+   "bar_U_rel_diff": 2.920701817959224e-08,
+   "eig_N_per_m": [
+    868.9868394789056,
+    879.8709383493517
+   ],
+   "mu1": 868.9868394789056,
+   "mu2": 879.8709383493517,
+   "strict_min": true,
+   "soft_weights": [
+    0.9999999999999999
+   ],
+   "soft_blocker_weight": 0.9999999999999999,
+   "soft_top_agent": 36,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0000000000000002,
+   "soft_top_agent_dir": [
+    9.773986322750699e-05,
+    -0.9999999952234596
+   ],
+   "soft_top_agent_pos": [
+    9.583369643977779,
+    5.0000001102511025
+   ],
+   "soft_blocker_lateral_share": 0.9999999904469191,
+   "blocker_block_eig_N_per_m": [
+    868.9868394789056,
+    879.8709383493517
+   ],
+   "soft_lateral_share": 0.999999990446919,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "lateral"
+  },
+  {
+   "tag": "E1b_seed84",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    99
+   ],
+   "blocker": 99,
+   "pos": [
+    [
+     9.679115098514453,
+     4.999999778235625
+    ]
+   ],
+   "resid_F0_max_N": 0.00033417366242635525,
+   "resid_F0_per_agent_N": [
+    0.0003507058234388766
+   ],
+   "snapshot_max_speed": 7.161859195142118e-07,
+   "fd_step_rel_change": 3.9419947655622703e-10,
+   "asym_rel_frobenius": 8.242205063406197e-13,
+   "asym_max_abs_N_per_m": 9.845992294046924e-10,
+   "bar_U_rel_diff": 1.0575296858977567e-07,
+   "eig_N_per_m": [
+    763.7721617855145,
+    1506.8861386903513
+   ],
+   "mu1": 763.7721617855145,
+   "mu2": 1506.8861386903513,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 99,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999895421,
+    -4.573372170599711e-06
+   ],
+   "soft_top_agent_pos": [
+    9.679115098514453,
+    4.999999778235625
+   ],
+   "soft_blocker_lateral_share": 2.0915733010815913e-11,
+   "blocker_block_eig_N_per_m": [
+    763.7721617855145,
+    1506.8861386903513
+   ],
+   "soft_lateral_share": 2.0915733010815913e-11,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed87",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    50
+   ],
+   "blocker": 50,
+   "pos": [
+    [
+     9.630357533057877,
+     4.999999951625585
+    ]
+   ],
+   "resid_F0_max_N": 5.6569681300820034e-05,
+   "resid_F0_per_agent_N": [
+    7.098683624667217e-05
+   ],
+   "snapshot_max_speed": 4.3807443746123824e-07,
+   "fd_step_rel_change": 2.096241381544559e-10,
+   "asym_rel_frobenius": 4.935888173109125e-12,
+   "asym_max_abs_N_per_m": 5.091654298162128e-09,
+   "bar_U_rel_diff": 6.091555923807279e-08,
+   "eig_N_per_m": [
+    872.1788491451254,
+    1169.4132459920802
+   ],
+   "mu1": 872.1788491451254,
+   "mu2": 1169.4132459920802,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 50,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999979139,
+    -2.0426303405455562e-06
+   ],
+   "soft_top_agent_pos": [
+    9.630357533057877,
+    4.999999951625585
+   ],
+   "soft_blocker_lateral_share": 4.172338708117254e-12,
+   "blocker_block_eig_N_per_m": [
+    872.1788491451254,
+    1169.4132459920802
+   ],
+   "soft_lateral_share": 4.172338708117255e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed89",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    18
+   ],
+   "blocker": 18,
+   "pos": [
+    [
+     9.713967514506807,
+     4.9999999712950824
+    ]
+   ],
+   "resid_F0_max_N": 7.330975917226074e-05,
+   "resid_F0_per_agent_N": [
+    8.020439777546111e-05
+   ],
+   "snapshot_max_speed": 5.136984327080827e-07,
+   "fd_step_rel_change": 4.4959976013742173e-10,
+   "asym_rel_frobenius": 5.668834126455914e-15,
+   "asym_max_abs_N_per_m": 1.087658066910302e-11,
+   "bar_U_rel_diff": 1.1924599077436657e-07,
+   "eig_N_per_m": [
+    916.5587334390827,
+    2553.9094163161835
+   ],
+   "mu1": 916.5587334390827,
+   "mu2": 2553.9094163161835,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 18,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.999999999999907,
+    -4.3140364619540653e-07
+   ],
+   "soft_top_agent_pos": [
+    9.713967514506807,
+    4.9999999712950824
+   ],
+   "soft_blocker_lateral_share": 1.861091059506915e-13,
+   "blocker_block_eig_N_per_m": [
+    916.5587334390827,
+    2553.9094163161835
+   ],
+   "soft_lateral_share": 1.861091059506915e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed91",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    31
+   ],
+   "blocker": 31,
+   "pos": [
+    [
+     9.701581320980948,
+     4.99999999347254
+    ]
+   ],
+   "resid_F0_max_N": 1.0063521102665618e-05,
+   "resid_F0_per_agent_N": [
+    1.3664444678416051e-05
+   ],
+   "snapshot_max_speed": 2.3653310114971536e-07,
+   "fd_step_rel_change": 4.335218439952884e-10,
+   "asym_rel_frobenius": 2.29209524980542e-12,
+   "asym_max_abs_N_per_m": 2.4799810947504723e-09,
+   "bar_U_rel_diff": 1.1496758457286162e-07,
+   "eig_N_per_m": [
+    579.6491316289023,
+    1416.0968638604584
+   ],
+   "mu1": 579.6491316289023,
+   "mu2": 1416.0968638604584,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 31,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999999942,
+    -1.0873066677026147e-07
+   ],
+   "soft_top_agent_pos": [
+    9.701581320980948,
+    4.99999999347254
+   ],
+   "soft_blocker_lateral_share": 1.1822357896305638e-14,
+   "blocker_block_eig_N_per_m": [
+    579.6491316289023,
+    1416.0968638604584
+   ],
+   "soft_lateral_share": 1.1822357896305642e-14,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed94",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    60
+   ],
+   "blocker": 60,
+   "pos": [
+    [
+     9.693257337852192,
+     5.000000040727976
+    ]
+   ],
+   "resid_F0_max_N": 9.749926221377857e-05,
+   "resid_F0_per_agent_N": [
+    9.954187407953235e-05
+   ],
+   "snapshot_max_speed": 1.1222353647982052e-07,
+   "fd_step_rel_change": 4.297840165429549e-10,
+   "asym_rel_frobenius": 8.696106211782337e-12,
+   "asym_max_abs_N_per_m": 1.61093862316615e-08,
+   "bar_U_rel_diff": 1.1271501370871562e-07,
+   "eig_N_per_m": [
+    1064.218507274717,
+    2393.9137840834524
+   ],
+   "mu1": 1064.218507274717,
+   "mu2": 2393.9137840834524,
+   "strict_min": true,
+   "soft_weights": [
+    0.9999999999999999
+   ],
+   "soft_blocker_weight": 0.9999999999999999,
+   "soft_top_agent": 60,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0000000000000002,
+   "soft_top_agent_dir": [
+    -0.999999999999733,
+    7.308557628280835e-07
+   ],
+   "soft_top_agent_pos": [
+    9.693257337852192,
+    5.000000040727976
+   ],
+   "soft_blocker_lateral_share": 5.341501460590198e-13,
+   "blocker_block_eig_N_per_m": [
+    1064.218507274717,
+    2393.9137840834524
+   ],
+   "soft_lateral_share": 5.341501460590197e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed100",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    44
+   ],
+   "blocker": 44,
+   "pos": [
+    [
+     9.768933858241567,
+     5.000000059055338
+    ]
+   ],
+   "resid_F0_max_N": 0.0001489707544361057,
+   "resid_F0_per_agent_N": [
+    0.0001848562649889428
+   ],
+   "snapshot_max_speed": 1.8545732723481888e-06,
+   "fd_step_rel_change": 7.749263141288639e-10,
+   "asym_rel_frobenius": 1.3113829394803975e-12,
+   "asym_max_abs_N_per_m": 2.369961594594211e-09,
+   "bar_U_rel_diff": 2.0614031974720692e-07,
+   "eig_N_per_m": [
+    410.84272021473424,
+    2522.5620349286833
+   ],
+   "mu1": 410.84272021473424,
+   "mu2": 2522.5620349286833,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 44,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.999999999999819,
+    6.015818517555986e-07
+   ],
+   "soft_top_agent_pos": [
+    9.768933858241567,
+    5.000000059055338
+   ],
+   "soft_blocker_lateral_share": 3.61900724361695e-13,
+   "blocker_block_eig_N_per_m": [
+    410.84272021473424,
+    2522.5620349286833
+   ],
+   "soft_lateral_share": 3.61900724361695e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed107",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    20,
+    49
+   ],
+   "blocker": 49,
+   "pos": [
+    [
+     9.531859198844916,
+     4.23639579744613
+    ],
+    [
+     9.72675043948566,
+     5.018679280598307
+    ]
+   ],
+   "resid_F0_max_N": 5.963272936071462e-05,
+   "resid_F0_per_agent_N": [
+    5.963945849731451e-05,
+    5.607962458912257e-05
+   ],
+   "snapshot_max_speed": 1.343822251449401e-06,
+   "fd_step_rel_change": 7.260055423636746e-10,
+   "asym_rel_frobenius": 5.742490756472092e-10,
+   "asym_max_abs_N_per_m": 1.4008350035510375e-06,
+   "bar_U_rel_diff": 1.9369660022220498e-07,
+   "eig_N_per_m": [
+    608.3418129217724,
+    832.6997832551133,
+    1292.8949447397276,
+    4411.018454368277
+   ],
+   "mu1": 608.3418129217724,
+   "mu2": 832.6997832551133,
+   "strict_min": true,
+   "soft_weights": [
+    0.9388315224683039,
+    0.06116847753169598
+   ],
+   "soft_blocker_weight": 0.06116847753169598,
+   "soft_top_agent": 20,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.129756856494109,
+   "soft_top_agent_dir": [
+    0.2135633480847067,
+    -0.9769292176789731
+   ],
+   "soft_top_agent_pos": [
+    9.531859198844916,
+    4.23639579744613
+   ],
+   "soft_blocker_lateral_share": 0.3491652305986994,
+   "blocker_block_eig_N_per_m": [
+    837.697123050197,
+    4231.506826187691
+   ],
+   "soft_lateral_share": 0.9173699760511349,
+   "soft_second_agent": 49,
+   "soft_cos_top2": 0.40497867321556436,
+   "soft_type": "lateral_one_agent"
+  },
+  {
+   "tag": "E1b_seed108",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    60
+   ],
+   "blocker": 60,
+   "pos": [
+    [
+     9.76494315871153,
+     4.999999994189584
+    ]
+   ],
+   "resid_F0_max_N": 1.7614973750614956e-05,
+   "resid_F0_per_agent_N": [
+    1.7712408999719928e-05
+   ],
+   "snapshot_max_speed": 5.619896103654279e-08,
+   "fd_step_rel_change": 7.531237567815736e-10,
+   "asym_rel_frobenius": 1.9939597575394152e-14,
+   "asym_max_abs_N_per_m": 4.339807186575298e-11,
+   "bar_U_rel_diff": 1.996570110051445e-07,
+   "eig_N_per_m": [
+    532.3371806696194,
+    3031.619995495483
+   ],
+   "mu1": 532.3371806696194,
+   "mu2": 3031.619995495483,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 60,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999999982,
+    -6.075349346592694e-08
+   ],
+   "soft_top_agent_pos": [
+    9.76494315871153,
+    4.999999994189584
+   ],
+   "soft_blocker_lateral_share": 3.690986968314427e-15,
+   "blocker_block_eig_N_per_m": [
+    532.3371806696194,
+    3031.619995495483
+   ],
+   "soft_lateral_share": 3.690986968314428e-15,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed114",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    38
+   ],
+   "blocker": 38,
+   "pos": [
+    [
+     9.685083161463226,
+     5.000000005604584
+    ]
+   ],
+   "resid_F0_max_N": 1.1454987933053377e-05,
+   "resid_F0_per_agent_N": [
+    1.2285375225606681e-05
+   ],
+   "snapshot_max_speed": 1.2678167396586654e-07,
+   "fd_step_rel_change": 4.0605215727556507e-10,
+   "asym_rel_frobenius": 1.1930796282943225e-12,
+   "asym_max_abs_N_per_m": 1.9127573501053364e-09,
+   "bar_U_rel_diff": 1.0828521051645948e-07,
+   "eig_N_per_m": [
+    981.4276449162536,
+    2043.8603772878998
+   ],
+   "mu1": 981.4276449162536,
+   "mu2": 2043.8603772878998,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 38,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999999942,
+    1.0875392691278565e-07
+   ],
+   "soft_top_agent_pos": [
+    9.685083161463226,
+    5.000000005604584
+   ],
+   "soft_blocker_lateral_share": 1.1827416618951518e-14,
+   "blocker_block_eig_N_per_m": [
+    981.4276449162536,
+    2043.8603772878998
+   ],
+   "soft_lateral_share": 1.1827416618951522e-14,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed120",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    33,
+    45
+   ],
+   "blocker": 45,
+   "pos": [
+    [
+     9.529227976147679,
+     4.249415808927204
+    ],
+    [
+     9.748098602412057,
+     5.016098271988608
+    ]
+   ],
+   "resid_F0_max_N": 0.00013375475664340747,
+   "resid_F0_per_agent_N": [
+    0.00015099171320930913,
+    3.853563626866499e-05
+   ],
+   "snapshot_max_speed": 9.048703537796796e-07,
+   "fd_step_rel_change": 8.056873123689776e-10,
+   "asym_rel_frobenius": 6.228839561990674e-10,
+   "asym_max_abs_N_per_m": 1.6182610806936282e-06,
+   "bar_U_rel_diff": 2.130087501500773e-07,
+   "eig_N_per_m": [
+    523.1861463509654,
+    721.5120894697004,
+    1203.1209022326873,
+    4491.664692450332
+   ],
+   "mu1": 523.1861463509654,
+   "mu2": 721.5120894697004,
+   "strict_min": true,
+   "soft_weights": [
+    0.7567757788740506,
+    0.24322422112594994
+   ],
+   "soft_blocker_weight": 0.24322422112594994,
+   "soft_top_agent": 33,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.5826100247093475,
+   "soft_top_agent_dir": [
+    0.26149303348803055,
+    -0.9652053633487683
+   ],
+   "soft_top_agent_pos": [
+    9.529227976147679,
+    4.249415808927204
+   ],
+   "soft_blocker_lateral_share": 0.00794594341198374,
+   "blocker_block_eig_N_per_m": [
+    679.9745046384271,
+    4343.051371571458
+   ],
+   "soft_lateral_share": 0.7069611515316769,
+   "soft_second_agent": 45,
+   "soft_cos_top2": -0.174413630328554,
+   "soft_type": "opposed_lateral"
+  },
+  {
+   "tag": "E1b_seed128",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    26,
+    27
+   ],
+   "blocker": 27,
+   "pos": [
+    [
+     9.555497949970098,
+     4.225730044363805
+    ],
+    [
+     9.655074142912197,
+     5.0327671315011475
+    ]
+   ],
+   "resid_F0_max_N": 0.00023046988491159937,
+   "resid_F0_per_agent_N": [
+    8.389784343944764e-05,
+    0.0002485386365509082
+   ],
+   "snapshot_max_speed": 3.6831711662461213e-07,
+   "fd_step_rel_change": 1.001913892893977e-09,
+   "asym_rel_frobenius": 2.8454483635757375e-10,
+   "asym_max_abs_N_per_m": 4.84473801520835e-07,
+   "bar_U_rel_diff": 2.676689489376825e-07,
+   "eig_N_per_m": [
+    569.9609634405231,
+    1088.0615483032784,
+    1524.278222952708,
+    3692.008674679223
+   ],
+   "mu1": 569.9609634405231,
+   "mu2": 1088.0615483032784,
+   "strict_min": true,
+   "soft_weights": [
+    0.7317181367327492,
+    0.2682818632672508
+   ],
+   "soft_blocker_weight": 0.2682818632672508,
+   "soft_top_agent": 26,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.6463978902781733,
+   "soft_top_agent_dir": [
+    0.003440725235079496,
+    0.9999940806874092
+   ],
+   "soft_top_agent_pos": [
+    9.555497949970098,
+    4.225730044363805
+   ],
+   "soft_blocker_lateral_share": 0.6337614485862305,
+   "blocker_block_eig_N_per_m": [
+    1015.6330397337351,
+    3418.157726489476
+   ],
+   "soft_lateral_share": 0.9017361765152939,
+   "soft_second_agent": 27,
+   "soft_cos_top2": 0.7940043986931224,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed132",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    17
+   ],
+   "blocker": 17,
+   "pos": [
+    [
+     9.650994650542433,
+     5.000000137910338
+    ]
+   ],
+   "resid_F0_max_N": 0.000149821928287244,
+   "resid_F0_per_agent_N": [
+    0.0001647768348743842
+   ],
+   "snapshot_max_speed": 3.11448040972331e-07,
+   "fd_step_rel_change": 3.0871209410048217e-10,
+   "asym_rel_frobenius": 4.262072627397034e-12,
+   "asym_max_abs_N_per_m": 3.887260522153491e-09,
+   "bar_U_rel_diff": 8.27335330121874e-08,
+   "eig_N_per_m": [
+    695.3403026593188,
+    1086.3719876538655
+   ],
+   "mu1": 695.3403026593188,
+   "mu2": 1086.3719876538655,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 17,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999918789,
+    4.030184854970785e-06
+   ],
+   "soft_top_agent_pos": [
+    9.650994650542433,
+    5.000000137910338
+   ],
+   "soft_blocker_lateral_share": 1.6242389965235884e-11,
+   "blocker_block_eig_N_per_m": [
+    695.3403026593188,
+    1086.3719876538655
+   ],
+   "soft_lateral_share": 1.6242389965235887e-11,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed140",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    8
+   ],
+   "blocker": 8,
+   "pos": [
+    [
+     9.698402238017982,
+     4.999999805268696
+    ]
+   ],
+   "resid_F0_max_N": 0.00037631227772396927,
+   "resid_F0_per_agent_N": [
+    0.00041402668357658413
+   ],
+   "snapshot_max_speed": 6.427091152687303e-07,
+   "fd_step_rel_change": 4.338699731351785e-10,
+   "asym_rel_frobenius": 3.1367872760780317e-12,
+   "asym_max_abs_N_per_m": 4.653425539867528e-09,
+   "bar_U_rel_diff": 1.1385777611154253e-07,
+   "eig_N_per_m": [
+    816.767861268297,
+    1932.469357452112
+   ],
+   "mu1": 816.767861268297,
+   "mu2": 1932.469357452112,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 8,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999944376,
+    -3.3354229029639766e-06
+   ],
+   "soft_top_agent_pos": [
+    9.698402238017982,
+    4.999999805268696
+   ],
+   "soft_blocker_lateral_share": 1.1125045941616637e-11,
+   "blocker_block_eig_N_per_m": [
+    816.767861268297,
+    1932.469357452112
+   ],
+   "soft_lateral_share": 1.112504594161664e-11,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed141",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    20
+   ],
+   "blocker": 20,
+   "pos": [
+    [
+     9.744777319877631,
+     4.999999991176098
+    ]
+   ],
+   "resid_F0_max_N": 1.7426423959948066e-05,
+   "resid_F0_per_agent_N": [
+    1.758738599881619e-05
+   ],
+   "snapshot_max_speed": 5.392767000961906e-08,
+   "fd_step_rel_change": 6.24493290446091e-10,
+   "asym_rel_frobenius": 4.198320447174741e-13,
+   "asym_max_abs_N_per_m": 6.034123802836286e-10,
+   "bar_U_rel_diff": 1.663404156724687e-07,
+   "eig_N_per_m": [
+    480.85360320156417,
+    1974.9114121244552
+   ],
+   "mu1": 480.85360320156417,
+   "mu2": 1974.9114121244552,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 20,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999999944,
+    -1.0564019360267446e-07
+   ],
+   "soft_top_agent_pos": [
+    9.744777319877631,
+    4.999999991176098
+   ],
+   "soft_blocker_lateral_share": 1.1159850504410542e-14,
+   "blocker_block_eig_N_per_m": [
+    480.85360320156417,
+    1974.9114121244552
+   ],
+   "soft_lateral_share": 1.1159850504410542e-14,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed150",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    51
+   ],
+   "blocker": 51,
+   "pos": [
+    [
+     9.72814016272061,
+     4.9999999935283075
+    ]
+   ],
+   "resid_F0_max_N": 9.552370613619132e-05,
+   "resid_F0_per_agent_N": [
+    9.623142534249288e-05
+   ],
+   "snapshot_max_speed": 8.288735618493307e-07,
+   "fd_step_rel_change": 5.273193671002862e-10,
+   "asym_rel_frobenius": 4.909202728643345e-12,
+   "asym_max_abs_N_per_m": 6.53099443083849e-09,
+   "bar_U_rel_diff": 1.3988680387082127e-07,
+   "eig_N_per_m": [
+    547.2648655079031,
+    1800.0564058817722
+   ],
+   "mu1": 547.2648655079031,
+   "mu2": 1800.0564058817722,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 51,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999999962,
+    -8.724772545608808e-08
+   ],
+   "soft_top_agent_pos": [
+    9.72814016272061,
+    4.9999999935283075
+   ],
+   "soft_blocker_lateral_share": 7.612165597260919e-15,
+   "blocker_block_eig_N_per_m": [
+    547.2648655079031,
+    1800.0564058817722
+   ],
+   "soft_lateral_share": 7.612165597260919e-15,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed155",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    6
+   ],
+   "blocker": 6,
+   "pos": [
+    [
+     9.641707139195544,
+     4.999999617772708
+    ]
+   ],
+   "resid_F0_max_N": 0.00042378549060266655,
+   "resid_F0_per_agent_N": [
+    0.0004716061069890152
+   ],
+   "snapshot_max_speed": 2.0102270332286573e-06,
+   "fd_step_rel_change": 2.781349358287929e-10,
+   "asym_rel_frobenius": 4.327100770923147e-12,
+   "asym_max_abs_N_per_m": 4.1154498428910835e-09,
+   "bar_U_rel_diff": 7.409924833125981e-08,
+   "eig_N_per_m": [
+    761.4848709223437,
+    1108.7264043878577
+   ],
+   "mu1": 761.4848709223437,
+   "mu2": 1108.7264043878577,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 6,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999160201,
+    -1.2959938407106964e-05
+   ],
+   "soft_top_agent_pos": [
+    9.641707139195544,
+    4.999999617772708
+   ],
+   "soft_blocker_lateral_share": 1.6796000351600616e-10,
+   "blocker_block_eig_N_per_m": [
+    761.4848709223437,
+    1108.7264043878577
+   ],
+   "soft_lateral_share": 1.679600035160062e-10,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed179",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    63
+   ],
+   "blocker": 63,
+   "pos": [
+    [
+     9.725838330884905,
+     5.0000000264348365
+    ]
+   ],
+   "resid_F0_max_N": 7.150249160541014e-05,
+   "resid_F0_per_agent_N": [
+    7.155557783811307e-05
+   ],
+   "snapshot_max_speed": 1.0364270870651461e-07,
+   "fd_step_rel_change": 5.083847114797935e-10,
+   "asym_rel_frobenius": 5.392594239908059e-13,
+   "asym_max_abs_N_per_m": 1.080659541886908e-09,
+   "bar_U_rel_diff": 1.362995311487017e-07,
+   "eig_N_per_m": [
+    845.8898775328238,
+    2704.858474901158
+   ],
+   "mu1": 845.8898775328238,
+   "mu2": 2704.858474901158,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 63,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999999343,
+    3.6251239912030086e-07
+   ],
+   "soft_top_agent_pos": [
+    9.725838330884905,
+    5.0000000264348365
+   ],
+   "soft_blocker_lateral_share": 1.3141523951595632e-13,
+   "blocker_block_eig_N_per_m": [
+    845.8898775328238,
+    2704.858474901158
+   ],
+   "soft_lateral_share": 1.3141523951595632e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed200",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    78
+   ],
+   "blocker": 78,
+   "pos": [
+    [
+     9.725751177001056,
+     4.999999933713746
+    ]
+   ],
+   "resid_F0_max_N": 0.00016641882678288206,
+   "resid_F0_per_agent_N": [
+    0.00022173192536880586
+   ],
+   "snapshot_max_speed": 1.002998706012269e-06,
+   "fd_step_rel_change": 5.130036824195298e-10,
+   "asym_rel_frobenius": 2.8216163909373884e-12,
+   "asym_max_abs_N_per_m": 5.248854465216696e-09,
+   "bar_U_rel_diff": 1.3518103326245206e-07,
+   "eig_N_per_m": [
+    785.9733194081226,
+    2510.608417592959
+   ],
+   "mu1": 785.9733194081226,
+   "mu2": 2510.608417592959,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 78,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999995863,
+    -9.096079050351352e-07
+   ],
+   "soft_top_agent_pos": [
+    9.725751177001056,
+    4.999999933713746
+   ],
+   "soft_blocker_lateral_share": 8.273865409024075e-13,
+   "blocker_block_eig_N_per_m": [
+    785.9733194081226,
+    2510.608417592959
+   ],
+   "soft_lateral_share": 8.273865409024075e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed203",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    35
+   ],
+   "blocker": 35,
+   "pos": [
+    [
+     9.63964319386828,
+     5.000000012400886
+    ]
+   ],
+   "resid_F0_max_N": 1.6157643307087093e-05,
+   "resid_F0_per_agent_N": [
+    1.9208432098651354e-05
+   ],
+   "snapshot_max_speed": 9.176412972314252e-09,
+   "fd_step_rel_change": 2.770311477910831e-10,
+   "asym_rel_frobenius": 1.3905796186184685e-12,
+   "asym_max_abs_N_per_m": 1.5619485753078956e-09,
+   "bar_U_rel_diff": 7.09483312663286e-08,
+   "eig_N_per_m": [
+    908.6566479509589,
+    1302.9426930662626
+   ],
+   "mu1": 908.6566479509589,
+   "mu2": 1302.9426930662626,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 35,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.999999999999905,
+    4.360448581850757e-07
+   ],
+   "soft_top_agent_pos": [
+    9.63964319386828,
+    5.000000012400886
+   ],
+   "soft_blocker_lateral_share": 1.9013511834964279e-13,
+   "blocker_block_eig_N_per_m": [
+    908.6566479509589,
+    1302.9426930662626
+   ],
+   "soft_lateral_share": 1.9013511834964279e-13,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed204",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    3
+   ],
+   "blocker": 3,
+   "pos": [
+    [
+     9.698194252646953,
+     4.999999731616867
+    ]
+   ],
+   "resid_F0_max_N": 0.00044927879646522646,
+   "resid_F0_per_agent_N": [
+    0.0004920081073482095
+   ],
+   "snapshot_max_speed": 1.07975375058154e-06,
+   "fd_step_rel_change": 4.29546328278493e-10,
+   "asym_rel_frobenius": 1.8915281403832825e-12,
+   "asym_max_abs_N_per_m": 2.4315618962766905e-09,
+   "bar_U_rel_diff": 1.1398597559071673e-07,
+   "eig_N_per_m": [
+    709.0017259650901,
+    1674.0202424261222
+   ],
+   "mu1": 709.0017259650901,
+   "mu2": 1674.0202424261222,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 3,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999893949,
+    -4.605457989205177e-06
+   ],
+   "soft_top_agent_pos": [
+    9.698194252646953,
+    4.999999731616867
+   ],
+   "soft_blocker_lateral_share": 2.1210243290333792e-11,
+   "blocker_block_eig_N_per_m": [
+    709.0017259650901,
+    1674.0202424261222
+   ],
+   "soft_lateral_share": 2.1210243290333792e-11,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed205",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    17,
+    28
+   ],
+   "blocker": 28,
+   "pos": [
+    [
+     9.552443787608816,
+     4.291805759743303
+    ],
+    [
+     9.749567165857231,
+     5.017854283717199
+    ]
+   ],
+   "resid_F0_max_N": 0.00022143206584044305,
+   "resid_F0_per_agent_N": [
+    0.0002318127570868442,
+    0.00015049672708607452
+   ],
+   "snapshot_max_speed": 9.285039558874556e-07,
+   "fd_step_rel_change": 8.272685883206345e-10,
+   "asym_rel_frobenius": 6.714753359198082e-10,
+   "asym_max_abs_N_per_m": 1.319477860306506e-06,
+   "bar_U_rel_diff": 2.1899683645517277e-07,
+   "eig_N_per_m": [
+    403.9596921942683,
+    511.76538211465714,
+    1012.9060039878415,
+    3363.285156583487
+   ],
+   "mu1": 403.9596921942683,
+   "mu2": 511.76538211465714,
+   "strict_min": true,
+   "soft_weights": [
+    0.47709431578834915,
+    0.5229056842116501
+   ],
+   "soft_blocker_weight": 0.5229056842116501,
+   "soft_top_agent": 28,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.9958114275258383,
+   "soft_top_agent_dir": [
+    -0.999091196496066,
+    0.04262371504290811
+   ],
+   "soft_top_agent_pos": [
+    9.749567165857231,
+    5.017854283717199
+   ],
+   "soft_blocker_lateral_share": 0.0018167810840590314,
+   "blocker_block_eig_N_per_m": [
+    460.1652249367926,
+    3232.2878309445805
+   ],
+   "soft_lateral_share": 0.4437670138251814,
+   "soft_second_agent": 17,
+   "soft_cos_top2": -0.3088614086821597,
+   "soft_type": "axial_shared"
+  },
+  {
+   "tag": "E1b_seed211",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    13
+   ],
+   "blocker": 13,
+   "pos": [
+    [
+     9.632267339532337,
+     4.999999634572099
+    ]
+   ],
+   "resid_F0_max_N": 0.0004097231390868381,
+   "resid_F0_per_agent_N": [
+    0.0005282587430376834
+   ],
+   "snapshot_max_speed": 2.016537986425359e-06,
+   "fd_step_rel_change": 2.2877502846159564e-10,
+   "asym_rel_frobenius": 4.020769932956162e-12,
+   "asym_max_abs_N_per_m": 3.957587296071763e-09,
+   "bar_U_rel_diff": 6.142134209673769e-08,
+   "eig_N_per_m": [
+    824.9334377051279,
+    1121.214711890357
+   ],
+   "mu1": 824.9334377051279,
+   "mu2": 1121.214711890357,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 13,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.999999999890236,
+    -1.4816484348368175e-05
+   ],
+   "soft_top_agent_pos": [
+    9.632267339532337,
+    4.999999634572099
+   ],
+   "soft_blocker_lateral_share": 2.1952820844543908e-10,
+   "blocker_block_eig_N_per_m": [
+    824.9334377051279,
+    1121.214711890357
+   ],
+   "soft_lateral_share": 2.1952820844543913e-10,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed215",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    5
+   ],
+   "blocker": 5,
+   "pos": [
+    [
+     9.670634662701328,
+     5.000000047001751
+    ]
+   ],
+   "resid_F0_max_N": 9.607166976594757e-05,
+   "resid_F0_per_agent_N": [
+    9.619749815059144e-05
+   ],
+   "snapshot_max_speed": 8.892590114123265e-07,
+   "fd_step_rel_change": 3.782141703038045e-10,
+   "asym_rel_frobenius": 1.6672703734235879e-12,
+   "asym_max_abs_N_per_m": 2.7452154861395267e-09,
+   "bar_U_rel_diff": 9.990833217095095e-08,
+   "eig_N_per_m": [
+    1115.4358428218252,
+    2044.0019364859054
+   ],
+   "mu1": 1115.4358428218252,
+   "mu2": 2044.0019364859054,
+   "strict_min": true,
+   "soft_weights": [
+    1.0000000000000002
+   ],
+   "soft_blocker_weight": 1.0000000000000002,
+   "soft_top_agent": 5,
+   "soft_top_is_blocker": true,
+   "soft_pr": 0.9999999999999996,
+   "soft_top_agent_dir": [
+    -0.9999999999994342,
+    1.0638543602154135e-06
+   ],
+   "soft_top_agent_pos": [
+    9.670634662701328,
+    5.000000047001751
+   ],
+   "soft_blocker_lateral_share": 1.1317860997493466e-12,
+   "blocker_block_eig_N_per_m": [
+    1115.4358428218252,
+    2044.0019364859054
+   ],
+   "soft_lateral_share": 1.1317860997493468e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed227",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    51
+   ],
+   "blocker": 51,
+   "pos": [
+    [
+     9.673030030293324,
+     5.000000048376034
+    ]
+   ],
+   "resid_F0_max_N": 8.935777967606297e-05,
+   "resid_F0_per_agent_N": [
+    0.00011419881518191478
+   ],
+   "snapshot_max_speed": 3.1645622031059223e-07,
+   "fd_step_rel_change": 3.877471603625919e-10,
+   "asym_rel_frobenius": 3.165145926777289e-12,
+   "asym_max_abs_N_per_m": 4.687821176163273e-09,
+   "bar_U_rel_diff": 1.0213444839300888e-07,
+   "eig_N_per_m": [
+    987.5267313295141,
+    1847.1497688772188
+   ],
+   "mu1": 987.5267313295141,
+   "mu2": 1847.1497688772188,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 51,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999994322,
+    1.0656208049239966e-06
+   ],
+   "soft_top_agent_pos": [
+    9.673030030293324,
+    5.000000048376034
+   ],
+   "soft_blocker_lateral_share": 1.1355476998868663e-12,
+   "blocker_block_eig_N_per_m": [
+    987.5267313295141,
+    1847.1497688772188
+   ],
+   "soft_lateral_share": 1.1355476998868663e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed238",
+   "stratum": "lone_keystone",
+   "n_resid": 1,
+   "ids": [
+    34
+   ],
+   "blocker": 34,
+   "pos": [
+    [
+     9.716565657472582,
+     5.000000196833368
+    ]
+   ],
+   "resid_F0_max_N": 0.00033657064680324195,
+   "resid_F0_per_agent_N": [
+    0.0003440789632494148
+   ],
+   "snapshot_max_speed": 1.7078210223844217e-06,
+   "fd_step_rel_change": 4.5956607698450626e-10,
+   "asym_rel_frobenius": 2.1296136361244636e-12,
+   "asym_max_abs_N_per_m": 2.726887726040017e-09,
+   "bar_U_rel_diff": 1.2163807284645711e-07,
+   "eig_N_per_m": [
+    596.080878468424,
+    1709.9267767336596
+   ],
+   "mu1": 596.080878468424,
+   "mu2": 1709.9267767336596,
+   "strict_min": true,
+   "soft_weights": [
+    1.0
+   ],
+   "soft_blocker_weight": 1.0,
+   "soft_top_agent": 34,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.0,
+   "soft_top_agent_dir": [
+    -0.9999999999958009,
+    2.897970610246811e-06
+   ],
+   "soft_top_agent_pos": [
+    9.716565657472582,
+    5.000000196833368
+   ],
+   "soft_blocker_lateral_share": 8.398233657854273e-12,
+   "blocker_block_eig_N_per_m": [
+    596.080878468424,
+    1709.9267767336596
+   ],
+   "soft_lateral_share": 8.398233657854273e-12,
+   "soft_second_agent": null,
+   "soft_cos_top2": null,
+   "soft_type": "axial"
+  },
+  {
+   "tag": "E1b_seed239",
+   "stratum": "lone_keystone",
+   "n_resid": 2,
+   "ids": [
+    47,
+    96
+   ],
+   "blocker": 47,
+   "pos": [
+    [
+     9.697502285556459,
+     5.029346782641382
+    ],
+    [
+     9.543533986216362,
+     4.2452331707542905
+    ]
+   ],
+   "resid_F0_max_N": 4.0302945180314964e-05,
+   "resid_F0_per_agent_N": [
+    4.696011443046001e-05,
+    2.7581984648330728e-05
+   ],
+   "snapshot_max_speed": 1.8724537292410355e-07,
+   "fd_step_rel_change": 9.129659426731276e-10,
+   "asym_rel_frobenius": 5.28684085945638e-10,
+   "asym_max_abs_N_per_m": 1.0253131677018246e-06,
+   "bar_U_rel_diff": 2.4049612103612386e-07,
+   "eig_N_per_m": [
+    620.1821244082122,
+    817.2149385708467,
+    1563.3516104683345,
+    4012.8744692604514
+   ],
+   "mu1": 620.1821244082122,
+   "mu2": 817.2149385708467,
+   "strict_min": true,
+   "soft_weights": [
+    0.37777283499135467,
+    0.6222271650086452
+   ],
+   "soft_blocker_weight": 0.37777283499135467,
+   "soft_top_agent": 96,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.8872234528911755,
+   "soft_top_agent_dir": [
+    -0.02401936703431662,
+    0.9997114933856021
+   ],
+   "soft_top_agent_pos": [
+    9.543533986216362,
+    4.2452331707542905
+   ],
+   "soft_blocker_lateral_share": 0.4342804266463618,
+   "blocker_block_eig_N_per_m": [
+    772.2564097750457,
+    3724.514075053925
+   ],
+   "soft_lateral_share": 0.785927531450312,
+   "soft_second_agent": 47,
+   "soft_cos_top2": 0.6768754457065718,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed46",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    27,
+    99
+   ],
+   "blocker": 27,
+   "pos": [
+    [
+     9.502604133677744,
+     4.5966350670298946
+    ],
+    [
+     9.479638226126108,
+     5.516303242105038
+    ]
+   ],
+   "resid_F0_max_N": 0.00026753877827878636,
+   "resid_F0_per_agent_N": [
+    0.00026868312419173695,
+    0.00019424327007584602
+   ],
+   "snapshot_max_speed": 1.1415869200426117e-06,
+   "fd_step_rel_change": 2.001679420256352e-09,
+   "asym_rel_frobenius": 5.593019119183915e-11,
+   "asym_max_abs_N_per_m": 7.31817397792156e-08,
+   "bar_U_rel_diff": 5.310666144455287e-07,
+   "eig_N_per_m": [
+    112.3149807548413,
+    1443.6545188334042,
+    1899.5843975975745,
+    2477.159543757971
+   ],
+   "mu1": 112.3149807548413,
+   "mu2": 1443.6545188334042,
+   "strict_min": true,
+   "soft_weights": [
+    0.4866052063740702,
+    0.5133947936259297
+   ],
+   "soft_blocker_weight": 0.4866052063740702,
+   "soft_top_agent": 99,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9985656654258352,
+   "soft_top_agent_dir": [
+    -0.017083109191033848,
+    0.9998540730428451
+   ],
+   "soft_top_agent_pos": [
+    9.479638226126108,
+    5.516303242105038
+   ],
+   "soft_blocker_lateral_share": 0.9998425906812423,
+   "blocker_block_eig_N_per_m": [
+    796.2483411271332,
+    2470.5225089027986
+   ],
+   "soft_lateral_share": 0.9997735784584307,
+   "soft_second_agent": 27,
+   "soft_cos_top2": 0.9995610471799656,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed55",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    11,
+    30,
+    44
+   ],
+   "blocker": 11,
+   "pos": [
+    [
+     9.754850681606635,
+     4.995843727270941
+    ],
+    [
+     9.526393060843601,
+     5.752563494621056
+    ],
+    [
+     9.472401198427855,
+     4.2061624270147036
+    ]
+   ],
+   "resid_F0_max_N": 0.0003806841790048058,
+   "resid_F0_per_agent_N": [
+    0.00019353925279783966,
+    4.7304209619157115e-05,
+    0.0003819077970598773
+   ],
+   "snapshot_max_speed": 1.0497141189226724e-06,
+   "fd_step_rel_change": 9.300115863058791e-10,
+   "asym_rel_frobenius": 4.89148078723529e-10,
+   "asym_max_abs_N_per_m": 7.639543468940246e-07,
+   "bar_U_rel_diff": 2.4809367347597437e-07,
+   "eig_N_per_m": [
+    309.92751402186036,
+    455.41078914677587,
+    790.4568650453517,
+    974.4247411510122,
+    1181.286763225931,
+    4655.604733652579
+   ],
+   "mu1": 309.92751402186036,
+   "mu2": 455.41078914677587,
+   "strict_min": true,
+   "soft_weights": [
+    0.2574001520029049,
+    0.036592741391571856,
+    0.7060071066055231
+   ],
+   "soft_blocker_weight": 0.2574001520029049,
+   "soft_top_agent": 44,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.7666599072955944,
+   "soft_top_agent_dir": [
+    -0.2606908503069547,
+    0.9654223327467814
+   ],
+   "soft_top_agent_pos": [
+    9.472401198427855,
+    4.2061624270147036
+   ],
+   "soft_blocker_lateral_share": 0.022934780205973507,
+   "blocker_block_eig_N_per_m": [
+    705.0632656426855,
+    4463.834725088973
+   ],
+   "soft_lateral_share": 0.6963256268131687,
+   "soft_second_agent": 11,
+   "soft_cos_top2": -0.11147825630831494,
+   "soft_type": "opposed_lateral"
+  },
+  {
+   "tag": "E1b_seed60",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    53,
+    83
+   ],
+   "blocker": 53,
+   "pos": [
+    [
+     9.517004970212847,
+     5.410843710795457
+    ],
+    [
+     9.492010776184124,
+     4.536556170843736
+    ]
+   ],
+   "resid_F0_max_N": 0.00045245807219101986,
+   "resid_F0_per_agent_N": [
+    0.00038572587502084887,
+    0.0004550955176081513
+   ],
+   "snapshot_max_speed": 8.322542205576853e-07,
+   "fd_step_rel_change": 2.0108736914497306e-09,
+   "asym_rel_frobenius": 6.687321503596752e-11,
+   "asym_max_abs_N_per_m": 6.562944676602456e-08,
+   "bar_U_rel_diff": 5.327881864868924e-07,
+   "eig_N_per_m": [
+    86.72015354193971,
+    1067.311206451547,
+    1547.60181476391,
+    1776.9656548316432
+   ],
+   "mu1": 86.72015354193971,
+   "mu2": 1067.311206451547,
+   "strict_min": true,
+   "soft_weights": [
+    0.49356405303386813,
+    0.5064359469661319
+   ],
+   "soft_blocker_weight": 0.49356405303386813,
+   "soft_top_agent": 83,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9996686835875692,
+   "soft_top_agent_dir": [
+    0.015507336217145664,
+    0.9998797540321778
+   ],
+   "soft_top_agent_pos": [
+    9.492010776184124,
+    4.536556170843736
+   ],
+   "soft_blocker_lateral_share": 0.9998180187390512,
+   "blocker_block_eig_N_per_m": [
+    583.7908131745663,
+    1767.2328905269133
+   ],
+   "soft_lateral_share": 0.9997883941527086,
+   "soft_second_agent": 53,
+   "soft_cos_top2": 0.999579575570585,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed73",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    13,
+    27,
+    86
+   ],
+   "blocker": 86,
+   "pos": [
+    [
+     9.537207947743475,
+     4.257427693367154
+    ],
+    [
+     9.51253835263829,
+     5.784055762942798
+    ],
+    [
+     9.695359019988372,
+     5.013519451576768
+    ]
+   ],
+   "resid_F0_max_N": 0.0003939200119195069,
+   "resid_F0_per_agent_N": [
+    0.00037001244519505234,
+    0.000395150959435311,
+    7.3819416103475e-05
+   ],
+   "snapshot_max_speed": 1.8983724062211294e-06,
+   "fd_step_rel_change": 1.0960444382442961e-09,
+   "asym_rel_frobenius": 6.11231973219625e-10,
+   "asym_max_abs_N_per_m": 8.803177706795395e-07,
+   "bar_U_rel_diff": 2.911823221946678e-07,
+   "eig_N_per_m": [
+    320.0680738622947,
+    505.7281451054295,
+    998.8451524747036,
+    1242.452636756002,
+    1709.0286554582665,
+    3839.1296092420284
+   ],
+   "mu1": 320.0680738622947,
+   "mu2": 505.7281451054295,
+   "strict_min": true,
+   "soft_weights": [
+    0.0377019825252619,
+    0.5385201310742764,
+    0.4237778864004622
+   ],
+   "soft_blocker_weight": 0.4237778864004622,
+   "soft_top_agent": 27,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.1230833448367696,
+   "soft_top_agent_dir": [
+    0.12116224317812012,
+    0.9926327169845077
+   ],
+   "soft_top_agent_pos": [
+    9.51253835263829,
+    5.784055762942798
+   ],
+   "soft_blocker_lateral_share": 0.19466793608020955,
+   "blocker_block_eig_N_per_m": [
+    589.4085444693675,
+    3274.901738645656
+   ],
+   "soft_lateral_share": 0.6486903995716676,
+   "soft_second_agent": 86,
+   "soft_cos_top2": 0.3292300067831369,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed74",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 4,
+   "ids": [
+    43,
+    61,
+    81,
+    98
+   ],
+   "blocker": 61,
+   "pos": [
+    [
+     9.44822306599486,
+     4.27848674052088
+    ],
+    [
+     9.692413407599116,
+     5.026781888273367
+    ],
+    [
+     9.553134685675907,
+     5.798330902940295
+    ],
+    [
+     9.467797594682313,
+     3.4759868772611076
+    ]
+   ],
+   "resid_F0_max_N": 0.00010186213506102604,
+   "resid_F0_per_agent_N": [
+    5.162281273080253e-05,
+    0.00010423756770825901,
+    2.4887269760568546e-05,
+    3.254931432452551e-05
+   ],
+   "snapshot_max_speed": 3.50217750209925e-07,
+   "fd_step_rel_change": 9.77506849358995e-10,
+   "asym_rel_frobenius": 7.505600353840014e-10,
+   "asym_max_abs_N_per_m": 1.7649881556280889e-06,
+   "bar_U_rel_diff": 2.5903825525156587e-07,
+   "eig_N_per_m": [
+    233.94989410919425,
+    346.48285469374144,
+    704.3267871484029,
+    924.0556908798608,
+    1067.5442632594118,
+    1207.4162713471405,
+    2319.3959489393606,
+    5719.263572323023
+   ],
+   "mu1": 233.94989410919425,
+   "mu2": 346.48285469374144,
+   "strict_min": true,
+   "soft_weights": [
+    0.5301854394791546,
+    0.08398703975294262,
+    0.006988102744115751,
+    0.37883941802378635
+   ],
+   "soft_blocker_weight": 0.08398703975294262,
+   "soft_top_agent": 43,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.3163238498801726,
+   "soft_top_agent_dir": [
+    -0.7847217594904619,
+    0.6198481751059639
+   ],
+   "soft_top_agent_pos": [
+    9.44822306599486,
+    4.27848674052088
+   ],
+   "soft_blocker_lateral_share": 1.2529242591446812e-05,
+   "blocker_block_eig_N_per_m": [
+    802.237996805872,
+    4764.669295477701
+   ],
+   "soft_lateral_share": 0.577249299337752,
+   "soft_second_agent": 98,
+   "soft_cos_top2": 0.472661789683903,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed75",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    80,
+    93
+   ],
+   "blocker": 93,
+   "pos": [
+    [
+     9.507771443424021,
+     4.518105278198404
+    ],
+    [
+     9.51140117895402,
+     5.406930510000692
+    ]
+   ],
+   "resid_F0_max_N": 3.297951345571093e-05,
+   "resid_F0_per_agent_N": [
+    3.3086361473550475e-05,
+    3.301445501806002e-05
+   ],
+   "snapshot_max_speed": 3.644991243703795e-08,
+   "fd_step_rel_change": 2.008018011821048e-09,
+   "asym_rel_frobenius": 1.0252629857165445e-11,
+   "asym_max_abs_N_per_m": 1.9675930218454596e-08,
+   "bar_U_rel_diff": 5.336297920103875e-07,
+   "eig_N_per_m": [
+    119.64134920686003,
+    1500.064021353051,
+    2083.2562899004174,
+    2510.5121906481245
+   ],
+   "mu1": 119.64134920686003,
+   "mu2": 1500.064021353051,
+   "strict_min": true,
+   "soft_weights": [
+    0.5098180515691567,
+    0.49018194843084373
+   ],
+   "soft_blocker_weight": 0.49018194843084373,
+   "soft_top_agent": 80,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.999229144131025,
+   "soft_top_agent_dir": [
+    0.01667456195734655,
+    0.9998609698270708
+   ],
+   "soft_top_agent_pos": [
+    9.507771443424021,
+    4.518105278198404
+   ],
+   "soft_blocker_lateral_share": 0.9998224695137848,
+   "blocker_block_eig_N_per_m": [
+    823.5394945303868,
+    2501.00502494596
+   ],
+   "soft_lateral_share": 0.9997712274310888,
+   "soft_second_agent": 93,
+   "soft_cos_top2": 0.9995500401770634,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed103",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    71,
+    74
+   ],
+   "blocker": 71,
+   "pos": [
+    [
+     9.792412657803789,
+     4.9833398343507715
+    ],
+    [
+     9.492642186435178,
+     5.735111366267958
+    ]
+   ],
+   "resid_F0_max_N": 0.0001550386498475817,
+   "resid_F0_per_agent_N": [
+    5.878195283374032e-05,
+    0.00015640272885474263
+   ],
+   "snapshot_max_speed": 2.886319602318751e-07,
+   "fd_step_rel_change": 1.0125948177986109e-09,
+   "asym_rel_frobenius": 8.19055169281706e-10,
+   "asym_max_abs_N_per_m": 2.5572433060006006e-06,
+   "bar_U_rel_diff": 2.677345125371328e-07,
+   "eig_N_per_m": [
+    187.36807888804483,
+    684.7770704848018,
+    1454.2750230271104,
+    5103.703448985715
+   ],
+   "mu1": 187.36807888804483,
+   "mu2": 684.7770704848018,
+   "strict_min": true,
+   "soft_weights": [
+    0.8439714572759859,
+    0.15602854272401392
+   ],
+   "soft_blocker_weight": 0.8439714572759859,
+   "soft_top_agent": 71,
+   "soft_top_is_blocker": true,
+   "soft_pr": 1.3575286076254791,
+   "soft_top_agent_dir": [
+    0.9920146320907582,
+    0.1261228358301442
+   ],
+   "soft_top_agent_pos": [
+    9.792412657803789,
+    4.9833398343507715
+   ],
+   "soft_blocker_lateral_share": 0.015906969717837508,
+   "blocker_block_eig_N_per_m": [
+    267.4828763622611,
+    4909.590625543221
+   ],
+   "soft_lateral_share": 0.16122217317722262,
+   "soft_second_agent": 74,
+   "soft_cos_top2": -0.35060291405241256,
+   "soft_type": "axial_one_agent"
+  },
+  {
+   "tag": "E1b_seed104",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 4,
+   "ids": [
+    21,
+    38,
+    93,
+    97
+   ],
+   "blocker": 97,
+   "pos": [
+    [
+     9.502464052767147,
+     5.85739596445743
+    ],
+    [
+     9.500218438334008,
+     4.266872602351844
+    ],
+    [
+     9.488453207130018,
+     3.497598092079626
+    ],
+    [
+     9.670750358935448,
+     5.02639551371564
+    ]
+   ],
+   "resid_F0_max_N": 0.0003142839398151409,
+   "resid_F0_per_agent_N": [
+    0.00019782239017872188,
+    0.0002205049036119316,
+    5.131915907091935e-05,
+    0.00036485162133978384
+   ],
+   "snapshot_max_speed": 5.435183224330719e-07,
+   "fd_step_rel_change": 1.1095748738444353e-09,
+   "asym_rel_frobenius": 6.527182402043493e-10,
+   "asym_max_abs_N_per_m": 1.882603953617945e-06,
+   "bar_U_rel_diff": 2.9379787965530204e-07,
+   "eig_N_per_m": [
+    360.8054959846862,
+    480.92476990073317,
+    946.9688621067908,
+    1140.9902002243175,
+    1432.7399061512613,
+    1773.2480959341146,
+    2850.6136248059315,
+    6859.553949817666
+   ],
+   "mu1": 360.8054959846862,
+   "mu2": 480.92476990073317,
+   "strict_min": true,
+   "soft_weights": [
+    0.23089103510453576,
+    0.21099314230292487,
+    0.4163985603886965,
+    0.14171726220384417
+   ],
+   "soft_blocker_weight": 0.14171726220384417,
+   "soft_top_agent": 93,
+   "soft_top_is_blocker": false,
+   "soft_pr": 3.432883290554971,
+   "soft_top_agent_dir": [
+    -0.0489165683476525,
+    -0.9988028681081615
+   ],
+   "soft_top_agent_pos": [
+    9.488453207130018,
+    3.497598092079626
+   ],
+   "soft_blocker_lateral_share": 0.69474782072722,
+   "blocker_block_eig_N_per_m": [
+    1018.2861513441338,
+    5497.7872377933545
+   ],
+   "soft_lateral_share": 0.9530843651722246,
+   "soft_second_agent": 21,
+   "soft_cos_top2": 0.9999991508621383,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed111",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    22,
+    44
+   ],
+   "blocker": 22,
+   "pos": [
+    [
+     9.50433161012983,
+     4.597972805292221
+    ],
+    [
+     9.499747264392175,
+     5.4756612206567485
+    ]
+   ],
+   "resid_F0_max_N": 0.0002376973055783771,
+   "resid_F0_per_agent_N": [
+    0.0002379435957801314,
+    0.00019915134689060248
+   ],
+   "snapshot_max_speed": 4.31521174881163e-07,
+   "fd_step_rel_change": 2.0071816756067434e-09,
+   "asym_rel_frobenius": 1.0039831865370744e-11,
+   "asym_max_abs_N_per_m": 1.272731608992217e-08,
+   "bar_U_rel_diff": 5.337656930530831e-07,
+   "eig_N_per_m": [
+    84.7667318474303,
+    1043.5818834149384,
+    1474.0200584167244,
+    1775.7092915053065
+   ],
+   "mu1": 84.7667318474303,
+   "mu2": 1043.5818834149384,
+   "strict_min": true,
+   "soft_weights": [
+    0.49000122813539304,
+    0.5099987718646065
+   ],
+   "soft_blocker_weight": 0.49000122813539304,
+   "soft_top_agent": 44,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.999200516204571,
+   "soft_top_agent_dir": [
+    0.016205196446382436,
+    -0.999868687182539
+   ],
+   "soft_top_agent_pos": [
+    9.499747264392175,
+    5.4756612206567485
+   ],
+   "soft_blocker_lateral_share": 0.9998354164303638,
+   "blocker_block_eig_N_per_m": [
+    573.8353307818886,
+    1769.0539585265474
+   ],
+   "soft_lateral_share": 0.9997854238914139,
+   "soft_second_agent": 22,
+   "soft_cos_top2": 0.999578506145112,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed112",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    4,
+    8,
+    50
+   ],
+   "blocker": 8,
+   "pos": [
+    [
+     9.499797645375857,
+     5.787133320710543
+    ],
+    [
+     9.774526467235123,
+     5.002026329253574
+    ],
+    [
+     9.448590914406655,
+     4.185610183810956
+    ]
+   ],
+   "resid_F0_max_N": 0.000274810412904003,
+   "resid_F0_per_agent_N": [
+    0.0002907138108742968,
+    7.2189574614917e-05,
+    2.1688586193901897e-05
+   ],
+   "snapshot_max_speed": 2.1384091241398708e-06,
+   "fd_step_rel_change": 1.023689947788459e-09,
+   "asym_rel_frobenius": 5.328929780881759e-10,
+   "asym_max_abs_N_per_m": 1.2938392046635272e-06,
+   "bar_U_rel_diff": 2.7185687784000925e-07,
+   "eig_N_per_m": [
+    343.8036502439059,
+    683.5221873847911,
+    1265.5333775257932,
+    1600.133760210207,
+    1936.1432566411072,
+    7387.3809051464095
+   ],
+   "mu1": 343.8036502439059,
+   "mu2": 683.5221873847911,
+   "strict_min": true,
+   "soft_weights": [
+    0.23474889904911525,
+    0.5328694851571912,
+    0.23238161579369265
+   ],
+   "soft_blocker_weight": 0.5328694851571912,
+   "soft_top_agent": 8,
+   "soft_top_is_blocker": true,
+   "soft_pr": 2.544152823438562,
+   "soft_top_agent_dir": [
+    0.9998061232697947,
+    -0.019690502081562422
+   ],
+   "soft_top_agent_pos": [
+    9.774526467235123,
+    5.002026329253574
+   ],
+   "soft_blocker_lateral_share": 0.0003877158722240141,
+   "blocker_block_eig_N_per_m": [
+    840.8389455003255,
+    7028.999781136698
+   ],
+   "soft_lateral_share": 0.44620885946299205,
+   "soft_second_agent": 4,
+   "soft_cos_top2": -0.1932142527281683,
+   "soft_type": "axial_shared"
+  },
+  {
+   "tag": "E1b_seed113",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 7,
+   "ids": [
+    0,
+    23,
+    34,
+    66,
+    83,
+    84,
+    94
+   ],
+   "blocker": 34,
+   "pos": [
+    [
+     9.42757796818662,
+     3.4018030183953973
+    ],
+    [
+     8.996099741143407,
+     5.449229046249755
+    ],
+    [
+     9.734703226678578,
+     5.003582403656076
+    ],
+    [
+     9.535444311158706,
+     4.224530255862835
+    ],
+    [
+     9.617639150668408,
+     5.763284729737948
+    ],
+    [
+     9.43544439222451,
+     6.501084161818089
+    ],
+    [
+     8.927477445910787,
+     4.674663123948555
+    ]
+   ],
+   "resid_F0_max_N": 0.0003139130635929632,
+   "resid_F0_per_agent_N": [
+    0.00011946206175206393,
+    1.7747196224082296e-05,
+    2.3083730191273307e-05,
+    0.00018773049233558825,
+    0.0003428229197704827,
+    0.00010569078150943715,
+    4.7866963622189007e-05
+   ],
+   "snapshot_max_speed": 4.5845645230741476e-07,
+   "fd_step_rel_change": 1.0247618655161117e-09,
+   "asym_rel_frobenius": 8.133443259603144e-10,
+   "asym_max_abs_N_per_m": 3.749638096905983e-06,
+   "bar_U_rel_diff": 2.713407198163213e-07,
+   "eig_N_per_m": [
+    200.97135272161964,
+    377.19076601489564,
+    508.0337707896342,
+    668.3367032552719,
+    795.6440924265274,
+    910.8508306846337,
+    1265.665713517375,
+    1489.303790375092,
+    2408.2940901715365,
+    2983.0536013069564,
+    3264.579964119963,
+    4375.969151893674,
+    4784.223065094965,
+    8923.397323654386
+   ],
+   "mu1": 200.97135272161964,
+   "mu2": 377.19076601489564,
+   "strict_min": true,
+   "soft_weights": [
+    0.009483300514445039,
+    0.46634232692524374,
+    0.0037028958688028633,
+    0.0194619349578133,
+    0.012469915779398141,
+    0.006650242321910596,
+    0.4818893836323864
+   ],
+   "soft_blocker_weight": 0.0037028958688028633,
+   "soft_top_agent": 94,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.2203734908944512,
+   "soft_top_agent_dir": [
+    -0.254698069037739,
+    -0.967020627302462
+   ],
+   "soft_top_agent_pos": [
+    8.927477445910787,
+    4.674663123948555
+   ],
+   "soft_blocker_lateral_share": 0.7809574947223515,
+   "blocker_block_eig_N_per_m": [
+    2113.7863285485455,
+    7929.118622476832
+   ],
+   "soft_lateral_share": 0.9440915427762606,
+   "soft_second_agent": 23,
+   "soft_cos_top2": 0.9227134713108899,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed130",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    30,
+    91
+   ],
+   "blocker": 91,
+   "pos": [
+    [
+     9.504431717014262,
+     4.546208924163696
+    ],
+    [
+     9.505806280860252,
+     5.429516423482145
+    ]
+   ],
+   "resid_F0_max_N": 0.0004960328458485375,
+   "resid_F0_per_agent_N": [
+    0.000493703492973496,
+    0.0004960864950401159
+   ],
+   "snapshot_max_speed": 7.782253070823004e-07,
+   "fd_step_rel_change": 2.010020823509122e-09,
+   "asym_rel_frobenius": 6.999218849668345e-12,
+   "asym_max_abs_N_per_m": 1.2082004730018525e-08,
+   "bar_U_rel_diff": 5.334251897293295e-07,
+   "eig_N_per_m": [
+    98.69334852954005,
+    1237.1971933363702,
+    1823.358943968406,
+    1974.6943289422234
+   ],
+   "mu1": 98.69334852954005,
+   "mu2": 1237.1971933363702,
+   "strict_min": true,
+   "soft_weights": [
+    0.5032017829319393,
+    0.4967982170680603
+   ],
+   "soft_blocker_weight": 0.4967982170680603,
+   "soft_top_agent": 30,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9999179920512453,
+   "soft_top_agent_dir": [
+    -0.015416224408893103,
+    -0.9998811629513653
+   ],
+   "soft_top_agent_pos": [
+    9.504431717014262,
+    4.546208924163696
+   ],
+   "soft_blocker_lateral_share": 0.9997948313036883,
+   "blocker_block_eig_N_per_m": [
+    671.703160376136,
+    1953.9999702913337
+   ],
+   "soft_lateral_share": 0.9997784816343095,
+   "soft_second_agent": 91,
+   "soft_cos_top2": 0.9995577679894667,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed158",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 6,
+   "ids": [
+    27,
+    32,
+    40,
+    50,
+    54,
+    84
+   ],
+   "blocker": 32,
+   "pos": [
+    [
+     9.546304710358232,
+     4.23175092398307
+    ],
+    [
+     9.729130959240395,
+     5.013333275936932
+    ],
+    [
+     8.88038421699845,
+     4.649794800090823
+    ],
+    [
+     9.050950168180897,
+     5.445860840157021
+    ],
+    [
+     9.58620671955844,
+     5.926416230276887
+    ],
+    [
+     9.467444430829694,
+     3.452584886245783
+    ]
+   ],
+   "resid_F0_max_N": 2.4865411285428457e-05,
+   "resid_F0_per_agent_N": [
+    1.2460184041318469e-06,
+    1.2928850999790993e-06,
+    6.139108364812393e-06,
+    1.3342241025755439e-05,
+    2.4867965014715165e-05,
+    5.370517900743042e-07
+   ],
+   "snapshot_max_speed": 4.6504180127216906e-07,
+   "fd_step_rel_change": 9.422075470272556e-10,
+   "asym_rel_frobenius": 7.5889899752329e-10,
+   "asym_max_abs_N_per_m": 2.7986463067009026e-06,
+   "bar_U_rel_diff": 2.5156496726337397e-07,
+   "eig_N_per_m": [
+    115.33499934488631,
+    334.2926715665765,
+    380.06882248476944,
+    697.4452226360959,
+    792.8849504282016,
+    957.4565716019058,
+    1660.1436702008864,
+    2674.4606518582123,
+    3016.5749753684377,
+    3520.1260525740036,
+    4155.515717307053,
+    6449.644881262888
+   ],
+   "mu1": 115.33499934488631,
+   "mu2": 334.2926715665765,
+   "strict_min": true,
+   "soft_weights": [
+    0.004347114794864178,
+    0.010074700771943437,
+    0.2169222353160892,
+    0.28789477262847407,
+    0.479017273989182,
+    0.0017439024994465335
+   ],
+   "soft_blocker_weight": 0.010074700771943437,
+   "soft_top_agent": 54,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.781489186327718,
+   "soft_top_agent_dir": [
+    -0.007006554028062224,
+    -0.9999754537990678
+   ],
+   "soft_top_agent_pos": [
+    9.58620671955844,
+    5.926416230276887
+   ],
+   "soft_blocker_lateral_share": 0.004595695877066113,
+   "blocker_block_eig_N_per_m": [
+    2262.8305665190355,
+    5784.302654376083
+   ],
+   "soft_lateral_share": 0.806680967936635,
+   "soft_second_agent": 50,
+   "soft_cos_top2": 0.6643322824836764,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed162",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    38,
+    63,
+    95
+   ],
+   "blocker": 95,
+   "pos": [
+    [
+     9.498460453089567,
+     5.8144621807694925
+    ],
+    [
+     9.497464971253564,
+     4.208376030494252
+    ],
+    [
+     9.704233595092584,
+     5.013194610209778
+    ]
+   ],
+   "resid_F0_max_N": 0.0001888956574844381,
+   "resid_F0_per_agent_N": [
+    0.00019960373297729742,
+    3.652831115838516e-05,
+    6.141283260440087e-05
+   ],
+   "snapshot_max_speed": 1.1149110308875776e-06,
+   "fd_step_rel_change": 9.948926929469075e-10,
+   "asym_rel_frobenius": 6.304185836130965e-10,
+   "asym_max_abs_N_per_m": 1.1679730960167944e-06,
+   "bar_U_rel_diff": 2.6617376256823327e-07,
+   "eig_N_per_m": [
+    424.39650308676585,
+    656.084207352569,
+    1150.3052786660626,
+    1376.0160254234218,
+    1923.241547347341,
+    4893.952093822256
+   ],
+   "mu1": 424.39650308676585,
+   "mu2": 656.084207352569,
+   "strict_min": true,
+   "soft_weights": [
+    0.6698743267536788,
+    0.02402823476074585,
+    0.3060974384855759
+   ],
+   "soft_blocker_weight": 0.3060974384855759,
+   "soft_top_agent": 38,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.8416049858819994,
+   "soft_top_agent_dir": [
+    -0.1545550212664194,
+    -0.9879841827688016
+   ],
+   "soft_top_agent_pos": [
+    9.498460453089567,
+    5.8144621807694925
+   ],
+   "soft_blocker_lateral_share": 0.21241942560378635,
+   "blocker_block_eig_N_per_m": [
+    856.8567865022169,
+    4314.036614973989
+   ],
+   "soft_lateral_share": 0.741431292479529,
+   "soft_second_agent": 95,
+   "soft_cos_top2": 0.31819085964716076,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed170",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 4,
+   "ids": [
+    15,
+    82,
+    85,
+    89
+   ],
+   "blocker": 82,
+   "pos": [
+    [
+     9.497813927966787,
+     3.4887988168328556
+    ],
+    [
+     9.694525567312473,
+     5.023953755246617
+    ],
+    [
+     9.409343735893003,
+     4.277152646614255
+    ],
+    [
+     9.466028271623957,
+     5.8648078254711375
+    ]
+   ],
+   "resid_F0_max_N": 0.0003088329864444645,
+   "resid_F0_per_agent_N": [
+    0.00015106732963147433,
+    0.00021160951316146715,
+    7.951352800837834e-05,
+    0.0003089965644067274
+   ],
+   "snapshot_max_speed": 2.240387104995434e-06,
+   "fd_step_rel_change": 9.473053320356274e-10,
+   "asym_rel_frobenius": 7.810008888118322e-10,
+   "asym_max_abs_N_per_m": 2.1231016944511794e-06,
+   "bar_U_rel_diff": 2.511793869065988e-07,
+   "eig_N_per_m": [
+    104.72289513065166,
+    397.52654642149014,
+    708.4408510234283,
+    1150.1754883467886,
+    1276.3008167531373,
+    1544.084927051048,
+    2755.515747947223,
+    6502.988187501894
+   ],
+   "mu1": 104.72289513065166,
+   "mu2": 397.52654642149014,
+   "strict_min": true,
+   "soft_weights": [
+    0.28007016483491015,
+    0.06468062562180399,
+    0.637582844599289,
+    0.01766636494399624
+   ],
+   "soft_blocker_weight": 0.06468062562180399,
+   "soft_top_agent": 85,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.043122700424232,
+   "soft_top_agent_dir": [
+    0.8764317388304042,
+    -0.4815261230408109
+   ],
+   "soft_top_agent_pos": [
+    9.409343735893003,
+    4.277152646614255
+   ],
+   "soft_blocker_lateral_share": 0.03491389522123854,
+   "blocker_block_eig_N_per_m": [
+    1021.355898973315,
+    5383.975277034363
+   ],
+   "soft_lateral_share": 0.4382587015810691,
+   "soft_second_agent": 15,
+   "soft_cos_top2": 0.31381624097824623,
+   "soft_type": "axial_shared"
+  },
+  {
+   "tag": "E1b_seed172",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 9,
+   "ids": [
+    22,
+    24,
+    41,
+    55,
+    72,
+    74,
+    75,
+    83,
+    94
+   ],
+   "blocker": 55,
+   "pos": [
+    [
+     9.03292507457473,
+     5.389569111927812
+    ],
+    [
+     9.51758818474533,
+     6.591714838594855
+    ],
+    [
+     9.544697193547739,
+     3.4643562675978656
+    ],
+    [
+     9.78053070690083,
+     5.004400937288066
+    ],
+    [
+     8.283109487878164,
+     5.067892408864373
+    ],
+    [
+     9.577348220035754,
+     5.846853827169775
+    ],
+    [
+     9.592607252803548,
+     4.213784816528867
+    ],
+    [
+     8.902919286829626,
+     3.8865136586044438
+    ],
+    [
+     9.007740242412524,
+     4.64957397146706
+    ]
+   ],
+   "resid_F0_max_N": 0.00012175643337286601,
+   "resid_F0_per_agent_N": [
+    2.5877026913022104e-05,
+    0.00012229682822346367,
+    9.209419486495554e-06,
+    0.0001192545054738306,
+    0.00010228363798664643,
+    5.799171493333719e-06,
+    8.440554555983064e-05,
+    0.00012454049198500108,
+    7.644550438308332e-05
+   ],
+   "snapshot_max_speed": 7.045339574812016e-07,
+   "fd_step_rel_change": 1.0355665266897936e-09,
+   "asym_rel_frobenius": 4.872326338538613e-10,
+   "asym_max_abs_N_per_m": 2.460184305164148e-06,
+   "bar_U_rel_diff": 2.7669500628804126e-07,
+   "eig_N_per_m": [
+    65.729067778846,
+    248.15155897834194,
+    308.75266433021307,
+    517.7918420831295,
+    615.1369551372754,
+    727.1101650237995,
+    939.4294387247015,
+    963.429686648716,
+    1382.4074887161662,
+    1748.2637923658933,
+    2362.3595936920433,
+    2645.8373695154255,
+    3342.1831414121157,
+    3790.39792208953,
+    4103.694863236632,
+    6078.547414916135,
+    7461.776306263574,
+    11456.699799377353
+   ],
+   "mu1": 65.729067778846,
+   "mu2": 248.15155897834194,
+   "strict_min": true,
+   "soft_weights": [
+    0.05466706617894007,
+    0.01846790162463207,
+    0.0038282960618417705,
+    0.0003990046455896862,
+    0.8700949368698683,
+    0.018098985877223386,
+    0.0055679781470636125,
+    0.0009897410633684825,
+    0.02788608953147282
+   ],
+   "soft_blocker_weight": 0.0003990046455896862,
+   "soft_top_agent": 72,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.3131170127837113,
+   "soft_top_agent_dir": [
+    -0.06575452774811638,
+    -0.9978358292227345
+   ],
+   "soft_top_agent_pos": [
+    8.283109487878164,
+    5.067892408864373
+   ],
+   "soft_blocker_lateral_share": 0.018246060553541287,
+   "blocker_block_eig_N_per_m": [
+    2554.2025171277555,
+    10972.781895148622
+   ],
+   "soft_lateral_share": 0.914396827661034,
+   "soft_second_agent": 22,
+   "soft_cos_top2": -0.1474178552646867,
+   "soft_type": "lateral_one_agent"
+  },
+  {
+   "tag": "E1b_seed174",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 4,
+   "ids": [
+    36,
+    40,
+    72,
+    84
+   ],
+   "blocker": 72,
+   "pos": [
+    [
+     9.506897705908674,
+     3.5094894867198794
+    ],
+    [
+     9.508521263644786,
+     5.859077372500695
+    ],
+    [
+     9.650974173616634,
+     5.018812743613497
+    ],
+    [
+     9.51420469438149,
+     4.246977131654446
+    ]
+   ],
+   "resid_F0_max_N": 0.0001871020101873455,
+   "resid_F0_per_agent_N": [
+    0.00010112298752653765,
+    0.00017449652282258184,
+    0.0001880696449364626,
+    2.0421585370543328e-05
+   ],
+   "snapshot_max_speed": 9.656799685669144e-07,
+   "fd_step_rel_change": 1.1315951347103729e-09,
+   "asym_rel_frobenius": 5.347276507075631e-10,
+   "asym_max_abs_N_per_m": 1.3593509606835141e-06,
+   "bar_U_rel_diff": 2.994301421402919e-07,
+   "eig_N_per_m": [
+    337.2797831073395,
+    596.5457974100132,
+    837.0096183046867,
+    1076.574247096144,
+    1383.8017939827148,
+    1857.858657049996,
+    2560.801267055267,
+    6256.0182565675495
+   ],
+   "mu1": 337.2797831073395,
+   "mu2": 596.5457974100132,
+   "strict_min": true,
+   "soft_weights": [
+    0.5384748595249074,
+    0.13377247497628486,
+    0.08129043204765095,
+    0.246462233451157
+   ],
+   "soft_blocker_weight": 0.08129043204765095,
+   "soft_top_agent": 36,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.6652308800548674,
+   "soft_top_agent_dir": [
+    0.060604014791994544,
+    0.9981618873665192
+   ],
+   "soft_top_agent_pos": [
+    9.506897705908674,
+    3.5094894867198794
+   ],
+   "soft_blocker_lateral_share": 0.9455890968901659,
+   "blocker_block_eig_N_per_m": [
+    1108.4180278433546,
+    5043.545358016816
+   ],
+   "soft_lateral_share": 0.9886047665566955,
+   "soft_second_agent": 84,
+   "soft_cos_top2": 0.9794300382010345,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed178",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 4,
+   "ids": [
+    57,
+    71,
+    79,
+    85
+   ],
+   "blocker": 57,
+   "pos": [
+    [
+     9.770738656329597,
+     5.016543662880492
+    ],
+    [
+     9.491961889618858,
+     4.277356466270893
+    ],
+    [
+     9.51010481522974,
+     5.801752969369725
+    ],
+    [
+     9.41706227576286,
+     3.4158922239214
+    ]
+   ],
+   "resid_F0_max_N": 0.00015975731247230198,
+   "resid_F0_per_agent_N": [
+    2.3693197751483993e-05,
+    5.5320662362332536e-05,
+    0.00016038102444449975,
+    0.0001706571106797669
+   ],
+   "snapshot_max_speed": 8.441466983718171e-07,
+   "fd_step_rel_change": 1.0578304384447803e-09,
+   "asym_rel_frobenius": 8.306465233489417e-10,
+   "asym_max_abs_N_per_m": 3.227285105822375e-06,
+   "bar_U_rel_diff": 2.7916267750598417e-07,
+   "eig_N_per_m": [
+    226.7551643465606,
+    499.32286080620406,
+    810.362709345732,
+    1148.286652072618,
+    1430.5203981431887,
+    1641.9910932566277,
+    3133.986694198129,
+    9433.452421474743
+   ],
+   "mu1": 226.7551643465606,
+   "mu2": 499.32286080620406,
+   "strict_min": true,
+   "soft_weights": [
+    0.4833319477581953,
+    0.15467943884745772,
+    0.1983107752686994,
+    0.16367783812564857
+   ],
+   "soft_blocker_weight": 0.4833319477581953,
+   "soft_top_agent": 57,
+   "soft_top_is_blocker": true,
+   "soft_pr": 3.0897278712481944,
+   "soft_top_agent_dir": [
+    -0.9912528413120568,
+    0.13197653045437407
+   ],
+   "soft_top_agent_pos": [
+    9.770738656329597,
+    5.016543662880492
+   ],
+   "soft_blocker_lateral_share": 0.017417804590774324,
+   "blocker_block_eig_N_per_m": [
+    781.9213427606263,
+    8507.819008206097
+   ],
+   "soft_lateral_share": 0.48063871073698383,
+   "soft_second_agent": 79,
+   "soft_cos_top2": -0.025406004507789234,
+   "soft_type": "axial_shared"
+  },
+  {
+   "tag": "E1b_seed186",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 6,
+   "ids": [
+    0,
+    32,
+    43,
+    51,
+    79,
+    85
+   ],
+   "blocker": 43,
+   "pos": [
+    [
+     9.549911858751454,
+     5.92888190328448
+    ],
+    [
+     8.881906429909423,
+     5.453936420277963
+    ],
+    [
+     9.700877550209597,
+     5.026116227037459
+    ],
+    [
+     8.88078282237063,
+     4.625487889661502
+    ],
+    [
+     9.56031726223823,
+     3.496647244954176
+    ],
+    [
+     9.536522100225017,
+     4.2201569406415915
+    ]
+   ],
+   "resid_F0_max_N": 0.0002686749981118952,
+   "resid_F0_per_agent_N": [
+    8.117483680557793e-05,
+    0.00017128737010857606,
+    6.530375394961225e-05,
+    0.00027582359500002485,
+    0.00020149192463485538,
+    0.0001391623207471735
+   ],
+   "snapshot_max_speed": 1.3637800233726575e-06,
+   "fd_step_rel_change": 9.236260006831608e-10,
+   "asym_rel_frobenius": 6.168634719550221e-10,
+   "asym_max_abs_N_per_m": 2.4835846943460638e-06,
+   "bar_U_rel_diff": 2.4751835946984813e-07,
+   "eig_N_per_m": [
+    175.97905324962613,
+    397.97221833397776,
+    456.0142910552878,
+    817.3022667142208,
+    923.7287156466567,
+    1305.0978492116303,
+    1520.203400062201,
+    2536.8172238026914,
+    3217.2325217530474,
+    3874.340335862651,
+    4105.0163931297475,
+    8283.812931722523
+   ],
+   "mu1": 175.97905324962613,
+   "mu2": 397.97221833397776,
+   "strict_min": true,
+   "soft_weights": [
+    0.05112673593270061,
+    0.4021252837947384,
+    0.007381561123866788,
+    0.5284130554143285,
+    0.004989486640698867,
+    0.005963877093667257
+   ],
+   "soft_blocker_weight": 0.007381561123866788,
+   "soft_top_agent": 51,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.254008783132944,
+   "soft_top_agent_dir": [
+    -0.33334610276244553,
+    -0.9428045268098202
+   ],
+   "soft_top_agent_pos": [
+    8.88078282237063,
+    4.625487889661502
+   ],
+   "soft_blocker_lateral_share": 0.5815348617365168,
+   "blocker_block_eig_N_per_m": [
+    2184.7993962499795,
+    7195.808124889714
+   ],
+   "soft_lateral_share": 0.9275521447718651,
+   "soft_second_agent": 32,
+   "soft_cos_top2": 0.902405561388166,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed187",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    11,
+    47,
+    85
+   ],
+   "blocker": 47,
+   "pos": [
+    [
+     9.521940963663397,
+     5.807765970846347
+    ],
+    [
+     9.65072534036436,
+     5.000303734398514
+    ],
+    [
+     9.507074314610767,
+     4.1815307078405795
+    ]
+   ],
+   "resid_F0_max_N": 0.0003497549476776385,
+   "resid_F0_per_agent_N": [
+    0.00024166698218188774,
+    0.0003578961918519844,
+    4.452241034624975e-05
+   ],
+   "snapshot_max_speed": 1.6318173717444685e-06,
+   "fd_step_rel_change": 1.0708671470975287e-09,
+   "asym_rel_frobenius": 4.806388900216612e-10,
+   "asym_max_abs_N_per_m": 6.449499778682366e-07,
+   "bar_U_rel_diff": 2.835568935559754e-07,
+   "eig_N_per_m": [
+    398.6297346602679,
+    630.5478081571597,
+    1110.170895898952,
+    1390.0403194871963,
+    1448.0667901219376,
+    3767.0979710442616
+   ],
+   "mu1": 398.6297346602679,
+   "mu2": 630.5478081571597,
+   "strict_min": true,
+   "soft_weights": [
+    0.41777743981983295,
+    0.15753977082862636,
+    0.4246827893515407
+   ],
+   "soft_blocker_weight": 0.15753977082862636,
+   "soft_top_agent": 85,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.633573254074435,
+   "soft_top_agent_dir": [
+    0.029035891936352174,
+    -0.9995783696036348
+   ],
+   "soft_top_agent_pos": [
+    9.507074314610767,
+    4.1815307078405795
+   ],
+   "soft_blocker_lateral_share": 0.9996959516324211,
+   "blocker_block_eig_N_per_m": [
+    841.9282871821038,
+    3208.544437396129
+   ],
+   "soft_lateral_share": 0.99941276421967,
+   "soft_second_agent": 11,
+   "soft_cos_top2": 0.9987566060603343,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed192",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    39,
+    75,
+    77
+   ],
+   "blocker": 75,
+   "pos": [
+    [
+     9.479923519691058,
+     4.1138427957374
+    ],
+    [
+     9.60233129199298,
+     4.977573790189081
+    ],
+    [
+     9.503519115552246,
+     5.826751254375753
+    ]
+   ],
+   "resid_F0_max_N": 0.0004348261289019483,
+   "resid_F0_per_agent_N": [
+    0.00025792818099395045,
+    0.0004456504858789326,
+    0.0004386310116163383
+   ],
+   "snapshot_max_speed": 7.373847410392548e-07,
+   "fd_step_rel_change": 1.262150756416358e-09,
+   "asym_rel_frobenius": 4.1112449586704564e-10,
+   "asym_max_abs_N_per_m": 5.714166917414332e-07,
+   "bar_U_rel_diff": 3.3678945199001783e-07,
+   "eig_N_per_m": [
+    296.55650803051986,
+    745.7679652245922,
+    1109.0380183888587,
+    1300.9536861007925,
+    1866.6647646781892,
+    3813.352742697056
+   ],
+   "mu1": 296.55650803051986,
+   "mu2": 745.7679652245922,
+   "strict_min": true,
+   "soft_weights": [
+    0.47478539377231693,
+    0.2680744393994048,
+    0.2571401668282785
+   ],
+   "soft_blocker_weight": 0.2680744393994048,
+   "soft_top_agent": 39,
+   "soft_top_is_blocker": false,
+   "soft_pr": 2.751742164735712,
+   "soft_top_agent_dir": [
+    -0.03524153411442582,
+    0.9993788242069479
+   ],
+   "soft_top_agent_pos": [
+    9.479923519691058,
+    4.1138427957374
+   ],
+   "soft_blocker_lateral_share": 0.745328048789071,
+   "blocker_block_eig_N_per_m": [
+    814.7579539575552,
+    3060.7934996651497
+   ],
+   "soft_lateral_share": 0.9305299234145978,
+   "soft_second_agent": 75,
+   "soft_cos_top2": 0.8450029101898692,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed202",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 3,
+   "ids": [
+    22,
+    78,
+    83
+   ],
+   "blocker": 22,
+   "pos": [
+    [
+     9.704816928449919,
+     5.010147737564857
+    ],
+    [
+     9.51023239802405,
+     5.808729139882572
+    ],
+    [
+     9.513244241449264,
+     4.211471179702601
+    ]
+   ],
+   "resid_F0_max_N": 0.00033995032026753504,
+   "resid_F0_per_agent_N": [
+    0.0003500246257848709,
+    0.00034498371048649834,
+    5.638651832051474e-05
+   ],
+   "snapshot_max_speed": 8.980980887500341e-07,
+   "fd_step_rel_change": 8.79301687425788e-10,
+   "asym_rel_frobenius": 5.187111527364556e-10,
+   "asym_max_abs_N_per_m": 8.241874525083404e-07,
+   "bar_U_rel_diff": 2.3204294556169724e-07,
+   "eig_N_per_m": [
+    387.84459813224345,
+    608.5626780204755,
+    874.3376520804222,
+    1095.4760280821413,
+    1427.6590760534855,
+    4291.089964533518
+   ],
+   "mu1": 387.84459813224345,
+   "mu2": 608.5626780204755,
+   "strict_min": true,
+   "soft_weights": [
+    0.11120633408534783,
+    0.84389349485223,
+    0.04490017106242218
+   ],
+   "soft_blocker_weight": 0.11120633408534783,
+   "soft_top_agent": 78,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.3763884055983104,
+   "soft_top_agent_dir": [
+    -0.1900564397665963,
+    -0.9817731661148853
+   ],
+   "soft_top_agent_pos": [
+    9.51023239802405,
+    5.808729139882572
+   ],
+   "soft_blocker_lateral_share": 0.3763567607342861,
+   "blocker_block_eig_N_per_m": [
+    936.3269949966083,
+    3967.0115814881196
+   ],
+   "soft_lateral_share": 0.8999502722357202,
+   "soft_second_agent": 22,
+   "soft_cos_top2": 0.4522078079370853,
+   "soft_type": "lateral_one_agent"
+  },
+  {
+   "tag": "E1b_seed209",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    59,
+    82
+   ],
+   "blocker": 82,
+   "pos": [
+    [
+     9.498272200815487,
+     4.541157064715308
+    ],
+    [
+     9.526129817108856,
+     5.401244371066446
+    ]
+   ],
+   "resid_F0_max_N": 6.904642114916038e-05,
+   "resid_F0_per_agent_N": [
+    6.909571076853795e-05,
+    4.742555139301654e-05
+   ],
+   "snapshot_max_speed": 2.8826350778349905e-07,
+   "fd_step_rel_change": 2.00644110582134e-09,
+   "asym_rel_frobenius": 7.58684839169668e-11,
+   "asym_max_abs_N_per_m": 7.662481760206674e-08,
+   "bar_U_rel_diff": 5.323704030360277e-07,
+   "eig_N_per_m": [
+    87.85879680855413,
+    1060.537774159424,
+    1543.6798410055503,
+    1796.5299721655083
+   ],
+   "mu1": 87.85879680855413,
+   "mu2": 1060.537774159424,
+   "strict_min": true,
+   "soft_weights": [
+    0.5073093732364012,
+    0.49269062676359876
+   ],
+   "soft_blocker_weight": 0.49269062676359876,
+   "soft_top_agent": 59,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.999572675825615,
+   "soft_top_agent_dir": [
+    -0.015483617771885158,
+    -0.9998801216049322
+   ],
+   "soft_top_agent_pos": [
+    9.498272200815487,
+    4.541157064715308
+   ],
+   "soft_blocker_lateral_share": 0.999824680916585,
+   "blocker_block_eig_N_per_m": [
+    581.8889076771931,
+    1787.5181383869021
+   ],
+   "soft_lateral_share": 0.9997919983544323,
+   "soft_second_agent": 82,
+   "soft_cos_top2": 0.9995874530688504,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed223",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    5,
+    22
+   ],
+   "blocker": 5,
+   "pos": [
+    [
+     9.516795597834394,
+     5.417953293043995
+    ],
+    [
+     9.521415679602349,
+     4.560720671620388
+    ]
+   ],
+   "resid_F0_max_N": 0.0006136494398525927,
+   "resid_F0_per_agent_N": [
+    0.0006146780412655164,
+    0.0005754172636557355
+   ],
+   "snapshot_max_speed": 5.417198322995948e-07,
+   "fd_step_rel_change": 2.011674225999858e-09,
+   "asym_rel_frobenius": 1.2991039454829454e-11,
+   "asym_max_abs_N_per_m": 2.0222714169904066e-08,
+   "bar_U_rel_diff": 5.32344294074081e-07,
+   "eig_N_per_m": [
+    100.40783719533172,
+    1218.2090167698027,
+    1831.1710675656716,
+    1976.0549273132606
+   ],
+   "mu1": 100.40783719533172,
+   "mu2": 1218.2090167698027,
+   "strict_min": true,
+   "soft_weights": [
+    0.49679931907327884,
+    0.5032006809267219
+   ],
+   "soft_blocker_weight": 0.49679931907327884,
+   "soft_top_agent": 22,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9999180484910022,
+   "soft_top_agent_dir": [
+    0.01526518550698094,
+    0.9998834802672947
+   ],
+   "soft_top_agent_pos": [
+    9.521415679602349,
+    4.560720671620388
+   ],
+   "soft_blocker_lateral_share": 0.9997993767149415,
+   "blocker_block_eig_N_per_m": [
+    663.0802177923207,
+    1953.6288754303423
+   ],
+   "soft_lateral_share": 0.9997830717027951,
+   "soft_second_agent": 5,
+   "soft_cos_top2": 0.9995669568292681,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed230",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    62,
+    74
+   ],
+   "blocker": 74,
+   "pos": [
+    [
+     9.504468883999795,
+     5.455600617830269
+    ],
+    [
+     9.494143752677232,
+     4.564674889322171
+    ]
+   ],
+   "resid_F0_max_N": 5.1968855302675365e-05,
+   "resid_F0_per_agent_N": [
+    5.8755708796352885e-05,
+    5.068960775797183e-05
+   ],
+   "snapshot_max_speed": 4.395939465266344e-07,
+   "fd_step_rel_change": 2.0133743032608603e-09,
+   "asym_rel_frobenius": 2.6354878351669246e-11,
+   "asym_max_abs_N_per_m": 3.251010483040773e-08,
+   "bar_U_rel_diff": 5.33085737134596e-07,
+   "eig_N_per_m": [
+    93.92457376379592,
+    1187.6185631266064,
+    1751.1498273702741,
+    1882.2747360713188
+   ],
+   "mu1": 93.92457376379592,
+   "mu2": 1187.6185631266064,
+   "strict_min": true,
+   "soft_weights": [
+    0.5029990186241382,
+    0.49700098137586224
+   ],
+   "soft_blocker_weight": 0.49700098137586224,
+   "soft_top_agent": 62,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9999280496868517,
+   "soft_top_agent_dir": [
+    -0.015439883631718079,
+    0.9998807978921482
+   ],
+   "soft_top_agent_pos": [
+    9.504468883999795,
+    5.455600617830269
+   ],
+   "soft_blocker_lateral_share": 0.9997943622995177,
+   "blocker_block_eig_N_per_m": [
+    644.4205440905097,
+    1860.0981924201315
+   ],
+   "soft_lateral_share": 0.999777887921703,
+   "soft_second_agent": 74,
+   "soft_cos_top2": 0.9995565769502884,
+   "soft_type": "common_lateral"
+  },
+  {
+   "tag": "E1b_seed237",
+   "stratum": "lone_keystone_second_trap",
+   "n_resid": 2,
+   "ids": [
+    9,
+    28
+   ],
+   "blocker": 9,
+   "pos": [
+    [
+     9.49351307404621,
+     4.573136958884398
+    ],
+    [
+     9.502493841078477,
+     5.4634915616388815
+    ]
+   ],
+   "resid_F0_max_N": 6.883820261868734e-05,
+   "resid_F0_per_agent_N": [
+    4.9192940229055426e-05,
+    7.012167984840952e-05
+   ],
+   "snapshot_max_speed": 5.15338777012169e-07,
+   "fd_step_rel_change": 2.0081727392777e-09,
+   "asym_rel_frobenius": 2.3917402226934987e-11,
+   "asym_max_abs_N_per_m": 2.9687363678476686e-08,
+   "bar_U_rel_diff": 5.330975556775772e-07,
+   "eig_N_per_m": [
+    90.12485787033503,
+    1136.2103716151057,
+    1653.7683509058209,
+    1831.6908394101577
+   ],
+   "mu1": 90.12485787033503,
+   "mu2": 1136.2103716151057,
+   "strict_min": true,
+   "soft_weights": [
+    0.49487018883100353,
+    0.505129811168997
+   ],
+   "soft_blocker_weight": 0.49487018883100353,
+   "soft_top_agent": 28,
+   "soft_top_is_blocker": false,
+   "soft_pr": 1.9997895024559014,
+   "soft_top_agent_dir": [
+    -0.015743810891990357,
+    0.9998760585285544
+   ],
+   "soft_top_agent_pos": [
+    9.502493841078477,
+    5.4634915616388815
+   ],
+   "soft_blocker_lateral_share": 0.9998064575785884,
+   "blocker_block_eig_N_per_m": [
+    618.8691345221907,
+    1818.2102353274158
+   ],
+   "soft_lateral_share": 0.9997790163207809,
+   "soft_second_agent": 9,
+   "soft_cos_top2": 0.9995602674808481,
+   "soft_type": "common_lateral"
+  }
+ ],
+ "strata": {
+  "all": {
+   "n": 60,
+   "strict_min": 60,
+   "mu1": {
+    "n": 60,
+    "min": 65.729067778846,
+    "median": 417.61961165075,
+    "max": 1115.4358428218252
+   },
+   "mu1_sig": {
+    "min": 66.0,
+    "median": 420.0,
+    "max": 1100.0
+   },
+   "soft_on_blocker": 30,
+   "soft_blocker_weight": {
+    "n": 60,
+    "min": 0.0003990046455896862,
+    "median": 0.49690015022457057,
+    "max": 1.0000000000000002
+   },
+   "soft_pr": {
+    "n": 60,
+    "min": 0.9999999999999996,
+    "median": 1.479499215153829,
+    "max": 3.432883290554971
+   },
+   "soft_blocker_lateral_share": {
+    "n": 30,
+    "min": 3.690986968314427e-15,
+    "median": 5.547541520885248e-12,
+    "max": 0.9999999904469191
+   },
+   "resid_F0_max_N": 0.0006136494398525927,
+   "asym_rel_max": 8.306465233489417e-10,
+   "fd_step_rel_max": 2.0133743032608603e-09,
+   "bar_U_rel_max": 5.337656930530831e-07,
+   "soft_type_counts": {
+    "axial": 23,
+    "axial_one_agent": 3,
+    "axial_shared": 4,
+    "common_lateral": 24,
+    "lateral": 1,
+    "lateral_one_agent": 3,
+    "opposed_lateral": 2
+   },
+   "multi_agent_n": 36,
+   "multi_soft_on_blocker": 6
+  },
+  "lone_keystone": {
+   "n": 34,
+   "strict_min": 34,
+   "mu1": {
+    "n": 34,
+    "min": 238.7923303055812,
+    "median": 657.7612135337655,
+    "max": 1115.4358428218252
+   },
+   "mu1_sig": {
+    "min": 240.0,
+    "median": 660.0,
+    "max": 1100.0
+   },
+   "soft_on_blocker": 27,
+   "soft_blocker_weight": {
+    "n": 34,
+    "min": 0.06116847753169598,
+    "median": 1.0,
+    "max": 1.0000000000000002
+   },
+   "soft_pr": {
+    "n": 34,
+    "min": 0.9999999999999996,
+    "median": 1.0,
+    "max": 2.8774219725349863
+   },
+   "soft_blocker_lateral_share": {
+    "n": 27,
+    "min": 3.690986968314427e-15,
+    "median": 4.172338708117254e-12,
+    "max": 0.9999999904469191
+   },
+   "resid_F0_max_N": 0.00044927879646522646,
+   "asym_rel_max": 7.678685001819814e-10,
+   "fd_step_rel_max": 1.0604700337224845e-09,
+   "bar_U_rel_max": 2.802063184438385e-07,
+   "soft_type_counts": {
+    "axial": 23,
+    "axial_one_agent": 2,
+    "axial_shared": 1,
+    "common_lateral": 5,
+    "lateral": 1,
+    "lateral_one_agent": 1,
+    "opposed_lateral": 1
+   },
+   "multi_agent_n": 10,
+   "multi_soft_on_blocker": 3
+  },
+  "second_trap": {
+   "n": 26,
+   "strict_min": 26,
+   "mu1": {
+    "n": 26,
+    "min": 65.729067778846,
+    "median": 181.6735660688355,
+    "max": 424.39650308676585
+   },
+   "mu1_sig": {
+    "min": 66.0,
+    "median": 180.0,
+    "max": 420.0
+   },
+   "soft_on_blocker": 3,
+   "soft_blocker_weight": {
+    "n": 26,
+    "min": 0.0003990046455896862,
+    "median": 0.36493766244301906,
+    "max": 0.8439714572759859
+   },
+   "soft_pr": {
+    "n": 26,
+    "min": 1.3131170127837113,
+    "median": 1.999923049088927,
+    "max": 3.432883290554971
+   },
+   "soft_blocker_lateral_share": {
+    "n": 3,
+    "min": 0.0003877158722240141,
+    "median": 0.015906969717837508,
+    "max": 0.017417804590774324
+   },
+   "resid_F0_max_N": 0.0006136494398525927,
+   "asym_rel_max": 8.306465233489417e-10,
+   "fd_step_rel_max": 2.0133743032608603e-09,
+   "bar_U_rel_max": 5.337656930530831e-07,
+   "soft_type_counts": {
+    "axial_one_agent": 1,
+    "axial_shared": 3,
+    "common_lateral": 19,
+    "lateral_one_agent": 2,
+    "opposed_lateral": 1
+   },
+   "multi_agent_n": 26,
+   "multi_soft_on_blocker": 3
+  }
+ },
+ "not_strict": [],
+ "headline": {
+  "n": 60,
+  "strict": 60,
+  "resid_max": 0.0006136494398525927,
+  "resid_med": 0.00016132520411015996,
+  "asym_max": 8.306465233489417e-10,
+  "fd_max": 2.0133743032608603e-09,
+  "barU_max": 5.337656930530831e-07,
+  "mu1_min": 65.729067778846,
+  "mu1_med": 417.61961165075,
+  "mu1_max": 1115.4358428218252,
+  "lk_mu1_min": 238.7923303055812,
+  "lk_mu1_med": 657.7612135337655,
+  "lk_mu1_max": 1115.4358428218252,
+  "st_mu1_min": 65.729067778846,
+  "st_mu1_med": 181.6735660688355,
+  "st_mu1_max": 424.39650308676585,
+  "alone_n": 24,
+  "alone_axial": 23,
+  "alone_mu1_med": 801.3705903382098,
+  "alone_mu2_med": 1823.6030873794955,
+  "lk_soft_on_blocker": 27,
+  "st_soft_on_blocker": 3,
+  "lk_multi": 10,
+  "lk_multi_soft_on_blocker": 3,
+  "st_common_lateral": 19,
+  "st_blocker_weight_med": 0.36493766244301906,
+  "abreast_n": 9,
+  "abreast_mu1_min": 84.7667318474303,
+  "abreast_mu1_max": 119.64134920686003,
+  "abreast_mu1_med": 93.92457376379592,
+  "abreast_ratio_min": 12.07093441616728,
+  "abreast_ratio_max": 12.853623881079425,
+  "multi_blockerblock_stiffer": 36,
+  "multi_n": 36
+ },
+ "cpu_s": 2.9929070000000007
+}

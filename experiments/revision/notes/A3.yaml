@@ -1,0 +1,40 @@
+# A3 beta = Delta U / k_B T_eff of the 56 library barriers at the fraction-matched noise levels
+# Source: data/derived/rev_A3.json (experiments/revision/A3_beta.py)
+RevAthreeBarN: {file: rev_A3.json, key: "n_barriers", fmt: "{:d}"}
+RevAthreeKeyN: {file: rev_A3.json, key: "n_per_stratum.lone_keystone", fmt: "{:d}"}
+RevAthreeSecN: {file: rev_A3.json, key: "n_per_stratum.lone_keystone_second_trap", fmt: "{:d}"}
+# sigma = 0.07 m/s
+RevAthreeSevenKT: {file: rev_A3.json, key: "levels.s0p07.kT_eff_median", fmt: "{:.1f}"}
+RevAthreeSevenMed: {file: rev_A3.json, key: "levels.s0p07.pooled.median", fmt: "{:.2f}"}
+RevAthreeSevenQone: {file: rev_A3.json, key: "levels.s0p07.pooled.q25", fmt: "{:.2f}"}
+RevAthreeSevenQthree: {file: rev_A3.json, key: "levels.s0p07.pooled.q75", fmt: "{:.1f}"}
+RevAthreeSevenBelowOneK: {file: rev_A3.json, key: "levels.s0p07.pooled.n_below_1", fmt: "{:d}"}
+RevAthreeSevenBelowOneFrac: {file: rev_A3.json, key: "levels.s0p07.pooled.frac_below_1", fmt: "{:.2f}"}
+RevAthreeSevenMax: {file: rev_A3.json, key: "levels.s0p07.pooled.max", fmt: "{:.1f}"}
+RevAthreeSevenGeThreeHalf: {file: rev_A3.json, key: "levels.s0p07.pooled.n_ge_3p5", fmt: "{:d}"}
+RevAthreeSevenKeyMed: {file: rev_A3.json, key: "levels.s0p07.keystone.median", fmt: "{:.2f}"}
+RevAthreeSevenKeyBelowOneK: {file: rev_A3.json, key: "levels.s0p07.keystone.n_below_1", fmt: "{:d}"}
+RevAthreeSevenSecMed: {file: rev_A3.json, key: "levels.s0p07.second.median", fmt: "{:.2f}"}
+RevAthreeSevenSecBelowOneK: {file: rev_A3.json, key: "levels.s0p07.second.n_below_1", fmt: "{:d}"}
+# sigma = 0.0717 m/s (refined, N1)
+RevAthreeRefKT: {file: rev_A3.json, key: "levels.s0p0717.kT_eff_median", fmt: "{:.1f}"}
+RevAthreeRefMed: {file: rev_A3.json, key: "levels.s0p0717.pooled.median", fmt: "{:.2f}"}
+RevAthreeRefQone: {file: rev_A3.json, key: "levels.s0p0717.pooled.q25", fmt: "{:.2f}"}
+RevAthreeRefQthree: {file: rev_A3.json, key: "levels.s0p0717.pooled.q75", fmt: "{:.1f}"}
+RevAthreeRefBelowOneK: {file: rev_A3.json, key: "levels.s0p0717.pooled.n_below_1", fmt: "{:d}"}
+RevAthreeRefBelowOneFrac: {file: rev_A3.json, key: "levels.s0p0717.pooled.frac_below_1", fmt: "{:.2f}"}
+RevAthreeRefKeyMed: {file: rev_A3.json, key: "levels.s0p0717.keystone.median", fmt: "{:.2f}"}
+RevAthreeRefSecMed: {file: rev_A3.json, key: "levels.s0p0717.second.median", fmt: "{:.2f}"}
+# sigma* = 0.0467 m/s (whole runs)
+RevAthreeStarKT: {file: rev_A3.json, key: "levels.sstar.kT_eff_median", fmt: "{:.1f}"}
+RevAthreeStarMed: {file: rev_A3.json, key: "levels.sstar.pooled.median", fmt: "{:.1f}"}
+RevAthreeStarQone: {file: rev_A3.json, key: "levels.sstar.pooled.q25", fmt: "{:.2f}"}
+RevAthreeStarQthree: {file: rev_A3.json, key: "levels.sstar.pooled.q75", fmt: "{:.1f}"}
+RevAthreeStarBelowOneK: {file: rev_A3.json, key: "levels.sstar.pooled.n_below_1", fmt: "{:d}"}
+RevAthreeStarBelowOneFrac: {file: rev_A3.json, key: "levels.sstar.pooled.frac_below_1", fmt: "{:.2f}"}
+RevAthreeStarGeThreeHalf: {file: rev_A3.json, key: "levels.sstar.pooled.n_ge_3p5", fmt: "{:d}"}
+RevAthreeStarGeFive: {file: rev_A3.json, key: "levels.sstar.pooled.n_ge_5", fmt: "{:d}"}
+RevAthreeStarKeyMed: {file: rev_A3.json, key: "levels.sstar.keystone.median", fmt: "{:.1f}"}
+RevAthreeStarKeyBelowOneK: {file: rev_A3.json, key: "levels.sstar.keystone.n_below_1", fmt: "{:d}"}
+RevAthreeStarSecMed: {file: rev_A3.json, key: "levels.sstar.second.median", fmt: "{:.2f}"}
+RevAthreeStarSecBelowOneK: {file: rev_A3.json, key: "levels.sstar.second.n_below_1", fmt: "{:d}"}

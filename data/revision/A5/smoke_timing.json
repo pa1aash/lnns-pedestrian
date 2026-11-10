@@ -1,0 +1,54 @@
+{
+ "script": "experiments/revision/A5_extra_second_traps.py --limit 2 --workers 1 (output deleted after the test)",
+ "snapshots": [
+  "E1b_seed42",
+  "E1b_seed43"
+ ],
+ "n_jobs": 26,
+ "workers": 1,
+ "mean_wall_s_per_job": {
+  "C3_rvo2": 10.65,
+  "drive_only": 1.87,
+  "frozen_plus": 1.58,
+  "noise0.07": 10.81
+ },
+ "total_wall_s": 242.8,
+ "per_snapshot_s": 121.4,
+ "cpu_hours_134_snapshots": 4.52,
+ "blocker_freed": {
+  "C3_rvo2": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "drive_only": [
+   false,
+   true
+  ],
+  "frozen_plus": [
+   true,
+   true
+  ],
+  "noise0.07": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ }
+}

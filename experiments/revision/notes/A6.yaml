@@ -1,0 +1,24 @@
+# A6 second-trap rows for Table 3 (experiments/revision/A6_second_trap_rows.py)
+RevAsixSTSnaps: {file: rev_A6.json, key: "lone_keystone_second_trap.n_snapshots", fmt: "{:d}"}
+RevAsixSTNoiseFreed: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.freed", fmt: "{:d}"}
+RevAsixSTNoiseN: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.n_runs", fmt: "{:d}"}
+RevAsixSTOrcaFreed: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_rvo2.freed", fmt: "{:d}"}
+RevAsixSTOrcaN: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_rvo2.n", fmt: "{:d}"}
+RevAsixSTPubFreed: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_pub_reference.freed", fmt: "{:d}"}
+RevAsixSTDiff: {file: rev_A6.json, key: "lone_keystone_second_trap.delta.E2_analysis_value", fmt: "{:+.2f}"}
+RevAsixSTDiffLo: {file: rev_A6.json, key: "lone_keystone_second_trap.delta.E2_analysis_ci95.0", fmt: "{:.2f}"}
+RevAsixSTDiffHi: {file: rev_A6.json, key: "lone_keystone_second_trap.delta.E2_analysis_ci95.1", fmt: "{:.2f}"}
+RevAsixSTJ: {file: rev_A6.json, key: "lone_keystone_second_trap.J.value", fmt: "{:.2f}"}
+RevAsixSTJLo: {file: rev_A6.json, key: "lone_keystone_second_trap.J.ci95_two_level_boot.0", fmt: "{:.2f}"}
+RevAsixSTJHi: {file: rev_A6.json, key: "lone_keystone_second_trap.J.ci95_two_level_boot.1", fmt: "{:.2f}"}
+RevAsixSTJInd: {file: rev_A6.json, key: "lone_keystone_second_trap.J.independence_expected_J", fmt: "{:.2f}"}
+RevAsixSTJIndP: {file: rev_A6.json, key: "lone_keystone_second_trap.J.p_J_ge_observed", fmt: "{:.2f}"}
+RevAsixSTNoiseUnres: {file: rev_A6.json, key: "lone_keystone_second_trap.J.noise_unresolved", fmt: "{:d}"}
+RevAsixSTOrcaUnres: {file: rev_A6.json, key: "lone_keystone_second_trap.J.orca_unresolved", fmt: "{:d}"}
+RevAsixSTShared: {file: rev_A6.json, key: "lone_keystone_second_trap.J.shared", fmt: "{:d}"}
+RevAsixSTNoiseMed: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.km_median_s", fmt: "{:.1f}"}
+RevAsixSTOrcaMed: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_rvo2.km_median_s", fmt: "{:.1f}"}
+RevAsixSTNoiseDisagree: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.snapshots_runs_disagree", fmt: "{:d}"}
+RevAsixSTOrcaReplayDis: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_rvo2.replays_outcome_differs", fmt: "{:d}"}
+RevAsixSTOrcaReplays: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_rvo2.replays", fmt: "{:d}"}
+RevAsixSTPubReplayDis: {file: rev_A6.json, key: "lone_keystone_second_trap.C3_pub_reference.replays_outcome_differs", fmt: "{:d}"}

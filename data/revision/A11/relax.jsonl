@@ -1,0 +1,432 @@
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.6200000000000012, "first": 63, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 7.569999999999883, "first": 79, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 7.569999999999883, "first": 79, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 3.93999999999996, "first": 79, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 3.93999999999996, "first": 79, "tag": "E7b_B0.04_seed253", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.5700000000000012, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 7.599999999999882, "first": 5, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 7.599999999999882, "first": 5, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 7.2199999999998905, "first": 5, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 7.2199999999998905, "first": 5, "tag": "E7b_B0.04_seed254", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.629999999999988, "first": 59, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 2.769999999999985, "first": 63, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 2.769999999999985, "first": 63, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.0400000000000005, "first": 63, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.0400000000000005, "first": 63, "tag": "E7b_B0.04_seed272", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.360000000000001, "first": 64, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 10.689999999999817, "first": 64, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 10.689999999999817, "first": 64, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 4.2199999999999545, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.2199999999999545, "tag": "E7b_B0.04_seed274", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.909999999999982, "first": 76, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 8.039999999999873, "first": 6, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 8.039999999999873, "first": 6, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 8.539999999999862, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 8.539999999999862, "tag": "E7b_B0.04_seed276", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.5499999999999896, "first": 84, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 6.7699999999999, "first": 73, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 6.7699999999999, "first": 73, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 8.099999999999872, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 8.099999999999872, "tag": "E7b_B0.04_seed285", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 3.659999999999966, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.329999999999973, "first": 3, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.329999999999973, "first": 3, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.099999999999999, "first": 3, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.099999999999999, "first": 3, "tag": "E7b_B0.04_seed287", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.5700000000000012, "first": 58, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 11.159999999999807, "first": 30, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 11.159999999999807, "first": 30, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.2199999999999966, "first": 58, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.2199999999999966, "first": 58, "tag": "E7b_B0.04_seed295", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 3.519999999999969, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 5.81999999999992, "first": 47, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 5.81999999999992, "first": 47, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 3.8099999999999627, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 3.8099999999999627, "tag": "E7b_B0.04_seed297", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.2000000000000008, "first": 13, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 5.019999999999937, "first": 13, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 5.019999999999937, "first": 13, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.2100000000000009, "first": 13, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.2100000000000009, "first": 13, "tag": "E7b_B0.04_seed310", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 2.6499999999999875, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 3.699999999999965, "first": 10, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.699999999999965, "first": 10, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.1399999999999983, "first": 10, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.1399999999999983, "first": 10, "tag": "E7b_B0.04_seed319", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.440000000000001, "first": 6, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 10.51999999999982, "first": 73, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 10.51999999999982, "first": 73, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 7.529999999999884, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 7.529999999999884, "tag": "E7b_B0.04_seed338", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 3.1199999999999775, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 10.359999999999824, "first": 11, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 10.359999999999824, "first": 11, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 5.429999999999929, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 5.429999999999929, "tag": "E7b_B0.04_seed345", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 4.129999999999956, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 4.4499999999999496, "first": 35, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.4499999999999496, "first": 35, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 7.089999999999893, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 7.089999999999893, "tag": "E7b_B0.04_seed351", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.259999999999996, "first": 8, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.0299999999999794, "first": 32, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.0299999999999794, "first": 32, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.249999999999996, "first": 32, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.249999999999996, "first": 32, "tag": "E7b_B0.04_seed362", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.370000000000001, "first": 47, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 2.8899999999999824, "first": 47, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 2.8899999999999824, "first": 47, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.0600000000000007, "first": 47, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.0600000000000007, "first": 47, "tag": "E7b_B0.04_seed368", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.290000000000001, "first": 35, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 5.199999999999934, "first": 35, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 5.199999999999934, "first": 35, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.310000000000001, "first": 35, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.310000000000001, "first": 35, "tag": "E7b_B0.04_seed371", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.1899999999999973, "first": 92, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.43999999999995, "first": 73, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.43999999999995, "first": 73, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 8.799999999999857, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 8.799999999999857, "tag": "E7b_B0.04_seed375", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.270000000000001, "first": 40, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.92999999999996, "first": 91, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.92999999999996, "first": 91, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 8.66999999999986, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 8.66999999999986, "tag": "E7b_B0.04_seed383", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 2.5899999999999888, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 6.899999999999897, "first": 8, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 6.899999999999897, "first": 8, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.5700000000000003, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 0.5700000000000003, "tag": "E7b_B0.04_seed395", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 2.479999999999991, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 9.169999999999849, "first": 35, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 9.169999999999849, "first": 35, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 4.42999999999995, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.42999999999995, "tag": "E7b_B0.04_seed397", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.400000000000001, "first": 17, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 9.039999999999852, "first": 17, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 9.039999999999852, "first": 17, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.0300000000000007, "first": 17, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.0300000000000007, "first": 17, "tag": "E7b_B0.04_seed401", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 3.00999999999998, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 49.16999999999879, "first": 40, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 49.16999999999879, "first": 40, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 7.289999999999889, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 7.289999999999889, "tag": "E7b_B0.04_seed403", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 6.1399999999999135, "first": 78, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 94.65000000001152, "first": 45, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 94.65000000001152, "first": 45, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 5.5799999999999255, "first": 78, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 5.5799999999999255, "first": 78, "tag": "E7b_B0.04_seed415", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.280000000000001, "first": 71, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.569999999999947, "first": 50, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.569999999999947, "first": 50, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 5.489999999999927, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 5.489999999999927, "tag": "E7b_B0.04_seed431", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.330000000000001, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.9499999999999598, "first": 13, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.9499999999999598, "first": 13, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.1700000000000008, "first": 13, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.1700000000000008, "first": 13, "tag": "E7b_B0.04_seed434", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.8100000000000014, "first": 20, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.389999999999951, "first": 17, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.389999999999951, "first": 17, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 4.0299999999999585, "first": 17, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 4.0299999999999585, "first": 17, "tag": "E7b_B0.04_seed435", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.0400000000000007, "first": 24, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 8.269999999999868, "first": 96, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 8.269999999999868, "first": 96, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 2.8399999999999834, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 2.8399999999999834, "tag": "E7b_B0.04_seed439", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.320000000000001, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 29.400000000001796, "first": 73, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 29.400000000001796, "first": 73, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 4.299999999999953, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.299999999999953, "tag": "E7b_B0.04_seed443", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.6400000000000012, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 2.7899999999999845, "first": 7, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 2.7899999999999845, "first": 7, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.0400000000000007, "first": 7, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.0400000000000007, "first": 7, "tag": "E7b_B0.04_seed449", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.3299999999999943, "first": 82, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.719999999999944, "first": 89, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.719999999999944, "first": 89, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 6.31999999999991, "first": 89, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 6.31999999999991, "first": 89, "tag": "E7b_B0.04_seed454", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 3.749999999999964, "first": 99, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 5.799999999999921, "first": 99, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 5.799999999999921, "first": 99, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.9300000000000015, "first": 99, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.9300000000000015, "first": 99, "tag": "E7b_B0.04_seed471", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 2.7799999999999847, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 7.099999999999893, "first": 76, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 7.099999999999893, "first": 76, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 4.979999999999938, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.979999999999938, "tag": "E7b_B0.04_seed472", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.480000000000001, "first": 22, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.5899999999999674, "first": 9, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.5899999999999674, "first": 9, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.500000000000001, "first": 9, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.500000000000001, "first": 9, "tag": "E7b_B0.04_seed482", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.1600000000000008, "first": 34, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 2.8299999999999836, "first": 34, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 2.8299999999999836, "first": 34, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.0200000000000007, "first": 34, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.0200000000000007, "first": 34, "tag": "E7b_B0.04_seed496", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 3.9699999999999593, "first": 65, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 8.709999999999859, "first": 18, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 8.709999999999859, "first": 18, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 6.409999999999908, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 6.409999999999908, "tag": "E7b_B0.04_seed509", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.280000000000001, "first": 8, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 15.509999999999714, "first": 97, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 15.509999999999714, "first": 97, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 6.4699999999999065, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 6.4699999999999065, "tag": "E7b_B0.04_seed513", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.7200000000000013, "first": 10, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 3.519999999999969, "first": 10, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.519999999999969, "first": 10, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.480000000000001, "first": 10, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.480000000000001, "first": 10, "tag": "E7b_B0.04_seed514", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.7100000000000013, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 3.5999999999999672, "first": 86, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 3.5999999999999672, "first": 86, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.360000000000001, "first": 86, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.360000000000001, "first": 86, "tag": "E7b_B0.04_seed517", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.490000000000001, "first": 89, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 8.299999999999867, "first": 70, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 8.299999999999867, "first": 70, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 6.439999999999907, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 6.439999999999907, "tag": "E7b_B0.04_seed533", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.370000000000001, "first": 58, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 6.819999999999899, "first": 58, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 6.819999999999899, "first": 58, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.7800000000000014, "first": 58, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.7800000000000014, "first": 58, "tag": "E7b_B0.04_seed540", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.6999999999999864, "first": 58, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 37.64000000000108, "first": 58, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 37.64000000000108, "first": 58, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 4.529999999999948, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.529999999999948, "tag": "E7b_B0.04_seed543", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 1.2000000000000008, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": true, "t": 4.329999999999952, "first": 71, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.329999999999952, "first": 71, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.8500000000000014, "first": 71, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.8500000000000014, "first": 71, "tag": "E7b_B0.04_seed552", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.500000000000001, "first": 90, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 9.489999999999842, "first": 92, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 9.489999999999842, "first": 92, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": false, "t": 8.20999999999987, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 8.20999999999987, "tag": "E7b_B0.04_seed555", "kind": "pair", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.490000000000001, "first": 11, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.869999999999941, "first": 11, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.869999999999941, "first": 11, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 2.0400000000000005, "first": 11, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.0400000000000005, "first": 11, "tag": "E7b_B0.04_seed556", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.490000000000001, "first": 46, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": true, "t": 4.739999999999943, "first": 46, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "constraint_only_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 4.739999999999943, "first": 46, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 1.6900000000000013, "first": 46, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.6900000000000013, "first": 46, "tag": "E7b_B0.04_seed558", "kind": "pair", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed46", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.6700000000000013, "first": 27, "tag": "E1b_seed46", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 49.98999999999862, "tag": "E1b_seed46", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 49.98999999999862, "tag": "E1b_seed46", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 1.5900000000000012, "first": 27, "tag": "E1b_seed46", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.5900000000000012, "first": 27, "tag": "E1b_seed46", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed55", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.25000000000000006, "first": 11, "tag": "E1b_seed55", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 41.73000000000027, "tag": "E1b_seed55", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 41.73000000000027, "tag": "E1b_seed55", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.2700000000000001, "first": 11, "tag": "E1b_seed55", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.2700000000000001, "first": 11, "tag": "E1b_seed55", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed60", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.500000000000001, "first": 53, "tag": "E1b_seed60", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 48.779999999998864, "tag": "E1b_seed60", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 48.779999999998864, "tag": "E1b_seed60", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 1.5700000000000012, "first": 53, "tag": "E1b_seed60", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 1.5700000000000012, "first": 53, "tag": "E1b_seed60", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed73", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.45000000000000023, "first": 86, "tag": "E1b_seed73", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 46.37999999999934, "tag": "E1b_seed73", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 46.37999999999934, "tag": "E1b_seed73", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.6600000000000004, "first": 86, "tag": "E1b_seed73", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.6600000000000004, "first": 86, "tag": "E1b_seed73", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed74", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.45000000000000023, "first": 61, "tag": "E1b_seed74", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 49.89999999999864, "tag": "E1b_seed74", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 49.89999999999864, "tag": "E1b_seed74", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.5800000000000003, "first": 61, "tag": "E1b_seed74", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.5800000000000003, "first": 61, "tag": "E1b_seed74", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed75", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.949999999999981, "first": 93, "tag": "E1b_seed75", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 31.60000000000214, "tag": "E1b_seed75", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 31.60000000000214, "tag": "E1b_seed75", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 4.179999999999955, "tag": "E1b_seed75", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.179999999999955, "tag": "E1b_seed75", "kind": "second_trap", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed103", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.2800000000000001, "first": 71, "tag": "E1b_seed103", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 38.81000000000085, "tag": "E1b_seed103", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 38.81000000000085, "tag": "E1b_seed103", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.2900000000000001, "first": 71, "tag": "E1b_seed103", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.2900000000000001, "first": 71, "tag": "E1b_seed103", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed104", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.34000000000000014, "first": 97, "tag": "E1b_seed104", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 50.639999999998494, "tag": "E1b_seed104", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 50.639999999998494, "tag": "E1b_seed104", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.49000000000000027, "first": 97, "tag": "E1b_seed104", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.49000000000000027, "first": 97, "tag": "E1b_seed104", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed111", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.9200000000000015, "first": 22, "tag": "E1b_seed111", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 49.40999999999874, "tag": "E1b_seed111", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 49.40999999999874, "tag": "E1b_seed111", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 2.3199999999999945, "first": 22, "tag": "E1b_seed111", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": true, "t": 2.3199999999999945, "first": 22, "tag": "E1b_seed111", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed112", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.26000000000000006, "first": 8, "tag": "E1b_seed112", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.582737915891179, "tag": "E1b_seed112", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.582737915891179, "tag": "E1b_seed112", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": true}
+{"pred_freed": true, "t": 0.3100000000000001, "first": 8, "tag": "E1b_seed112", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.3100000000000001, "first": 8, "tag": "E1b_seed112", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed113", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.36000000000000015, "first": 34, "tag": "E1b_seed113", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 3.5385845090733494, "tag": "E1b_seed113", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 3.538584509073378, "tag": "E1b_seed113", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.6600000000000004, "first": 34, "tag": "E1b_seed113", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.6600000000000004, "first": 34, "tag": "E1b_seed113", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed130", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 2.109999999999999, "first": 91, "tag": "E1b_seed130", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 54.959999999997635, "tag": "E1b_seed130", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 54.959999999997635, "tag": "E1b_seed130", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 4.819999999999942, "tag": "E1b_seed130", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.819999999999942, "tag": "E1b_seed130", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed158", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.3200000000000001, "first": 32, "tag": "E1b_seed158", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 115.04000000002195, "tag": "E1b_seed158", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 115.04000000002195, "tag": "E1b_seed158", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.5500000000000003, "first": 32, "tag": "E1b_seed158", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.5500000000000003, "first": 32, "tag": "E1b_seed158", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed162", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.34000000000000014, "first": 95, "tag": "E1b_seed162", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 39.60000000000069, "tag": "E1b_seed162", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 39.60000000000069, "tag": "E1b_seed162", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.4200000000000002, "first": 95, "tag": "E1b_seed162", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.4200000000000002, "first": 95, "tag": "E1b_seed162", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed170", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.4100000000000002, "first": 82, "tag": "E1b_seed170", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 65.72999999999672, "tag": "E1b_seed170", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 65.72999999999672, "tag": "E1b_seed170", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.6800000000000004, "first": 82, "tag": "E1b_seed170", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.6800000000000004, "first": 82, "tag": "E1b_seed170", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed172", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.22000000000000006, "first": 55, "tag": "E1b_seed172", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.3953768109942407, "tag": "E1b_seed172", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.3953768109942407, "tag": "E1b_seed172", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.2800000000000001, "first": 55, "tag": "E1b_seed172", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.2800000000000001, "first": 55, "tag": "E1b_seed172", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed174", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.4400000000000002, "first": 72, "tag": "E1b_seed174", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 66.23999999999698, "tag": "E1b_seed174", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 66.23999999999698, "tag": "E1b_seed174", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.8800000000000006, "first": 72, "tag": "E1b_seed174", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.8800000000000006, "first": 72, "tag": "E1b_seed174", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed178", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.25000000000000006, "first": 57, "tag": "E1b_seed178", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 57.069999999997215, "tag": "E1b_seed178", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 57.069999999997215, "tag": "E1b_seed178", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.2900000000000001, "first": 57, "tag": "E1b_seed178", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.2900000000000001, "first": 57, "tag": "E1b_seed178", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed186", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.4300000000000002, "first": 43, "tag": "E1b_seed186", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.25162102048277135, "tag": "E1b_seed186", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": null, "t": 120.00000000002449, "maxF": 0.2516210204828282, "tag": "E1b_seed186", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.8900000000000006, "first": 43, "tag": "E1b_seed186", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.8900000000000006, "first": 43, "tag": "E1b_seed186", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed187", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.6200000000000003, "first": 47, "tag": "E1b_seed187", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 49.5999999999987, "tag": "E1b_seed187", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 49.5999999999987, "tag": "E1b_seed187", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 3.329999999999973, "tag": "E1b_seed187", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": false, "t": 3.329999999999973, "tag": "E1b_seed187", "kind": "second_trap", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed192", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 2.349999999999994, "tag": "E1b_seed192", "kind": "second_trap", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": false, "t": 47.0799999999992, "tag": "E1b_seed192", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 47.0799999999992, "tag": "E1b_seed192", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 1.490000000000001, "tag": "E1b_seed192", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 1.490000000000001, "tag": "E1b_seed192", "kind": "second_trap", "arm": "C3_pub", "quench_freed": false}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed202", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 0.2900000000000001, "first": 22, "tag": "E1b_seed202", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 40.17000000000058, "tag": "E1b_seed202", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 40.17000000000058, "tag": "E1b_seed202", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 0.3200000000000001, "first": 22, "tag": "E1b_seed202", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 0.3200000000000001, "first": 22, "tag": "E1b_seed202", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed209", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.9300000000000015, "first": 82, "tag": "E1b_seed209", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 37.73000000000106, "tag": "E1b_seed209", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 37.73000000000106, "tag": "E1b_seed209", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": true, "t": 1.7800000000000014, "first": 82, "tag": "E1b_seed209", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": true}
+{"pred_freed": true, "t": 1.7800000000000014, "first": 82, "tag": "E1b_seed209", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed223", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 1.8000000000000014, "first": 5, "tag": "E1b_seed223", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 58.00999999999703, "tag": "E1b_seed223", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 58.00999999999703, "tag": "E1b_seed223", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 4.139999999999956, "tag": "E1b_seed223", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 4.139999999999956, "tag": "E1b_seed223", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed230", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": true, "t": 6.7999999999998995, "first": 74, "tag": "E1b_seed230", "kind": "second_trap", "arm": "drive_only", "quench_freed": true}
+{"pred_freed": false, "t": 52.589999999998106, "tag": "E1b_seed230", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 52.589999999998106, "tag": "E1b_seed230", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 7.839999999999877, "tag": "E1b_seed230", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 7.839999999999877, "tag": "E1b_seed230", "kind": "second_trap", "arm": "C3_pub", "quench_freed": true}
+{"pred_freed": false, "t": 0.0, "tag": "E1b_seed237", "kind": "second_trap", "arm": "C1", "quench_freed": false}
+{"pred_freed": false, "t": 3.799999999999963, "tag": "E1b_seed237", "kind": "second_trap", "arm": "drive_only", "quench_freed": false}
+{"pred_freed": false, "t": 50.66999999999849, "tag": "E1b_seed237", "kind": "second_trap", "arm": "constraint_only_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 50.66999999999849, "tag": "E1b_seed237", "kind": "second_trap", "arm": "constraint_only_pub", "quench_freed": false}
+{"pred_freed": false, "t": 7.459999999999885, "tag": "E1b_seed237", "kind": "second_trap", "arm": "C3_rvo2", "quench_freed": false}
+{"pred_freed": false, "t": 7.459999999999885, "tag": "E1b_seed237", "kind": "second_trap", "arm": "C3_pub", "quench_freed": false}

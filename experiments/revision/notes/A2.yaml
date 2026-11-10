@@ -1,0 +1,21 @@
+# A2 ORCA density gate w_o = 1 - s(rho; 4, 2) at the snapshots and along force-coupled ORCA whole runs
+# Source: data/derived/rev_A2.json (experiments/revision/A2_gate.py, runs by experiments/revision/A2_runs.py)
+RevAtwoWZero: {file: rev_A2.json, key: "w_at_rho0", fmt: "{:.4f}"}
+RevAtwoLoneSnapN: {file: rev_A2.json, key: "snapshots.lone.n_snapshots", fmt: "{:d}"}
+RevAtwoLoneNMax: {file: rev_A2.json, key: "snapshots.lone.N_max", fmt: "{:d}"}
+RevAtwoLoneWMin: {file: rev_A2.json, key: "snapshots.lone.w_min", fmt: "{:.4f}"}
+RevAtwoLoneWMax: {file: rev_A2.json, key: "snapshots.lone.w_max", fmt: "{:.4f}"}
+RevAtwoPairSnapN: {file: rev_A2.json, key: "snapshots.pair.n_snapshots", fmt: "{:d}"}
+RevAtwoPairNMax: {file: rev_A2.json, key: "snapshots.pair.N_max", fmt: "{:d}"}
+RevAtwoPairWMin: {file: rev_A2.json, key: "snapshots.pair.w_min", fmt: "{:.4f}"}
+RevAtwoBoundRho: {file: rev_A2.json, key: "bound.rho", fmt: "{:.2f}"}
+RevAtwoBoundW: {file: rev_A2.json, key: "bound.w_min", fmt: "{:.2f}"}
+RevAtwoThreshN: {file: rev_A2.json, key: "threshold_099.N", fmt: "{:.0f}"}
+RevAtwoThreshRho: {file: rev_A2.json, key: "threshold_099.rho", fmt: "{:.2f}"}
+RevAtwoRunsN: {file: rev_A2.json, key: "runs.n_runs", fmt: "{:d}"}
+RevAtwoRunsSame: {file: rev_A2.json, key: "runs.reproduce_E6a", fmt: "{:d}"}
+RevAtwoRunsWMin: {file: rev_A2.json, key: "runs.w_min", fmt: "{:.2f}"}
+RevAtwoRunsWMinMax: {file: rev_A2.json, key: "runs.w_min_run_max", fmt: "{:.2f}"}
+RevAtwoRunsNMax: {file: rev_A2.json, key: "runs.N_max", fmt: "{:d}"}
+RevAtwoRunsFracBelow: {file: rev_A2.json, key: "runs.frac_time_below.lt099", fmt: "{:.2f}"}
+RevAtwoRunsFracBelowFive: {file: rev_A2.json, key: "runs.frac_time_below.lt095", fmt: "{:.2f}"}
