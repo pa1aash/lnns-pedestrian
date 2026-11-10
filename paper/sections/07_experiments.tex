@@ -2,22 +2,22 @@
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/fig8_croma.pdf}
-\caption{Flow through the entrance, longest gap between passages (log scale) and waiting-zone velocity fluctuation for the human runs and the four model variants. Small points are single runs, with means and 95\% intervals beside them. Humans grey; SFM black filled circle; SFM with jamb range $B_{w,\rm edge}$ black filled square; SFM+ORCA (RVO2) blue; SFM + noise $\sigma^\ast$ vermilion.}
+\caption{Flow through the entrance, longest gap between passages (log scale) and waiting-zone velocity fluctuation for the human runs and the four model variants. Small points are single runs, beside their means and 95\% intervals; humans grey; SFM black filled circle; SFM with jamb range $B_{w,\rm edge}$ black filled square; SFM+ORCA (RVO2) blue; SFM + noise $\sigma^\ast$ vermilion.}
 \label{fig:croma}
 \end{figure}
 %
 Do people at a door of the model's width show its deadlocks, flow and passage gaps?
 
-\subsubsection{Experiments and model runs.}
+\subsubsection{Experiments and Model Runs.}
 The CroMa experiments~\cite{fzj_ped20219} include \EtenHumanN\ entrance runs at a width of 0.8\,m~\cite{adrian2020crowds}, two with a 2.0\,m corridor behind the entrance and three with a 0.21\,m one (a door in a wall). Participants walked normally or hurried, and in four runs kept a 2\,m semicircle in front of the entrance clear. We rebuilt the geometry (a walled holding area of $7.8\times8.6$\,m, the entrance and corridor walls of the run's length) and matched agent number and corridor length run by run, with five model runs per human run and variant (25 per variant); model agents start at rest and farther from the entrance than the participants. Four variants ran for up to 600\,s: the SFM; the SFM with the jamb range reduced to $B_{w,\rm edge}$; SFM+ORCA with the RVO2 solver; and SFM + noise $\sigma^\ast$ (Sect.~\ref{sec:att-whole}).
 
-Passages through the entrance plane give the flow (first to last passage) and the gaps between passages, for model and humans alike. In the waiting zone (0.3--2.5\,m in front of the entrance, within 2\,m of its axis), while the local mean speed is below 0.3\,m/s, the velocity fluctuation is the standard deviation, root-mean-squared over both components, of each agent's smoothed velocity relative to its neighbours within 0.74\,m.
+Passages through the entrance plane give the flow (first to last passage) and the gaps between passages, for model and humans alike. The waiting zone lies 0.3--2.5\,m in front of the entrance and within 2\,m of its axis. While its local mean speed is below 0.3\,m/s, the velocity fluctuation is the standard deviation of each agent's smoothed velocity relative to its neighbours within 0.74\,m, root-mean-squared over both components.
 
-\subsubsection{Human runs.}
+\subsubsection{Human Runs.}
 Every tracked participant passes the entrance (\EtenHumanUnpassed\ track is lost before it). The flow is \EtenHumanFlow\ [\EtenHumanFlowLo, \EtenHumanFlowHi]\,ped/s (runs \EtenHumanFlowMin--\EtenHumanFlowMax). The longest gap between passages averages \EtenHumanGap\,s (at most \EtenHumanGapMax\,s), and \EtenHumanGapsOverTwoTotal\ gap in the \EtenHumanN\ runs exceeds 2\,s. The waiting-zone velocity fluctuation is \EtenHumanFluct\ [\EtenHumanFluctLo, \EtenHumanFluctHi]\,m/s.
 
-\subsubsection{Model variants.}
+\subsubsection{Model Variants.}
 The SFM deadlocks in \EtenCOneDeadlock\ of 25 runs and completes \EtenCOneComplete\ (upper Wilson bound \FixAsevenCOneCompleteHi). With the jamb range reduced to $B_{w,\rm edge}$, \EtenCEdgeComplete\ runs complete and \EtenCEdgeDeadlock\ still deadlock. SFM+ORCA (RVO2) never deadlocks but completes only \EtenCThreeComplete\ runs; the other \EtenCThreeCapped\ still move at 600\,s. SFM + noise $\sigma^\ast$ completes \EtenCSigComplete. In every variant the flow, counted up to the deadlock where there is one, is \FixAsevenCSigFlowRatio--\FixAsevenCThreeFlowRatio\ of the human flow: \EtenCOneFlow\ [\EtenCOneFlowLo, \EtenCOneFlowHi]\,ped/s for the SFM (ratio \FixAsevenCOneFlowRatio\ [\FixAsevenCOneFlowRatioLo, \FixAsevenCOneFlowRatioHi]) and \EtenCThreeFlow\ [\EtenCThreeFlowLo, \EtenCThreeFlowHi]\,ped/s for SFM+ORCA (RVO2) (ratio \FixAsevenCThreeFlowRatio\ [\FixAsevenCThreeFlowRatioLo, \FixAsevenCThreeFlowRatioHi]). The deficit persists between the 10\% and the 90\% passage (SFM \FixAsevenCOneWindowFlow, humans \FixAsevenHumanWindowFlow\,ped/s). Passages come in bursts separated by long gaps: \EtenCThreeGapsTwo--\EtenCOneGapsTwo\ gaps longer than 2\,s per run against \EtenHumanGapsTwo\ for humans, and a mean longest gap of \EtenCThreeGap--\EtenCOneGap\,s for the deterministic variants and \EtenCSigGap\,s with noise (Fig.~\ref{fig:croma}). The model's waiting-zone velocity fluctuation, \EtenCOneFluct--\EtenCSigFluct\,m/s, exceeds the human one. The deficit holds with either corridor (long: humans \EtenLongHumanFlow, model \EtenCSigLongFlow--\EtenCThreeLongFlow\,ped/s; short: \EtenShortHumanFlow\ and \EtenCSigShortFlow--\EtenCThreeShortFlow\,ped/s).
 
-\subsubsection{Removing deadlocks.}
-Removing deadlocks does not restore capacity. The reduced jamb range leaves the flow at \FixAsevenCEdgeFlowRatio\ of the human value, and noise at $\sigma^\ast$ turns deadlocks into stalls. The deadlock physics and screening results of Sects.~\ref{sec:physics} and~\ref{sec:attribution} hold for this model class, and its deadlocks are not human behaviour at this width.
+\subsubsection{Removing Deadlocks.}
+Removing deadlocks leaves the flow below the human value. The reduced jamb range leaves the flow at \FixAsevenCEdgeFlowRatio\ of the human value, and noise at $\sigma^\ast$ turns deadlocks into stalls. The deadlock physics and screening results of Sects.~\ref{sec:physics} and~\ref{sec:attribution} hold for this model class, and people at this width pass without deadlock.

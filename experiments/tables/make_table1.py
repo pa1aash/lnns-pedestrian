@@ -53,7 +53,7 @@ rows = [
      rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}${U}s, $\tau_{{\max}}={g(val('tau_max'))}${U}s; "
      rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm orca}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$"),
     ("ORCA solvers",
-     r"legacy linear-program solver: original implementation, with a leg-normal sign defect; "
+     r"legacy linear-program solver, with a leg-normal sign defect; "
      r"RVO2 solver: line-by-line port of RVO2~\cite{vandenberg2011rvo2}"),
     ("Update",
      rf"speed cap ${g(val('speed_clamp'))}v_0$ before the position update; rejection-sampled spawns; convex-union wall corners"),

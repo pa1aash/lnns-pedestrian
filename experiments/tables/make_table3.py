@@ -170,16 +170,16 @@ BLOCKS = [
         (r"pair standoffs", frac("VelPairRvoK", "VelPairN"),
          diff("VelPairRvoDiff", "VelPairRvoDiffLo", "VelPairRvoDiffHi"), NA, r"$>$120", NA,
          frac("VelPairReplayDis", "VelPairSnaps"), NA),
-        (r"whole runs", frac("VelWholeK", "VelWholeN"),
+        (r"whole runs, first " + one("VelWholeN") + " seeds", frac("VelWholeK", "VelWholeN"),
          diff("VelWholeForceDiff", "VelWholeForceDiffLo", "VelWholeForceDiffHi"), NA, NA, NA, NA, NA),
     ]),
 ]
 
 CAPTION = (
     r"Rate-matched surrogates against ORCA under force coupling (last block: velocity coupling): freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
-    r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$ (s), first exits "
-    r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
-    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are SFM + noise; lone-trap noise rows count runs, five seeds per snapshot, and velocity-coupling quench rows six runs per snapshot; whole-run rows count seeds."
+    r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; independence value in parentheses), Kaplan--Meier median $t_{1/2}$ (s), first exits "
+    r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise and velocity coupling: snapshots whose runs disagree) and $\ell$ of "
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are SFM+noise; lone-trap rows count runs (noise: five per snapshot; velocity coupling: six), whole-run rows seeds."
 )
 
 
