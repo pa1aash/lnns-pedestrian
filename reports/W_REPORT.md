@@ -9,16 +9,13 @@ Published to main: b4087cf (changelog C85), fcf06c4 (rewrite), 21fa60a (audit fi
 
 ## Structure
 1 Introduction · 2 Related Work · 3 Pedestrian Model (3.1 Forces … 3.5 Statistics) · 4 Mechanism Classes and the Screening Protocol · 5 Deadlock Physics (5.1–5.4) · 6 Screening Results (6.1–6.4) · 7 Comparison with Experiments · 8 Discussion (8.3 Using the Framework, with the checklist) · 9 Conclusions. There are no italic run-in leads, and gang2026 is the first citation in the text.
-
 ## Vocabulary
 - The protocol is the screening protocol, the mechanism being screened is the resolver, and its tuned perturbations are rate-matched surrogates.
 - SFM, SFM+TTC and SFM+ORCA replace C1–C3. ORCA has the legacy linear-program solver and the RVO2 solver, and force coupling and velocity coupling.
 - Table 2's last column is now "Corrected implementation". Tables 1 and 3 and Figs 6–8 were re-rendered or regenerated with the v2 labels.
 - No banned term remains in the sources, the PDF or the figure PDFs.
-
 ## New figure
 The screening protocol is a vector TikZ flowchart in §4 (Fig. 2): five boxes in the paper's font and the Okabe–Ito palette, 3.3 cm tall, with a two-sentence caption. The figures that follow it are numbered one higher than their script names, and ALT_TEXT.md has nine entries in paper order.
-
 ## Open items from decision 12
 - **Rest-drive push:** it frees all 30 lone keystones that ORCA (RVO2) frees, plus 1 more (discordant 1:0), and frees none when reversed.
 - **Barriers:** 4 of the 60 snapshots failed the string convergence gate in the full condition, which leaves 56.
