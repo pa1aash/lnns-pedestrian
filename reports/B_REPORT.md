@@ -53,8 +53,8 @@ Other problems:
 ## 4. New and existing entries for the new citations
 | key | verified against | cite in / for |
 |---|---|---|
-| langer1969 (exists) | Crossref, all fields | Sect. 2 activated escape / Sect. 4.4: many-dimensional prefactor ("Langer prefactor") |
-| henkelman2000 (exists) | Crossref | barrier section: climbing image (cite with e2007, whose string carries it) |
+| langer1969 (exists) | Crossref, all fields | Sect. 2 activated escape and the barrier subsection (sec:barrier): many-dimensional prefactor ("Langer prefactor") |
+| henkelman2000 (exists) | Crossref | sec:barrier: the climbing image (introduced for NEB; cite with e2007 for the string) |
 | melnikov1986 | Crossref, JCP 85, 1018-1027 | damping regime / Kramers turnover. The title is "...Exact solution of the Kramers problem" |
 | vandenberg2011avo | doi.org, ICRA 2011, 3475-3482 | Sect. 3: relaxation to the LP velocity, a=(v'-v)/δ, Eq. (7) |
 | moussaid2011 | doi.org, PNAS 108, 6884-6888 | pedestrian precedent: chosen velocity relaxed with τ=0.5 s |
