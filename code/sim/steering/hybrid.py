@@ -86,6 +86,17 @@ class HybridSteeringModel(SteeringModel):
             B_edge=params.get("B_w_edge"),
             corner=params.get("w2_wall_corner", "segment_sum"),
         )
+        # Wave V flag w2_orca_coupling: "force" (default; ORCA enters F as w_o m (v_ORCA - v)/tau_ORCA)
+        # | "velocity" (no ORCA force; after the force update the simulation passes the proposed velocity
+        # v' through ORCA's linear program and sets v' <- v' + w_o (Pi(v_ORCA) - v'), see
+        # orca_velocity_filter; corrected numerics only, split "full" and no force transform).
+        self.orca_coupling = params.get("w2_orca_coupling", "force")
+        if self.orca_coupling not in ("force", "velocity"):
+            raise ValueError(f"w2_orca_coupling must be 'force' or 'velocity', got {self.orca_coupling!r}")
+        if self.orca_coupling == "velocity" and (params.get("w2_orca_split", "full") != "full"
+                                                 or params.get("w2_orca_transform", "none") != "none"):
+            raise ValueError("w2_orca_coupling='velocity' requires w2_orca_split='full' and "
+                             "w2_orca_transform='none'")
         # Wave 2: orca_force_transform "none" | "reverse_parallel" | "reverse_lateral"
         # (component of the ORCA force relative to the goal direction e_hat).
         self.orca_transform = params.get("w2_orca_transform", "none")
@@ -160,8 +171,8 @@ class HybridSteeringModel(SteeringModel):
         if self.ttc is not None:
             F += self.ttc.compute_ttc_forces(agent_state, neighbor_lists)
 
-        # ORCA (weighted by density)
-        if self.orca is not None:
+        # ORCA (weighted by density); with velocity coupling ORCA acts in orca_velocity_filter instead
+        if self.orca is not None and self.orca_coupling == "force":
             F_orca = self.orca.compute_orca_forces(agent_state, neighbor_lists)
             if self.orca_transform != "none":
                 from sim.core.helpers import safe_normalize
@@ -222,7 +233,7 @@ class HybridSteeringModel(SteeringModel):
             mags["ttc"] = np.zeros(n)
 
         # ORCA
-        if self.orca is not None:
+        if self.orca is not None and self.orca_coupling == "force":
             w_orca = 1.0 - self._sigmoid(
                 local_densities,
                 self.params.get("rho_orca_fade", 4.0),
@@ -257,6 +268,24 @@ class HybridSteeringModel(SteeringModel):
         F += F_wall
 
         return check_forces(F, "hybrid"), mags
+
+    def orca_velocity_filter(self, agent_state, neighbor_lists, local_densities, v_prop):
+        """Velocity coupling: v' <- v' + w_o (Pi(v_ORCA) - v'), v_ORCA the linear-program velocity nearest
+        the proposed v' (ORCAModel.filter_velocities), Pi the 2 v0 speed cap, w_o the ORCA density gate.
+        Returns v_prop unchanged when the configuration has no ORCA or the coupling is "force"."""
+        if self.orca is None or self.orca_coupling != "velocity":
+            return v_prop
+        from sim.core.helpers import clamp_speed
+        w_orca = 1.0 - self._sigmoid(
+            local_densities,
+            self.params.get("rho_orca_fade", 4.0),
+            self.params.get("k_orca_fade", 2.0),
+        )
+        v_o = clamp_speed(self.orca.filter_velocities(agent_state, neighbor_lists, v_prop),
+                          2.0 * agent_state.desired_speeds)
+        out = v_prop + w_orca[:, None] * (v_o - v_prop)
+        out[~agent_state.active] = v_prop[~agent_state.active]
+        return out
 
     @staticmethod
     def _sigmoid(x: np.ndarray, x0: float, k: float) -> np.ndarray:

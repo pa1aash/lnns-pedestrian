@@ -393,6 +393,20 @@ class ORCAModel:
             self.lp3_calls += 1
         return np.array([vx, vy])
 
+    def filter_velocities(self, agent_state, neighbor_lists, v_prop):
+        """Velocity coupling (flag w2_orca_coupling = "velocity"): for every active agent, the velocity
+        nearest v_prop[i] under the neighbour half-planes (horizon time_horizon, built from the current
+        positions and velocities), speed circle 2 v0. The solver is the variant's (published: legacy
+        linear program; rvo2: RVO2 port). Inactive agents keep v_prop. Returns an (N, 2) array."""
+        out = np.array(v_prop, dtype=float, copy=True)
+        solve = self._velocity_rvo2 if self.variant == "rvo2" else self._velocity_published
+        for i in range(agent_state.n):
+            if not agent_state.active[i]:
+                continue
+            out[i] = solve(i, agent_state, neighbor_lists, out[i].copy(),
+                           2.0 * agent_state.desired_speeds[i])
+        return out
+
     def _forces_wave2(self, agent_state, neighbor_lists):
         n = agent_state.n
         forces = np.zeros((n, 2))

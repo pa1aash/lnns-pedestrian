@@ -214,8 +214,14 @@ class Simulation:
                 active_mask = self.state.active
                 new_vel[active_mask] += noise[active_mask]
                 new_vel = clamp_speed(new_vel, max_speeds)
+            # Wave V: velocity-coupled ORCA filters the proposed velocity (default "force": no-op).
+            if getattr(self.steering, "orca_coupling", "force") == "velocity":
+                new_vel = self.steering.orca_velocity_filter(self.state, neighbor_lists, densities,
+                                                             new_vel)
             new_pos = self.state.positions + new_vel * dt
         else:
+            if getattr(self.steering, "orca_coupling", "force") == "velocity":
+                raise ValueError("w2_orca_coupling='velocity' requires w2_numerics='fixed'")
             new_pos, new_vel = self.integrator.integrate(
                 self.state.positions,
                 self.state.velocities,
