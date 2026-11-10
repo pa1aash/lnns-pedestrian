@@ -15,14 +15,14 @@ for b in ("0p05", "0p1", "0p2", "0p5"):
     COL[f"bias{b}"] = ARM_COLOURS["lateral bias"]
 for s in ("0p03", "0p05", "0p07"):
     COL[f"noise{s}"] = ARM_COLOURS["noise"]
-LABEL = {"C1": "C1", "C2": "C2", "C3_pub": "C3 pub", "C3_rvo2": "C3 RVO2", "drive_only": "drive",
-         "constraint_only_pub": "constraint pub", "constraint_only_rvo2": "constraint RVO2",
+LABEL = {"C1": "SFM", "C2": "SFM+TTC", "C3_pub": "ORCA legacy", "C3_rvo2": "ORCA RVO2", "drive_only": "drive part",
+         "constraint_only_pub": "constraint part legacy", "constraint_only_rvo2": "constraint part RVO2",
          "frozen_plus": "push $+$", "frozen_minus": "push $-$",
-         "bias0p05": "$b=0.05$", "bias0p1": "$b=0.1$", "bias0p2": "$b=0.2$", "bias0p5": "$b=0.5$",
-         "noise0p03": "$\\sigma=0.03$", "noise0p05": "$\\sigma=0.05$", "noise0p07": "$\\sigma=0.07$"}
+         "bias0p05": "bias $b=0.05$", "bias0p1": "bias $b=0.1$", "bias0p2": "bias $b=0.2$", "bias0p5": "bias $b=0.5$",
+         "noise0p03": "noise $\\sigma=0.03$", "noise0p05": "noise $\\sigma=0.05$", "noise0p07": "noise $\\sigma=0.07$"}
 EDGE = "#3a3a3a"
 
-fig = fig_full(5.8)
+fig = fig_full(6.6)   # 5.8 before the longer vocabulary-v2 tick labels
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1.75, 1]})
 
 # ---- left: blocker freed within 120 s, Wilson 95% CI; filled = lone keystone, open = second trap

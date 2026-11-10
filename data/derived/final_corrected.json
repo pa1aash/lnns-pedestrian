@@ -1,0 +1,71 @@
+{
+ "script": "experiments/tables/derive_final.py",
+ "library": "E1b",
+ "terminal": {
+  "n": 196,
+  "n_neighbours_max": 9,
+  "n_neighbours_median": 2.0,
+  "rho_max": 0.3183098861837907,
+  "weidmann_min": 0.9965021524558613
+ },
+ "criterion": {
+  "n": 196,
+  "n_pos": 194,
+  "n_pos_held": 194,
+  "n_neg": 2,
+  "n_neg_held": 0,
+  "n_neg_pair": 2,
+  "n_within_10N": 1
+ },
+ "hessian": {
+  "n": 194,
+  "lateral_median_N_per_m": 1723.3190915844964,
+  "axial_median_N_per_m": 903.4109263176041
+ },
+ "second": {
+  "held": 151,
+  "n": 160
+ },
+ "push": {
+  "n": 34,
+  "both": 30,
+  "push_only": 1,
+  "orca_only": 0,
+  "mcnemar_exact_p": 1.0
+ },
+ "barriers": {
+  "n": 60,
+  "n_gate_fail": 4,
+  "failed": [
+   {
+    "tag": "E1b_seed172",
+    "cond": "full",
+    "reasons": [
+     "climbing image not converged"
+    ]
+   },
+   {
+    "tag": "E1b_seed174",
+    "cond": "full",
+    "reasons": [
+     "string at 124 images not converged (F_perp_max 7.83 N)",
+     "climbing image below the path maximum (9.299 < 9.492 J)"
+    ]
+   },
+   {
+    "tag": "E1b_seed209",
+    "cond": "full",
+    "reasons": [
+     "barrier changes by 5.7% from 62 to 124 images"
+    ]
+   },
+   {
+    "tag": "E1b_seed75",
+    "cond": "full",
+    "reasons": [
+     "barrier changes by 1e+02% from 62 to 124 images"
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+% Fig. (protocol): the five steps of the screening protocol as a vector flowchart, full \textwidth.
+% Input from paper/sections/04_protocol.tex inside a figure* environment; needs xcolor and tikz with the
+% libraries arrows.meta, positioning and calc (all loaded in paper/main.tex). Colours: Okabe-Ito values of figures/common.py.
+\definecolor{protoGrey}{HTML}{999999}%
+\definecolor{protoBlue}{HTML}{0072B2}%
+\definecolor{protoSky}{HTML}{56B4E9}%
+\definecolor{protoPurple}{HTML}{CC79A7}%
+\definecolor{protoVerm}{HTML}{D55E00}%
+\begin{tikzpicture}[
+    font=\scriptsize,
+    every node/.style={inner sep=0pt, outer sep=0pt},
+    head/.style={draw=#1, fill=#1, line width=0.5pt, text=white, font=\scriptsize\bfseries,
+                 minimum height=0.48cm, anchor=north west},
+    body/.style={draw=#1, fill=#1!7, line width=0.5pt, anchor=north west},
+    flow/.style={-{Stealth[length=1.6mm,width=1.3mm]}, line width=0.6pt, color=black!70},
+  ]
+  % widths as fractions of \textwidth; five boxes (0.90) and four gaps of 0.025\textwidth fill the line exactly
+  \pgfmathsetlengthmacro{\gap}{0.025\textwidth}%
+  \pgfmathsetlengthmacro{\bodyh}{2.75cm}%
+  \pgfmathsetlengthmacro{\pad}{2.5pt}%
+  % \protostep{name}{position}{width fraction}{colour}{heading}{body}; the 0.5pt border is half outside each box
+  \def\protostep#1#2#3#4#5#6{%
+    \pgfmathsetlengthmacro{\wb}{#3\textwidth-0.5pt}%
+    \pgfmathsetlengthmacro{\tw}{\wb-2*\pad}%
+    \node[head=#4, minimum width=\wb] (#1h) at #2 {\parbox{\tw}{\centering #5}};%
+    \node[body=#4, minimum width=\wb] (#1b) at (#1h.south west)
+      {\parbox[t][\bodyh][t]{\wb}{\vspace{\pad}\hspace*{\pad}\parbox[t]{\tw}{\raggedright #6}}};%
+  }%
+  \protostep{s1}{(0,0)}{0.16}{protoGrey}{1\hspace{0.4em}Snapshots}%
+    {Library of frozen deadlocks: lone keystone, second trap, pair standoff}
+  \protostep{s2}{($(s1h.north east)+(\gap+0.5pt,0)$)}{0.26}{protoBlue}{2\hspace{0.4em}Probes}%
+    {Quench\\ $10^{-9}$\,m replay\\ $\Delta t$ with per-step and with $\sqrt{\Delta t}$-scaled noise\\
+     Rest-drive push $\pm$\\ Lateral tilt $\pm b$\\ Corrected implementation}
+  \protostep{s3}{($(s2h.north east)+(\gap+0.5pt,0)$)}{0.16}{protoSky}{3\hspace{0.4em}Signatures}%
+    {Read the responses to the probes, paired by snapshot}
+  \protostep{s4}{($(s3h.north east)+(\gap+0.5pt,0)$)}{0.12}{protoPurple}{4\hspace{0.4em}Class}%
+    {P\enspace prevent\\ L\enspace reshape\\ T\enspace heat\\ D\enspace steer\\ N\enspace glitch\\[1pt]
+     (Table~\ref{tab:signatures})}
+  \protostep{s5}{($(s4h.north east)+(\gap+0.5pt,0)$)}{0.20}{protoVerm}{5\hspace{0.4em}Compare}%
+    {Resolver vs.\ rate-matched surrogate: rates matched, signatures compared; one mechanism only if no probe
+     separates them}
+  \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5}{%
+    \draw[flow] ($(\a h.north east)!0.5!(\a b.south east)$) -- ($(\b h.north west)!0.5!(\b b.south west)$);%
+  }%
+\end{tikzpicture}%

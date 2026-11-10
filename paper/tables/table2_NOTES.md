@@ -61,3 +61,5 @@ N (glitch): quench "frees or holds, depending on solver details"; replay "outcom
 
 ## Page pass (2026-11-09)
 Headers: "Replay, 10^-9 m", "Δt, per step", "Δt, √Δt", "Push ±" (rest-drive push, defined in §4 text), "Tilt ±b", "Corrected numerics"; Class header left blank. Cells reworded without changing any prediction: "no change"/"no Δt dependence" → "flat" (key in caption: "flat: no dependence on Δt"); L push "+ frees, − not"; L/D replay "identical"; T replay "disagree"; T quench "frees; exponential times"; T Δt per step "falls as Δt grows"; D quench "frees only past b_f"; D tilt "handedness flips" (= first agent out switches side); N quench "set by solver details", replay "outcome flips" (the published solver's flips come from the leg-normal sign defect, a half-plane switch after smooth amplification), corrected numerics "effect vanishes".
+
+Final rewrite (2026-11-10, vocabulary v2): last column header "Corrected numerics" -> "Corrected implementation" (the one model: speed cap before the position update, rejection-sampled spawns, convex-union wall corners, RVO2 solver). No cell or prediction changed; N keeps "effect vanishes".

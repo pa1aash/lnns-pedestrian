@@ -119,7 +119,7 @@ BLOCKS = [
          jind(ci("FixAoneLoneJ", "FixAoneLoneJLo", "FixAoneLoneJHi"), "FixAoneLoneJInd"),
          one("TabThreeLKNoiseMed"), NA,
          frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA),
-        ("C3 RVO2",
+        ("ORCA (RVO2)",
          frac("EtwoLKCThreeRVOFreed", "EtwoLKCThreeRVON"), "", "",
          one("TabThreeLKRvoMed"), NA,
          frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"), NA),
@@ -128,7 +128,7 @@ BLOCKS = [
     (r"Time-step test: " + one("EthreeN") + r" lone-trap snapshots", [
         (r"noise, $\beta_{\rm ref}=1.5$", NA, NA, NA, NA, NA, NA,
          "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
-        ("C3 RVO2", frac("EthreeCThreeFreed", "EthreeN"), NA, NA, NA, NA, NA,
+        ("ORCA (RVO2)", frac("EthreeCThreeFreed", "EthreeN"), NA, NA, NA, NA, NA,
          "$" + one("EthreeCThreeLnRatioFix") + "$"),
     ]),
     (r"Whole runs: " + one("EsixN") + r" seeds, 600\,s", [
@@ -137,16 +137,16 @@ BLOCKS = [
          diff("EsixDiff", "EsixDiffLo", "EsixDiffHi"),
          jind(ci("EsixJaccard", "EsixJaccardLo", "EsixJaccardHi"), "FixAoneWholeJInd"),
          one("EsixKMNoise"), NA, NA, NA),
-        ("C3 RVO2", frac("EsixCThreeK", "EsixN"), "", "", one("EsixKMCThree"), NA, NA, NA),
+        ("ORCA (RVO2)", frac("EsixCThreeK", "EsixN"), "", "", one("EsixKMCThree"), NA, NA, NA),
     ]),
     (r"Pair standoffs: " + one("PairN") + r" snapshots, 120\,s", [
-        (r"bias $b^\ast_{\rm pub}=" + one("PairBstarPub") + "$",
+        (r"bias $b^\ast_{\rm legacy}=" + one("PairBstarPub") + "$",
          frac("PairBsPubFreed", "PairN"),
          diff("TabThreePairPubDiff", "TabThreePairPubDiffLo", "TabThreePairPubDiffHi"),
          jind(ci("PairBsPubJac", "PairBsPubJacLo", "PairBsPubJacHi"), "FixAonePairPubJInd"),
          PAIR_T, frac("PairBsPubHand", "PairBsPubN"),
          frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"), NA),
-        ("C3 published",
+        ("ORCA (legacy)",
          frac("PairPubFreed", "PairN"), "", "", PAIR_T,
          frac("PairPubLower", "TabThreePairPubOrcaN"),
          frac("TabThreePairPubReplayDis", "TabThreePairOrcaReplays"), NA),
@@ -156,18 +156,23 @@ BLOCKS = [
          rvo2_pair_jaccard(),
          PAIR_T, frac("TabThreePairRvoHand", "TabThreePairRvoHandN"),
          frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"), NA),
-        ("C3 RVO2",
+        ("ORCA (RVO2)",
          frac("PairRvoFreed", "PairN"), "", "", PAIR_T,
          frac("TabThreePairRvoOrcaLower", "TabThreePairRvoOrcaN"),
          frac("TabThreePairRvoReplayDis", "TabThreePairOrcaReplays"), NA),
     ]),
+    # velocity coupling of ORCA (Sect. 6.4): runs in progress; the whole row is pending until they are analysed.
+    (r"Velocity coupling", [
+        (r"ORCA (RVO2), velocity coupling",
+         r"\multicolumn{7}{c}{\pending{results of Sect.~\ref{sec:velorca}}}"),
+    ]),
 ]
 
 CAPTION = (
-    r"Controls matched to ORCA on rate: freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
+    r"Rate-matched surrogates against ORCA under force coupling (last block: velocity coupling): freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
     r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$ (s), first exits "
     r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
-    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are C1 + noise; lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are SFM + noise; lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
 )
 
 
@@ -180,7 +185,7 @@ def main():
         r"\centering\scriptsize\setlength{\tabcolsep}{1.5pt}",
         r"\resizebox{\textwidth}{!}{\begin{tabular}{@{}lccccccc@{}}",
         r"\toprule",
-        r"Control & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ & Lower & Replay & $\ell$ \\",
+        r"Perturbation & Freed & $\Delta$ [CI] & $J$ [CI] & $t_{1/2}$ & Lower & Replay & $\ell$ \\",
     ]
     nrows = 0
     for title, rows in BLOCKS:
@@ -191,7 +196,7 @@ def main():
     lines += [r"\bottomrule", r"\end{tabular}}", r"\end{table}"]
     text = "\n".join(lines) + "\n"
     OUT.write_text(text)
-    print(f"wrote {OUT} ({nrows} rows, 8 columns, 3 blocks)")
+    print(f"wrote {OUT} ({nrows} rows, 8 columns, {len(BLOCKS)} blocks)")
 
 
 if __name__ == "__main__":

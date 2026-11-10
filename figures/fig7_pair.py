@@ -13,18 +13,18 @@ COL = {"C1": ARM_COLOURS["C1"], "C2": ARM_COLOURS["C2"],
        "C3_pub": ARM_COLOURS["C3 published"], "C3_rvo2": ARM_COLOURS["C3 RVO2"],
        "drive_only": PURPLE, "constraint_only_pub": PURPLE, "constraint_only_rvo2": PURPLE,
        "frozen_plus": PURPLE, "frozen_minus": PURPLE}
-LABEL = {"C1": "C1", "C2": "C2", "C3_pub": "C3 pub", "C3_rvo2": "C3 RVO2", "drive_only": "drive",
-         "constraint_only_pub": "constraint pub", "constraint_only_rvo2": "constraint RVO2",
+LABEL = {"C1": "SFM", "C2": "SFM+TTC", "C3_pub": "ORCA legacy", "C3_rvo2": "ORCA RVO2", "drive_only": "drive part",
+         "constraint_only_pub": "constraint part legacy", "constraint_only_rvo2": "constraint part RVO2",
          "frozen_plus": "push $+$", "frozen_minus": "push $-$",
-         "bstarpubp": "$+b^{\\textstyle\\ast}$ pub", "bstarpubm": "$-b^{\\textstyle\\ast}$ pub",
-         "bstarrvo2p": "$+b^{\\textstyle\\ast}$ RVO2", "bstarrvo2m": "$-b^{\\textstyle\\ast}$ RVO2"}
+         "bstarpubp": "bias $+b^{\\textstyle\\ast}$ legacy", "bstarpubm": "bias $-b^{\\textstyle\\ast}$ legacy",
+         "bstarrvo2p": "bias $+b^{\\textstyle\\ast}$ RVO2", "bstarrvo2m": "bias $-b^{\\textstyle\\ast}$ RVO2"}
 for s in ("0p01", "0p02", "0p03", "0p05"):
     COL[f"noise{s}"] = ARM_COLOURS["noise"]
-    LABEL[f"noise{s}"] = f"$\\sigma={s.replace('p', '.')}$"
+    LABEL[f"noise{s}"] = f"noise $\\sigma={s.replace('p', '.')}$"
 for k in ("bstarpubp", "bstarpubm", "bstarrvo2p", "bstarrvo2m"):
     COL[k] = YEL
 
-fig = fig_full(4.4)
+fig = fig_full(5.3)   # 4.4 before the longer vocabulary-v2 tick labels
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1, 1.45]})
 
 # ---- left: freed fraction against signed lateral bias b

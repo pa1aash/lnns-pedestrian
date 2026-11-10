@@ -1,0 +1,24 @@
+# Counts of the room-bottleneck deadlocks for the one model of the paper (E1b library), replacing summaries that
+# pooled the superseded E1a library; source experiments/tables/derive_final.py -> data/derived/final_corrected.json.
+FinTermN: {file: final_corrected.json, key: "terminal.n", fmt: "{:d}"}
+FinTermNbMax: {file: final_corrected.json, key: "terminal.n_neighbours_max", fmt: "{:d}"}
+FinTermNbMedian: {file: final_corrected.json, key: "terminal.n_neighbours_median", fmt: "{:.0f}"}
+FinTermRhoMax: {file: final_corrected.json, key: "terminal.rho_max", fmt: "{:.2f}"}
+FinTermWeidMin: {file: final_corrected.json, key: "terminal.weidmann_min", fmt: "{:.3f}"}
+FinCritN: {file: final_corrected.json, key: "criterion.n", fmt: "{:d}"}
+FinCritPosN: {file: final_corrected.json, key: "criterion.n_pos", fmt: "{:d}"}
+FinCritPosHeld: {file: final_corrected.json, key: "criterion.n_pos_held", fmt: "{:d}"}
+FinCritNegN: {file: final_corrected.json, key: "criterion.n_neg", fmt: "{:d}"}
+FinCritNegHeld: {file: final_corrected.json, key: "criterion.n_neg_held", fmt: "{:d}"}
+FinCritNegPair: {file: final_corrected.json, key: "criterion.n_neg_pair", fmt: "{:d}"}
+FinCritNearZeroN: {file: final_corrected.json, key: "criterion.n_within_10N", fmt: "{:d}"}
+FinLatStiffMed: {file: final_corrected.json, key: "hessian.lateral_median_N_per_m", fmt: "{:.0f}"}
+FinAxStiffMed: {file: final_corrected.json, key: "hessian.axial_median_N_per_m", fmt: "{:.0f}"}
+FinSecondTrapHeld: {file: final_corrected.json, key: "second.held", fmt: "{:d}"}
+FinSecondTrapN: {file: final_corrected.json, key: "second.n", fmt: "{:d}"}
+FinPushN: {file: final_corrected.json, key: "push.n", fmt: "{:d}"}
+FinPushBoth: {file: final_corrected.json, key: "push.both", fmt: "{:d}"}
+FinPushOnly: {file: final_corrected.json, key: "push.push_only", fmt: "{:d}"}
+FinOrcaOnly: {file: final_corrected.json, key: "push.orca_only", fmt: "{:d}"}
+FinBarLibN: {file: final_corrected.json, key: "barriers.n", fmt: "{:d}"}
+FinBarGateFail: {file: final_corrected.json, key: "barriers.n_gate_fail", fmt: "{:d}"}

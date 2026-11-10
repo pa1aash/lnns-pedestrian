@@ -9,17 +9,17 @@ import numpy as np
 from common import ARM_COLOURS, HERE, fig_full, qa, save
 
 d = json.load(open(HERE / "data" / "fig8.json"))
-COL = {"humans": ARM_COLOURS["humans"], "C1_pub": ARM_COLOURS["C1"], "C1_cf": ARM_COLOURS["C1"],
-       "C1_cf_edge": ARM_COLOURS["C1"], "C3_rvo2_cf": ARM_COLOURS["C3 RVO2"], "C1_cf_sig": ARM_COLOURS["noise"]}
-# published mode open, corrected-forward filled; the jamb wall variant as a square
-MARK = {"humans": ("o", True), "C1_pub": ("o", False), "C1_cf": ("o", True), "C1_cf_edge": ("s", True),
+COL = {"humans": ARM_COLOURS["humans"], "C1_cf": ARM_COLOURS["C1"], "C1_cf_edge": ARM_COLOURS["C1"],
+       "C3_rvo2_cf": ARM_COLOURS["C3 RVO2"], "C1_cf_sig": ARM_COLOURS["noise"]}
+# filled circles; the jamb wall variant as a filled square
+MARK = {"humans": ("o", True), "C1_cf": ("o", True), "C1_cf_edge": ("s", True),
         "C3_rvo2_cf": ("o", True), "C1_cf_sig": ("o", True)}
-LABEL = {"humans": "humans", "C1_pub": "C1 published", "C1_cf": "C1", "C1_cf_edge": r"C1 jamb $B_{w,\mathrm{edge}}$",
-         "C3_rvo2_cf": "C3 RVO2", "C1_cf_sig": r"C1 $+\,\sigma^\ast$"}
+LABEL = {"humans": "humans", "C1_cf": "SFM", "C1_cf_edge": r"SFM with $B_{w,\mathrm{edge}}$",
+         "C3_rvo2_cf": "ORCA RVO2", "C1_cf_sig": r"SFM + noise $\sigma^\ast$"}
 YLAB = {"flow": "flow (ped/s)", "longest_gap": "longest gap (s)", "fluct": "waiting-zone fluctuation (m/s)"}
 
-order = d["order"]
-fig = fig_full(6.2)
+order = [c for c in d["order"] if c in LABEL]   # the C1_pub cell in the cache is not plotted
+fig = fig_full(6.6)   # 6.2 before the longer vocabulary-v2 tick labels
 axes = fig.subplots(1, 3)
 rng = np.random.default_rng(1)
 for ax, m in zip(axes, d["metrics"]):

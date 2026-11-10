@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Write paper/tables/table1_params.tex from data/params/model.yaml.
 
-Compact LNCS-width (12.2 cm; columns 1.2 + 6.5 + 3.75 cm + 4 x 3 pt) table: a parameter block (spanning the two mode
-columns) and a two-column block for the two model modes. Every number is read
-from the YAML, so the table cannot drift from the recorded code values.
+Compact LNCS-width (12.2 cm; columns 1.2 + 10.75 cm + 2 x 3 pt) table of the one model: parameters, the ORCA
+solvers and the update. Every number is read from the YAML, so the table cannot drift from the recorded code values.
 """
 from pathlib import Path
 
@@ -11,18 +10,12 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 P = yaml.safe_load((ROOT / "data" / "params" / "model.yaml").read_text())
-par, modes = P["parameters"], P["modes"]
+par, model = P["parameters"], P["modes"]["corrected_forward"]
 
 
 def val(key, sub=None):
     v = par[key]["value"]
     return v if sub is None else v[sub]
-
-
-def calibrated(key):
-    """Conference-calibrated value recorded in the parameter's meaning field (never applied)."""
-    import re
-    return float(re.search(r"calibrated ([0-9.]+)", par[key]["meaning"]).group(1))
 
 
 def g(x):
@@ -46,12 +39,11 @@ rows = [
      rf"$[{g(val('spawn_area')[0])},{g(val('spawn_area')[1])}]\times[{g(val('spawn_area')[2])},{g(val('spawn_area')[3])}]${U}m of a "
      rf"${g(val('room')[0])}\times{g(val('room')[1])}${U}m room; door $w={g(val('door_width'))}${U}m in the wall $x={g(val('room')[0])}${U}m; "
      rf"goal $g=({g(val('goal')[0])},{g(val('goal')[1])})${U}m, exit at $|x-g|<{g(val('deactivation_radius'))}${U}m. "
-     rf"$\Delta t={g(val('dt'))}${U}s; speed limit ${g(val('speed_clamp'))}v_0$; noise $\sigma$ set per experiment; "
+     rf"$\Delta t={g(val('dt'))}${U}s; noise $\sigma$ set per experiment; "
      rf"deadlock: all $|v|<{g(val('deadlock_criterion','v_thr'))}${U}m/s for ${g(val('deadlock_criterion','hold'))}${U}s"),
     ("Density",
      rf"$\gamma={g(val('weidmann_gamma'))}$, $\rho_{{\max}}={g(val('weidmann_rho_max'))}${U}ped/m$^2$, "
-     rf"$\rho$ floored at {g(val('density_floor'))}{U}ped/m$^2$; "
-     rf"the conference paper's calibrated $\gamma={g(calibrated('weidmann_gamma'))}$, $\rho_{{\max}}={g(calibrated('weidmann_rho_max'))}${U}ped/m$^2$ are not applied"),
+     rf"$\rho$ floored at {g(val('density_floor'))}{U}ped/m$^2$"),
     ("SFM, walls",
      rf"$A={g(val('A'))}${U}N, $B={g(val('B'))}${U}m, $k={g(val('k'))}${U}kg/s$^2$, $\kappa={g(val('kappa'))}${U}kg/(m\,s); "
      rf"$A_w=A$, $B_w=B$; variants $B_w$, $B_{{w,\rm edge}}$ "
@@ -59,42 +51,29 @@ rows = [
      rf"rounded edge $r={g(val('edge_radius'))}${U}m"),
     ("Other forces",
      rf"$k_{{\rm ttc}}={g(val('k_ttc'))}$, $\tau_0={g(val('tau_0'))}${U}s, $\tau_{{\max}}={g(val('tau_max'))}${U}s; "
-     rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm orca}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$; "
-     rf"$k_{{\rm crush}}={g(val('k_crush'))}${U}kg/s$^2$, $\kappa_{{\rm crush}}={g(val('kappa_crush'))}${U}kg/(m\,s), "
-     rf"$w_c=s(\rho;{g(val('crush_gate','rho0'))},{g(val('crush_gate','k'))})$"),
+     rf"$\tau_h={g(val('time_horizon'))}${U}s, $\tau_{{\rm orca}}={g(val('tau_orca'))}${U}s, speed cap ${g(val('orca_speed_cap'))}v_0$"),
+    ("ORCA solvers",
+     r"legacy linear-program solver: original implementation, with a leg-normal sign defect; "
+     r"RVO2 solver: line-by-line port of RVO2~\cite{vandenberg2011rvo2}"),
+    ("Update",
+     rf"speed cap ${g(val('speed_clamp'))}v_0$ before the position update; rejection-sampled spawns; convex-union wall corners"),
 ]
 # the TTC velocity cut and the ORCA gate are stated in the text (Eqs. ttc, orca); check they match the YAML
 assert val("ttc_min_dv2") == 1e-8 and (val("orca_gate", "rho0"), val("orca_gate", "k")) == (4.0, 2.0)
 
-pub, cor = modes["published_reproduction"], modes["corrected_forward"]
-mode_rows = [
-    ("Update", "semi-implicit Euler, then clamp; force clip $\\pm10^{6}$\\,N; noise after the $x$ update",
-     "update of Sect.~\\ref{sec:model}; no clip"),
-    ("ORCA", "leg-normal sign defect (source of outcome flips under replay); infeasible constraints dropped",
-     "line-by-line RVO2 port~\\cite{vandenberg2011rvo2}"),
-    ("Other", "crush term in C4; uniform spawn with overlaps; wall segments summed at corners",
-     "no crush term or overlaps; convex-union corners"),
-]
-# the wording above must match the YAML flags
-assert pub["w2_numerics"] == "published" and cor["w2_numerics"] == "fixed"
-assert pub["w2_crush"] == "on" and cor["w2_crush"] == "off"
-assert pub["w2_wall_corner"] == "segment_sum" and cor["w2_wall_corner"] == "convex_union"
-assert pub["spawn"] == "uniform" and cor["spawn"] == "rejection"
-assert pub["w2_orca"] == "published" and cor["w2_orca"] == "rvo2"
+# the update row must match the YAML flags of the model
+assert model["w2_numerics"] == "fixed" and model["w2_crush"] == "off"
+assert model["w2_wall_corner"] == "convex_union" and model["spawn"] == "rejection"
 
 L = ["% generated by experiments/tables/make_table1.py from data/params/model.yaml; do not edit",
      "\\begin{table}[t]",
-     "\\caption{Model parameters (top) and mode differences (bottom); values agree with the conference "
-     "paper~\\cite{gang2026} except where noted.}",
+     "\\caption{Model parameters, ORCA solvers and update scheme.}",
      "\\label{tab:params}",
      "\\centering\\footnotesize\\setlength{\\tabcolsep}{3pt}",
-     "\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{1.2cm}>{\\raggedright\\arraybackslash}p{6.5cm}>{\\raggedright\\arraybackslash}p{3.75cm}@{}}",
+     "\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{1.2cm}>{\\raggedright\\arraybackslash}p{10.75cm}@{}}",
      "\\toprule"]
 for name, body in rows:
-    L.append(f"{name} & \\multicolumn{{2}}{{p{{10.45cm}}@{{}}}}{{{body}}} \\\\")
-L += ["\\midrule", "Mode & published-reproduction & corrected-forward \\\\", "\\midrule"]
-for a, b, c in mode_rows:
-    L.append(f"{a} & {b} & {c} \\\\")
+    L.append(f"{name} & {body} \\\\")
 L += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
 out = ROOT / "paper" / "tables" / "table1_params.tex"
 out.write_text("\n".join(L) + "\n")
