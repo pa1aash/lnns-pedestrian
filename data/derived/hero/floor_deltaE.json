@@ -8,15 +8,38 @@
  "floor_orange_end_hex": "#FD9668",
  "F_fade_N": 5.0,
  "F_max_N": 1000.0,
- "held_alone_cividis_yellow": {
-  "rgb_hex": "#FEE434",
-  "min_dE2000": 28.820092117953273,
-  "at_force_N": 5.904174444755297
+ "held_alone_disc": {
+  "rgb_hex": "#CACACA",
+  "min_dE2000": 9.430902948527114,
+  "at_force_N": 5.66385187145989
  },
  "lateral_bias_F0E442": {
   "rgb_hex": "#F0E442",
   "min_dE2000": 28.442877023161035,
   "at_force_N": 5.547384127383158
  },
- "min_dE2000_overall": 28.442877023161035
+ "note": "rev. 1: the held-alone disc is light grey; its smallest distance to the floor is to the near-background floor (5-6 N), which the disc's dark rim separates; the hue check against the bias yellow is unchanged",
+ "margin_map": {
+  "stops_hex": [
+   "#192C4B",
+   "#485066",
+   "#737783",
+   "#A0A1A5",
+   "#CCCCCC"
+  ],
+  "L_star": [
+   18.0,
+   82.0
+  ],
+  "min_dE2000_to": {
+   "ORCA_0072B2": 18.0,
+   "ORCA_56B4E9": 20.9,
+   "noise_D55E00": 31.5,
+   "push_CC79A7": 22.7,
+   "orange_E69F00": 28.9,
+   "green_009E73": 26.5,
+   "bias_F0E442": 28.5,
+   "old_held_FEE434": 29.3
+  }
+ }
 }

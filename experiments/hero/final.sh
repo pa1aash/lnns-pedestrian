@@ -5,7 +5,8 @@
 # rendered once more. If QUEUE_PID is set (e.g. QUEUE_PID=3074 sh experiments/hero/final.sh), the process group of that
 # PID (a running experiment queue) is paused with SIGSTOP for the re-render only and always resumed with SIGCONT (trap);
 # it is never killed. Without QUEUE_PID nothing is paused. macOS only (memory_pressure, vm.swapusage, Metal);
-# Blender 5.2.2 on PATH as `blender`. Log: figures/hero/final_render.log
+# Blender 5.2.2 on PATH as `blender`. Log: figures/hero/final_render.log. Rev. 1 (no colour bars, axes, navy-grey agents) used
+# PATH=/opt/homebrew/bin:$PATH MIN_FREE_GB=2.0 nohup caffeinate -i sh experiments/hero/final.sh > figures/hero/rev1_render.log 2>&1 &
 cd "$(dirname "$0")/../.."
 MIN=${MIN_FREE_GB:-3.5}
 C=figures/hero/final_cache
@@ -46,5 +47,5 @@ for P in lone pair rib_lone rib_pair; do
 done
 blender -b -t 2 --factory-startup --python experiments/hero/render_hero.py -- --width-px 2882 --samples ${SAMPLES:-128} --cache-dir $C --assemble \
   --out figures/fig1_hero.png --overlay figures/hero/fig1_overlay.json | grep -E "HERO|WARN"
-python3 tools/make_fig1_overlay.py --png figures/fig1_hero.png | cut -c1-300
+${PY:-.venv/bin/python} tools/make_fig1_overlay.py --png figures/fig1_hero.png | cut -c1-300
 echo "$(date '+%F %T') done"

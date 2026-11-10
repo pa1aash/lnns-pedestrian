@@ -8,6 +8,9 @@ Layout (cm, 12.2 wide): 2 x 2, one white background, no panel borders.
   bottom-left  pair scene (same camera, elevation and scale)
   top-right    lone-trap ribbons: own drive / added drive (front-on orthographic, one energy scale)
   bottom-right pair ribbons: no tilt / tilted (its own energy scale)
+Rev. 1: agents use the "margin" LUT (navy -> light grey, make_luts.py) instead of cividis; the k_BT_eff band is a flat
+light-vermilion backdrop behind the own-drive ribbon over its whole x range (emission, no shading, projected so that its
+edges sit at E = 0 and E = k_BT_eff of the ribbon's mid-depth plane); the axes, ticks and band edges are exported as anchors.
 The image holds no text, arrows, lines or scale bars. Every overlay element is exported as 3-D anchor points
 projected to normalised image coordinates (bpy_extras.object_utils.world_to_camera_view) into
 figures/hero/fig1_overlay.json; tools/make_fig1_overlay.py turns that into figures/fig1_overlay.tex.
@@ -32,6 +35,11 @@ A = None
 BG = (245 / 255, 245 / 255, 245 / 255)     # neutral off-white: all four panels and the weak-force floor (make_luts.BG)
 EDGE_RGB = (0.10, 0.10, 0.10)
 KERB_RGB = (0.62, 0.62, 0.60)
+# rev. 1 axes of the ribbons (tick values; energies relative to the ball's position) and the k_BT_eff backdrop colour:
+# vermilion #D55E00 at 30 % over the background #F5F5F5
+LONE_XTICKS, LONE_ETICKS = [9.6, 9.7, 9.8, 9.9, 10.0], [[0, 10, 20], [-20, -10, 0, 10, 20]]
+PAIR_XTICKS, PAIR_ETICKS = [-0.1, -0.05, 0.0, 0.05, 0.1], [[0, 0.5], [-0.5, 0, 0.5]]
+BAND_RGB = tuple((0.3 * np.array([213, 94, 0]) + 0.7 * 245) / 255.0)
 OKABE = {"black": (0.0, 0.0, 0.0), "blue": (0.0, 0.447, 0.698), "yellow": (0.941, 0.894, 0.259),
          "vermillion": (0.835, 0.369, 0.0)}
 
@@ -71,6 +79,7 @@ def parse():
     ap.add_argument("--edge", type=float, default=0.006, help="m, dark shading edge around each agent")
     ap.add_argument("--bevel", type=float, default=0.008, help="m, bevel on discs and kerbs")
     ap.add_argument("--margin-span", type=float, default=150.0)
+    ap.add_argument("--agent-lut", default="margin", help="LUT for the stuck-alone margin of the agents (rev. 1: margin; before: cividis)")
     ap.add_argument("--force-min", type=float, default=5.0, help="N, the floor is the background at and below this force")
     ap.add_argument("--floor-diffuse", type=float, default=0.25, help="share of the LUT colour that is lit (soft shadows)")
     ap.add_argument("--floor-emit", type=float, default=0.76, help="emission = 1 - floor_diffuse x (measured lit fraction 0.97): unshaded floor renders as its LUT colour")
@@ -86,6 +95,11 @@ def parse():
     ap.add_argument("--rib-depth-cm", type=float, default=0.40)
     ap.add_argument("--ball-cm", type=float, default=0.11, help="ball radius")
     ap.add_argument("--rib-elev", type=float, default=12.0)
+    ap.add_argument("--rib-left-cm", type=float, default=0.95, help="cm from the ribbon panel's left edge to the ribbons (room for the energy axes)")
+    ap.add_argument("--rib-top-cm", type=float, default=0.32, help="cm from the panel top to the top of the first energy axis")
+    ap.add_argument("--rib-gap-cm", type=float, default=0.36, help="cm from a ribbon's x axis to the top of the next energy axis")
+    ap.add_argument("--rib-base-cm", type=float, default=0.06, help="cm from the ribbon's lowest point to its x axis")
+    ap.add_argument("--rib-axis-gap-cm", type=float, default=0.10, help="cm between the energy axis and the ribbon's left end")
     ap.add_argument("--cluster-u", type=float, default=0.95, help="cm from the lone panel's left edge: corner of the 100 N bar")
     ap.add_argument("--cluster-gap", type=float, default=0.28, help="cm between the 100 N bar and the start of the 0.5 m bar")
     ap.add_argument("--cluster-v", type=float, default=1.17, help="cm from the lone panel's top edge: scale cluster corner")
@@ -379,7 +393,7 @@ def floor_scene(D, anc, kind, extras):
         seg = clip_segment(w[:2], w[2:], fb)
         if seg is not None:
             slab("kerb%d" % k, seg[0], seg[1], A.kerb_thick, A.kerb_height, KERB_RGB, bevel=A.bevel)
-    cols = ramp(D["margin_N"], -A.margin_span, A.margin_span, "cividis")
+    cols = ramp(D["margin_N"], -A.margin_span, A.margin_span, A.agent_lut)
     for k, (p, r) in enumerate(zip(D["pos"], D["radius"])):
         cylinder("edge%d" % k, p[0], p[1], float(r) + A.edge, A.agent_height - 0.003, EDGE_RGB, bevel=A.bevel / 2)
         cylinder("agent%d" % k, p[0], p[1], float(r), A.agent_height, cols[k], bevel=A.bevel)
@@ -421,28 +435,36 @@ def strip(name, X, Z, thick, depth, rgb, rough=0.55):
 
 
 def ribbons_scene(spec, anc, h):
+    """Stacked ribbons with axes. Energy E (J, relative to the ball's position x_ref) maps to panel-local height
+    z = z0 + E / ej on the ribbon's mid-depth plane (y = 0, where the balls sit); the horizontal coordinate maps to
+    X = X0 + (x - xlo) * hs. Every axis end, tick and band corner is exported as an anchor projected by the camera, so the
+    overlay draws axes in exactly the projection of the render."""
     w = A.col_cm
     t, dep, rb = A.rib_thick_cm, A.rib_depth_cm, A.ball_cm
     xlo, xhi = spec["x_range"]
     hs = A.rib_width_cm / (xhi - xlo)
-    X0 = spec.get("left_cm", 0.45)
+    X0 = A.rib_left_cm
+    Xa = X0 - A.rib_axis_gap_cm
     ej = spec["ej"]
+    tan_el = math.tan(math.radians(A.rib_elev))
     curves = []
-    cur_top = h - 0.52
+    top = h - A.rib_top_cm
     for k, cv in enumerate(spec["curves"]):
         x = np.linspace(xlo, xhi, 140)
         U = np.interp(x, cv["x"], cv["U"])
         U = (U - np.interp(cv["x_ref"], cv["x"], cv["U"])) / ej            # cm, zero at the ball's position
-        z_top = cur_top - (U.max())                                       # the curve's maximum at cur_top
-        Z = z_top + U                                                     # panel-local cm of the top surface
+        et = np.asarray(cv["eticks"], float) / ej
+        e_hi, e_lo = max(U.max(), et.max()), min(U.min(), et.min())
+        z0 = top - e_hi                                                   # height of E = 0
+        Z = z0 + U                                                        # panel-local cm of the top surface (mid-depth)
         X = X0 + (x - xlo) * hs
-        curves.append((X, Z, cv, x, U, z_top))
-        cur_top = Z.min() - t - spec.get("gap_cm", 0.42)
-    low = min(c[1].min() for c in curves) - t
-    if low < 0.12:
-        print("WARNING ribbons do not fit: lowest point %.2f cm" % low)
+        zb0 = min(Z.min() - t, z0 + e_lo) - A.rib_base_cm                 # x axis
+        curves.append((X, Z, cv, x, U, z0, e_lo, e_hi, zb0))
+        top = zb0 - A.rib_gap_cm
+    if curves[-1][8] < 0.36:
+        print("WARNING ribbons do not fit: lowest x axis at %.2f cm (tick labels need 0.36 cm)" % curves[-1][8])
     out = {}
-    for k, (X, Z, cv, x, U, z_top) in enumerate(curves):
+    for k, (X, Z, cv, x, U, z0, e_lo, e_hi, zb0) in enumerate(curves):
         strip("rib%d" % k, X, Z, t, dep, cv["rgb"])
         xs_ball = X0 + (cv["x_ref"] - xlo) * hs
         zb = float(np.interp(xs_ball, X, Z))
@@ -459,35 +481,52 @@ def ribbons_scene(spec, anc, h):
             cg = (gx_ + nn[0] * rb, 0.0, gz + nn[1] * rb)
             sphere("ghost%d" % k, cg, rb, (0.02, 0.02, 0.02), rough=0.3, alpha=0.28)
             anc.add("ghost%d" % k, cg)
-        # baseline anchors: same x extent, below the curve
-        zb0 = float(Z.min() - t - 0.10)
+        # x axis (baseline) and its ticks; energy axis and its ticks (anchors only, drawn by the overlay)
         anc.add("base%d_0" % k, (X[0], 0.0, zb0))
         anc.add("base%d_1" % k, (X[-1], 0.0, zb0))
-        lead = X <= X[0] + 1.35                      # the label spans the first 1.35 cm: clear the curve's highest point there
-        anc.add("label%d" % k, (X[0], 0.0, float(Z[lead].max()) + 0.10))
+        for v in spec["xticks"]:
+            anc.add("xt%d_%g" % (k, v), (X0 + (v - xlo) * hs, 0.0, zb0))
+        anc.add("e%d_lo" % k, (Xa, 0.0, z0 + e_lo))
+        anc.add("e%d_hi" % k, (Xa, 0.0, z0 + e_hi))
+        for v in cv["eticks"]:
+            anc.add("et%d_%g" % (k, v), (Xa, 0.0, z0 + v / ej))
+        # label anchors: above the curve's highest point over the 1.35 cm next to the chosen end
+        side = cv.get("label_side", "left")
+        lead = X <= X[0] + 1.35 if side == "left" else X >= X[-1] - 1.35
+        anc.add("label%d" % k, (X[0] if side == "left" else X[-1], 0.0, float(Z[lead].max()) + 0.10))
         anc.add("curve%d_top" % k, (float(X[np.argmax(Z)]), 0.0, float(Z.max())))
+        anc.add("curve%d_min" % k, (float(X[np.argmin(Z)]), 0.0, float(Z.min())))
         out[k] = dict(zmin=float(Z.min()), zmax=float(Z.max()), xs_ball=float(xs_ball))
         if spec.get("band") and k == spec["band"]["curve"]:
+            # flat backdrop behind the ribbon: E = 0 .. k_BT_eff over the ribbon's whole x range. It sits at y = yb behind the
+            # ribbon; its heights are lowered by yb tan(elev) so that it projects onto the mid-depth plane's E levels.
             kT = spec["band"]["kT"] / ej
-            xb = X0 + (spec["band"]["x"] - xlo) * hs + rb * 2.6
-            zb_floor = float(np.interp(xb, X, Z))
-            bw = 0.05
-            verts = [(xb - bw, -dep / 2 - 0.01, zb_floor), (xb + bw, -dep / 2 - 0.01, zb_floor),
-                     (xb + bw, -dep / 2 - 0.01, zb_floor + kT), (xb - bw, -dep / 2 - 0.01, zb_floor + kT)]
-            mesh_obj("band", verts + [(a_, b_ + dep + 0.02, c_) for a_, b_, c_ in verts],
-                     [(0, 1, 2, 3), (4, 7, 6, 5), (0, 4, 5, 1), (1, 5, 6, 2), (2, 6, 7, 3), (3, 7, 4, 0)],
-                     material("band", OKABE["vermillion"], rough=0.5))
-            anc.add("band_0", (xb, 0.0, zb_floor))
-            anc.add("band_1", (xb, 0.0, zb_floor + kT))
-    # energy scale bar (anchors only): vertical, at the right
-    barx = X0 + A.rib_width_cm + 0.30
-    anc.add("scale_0", (barx, 0.0, 0.40))
-    anc.add("scale_1", (barx, 0.0, 0.40 + spec["bar_J"] / ej))
+            yb = dep / 2 + 0.06
+            dz = -yb * tan_el
+            za, zc = z0 + dz, z0 + kT + dz
+            verts = [(X[0], yb, za), (X[-1], yb, za), (X[-1], yb, zc), (X[0], yb, zc)]
+            m = bpy.data.materials.new("band")
+            m.use_nodes = True
+            nt = m.node_tree
+            for n_ in list(nt.nodes):
+                if n_.type != "OUTPUT_MATERIAL":
+                    nt.nodes.remove(n_)
+            em = nt.nodes.new("ShaderNodeEmission")
+            em.inputs["Color"].default_value = (*srgb_to_linear(spec["band"]["rgb"]), 1)
+            em.inputs["Strength"].default_value = 1.0
+            nt.links.new(em.outputs["Emission"], nt.nodes["Material Output"].inputs["Surface"])
+            ob = mesh_obj("band", verts, [(0, 1, 2, 3)], m)
+            for attr in ("visible_shadow", "visible_glossy", "visible_diffuse", "visible_transmission"):
+                if hasattr(ob, attr):
+                    setattr(ob, attr, False)
+            anc.add("band_00", (X[0], 0.0, z0))
+            anc.add("band_10", (X[-1], 0.0, z0))
+            anc.add("band_01", (X[0], 0.0, z0 + kT))
+            anc.add("band_11", (X[-1], 0.0, z0 + kT))
     cam = ortho_camera((w / 2, 0.0, h / 2), 90.0, A.rib_elev, w)
     # lights: soft, from the front-top
     area_lights((w / 2, 0.0, h / 2), scale=1.0, k=A.light, az=90.0 - 90.0,
                 spec=(("key", (-2.0, -1.4, 3.0), 400, 3.0), ("fill", (2.5, -0.6, 1.8), 150, 3.0), ("top", (0.0, 1.5, 3.2), 120, 3.0)))
-    # re-add anchors after the camera exists (positions were queued before it)
     return out, curves
 
 
@@ -560,6 +599,12 @@ def main():
     pts_lone = {"coord_0": (A.x0 + 0.02, pb[1]), "coord_1": (x_top - 0.14, pb[1]), "blocker": (pb[0], pb[1]),
                 "held_ul": (pb[0] + 0.5 * float(L["radius"][bl]), pb[1] + 0.866 * float(L["radius"][bl])),   # rim point 60 deg left of straight up
                 "n38": (L["pos"][1][0], L["pos"][1][1]), "n54": (L["pos"][2][0], L["pos"][2][1]),
+                "held_top": (pb[0] + float(L["radius"][bl]), pb[1]),
+                "n38_top": (L["pos"][1][0] + float(L["radius"][1]), L["pos"][1][1]),
+                "n54_top": (L["pos"][2][0] + float(L["radius"][2]), L["pos"][2][1]),
+                "n38_bot": (L["pos"][1][0] - float(L["radius"][1]), L["pos"][1][1]),
+                "n54_bot": (L["pos"][2][0] - float(L["radius"][2]), L["pos"][2][1]),
+                "held_bot": (pb[0] - float(L["radius"][bl]), pb[1]),
                 "box_x0": (A.x0, A.yc - wm / 2)}
     k0, k1 = 0, 1                       # pair members: lower, upper
     mp = P["pos"][k0]
@@ -573,15 +618,17 @@ def main():
     x_rib = L["rib_x"]
     Uo, Ua = L["rib_Uown"], L["rib_Uadd"]
     rep = phys["lone"]["ribbon"]
-    spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "bar_J": 10.0, "gap_cm": 0.52,
-                 "curves": [{"x": x_rib, "U": Uo, "x_ref": xf, "rgb": OKABE["black"], "ghost_x": None},
-                            {"x": x_rib, "U": Ua, "x_ref": xf, "rgb": OKABE["blue"], "ghost_x": xhi - 0.012}],
-                 "band": {"curve": 0, "kT": float(L["kT_J"]), "x": xf}}
+    spec_lone = {"x_range": (xlo, xhi), "ej": A.lone_ej, "xticks": LONE_XTICKS,
+                 "curves": [{"x": x_rib, "U": Uo, "x_ref": xf, "rgb": OKABE["black"], "ghost_x": None, "eticks": LONE_ETICKS[0]},
+                            {"x": x_rib, "U": Ua, "x_ref": xf, "rgb": OKABE["blue"], "ghost_x": xhi - 0.012, "eticks": LONE_ETICKS[1],
+                             "label_side": "right"}],
+                 "band": {"curve": 0, "kT": float(L["kT_J"]), "rgb": BAND_RGB}}
     cs, U0, Ub = P["rib_c"], P["rib_U0"], P["rib_Ub"]
     c0 = float(np.interp(0.0, cs, Ub))
-    spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "bar_J": 0.5, "gap_cm": 0.52,
-                 "curves": [{"x": cs, "U": U0, "x_ref": 0.0, "rgb": OKABE["black"], "ghost_x": None},
-                            {"x": cs, "U": Ub, "x_ref": 0.0, "rgb": OKABE["yellow"], "ghost_x": A.pair_c - 0.006}]}
+    spec_pair = {"x_range": (-A.pair_c, A.pair_c), "ej": A.pair_ej, "xticks": PAIR_XTICKS,
+                 "curves": [{"x": cs, "U": U0, "x_ref": 0.0, "rgb": OKABE["black"], "ghost_x": None, "eticks": PAIR_ETICKS[0]},
+                            {"x": cs, "U": Ub, "x_ref": 0.0, "rgb": OKABE["yellow"], "ghost_x": A.pair_c - 0.006, "eticks": PAIR_ETICKS[1],
+                             "label_side": "right"}]}
     jobs = {"lone": lambda anc: floor_scene(L, anc, "lone", {"arrows": ar_lone, "points": pts_lone}),
             "pair": lambda anc: floor_scene(P, anc, "pair", {"arrows": ar_pair, "points": pts_pair}),
             "rib_lone": lambda anc: ribbons_scene(spec_lone, anc, A.row_cm),
@@ -619,9 +666,14 @@ def main():
     overlay["arrows_N"] = {"lone": {k: [list(map(float, v[0])), list(map(float, v[1]))] for k, v in ar_lone.items()},
                            "pair": {k: [list(map(float, v[0])), list(map(float, v[1]))] for k, v in ar_pair.items()},
                            "metres_per_newton": A.arrow_m_per_n}
-    overlay["ribbons"] = {"lone": {"ej_J_per_cm": A.lone_ej, "x_range_m": [xlo, xhi], "rib_width_cm": A.rib_width_cm, "bar_J": 10.0,
-                                   "kT_J": float(L["kT_J"])},
-                          "pair": {"ej_J_per_cm": A.pair_ej, "c_range_m": [-A.pair_c, A.pair_c], "rib_width_cm": A.rib_width_cm, "bar_J": 0.5}}
+    overlay["ribbons"] = {"lone": {"ej_J_per_cm": A.lone_ej, "x_range_m": [xlo, xhi], "rib_width_cm": A.rib_width_cm,
+                                   "kT_J": float(L["kT_J"]), "xticks": LONE_XTICKS, "eticks": LONE_ETICKS,
+                                   "band_rgb_hex": "#%02X%02X%02X" % tuple(int(round(c * 255)) for c in BAND_RGB),
+                                   "x_min_own_m": float(L["x_min_own"]), "x_top_own_m": float(L["x_top_own"]),
+                                   "barrier_own_J": float(phys["lone"]["ribbon"]["own_barrier_J"]),
+                                   "x_barrier_own_m": float(phys["lone"]["ribbon"]["own_x_barrier"][0])},
+                          "pair": {"ej_J_per_cm": A.pair_ej, "c_range_m": [-A.pair_c, A.pair_c], "rib_width_cm": A.rib_width_cm,
+                                   "xticks": PAIR_XTICKS, "eticks": PAIR_ETICKS}}
     overlay["lone_box_m"] = {"x": [A.x0, A.x0 + A.row_cm / (A.cm_per_m * math.sin(math.radians(A.elev)))],
                              "y": [A.yc - A.col_cm / A.cm_per_m / 2, A.yc + A.col_cm / A.cm_per_m / 2]}
     Path(A.overlay).parent.mkdir(parents=True, exist_ok=True)

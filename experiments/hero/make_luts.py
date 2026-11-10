@@ -2,13 +2,17 @@
 
     .venv/bin/python experiments/hero/make_luts.py      (from the repository root, after make venv)
 
-  cividis - agents, stuck-alone margin (blue: passes alone, yellow: held alone)
+  margin  - agents, stuck-alone margin -150..+150 N (rev. 1): dark navy (passes alone) -> light grey (held alone), CIE Lab
+            ramp with L* 18 -> 82 (monotone, reads in greyscale) and a chroma that fades to zero (hue 280 deg, navy);
+            no yellow and none of the intervention hues (ORCA blue, noise vermilion, push purple, orange, green, bias yellow)
+  cividis - the previous agent map (before rev. 1), kept for the record
   floor   - backward wall force on a lone 0.25 m agent, log scale from F_FADE = 5 N to 1000 N: a truncated magma range
             (orange -> red -> dark purple, no yellow), blended in CIE Lab from the figure background (neutral off-white)
             over the first part of the range so that the floor is exactly the background at and below 5 N
   viridis, greys - alternatives kept for the ramp parameter of render_hero.py
-Also writes data/derived/hero/floor_deltaE.json: the minimum CIEDE2000 between every floor colour and (a) the cividis
-yellow of the held-alone blocker (margin +146 N), (b) the lateral-bias yellow #F0E442.
+Also writes data/derived/hero/floor_deltaE.json: the minimum CIEDE2000 between every floor colour and (a) the held-alone
+blocker's disc colour (margin +146 N), (b) the lateral-bias yellow #F0E442; and margin_deltaE: the minimum CIEDE2000
+between the agent map and each colour used elsewhere for an intervention or overlay element.
 """
 import json
 from pathlib import Path
@@ -22,6 +26,9 @@ F_FADE, F_MAX = 5.0, 1000.0
 S_ORANGE, S_DARK = 0.78, 0.25                     # magma positions: orange end (weak force), dark purple end (strong force)
 FADE_FRAC = 0.22                                  # fraction of the log range over which the floor blends in from BG
 BLOCKER_MARGIN, MARGIN_SPAN = 146.2, 150.0
+MARGIN_L, MARGIN_C0, MARGIN_HUE, MARGIN_P = (18.0, 82.0), 22.0, 280.0, 1.6   # agent map: L* range, start chroma, hue, chroma decay
+OTHER_HUES = {"ORCA_0072B2": "0072B2", "ORCA_56B4E9": "56B4E9", "noise_D55E00": "D55E00", "push_CC79A7": "CC79A7",
+              "orange_E69F00": "E69F00", "green_009E73": "009E73", "bias_F0E442": "F0E442", "old_held_FEE434": "FEE434"}
 
 
 def srgb2lin(c):
@@ -97,23 +104,42 @@ def floor_lut():
     return np.clip(lab2rgb(lab), 0, 1), ramp
 
 
+def margin_lut():
+    t = np.linspace(0, 1, 256)
+    L = MARGIN_L[0] + (MARGIN_L[1] - MARGIN_L[0]) * t
+    C = MARGIN_C0 * (1 - t) ** MARGIN_P
+    h = np.radians(MARGIN_HUE)
+    return np.clip(lab2rgb(np.column_stack([L, C * np.cos(h), C * np.sin(h)])), 0, 1)
+
+
+def hexof(c):
+    return "#%02X%02X%02X" % tuple((np.asarray(c) * 255).round().astype(int))
+
+
 if __name__ == "__main__":
     t = np.linspace(0, 1, 256)
     fl, ramp = floor_lut()
     cv = colormaps["cividis"](t)[:, :3]
-    luts = {"cividis": cv, "viridis": colormaps["viridis"](t)[:, :3], "floor": fl, "greys": colormaps["Greys"](0.05 + 0.85 * t)[:, :3],
+    mg = margin_lut()
+    luts = {"margin": mg, "cividis": cv, "viridis": colormaps["viridis"](t)[:, :3], "floor": fl, "greys": colormaps["Greys"](0.05 + 0.85 * t)[:, :3],
             "bg": BG, "wall_dark": ramp[-1]}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     np.savez(OUT, **luts)
-    yb = cv[int(round(np.clip((BLOCKER_MARGIN + MARGIN_SPAN) / (2 * MARGIN_SPAN), 0, 1) * 255))]
+    yb = mg[int(round(np.clip((BLOCKER_MARGIN + MARGIN_SPAN) / (2 * MARGIN_SPAN), 0, 1) * 255))]
     ylat = np.array([0xF0, 0xE4, 0x42]) / 255.0
     labs = rgb2lab(fl)
     res = {"floor_bg_rgb": (BG * 255).round().tolist(), "floor_dark_end_hex": "#%02X%02X%02X" % tuple((ramp[-1] * 255).round().astype(int)),
            "floor_orange_end_hex": "#%02X%02X%02X" % tuple((ramp[0] * 255).round().astype(int)), "F_fade_N": F_FADE, "F_max_N": F_MAX}
-    for name, y in (("held_alone_cividis_yellow", yb), ("lateral_bias_F0E442", ylat)):
+    for name, y in (("held_alone_disc", yb), ("lateral_bias_F0E442", ylat)):
         d = de2000(labs, rgb2lab(y)[0])
         res[name] = {"rgb_hex": "#%02X%02X%02X" % tuple((y * 255).round().astype(int)), "min_dE2000": float(d.min()),
                      "at_force_N": float(F_FADE * (F_MAX / F_FADE) ** (t[int(d.argmin())]))}
-    res["min_dE2000_overall"] = min(res["held_alone_cividis_yellow"]["min_dE2000"], res["lateral_bias_F0E442"]["min_dE2000"])
+    res["note"] = ("rev. 1: the held-alone disc is light grey; its smallest distance to the floor is to the near-background floor "
+                   "(5-6 N), which the disc's dark rim separates; the hue check against the bias yellow is unchanged")
+    ml = rgb2lab(mg)
+    res["margin_map"] = {"stops_hex": [hexof(mg[i]) for i in (0, 64, 128, 192, 255)],
+                         "L_star": [round(float(v), 1) for v in ml[[0, 255], 0]],
+                         "min_dE2000_to": {k: round(float(de2000(ml, rgb2lab(np.array([int(v[i:i + 2], 16) for i in (0, 2, 4)]) / 255.0)[0]).min()), 1)
+                                           for k, v in OTHER_HUES.items()}}
     json.dump(res, open(OUT.parent / "floor_deltaE.json", "w"), indent=1)
     print(json.dumps(res, indent=1))
