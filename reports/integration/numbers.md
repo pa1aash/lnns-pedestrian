@@ -5,7 +5,7 @@ figures/fig1_caption.tex, paper/numbers.tex, paper/registry/*.yaml, data/derived
 reports F1/F2/F3/P/S3. No source file was edited.
 
 Check scripts (scratch, not committed):
-`/private/tmp/claude-501/-Users-palaash-Developer-lnns-wt-I/5d9aca20-ac02-47f6-bb73-79783bf4dce8/scratchpad/check_macros.py`
+`check_macros.py`
 (registry -> recomputed value -> numbers.tex -> usage) and `.../scratchpad/expand.py` (text with every macro
 replaced by its printed value, used for the claim review).
 

@@ -9,7 +9,7 @@ source file is given in brackets (the protocol figure is the paper's Fig. 2, so 
 
 **Fig. 3 (fig2_lone_trap.pdf).** Left: the backward wall force on a lone agent on the door axis rises steeply towards the door plane, drawn for four agent radii, with horizontal bands showing the range of rest drives for SFM (black) and for SFM+ORCA with the RVO2 solver (blue). Right: a colour map of the stuck-alone margin over agent radius and v0/τ, overlaid with the spawned agents as grey dots and with the SFM and ORCA (RVO2) lines separating agents that pass alone from agents that are held.
 
-**Fig. 4 (fig3_width_walls.pdf).** Left: the fraction of SFM runs completed falls as the exit width narrows from 1.0 m to 0.7 m. Right: at 0.8 m, one point with its interval per wall-law variant, each beside a stacked bar splitting the runs into completed (white), pair or group standoff (light grey) and lone trap (dark grey).
+**Fig. 4 (fig3_width_walls.pdf).** Left: the fraction of SFM runs completed falls as the exit width narrows from 1.0 m to 0.7 m. Right: at 0.8 m, one point with its interval per wall variant (wall range, rounded jamb corners, line goal), each beside a stacked bar splitting the runs into completed (white), pair or group standoff (light grey) and stack of stuck-alone agents (dark grey).
 
 **Fig. 5 (fig4_escape.pdf).** Left: three step curves of the fraction of blockers escaped against time under noise, for the full, pinned and alone barrier conditions. Right: for every snapshot and condition, the ratio of the fitted Arrhenius slope to minus the computed barrier, with its 95% interval, against the barrier on a log axis; the ratios scatter around a horizontal line at 1.
 
