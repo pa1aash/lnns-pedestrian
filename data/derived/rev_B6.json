@@ -1,0 +1,75 @@
+{
+ "script": "experiments/revision/B6_analyze.py",
+ "doc": "B6 analysis: the pair standoff under a line goal (w2_goal = \"line\").\n\nInputs (data/revision/B6/): static.jsonl (B6_static.py), quench.jsonl (B6_quench.py), and when present\ngen_line.jsonl (B6_gen.py); data/E7b/e7b_lib.jsonl (point-goal generation, same seeds).\nOutput: data/derived/rev_B6.json.\n  static   strict minima kept under the line goal (Hessian -sym(J) positive definite, contact-free, x < 10,\n           opposite sides), flowed out, other; displacement from the point-goal snapshot; mu1 against the\n           point-goal mu1; asymmetry of J (gradient check).\n  quench   per arm (line, point): unperturbed runs held for 120 s (no exit; stationary stop or censored);\n           line-goal replays (1e-9 m) held.\n  gen      completion, deadlock, pair standoff (experiments/E7b/e7b_lib.qualifies), pair-or-group standoff\n           (deadlock whose blocker, the residual agent nearest (10, 5), has negative stuck-alone margin), with\n           the point-goal runs of the same seeds; exact McNemar p on the seed-paired pair-standoff indicator.\n",
+ "static": {
+  "n": 46,
+  "kept": 46,
+  "freed": 0,
+  "other": 0,
+  "move_m": {
+   "median": 0.022,
+   "min": 0.0082,
+   "max": 0.048,
+   "n": 46,
+   "raw_median": 0.02156205107426664,
+   "raw_min": 0.008184760885778153,
+   "raw_max": 0.04848271114287519
+  },
+  "mu1": {
+   "median": 99.7,
+   "min": 69.0,
+   "max": 128.0,
+   "n": 46,
+   "raw_median": 99.73310687818474,
+   "raw_min": 69.01482267840552,
+   "raw_max": 127.92778015906248
+  },
+  "mu1_point": {
+   "median": 94.0,
+   "min": 65.0,
+   "max": 121.0,
+   "n": 46,
+   "raw_median": 93.97354840130424,
+   "raw_min": 65.03677566640765,
+   "raw_max": 121.00103115758805
+  },
+  "mu1_ratio_line_over_point": {
+   "median": 1.06,
+   "min": 1.04,
+   "max": 1.07,
+   "n": 46,
+   "raw_median": 1.060468891777049,
+   "raw_min": 1.0442988884048352,
+   "raw_max": 1.0705775672133306
+  },
+  "asym": {
+   "median": 1e-10,
+   "min": 4.2e-11,
+   "max": 2.3e-10,
+   "n": 46,
+   "raw_median": 1.0315101094005329e-10,
+   "raw_min": 4.151941836257298e-11,
+   "raw_max": 2.3436451780130123e-10
+  },
+  "contact_free": 46,
+  "front_of_jambs": 46,
+  "point_strict_min": 46
+ },
+ "quench": {
+  "line": {
+   "n": 46,
+   "held": 46,
+   "stationary_stop": 46
+  },
+  "point": {
+   "n": 46,
+   "held": 46,
+   "stationary_stop": 46
+  },
+  "line_replays": {
+   "n": 230,
+   "held": 230
+  },
+  "wall_s_total": 932.6313758288597
+ }
+}

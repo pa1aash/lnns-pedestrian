@@ -1,0 +1,17 @@
+# B6 line goal for the pair standoff. Source data/derived/rev_B6.json (experiments/revision/B6_analyze.py).
+RevBsixN: {file: rev_B6.json, key: "static.n", fmt: "{:d}"}
+RevBsixKept: {file: rev_B6.json, key: "static.kept", fmt: "{:d}"}
+RevBsixFreed: {file: rev_B6.json, key: "static.freed", fmt: "{:d}"}
+RevBsixMoveMin: {file: rev_B6.json, key: "static.move_m.min", fmt: "{:.3f}"}
+RevBsixMoveMed: {file: rev_B6.json, key: "static.move_m.median", fmt: "{:.3f}"}
+RevBsixMoveMax: {file: rev_B6.json, key: "static.move_m.max", fmt: "{:.3f}"}
+RevBsixMuMin: {file: rev_B6.json, key: "static.mu1.min", fmt: "{:.0f}"}
+RevBsixMuMed: {file: rev_B6.json, key: "static.mu1.median", fmt: "{:.0f}"}
+RevBsixMuMax: {file: rev_B6.json, key: "static.mu1.max", fmt: "{:.0f}"}
+RevBsixMuRatioMin: {file: rev_B6.json, key: "static.mu1_ratio_line_over_point.min", fmt: "{:.2f}"}
+RevBsixMuRatioMax: {file: rev_B6.json, key: "static.mu1_ratio_line_over_point.max", fmt: "{:.2f}"}
+RevBsixQuenchN: {file: rev_B6.json, key: "quench.line.n", fmt: "{:d}"}
+RevBsixQuenchHeld: {file: rev_B6.json, key: "quench.line.held", fmt: "{:d}"}
+RevBsixReplayN: {file: rev_B6.json, key: "quench.line_replays.n", fmt: "{:d}"}
+RevBsixReplayHeld: {file: rev_B6.json, key: "quench.line_replays.held", fmt: "{:d}"}
+RevBsixPointHeld: {file: rev_B6.json, key: "quench.point.held", fmt: "{:d}"}

@@ -14,8 +14,8 @@ RevAtwoThreshN: {file: rev_A2.json, key: "threshold_099.N", fmt: "{:.0f}"}
 RevAtwoThreshRho: {file: rev_A2.json, key: "threshold_099.rho", fmt: "{:.2f}"}
 RevAtwoRunsN: {file: rev_A2.json, key: "runs.n_runs", fmt: "{:d}"}
 RevAtwoRunsSame: {file: rev_A2.json, key: "runs.reproduce_E6a", fmt: "{:d}"}
-RevAtwoRunsWMin: {file: rev_A2.json, key: "runs.w_min", fmt: "{:.2f}"}
-RevAtwoRunsWMinMax: {file: rev_A2.json, key: "runs.w_min_run_max", fmt: "{:.2f}"}
+RevAtwoRunsWMin: {file: rev_A2.json, key: "runs.w_min", fmt: "{:.3f}"}
+RevAtwoRunsWMinMax: {file: rev_A2.json, key: "runs.w_min_run_max", fmt: "{:.3f}"}
 RevAtwoRunsNMax: {file: rev_A2.json, key: "runs.N_max", fmt: "{:d}"}
 RevAtwoRunsFracBelow: {file: rev_A2.json, key: "runs.frac_time_below.lt099", fmt: "{:.2f}"}
 RevAtwoRunsFracBelowFive: {file: rev_A2.json, key: "runs.frac_time_below.lt095", fmt: "{:.2f}"}

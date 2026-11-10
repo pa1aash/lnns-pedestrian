@@ -1,0 +1,36 @@
+# B5 rounded jamb ends for the pair standoff; barrier under bias. Source data/derived/rev_B5.json
+# (experiments/revision/B5_analyze.py).
+RevBfiveN: {file: rev_B5.json, key: "main.n", fmt: "{:d}"}
+RevBfiveKept: {file: rev_B5.json, key: "main.kept", fmt: "{:d}"}
+RevBfiveFreed: {file: rev_B5.json, key: "main.freed", fmt: "{:d}"}
+RevBfiveFreedTimeMin: {file: rev_B5.json, key: "reequil.rc0p1.freed_time_s.min", fmt: "{:.1f}"}
+RevBfiveFreedTimeMax: {file: rev_B5.json, key: "reequil.rc0p1.freed_time_s.max", fmt: "{:.1f}"}
+RevBfiveOverhangMin: {file: rev_B5.json, key: "overhang_mm.min", fmt: "{:.2f}"}
+RevBfiveOverhangMed: {file: rev_B5.json, key: "overhang_mm.median", fmt: "{:.0f}"}
+RevBfiveOverhangMax: {file: rev_B5.json, key: "overhang_mm.max", fmt: "{:.0f}"}
+RevBfiveRuleMismatch: {file: rev_B5.json, key: "main.rule_mismatch_total", fmt: "{:d}"}
+RevBfiveRuleN: {file: rev_B5.json, key: "main.n_checked", fmt: "{:d}"}
+RevBfiveKeptRcFive: {file: rev_B5.json, key: "reequil.rc0p05.kept", fmt: "{:d}"}
+RevBfiveKeptRcTwo: {file: rev_B5.json, key: "reequil.rc0p02.kept", fmt: "{:d}"}
+RevBfiveKeptRcOne: {file: rev_B5.json, key: "reequil.rc0p01.kept", fmt: "{:d}"}
+RevBfiveContN: {file: rev_B5.json, key: "cont_rc0p02.n_jobs", fmt: "{:d}"}
+RevBfiveFoldN: {file: rev_B5.json, key: "cont_rc0p02.n_fold", fmt: "{:d}"}
+RevBfiveEndAtFold: {file: rev_B5.json, key: "cont_rc0p02.end_at_fold", fmt: "{:d}"}
+RevBfiveNaturalEnd: {file: rev_B5.json, key: "cont_rc0p02.natural_end_last_all", fmt: "{:d}"}
+RevBfiveDistSlopeMed: {file: rev_B5.json, key: "cont_rc0p02.slopes.dist.median", fmt: "{:.2f}"}
+RevBfiveDistWithinOne: {file: rev_B5.json, key: "cont_rc0p02.dist_within_0p1_of_1", fmt: "{:d}"}
+RevBfiveWSlopeMed: {file: rev_B5.json, key: "cont_rc0p02.slopes.W_line.median", fmt: "{:.2f}"}
+RevBfiveMuRatioMin: {file: rev_B5.json, key: "cont_rc0p02.mu1_ratio_smallest_to_largest_delta.min", fmt: "{:.3f}"}
+RevBfiveMuLossMin: {file: rev_B5.json, key: "cont_rc0p02.mu1_at_loss.min", fmt: "{:.0f}"}
+RevBfiveMuLossMax: {file: rev_B5.json, key: "cont_rc0p02.mu1_at_loss.max", fmt: "{:.0f}"}
+RevBfiveJacJumpMed: {file: rev_B5.json, key: "cont_rc0p02.jac_jump_smallest_delta.median", fmt: "{:.3f}"}
+RevBfiveBstarMed: {file: rev_B5.json, key: "bisect_rc0p02.lower_sign_bstar.median", fmt: "{:.4f}"}
+RevBfiveBstarRatioMed: {file: rev_B5.json, key: "bisect_rc0p02.bstar_over_sharp_bstar.median", fmt: "{:.2f}"}
+RevBfiveCurlRatioMin: {file: rev_B5.json, key: "barrier_sharp.curl_over_pred.min", fmt: "{:.4f}"}
+RevBfiveCurlRatioMax: {file: rev_B5.json, key: "barrier_sharp.curl_over_pred.max", fmt: "{:.4f}"}
+RevBfiveCurlOverMuPct: {file: rev_B5.json, key: "report.curl_over_mu1_median_pct", fmt: "{:.1f}"}
+RevBfiveWrelMedPct: {file: rev_B5.json, key: "report.W_rel_median_pct", fmt: "{:.1f}"}
+RevBfiveWrelOk: {file: rev_B5.json, key: "barrier_sharp.W_rel_le_0p01", fmt: "{:d}"}
+RevBfiveWrelN: {file: rev_B5.json, key: "barrier_sharp.flow_n", fmt: "{:d}"}
+RevBfiveWflowSlopeMed: {file: rev_B5.json, key: "barrier_sharp.slopes.W_flow.median", fmt: "{:.2f}"}
+RevBfiveWflowMedJ: {file: rev_B5.json, key: "barrier_sharp.W_flow_delta0p3_J.median", fmt: "{:.3f}"}

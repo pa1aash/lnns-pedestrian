@@ -12,6 +12,18 @@ steps:
   - name: A5x
     cmd: [experiments/revision/A5_extra_second_traps.py, --workers, '4']
     cpu_h: 7
+  - name: B5q
+    cmd: [experiments/revision/B5_quench.py]
+    cpu_h: 1.5
+  - name: B5g
+    cmd: [experiments/revision/B5_gen.py]
+    cpu_h: 4
+  - name: B6g
+    cmd: [experiments/revision/B6_gen.py]
+    cpu_h: 4
   - name: B2
     cmd: [experiments/revision/B2_width.py]
     cpu_h: 13
+  - name: B4r
+    cmd: [experiments/revision/B4_arch_dt.py, --workers, '4']
+    cpu_h: 3

@@ -53,7 +53,7 @@ def slopes(sc, key, pos=True):
 
 def scan_summary(rows):
     sl = defaultdict(list)
-    curl_ratio, cross, wrel, wrel_small, flow_ok, mu_ratio, jj = [], [], [], [], [], [], []
+    curl_ratio, cross, wrel, wrel_small, flow_ok, mu_ratio, jj, wbig, w03, curl_mu = [], [], [], [], [], [], [], [], [], []
     for r in rows:
         sc = r["scan"]
         for k in ("dist", "mu1_min", "W_line", "W_flow"):
@@ -66,8 +66,11 @@ def scan_summary(rows):
             cross.append(s["cross_asym"] / s["sym_scale"])
             if s.get("W_rel") is not None:
                 wrel.append(abs(s["W_rel"]))
+                wbig.append((abs(s["W_rel"]), s["W_flow"]))
             flow_ok.append(bool(s.get("flow_reached")) and s.get("flow_end_err", 1) < 2e-3)
         if good:
+            w03.append(good[0]["W_flow"] if good[0].get("W_flow") is not None else None)
+            curl_mu.append(max(abs(c) for c in good[-1]["curl"]) / good[-1]["mu1_min"])
             mu_ratio.append(good[-1]["mu1_min"] / good[0]["mu1_min"])
             jj.append(good[-1]["jac_jump"])
             if good[-1].get("W_rel") is not None:
@@ -79,7 +82,10 @@ def scan_summary(rows):
            "mu1_ratio_smallest_to_largest_delta": summ(mu_ratio, 4), "jac_jump_smallest_delta": summ(jj),
            "curl_over_pred": summ(curl_ratio, 3), "cross_asym_rel": summ(cross),
            "W_rel_abs": summ(wrel), "W_rel_abs_smallest_delta": summ(wrel_small),
-           "flow_reached_min": int(sum(flow_ok)), "flow_n": len(flow_ok)}
+           "flow_reached_min": int(sum(flow_ok)), "flow_n": len(flow_ok),
+           "W_rel_le_0p01": int(sum(x <= 0.01 for x, _ in wbig)),
+           "W_rel_gt_0p01_max_W_flow_J": max([w for x, w in wbig if x > 0.01], default=None),
+           "W_flow_delta0p3_J": summ(w03), "curl_over_mu1_smallest_delta": summ(curl_mu)}
     return out
 
 
@@ -107,7 +113,7 @@ def main():
         kept = [r for r in v if r["kept"]]
         freed = [r for r in v if r["relax_freed"]]
         mism = sum((over[r["tag"]] > r["rc"]) != r["kept"] for r in v)
-        re[rc] = {"n": len(v), "kept": len(kept), "freed": len(freed),
+        re["rc" + rc.replace(".", "p")] = {"n": len(v), "kept": len(kept), "freed": len(freed),
                   "elsewhere_or_undecided": len(v) - len(kept) - len(freed),
                   "freed_first_side": dict(Counter(r["first_side"] for r in freed)),
                   "freed_time_s": summ([r["relax_t"] for r in freed]),
@@ -115,7 +121,7 @@ def main():
                   "mu1_kept": summ([r["eig"][0] for r in kept], 3),
                   "rule_mismatch": int(mism)}
     o["reequil"] = re
-    main_rc = re.get("0.1", {})
+    main_rc = re.get("rc0p1", {})
     o["main"] = {"rc": 0.1, "n": main_rc.get("n"), "kept": main_rc.get("kept"), "lost": (main_rc.get("n") or 0) - (main_rc.get("kept") or 0),
                  "freed": main_rc.get("freed"), "rule_mismatch_total": int(sum(x["rule_mismatch"] for x in re.values())),
                  "n_checked": len(R)}
@@ -181,6 +187,12 @@ def main():
                      "freed_below_static": int(sum(r["freed"] and not r["static_freed"] for r in gr)),
                      "held_above_static": int(sum(r["static_freed"] and not r["freed"] for r in gr))}
         o["quench"] = q
+    if Bs:
+        b = o["barrier_sharp"]
+        o["report"] = {"W_rel_median_pct": sig(100 * b["W_rel_abs"]["raw_median"], 2),
+                       "W_rel_median_pct_rc0p02": sig(100 * o["cont_rc0p02"]["W_rel_abs"]["raw_median"], 2)
+                       if "cont_rc0p02" in o else None,
+                       "curl_over_mu1_median_pct": sig(100 * b["curl_over_mu1_smallest_delta"]["raw_median"], 2)}
     G = jl(os.path.join(D, "gen_rounded.jsonl"))
     if G:
         import B6_analyze
