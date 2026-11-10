@@ -1,45 +1,38 @@
-% Fig. (protocol): the five steps of the screening protocol as a vector flowchart, full \textwidth.
-% Input from paper/sections/04_protocol.tex inside a figure* environment; needs xcolor and tikz with the
-% libraries arrows.meta, positioning and calc (all loaded in paper/main.tex). Colours: Okabe-Ito values of figures/common.py.
-\definecolor{protoGrey}{HTML}{999999}%
-\definecolor{protoBlue}{HTML}{0072B2}%
-\definecolor{protoSky}{HTML}{56B4E9}%
-\definecolor{protoPurple}{HTML}{CC79A7}%
-\definecolor{protoVerm}{HTML}{D55E00}%
+% Fig. (protocol): the five steps of the screening protocol as a greyscale vector flowchart, full \textwidth.
+% Input from paper/sections/04_protocol.tex inside a figure* environment; needs tikz with the libraries
+% arrows.meta and calc (both loaded in paper/main.tex). No fills: black text and arrows, grey frames.
+% One row per step (step name left, detail right); the rows carry the detail of the protocol so that the figure
+% stands alone without a numbered list in the text.
 \begin{tikzpicture}[
     font=\scriptsize,
-    every node/.style={inner sep=0pt, outer sep=0pt},
-    head/.style={draw=#1, fill=#1, line width=0.5pt, text=white, font=\scriptsize\bfseries,
-                 minimum height=0.48cm, anchor=north west},
-    body/.style={draw=#1, fill=#1!7, line width=0.5pt, anchor=north west},
-    flow/.style={-{Stealth[length=1.6mm,width=1.3mm]}, line width=0.6pt, color=black!70},
+    every node/.style={outer sep=0pt},
+    frame/.style={draw=black!60, line width=0.5pt},
+    rule/.style={draw=black!60, line width=0.4pt},
+    flow/.style={-{Stealth[length=1.5mm,width=1.2mm]}, line width=0.6pt, color=black},
   ]
-  % widths as fractions of \textwidth; five boxes (0.90) and four gaps of 0.025\textwidth fill the line exactly
-  \pgfmathsetlengthmacro{\gap}{0.025\textwidth}%
-  \pgfmathsetlengthmacro{\bodyh}{2.75cm}%
-  \pgfmathsetlengthmacro{\pad}{2.5pt}%
-  % \protostep{name}{position}{width fraction}{colour}{heading}{body}; the 0.5pt border is half outside each box
-  \def\protostep#1#2#3#4#5#6{%
-    \pgfmathsetlengthmacro{\wb}{#3\textwidth-0.5pt}%
-    \pgfmathsetlengthmacro{\tw}{\wb-2*\pad}%
-    \node[head=#4, minimum width=\wb] (#1h) at #2 {\parbox{\tw}{\centering #5}};%
-    \node[body=#4, minimum width=\wb] (#1b) at (#1h.south west)
-      {\parbox[t][\bodyh][t]{\wb}{\vspace{\pad}\hspace*{\pad}\parbox[t]{\tw}{\raggedright #6}}};%
+  \pgfmathsetlengthmacro{\hw}{0.17\textwidth}%       heading cell
+  \pgfmathsetlengthmacro{\pad}{3pt}%
+  \pgfmathsetlengthmacro{\bw}{\textwidth-\hw-2*\pad-0.5pt}% body text width
+  \pgfmathsetlengthmacro{\vgap}{0.30cm}%
+  \pgfmathsetlengthmacro{\hhw}{0.5*\hw}%
+  % \protostep{name}{north-west corner of the body cell}{heading}{body}
+  \long\def\protostep#1#2#3#4{%
+    \node[anchor=north west, text width=\bw, inner xsep=\pad, inner ysep=2.6pt, align=left, execute at begin node={\hyphenpenalty=10000 \exhyphenpenalty=10000 \relax}] (#1b) at #2 {#4};%
+    \draw[frame] ($(#1b.north west)-(\hw,0)$) rectangle (#1b.south east);%
+    \draw[rule] (#1b.north west) -- (#1b.south west);%
+    \node[anchor=west, inner sep=0pt, font=\scriptsize\bfseries] at ($(#1b.west)-(\hw,0)+(\pad,0)$) {#3};%
+    \coordinate (#1t) at ($(#1b.north west)-(\hhw,0)$);%
+    \coordinate (#1s) at ($(#1b.south west)-(\hhw,0)$);%
   }%
-  \protostep{s1}{(0,0)}{0.16}{protoGrey}{1\hspace{0.4em}Snapshots}%
-    {Library of frozen deadlocks: lone keystone, second trap, pair standoff}
-  \protostep{s2}{($(s1h.north east)+(\gap+0.5pt,0)$)}{0.26}{protoBlue}{2\hspace{0.4em}Probes}%
-    {Quench\\ $10^{-9}$\,m replay\\ $\Delta t$ with per-step and with $\sqrt{\Delta t}$-scaled noise\\
-     Rest-drive push $\pm$\\ Lateral tilt $\pm b$\\ Corrected implementation}
-  \protostep{s3}{($(s2h.north east)+(\gap+0.5pt,0)$)}{0.16}{protoSky}{3\hspace{0.4em}Signatures}%
-    {Read the responses to the probes, paired by snapshot}
-  \protostep{s4}{($(s3h.north east)+(\gap+0.5pt,0)$)}{0.12}{protoPurple}{4\hspace{0.4em}Class}%
-    {P\enspace prevent\\ L\enspace reshape\\ T\enspace heat\\ D\enspace steer\\ N\enspace glitch\\[1pt]
-     (Table~\ref{tab:signatures})}
-  \protostep{s5}{($(s4h.north east)+(\gap+0.5pt,0)$)}{0.20}{protoVerm}{5\hspace{0.4em}Compare}%
-    {Resolver vs.\ rate-matched surrogate: rates matched, signatures compared; one mechanism only if no probe
-     separates them}
-  \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5}{%
-    \draw[flow] ($(\a h.north east)!0.5!(\a b.south east)$) -- ($(\b h.north west)!0.5!(\b b.south west)$);%
-  }%
+  \protostep{s1}{(\hw,0)}{1\hspace{0.5em}Snapshots}%
+    {A library of frozen deadlocks, each a rest state saved from a whole run: lone keystones, second traps and pair standoffs.}
+  \protostep{s2}{($(s1b.south west)-(0,\vgap)$)}{2\hspace{0.5em}Probes}%
+    {Each perturbation is applied to the same snapshots under each probe: quench (restart under the perturbation); replay (a copy displaced by $10^{-9}$\,m); time step $\Delta t$ changed, with per-step and with $\sqrt{\Delta t}$-scaled noise; rest-drive push $\pm$ (a constant force equal to the rest drive of force-coupled ORCA, towards ($+$) or away from ($-$) the door); lateral tilt $\pm b$; corrected implementation (the RVO2 solver).}
+  \protostep{s3}{($(s2b.south west)-(0,\vgap)$)}{3\hspace{0.5em}Signatures}%
+    {The responses of each perturbation to the probes, paired by snapshot: freed fraction at horizon $T$, times to free, outcome changes under replay and handedness under tilt.}
+  \protostep{s4}{($(s3b.south west)-(0,\vgap)$)}{4\hspace{0.5em}Class}%
+    {The class whose signatures the perturbation shows (Table~\ref{tab:signatures}): Prevent; Reshape, axial or lateral; Heat; Glitch.}
+  \protostep{s5}{($(s4b.south west)-(0,\vgap)$)}{5\hspace{0.5em}Compare}%
+    {The resolver (the mechanism under test) against its surrogate, a perturbation of another class whose one parameter is set so that it is fraction-matched at $T$ on the same deadlocks. The two share a mechanism only if no probe separates them (paired tests, Holm-corrected across probes).}
+  \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5}{\draw[flow] (\a s) -- (\b t);}%
 \end{tikzpicture}%

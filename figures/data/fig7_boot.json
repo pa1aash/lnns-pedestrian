@@ -1,0 +1,228 @@
+{
+ "doc": "Cluster-bootstrap cache for Fig 7 (pair standoff, right panel): figures/data/fig7_boot.json.\n\nInput:  data/E7b/e7b_quench.jsonl, data/E7b_bstar/bstar_quench.jsonl, data/E7b/e7b_static.jsonl (the 46 pair\n        snapshots), as experiments/E7b/analyze.py.\nFreed:  a member of the pair exits within 120 s. Deterministic arms (incl. the matched biases +-b*): the unperturbed\n        run (\"u\") per snapshot; noise arms: the five seeds per snapshot, every run counted once.\nIntervals: 95% percentile intervals from B = 10 000 cluster-bootstrap resamples of the pair snapshots (drawn with\n        replacement, all seeds of a drawn snapshot kept; one index matrix shared by every arm, PCG64(12345)). With\n        one run per snapshot the cluster bootstrap is an ordinary snapshot bootstrap.\nLeft panel (bias_curve): the deterministic bias arms b = -0.03 ... 0.1 (b = 0: SFM), same resamples.",
+ "resamples": 10000,
+ "rng": "PCG64(12345)",
+ "level": 95,
+ "n_snapshots": 46,
+ "rates": {
+  "C1": {
+   "k": 0,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.0,
+   "lo": 0.0,
+   "hi": 0.0
+  },
+  "C2": {
+   "k": 0,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.0,
+   "lo": 0.0,
+   "hi": 0.0
+  },
+  "C3_pub": {
+   "k": 21,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.45652173913043476,
+   "lo": 0.32608695652173914,
+   "hi": 0.6086956521739131
+  },
+  "C3_rvo2": {
+   "k": 7,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.15217391304347827,
+   "lo": 0.06521739130434782,
+   "hi": 0.2608695652173913
+  },
+  "drive_only": {
+   "k": 33,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.717391304347826,
+   "lo": 0.5869565217391305,
+   "hi": 0.8478260869565217
+  },
+  "constraint_only_pub": {
+   "k": 45,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.9782608695652174,
+   "lo": 0.9347826086956522,
+   "hi": 1.0
+  },
+  "constraint_only_rvo2": {
+   "k": 44,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.9565217391304348,
+   "lo": 0.8913043478260869,
+   "hi": 1.0
+  },
+  "frozen_plus": {
+   "k": 34,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.7391304347826086,
+   "lo": 0.6086956521739131,
+   "hi": 0.8695652173913043
+  },
+  "frozen_minus": {
+   "k": 1,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.021739130434782608,
+   "lo": 0.0,
+   "hi": 0.06521739130434782
+  },
+  "bstarpubp": {
+   "k": 22,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.4782608695652174,
+   "lo": 0.32608695652173914,
+   "hi": 0.6304347826086957
+  },
+  "bstarpubm": {
+   "k": 21,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.45652173913043476,
+   "lo": 0.32608695652173914,
+   "hi": 0.6086956521739131
+  },
+  "bstarrvo2p": {
+   "k": 8,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.17391304347826086,
+   "lo": 0.06521739130434782,
+   "hi": 0.2826086956521739
+  },
+  "bstarrvo2m": {
+   "k": 5,
+   "n": 46,
+   "runs_per_snapshot": 1,
+   "p": 0.10869565217391304,
+   "lo": 0.021739130434782608,
+   "hi": 0.1956521739130435
+  },
+  "noise0p01": {
+   "k": 224,
+   "n": 230,
+   "runs_per_snapshot": 5,
+   "p": 0.9739130434782609,
+   "lo": 0.9304347826086956,
+   "hi": 1.0
+  },
+  "noise0p02": {
+   "k": 230,
+   "n": 230,
+   "runs_per_snapshot": 5,
+   "p": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  },
+  "noise0p03": {
+   "k": 230,
+   "n": 230,
+   "runs_per_snapshot": 5,
+   "p": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  },
+  "noise0p05": {
+   "k": 230,
+   "n": 230,
+   "runs_per_snapshot": 5,
+   "p": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  }
+ },
+ "bias_curve": [
+  {
+   "b": -0.03,
+   "arm": "bias-0.03",
+   "k": 30,
+   "n": 46,
+   "p": 0.6521739130434783,
+   "lo": 0.5217391304347826,
+   "hi": 0.782608695652174
+  },
+  {
+   "b": -0.02,
+   "arm": "bias-0.02",
+   "k": 18,
+   "n": 46,
+   "p": 0.391304347826087,
+   "lo": 0.2608695652173913,
+   "hi": 0.5217391304347826
+  },
+  {
+   "b": -0.01,
+   "arm": "bias-0.01",
+   "k": 7,
+   "n": 46,
+   "p": 0.15217391304347827,
+   "lo": 0.06521739130434782,
+   "hi": 0.2608695652173913
+  },
+  {
+   "b": 0.0,
+   "arm": "C1",
+   "k": 0,
+   "n": 46,
+   "p": 0.0,
+   "lo": 0.0,
+   "hi": 0.0
+  },
+  {
+   "b": 0.01,
+   "arm": "bias0.01",
+   "k": 8,
+   "n": 46,
+   "p": 0.17391304347826086,
+   "lo": 0.06521739130434782,
+   "hi": 0.2826086956521739
+  },
+  {
+   "b": 0.02,
+   "arm": "bias0.02",
+   "k": 17,
+   "n": 46,
+   "p": 0.3695652173913043,
+   "lo": 0.2391304347826087,
+   "hi": 0.5217391304347826
+  },
+  {
+   "b": 0.03,
+   "arm": "bias0.03",
+   "k": 32,
+   "n": 46,
+   "p": 0.6956521739130435,
+   "lo": 0.5652173913043478,
+   "hi": 0.8260869565217391
+  },
+  {
+   "b": 0.05,
+   "arm": "bias0.05",
+   "k": 44,
+   "n": 46,
+   "p": 0.9565217391304348,
+   "lo": 0.8913043478260869,
+   "hi": 1.0
+  },
+  {
+   "b": 0.1,
+   "arm": "bias0.1",
+   "k": 46,
+   "n": 46,
+   "p": 1.0,
+   "lo": 1.0,
+   "hi": 1.0
+  }
+ ]
+}
