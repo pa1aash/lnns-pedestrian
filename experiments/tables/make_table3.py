@@ -161,10 +161,17 @@ BLOCKS = [
          frac("TabThreePairRvoOrcaLower", "TabThreePairRvoOrcaN"),
          frac("TabThreePairRvoReplayDis", "TabThreePairOrcaReplays"), NA),
     ]),
-    # velocity coupling of ORCA (Sect. 6.4): runs in progress; the whole row is pending until they are analysed.
-    (r"Velocity coupling", [
-        (r"ORCA (RVO2), velocity coupling",
-         r"\multicolumn{7}{c}{\pending{results of Sect.~\ref{sec:velorca}}}"),
+    # velocity coupling of ORCA (Sect. 6.4, session V): RVO2 solver; Delta from force-coupled ORCA with the
+    # same solver, paired by snapshot x replay seed (quench) or by seed (whole runs).
+    (r"Velocity-coupled ORCA (RVO2); $\Delta$ from force coupling", [
+        (r"lone-trap snapshots", frac("VelLoneRvoK", "VelLoneN"),
+         diff("VelLoneRvoDiff", "VelLoneRvoDiffLo", "VelLoneRvoDiffHi"), NA, r"$>$120", NA,
+         frac("VelLoneReplayDis", "VelLoneSnaps"), NA),
+        (r"pair standoffs", frac("VelPairRvoK", "VelPairN"),
+         diff("VelPairRvoDiff", "VelPairRvoDiffLo", "VelPairRvoDiffHi"), NA, r"$>$120", NA,
+         frac("VelPairReplayDis", "VelPairSnaps"), NA),
+        (r"whole runs", frac("VelWholeK", "VelWholeN"),
+         diff("VelWholeForceDiff", "VelWholeForceDiffLo", "VelWholeForceDiffHi"), NA, NA, NA, NA, NA),
     ]),
 ]
 
@@ -172,7 +179,7 @@ CAPTION = (
     r"Rate-matched surrogates against ORCA under force coupling (last block: velocity coupling): freed (whole runs: completed), paired difference $\Delta$ from ORCA, $J$ of "
     r"the unresolved sets (pair: freed; disjoint sets: exact 95\% upper bound; expected if independent in parentheses), Kaplan--Meier median $t_{1/2}$ (s), first exits "
     r"by the lower member, outcome changes in $10^{-9}$\,m replays (noise: snapshots whose seeds disagree), $\ell$ of "
-    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are SFM + noise; lone-trap noise rows count runs, five seeds per snapshot; whole-run rows count seeds."
+    r"Eq.~\eqref{eq:ell} (prediction in parentheses). Noise rows are SFM + noise; lone-trap noise rows count runs, five seeds per snapshot, and velocity-coupling quench rows six runs per snapshot; whole-run rows count seeds."
 )
 
 
