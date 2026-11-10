@@ -1,0 +1,72 @@
+# Registry entries for velocity-coupled ORCA (session V). Same format as core.yaml.
+# Source: data/derived/velorca_analysis.json (experiments/velorca/analyze.py).
+
+# --- lone-trap quench (E2 library), RVO2 and legacy solvers
+VelLoneSnaps: {file: velorca_analysis.json, key: "lone.vel_rvo2.replay.n_snapshots", fmt: "{:d}"}
+VelLoneN: {file: velorca_analysis.json, key: "lone.vel_rvo2.all.n", fmt: "{:d}"}
+VelLoneRvoK: {file: velorca_analysis.json, key: "lone.vel_rvo2.all.k", fmt: "{:d}"}
+VelLoneRvoHi: {file: velorca_analysis.json, key: "lone.vel_rvo2.all.ci95.1", fmt: "{:.3f}"}
+VelLonePubK: {file: velorca_analysis.json, key: "lone.vel_pub.all.k", fmt: "{:d}"}
+VelLonePubHi: {file: velorca_analysis.json, key: "lone.vel_pub.all.ci95.1", fmt: "{:.3f}"}
+VelLoneIdentRvo: {file: velorca_analysis.json, key: "lone.vel_rvo2.identical_to_sfm.identical", fmt: "{:d}"}
+VelLoneIdentPub: {file: velorca_analysis.json, key: "lone.vel_pub.identical_to_sfm.identical", fmt: "{:d}"}
+VelLoneReplayDis: {file: velorca_analysis.json, key: "lone.vel_rvo2.replay.snapshots_disagree", fmt: "{:d}"}
+VelLoneForceRvoK: {file: velorca_analysis.json, key: "lone.vel_rvo2.paired.force.reference.k", fmt: "{:d}"}
+VelLoneForcePubK: {file: velorca_analysis.json, key: "lone.vel_pub.paired.force.reference.k", fmt: "{:d}"}
+VelLoneRvoDiff: {file: velorca_analysis.json, key: "lone.vel_rvo2.paired.force.diff", fmt: "{:.2f}"}
+VelLoneRvoDiffLo: {file: velorca_analysis.json, key: "lone.vel_rvo2.paired.force.ci95.0", fmt: "{:.2f}"}
+VelLoneRvoDiffHi: {file: velorca_analysis.json, key: "lone.vel_rvo2.paired.force.ci95.1", fmt: "{:.2f}"}
+VelLoneRvoP: {file: velorca_analysis.json, key: "lone.vel_rvo2.paired.force.mcnemar_p", fmt: p}
+VelLonePubDiff: {file: velorca_analysis.json, key: "lone.vel_pub.paired.force.diff", fmt: "{:.2f}"}
+VelLonePubDiffLo: {file: velorca_analysis.json, key: "lone.vel_pub.paired.force.ci95.0", fmt: "{:.2f}"}
+VelLonePubDiffHi: {file: velorca_analysis.json, key: "lone.vel_pub.paired.force.ci95.1", fmt: "{:.2f}"}
+
+# --- pair quench (E7b library)
+VelPairSnaps: {file: velorca_analysis.json, key: "pair.vel_rvo2.replay.n_snapshots", fmt: "{:d}"}
+VelPairN: {file: velorca_analysis.json, key: "pair.vel_rvo2.all.n", fmt: "{:d}"}
+VelPairRvoK: {file: velorca_analysis.json, key: "pair.vel_rvo2.all.k", fmt: "{:d}"}
+VelPairRvoHi: {file: velorca_analysis.json, key: "pair.vel_rvo2.all.ci95.1", fmt: "{:.3f}"}
+VelPairPubK: {file: velorca_analysis.json, key: "pair.vel_pub.all.k", fmt: "{:d}"}
+VelPairPubHi: {file: velorca_analysis.json, key: "pair.vel_pub.all.ci95.1", fmt: "{:.3f}"}
+VelPairIdentRvo: {file: velorca_analysis.json, key: "pair.vel_rvo2.identical_to_sfm.identical", fmt: "{:d}"}
+VelPairIdentPub: {file: velorca_analysis.json, key: "pair.vel_pub.identical_to_sfm.identical", fmt: "{:d}"}
+VelPairReplayDis: {file: velorca_analysis.json, key: "pair.vel_rvo2.replay.snapshots_disagree", fmt: "{:d}"}
+VelPairForceRvoK: {file: velorca_analysis.json, key: "pair.vel_rvo2.paired.force.reference.k", fmt: "{:d}"}
+VelPairForcePubK: {file: velorca_analysis.json, key: "pair.vel_pub.paired.force.reference.k", fmt: "{:d}"}
+VelPairRvoDiff: {file: velorca_analysis.json, key: "pair.vel_rvo2.paired.force.diff", fmt: "{:.2f}"}
+VelPairRvoDiffLo: {file: velorca_analysis.json, key: "pair.vel_rvo2.paired.force.ci95.0", fmt: "{:.2f}"}
+VelPairRvoDiffHi: {file: velorca_analysis.json, key: "pair.vel_rvo2.paired.force.ci95.1", fmt: "{:.2f}"}
+VelPairPubDiff: {file: velorca_analysis.json, key: "pair.vel_pub.paired.force.diff", fmt: "{:.2f}"}
+VelPairPubDiffLo: {file: velorca_analysis.json, key: "pair.vel_pub.paired.force.ci95.0", fmt: "{:.2f}"}
+VelPairPubDiffHi: {file: velorca_analysis.json, key: "pair.vel_pub.paired.force.ci95.1", fmt: "{:.2f}"}
+
+# --- whole runs, seeds 242-341 (RVO2 solver)
+VelWholeN: {file: velorca_analysis.json, key: "whole.completion.vel.n", fmt: "{:d}"}
+VelWholeK: {file: velorca_analysis.json, key: "whole.completion.vel.k", fmt: "{:d}"}
+VelWholeLo: {file: velorca_analysis.json, key: "whole.completion.vel.ci95.0", fmt: "{:.2f}"}
+VelWholeHi: {file: velorca_analysis.json, key: "whole.completion.vel.ci95.1", fmt: "{:.2f}"}
+VelWholeForceK: {file: velorca_analysis.json, key: "whole.completion.force.k", fmt: "{:d}"}
+VelWholeSfmK: {file: velorca_analysis.json, key: "whole.completion.sfm.k", fmt: "{:d}"}
+VelWholeSfmLo: {file: velorca_analysis.json, key: "whole.completion.sfm.ci95.0", fmt: "{:.2f}"}
+VelWholeSfmHi: {file: velorca_analysis.json, key: "whole.completion.sfm.ci95.1", fmt: "{:.2f}"}
+VelWholeForceDiff: {file: velorca_analysis.json, key: "whole.paired.vel_minus_force.diff", fmt: "{:.2f}"}
+VelWholeForceDiffLo: {file: velorca_analysis.json, key: "whole.paired.vel_minus_force.ci95.0", fmt: "{:.2f}"}
+VelWholeForceDiffHi: {file: velorca_analysis.json, key: "whole.paired.vel_minus_force.ci95.1", fmt: "{:.2f}"}
+VelWholeForceP: {file: velorca_analysis.json, key: "whole.paired.vel_minus_force.mcnemar_p", fmt: p}
+VelWholeSfmDiff: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.diff", fmt: "{:.2f}"}
+VelWholeSfmDiffLo: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.ci95.0", fmt: "{:.2f}"}
+VelWholeSfmDiffHi: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.ci95.1", fmt: "{:.2f}"}
+VelWholeSfmP: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.mcnemar_p", fmt: p}
+VelWholeFail: {file: velorca_analysis.json, key: "whole.end_state.vel.failures", fmt: "{:d}"}
+VelWholeDeadlock: {file: velorca_analysis.json, key: "whole.end_state.vel.deadlock", fmt: "{:d}"}
+VelWholeMoving: {file: velorca_analysis.json, key: "whole.end_state.vel.moving_at_600s", fmt: "{:d}"}
+VelWholeHeldOwn: {file: velorca_analysis.json, key: "whole.end_state.vel.own_coupling_all_held", fmt: "{:d}"}
+VelWholeHeldSfm: {file: velorca_analysis.json, key: "whole.end_state.vel.K0_all_held", fmt: "{:d}"}
+VelWholeOnlyVel: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.only_first", fmt: "{:d}"}
+VelWholeOnlySfm: {file: velorca_analysis.json, key: "whole.paired.vel_minus_sfm.only_second", fmt: "{:d}"}
+VelWholeLoneK: {file: velorca_analysis.json, key: "whole.end_state.vel.keystone_class.lone_keystone", fmt: "{:d}"}
+VelWholeSecondK: {file: velorca_analysis.json, key: "whole.end_state.vel.keystone_class.lone_keystone_second_trap", fmt: "{:d}"}
+VelWholeSfmLoneK: {file: velorca_analysis.json, key: "whole.end_state.sfm.keystone_class.lone_keystone", fmt: "{:d}"}
+VelWholeSfmSecondK: {file: velorca_analysis.json, key: "whole.end_state.sfm.keystone_class.lone_keystone_second_trap", fmt: "{:d}"}
+VelWholeSfmCollK: {file: velorca_analysis.json, key: "whole.end_state.sfm.keystone_class.collective", fmt: "{:d}"}
+VelWholeResidMed: {file: velorca_analysis.json, key: "whole.end_state.vel.residual_size_median", fmt: "{:.0f}"}

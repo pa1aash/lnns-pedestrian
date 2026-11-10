@@ -45,9 +45,9 @@ the rest-state lemma (Sect. 4) the deadlock stays held. Its class on Table 2 is 
 
 - (a) Lone-trap quench, 60 snapshots, both solvers, unperturbed and 5 replays at 1e-9 m: no blocker
   freed (0 of 360 per solver). Each run reproduces the SFM restart of the same snapshot and replay seed
-  (E2 arm C1: 0 of 360 freed), with identical final positions.
+  (E2, SFM: 0 of 360 freed), with identical final positions.
 - (b) Pair quench, 46 snapshots: no snapshot freed (0 of 276 per solver), identical to the SFM restart
-  (E7b arm C1: 0 of 276).
+  (E7b, SFM: 0 of 276).
 - (d) The time-step probe is not triggered.
 - (c) Whole runs, seeds 242-341: velocity coupling acts while agents move, so completion may differ from
   SFM at the same seeds. Any difference must come from how and how often deadlocks form. Each run that
