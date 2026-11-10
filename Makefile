@@ -1,4 +1,4 @@
-.PHONY: venv venv-sim paper submission overlap figures numbers tables clean
+.PHONY: venv venv-sim paper submission overleaf overlap figures numbers tables clean
 
 # Python environment for figures, numbers and tables (pinned in requirements-figures.txt).
 # `make venv` creates it once; figures, numbers and tables create it on first use as well.
@@ -12,6 +12,12 @@ paper: numbers tables
 
 submission: paper
 	bash tools/make_submission.sh
+
+# Overleaf package: one main.tex with every \input inlined and every number macro replaced by its value,
+# refs.bib with the cited entries only, the figures, llncs.cls and splncs04.bst (OVERLEAF_DIR, default paper/overleaf).
+OVERLEAF_DIR ?= paper/overleaf
+overleaf: paper
+	python3 tools/make_overleaf.py $(OVERLEAF_DIR)
 
 overlap:
 	python3 tools/overlap_check.py

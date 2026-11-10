@@ -23,6 +23,8 @@ lit/
 # single-file submission build (make submission); only the README is tracked
 paper/submission/*
 !paper/submission/README.md
+# Overleaf package (make overleaf)
+paper/overleaf/
 # raw trajectory files (> 50 MB per folder) are archived on Zenodo at submission, not committed (C52)
 data/E10/raw/
 figures/hero/final_cache/
