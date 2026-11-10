@@ -65,7 +65,7 @@ axA.set_ylabel(r"$\ln(\hat\lambda/\hat\nu)$")
 
 # ---- (b) slope ratio against the barrier
 OFF = {"full": 0.94, "frozen": 1.0, "alone": 1.06}
-axB.axhline(1.0, color="0.45", lw=0.7, zorder=1)
+axB.axhline(1.0, color="0.7", lw=0.5, zorder=1)
 if REV and REV.get("trend"):
     t = REV["trend"]
     u = np.geomspace(0.5, 150, 100)
