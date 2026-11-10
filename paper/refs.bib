@@ -472,6 +472,7 @@
   publisher = {Springer Science and Business Media LLC},
   author    = {Garcimart{\'i}n, A. and Pastor, J. M. and Mart{\'i}n-G{\'o}mez, C. and Parisi, D. and Zuriguel, I.},
   year      = {2017},
+  pages     = {10792},
 }
 
 % source: https://api.crossref.org/works/10.1016/j.trb.2017.01.008/transform/application/x-bibtex (fetched 2026-11-02; key nicolas2017)
@@ -689,6 +690,7 @@
   publisher = {American Physical Society (APS)},
   author    = {Pastor, Jos{\'e} M. and Garcimart{\'i}n, Angel and Gago, Paula A. and Peralta, Juan P. and Mart{\'i}n-G{\'o}mez, C{\'e}sar and Ferrer, Luis M. and Maza, Diego and Parisi, Daniel R. and Pugnaloni, Luis A. and Zuriguel, Iker},
   year      = {2015},
+  pages     = {062817},
 }
 
 % source: https://api.crossref.org/works/10.1103/physreve.87.063305/transform/application/x-bibtex (fetched 2026-11-02; key koster2013)
@@ -714,6 +716,7 @@
   publisher = {American Physical Society (APS)},
   author    = {Chraibi, Mohcine and Seyfried, Armin and Schadschneider, Andreas},
   year      = {2010},
+  pages     = {046111},
 }
 
 % source: https://api.crossref.org/works/10.1177/02783649221074718/transform/application/x-bibtex (fetched 2026-11-02; key grover2023)
@@ -1469,7 +1472,7 @@
 % source: https://arxiv.org/bibtex/cond-mat/9904326 (fetched 2026-11-02; key r43, normalised to helbing2000freezing)
 @article{helbing2000freezing,
   title         = {Freezing by Heating in a Driven Mesoscopic System},
-  author        = {Dirk Helbing and Illes Farkas and Tamas Vicsek},
+  author        = {Helbing, Dirk and Farkas, Ill{\'e}s J. and Vicsek, Tam{\'a}s},
   journal       = {Physical Review Letters},
   volume        = {84},
   number        = {6},
@@ -2195,16 +2198,16 @@
   pages     = {760--772},
 }
 
-% source: https://doi.org/10.2312/SCA/SCA10/119-128 with Accept: application/x-bibtex (fetched 2026-11-07; key guy2010). NOTE: DataCite record has no pages; conference bibliography gives pp. 119-128 (also in the handle).
-@misc{guy2010,
-  doi       = {10.2312/SCA/SCA10/119-128},
-  author    = {Guy, Stephen J. and Chhugani, Jatin and Curtis, Sean and Dubey, Pradeep and Lin, Ming and Manocha, Dinesh},
-  keywords  = {Categories and Subject Descriptors (according to ACM CCS): I.2.11 [Artificial Intelligence]: Distributed Artificial Intelligence-Multiagent systems},
-  language  = {en},
+% source: https://doi.org/10.2312/SCA/SCA10/119-128 with Accept: application/x-bibtex (fetched 2026-11-07; key guy2010). B 2026-11-10: entry type changed from misc (with a journal field) to inproceedings; pages 119-128 from the DOI suffix and the Eurographics DL PDF path; editors from the paper header. NOTE: DataCite record has no pages; conference bibliography gives pp. 119-128 (also in the handle).
+@inproceedings{guy2010,
   title     = {{PLEdestrians}: A Least-Effort Approach to Crowd Simulation},
-  journal   = {Eurographics/ ACM SIGGRAPH Symposium on Computer Animation},
+  author    = {Guy, Stephen J. and Chhugani, Jatin and Curtis, Sean and Dubey, Pradeep and Lin, Ming and Manocha, Dinesh},
+  booktitle = {Eurographics/ACM SIGGRAPH Symposium on Computer Animation},
+  editor    = {Otaduy, Miguel and Popovi{\'c}, Zoran},
   publisher = {The Eurographics Association},
   year      = {2010},
+  pages     = {119--128},
+  doi       = {10.2312/SCA/SCA10/119-128},
 }
 
 % source: https://doi.org/10.1140/epjds7 with Accept: application/x-bibtex (fetched 2026-11-07; key helbing2012).
@@ -2297,13 +2300,14 @@
   collection = {MIG '20},
 }
 
-% source: https://raw.githubusercontent.com/snape/RVO2/main/CITATION.cff (fetched 2026-11-07; key vandenberg2011rvo2); title, authors, repository and DOI from the authors' CITATION.cff. Cite together with vandenberg2011. The port code/sim/steering/orca_rvo2.py (written 2026-11-02) names RVO2 v2.0.3, which exists only on the main branch (no v2.0.3 tag); main was at commit 6b4eb00a93a9f3abf723235ff006d6aad3e2f212 (2026-10-24) on the port date (GitHub API), but the port records no commit, so the note names the version only. The DOI 10.5281/zenodo.7039667 is the Zenodo record of release v2.0.2 (tag v2.0.2, commit c96a6ec), checked at zenodo.org/api/records/7039667 on 2026-11-09.
+% source: https://raw.githubusercontent.com/snape/RVO2/main/CITATION.cff (fetched 2026-11-10; title, authors, identifier), https://zenodo.org/api/records?q=conceptrecid:7039665 and doi.org content negotiation for 10.5281/zenodo.7039667 (fetched 2026-11-10; release v2.0.2, published 2016-05-11, Zenodo), GitHub tags API (v2.0.2 = commit c96a6ec8328492bae0721e59774026a119a60b4a). Key vandenberg2011rvo2. The port code/sim/steering/orca_rvo2.py names "v2.0.3, src/Agent.cpp" and records no commit. Version 2.0.3 appears in CMakeLists.txt from commit 57098835 (2020-12-19); src/Agent.cpp was renamed Agent.cc in 423cb115 (2022-09-22). Diffing src/Agent.cpp at c96a6ec against 7f85810 (last Agent.cpp revision): the only code change is in the obstacle branch (s < 1 to s <= 1), which the port does not use; the agent ORCA-line construction and linearProgram1/2/3 are unchanged. The citable release v2.0.2 therefore contains the ported routines as ported. (B, 2026-11-10: title set to the CITATION.cff title; note now names the release and commit.)
 @misc{vandenberg2011rvo2,
-  title  = {Optimal Reciprocal Collision Avoidance ({RVO2} Library)},
-  author = {van den Berg, Jur and Guy, Stephen J. and Snape, Jamie and Lin, Ming C. and Manocha, Dinesh},
-  doi    = {10.5281/zenodo.7039667},
-  url    = {https://github.com/snape/RVO2},
-  note   = {Version 2.0.3 (main branch); the Zenodo record archives release v2.0.2},
+  title        = {Optimal Reciprocal Collision Avoidance},
+  author       = {van den Berg, Jur and Guy, Stephen J. and Snape, Jamie and Lin, Ming C. and Manocha, Dinesh},
+  howpublished = {{RVO2} Library, release v2.0.2, Zenodo},
+  year         = {2016},
+  doi          = {10.5281/zenodo.7039667},
+  note         = {Git commit c96a6ec; agent routines unchanged in version 2.0.3},
 }
 
 % Source: Library of Congress SRU (http://lx2.loc.gov:210/LCDB, bath.author="Fruin" and bath.title="pedestrian planning", recordSchema=mods), LCCN 70159312, fetched 2026-11-07. Fields built from the MODS record: namePart, title, agent, place, dateIssued [1971].
@@ -2400,4 +2404,123 @@
   author    = {Rzezonka, Jonas and Chraibi, Mohcine and Seyfried, Armin and Hein, Ben and Schadschneider, Andreas},
   year      = {2022},
   pages     = {211822},
+}
+
+% ---- Session B additions (2026-11-10, after external review); every entry fetched, source in the comment above it ----
+
+% source: https://doi.org/10.1063/1.451844 (BibTeX content negotiation) + https://api.crossref.org/works/10.1063/1.451844 (fetched 2026-11-10)
+@article{melnikov1986,
+  title     = {Theory of activated rate processes: Exact solution of the {Kramers} problem},
+  author    = {Mel'nikov, V. I. and Meshkov, S. V.},
+  journal   = {The Journal of Chemical Physics},
+  volume    = {85},
+  number    = {2},
+  pages     = {1018--1027},
+  year      = {1986},
+  doi       = {10.1063/1.451844},
+}
+
+% source: https://doi.org/10.1287/trsc.1040.0102 (BibTeX content negotiation) + https://api.crossref.org/works/10.1287/trsc.1040.0102 (fetched 2026-11-10)
+@article{hoogendoorn2005,
+  title     = {Pedestrian Behavior at Bottlenecks},
+  author    = {Hoogendoorn, Serge P. and Daamen, W.},
+  journal   = {Transportation Science},
+  volume    = {39},
+  number    = {2},
+  pages     = {147--159},
+  year      = {2005},
+  doi       = {10.1287/trsc.1040.0102},
+}
+
+% source: https://doi.org/10.1007/978-3-319-33482-0_29 (BibTeX content negotiation) + https://api.crossref.org/works/10.1007/978-3-319-33482-0 (editors, place) (fetched 2026-11-10)
+@inproceedings{tordeux2016,
+  title     = {Collision-Free Speed Model for Pedestrian Dynamics},
+  author    = {Tordeux, Antoine and Chraibi, Mohcine and Seyfried, Armin},
+  booktitle = {Traffic and Granular Flow '15},
+  editor    = {Knoop, Victor L. and Daamen, Winnie},
+  publisher = {Springer International Publishing},
+  address   = {Cham},
+  pages     = {225--232},
+  year      = {2016},
+  doi       = {10.1007/978-3-319-33482-0_29},
+}
+
+% source: https://doi.org/10.5281/zenodo.18806940 (BibTeX content negotiation) + https://api.datacite.org/dois/10.5281/zenodo.18806940 (version, issue date) (fetched 2026-11-10)
+@misc{chraibi2026jupedsim,
+  title        = {{JuPedSim}},
+  author       = {Chraibi, Mohcine and Kratz, Kai and Schr{\"o}dter, Tobias and {The JuPedSim Development Team}},
+  howpublished = {Zenodo},
+  note         = {Software, version v1.3.2},
+  year         = {2026},
+  doi          = {10.5281/zenodo.18806940},
+}
+
+% source: https://doi.org/10.17815/CD.2019.21 (BibTeX content negotiation) + https://api.crossref.org/works/10.17815/CD.2019.21 (article number) (fetched 2026-11-10)
+@article{kleinmeier2019vadere,
+  title     = {{Vadere}: An Open-Source Simulation Framework to Promote Interdisciplinary Understanding},
+  author    = {Kleinmeier, Benedikt and Z{\"o}nnchen, Benedikt and G{\"o}del, Marion and K{\"o}ster, Gerta},
+  journal   = {Collective Dynamics},
+  volume    = {4},
+  pages     = {A21},
+  year      = {2019},
+  doi       = {10.17815/CD.2019.21},
+}
+
+% source: https://doi.org/10.1177/0037549705052772 (BibTeX content negotiation) + https://api.crossref.org/works/10.1177/0037549705052772 (fetched 2026-11-10)
+@article{lakoba2005,
+  title     = {Modifications of the {Helbing}-{Moln\'ar}-{Farkas}-{Vicsek} Social Force Model for Pedestrian Evolution},
+  author    = {Lakoba, Taras I. and Kaup, D. J. and Finkelstein, Neal M.},
+  journal   = {Simulation},
+  volume    = {81},
+  number    = {5},
+  pages     = {339--352},
+  year      = {2005},
+  doi       = {10.1177/0037549705052772},
+}
+
+% source: https://doi.org/10.1109/case49439.2021.9551564 (BibTeX content negotiation) + https://api.crossref.org/works/10.1109/case49439.2021.9551564 (fetched 2026-11-10)
+@inproceedings{dergachev2021case,
+  title     = {Distributed Multi-Agent Navigation Based on Reciprocal Collision Avoidance and Locally Confined Multi-Agent Path Finding},
+  author    = {Dergachev, Stepan and Yakovlev, Konstantin},
+  booktitle = {2021 {IEEE} 17th International Conference on Automation Science and Engineering ({CASE})},
+  publisher = {IEEE},
+  pages     = {1489--1494},
+  year      = {2021},
+  doi       = {10.1109/CASE49439.2021.9551564},
+}
+
+% source: https://api.crossref.org/works/10.17815/cd.2023.141 and doi.org content negotiation (fetched 2026-11-10); describes the CroMa bottleneck runs 4D030, 4D040, 4D110, 4D120, 4D130 (Sect. 3.7, App. A.9, Table 19)
+@article{boomers2023data,
+  title     = {Pedestrian Crowd Management Experiments: A Data Guidance Paper},
+  volume    = {8},
+  doi       = {10.17815/CD.2023.141},
+  journal   = {Collective Dynamics},
+  publisher = {Forschungszentrum J{\"u}lich, Zentralbibliothek},
+  author    = {Boomers, Ann Katrin and Boltes, Maik and Adrian, Juliane and Beermann, Mira and Chraibi, Mohcine and Feldmann, Sina and Fiedrich, Frank and Frings, Niklas and Graf, Arne and Kandler, Alica and Kilic, Deniz and Konya, Krisztina and K{\"u}pper, Mira and Lotter, Andreas and L{\"u}gering, Helena and M{\"u}ller, Francesca and Paetzke, Sarah and Raytarowski, Anna-Katharina and Sablik, Olga and Schr{\"o}dter, Tobias and Seyfried, Armin and Sieben, Anna and {\"U}sten, Ezel},
+  year      = {2023},
+  pages     = {1--57},
+}
+
+% source: https://doi.org/10.1109/icra.2011.5980408 with Accept: application/x-bibtex (fetched 2026-11-10). Eq. (7): acceleration (v' - v)/delta with time constant delta, the ORCA-velocity-to-force relaxation used by force-coupled ORCA
+@inproceedings{vandenberg2011avo,
+  title     = {Reciprocal collision avoidance with acceleration-velocity obstacles},
+  doi       = {10.1109/ICRA.2011.5980408},
+  booktitle = {2011 {IEEE} International Conference on Robotics and Automation},
+  publisher = {IEEE},
+  author    = {van den Berg, Jur and Snape, Jamie and Guy, Stephen J. and Manocha, Dinesh},
+  year      = {2011},
+  pages     = {3475--3482},
+}
+
+% source: https://doi.org/10.1073/pnas.1016507108 with Accept: application/x-bibtex (fetched 2026-11-10). Pedestrian model relaxing a heuristically chosen velocity with tau = 0.5 s plus contact forces
+@article{moussaid2011,
+  title     = {How simple rules determine pedestrian behavior and crowd disasters},
+  volume    = {108},
+  doi       = {10.1073/pnas.1016507108},
+  number    = {17},
+  journal   = {Proceedings of the National Academy of Sciences},
+  publisher = {National Academy of Sciences},
+  author    = {Moussa{\"i}d, Mehdi and Helbing, Dirk and Theraulaz, Guy},
+  year      = {2011},
+  pages     = {6884--6888},
 }
