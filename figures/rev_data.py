@@ -50,7 +50,39 @@ def rev_arrhenius():
     return out
 
 
+def _wilson(k, n, z=1.959963984540054):
+    p = k / n; den = 1 + z * z / n; c = (p + z * z / (2 * n)) / den
+    h = z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / den
+    return max(0.0, c - h), min(1.0, c + h)
+
+
 def rev_width():
-    """Width grid 0.82-0.96 m, logistic fit with band, parameter-free prediction(s) (session C, B2). Not yet available.
-    Shape: {"points": [{"w", "p", "lo", "hi"}], "logistic": {"w", "mid", "lo", "hi"}, "predictions": {name: {"w", "p"}}}."""
-    return None
+    """Width grid, logistic fit and parameter-free predictions from rev_B2.json (session C, B2).
+    points: every width of fit_all.table not among the E7 widths (0.7, 0.8, 0.9, 1.0 m), Wilson 95%.
+    logistic: completion = 1 / (1 + exp(-k (w - w50))) with the ML slope k; the band spans the logistic with w50 at the
+    ends of its 95% bootstrap interval (slope held), i.e. it shows the uncertainty of the critical width.
+    predictions: (1 - f(w))^N for N = 100 and N = N_eff, f(w) the stuck-alone fraction (f_at, interpolated
+    monotonically in log f)."""
+    b2 = _load("rev_B2.json")
+    if b2 is None:
+        return None
+    from scipy.interpolate import PchipInterpolator
+    fa = b2["fit_all"]
+    old = {0.7, 0.8, 0.9, 1.0}
+    pts = []
+    for r in fa["table"]:
+        if round(r["w"], 3) in old:
+            continue
+        lo, hi = _wilson(r["k"], r["n"])
+        pts.append({"w": r["w"], "p": r["k"] / r["n"], "lo": lo, "hi": hi})
+    w = np.linspace(0.68, 1.02, 300)
+    k, w50 = fa["slope_per_m"], fa["w50_m"]
+    lg = lambda c: 1 / (1 + np.exp(-k * (w - c)))
+    a_, b_ = fa["w50_ci95"]
+    logistic = {"w": w, "mid": lg(w50), "lo": lg(b_), "hi": lg(a_), "w50": w50, "w50_ci95": fa["w50_ci95"]}
+    ws = np.array(sorted(float(x) for x in b2["f_at"])); fs = np.array([b2["f_at"][f"{x:.2f}"] for x in ws])
+    lf = PchipInterpolator(ws, np.log(fs))
+    wp = np.linspace(ws[0], ws[-1], 300)
+    preds = {name: {"w": wp, "p": (1 - np.exp(lf(wp))) ** b2["prediction"][key]["N"], "N": b2["prediction"][key]["N"]}
+             for name, key in (("N = 100", "N100"), ("N_eff", "Neff"))}
+    return {"points": pts, "logistic": logistic, "predictions": preds}
