@@ -57,7 +57,7 @@ where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$
 \begin{figure}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/fig_geometry.pdf}
-\caption{Room bottleneck (left; inset, door region) and CroMa entrance (right), to scale: A door, $w=0.8$\,m; B goal and exit disc; C door edges; D, E ranges of $B_{w,\rm edge}$ and of its blend to $B_w$; F agent, $r=0.25$\,m; G holding area; H waiting zone; I bottleneck (2.0\,m).}
+\caption{Room bottleneck (left; inset, door region) and CroMa entrance (right), to scale: A door, $w=0.8$\,m; B goal and exit disc; C door edges; D, E ranges of $B_{w,\rm edge}$ and of its blend to $B_w$; F agent, $r=0.25$\,m; G holding area; H waiting zone; I, J ends of the 2.0\,m and 0.2\,m bottlenecks.}
 \label{fig:geometry}
 \end{figure}
 In the room bottleneck (Fig.~\ref{fig:geometry}, left), 100 agents spawn without overlap in $[1,8]\times[1,9]$\,m of a $10\times10$\,m room and walk to the goal $\mathbf g=(11,5)$\,m behind a 0.8\,m door in the wall $x=10$\,m. Each \emph{door edge} (C) is a sharp \emph{segment end}; the \emph{jamb} is the wall face beside it. Variants lower the \emph{wall range} $B_w$ everywhere, or set the \emph{jamb range} $B_{w,\rm edge}$ within 0.5\,m of the door edge (D), blended linearly to $B_w$ by 1.0\,m along the wall (E). A third rounds each jamb into a capsule of radius $r_c=0.1$\,m at the same clear width. In CroMa (Fig.~\ref{fig:geometry}, right; Sect.~\ref{sec:validity}) a holding area opens through a 0.8\,m entrance into a bottleneck 0.2 or 2.0\,m long; its door edges are convex junctions of jamb and corridor wall, both with $B_{w,\rm edge}$; there the nearest point of the two walls acts once.

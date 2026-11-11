@@ -3,7 +3,7 @@ r"""Generate paper/numbers.tex from paper/registry/*.yaml.
 
 Every number quoted in the paper text comes from a JSON file under data/derived/.
 
-Formats: `fmt` is a Python format string ("{:.2f}"), or "sci" for scientific notation in LaTeX,
+Formats: `fmt` is a Python format string ("{:.2f}"), or "sci" for scientific notation, or "p" for a p-value (with a companion <name>Rel macro carrying "=" or "<") in LaTeX,
 e.g. 0.000234 -> \ensuremath{2.3\times10^{-4}}. With "sci" the optional `digits` (default 2) is
 the number of significant digits of the mantissa; an exponent of 0 prints the mantissa alone.
 Fails with a non-zero exit status and a message naming the macro if a file or
@@ -15,6 +15,7 @@ import re
 import sys
 from pathlib import Path
 
+import math
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -50,12 +51,22 @@ def sci(val, digits=2):
 
 
 def pfmt(val, digits=2):
-    """p-values: plain decimals for p >= 0.01, scientific notation below."""
+    """p-values: `digits` significant figures down to 1e-3, "<10^{-k}" below (k = floor(-log10 p))."""
     if isinstance(val, bool) or not isinstance(val, (int, float)):
         raise TypeError(f"p needs a number, got {type(val).__name__}")
-    if val >= 0.01:
-        return f"{val:.3f}"
-    return sci(val, digits)
+    if not 0 <= val <= 1:
+        raise ValueError(f"p-value out of [0, 1]: {val}")
+    if val >= 1e-3:
+        dec = max(digits - 1 - math.floor(math.log10(val)), 0)
+        return f"{val:.{dec}f}"
+    k = math.floor(-math.log10(val)) if val > 0 else 16
+    return f"\\ensuremath{{<10^{{-{k}}}}}"
+
+
+def prel(val, digits=2):
+    """The relation and value for running text: "=0.012" or "<10^{-3}"."""
+    text = pfmt(val, digits)
+    return text if "<" in text else f"\\ensuremath{{={text}}}"
 
 
 def load_registry(path):
@@ -114,6 +125,9 @@ def build(registry_path, derived_dir):
         src = f"{spec['file']}:{spec['key']}"
         lines.append(f"% {name} <- {src}")
         lines.append(f"\\newcommand{{\\{name}}}{{{text}}}")
+        if spec["fmt"] == "p":
+            lines.append(f"% {name}Rel <- relation and value of {src}")
+            lines.append(f"\\newcommand{{\\{name}Rel}}{{{prel(val, spec.get('digits', 2))}}}")
         unit = spec.get("unit")
         if unit:
             lines.append(f"% {name}Unit <- unit of {src}")
