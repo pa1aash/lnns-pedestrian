@@ -1,0 +1,3 @@
+# Sect. 3 (model) entries not covered by the other registries.
+# Minimum ORCA gate w_o in whole runs, as a lower bound: "{!s:.6}" truncates the value to 4 decimals (0.95768 -> 0.9576).
+PmodRunsWMinFloor: {file: rev_A2.json, key: "runs.w_min", fmt: "{!s:.6}"}

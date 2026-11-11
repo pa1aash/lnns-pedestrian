@@ -1061,7 +1061,7 @@ DriveORCAMedian:
 StuckAloneN:
   file: E1_analysis.json
   key: "E1b.stuck_alone_frac_C1.n"
-  fmt: "{:d}"
+  fmt: "{:,d}"
 StuckAloneFracCThree:
   file: E1_analysis.json
   key: "E1b.stuck_alone_frac_C3_rest.frac"

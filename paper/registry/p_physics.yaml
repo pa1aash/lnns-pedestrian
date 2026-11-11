@@ -1,0 +1,21 @@
+# Sect. 5 (deadlock physics) entries not covered by the other registries (audit fixes, wave 2).
+# Lower bound v_eff/v0 >= ...: four decimals so the printed value (0.9965) does not exceed the minimum 0.99650.
+PphysWeidMin: {file: final_corrected.json, key: "terminal.weidmann_min", fmt: "{:.4f}"}
+# Smallest pair fold threshold b_f (0.00051; {:.3f} printed 0.001).
+PphysBstarMin: {file: E7b_analysis.json, key: "a_statics.fold_threshold.min_both_signs.min", fmt: "{:.5f}"}
+# Rest drive of force-coupled ORCA (RVO2): SFM drive plus drive part, median (N).
+PphysDriveTotal: {file: E1_analysis.json, key: "E1b.drives_N.C3_rest_total.p50", fmt: "{:.0f}"}
+# Two significant figures (numbers audit).
+PphysStuckAloneFrac: {file: E1_analysis.json, key: "E1b.stuck_alone_frac_C1.frac", fmt: "{:.2f}"}
+PphysPosMarginMin: {file: rev_B1.json, key: "pos_rest.margin_range_N.0", fmt: "{:.4f}"}
+PphysNegMarginMax: {file: rev_B1.json, key: "neg_peak.margin_range_N.1", fmt: "{:.4f}"}
+PphysRatioFull: {file: E4_analysis.json, key: "headline.ratio_med_full", fmt: "{:.1f}"}
+PphysSkippedDU: {file: E4_analysis.json, key: "extension.skipped_no_barrier.0.dU", fmt: "{:.3f}"}
+PphysFoldMissGap: {file: E7b_analysis.json, key: "a_statics.fold_prediction.disagree_max_rel_gap_pct", fmt: "{:.1f}"}
+PphysPairBarMin: {file: E7b_analysis.json, key: "d_barriers.dU.min", fmt: "{:.3f}"}
+PphysVThreeLifeMax: {file: N5_analysis.json, key: "cells.v3.lifetime_max_s", fmt: "{:.2f}"}
+# Maxima used as upper bounds: one more digit so the printed value is not below the maximum's rounding.
+PphysBodyMid: {file: rev_B4.json, key: "by_dt.dt0p0025.peak_body_force_kN", fmt: "{:.1f}"}
+PphysContactMid: {file: rev_B4.json, key: "by_dt.dt0p0025.peak_contact_force_kN", fmt: "{:.2f}"}
+# Completed runs at dt = 0.0025 s (RevBfourCompleteFine is dt = 0.001 s).
+PphysBfourCompleteMid: {file: rev_B4.json, key: "by_dt.dt0p0025.complete", fmt: "{:d}"}

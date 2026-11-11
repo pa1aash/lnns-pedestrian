@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 import math
+from decimal import Decimal, ROUND_HALF_UP
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -58,7 +59,10 @@ def pfmt(val, digits=2):
         raise ValueError(f"p-value out of [0, 1]: {val}")
     if val >= 1e-3:
         dec = max(digits - 1 - math.floor(math.log10(val)), 0)
-        return f"{val:.{dec}f}"
+        q = Decimal(repr(val)).quantize(Decimal(1).scaleb(-dec), rounding=ROUND_HALF_UP)
+        dec = max(digits - 1 - math.floor(math.log10(float(q))), 0)  # rounding may carry to the next decade
+        q = q.quantize(Decimal(1).scaleb(-dec), rounding=ROUND_HALF_UP)
+        return f"{q:.{dec}f}"
     k = math.floor(-math.log10(val)) if val > 0 else 16
     return f"\\ensuremath{{<10^{{-{k}}}}}"
 
@@ -120,6 +124,8 @@ def build(registry_path, derived_dir):
                 if "digits" in spec:
                     fail("'digits' applies only to fmt: sci")
                 text = spec["fmt"].format(val)
+                if "," in spec["fmt"]:  # thousands separator as a thin space, e.g. 20\,000
+                    text = text.replace(",", "\\,")
         except (ValueError, TypeError, IndexError, KeyError) as e:
             fail(f"format '{spec['fmt']}' does not fit value {val!r} ({e})")
         src = f"{spec['file']}:{spec['key']}"

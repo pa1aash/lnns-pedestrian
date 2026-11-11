@@ -1,0 +1,4 @@
+# Sect. 4 and Table 2: two-significant-figure versions of derived quantities (audit numbers.md).
+PprotMuMax: {file: rev_A10.json, key: "headline.mu1_max", fmt: "sci", digits: 2}
+PprotVarRatio: {file: T3_variance.json, key: "ratio_measured_formula_mean", fmt: "{:.1f}"}
+PprotEllBA: {file: E3_analysis.json, key: "headline.ell_ps_b1p5_obs", fmt: "{:.1f}"}

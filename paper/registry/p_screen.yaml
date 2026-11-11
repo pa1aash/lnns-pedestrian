@@ -4,3 +4,50 @@ PscrPairBsRvoMinusFreed: {file: E7b_analysis.json, key: "s3_matched.rvo2.reversa
 PscrPairBsRvoMinusUpper: {file: E7b_analysis.json, key: "s3_matched.rvo2.handedness.minus_upper_first", fmt: "{:d}"}
 # Legacy solver: last commit of the conference code (range RevAfourteenCommitConf..PscrCommitConfHead, tag r2.0-baseline).
 PscrCommitConfHead: {file: rev_A14.json, key: "identity.conference_head_short", fmt: "{}"}
+# Table 3a/3b cells at two significant figures (Sect. 4.6 rule); same keys as the RevAseven*/TabThree*/RunNOne*/Esix* macros.
+# Delta RMST (s), Table 3a/3b (rev_A7).
+PscrTimeLoneEtwoEff: {file: rev_A7.json, key: "lone_E2.time.effect", fmt: "{:.0f}"}
+PscrTimeLoneEtwoLo: {file: rev_A7.json, key: "lone_E2.time.ci95.0", fmt: "{:.1f}"}
+PscrTimeLoneEtwoHi: {file: rev_A7.json, key: "lone_E2.time.ci95.1", fmt: "{:.0f}"}
+PscrTimeLoneNoneEff: {file: rev_A7.json, key: "lone_N1.time.effect", fmt: "{:.0f}"}
+PscrTimeLoneNoneLo: {file: rev_A7.json, key: "lone_N1.time.ci95.0", fmt: "{:.0f}"}
+PscrTimeLoneNoneHi: {file: rev_A7.json, key: "lone_N1.time.ci95.1", fmt: "{:.0f}"}
+PscrTimeSecondEff: {file: rev_A7.json, key: "second.time.effect", fmt: "{:.0f}"}
+PscrTimeSecondLo: {file: rev_A7.json, key: "second.time.ci95.0", fmt: "{:.0f}"}
+PscrTimeSecondHi: {file: rev_A7.json, key: "second.time.ci95.1", fmt: "{:.1f}"}
+PscrTimeWholeEff: {file: rev_A7.json, key: "whole_E6.time.effect", fmt: "{:.0f}"}
+PscrTimeWholeLo: {file: rev_A7.json, key: "whole_E6.time.ci95.0", fmt: "{:.0f}"}
+PscrTimeWholeHi: {file: rev_A7.json, key: "whole_E6.time.ci95.1", fmt: "{:.0f}"}
+PscrTimePairPubEff: {file: rev_A7.json, key: "pair_pub.time.effect", fmt: "{:.1f}"}
+PscrTimePairPubLo: {file: rev_A7.json, key: "pair_pub.time.ci95.0", fmt: "{:.0f}"}
+PscrTimePairPubHi: {file: rev_A7.json, key: "pair_pub.time.ci95.1", fmt: "{:.0f}"}
+PscrTimePairRvoEff: {file: rev_A7.json, key: "pair_rvo2.time.effect", fmt: "{:.1f}"}
+PscrTimePairRvoLo: {file: rev_A7.json, key: "pair_rvo2.time.ci95.0", fmt: "{:.0f}"}
+PscrTimePairRvoHi: {file: rev_A7.json, key: "pair_rvo2.time.ci95.1", fmt: "{:.0f}"}
+# Delta (freed fraction, surrogate minus force-coupled ORCA) and other Table 3a/3b cells.
+PscrLKDiff: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_noise_minus_C3", fmt: "{:+.3f}"}
+PscrLKDiffLo: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.0", fmt: "{:.2f}"}
+PscrLKDiffHi: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.1", fmt: "{:.3f}"}
+PscrNOneDiff: {file: N1_analysis.json, key: "rate.diff_vs_C3_rvo2.diff", fmt: "{:+.3f}"}
+PscrNOneDiffLo: {file: N1_analysis.json, key: "rate.diff_vs_C3_rvo2.ci95.0", fmt: "{:.3f}"}
+PscrNOneDiffHi: {file: N1_analysis.json, key: "rate.diff_vs_C3_rvo2.ci95.1", fmt: "{:.3f}"}
+PscrSTDiffLo: {file: rev_A6.json, key: "lone_keystone_second_trap.delta.E2_analysis_ci95.0", fmt: "{:.3f}"}
+PscrWholeDiff: {file: E6_analysis.json, key: "completion.diff_sigma_minus_C3.diff", fmt: "{:+.3f}"}
+PscrWholeDiffLo: {file: E6_analysis.json, key: "completion.diff_sigma_minus_C3.ci95.0", fmt: "{:.2f}"}
+PscrWholeDiffHi: {file: E6_analysis.json, key: "completion.diff_sigma_minus_C3.ci95.1", fmt: "{:.3f}"}
+PscrLKNHalfEJ: {file: rev_A9.json, key: "lone.lone_keystone.N1.rules.half.E_J", fmt: "{:.3f}"}
+PscrPairRvoEJ: {file: rev_A9.json, key: "pair.rvo2.freed_sets.E_J", fmt: "{:.3f}"}
+PscrPairBstarPub: {file: E7b_analysis.json, key: "s3_matched.pub.b_star", fmt: "{:.3f}"}
+PscrOrcaLnRatio: {file: E3_analysis.json, key: "headline.c3_ln_ratio", fmt: "{:.4f}"}
+# Pair Delta with its 95% interval from rev_A8 (one source with the A7/A8 tests; replaces table3_pair.json).
+PscrPairPubDiff: {file: rev_A8.json, key: "pair.delta.bstar_pub_plus_vs_C3_pub.T120.delta", fmt: "{:+.3f}"}
+PscrPairPubDiffLo: {file: rev_A8.json, key: "pair.delta.bstar_pub_plus_vs_C3_pub.T120.ci95.0", fmt: "{:.2f}"}
+PscrPairPubDiffHi: {file: rev_A8.json, key: "pair.delta.bstar_pub_plus_vs_C3_pub.T120.ci95.1", fmt: "{:.2f}"}
+PscrPairRvoDiff: {file: rev_A8.json, key: "pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.delta", fmt: "{:+.3f}"}
+PscrPairRvoDiffLo: {file: rev_A8.json, key: "pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.ci95.0", fmt: "{:.2f}"}
+PscrPairRvoDiffHi: {file: rev_A8.json, key: "pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.ci95.1", fmt: "{:.2f}"}
+# Sect. 6 text values at two significant figures (numbers.md IMPRECISE entries).
+PscrCreepSpeedMin: {file: rev_A13.json, key: "creep.speed_median_min", fmt: "{:.3f}"}
+PscrReplayPubMaxDt: {file: E2_analysis.json, key: "b_replay_determinism.pooled.C3_pub.max_abs_dt_blocker_exit_s", fmt: "{:.0f}"}
+PscrStallMaxDiff: {file: E6_analysis.json, key: "lifetimes.pred_vs_obs.max_abs_diff", fmt: "{:.3f}"}
+PscrJacAsymMin: {file: rev_A11.json, key: "headline.jac_asym_min", fmt: "{:.3f}"}

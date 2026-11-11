@@ -300,9 +300,9 @@
 % EtwoSTPubVsRVODiscB <- E2_analysis.json:d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.discordant_second_only
 \newcommand{\EtwoSTPubVsRVODiscB}{1}
 % EtwoSTPubVsRVOP <- E2_analysis.json:d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.mcnemar_exact_p
-\newcommand{\EtwoSTPubVsRVOP}{0.12}
+\newcommand{\EtwoSTPubVsRVOP}{0.13}
 % EtwoSTPubVsRVOPRel <- relation and value of E2_analysis.json:d_orca_decomposition.lone_keystone_second_trap.C3_pub_vs_C3_rvo2.mcnemar_exact_p
-\newcommand{\EtwoSTPubVsRVOPRel}{\ensuremath{=0.12}}
+\newcommand{\EtwoSTPubVsRVOPRel}{\ensuremath{=0.13}}
 % EtwoSTFrozenPMDiscA <- E2_analysis.json:d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_frozen_minus.discordant_first_only
 \newcommand{\EtwoSTFrozenPMDiscA}{25}
 % EtwoSTFrozenPMDiscB <- E2_analysis.json:d_orca_decomposition.lone_keystone_second_trap.frozen_plus_vs_frozen_minus.discordant_second_only
@@ -328,9 +328,9 @@
 % EtwoAllPubVsRVODiscB <- E2_analysis.json:d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.discordant_second_only
 \newcommand{\EtwoAllPubVsRVODiscB}{1}
 % EtwoAllPubVsRVOP <- E2_analysis.json:d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.mcnemar_exact_p
-\newcommand{\EtwoAllPubVsRVOP}{0.12}
+\newcommand{\EtwoAllPubVsRVOP}{0.13}
 % EtwoAllPubVsRVOPRel <- relation and value of E2_analysis.json:d_orca_decomposition.pooled.C3_pub_vs_C3_rvo2.mcnemar_exact_p
-\newcommand{\EtwoAllPubVsRVOPRel}{\ensuremath{=0.12}}
+\newcommand{\EtwoAllPubVsRVOPRel}{\ensuremath{=0.13}}
 % EtwoAllFrozenPMDiscA <- E2_analysis.json:d_orca_decomposition.pooled.frozen_plus_vs_frozen_minus.discordant_first_only
 \newcommand{\EtwoAllFrozenPMDiscA}{56}
 % EtwoAllFrozenPMDiscB <- E2_analysis.json:d_orca_decomposition.pooled.frozen_plus_vs_frozen_minus.discordant_second_only
@@ -534,7 +534,7 @@
 % DriveORCAMedian <- E1_analysis.json:E1b.drives_N.C3_rest_orca_drive_w_o_m_v0_over_tau_orca.p50
 \newcommand{\DriveORCAMedian}{215}
 % StuckAloneN <- E1_analysis.json:E1b.stuck_alone_frac_C1.n
-\newcommand{\StuckAloneN}{20000}
+\newcommand{\StuckAloneN}{20\,000}
 % StuckAloneFracCThree <- E1_analysis.json:E1b.stuck_alone_frac_C3_rest.frac
 \newcommand{\StuckAloneFracCThree}{0.013}
 % EOneBDeadlockK <- E1_analysis.json:E1b.deadlock.k
@@ -866,9 +866,9 @@
 % FixAsixLKDiffSignPRel <- relation and value of fix_a6.json:lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.signflip_exact_p
 \newcommand{\FixAsixLKDiffSignPRel}{\ensuremath{=0.90}}
 % FixAsixLKMajMcNemarP <- fix_a6.json:lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.majority_mcnemar.mcnemar_exact_p
-\newcommand{\FixAsixLKMajMcNemarP}{0.62}
+\newcommand{\FixAsixLKMajMcNemarP}{0.63}
 % FixAsixLKMajMcNemarPRel <- relation and value of fix_a6.json:lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.majority_mcnemar.mcnemar_exact_p
-\newcommand{\FixAsixLKMajMcNemarPRel}{\ensuremath{=0.62}}
+\newcommand{\FixAsixLKMajMcNemarPRel}{\ensuremath{=0.63}}
 % FixAsixLKSeedMcNemarPMin <- fix_a6.json:lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.per_seed_mcnemar_p_min
 \newcommand{\FixAsixLKSeedMcNemarPMin}{0.45}
 % FixAsixLKSeedMcNemarPMinRel <- relation and value of fix_a6.json:lone_rates.paired_diff_noise_minus_C3_rvo2_lone_keystone.noise0p07.per_seed_mcnemar_p_min
@@ -2099,12 +2099,162 @@
 \newcommand{\FinBarLibN}{60}
 % FinBarGateFail <- final_corrected.json:barriers.n_gate_fail
 \newcommand{\FinBarGateFail}{4}
+% PendHumanFlow <- rev_D.json:humans_corrected.flow.mean
+\newcommand{\PendHumanFlow}{1.5}
+% PendHumanFlowLo <- rev_D.json:humans_corrected.flow.ci95.0
+\newcommand{\PendHumanFlowLo}{1.2}
+% PendHumanFlowHi <- rev_D.json:humans_corrected.flow.ci95.1
+\newcommand{\PendHumanFlowHi}{1.7}
+% PendHumanFlowMin <- rev_D.json:humans_corrected.flow_range.0
+\newcommand{\PendHumanFlowMin}{1.2}
+% PendHumanFlowMax <- rev_D.json:humans_corrected.flow_range.1
+\newcommand{\PendHumanFlowMax}{1.7}
+% PendHumanWindowFlow <- rev_D.json:humans_corrected.window_obs.mean
+\newcommand{\PendHumanWindowFlow}{1.5}
+% PendLongHumanFlow <- rev_D.json:humans_corrected.flow_long
+\newcommand{\PendLongHumanFlow}{1.3}
+% PendShortHumanFlow <- rev_D.json:humans_corrected.flow_short
+\newcommand{\PendShortHumanFlow}{1.6}
+% PendModelFlowMax <- rev_D.json:D3.rerun.per_variant.C3_rvo2_cf.flow.max
+\newcommand{\PendModelFlowMax}{0.99}
+% PendCThreeGapsTwo <- rev_D.json:D3.rerun.per_variant.C3_rvo2_cf.gaps_gt_2s.mean
+\newcommand{\PendCThreeGapsTwo}{10}
+% PendSigGapsTwo <- rev_D.json:D3.rerun.per_variant.C1_cf_sig.gaps_gt_2s.mean
+\newcommand{\PendSigGapsTwo}{18}
+% PendSigGapKMMedian <- rev_D.json:D3.rerun.per_variant.C1_cf_sig.km_median
+\newcommand{\PendSigGapKMMedian}{96}
+% PendCOneGapLowerMedian <- rev_D.json:D3.rerun.per_variant.C1_cf.c_median_lower_bound
+\newcommand{\PendCOneGapLowerMedian}{415.9}
+% PendCThreeGapLowerMedian <- rev_D.json:D3.rerun.per_variant.C3_rvo2_cf.c_median_lower_bound
+\newcommand{\PendCThreeGapLowerMedian}{431.8}
+% PendSigFluct <- rev_D.json:D3.rerun.per_variant.C1_cf_sig.fluct.mean
+\newcommand{\PendSigFluct}{0.11}
+% PmodRunsWMinFloor <- rev_A2.json:runs.w_min
+\newcommand{\PmodRunsWMinFloor}{0.9576}
+% PphysWeidMin <- final_corrected.json:terminal.weidmann_min
+\newcommand{\PphysWeidMin}{0.9965}
+% PphysBstarMin <- E7b_analysis.json:a_statics.fold_threshold.min_both_signs.min
+\newcommand{\PphysBstarMin}{0.00051}
+% PphysDriveTotal <- E1_analysis.json:E1b.drives_N.C3_rest_total.p50
+\newcommand{\PphysDriveTotal}{430}
+% PphysStuckAloneFrac <- E1_analysis.json:E1b.stuck_alone_frac_C1.frac
+\newcommand{\PphysStuckAloneFrac}{0.23}
+% PphysPosMarginMin <- rev_B1.json:pos_rest.margin_range_N.0
+\newcommand{\PphysPosMarginMin}{0.0081}
+% PphysNegMarginMax <- rev_B1.json:neg_peak.margin_range_N.1
+\newcommand{\PphysNegMarginMax}{-0.0069}
+% PphysRatioFull <- E4_analysis.json:headline.ratio_med_full
+\newcommand{\PphysRatioFull}{1.2}
+% PphysSkippedDU <- E4_analysis.json:extension.skipped_no_barrier.0.dU
+\newcommand{\PphysSkippedDU}{0.021}
+% PphysFoldMissGap <- E7b_analysis.json:a_statics.fold_prediction.disagree_max_rel_gap_pct
+\newcommand{\PphysFoldMissGap}{1.7}
+% PphysPairBarMin <- E7b_analysis.json:d_barriers.dU.min
+\newcommand{\PphysPairBarMin}{0.057}
+% PphysVThreeLifeMax <- N5_analysis.json:cells.v3.lifetime_max_s
+\newcommand{\PphysVThreeLifeMax}{0.10}
+% PphysBodyMid <- rev_B4.json:by_dt.dt0p0025.peak_body_force_kN
+\newcommand{\PphysBodyMid}{18.1}
+% PphysContactMid <- rev_B4.json:by_dt.dt0p0025.peak_contact_force_kN
+\newcommand{\PphysContactMid}{4.82}
+% PphysBfourCompleteMid <- rev_B4.json:by_dt.dt0p0025.complete
+\newcommand{\PphysBfourCompleteMid}{10}
+% PprotMuMax <- rev_A10.json:headline.mu1_max
+\newcommand{\PprotMuMax}{\ensuremath{1.1\times10^{3}}}
+% PprotVarRatio <- T3_variance.json:ratio_measured_formula_mean
+\newcommand{\PprotVarRatio}{1.0}
+% PprotEllBA <- E3_analysis.json:headline.ell_ps_b1p5_obs
+\newcommand{\PprotEllBA}{2.2}
 % PscrPairBsRvoMinusFreed <- E7b_analysis.json:s3_matched.rvo2.reversal.freed_a
 \newcommand{\PscrPairBsRvoMinusFreed}{5}
 % PscrPairBsRvoMinusUpper <- E7b_analysis.json:s3_matched.rvo2.handedness.minus_upper_first
 \newcommand{\PscrPairBsRvoMinusUpper}{5}
 % PscrCommitConfHead <- rev_A14.json:identity.conference_head_short
 \newcommand{\PscrCommitConfHead}{e05d8f6}
+% PscrTimeLoneEtwoEff <- rev_A7.json:lone_E2.time.effect
+\newcommand{\PscrTimeLoneEtwoEff}{19}
+% PscrTimeLoneEtwoLo <- rev_A7.json:lone_E2.time.ci95.0
+\newcommand{\PscrTimeLoneEtwoLo}{9.1}
+% PscrTimeLoneEtwoHi <- rev_A7.json:lone_E2.time.ci95.1
+\newcommand{\PscrTimeLoneEtwoHi}{29}
+% PscrTimeLoneNoneEff <- rev_A7.json:lone_N1.time.effect
+\newcommand{\PscrTimeLoneNoneEff}{19}
+% PscrTimeLoneNoneLo <- rev_A7.json:lone_N1.time.ci95.0
+\newcommand{\PscrTimeLoneNoneLo}{11}
+% PscrTimeLoneNoneHi <- rev_A7.json:lone_N1.time.ci95.1
+\newcommand{\PscrTimeLoneNoneHi}{27}
+% PscrTimeSecondEff <- rev_A7.json:second.time.effect
+\newcommand{\PscrTimeSecondEff}{-16}
+% PscrTimeSecondLo <- rev_A7.json:second.time.ci95.0
+\newcommand{\PscrTimeSecondLo}{-36}
+% PscrTimeSecondHi <- rev_A7.json:second.time.ci95.1
+\newcommand{\PscrTimeSecondHi}{3.1}
+% PscrTimeWholeEff <- rev_A7.json:whole_E6.time.effect
+\newcommand{\PscrTimeWholeEff}{72}
+% PscrTimeWholeLo <- rev_A7.json:whole_E6.time.ci95.0
+\newcommand{\PscrTimeWholeLo}{33}
+% PscrTimeWholeHi <- rev_A7.json:whole_E6.time.ci95.1
+\newcommand{\PscrTimeWholeHi}{110}
+% PscrTimePairPubEff <- rev_A7.json:pair_pub.time.effect
+\newcommand{\PscrTimePairPubEff}{-2.1}
+% PscrTimePairPubLo <- rev_A7.json:pair_pub.time.ci95.0
+\newcommand{\PscrTimePairPubLo}{-21}
+% PscrTimePairPubHi <- rev_A7.json:pair_pub.time.ci95.1
+\newcommand{\PscrTimePairPubHi}{18}
+% PscrTimePairRvoEff <- rev_A7.json:pair_rvo2.time.effect
+\newcommand{\PscrTimePairRvoEff}{-1.3}
+% PscrTimePairRvoLo <- rev_A7.json:pair_rvo2.time.ci95.0
+\newcommand{\PscrTimePairRvoLo}{-20}
+% PscrTimePairRvoHi <- rev_A7.json:pair_rvo2.time.ci95.1
+\newcommand{\PscrTimePairRvoHi}{18}
+% PscrLKDiff <- E2_analysis.json:f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_noise_minus_C3
+\newcommand{\PscrLKDiff}{-0.012}
+% PscrLKDiffLo <- E2_analysis.json:f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.0
+\newcommand{\PscrLKDiffLo}{-0.10}
+% PscrLKDiffHi <- E2_analysis.json:f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.1
+\newcommand{\PscrLKDiffHi}{0.082}
+% PscrNOneDiff <- N1_analysis.json:rate.diff_vs_C3_rvo2.diff
+\newcommand{\PscrNOneDiff}{-0.018}
+% PscrNOneDiffLo <- N1_analysis.json:rate.diff_vs_C3_rvo2.ci95.0
+\newcommand{\PscrNOneDiffLo}{-0.074}
+% PscrNOneDiffHi <- N1_analysis.json:rate.diff_vs_C3_rvo2.ci95.1
+\newcommand{\PscrNOneDiffHi}{0.044}
+% PscrSTDiffLo <- rev_A6.json:lone_keystone_second_trap.delta.E2_analysis_ci95.0
+\newcommand{\PscrSTDiffLo}{0.085}
+% PscrWholeDiff <- E6_analysis.json:completion.diff_sigma_minus_C3.diff
+\newcommand{\PscrWholeDiff}{-0.011}
+% PscrWholeDiffLo <- E6_analysis.json:completion.diff_sigma_minus_C3.ci95.0
+\newcommand{\PscrWholeDiffLo}{-0.10}
+% PscrWholeDiffHi <- E6_analysis.json:completion.diff_sigma_minus_C3.ci95.1
+\newcommand{\PscrWholeDiffHi}{0.078}
+% PscrLKNHalfEJ <- rev_A9.json:lone.lone_keystone.N1.rules.half.E_J
+\newcommand{\PscrLKNHalfEJ}{0.061}
+% PscrPairRvoEJ <- rev_A9.json:pair.rvo2.freed_sets.E_J
+\newcommand{\PscrPairRvoEJ}{0.094}
+% PscrPairBstarPub <- E7b_analysis.json:s3_matched.pub.b_star
+\newcommand{\PscrPairBstarPub}{0.022}
+% PscrOrcaLnRatio <- E3_analysis.json:headline.c3_ln_ratio
+\newcommand{\PscrOrcaLnRatio}{-0.0048}
+% PscrPairPubDiff <- rev_A8.json:pair.delta.bstar_pub_plus_vs_C3_pub.T120.delta
+\newcommand{\PscrPairPubDiff}{+0.022}
+% PscrPairPubDiffLo <- rev_A8.json:pair.delta.bstar_pub_plus_vs_C3_pub.T120.ci95.0
+\newcommand{\PscrPairPubDiffLo}{-0.15}
+% PscrPairPubDiffHi <- rev_A8.json:pair.delta.bstar_pub_plus_vs_C3_pub.T120.ci95.1
+\newcommand{\PscrPairPubDiffHi}{0.22}
+% PscrPairRvoDiff <- rev_A8.json:pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.delta
+\newcommand{\PscrPairRvoDiff}{+0.022}
+% PscrPairRvoDiffLo <- rev_A8.json:pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.ci95.0
+\newcommand{\PscrPairRvoDiffLo}{-0.15}
+% PscrPairRvoDiffHi <- rev_A8.json:pair.delta.bstar_rvo2_plus_vs_C3_rvo2.T120.ci95.1
+\newcommand{\PscrPairRvoDiffHi}{0.17}
+% PscrCreepSpeedMin <- rev_A13.json:creep.speed_median_min
+\newcommand{\PscrCreepSpeedMin}{0.091}
+% PscrReplayPubMaxDt <- E2_analysis.json:b_replay_determinism.pooled.C3_pub.max_abs_dt_blocker_exit_s
+\newcommand{\PscrReplayPubMaxDt}{81}
+% PscrStallMaxDiff <- E6_analysis.json:lifetimes.pred_vs_obs.max_abs_diff
+\newcommand{\PscrStallMaxDiff}{0.045}
+% PscrJacAsymMin <- rev_A11.json:headline.jac_asym_min
+\newcommand{\PscrJacAsymMin}{0.077}
 % PairN <- E7b_analysis.json:n_snapshots
 \newcommand{\PairN}{46}
 % PairAxisMin <- E7b_analysis.json:a_statics.axis_dist_m.min
@@ -2938,9 +3088,9 @@
 % RevAfiveXNewReplayLegacyOrcaDiscB <- rev_A5x.json:paired.new.replay_C3_pub_vs_C3_rvo2.disc_second_only
 \newcommand{\RevAfiveXNewReplayLegacyOrcaDiscB}{0}
 % RevAfiveXNewReplayLegacyOrcaP <- rev_A5x.json:paired.new.replay_C3_pub_vs_C3_rvo2.p
-\newcommand{\RevAfiveXNewReplayLegacyOrcaP}{0.062}
+\newcommand{\RevAfiveXNewReplayLegacyOrcaP}{0.063}
 % RevAfiveXNewReplayLegacyOrcaPRel <- relation and value of rev_A5x.json:paired.new.replay_C3_pub_vs_C3_rvo2.p
-\newcommand{\RevAfiveXNewReplayLegacyOrcaPRel}{\ensuremath{=0.062}}
+\newcommand{\RevAfiveXNewReplayLegacyOrcaPRel}{\ensuremath{=0.063}}
 % RevAfiveXNewReplayLegacyOrcaPDisp <- rev_A5x.json:paired.new.replay_C3_pub_vs_C3_rvo2.p_disp
 \newcommand{\RevAfiveXNewReplayLegacyOrcaPDisp}{0.062}
 % RevAfiveXNewReplayLegacyOrcaPHolm <- rev_A5x.json:paired.new.replay_C3_pub_vs_C3_rvo2.p_holm
@@ -3350,13 +3500,13 @@
 % RevAsevenSecondReplayDiscB <- rev_A7.json:second.replay.c_second_only
 \newcommand{\RevAsevenSecondReplayDiscB}{0}
 % RevAsevenSecondReplayP <- rev_A7.json:second.replay.p
-\newcommand{\RevAsevenSecondReplayP}{0.062}
+\newcommand{\RevAsevenSecondReplayP}{0.063}
 % RevAsevenSecondReplayPRel <- relation and value of rev_A7.json:second.replay.p
-\newcommand{\RevAsevenSecondReplayPRel}{\ensuremath{=0.062}}
+\newcommand{\RevAsevenSecondReplayPRel}{\ensuremath{=0.063}}
 % RevAsevenSecondReplayPHolm <- rev_A7.json:second.replay.p_holm
-\newcommand{\RevAsevenSecondReplayPHolm}{0.12}
+\newcommand{\RevAsevenSecondReplayPHolm}{0.13}
 % RevAsevenSecondReplayPHolmRel <- relation and value of rev_A7.json:second.replay.p_holm
-\newcommand{\RevAsevenSecondReplayPHolmRel}{\ensuremath{=0.12}}
+\newcommand{\RevAsevenSecondReplayPHolmRel}{\ensuremath{=0.13}}
 % RevAsevenSecondTimeEff <- rev_A7.json:second.time.effect
 \newcommand{\RevAsevenSecondTimeEff}{-16.0}
 % RevAsevenSecondTimeLo <- rev_A7.json:second.time.ci95.0
@@ -3368,9 +3518,9 @@
 % RevAsevenSecondTimePRel <- relation and value of rev_A7.json:second.time.p
 \newcommand{\RevAsevenSecondTimePRel}{\ensuremath{=0.12}}
 % RevAsevenSecondTimePHolm <- rev_A7.json:second.time.p_holm
-\newcommand{\RevAsevenSecondTimePHolm}{0.12}
+\newcommand{\RevAsevenSecondTimePHolm}{0.13}
 % RevAsevenSecondTimePHolmRel <- relation and value of rev_A7.json:second.time.p_holm
-\newcommand{\RevAsevenSecondTimePHolmRel}{\ensuremath{=0.12}}
+\newcommand{\RevAsevenSecondTimePHolmRel}{\ensuremath{=0.13}}
 % RevAsevenWholeEsixFreedEff <- rev_A7.json:whole_E6.freed.effect
 \newcommand{\RevAsevenWholeEsixFreedEff}{-0.01}
 % RevAsevenWholeEsixFreedLo <- rev_A7.json:whole_E6.freed.ci95.0

@@ -19,7 +19,9 @@ in 3b, Lower (first exits by the member at y < 5 m, below the door axis; A13).
 
 `make_table3.py derive` writes data/derived/table3_pair.json: the 95% percentile bootstrap interval of the
 pair-block paired rate difference (bias +b* minus ORCA, unperturbed runs, per snapshot), 2000 resamples of
-the 46 snapshots, PCG64(12345). Run it when data/E7b*/ change, before `make numbers`.
+the 46 snapshots, PCG64(12345). The table itself reports the rev_A8 interval (PscrPair*Diff*, one fresh
+PCG64(12345) per comparison, as the A7/A8 tests), so the derive output is kept for reference only.
+Cells shown at two significant figures use the Pscr* macros of paper/registry/p_screen.yaml.
 
 Every number is a numbers.tex macro defined in paper/registry/*.yaml (values from data/derived/*.json);
 this script only lays them out and fails if a macro it uses is not in the registry. Cells an experiment
@@ -129,30 +131,30 @@ BLOCKS_A = [
     (r"Lone keystones: " + one("EtwoNLK") + r" snapshots, $T=120$\,s", [
         (r"noise $\sigma=0.07$\,m/s, 5 seeds",
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
-         dpm("TabThreeLKDiff", "TabThreeLKDiffLo", "TabThreeLKDiffHi"),
-         dpm("RevAsevenLoneEtwoTimeEff", "RevAsevenLoneEtwoTimeLo", "RevAsevenLoneEtwoTimeHi"),
+         dpm("PscrLKDiff", "PscrLKDiffLo", "PscrLKDiffHi"),
+         dpm("PscrTimeLoneEtwoEff", "PscrTimeLoneEtwoLo", "PscrTimeLoneEtwoHi"),
          frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA,
          "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
         prow(E, one("RevAsevenLoneEtwoFreedPHolm"), one("RevAsevenLoneEtwoTimePHolm"),
              one("RevAsevenLoneEtwoReplayPHolm"), E, one("RevAsevenLoneEtwoEllPHolm")),
         (r"noise $\sigma=" + one("RunNOneSigma") + r"$\,m/s, 20 seeds",
          frac("RunNOneFreed", "RunNOneRunsN"),
-         dpm("RunNOneDiff", "RunNOneDiffLo", "RunNOneDiffHi"),
-         dpm("RevAsevenLoneNoneTimeEff", "RevAsevenLoneNoneTimeLo", "RevAsevenLoneNoneTimeHi"),
+         dpm("PscrNOneDiff", "PscrNOneDiffLo", "PscrNOneDiffHi"),
+         dpm("PscrTimeLoneNoneEff", "PscrTimeLoneNoneLo", "PscrTimeLoneNoneHi"),
          "{}/{}".format(*m("RevAsevenLoneNoneReplayDiscA", "EtwoNLK")),
-         jcell("RevAnineLKNHalfJ", "RevAnineLKNHalfEJ"), NA),
+         jcell("RevAnineLKNHalfJ", "PscrLKNHalfEJ"), NA),
         prow(E, one("RevAsevenLoneNoneFreedPHolm"), one("RevAsevenLoneNoneTimePHolm"),
              one("RevAsevenLoneNoneReplayPHolm"), one("RevAnineLKNHalfP"), E),
         ("force-coupled ORCA (RVO2)",
          frac("EtwoLKCThreeRVOFreed", "EtwoLKCThreeRVON"), E, E,
          frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"), E,
-         "$" + one("EthreeCThreeLnRatioFix") + "$"),
+         "$" + one("PscrOrcaLnRatio") + "$"),
     ]),
     (r"Second traps: " + one("RevAsixSTSnaps") + r" snapshots, $T=120$\,s", [
         (r"noise $\sigma=0.07$\,m/s, 5 seeds",
          frac("RevAsixSTNoiseFreed", "RevAsixSTNoiseN"),
-         dpm("RevAsixSTDiff", "RevAsixSTDiffLo", "RevAsixSTDiffHi"),
-         dpm("RevAsevenSecondTimeEff", "RevAsevenSecondTimeLo", "RevAsevenSecondTimeHi"),
+         dpm("RevAsixSTDiff", "PscrSTDiffLo", "RevAsixSTDiffHi"),
+         dpm("PscrTimeSecondEff", "PscrTimeSecondLo", "PscrTimeSecondHi"),
          frac("RevAsixSTNoiseDisagree", "RevAsixSTSnaps"),
          jcell("RevAsixSTJ", "RevAsixSTJInd"), NA),
         prow(E, one("RevAsevenSecondFreedPHolm"), one("RevAsevenSecondTimePHolm"),
@@ -164,8 +166,8 @@ BLOCKS_A = [
     (r"Whole runs: " + one("EsixN") + r" spawn seeds, $T=600$\,s", [
         (r"noise $\sigma^\ast=" + one("EsixSigmaStar") + r"$\,m/s",
          frac("EsixNoiseK", "EsixN"),
-         dpm("EsixDiff", "EsixDiffLo", "EsixDiffHi"),
-         dpm("RevAsevenWholeEsixTimeEff", "RevAsevenWholeEsixTimeLo", "RevAsevenWholeEsixTimeHi"),
+         dpm("PscrWholeDiff", "PscrWholeDiffLo", "PscrWholeDiffHi"),
+         dpm("PscrTimeWholeEff", "PscrTimeWholeLo", "PscrTimeWholeHi"),
          NA, jcell("RevAnineWholeEJ", "RevAnineWholeEEJ"), NA),
         prow(E, one("RevAsevenWholeEsixFreedPHolm"), one("RevAsevenWholeEsixTimePHolm"), E,
              one("RevAnineWholeEP"), E),
@@ -177,10 +179,10 @@ BLOCKS_A = [
 COLS_B = r"Perturbation & Freed & $\Delta$ [95\%] & $\Delta$RMST (s) [95\%] & Replay & $J$ (indep.) & Lower"
 BLOCKS_B = [
     (r"Legacy solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
-        (r"bias $+b^\ast_{\rm legacy}=" + one("PairBstarPub") + "$",
+        (r"bias $+b^\ast_{\rm legacy}=" + one("PscrPairBstarPub") + "$",
          frac("PairBsPubFreed", "PairN"),
-         dpm("TabThreePairPubDiff", "TabThreePairPubDiffLo", "TabThreePairPubDiffHi"),
-         dpm("RevAsevenPairPubTimeEff", "RevAsevenPairPubTimeLo", "RevAsevenPairPubTimeHi"),
+         dpm("PscrPairPubDiff", "PscrPairPubDiffLo", "PscrPairPubDiffHi"),
+         dpm("PscrTimePairPubEff", "PscrTimePairPubLo", "PscrTimePairPubHi"),
          frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"),
          jcell("RevAninePairPubJ", "RevAninePairPubEJ"),
          frac("PairBsPubHand", "PairBsPubN")),
@@ -194,10 +196,10 @@ BLOCKS_B = [
     (r"RVO2 solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
         (r"bias $+b^\ast_{\rm RVO2}=" + one("PairBstarRvo") + "$",
          frac("PairBsRvoFreed", "PairN"),
-         dpm("TabThreePairRvoDiff", "TabThreePairRvoDiffLo", "TabThreePairRvoDiffHi"),
-         dpm("RevAsevenPairRvoTimeEff", "RevAsevenPairRvoTimeLo", "RevAsevenPairRvoTimeHi"),
+         dpm("PscrPairRvoDiff", "PscrPairRvoDiffLo", "PscrPairRvoDiffHi"),
+         dpm("PscrTimePairRvoEff", "PscrTimePairRvoLo", "PscrTimePairRvoHi"),
          frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"),
-         jcell("RevAninePairRvoJ", "RevAninePairRvoEJ"),
+         jcell("RevAninePairRvoJ", "PscrPairRvoEJ"),
          frac("TabThreePairRvoHand", "TabThreePairRvoHandN")),
         # J = 0: the informative tail is P(X <= 0) (A9), marked with a dagger in the note
         prow(E, one("RevAsevenPairRvoFreedPHolm"), one("RevAsevenPairRvoTimePHolm"),
@@ -211,13 +213,14 @@ BLOCKS_B = [
 ]
 
 CAPTION_A = (
-    r"Per-step noise fraction-matched to force-coupled ORCA (RVO2); each row $p$ tests the noise row above it."
+    r"Per-step noise against force-coupled ORCA (RVO2), fraction-matched at the lone keystones and in whole runs "
+    r"(at the second traps $\Delta$ excludes 0); each row $p$ tests the noise row above it."
 )
 NOTE_A = (
-    r"Freed: runs freed by $T$ (noise), snapshots (ORCA), runs completed (whole runs). "
-    r"$\Delta$: freed fraction, noise minus ORCA. "
+    r"Freed: runs freed by $T$ (noise), snapshots (force-coupled ORCA), runs completed (whole runs). "
+    r"$\Delta$: freed fraction, noise minus force-coupled ORCA. "
     r"$\Delta$RMST: difference of the mean time to free, capped at $T$. "
-    r"Replay: snapshots whose seeds disagree (noise) or whose $10^{-9}$\,m replay changes the outcome (ORCA). "
+    r"Replay: snapshots whose seeds disagree (noise) or whose $10^{-9}$\,m replay changes the outcome (force-coupled ORCA). "
     r"$J$: Jaccard index of the unresolved sets (noise: freed in fewer than half the seeds); in parentheses, "
     r"for independent sets. "
     r"$\ell$: Eq.~\eqref{eq:ell} on " + one("EthreeN") + r" snapshots (prediction). "

@@ -10,12 +10,12 @@
 Perturbation & Freed & $\Delta$ [95\%] & $\Delta$RMST (s) [95\%] & Replay & $J$ (indep.) & Lower \\
 \midrule
 \multicolumn{7}{@{}l}{\emph{Legacy solver: \PairN{} pair standoffs, $T=120$\,s}} \\
-bias $+b^\ast_{\rm legacy}=\PairBstarPub{}$ & \PairBsPubFreed{}/\PairN{} & $\TabThreePairPubDiff{}$ [$\TabThreePairPubDiffLo{}$, $\TabThreePairPubDiffHi{}$] & $\RevAsevenPairPubTimeEff{}$ [$\RevAsevenPairPubTimeLo{}$, $\RevAsevenPairPubTimeHi{}$] & \TabThreePairBsPubReplayDis{}/\TabThreePairBsReplays{} & \RevAninePairPubJ{} (\RevAninePairPubEJ{}) & \PairBsPubHand{}/\PairBsPubN{} \\
+bias $+b^\ast_{\rm legacy}=\PscrPairBstarPub{}$ & \PairBsPubFreed{}/\PairN{} & $\PscrPairPubDiff{}$ [$\PscrPairPubDiffLo{}$, $\PscrPairPubDiffHi{}$] & $\PscrTimePairPubEff{}$ [$\PscrTimePairPubLo{}$, $\PscrTimePairPubHi{}$] & \TabThreePairBsPubReplayDis{}/\TabThreePairBsReplays{} & \RevAninePairPubJ{} (\RevAninePairPubEJ{}) & \PairBsPubHand{}/\PairBsPubN{} \\
 \quad $p$ &  & \RevAsevenPairPubFreedPHolm{} & \RevAsevenPairPubTimePHolm{} & \RevAsevenPairPubReplayPHolm{} & \RevAninePairPubP{} & \RevAsevenPairPubHandPHolm{} \\
 force-coupled ORCA (legacy) & \PairPubFreed{}/\PairN{} &  &  & \TabThreePairPubReplayDis{}/\TabThreePairOrcaReplays{} &  & \PairPubLower{}/\TabThreePairPubOrcaN{} \\
 \midrule
 \multicolumn{7}{@{}l}{\emph{RVO2 solver: \PairN{} pair standoffs, $T=120$\,s}} \\
-bias $+b^\ast_{\rm RVO2}=\PairBstarRvo{}$ & \PairBsRvoFreed{}/\PairN{} & $\TabThreePairRvoDiff{}$ [$\TabThreePairRvoDiffLo{}$, $\TabThreePairRvoDiffHi{}$] & $\RevAsevenPairRvoTimeEff{}$ [$\RevAsevenPairRvoTimeLo{}$, $\RevAsevenPairRvoTimeHi{}$] & \TabThreePairBsRvoReplayDis{}/\TabThreePairBsReplays{} & \RevAninePairRvoJ{} (\RevAninePairRvoEJ{}) & \TabThreePairRvoHand{}/\TabThreePairRvoHandN{} \\
+bias $+b^\ast_{\rm RVO2}=\PairBstarRvo{}$ & \PairBsRvoFreed{}/\PairN{} & $\PscrPairRvoDiff{}$ [$\PscrPairRvoDiffLo{}$, $\PscrPairRvoDiffHi{}$] & $\PscrTimePairRvoEff{}$ [$\PscrTimePairRvoLo{}$, $\PscrTimePairRvoHi{}$] & \TabThreePairBsRvoReplayDis{}/\TabThreePairBsReplays{} & \RevAninePairRvoJ{} (\PscrPairRvoEJ{}) & \TabThreePairRvoHand{}/\TabThreePairRvoHandN{} \\
 \quad $p$ &  & \RevAsevenPairRvoFreedPHolm{} & \RevAsevenPairRvoTimePHolm{} & \RevAsevenPairRvoReplayPHolm{} & \RevAninePairRvoPLe{}$^\dagger$ & \RevAsevenPairRvoHandPHolm{} \\
 force-coupled ORCA (RVO2) & \PairRvoFreed{}/\PairN{} &  &  & \TabThreePairRvoReplayDis{}/\TabThreePairOrcaReplays{} &  & \TabThreePairRvoOrcaLower{}/\TabThreePairRvoOrcaN{} \\
 \bottomrule

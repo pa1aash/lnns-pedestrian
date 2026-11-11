@@ -1,0 +1,22 @@
+# Sect. 7 (CroMa comparison) entries at two significant figures, and bounds kept on the safe side.
+# Humans (corrected participant counts), flows in ped/s.
+PendHumanFlow: {file: rev_D.json, key: "humans_corrected.flow.mean", fmt: "{:.1f}"}
+PendHumanFlowLo: {file: rev_D.json, key: "humans_corrected.flow.ci95.0", fmt: "{:.1f}"}
+PendHumanFlowHi: {file: rev_D.json, key: "humans_corrected.flow.ci95.1", fmt: "{:.1f}"}
+PendHumanFlowMin: {file: rev_D.json, key: "humans_corrected.flow_range.0", fmt: "{:.1f}"}
+PendHumanFlowMax: {file: rev_D.json, key: "humans_corrected.flow_range.1", fmt: "{:.1f}"}
+PendHumanWindowFlow: {file: rev_D.json, key: "humans_corrected.window_obs.mean", fmt: "{:.1f}"}
+PendLongHumanFlow: {file: rev_D.json, key: "humans_corrected.flow_long", fmt: "{:.1f}"}
+PendShortHumanFlow: {file: rev_D.json, key: "humans_corrected.flow_short", fmt: "{:.1f}"}
+# Fastest model run over all four variants (force-coupled ORCA (RVO2) holds the maximum; the others are 0.82-0.90).
+PendModelFlowMax: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.flow.max", fmt: "{:.2f}"}
+# Gaps longer than 2 s per run (min force-coupled ORCA, max noise).
+PendCThreeGapsTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.gaps_gt_2s.mean", fmt: "{:.0f}"}
+PendSigGapsTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.gaps_gt_2s.mean", fmt: "{:.0f}"}
+PendSigGapKMMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.km_median", fmt: "{:.0f}"}
+# Lower bounds of the Kaplan-Meier median longest gap: one decimal so the printed value does not exceed the bound
+# (415.92 -> 415.9, 431.80 -> 431.8); the registry has no floor format.
+PendCOneGapLowerMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf.c_median_lower_bound", fmt: "{:.1f}"}
+PendCThreeGapLowerMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.c_median_lower_bound", fmt: "{:.1f}"}
+# Velocity fluctuation, upper end of the model range (noise), two significant figures.
+PendSigFluct: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.fluct.mean", fmt: "{:.2f}"}
