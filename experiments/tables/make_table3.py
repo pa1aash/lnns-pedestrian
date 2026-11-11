@@ -134,7 +134,7 @@ BLOCKS_A = [
          dpm("PscrLKDiff", "PscrLKDiffLo", "PscrLKDiffHi"),
          dpm("PscrTimeLoneEtwoEff", "PscrTimeLoneEtwoLo", "PscrTimeLoneEtwoHi"),
          frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA,
-         "{} ({})".format(*m("EthreeEllBA", "EthreeEllBAPred"))),
+         "{} ({})".format(*m("PprotEllBA", "PprotEllBAPred"))),
         prow(E, one("RevAsevenLoneEtwoFreedPHolm"), one("RevAsevenLoneEtwoTimePHolm"),
              one("RevAsevenLoneEtwoReplayPHolm"), E, one("RevAsevenLoneEtwoEllPHolm")),
         (r"noise $\sigma=" + one("RunNOneSigma") + r"$\,m/s, 20 seeds",
@@ -223,7 +223,7 @@ NOTE_A = (
     r"Replay: snapshots whose seeds disagree (noise) or whose $10^{-9}$\,m replay changes the outcome (force-coupled ORCA). "
     r"$J$: Jaccard index of the unresolved sets (noise: freed in fewer than half the seeds); in parentheses, "
     r"for independent sets. "
-    r"$\ell$: Eq.~\eqref{eq:ell} on " + one("EthreeN") + r" snapshots (prediction). "
+    r"$\ell$: Eq.~\eqref{eq:ell} pooled over " + one("EthreeN") + r" snapshots, noise at $\beta=1.5$ (prediction); Table~\ref{tab:signatures} gives the largest per-snapshot $|\ell|$. "
     r"$p$: Holm-adjusted paired test; under $J$, hypergeometric."
 )
 CAPTION_B = (

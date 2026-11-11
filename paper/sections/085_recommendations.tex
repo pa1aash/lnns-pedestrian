@@ -1,10 +1,10 @@
 \section{Recommendations for Modellers}\label{sec:recommend}
-In this social force model the wall range, the segment ends and the steering terms set the narrow-door deadlock count (Sects.~\ref{sec:physics} and~\ref{sec:attribution}). The open framework deadlock-screen needs a steering model with a restartable state, deterministic replay and switches for single force terms (\url{https://github.com/pa1aash/deadlock-screen}). Quench and replay are generic probes; the corrected-implementation probe needs a second implementation, the push probe the mechanism's force at rest, the tilt probe a goal-directed drive, and the noise variants of the time-step probe a noise term. Before reading a narrow-door deadlock count as crowd behaviour, a modeller should:
+The open framework deadlock-screen needs a steering model with a restartable state, deterministic replay and switches for single force terms (\url{https://github.com/pa1aash/deadlock-screen}). Quench and replay are generic; the other probes need a second implementation (corrected implementation), the mechanism's force at rest (push), a goal-directed drive (tilt) or a noise term (time step). Before reading a narrow-door deadlock count as crowd behaviour, a modeller should:
 \begin{enumerate}
 \renewcommand{\labelenumi}{(\roman{enumi})}
-\item compare $g_{\max}(r)$ with the rest drive $m v_{\rm eff}/\tau$ over the radii and desired speeds (Eq.~\eqref{eq:stuck});
+\item compare $g_{\max}(r)$ with the rest drive $m v_{\rm eff}/\tau$ over radii and desired speeds (Eq.~\eqref{eq:stuck});
 \item use rounded segment ends ($r_c=0.1$\,m), which remove the pair standoff (Sect.~\ref{sec:pair}), and check the wall range, which sets the lone trap (Sect.~\ref{sec:lone});
-\item report ORCA results per solver and per coupling: force-coupled ORCA at rest is this social force model with relaxation time $\tau'$ (Eq.~\eqref{eq:identity}), the legacy solver changes outcomes under $10^{-9}$\,m replays (Sect.~\ref{sec:att-lone}), and the ORCA velocity filter frees no deadlock (Sect.~\ref{sec:velorca});
+\item report ORCA results per solver and per coupling (Eq.~\eqref{eq:identity}, Sects.~\ref{sec:att-lone} and~\ref{sec:velorca});
 \item treat per-step noise, reported to mitigate clogs in pedestrian simulations~\cite{xu2021}, as having a $\Delta t$-dependent temperature (Eq.~\eqref{eq:teff});
 \item test against matched experiments: completion, flow and passage gaps with the open final gap right-censored at the horizon (Sect.~\ref{sec:validity}).
 \end{enumerate}

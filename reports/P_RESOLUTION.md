@@ -9,10 +9,11 @@ lines say "group-level" and judge every fix in the group. The Lens B/C/D/F items
 sources: the numbers B1, C1, ... below are this file's own, and each line names its content.
 
 Counts after the audit fix pass: **71 resolved, 3 partly resolved, 1 not resolved, 12 content not available** (first check: 65, 8, 2, 12).
+After session I3 (the twelve items supplied in its brief): **83 resolved, 3 partly resolved, 1 not resolved, 0 content not available**.
 
 ## Framing, model and main issues
 
-- F1 — content not available in the revision sources; nothing to verify.
+- F1 — resolved (session I3, item list from the session brief): end matter holds only the three author placeholders (\pending: Zenodo DOI, Acknowledgments, Disclosure of Interests), sized at about four lines each; the CroMa licence and attribution sentence (CC BY 4.0, Forschungszentrum Jülich, with citation) is in Sect. 7 — 10_back_matter.tex; 07_experiments.tex.
 - F2 — resolved (group-level, framing: title and running head, the six keywords, an abstract that opens with the modelling problem, an equifinality opening, one crowd-disaster sentence, the paragraph on the conference paper [14] with the legacy solver and the Voronoi/Weidmann differences, a glossary, contributions scoped to "this social force model (Table 1)") — main.tex:25-27; Abstract; Sect. 1 (01_introduction.tex:9-32).
 - F3 — resolved (group-level, framing plus model: Eq. (7) identity displayed with τ', "force-coupled ORCA"/"ORCA velocity filter", gate range, conversion source, native-ORCA sentence, TTC-inspired force with k_ttc in N s², Table 1 restructured, geometry figure) — Sect. 3.1-3.4, Eq. (5)-(7), Table 1, Fig. 2.
 - M1 — resolved (group-level, deadlock physics: on-axis "if and only if" without "exact"; keystone and converse tests; w50 from 1100 runs with interval; bracket defined; failed (1-f)^100 prediction in one sentence; A13 facts; wall variants including rounding) — Sect. 5.1, Eq. (13), Fig. 5.
@@ -33,18 +34,18 @@ Counts after the audit fix pass: **71 resolved, 3 partly resolved, 1 not resolve
 - M16 — resolved (group-level, framing as F2) — Abstract; Sect. 1.
 - m1 — resolved (group-level, model as F3) — Sect. 3.1-3.2, Table 1.
 - m2 — resolved (group-level, model as F3) — Sect. 3.1-3.2, Table 1.
-- m3 — content not available in the revision sources; nothing to verify.
-- m4 — content not available in the revision sources; nothing to verify.
-- m5 — content not available in the revision sources; nothing to verify.
-- m6 — content not available in the revision sources; nothing to verify.
-- m7 — content not available in the revision sources; nothing to verify.
+- m3 — resolved: the ninth decile (stuck-alone fraction) is reported next to the first eight and the last — Sect. 5.1 (\RevAthirteenStuckNinthDecile).
+- m4 — resolved: classes are words (Prevent, Reshape, Heat, Glitch); r_c is the segment-end radius; I3 renamed the uniform distribution U(a,b) to \mathcal U (Table 1; U is the potential) and the ORCA density gate w_{o,i} to \chi_i (w is the door width); D is the damping matrix (sans serif) only, T the horizon only (T_eff, T_b subscripted), N/\mathcal N, P/\Pi, b/B, W (wall index) vs w (width) are distinct. Upright letter keys A–J of the schematic Fig. 2 are figure keys, as the figure rules allow. No notation table (no space); every symbol is defined at first use and the glossary covers the vocabulary.
+- m5 — resolved: Table 2 has a Class column header (first column; "Class" also heads the observed block's last column); Table 3b's "Lower" column is defined in its note (freed standoffs first left by the member at y < 5 m).
+- m6 — resolved: the ORCA time-step statistic now has one pooled value (Table 3a, ℓ = −0.0048 over 20 snapshots) and one per-snapshot bound (Table 2, |ℓ| ≤ 0.018), each note saying which; I3 also made the noise ℓ one value (2.2, prediction 2.2) in Tables 2 and 3a (new macro PprotEllBAPred).
+- m7 — resolved: no "186 seeds", "207 noise settings", "refined level" or "copied rate" remains (grep of sections and tables).
 - m8 — resolved (group-level, screening as M8) — Sect. 6.
-- m9 — content not available in the revision sources; nothing to verify.
-- m10 — content not available in the revision sources; nothing to verify.
-- m11 — content not available in the revision sources; nothing to verify.
-- m12 — content not available in the revision sources; nothing to verify.
-- m13 — content not available in the revision sources; nothing to verify.
-- m14 — content not available in the revision sources; nothing to verify.
+- m9 — resolved: vandenberg2011rvo2 is the RVO2 Library release v2.0.2, Zenodo, 2016, DOI 10.5281/zenodo.7039667.
+- m10 — resolved: g_max at r = 0.30 m (291 N) is stated with 0.20 and 0.35 m — Sect. 5.1.
+- m11 — resolved: thousands with a thin space (20 000, macro StuckAloneN); units upright with a thin space; slash for units with a numerator (m/s, ped/s, N/m, kg/s^2), negative exponent only for pure reciprocals (m^-2); no s^-1 left in text or tables.
+- m12 — resolved by removal: the 0.9996 rank correlation (Spearman of axis-distance against threshold differences) is no longer in the paper.
+- m13 — resolved by removal: the 0.66 s lag (fitted, the earliest escape of a shifted exponential) is no longer in the paper.
+- m14 — resolved: the "lost track" is gone; Sect. 7 states that all tracked participants pass, with the passed counts per run (135, 135, 129, 129, 128) and the duplicate IDs merged (Part D).
 - m15 — resolved (group-level, framing plus model as F2/F3) — Sect. 1, Sect. 3.
 - m16 — resolved (line goal: all 46 minima persist; 91 of 320 runs end in a standoff against 46 with the point goal) — Sect. 5.3 (05_deadlock_physics.tex:48); also Sect. 5.1 wall variants.
 - A14 — resolved (legacy solver: repository pedestrian-abs, commits 9762177..e05d8f6, tag r2.0-baseline, line 113 of sim/steering/orca.py from commit c43af16, leg-normal inversion described in one sentence) — Sect. 6.1 (06_screening.tex:26); Sect. 1 (01_introduction.tex:13).

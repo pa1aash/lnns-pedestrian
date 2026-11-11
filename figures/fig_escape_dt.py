@@ -61,7 +61,7 @@ bb = np.array([0, 8])
 axA.plot(bb, -bb, color="0.45", lw=0.7, zorder=1)
 axA.set_xlim(0.8, bmax + 0.2)
 axA.set_ylim(-bmax - 0.8, 0.5)
-axA.set_xlabel(r"$\beta=\Delta U_{\mathrm{cond}}/k_BT_{\mathrm{eff}}$")
+axA.set_xlabel(r"$\beta=\Delta U_{\mathrm{cond}}/k_{\mathrm{B}}T_{\mathrm{eff}}$")
 axA.set_ylabel(r"$\ln(\hat\lambda/\hat\nu)$")
 
 # ---- (b) slope ratio against the barrier

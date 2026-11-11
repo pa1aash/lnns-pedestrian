@@ -27,7 +27,7 @@
   \protostep{s1}{(\hw,0)}{1\hspace{0.5em}Snapshots}%
     {A library of frozen deadlocks, each a rest state saved from a whole run: lone keystones, second traps and pair standoffs.}
   \protostep{s2}{($(s1b.south west)-(0,\vgap)$)}{2\hspace{0.5em}Probes}%
-    {Each perturbation is applied to the same snapshots under each probe: quench (restart under the perturbation); replay (a copy displaced by $10^{-9}$\,m); time step $\Delta t$ changed, with per-step and with $\sqrt{\Delta t}$-scaled noise; rest-drive push $\pm$ (a constant force equal to the rest drive of force-coupled ORCA, towards ($+$) or away from ($-$) the door); lateral tilt $\pm b$; corrected implementation (the RVO2 solver).}
+    {Each perturbation is applied to the same snapshots under each probe: quench (restart under the perturbation); replay (a copy displaced by $10^{-9}$\,m); time step $\Delta t$ changed, with per-step and with $\sqrt{\Delta t}$-scaled noise; rest-drive push $\pm$ (a constant force equal to the drive part of the ORCA term at rest, towards ($+$) or away from ($-$) the door); lateral tilt $\pm b$; corrected implementation (the RVO2 solver).}
   \protostep{s3}{($(s2b.south west)-(0,\vgap)$)}{3\hspace{0.5em}Signatures}%
     {The responses of each perturbation to the probes, paired by snapshot: freed fraction at horizon $T$, times to free, outcome changes under replay and handedness under tilt.}
   \protostep{s4}{($(s3b.south west)-(0,\vgap)$)}{4\hspace{0.5em}Class}%

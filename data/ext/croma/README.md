@@ -11,8 +11,10 @@
 |---|---|---|
 | 4D030_w080_l200_h0 | 0.8 m | 2.0 m |
 | 4D040_w080_l200_h1 | 0.8 m | 2.0 m |
-| 4D110_w080_l021_h0 | 0.8 m | 0.21 m |
-| 4D120_w080_l021_h1 | 0.8 m | 0.21 m |
-| 4D130_w080_l021_h2 | 0.8 m | 0.21 m |
+| 4D110_w080_l021_h0 | 0.8 m | 0.2 m |
+| 4D120_w080_l021_h1 | 0.8 m | 0.2 m |
+| 4D130_w080_l021_h2 | 0.8 m | 0.2 m |
+
+"l021" is the run-name code; the run overview and Boomers et al. (2023, Table 19) give a bottleneck length of 0.2 m.
 
 No file exceeds 50 MB, so none is compressed.

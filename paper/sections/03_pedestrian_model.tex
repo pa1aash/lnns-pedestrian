@@ -6,9 +6,9 @@ This social force model adds a TTC-inspired force or force-coupled ORCA, each sw
 \subsection{Forces}
 Agent $i$ is a disc of radius $r_i$ and mass $m_i$ at $\mathbf{x}_i$ with velocity $\mathbf{v}_i$, desired speed $v_{0,i}$ and relaxation time $\tau_i$; $m_i\dot{\mathbf{v}}_i=\mathbf{F}_i$ with
 \begin{equation}\label{eq:force}
-\mathbf{F}_i=\mathbf{F}^{\rm des}_i+\sum_{j}\mathbf{f}^{\rm sfm}_{ij}+\mathbf{F}^{\rm ttc}_i+w_{o,i}\,\mathbf{F}^{\rm orca}_i+\sum_{W}\mathbf{f}^{\rm wall}_{iW},
+\mathbf{F}_i=\mathbf{F}^{\rm des}_i+\sum_{j}\mathbf{f}^{\rm sfm}_{ij}+\mathbf{F}^{\rm ttc}_i+\chi_i\,\mathbf{F}^{\rm orca}_i+\sum_{W}\mathbf{f}^{\rm wall}_{iW},
 \end{equation}
-with $j$ over the other active agents within $R=3$\,m and $W$ over wall segments. SFM keeps the desired, social and wall forces; SFM+TTC adds $\mathbf F^{\rm ttc}_i$; force-coupled ORCA adds $w_{o,i}\mathbf F^{\rm orca}_i$.
+with $j$ over the other active agents within $R=3$\,m and $W$ over wall segments. SFM keeps the desired, social and wall forces; SFM+TTC adds $\mathbf F^{\rm ttc}_i$; force-coupled ORCA adds $\chi_i\mathbf F^{\rm orca}_i$.
 
 The drive relaxes $\mathbf v_i$ towards speed $v_{{\rm eff},i}$ along the unit vector $\hat{\mathbf e}_i$ to the goal $\mathbf g$,
 \begin{equation}\label{eq:des}
@@ -35,11 +35,11 @@ where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at co
 \subsection{Force-Coupled ORCA}\label{sec:identity}
 ORCA builds one half-plane of permitted velocities per neighbour (look-ahead time $\tau_h$) and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity, with speed at most $2v_{0,i}$. The legacy linear-program solver has a leg-normal sign defect (Sect.~\ref{sec:att-lone}); the RVO2 solver ports RVO2~\cite{vandenberg2011rvo2} line by line. Force-coupled ORCA takes the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ and turns $\mathbf v^{\rm orca}_i$ into a force with a density gate:
 \begin{equation}\label{eq:orca}
-\mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad w_{o,i}=1-\varsigma(\rho_i;4,2),
+\mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad \chi_i=1-\varsigma(\rho_i;4,2),
 \end{equation}
-with $\varsigma(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinFloor\ in whole runs and \RevAtwoLoneWMin\ at every snapshot, so $w_{o,i}\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
+with $\varsigma(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinFloor\ in whole runs and \RevAtwoLoneWMin\ at every snapshot, so $\chi_i\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
 
-The \emph{drive part} of force-coupled ORCA is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}. With no binding constraint and $w_{o,i}=1$, Eqs.~\eqref{eq:des} and~\eqref{eq:orca} add to
+The \emph{drive part} of force-coupled ORCA is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}. With no binding constraint and $\chi_i=1$, Eqs.~\eqref{eq:des} and~\eqref{eq:orca} add to
 \begin{equation}\label{eq:identity}
 \mathbf F^{\rm des}_i+\mathbf F^{\rm orca}_i=m_i\Bigl(\frac{v_{{\rm eff},i}}{\tau_i}+\frac{v_{0,i}}{\tau_{\rm orca}}\Bigr)\hat{\mathbf e}_i-m_i\Bigl(\frac{1}{\tau_i}+\frac{1}{\tau_{\rm orca}}\Bigr)\mathbf v_i,\qquad
 \tau'_i=\frac{\tau_i\,\tau_{\rm orca}}{\tau_i+\tau_{\rm orca}}.
@@ -49,7 +49,7 @@ The drive part is therefore this social force model with relaxation time $\tau'_
 \subsection{Integration and Noise}
 Results depend on the integration scheme~\cite{koster2013}; ours caps the speed at $2v_0$ ($\Pi$) before moving: $\mathbf v'=\Pi(\mathbf v+\mathbf F\Delta t/m)$, $\mathbf v'\leftarrow\Pi(\mathbf v'+\boldsymbol\xi)$, $\mathbf x'=\mathbf x+\mathbf v'\Delta t$. Noise $\boldsymbol\xi$ has independent Gaussian components of standard deviation $\sigma$ (per-step noise) or $\sigma\sqrt{\Delta t/0.01\,{\rm s}}$ ($\sqrt{\Delta t}$-scaled noise). In the ORCA velocity filter (Sect.~\ref{sec:velorca}) $\mathbf F$ omits the ORCA term, and after the noise step
 \begin{equation}\label{eq:velorca}
-\mathbf v'\leftarrow\mathbf v'+w_{o,i}\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
+\mathbf v'\leftarrow\mathbf v'+\chi_i\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
 \end{equation}
 where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$ under the step's initial half-planes.
 

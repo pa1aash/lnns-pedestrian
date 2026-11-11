@@ -9,7 +9,7 @@
 Perturbation & Freed & $\Delta$ [95\%] & $\Delta$RMST (s) [95\%] & Replay & $J$ (indep.) & $\ell$ (pred.) \\
 \midrule
 \multicolumn{7}{@{}l}{\emph{Lone keystones: \EtwoNLK{} snapshots, $T=120$\,s}} \\
-noise $\sigma=0.07$\,m/s, 5 seeds & \EtwoLKNoiseCFreed{}/\EtwoLKNoiseCN{} & $\PscrLKDiff{}$ [$\PscrLKDiffLo{}$, $\PscrLKDiffHi{}$] & $\PscrTimeLoneEtwoEff{}$ [$\PscrTimeLoneEtwoLo{}$, $\PscrTimeLoneEtwoHi{}$] & \TabThreeLKNoiseDisagree{}/\TabThreeLKNoiseSnaps{} & --- & \EthreeEllBA{} (\EthreeEllBAPred{}) \\
+noise $\sigma=0.07$\,m/s, 5 seeds & \EtwoLKNoiseCFreed{}/\EtwoLKNoiseCN{} & $\PscrLKDiff{}$ [$\PscrLKDiffLo{}$, $\PscrLKDiffHi{}$] & $\PscrTimeLoneEtwoEff{}$ [$\PscrTimeLoneEtwoLo{}$, $\PscrTimeLoneEtwoHi{}$] & \TabThreeLKNoiseDisagree{}/\TabThreeLKNoiseSnaps{} & --- & \PprotEllBA{} (\PprotEllBAPred{}) \\
 \quad $p$ &  & \RevAsevenLoneEtwoFreedPHolm{} & \RevAsevenLoneEtwoTimePHolm{} & \RevAsevenLoneEtwoReplayPHolm{} &  & \RevAsevenLoneEtwoEllPHolm{} \\
 noise $\sigma=\RunNOneSigma{}$\,m/s, 20 seeds & \RunNOneFreed{}/\RunNOneRunsN{} & $\PscrNOneDiff{}$ [$\PscrNOneDiffLo{}$, $\PscrNOneDiffHi{}$] & $\PscrTimeLoneNoneEff{}$ [$\PscrTimeLoneNoneLo{}$, $\PscrTimeLoneNoneHi{}$] & \RevAsevenLoneNoneReplayDiscA{}/\EtwoNLK{} & \RevAnineLKNHalfJ{} (\PscrLKNHalfEJ{}) & --- \\
 \quad $p$ &  & \RevAsevenLoneNoneFreedPHolm{} & \RevAsevenLoneNoneTimePHolm{} & \RevAsevenLoneNoneReplayPHolm{} & \RevAnineLKNHalfP{} &  \\
@@ -27,5 +27,5 @@ force-coupled ORCA (RVO2) & \EsixCThreeK{}/\EsixN{} &  &  & --- &  & --- \\
 \bottomrule
 \end{tabular}}
 \par\smallskip
-\parbox{\textwidth}{\scriptsize Freed: runs freed by $T$ (noise), snapshots (force-coupled ORCA), runs completed (whole runs). $\Delta$: freed fraction, noise minus force-coupled ORCA. $\Delta$RMST: difference of the mean time to free, capped at $T$. Replay: snapshots whose seeds disagree (noise) or whose $10^{-9}$\,m replay changes the outcome (force-coupled ORCA). $J$: Jaccard index of the unresolved sets (noise: freed in fewer than half the seeds); in parentheses, for independent sets. $\ell$: Eq.~\eqref{eq:ell} on \EthreeN{} snapshots (prediction). $p$: Holm-adjusted paired test; under $J$, hypergeometric.}
+\parbox{\textwidth}{\scriptsize Freed: runs freed by $T$ (noise), snapshots (force-coupled ORCA), runs completed (whole runs). $\Delta$: freed fraction, noise minus force-coupled ORCA. $\Delta$RMST: difference of the mean time to free, capped at $T$. Replay: snapshots whose seeds disagree (noise) or whose $10^{-9}$\,m replay changes the outcome (force-coupled ORCA). $J$: Jaccard index of the unresolved sets (noise: freed in fewer than half the seeds); in parentheses, for independent sets. $\ell$: Eq.~\eqref{eq:ell} pooled over \EthreeN{} snapshots, noise at $\beta=1.5$ (prediction); Table~\ref{tab:signatures} gives the largest per-snapshot $|\ell|$. $p$: Holm-adjusted paired test; under $J$, hypergeometric.}
 \end{table}
