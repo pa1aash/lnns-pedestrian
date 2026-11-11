@@ -92,5 +92,5 @@ Note: the title of gang2026 in refs.bib ("A Diagnostic Methodology ...") is the 
 16. "SFM+ORCA" and "velocity coupling" never appear.
 17. No section or subsection opens with a question, and there is no "?" anywhere in the sections.
 18. No clinical or process vocabulary (diagnostic, symptom, pathology, audit, session, wave, batch) and no internal run labels (E2, E10, N1, ...) in the rendered text or the section sources.
-19. No mention of any AI tool, assistant, model name or vendor anywhere under paper/ (the sources, notes, registry and submission/).
+19. No mention of any automated writing tool or its vendor anywhere under paper/ (the sources, notes, registry and submission/).
 20. Every cited key exists in refs.bib. BibTeX reports 47 entries and 0 warnings (main.blg `warning$ -- 0`, no warning lines).
