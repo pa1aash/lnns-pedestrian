@@ -1,36 +1,38 @@
-# P report: consistency sweep, floats, page pass (2026-11-09)
-Published to main: 54357c8 (Step 1 + float settings), 61cbf5e (page pass + self-audit fixes). make numbers, make paper, make submission green (24 pp, 0 errors, 0 undefined, 0 overfull); overlap check 0 shared runs ≥ 8 words.
+# P report: revision against the referee report (2026-11-11)
 
-**Real page count: 24** (real fractional 24.00; page_map --pinned 24.01; agree within 0.01).
-## Pages per section, pinned (before → now, budget)
-title+abstract+back 1.40→1.04 (1.0) · §1 2.00→1.79 (1.8) · §2 1.41→1.41 (1.5) · §3 2.93→2.56 (2.6) · §4 2.87→2.55 (2.6) · §5 4.67→4.20 (3.8) · §6 5.21→5.00 incl. §6.3+Table 4 unchanged (4.8) · §7 1.81→1.68 (1.8) · §8 1.33→1.02 (1.0) · §9 0.43→0.36 (0.4) · references 2.45→2.41 (2.3) · **total 26.52→24.01 (23.6)**. Over: §5 +0.40, §6 +0.20, refs +0.11; queue-3 room is 0 against 24, 1.0 against the 25-page cap.
-## Floats (Step 2)
-placeins [section] barriers + float fractions in main.tex. Tables 1–4 no longer stranded at the end: every table and figure now sits on the page of, or the page after, its first reference within its section.
-## Cut, per section
-- Abstract 284→~180 words; §1 contribution bullets lost the numbers whose home is §5–§7 (word statements + section refs; critical width kept); equifinality paragraph 4→2 sentences. Back matter "Main Differences" to three sentences. §9 one paragraph, only the CroMa ratio.
-- §3: Table 1 nine parameter rows → four, six mode rows → three, caption one sentence; formula/gate/TTC cut duplicated from Eqs; two "differs as listed" sentences removed; RVO2 introduced in the ORCA paragraph.
-- §4: probe list removed (Table 2 headers carry it); Table 2 headers and cells shortened (Corrected numerics kept; row N "set by solver details / outcome flips / effect vanishes"); lemma hypotheses and T_eff prose tightened.
-- §5: keystone, outcomes and arrival-order paragraphs merged (each count once); slope medians/coverage in one sentence; left-out snapshots one sentence; §5.4 granular background dropped (in §2); Fig. 2 caption to two sentences.
-- §6: counts shown in Table 3 replaced by pointers; J defined once (Table 3 caption); Table 3 caption 3→2 sentences; Fig. 5/6 captions shortened; duplicate RVO2-reference sentence removed.
-- §7: method paragraph tightened (all conditions/estimators kept); repeated human values and "Removing deadlocks" duplicates cut. §8: calibration + mechanisms paragraphs merged, numbers by reference to §6/Table 3; checklist items tightened.
-- refs.bib: two URL fields that duplicate DOIs (CroMa, Weidmann) removed.
-- Prose self-audit (cats 1–11, 16) on every changed paragraph: 3 auditors, 65 fixes applied (run-ons from merges, compression damage, dangling modifiers, "lever arm" → "usable range").
-## Decisions 1–7, where applied
-1. Activated escape: abstract, §1 Physics bullet, §4.3 (Kramers prediction), §5.2 heading "Noise as Activated Escape" + blocker PR / neighbours-lower-barrier sentences (\EfourSaddleRatio = 0.30, 10/10), back matter; "collective" gone from all my files.
-2. Collapse slope kept in §5.2 as excluding −1, partly built in by fitted attempt rates; Fig. 4 caption rewritten for the slope-ratio panel (F3's own proposed caption not yet published: swap when it lands).
-3. §6.3 matched bias: in-sample by construction, split-half range [−0.35, +0.35] (RVO2 [−0.22, +0.26]), weak calibration target at n = 46; handedness and identity separate. §8 matching sentence; abstract/§1 "partly different standoffs".
-4. Class N: Table 1 ORCA mode row (sign defect = source of replay flips), Table 2 row N, §6.1 closing sentence; §4 class text consistent.
-5. Critical width: §5.1, 0.88 m between 0.75 m and 0.92 m.
-6. No new "fold"; §5.3 \pending for the N6 verdict kept.
-7. CroMa DataCite BibTeX (re-fetched 2026-11-09) gives **year = 2026**; entry unchanged at 2026, source comment updated (F2 had proposed 2021; the record says 2026).
-## Remaining \pending (mine)
-§3 E8/E9 + Table 4; §5.3 N6 fold; §5.4 N5 resolution run; §6.1 N1; §6.2 N2; back matter Zenodo DOI, acknowledgements, disclosure. (S3: §6.3 ×3, Table 4 ×3.)
-## Changelog entries proposed
-- Cxx Activated escape restated (A-3): blocker carries the unstable mode (PR 1.2); neighbours lower the barrier through their configuration (10/10, median 0.30); "collective escape" retired; §5.2 heading "Noise as Activated Escape".
-- Cxx Pair bias stated as an in-sample match by construction; split-half ±0.35 makes the rate a weak calibration target at n = 46 (A-2).
-- Cxx Class N aligned on the leg-normal sign defect in Table 1, Table 2, §6 (A-4). Critical width bracketed by 0.75 and 0.92 m (A-8).
-- Cxx Float placement (placeins section barriers, float fractions); page pass 26.5→24.0 pinned; Tables 1–3 compressed; refs: duplicate-DOI URLs removed.
+Published to main: changelog C94 (rulings R1-R5), 34c02bc (text rewrite), 515c372 (integration, page pass), 19ec25d (audits and fixes), and this report with the submission notes.
+Build: `make numbers`, `make paper`, `make submission` green. **25 pages**, 0 errors, 0 undefined references, 0 overfull boxes; Overleaf package compiled from scratch in /tmp gives the same 25 pages with 0/0/0.
+Outputs: ~/Desktop/LNNS_overleaf/ and LNNS_overleaf.zip (one main.tex with literal numbers, refs.bib with the 49 cited entries, figures/, unmodified llncs.cls and splncs04.bst, README.txt); ~/Desktop/LNNS_final.pdf.
+
+## Referee resolution (reports/P_RESOLUTION.md, 87 items)
+71 resolved, 3 partly resolved (D2 a few long sentences remain; D7 Sect. 4 keeps protocol-defining outcomes such as the match horizons; F-14 Weidmann values unchecked), 1 not resolved (C11 per-run CroMa table, cut for pages), 12 not checkable (F1, m3-m7, m9-m14: the referee report is not on disk and the revision sources do not state their content).
+
+## Claims that changed meaning
+- Scope: every claim is about this social force model (title, abstract, contributions), not pedestrian steering models.
+- Stuck-alone: "exact, if and only if g_max > m v0/tau" became an on-axis equilibrium condition g_max >= m v_eff/tau, tested in both directions (released agents).
+- Critical width 0.88 m became 0.878 [0.874, 0.883] m from 1100 runs; the parameter-free (1 - f)^100 prediction misses it by 0.041 m; the fitted group size (19) is descriptive.
+- Pair standoff: formerly a short-range-wall-law deadlock; now it needs sharp segment ends (0 of 320 runs with rounded edges) and survives a line goal. "Rounded corners leave the trap in place" now holds for the lone trap only. Barrier-under-bias exponent dropped.
+- Activated escape: slope ratio near 1 became an effective barrier 0.86-0.93 of the computed one (alone condition, beta 1.5-7); at the fraction-matched noise level the median beta is 0.64, so the Arrhenius test does not cover it and the whole-run stall prediction extrapolates.
+- Force-coupled ORCA: its rest drive is the social force model with tau' = 0.22-0.27 s (drive 1.8-2.2 times); its constraint part acts at rest and makes the pair rest field non-gradient, so the old Proposition is now a standard Remark that does not cover force-coupled ORCA at the pair; class at the pair is Reshape, solver-dependent.
+- "Rate-matched" became "fraction-matched at T", horizon-specific; noise is not matched at the second trap.
+- Overlap J at the lone trap: the 5-seed 0.20 became the 20-seed value; overlap separates nothing, handedness separates the bias.
+- "SFM frees none" and "5 of 300 replays" are scoped to the 26-snapshot screen; on all 160 second traps the SFM quench frees 2 and the legacy solver flips 13 of 800 replays.
+- ORCA velocity filter: "class P, as predicted" became a consistency check (at most Prevent).
+- Decision rule: interval exclusion became paired tests with Holm's correction; definitional separations (replay, per-step time step) named.
+- Arches: peak compression 108 kN at dt = 0.01 s became the converged values (summed at most 18 kN, single contact at most 4.8 kN); absence at lower drives scoped to dt = 0.01 s.
+- CroMa: flow ratio 0.40-0.59 became 0.40-0.60; force-coupled ORCA deadlocks in 1 of 25 runs ("never deadlocks" withdrawn); bottleneck lengths 2.0 and 0.2 m; final gaps right-censored at 600 s.
+- Classes: five lettered classes became four named ones (Prevent; Reshape, axial or lateral; Heat; Glitch).
+
+## Audits (reports/P_audit/)
+Prose 139 findings, numbers 58 flagged of 470 macros (2 wrong bounds, 7 unsupported, 4 literal, 45 imprecise), compliance 15 violations, referee recheck 27 disputes: 239 in all. Six fix passes applied them; 72 entries were declined or deferred with a reason in fixlog_*.md (mostly page budget, ownership or ruling conflicts). Tooling: p-values two significant figures (half up) down to 10^-3, then p < 10^-k, with relation macros for running text; thin-space thousands.
+
+## Remaining \pending (3)
+Zenodo DOI (Data and Code Availability), Acknowledgments, Disclosure of Interests.
+
 ## [NEEDS PALAASH]
-- 0.4 pp over the 23.6 target (§5 +0.40, §6 +0.20). Section agents found no further cut without dropping single-occurrence numbers. Options: (a) Figs 2–4, 6, 7 at 0.9\textwidth (≈ −0.25 pp; F3 to check legibility); (b) move §5.1 arrival-order statistics and §5.2 per-condition coverage counts to the repository; (c) accept 24.0 + queue 3 ≈ 24.4 (under the 25 cap).
-- Fig. 4 caption: replace with F3's proposed caption when published.
-- CroMa year: DataCite now says 2026 (dataset record), not 2021; confirm, or cite the 2021 experiment paper alongside.
+- Weidmann check: gamma = 1.913 and rho_max = 5.4 against the original table of Weidmann 1993 (scripted access blocked).
+- Acknowledgments and Disclosure of Interests, the disclosure consistent with the AI-use statement of the conference paper.
+- Corresponding-author marking: confirm Palaash Gang and the email in the author block.
+- Zenodo DOI after the framework sync (steps in paper/SUBMISSION_NOTES.md).
+- Bibliography numbering: the conference paper is the first citation but splncs04 sorts alphabetically, so it prints as [14], not [11].
+- Figure owner items: Fig. 1 caption sets k_B in italic; the protocol figure calls the push "the rest drive of force-coupled ORCA" (text: the ORCA term's drive part at rest).
