@@ -76,7 +76,8 @@ def main():
                               "ratio": -(math.log(c2["lam"]) - math.log(c1["lam"])) / (c2["beta"] - c1["beta"])})
         out["snapshots"][tag] = {"dU_alone_J": dU, "cells": cells, "fit_1p5_3p5": fit(lo, dU, rng),
                                  "fit_5_7": fit(hi, dU, rng), "fit_1p5_7": fit(cells, dU, rng), "local": local,
-                                 "events_new": {f"{c['beta']:g}": c["events"] for c in hi}}
+                                 "events_new": {f"{c['beta']:g}": c["events"] for c in hi},
+                                 "censored_new": {f"{c['beta']:g}": c["n"] - c["events"] for c in hi}}
     S = out["snapshots"]
     out["summary"] = {
         "n_snapshots": len(S),
@@ -84,7 +85,10 @@ def main():
         "ratio_5_7": {t: S[t]["fit_5_7"]["ratio"] if S[t]["fit_5_7"] else None for t in S},
         "ratio_1p5_3p5": {t: S[t]["fit_1p5_3p5"]["ratio"] if S[t]["fit_1p5_3p5"] else None for t in S},
         "covers_1_1p5_7": sum(1 for t in S if S[t]["fit_1p5_7"] and S[t]["fit_1p5_7"]["ci95"][0] <= 1 <= S[t]["fit_1p5_7"]["ci95"][1]),
-        "min_events_new": min(c["events"] for t in S for c in S[t]["cells"] if c["beta"] >= 5)}
+        "min_events_new": min(c["events"] for t in S for c in S[t]["cells"] if c["beta"] >= 5),
+        "censored_new_total": sum(c["n"] - c["events"] for t in S for c in S[t]["cells"] if c["beta"] >= 5),
+        "runs_new": len(new), "cpu_h_new": sum(r["wall_s"] for r in new) / 3600.0,
+        "sim_h_new": sum(r["t_run"] for r in new) / 3600.0}
     revlib.out_json("B3", out)
     print(json.dumps(out["summary"], indent=1))
 

@@ -1,0 +1,1028 @@
+{
+ "script": "experiments/revision/A5x_analyze.py",
+ "doc": "A5x: the Table 2 probes at the second trap on the 134 second-trap snapshots that E2 did not draw.\n\nInputs (read only)\n  data/revision/A5/a5_quench.jsonl   134 new second traps x 21 jobs (experiments/revision/A5_extra_second_traps.py)\n  data/E2/e2_quench.jsonl            the 26 E2 second traps (same arm definitions, experiments/E2/e2_quench.py)\n  data/derived/selection.json        E2 snapshots: tag, blocker, class\nOutput: data/derived/rev_A5x.json\n\nGroups: new (134 not drawn), E2 (the 26 drawn, stratum lone_keystone_second_trap), pooled (all 160).\n\nDefinitions (those of experiments/E2/analyze.py)\n  freed        the blocker (keystone-test blocker, residual agent nearest (10, 5)) exits within T = 120 s.\n               New runs: recomputed from \"exits\" and asserted equal to the stored \"blocker_freed\".\n  det. arm     C3_rvo2, C3_pub, drive_only, frozen_plus, constraint_only_rvo2, C1: the unperturbed run per\n               snapshot is the unit; the five 1e-9 m replays (perturb seeds 900-904; C3_rvo2 and C3_pub only)\n               enter only the replay probe.\n  noise0.07    C1 + sigma = 0.07 m/s, five seeds per snapshot: every (snapshot, seed) run counts once for the\n               freed fraction (as E2); a snapshot is freed by majority when at least 3 of 5 seeds free it.\n  Wilson       95% Wilson score interval (revlib.wilson); for noise over runs (clustered by snapshot, so\n               the interval is narrower than a snapshot-level one; the majority count is given beside).\n\nTests\n  new vs E2    per arm, two-sided Fisher exact test on the 2x2 table (freed/held x new/E2) of snapshots\n               (deterministic arms: unperturbed run; noise: majority outcome; the run-level Fisher p for noise\n               is stored beside). Holm over the 7 arms.\n  paired       within a group, per snapshot, the contrasts of Sect. 6.1.4, notes/A7.md (push_second, second)\n               and E2 analyze.py (d_orca_decomposition), first arm against second:\n                 drive_only vs C3_rvo2, frozen_plus vs C3_rvo2, drive_only vs C3_pub, C3_pub vs C3_rvo2,\n                 constraint_only_rvo2 vs C1, C3_rvo2 vs C1           exact McNemar (revlib.mcnemar_exact)\n                 replay C3_pub vs C3_rvo2: snapshots where any replay changes the outcome   exact McNemar\n                 noise0.07 vs C3_rvo2, freed: mean(k_i/5 - c_i), paired sign-flip test (200 000 random\n                   flips, p = (count+1)/(B+1); exact enumeration when at most 20 differences are non-zero)\n                 noise0.07 vs C3_rvo2, replay: [seeds disagree] vs [any ORCA replay changes]  exact McNemar\n               Holm (revlib.holm) over these 9 contrasts within each group. Effects: paired difference of\n               freed fractions (first minus second), 95% percentile bootstrap over snapshots (10 000).\nGenerator: numpy default_rng(20261111).\n",
+ "n_snapshots": {
+  "new": 134,
+  "E2": 26,
+  "pooled": 160
+ },
+ "n_runs_new": 2814,
+ "rates": {
+  "new": {
+   "C3_rvo2": {
+    "freed": 104,
+    "n": 134,
+    "frac": 0.7761194029850746,
+    "lo": 0.6984111983607206,
+    "hi": 0.8384368939423288,
+    "frac_2sf": 0.78,
+    "lo_2sf": 0.7,
+    "hi_2sf": 0.84,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 670,
+    "replays_changed": 0,
+    "snapshots_changed": 0
+   },
+   "C3_pub": {
+    "freed": 111,
+    "n": 134,
+    "frac": 0.8283582089552238,
+    "lo": 0.7555966004830645,
+    "hi": 0.8828173471205616,
+    "frac_2sf": 0.83,
+    "lo_2sf": 0.76,
+    "hi_2sf": 0.88,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 670,
+    "replays_changed": 8,
+    "snapshots_changed": 5
+   },
+   "drive_only": {
+    "freed": 125,
+    "n": 134,
+    "frac": 0.9328358208955224,
+    "lo": 0.8772798585280047,
+    "hi": 0.9642657996767753,
+    "frac_2sf": 0.93,
+    "lo_2sf": 0.88,
+    "hi_2sf": 0.96,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "frozen_plus": {
+    "freed": 126,
+    "n": 134,
+    "frac": 0.9402985074626866,
+    "lo": 0.8866137337984573,
+    "hi": 0.9694413323064052,
+    "frac_2sf": 0.94,
+    "lo_2sf": 0.89,
+    "hi_2sf": 0.97,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "constraint_only_rvo2": {
+    "freed": 5,
+    "n": 134,
+    "frac": 0.03731343283582089,
+    "lo": 0.016041274761645144,
+    "hi": 0.08437543543324523,
+    "frac_2sf": 0.037,
+    "lo_2sf": 0.016,
+    "hi_2sf": 0.084,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "C1": {
+    "freed": 2,
+    "n": 134,
+    "frac": 0.014925373134328358,
+    "lo": 0.004102578410135577,
+    "hi": 0.052785908084507546,
+    "frac_2sf": 0.015,
+    "lo_2sf": 0.0041,
+    "hi_2sf": 0.053,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "noise0p07": {
+    "freed": 594,
+    "n": 670,
+    "frac": 0.8865671641791045,
+    "lo": 0.8603178085727359,
+    "hi": 0.9084088476622014,
+    "frac_2sf": 0.89,
+    "lo_2sf": 0.86,
+    "hi_2sf": 0.91,
+    "unit": "run (snapshot x seed)",
+    "snapshots_majority": 124,
+    "snapshots_majority_wilson": [
+     0.9253731343283582,
+     0.8680741320895439,
+     0.9589621182151539
+    ],
+    "snapshots_seeds_disagree": 29
+   },
+   "C1_freed_tags": [
+    "E1b_seed184",
+    "E1b_seed56"
+   ]
+  },
+  "E2": {
+   "C3_rvo2": {
+    "freed": 17,
+    "n": 26,
+    "frac": 0.6538461538461539,
+    "lo": 0.46220229009632996,
+    "hi": 0.8058798502714787,
+    "frac_2sf": 0.65,
+    "lo_2sf": 0.46,
+    "hi_2sf": 0.81,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 130,
+    "replays_changed": 0,
+    "snapshots_changed": 0
+   },
+   "C3_pub": {
+    "freed": 22,
+    "n": 26,
+    "frac": 0.8461538461538461,
+    "lo": 0.6646841558168644,
+    "hi": 0.9385006600107053,
+    "frac_2sf": 0.85,
+    "lo_2sf": 0.66,
+    "hi_2sf": 0.94,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 130,
+    "replays_changed": 5,
+    "snapshots_changed": 2
+   },
+   "drive_only": {
+    "freed": 24,
+    "n": 26,
+    "frac": 0.9230769230769231,
+    "lo": 0.7585805251948495,
+    "hi": 0.9786453608166245,
+    "frac_2sf": 0.92,
+    "lo_2sf": 0.76,
+    "hi_2sf": 0.98,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "frozen_plus": {
+    "freed": 25,
+    "n": 26,
+    "frac": 0.9615384615384616,
+    "lo": 0.811068230080416,
+    "hi": 0.9931781910230102,
+    "frac_2sf": 0.96,
+    "lo_2sf": 0.81,
+    "hi_2sf": 0.99,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "constraint_only_rvo2": {
+    "freed": 0,
+    "n": 26,
+    "frac": 0.0,
+    "lo": 0.0,
+    "hi": 0.12873304380462175,
+    "frac_2sf": 0.0,
+    "lo_2sf": 0.0,
+    "hi_2sf": 0.13,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "C1": {
+    "freed": 0,
+    "n": 26,
+    "frac": 0.0,
+    "lo": 0.0,
+    "hi": 0.12873304380462175,
+    "frac_2sf": 0.0,
+    "lo_2sf": 0.0,
+    "hi_2sf": 0.13,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "noise0p07": {
+    "freed": 117,
+    "n": 130,
+    "frac": 0.9,
+    "lo": 0.8364128541090128,
+    "hi": 0.9406250772964695,
+    "frac_2sf": 0.9,
+    "lo_2sf": 0.84,
+    "hi_2sf": 0.94,
+    "unit": "run (snapshot x seed)",
+    "snapshots_majority": 23,
+    "snapshots_majority_wilson": [
+     0.8846153846153846,
+     0.7102370691310166,
+     0.959968281788505
+    ],
+    "snapshots_seeds_disagree": 5
+   },
+   "C1_freed_tags": []
+  },
+  "pooled": {
+   "C3_rvo2": {
+    "freed": 121,
+    "n": 160,
+    "frac": 0.75625,
+    "lo": 0.6842247960744507,
+    "hi": 0.8162585976424075,
+    "frac_2sf": 0.76,
+    "lo_2sf": 0.68,
+    "hi_2sf": 0.82,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 800,
+    "replays_changed": 0,
+    "snapshots_changed": 0
+   },
+   "C3_pub": {
+    "freed": 133,
+    "n": 160,
+    "frac": 0.83125,
+    "lo": 0.7656098584028624,
+    "hi": 0.8813564798164909,
+    "frac_2sf": 0.83,
+    "lo_2sf": 0.77,
+    "hi_2sf": 0.88,
+    "unit": "snapshot (unperturbed run)",
+    "replays": 800,
+    "replays_changed": 13,
+    "snapshots_changed": 7
+   },
+   "drive_only": {
+    "freed": 149,
+    "n": 160,
+    "frac": 0.93125,
+    "lo": 0.8810959503315197,
+    "hi": 0.9611809805578271,
+    "frac_2sf": 0.93,
+    "lo_2sf": 0.88,
+    "hi_2sf": 0.96,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "frozen_plus": {
+    "freed": 151,
+    "n": 160,
+    "frac": 0.94375,
+    "lo": 0.8965627172808032,
+    "hi": 0.9701280376922926,
+    "frac_2sf": 0.94,
+    "lo_2sf": 0.9,
+    "hi_2sf": 0.97,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "constraint_only_rvo2": {
+    "freed": 5,
+    "n": 160,
+    "frac": 0.03125,
+    "lo": 0.013420318754525096,
+    "hi": 0.07106127810488057,
+    "frac_2sf": 0.031,
+    "lo_2sf": 0.013,
+    "hi_2sf": 0.071,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "C1": {
+    "freed": 2,
+    "n": 160,
+    "frac": 0.0125,
+    "lo": 0.0034345991561011736,
+    "hi": 0.04442626157768072,
+    "frac_2sf": 0.013,
+    "lo_2sf": 0.0034,
+    "hi_2sf": 0.044,
+    "unit": "snapshot (unperturbed run)"
+   },
+   "noise0p07": {
+    "freed": 711,
+    "n": 800,
+    "frac": 0.88875,
+    "lo": 0.8650753423887141,
+    "hi": 0.9087089454610315,
+    "frac_2sf": 0.89,
+    "lo_2sf": 0.87,
+    "hi_2sf": 0.91,
+    "unit": "run (snapshot x seed)",
+    "snapshots_majority": 147,
+    "snapshots_majority_wilson": [
+     0.91875,
+     0.8659584624793817,
+     0.9519046443262158
+    ],
+    "snapshots_seeds_disagree": 34
+   },
+   "C1_freed_tags": [
+    "E1b_seed184",
+    "E1b_seed56"
+   ]
+  }
+ },
+ "new_vs_E2": {
+  "C3_rvo2": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 104,
+   "new_n": 134,
+   "E2": 17,
+   "E2_n": 26,
+   "diff": 0.12227324913892079,
+   "p": 0.21350253667986321,
+   "p_holm": 1.0,
+   "p_disp": "0.214",
+   "p_holm_disp": "1.000",
+   "diff_2sf": 0.12
+  },
+  "C3_pub": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 111,
+   "new_n": 134,
+   "E2": 22,
+   "E2_n": 26,
+   "diff": -0.017795637198622316,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "diff_2sf": -0.018
+  },
+  "drive_only": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 125,
+   "new_n": 134,
+   "E2": 24,
+   "E2_n": 26,
+   "diff": 0.009758897818599288,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "diff_2sf": 0.0098
+  },
+  "frozen_plus": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 126,
+   "new_n": 134,
+   "E2": 25,
+   "E2_n": 26,
+   "diff": -0.021239954075774947,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "diff_2sf": -0.021
+  },
+  "constraint_only_rvo2": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 5,
+   "new_n": 134,
+   "E2": 0,
+   "E2_n": 26,
+   "diff": 0.03731343283582089,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "diff_2sf": 0.037
+  },
+  "C1": {
+   "test": "two-sided Fisher exact, snapshots",
+   "new": 2,
+   "new_n": 134,
+   "E2": 0,
+   "E2_n": 26,
+   "diff": 0.014925373134328358,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "p_disp": "1.000",
+   "p_holm_disp": "1.000",
+   "diff_2sf": 0.015
+  },
+  "noise0p07": {
+   "test": "two-sided Fisher exact, snapshots (majority of 5 seeds)",
+   "new": 124,
+   "new_n": 134,
+   "E2": 23,
+   "E2_n": 26,
+   "diff": 0.040757749712973634,
+   "p": 0.44533860781090095,
+   "p_runs": 0.7611970407765642,
+   "p_holm": 1.0,
+   "p_disp": "0.445",
+   "p_holm_disp": "1.000",
+   "diff_2sf": 0.041
+  }
+ },
+ "new_vs_E2_min_p_holm": 1.0,
+ "new_vs_E2_min_p_holm_disp": "1.000",
+ "paired": {
+  "new": {
+   "drive_only_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 125,
+    "second": 104,
+    "disc_first_only": 21,
+    "disc_second_only": 0,
+    "effect": 0.15671641791044777,
+    "ci95": [
+     0.09701492537313433,
+     0.22388059701492538
+    ],
+    "p": 9.5367431640625e-07,
+    "p_holm": 5.7220458984375e-06,
+    "p_disp": "<10^{-6}",
+    "p_holm_disp": "<10^{-5}",
+    "effect_2sf": 0.16,
+    "ci95_2sf": [
+     0.097,
+     0.22
+    ]
+   },
+   "frozen_plus_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 126,
+    "second": 104,
+    "disc_first_only": 22,
+    "disc_second_only": 0,
+    "effect": 0.16417910447761194,
+    "ci95": [
+     0.1044776119402985,
+     0.23134328358208955
+    ],
+    "p": 4.76837158203125e-07,
+    "p_holm": 3.337860107421875e-06,
+    "p_disp": "<10^{-6}",
+    "p_holm_disp": "<10^{-5}",
+    "effect_2sf": 0.16,
+    "ci95_2sf": [
+     0.1,
+     0.23
+    ]
+   },
+   "drive_only_vs_C3_pub": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 125,
+    "second": 111,
+    "disc_first_only": 17,
+    "disc_second_only": 3,
+    "effect": 0.1044776119402985,
+    "ci95": [
+     0.04477611940298507,
+     0.17164179104477612
+    ],
+    "p": 0.0025768280029296875,
+    "p_holm": 0.01030731201171875,
+    "p_disp": "0.0026",
+    "p_holm_disp": "0.010",
+    "effect_2sf": 0.1,
+    "ci95_2sf": [
+     0.045,
+     0.17
+    ]
+   },
+   "C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 111,
+    "second": 104,
+    "disc_first_only": 10,
+    "disc_second_only": 3,
+    "effect": 0.05223880597014925,
+    "ci95": [
+     0.0,
+     0.1044776119402985
+    ],
+    "p": 0.09228515625,
+    "p_holm": 0.1875,
+    "p_disp": "0.092",
+    "p_holm_disp": "0.188",
+    "effect_2sf": 0.052,
+    "ci95_2sf": [
+     0.0,
+     0.1
+    ]
+   },
+   "constraint_only_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 5,
+    "second": 2,
+    "disc_first_only": 4,
+    "disc_second_only": 1,
+    "effect": 0.022388059701492536,
+    "ci95": [
+     -0.007462686567164179,
+     0.05970149253731343
+    ],
+    "p": 0.375,
+    "p_holm": 0.375,
+    "p_disp": "0.375",
+    "p_holm_disp": "0.375",
+    "effect_2sf": 0.022,
+    "ci95_2sf": [
+     -0.0075,
+     0.06
+    ]
+   },
+   "C3_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 134,
+    "first": 104,
+    "second": 2,
+    "disc_first_only": 102,
+    "disc_second_only": 0,
+    "effect": 0.7611940298507462,
+    "ci95": [
+     0.6865671641791045,
+     0.835820895522388
+    ],
+    "p": 3.944304526105059e-31,
+    "p_holm": 3.549874073494553e-30,
+    "p_disp": "<10^{-30}",
+    "p_holm_disp": "<10^{-29}",
+    "effect_2sf": 0.76,
+    "ci95_2sf": [
+     0.69,
+     0.84
+    ]
+   },
+   "replay_C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar, snapshots with a replay that changes the outcome",
+    "n": 134,
+    "first": 5,
+    "second": 0,
+    "disc_first_only": 5,
+    "disc_second_only": 0,
+    "effect": 0.03731343283582089,
+    "ci95": [
+     0.007462686567164179,
+     0.07462686567164178
+    ],
+    "p": 0.0625,
+    "p_holm": 0.1875,
+    "p_disp": "0.062",
+    "p_holm_disp": "0.188",
+    "effect_2sf": 0.037,
+    "ci95_2sf": [
+     0.0075,
+     0.075
+    ]
+   },
+   "noise0p07_vs_C3_rvo2": {
+    "test": "paired sign-flip on mean(k_i/5 - c_i)",
+    "method": "sign-flip, 200000 random flips, 41 non-zero",
+    "n": 134,
+    "effect": 0.11044776119402985,
+    "ci95": [
+     0.05373134328358209,
+     0.17313432835820897
+    ],
+    "p": 0.00037499812500937495,
+    "p_holm": 0.0018749906250468747,
+    "p_disp": "<10^{-3}",
+    "p_holm_disp": "0.0019",
+    "effect_2sf": 0.11,
+    "ci95_2sf": [
+     0.054,
+     0.17
+    ]
+   },
+   "replay_noise0p07_vs_C3_rvo2": {
+    "test": "exact McNemar, [seeds disagree] vs [an ORCA replay changes]",
+    "n": 134,
+    "first": 29,
+    "second": 0,
+    "disc_first_only": 29,
+    "disc_second_only": 0,
+    "effect": 0.21641791044776118,
+    "ci95": [
+     0.14925373134328357,
+     0.2835820895522388
+    ],
+    "p": 3.725290298461914e-09,
+    "p_holm": 2.9802322387695312e-08,
+    "p_disp": "<10^{-8}",
+    "p_holm_disp": "<10^{-7}",
+    "effect_2sf": 0.22,
+    "ci95_2sf": [
+     0.15,
+     0.28
+    ]
+   }
+  },
+  "E2": {
+   "drive_only_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 24,
+    "second": 17,
+    "disc_first_only": 7,
+    "disc_second_only": 0,
+    "effect": 0.2692307692307692,
+    "ci95": [
+     0.11538461538461539,
+     0.46153846153846156
+    ],
+    "p": 0.015625,
+    "p_holm": 0.109375,
+    "p_disp": "0.016",
+    "p_holm_disp": "0.109",
+    "effect_2sf": 0.27,
+    "ci95_2sf": [
+     0.12,
+     0.46
+    ]
+   },
+   "frozen_plus_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 25,
+    "second": 17,
+    "disc_first_only": 8,
+    "disc_second_only": 0,
+    "effect": 0.3076923076923077,
+    "ci95": [
+     0.15384615384615385,
+     0.5
+    ],
+    "p": 0.0078125,
+    "p_holm": 0.0625,
+    "p_disp": "0.0078",
+    "p_holm_disp": "0.062",
+    "effect_2sf": 0.31,
+    "ci95_2sf": [
+     0.15,
+     0.5
+    ]
+   },
+   "drive_only_vs_C3_pub": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 24,
+    "second": 22,
+    "disc_first_only": 2,
+    "disc_second_only": 0,
+    "effect": 0.07692307692307693,
+    "ci95": [
+     0.0,
+     0.19230769230769232
+    ],
+    "p": 0.5,
+    "p_holm": 1.0,
+    "p_disp": "0.500",
+    "p_holm_disp": "1.000",
+    "effect_2sf": 0.077,
+    "ci95_2sf": [
+     0.0,
+     0.19
+    ]
+   },
+   "C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 22,
+    "second": 17,
+    "disc_first_only": 6,
+    "disc_second_only": 1,
+    "effect": 0.19230769230769232,
+    "ci95": [
+     0.0,
+     0.38461538461538464
+    ],
+    "p": 0.125,
+    "p_holm": 0.5,
+    "p_disp": "0.125",
+    "p_holm_disp": "0.500",
+    "effect_2sf": 0.19,
+    "ci95_2sf": [
+     0.0,
+     0.38
+    ]
+   },
+   "constraint_only_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 0,
+    "second": 0,
+    "disc_first_only": 0,
+    "disc_second_only": 0,
+    "effect": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "p": 1.0,
+    "p_holm": 1.0,
+    "p_disp": "1.000",
+    "p_holm_disp": "1.000",
+    "effect_2sf": 0.0,
+    "ci95_2sf": [
+     0.0,
+     0.0
+    ]
+   },
+   "C3_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 26,
+    "first": 17,
+    "second": 0,
+    "disc_first_only": 17,
+    "disc_second_only": 0,
+    "effect": 0.6538461538461539,
+    "ci95": [
+     0.46153846153846156,
+     0.8076923076923077
+    ],
+    "p": 1.52587890625e-05,
+    "p_holm": 0.0001373291015625,
+    "p_disp": "<10^{-4}",
+    "p_holm_disp": "<10^{-3}",
+    "effect_2sf": 0.65,
+    "ci95_2sf": [
+     0.46,
+     0.81
+    ]
+   },
+   "replay_C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar, snapshots with a replay that changes the outcome",
+    "n": 26,
+    "first": 2,
+    "second": 0,
+    "disc_first_only": 2,
+    "disc_second_only": 0,
+    "effect": 0.07692307692307693,
+    "ci95": [
+     0.0,
+     0.19230769230769232
+    ],
+    "p": 0.5,
+    "p_holm": 1.0,
+    "p_disp": "0.500",
+    "p_holm_disp": "1.000",
+    "effect_2sf": 0.077,
+    "ci95_2sf": [
+     0.0,
+     0.19
+    ]
+   },
+   "noise0p07_vs_C3_rvo2": {
+    "test": "paired sign-flip on mean(k_i/5 - c_i)",
+    "method": "exact sign-flip, 11 non-zero",
+    "n": 26,
+    "effect": 0.24615384615384617,
+    "ci95": [
+     0.06923076923076923,
+     0.4307692307692308
+    ],
+    "p": 0.0205078125,
+    "p_holm": 0.123046875,
+    "p_disp": "0.021",
+    "p_holm_disp": "0.123",
+    "effect_2sf": 0.25,
+    "ci95_2sf": [
+     0.069,
+     0.43
+    ]
+   },
+   "replay_noise0p07_vs_C3_rvo2": {
+    "test": "exact McNemar, [seeds disagree] vs [an ORCA replay changes]",
+    "n": 26,
+    "first": 5,
+    "second": 0,
+    "disc_first_only": 5,
+    "disc_second_only": 0,
+    "effect": 0.19230769230769232,
+    "ci95": [
+     0.038461538461538464,
+     0.34615384615384615
+    ],
+    "p": 0.0625,
+    "p_holm": 0.3125,
+    "p_disp": "0.062",
+    "p_holm_disp": "0.312",
+    "effect_2sf": 0.19,
+    "ci95_2sf": [
+     0.038,
+     0.35
+    ]
+   }
+  },
+  "pooled": {
+   "drive_only_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 149,
+    "second": 121,
+    "disc_first_only": 28,
+    "disc_second_only": 0,
+    "effect": 0.175,
+    "ci95": [
+     0.11875,
+     0.2375
+    ],
+    "p": 7.450580596923828e-09,
+    "p_holm": 4.470348358154297e-08,
+    "p_disp": "<10^{-8}",
+    "p_holm_disp": "<10^{-7}",
+    "effect_2sf": 0.17,
+    "ci95_2sf": [
+     0.12,
+     0.24
+    ]
+   },
+   "frozen_plus_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 151,
+    "second": 121,
+    "disc_first_only": 30,
+    "disc_second_only": 0,
+    "effect": 0.1875,
+    "ci95": [
+     0.13125,
+     0.25
+    ],
+    "p": 1.862645149230957e-09,
+    "p_holm": 1.30385160446167e-08,
+    "p_disp": "<10^{-8}",
+    "p_holm_disp": "<10^{-7}",
+    "effect_2sf": 0.19,
+    "ci95_2sf": [
+     0.13,
+     0.25
+    ]
+   },
+   "drive_only_vs_C3_pub": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 149,
+    "second": 133,
+    "disc_first_only": 19,
+    "disc_second_only": 3,
+    "effect": 0.1,
+    "ci95": [
+     0.04375,
+     0.15625
+    ],
+    "p": 0.0008554458618164062,
+    "p_holm": 0.003421783447265625,
+    "p_disp": "<10^{-3}",
+    "p_holm_disp": "0.0034",
+    "effect_2sf": 0.1,
+    "ci95_2sf": [
+     0.044,
+     0.16
+    ]
+   },
+   "C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 133,
+    "second": 121,
+    "disc_first_only": 16,
+    "disc_second_only": 4,
+    "effect": 0.075,
+    "ci95": [
+     0.025,
+     0.13125
+    ],
+    "p": 0.01181793212890625,
+    "p_holm": 0.03545379638671875,
+    "p_disp": "0.012",
+    "p_holm_disp": "0.035",
+    "effect_2sf": 0.075,
+    "ci95_2sf": [
+     0.025,
+     0.13
+    ]
+   },
+   "constraint_only_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 5,
+    "second": 2,
+    "disc_first_only": 4,
+    "disc_second_only": 1,
+    "effect": 0.01875,
+    "ci95": [
+     -0.00625,
+     0.05
+    ],
+    "p": 0.375,
+    "p_holm": 0.375,
+    "p_disp": "0.375",
+    "p_holm_disp": "0.375",
+    "effect_2sf": 0.019,
+    "ci95_2sf": [
+     -0.0063,
+     0.05
+    ]
+   },
+   "C3_rvo2_vs_C1": {
+    "test": "exact McNemar",
+    "n": 160,
+    "first": 121,
+    "second": 2,
+    "disc_first_only": 119,
+    "disc_second_only": 0,
+    "effect": 0.74375,
+    "ci95": [
+     0.675,
+     0.8125
+    ],
+    "p": 3.009265538105056e-36,
+    "p_holm": 2.7083389842945504e-35,
+    "p_disp": "<10^{-35}",
+    "p_holm_disp": "<10^{-34}",
+    "effect_2sf": 0.74,
+    "ci95_2sf": [
+     0.68,
+     0.81
+    ]
+   },
+   "replay_C3_pub_vs_C3_rvo2": {
+    "test": "exact McNemar, snapshots with a replay that changes the outcome",
+    "n": 160,
+    "first": 7,
+    "second": 0,
+    "disc_first_only": 7,
+    "disc_second_only": 0,
+    "effect": 0.04375,
+    "ci95": [
+     0.0125,
+     0.075
+    ],
+    "p": 0.015625,
+    "p_holm": 0.03545379638671875,
+    "p_disp": "0.016",
+    "p_holm_disp": "0.035",
+    "effect_2sf": 0.044,
+    "ci95_2sf": [
+     0.013,
+     0.075
+    ]
+   },
+   "noise0p07_vs_C3_rvo2": {
+    "test": "paired sign-flip on mean(k_i/5 - c_i)",
+    "method": "sign-flip, 200000 random flips, 52 non-zero",
+    "n": 160,
+    "effect": 0.1325,
+    "ci95": [
+     0.07621875000000003,
+     0.19125
+    ],
+    "p": 9.999950000249999e-06,
+    "p_holm": 4.9999750001249995e-05,
+    "p_disp": "<10^{-5}",
+    "p_holm_disp": "<10^{-4}",
+    "effect_2sf": 0.13,
+    "ci95_2sf": [
+     0.076,
+     0.19
+    ]
+   },
+   "replay_noise0p07_vs_C3_rvo2": {
+    "test": "exact McNemar, [seeds disagree] vs [an ORCA replay changes]",
+    "n": 160,
+    "first": 34,
+    "second": 0,
+    "disc_first_only": 34,
+    "disc_second_only": 0,
+    "effect": 0.2125,
+    "ci95": [
+     0.15,
+     0.28125
+    ],
+    "p": 1.1641532182693481e-10,
+    "p_holm": 9.313225746154785e-10,
+    "p_disp": "<10^{-9}",
+    "p_holm_disp": "<10^{-9}",
+    "effect_2sf": 0.21,
+    "ci95_2sf": [
+     0.15,
+     0.28
+    ]
+   }
+  }
+ },
+ "table2_reading": {
+  "new": {
+   "orca_rvo2_frees_vs_C1": true,
+   "orca_rvo2_replays_identical": true,
+   "legacy_replay_flips": 8,
+   "push_plus_frees_more_than_orca": true,
+   "drive_frees_more_than_orca": true,
+   "noise_seeds_disagree": 29
+  },
+  "E2": {
+   "orca_rvo2_frees_vs_C1": true,
+   "orca_rvo2_replays_identical": true,
+   "legacy_replay_flips": 5,
+   "push_plus_frees_more_than_orca": false,
+   "drive_frees_more_than_orca": false,
+   "noise_seeds_disagree": 5
+  },
+  "pooled": {
+   "orca_rvo2_frees_vs_C1": true,
+   "orca_rvo2_replays_identical": true,
+   "legacy_replay_flips": 13,
+   "push_plus_frees_more_than_orca": true,
+   "drive_frees_more_than_orca": true,
+   "noise_seeds_disagree": 34
+  }
+ },
+ "sfm_freed_snapshot_speed": {
+  "n_library": 196,
+  "median_max_speed_m_s": 7.758658678870328e-07,
+  "freed": {
+   "E1b_seed184": {
+    "max_speed_m_s": 0.0006420348594381161,
+    "max_speed_mm_s_2sf": 0.64,
+    "rank_fastest": 6
+   },
+   "E1b_seed56": {
+    "max_speed_m_s": 0.0019512015763154715,
+    "max_speed_mm_s_2sf": 2.0,
+    "rank_fastest": 4
+   }
+  }
+ }
+}

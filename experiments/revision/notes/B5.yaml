@@ -34,3 +34,59 @@ RevBfiveWrelOk: {file: rev_B5.json, key: "barrier_sharp.W_rel_le_0p01", fmt: "{:
 RevBfiveWrelN: {file: rev_B5.json, key: "barrier_sharp.flow_n", fmt: "{:d}"}
 RevBfiveWflowSlopeMed: {file: rev_B5.json, key: "barrier_sharp.slopes.W_flow.median", fmt: "{:.2f}"}
 RevBfiveWflowMedJ: {file: rev_B5.json, key: "barrier_sharp.W_flow_delta0p3_J.median", fmt: "{:.3f}"}
+# quench with rounded edges (B5_quench.py -> data/revision/B5/quench.jsonl)
+RevBfiveQZeroN: {file: rev_B5.json, key: "quench.b0.n", fmt: "{:d}"}
+RevBfiveQZeroFreed: {file: rev_B5.json, key: "quench.b0.freed", fmt: "{:d}"}
+RevBfiveQZeroAllFreed: {file: rev_B5.json, key: "quench.b0.all_freed", fmt: "{:d}"}
+RevBfiveQZeroLo: {file: rev_B5.json, key: "quench.b0.freed_ci95.0", fmt: "{:.2f}"}
+RevBfiveQZeroTmin: {file: rev_B5.json, key: "quench.b0.first_t.min", fmt: "{:.1f}"}
+RevBfiveQZeroTmed: {file: rev_B5.json, key: "quench.b0.first_t.median", fmt: "{:.1f}"}
+RevBfiveQZeroTmax: {file: rev_B5.json, key: "quench.b0.first_t.max", fmt: "{:.1f}"}
+RevBfiveQFoldN: {file: rev_B5.json, key: "quench.fold_all.n", fmt: "{:d}"}
+RevBfiveQFoldFreed: {file: rev_B5.json, key: "quench.fold_all.freed", fmt: "{:d}"}
+RevBfiveQFoldLo: {file: rev_B5.json, key: "quench.fold_all.freed_ci95.0", fmt: "{:.2f}"}
+RevBfiveQFoldPassMin: {file: rev_B5.json, key: "quench.fold_all.passage_s.min", fmt: "{:.1f}"}
+RevBfiveQFoldPassMax: {file: rev_B5.json, key: "quench.fold_all.passage_s.max", fmt: "{:.0f}"}
+RevBfiveQFoldPassMedSmallEps: {file: rev_B5.json, key: "quench.fold.eps0p01.passage_s.median", fmt: "{:.0f}"}
+RevBfiveQFoldPassMedLargeEps: {file: rev_B5.json, key: "quench.fold.eps0p3.passage_s.median", fmt: "{:.0f}"}
+RevBfiveQGridN: {file: rev_B5.json, key: "quench.grid.n", fmt: "{:d}"}
+RevBfiveQGridAgree: {file: rev_B5.json, key: "quench.grid.agree", fmt: "{:d}"}
+RevBfiveQGridLo: {file: rev_B5.json, key: "quench.grid.wilson_lo", fmt: "{:.2f}"}
+RevBfiveQGridHi: {file: rev_B5.json, key: "quench.grid.wilson_hi", fmt: "{:.3f}"}
+RevBfiveQGridFreedBelow: {file: rev_B5.json, key: "quench.grid.freed_below_static", fmt: "{:d}"}
+RevBfiveQGridHeldAbove: {file: rev_B5.json, key: "quench.grid.held_above_static", fmt: "{:d}"}
+RevBfiveQGridGapMaxPct: {file: rev_B5.json, key: "quench.grid.disagree_gap_rel_max_pct", fmt: "{:.1f}"}
+# generation with rounded edges, r_c = 0.1 m (B5_gen.py -> data/revision/B5/gen_rounded.jsonl), against the sharp-edge runs
+RevBfiveGenN: {file: rev_B5.json, key: "gen.n", fmt: "{:d}"}
+RevBfiveGenComplete: {file: rev_B5.json, key: "gen.complete.cell", fmt: "{:d}"}
+RevBfiveGenCompleteRef: {file: rev_B5.json, key: "gen.complete.reference", fmt: "{:d}"}
+RevBfiveGenCompleteFrac: {file: rev_B5.json, key: "gen.complete.cell_frac", fmt: "{:.3f}"}
+RevBfiveGenCompleteLo: {file: rev_B5.json, key: "gen.complete.cell_ci95.0", fmt: "{:.3f}"}
+RevBfiveGenCompleteHi: {file: rev_B5.json, key: "gen.complete.cell_ci95.1", fmt: "{:.3f}"}
+RevBfiveGenCompleteRefFrac: {file: rev_B5.json, key: "gen.complete.reference_frac", fmt: "{:.2f}"}
+RevBfiveGenCompleteRefLo: {file: rev_B5.json, key: "gen.complete.reference_ci95.0", fmt: "{:.2f}"}
+RevBfiveGenCompleteRefHi: {file: rev_B5.json, key: "gen.complete.reference_ci95.1", fmt: "{:.2f}"}
+RevBfiveGenDead: {file: rev_B5.json, key: "gen.deadlock.cell", fmt: "{:d}"}
+RevBfiveGenDeadRef: {file: rev_B5.json, key: "gen.deadlock.reference", fmt: "{:d}"}
+RevBfiveGenDeadP: {file: rev_B5.json, key: "gen.deadlock.mcnemar_p", fmt: "sci", digits: 1}
+RevBfiveGenDeadPDisp: {file: rev_B5.json, key: "gen.deadlock.mcnemar_p_disp", fmt: "{}"}
+RevBfiveGenPair: {file: rev_B5.json, key: "gen.pair.cell", fmt: "{:d}"}
+RevBfiveGenPairRef: {file: rev_B5.json, key: "gen.pair.reference", fmt: "{:d}"}
+RevBfiveGenPairHi: {file: rev_B5.json, key: "gen.pair.cell_ci95.1", fmt: "{:.3f}"}
+RevBfiveGenPairRefFrac: {file: rev_B5.json, key: "gen.pair.reference_frac", fmt: "{:.2f}"}
+RevBfiveGenPairRefLo: {file: rev_B5.json, key: "gen.pair.reference_ci95.0", fmt: "{:.2f}"}
+RevBfiveGenPairRefHi: {file: rev_B5.json, key: "gen.pair.reference_ci95.1", fmt: "{:.2f}"}
+RevBfiveGenPairP: {file: rev_B5.json, key: "gen.pair.mcnemar_p", fmt: "sci", digits: 1}
+RevBfiveGenPairPDisp: {file: rev_B5.json, key: "gen.pair.mcnemar_p_disp", fmt: "{}"}
+RevBfiveGenColl: {file: rev_B5.json, key: "gen.collective.cell", fmt: "{:d}"}
+RevBfiveGenCollRef: {file: rev_B5.json, key: "gen.collective.reference", fmt: "{:d}"}
+RevBfiveGenCollHi: {file: rev_B5.json, key: "gen.collective.cell_ci95.1", fmt: "{:.3f}"}
+RevBfiveGenCollRefFrac: {file: rev_B5.json, key: "gen.collective.reference_frac", fmt: "{:.2f}"}
+RevBfiveGenCollRefLo: {file: rev_B5.json, key: "gen.collective.reference_ci95.0", fmt: "{:.2f}"}
+RevBfiveGenCollRefHi: {file: rev_B5.json, key: "gen.collective.reference_ci95.1", fmt: "{:.2f}"}
+RevBfiveGenCollP: {file: rev_B5.json, key: "gen.collective.mcnemar_p", fmt: "sci", digits: 1}
+RevBfiveGenCollPDisp: {file: rev_B5.json, key: "gen.collective.mcnemar_p_disp", fmt: "{}"}
+RevBfiveGenLone: {file: rev_B5.json, key: "gen.lone.cell", fmt: "{:d}"}
+RevBfiveGenLoneRef: {file: rev_B5.json, key: "gen.lone.reference", fmt: "{:d}"}
+RevBfiveGenLoneP: {file: rev_B5.json, key: "gen.lone.mcnemar_p", fmt: "p"}
+RevBfiveGenPairShareRef: {file: rev_B5.json, key: "gen.pair_of_deadlocks_reference.frac", fmt: "{:.2f}"}

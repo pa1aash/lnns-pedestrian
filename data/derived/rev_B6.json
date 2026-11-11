@@ -1,6 +1,6 @@
 {
  "script": "experiments/revision/B6_analyze.py",
- "doc": "B6 analysis: the pair standoff under a line goal (w2_goal = \"line\").\n\nInputs (data/revision/B6/): static.jsonl (B6_static.py), quench.jsonl (B6_quench.py), and when present\ngen_line.jsonl (B6_gen.py); data/E7b/e7b_lib.jsonl (point-goal generation, same seeds).\nOutput: data/derived/rev_B6.json.\n  static   strict minima kept under the line goal (Hessian -sym(J) positive definite, contact-free, x < 10,\n           opposite sides), flowed out, other; displacement from the point-goal snapshot; mu1 against the\n           point-goal mu1; asymmetry of J (gradient check).\n  quench   per arm (line, point): unperturbed runs held for 120 s (no exit; stationary stop or censored);\n           line-goal replays (1e-9 m) held.\n  gen      completion, deadlock, pair standoff (experiments/E7b/e7b_lib.qualifies), pair-or-group standoff\n           (deadlock whose blocker, the residual agent nearest (10, 5), has negative stuck-alone margin), with\n           the point-goal runs of the same seeds; exact McNemar p on the seed-paired pair-standoff indicator.\n",
+ "doc": "B6 analysis: the pair standoff under a line goal (w2_goal = \"line\").\n\nInputs (data/revision/B6/): static.jsonl (B6_static.py), quench.jsonl (B6_quench.py), and when present\ngen_line.jsonl (B6_gen.py); data/E7b/e7b_lib.jsonl (point-goal generation, same seeds).\nOutput: data/derived/rev_B6.json.\n  static   strict minima kept under the line goal (Hessian -sym(J) positive definite, contact-free, x < 10,\n           opposite sides), flowed out, other; displacement from the point-goal snapshot; mu1 against the\n           point-goal mu1; asymmetry of J (gradient check).\n  quench   per arm (line, point): unperturbed runs held for 120 s (no exit; stationary stop or censored);\n           line-goal replays (1e-9 m) held; Wilson 95% intervals on the held fractions.\n  gen      completion, deadlock, pair standoff (experiments/E7b/e7b_lib.qualifies), pair-or-group standoff\n           (deadlock whose blocker, the residual agent nearest (10, 5), has negative stuck-alone margin), with\n           the point-goal runs of the same seeds; exact McNemar p on each seed-paired indicator; fractions of the\n           320 runs with Wilson 95% intervals; lone = deadlock not collective; share of deadlocks that are pair\n           standoffs; overhang of the generated pairs (min over members of |y - 5| - w/2).\n",
  "static": {
   "n": 46,
   "kept": 46,
@@ -59,17 +59,187 @@
   "line": {
    "n": 46,
    "held": 46,
+   "held_ci95": [
+    0.9229238226702192,
+    1.0
+   ],
    "stationary_stop": 46
   },
   "point": {
    "n": 46,
    "held": 46,
+   "held_ci95": [
+    0.9229238226702192,
+    1.0
+   ],
    "stationary_stop": 46
   },
   "line_replays": {
    "n": 230,
-   "held": 230
+   "held": 230,
+   "held_ci95": [
+    0.9835717853452937,
+    1.0
+   ]
   },
   "wall_s_total": 932.6313758288597
+ },
+ "gen": {
+  "n": 320,
+  "complete": {
+   "cell": 213,
+   "reference": 256,
+   "only_cell": 32,
+   "only_reference": 75,
+   "mcnemar_p": 3.918715378691487e-05,
+   "mcnemar_p_disp": "<10^{-4}",
+   "cell_frac": 0.665625,
+   "cell_ci95": [
+    0.6122394717812394,
+    0.7150810454098813
+   ],
+   "reference_frac": 0.8,
+   "reference_ci95": [
+    0.7527299061518783,
+    0.8401525400810949
+   ]
+  },
+  "deadlock": {
+   "cell": 107,
+   "reference": 64,
+   "only_cell": 75,
+   "only_reference": 32,
+   "mcnemar_p": 3.918715378691487e-05,
+   "mcnemar_p_disp": "<10^{-4}",
+   "cell_frac": 0.334375,
+   "cell_ci95": [
+    0.28491895459011873,
+    0.3877605282187606
+   ],
+   "reference_frac": 0.2,
+   "reference_ci95": [
+    0.15984745991890512,
+    0.24727009384812174
+   ]
+  },
+  "capped": {
+   "cell": 0,
+   "reference": 0,
+   "only_cell": 0,
+   "only_reference": 0,
+   "mcnemar_p": 1.0,
+   "mcnemar_p_disp": "1.000",
+   "cell_frac": 0.0,
+   "cell_ci95": [
+    0.0,
+    0.011862589611711404
+   ],
+   "reference_frac": 0.0,
+   "reference_ci95": [
+    0.0,
+    0.011862589611711404
+   ]
+  },
+  "pair": {
+   "cell": 91,
+   "reference": 46,
+   "only_cell": 74,
+   "only_reference": 29,
+   "mcnemar_p": 1.0705258229134963e-05,
+   "mcnemar_p_disp": "<10^{-4}",
+   "cell_frac": 0.284375,
+   "cell_ci95": [
+    0.23773277742161064,
+    0.3361329643484399
+   ],
+   "reference_frac": 0.14375,
+   "reference_ci95": [
+    0.10953157536625457,
+    0.18642051973208973
+   ]
+  },
+  "collective": {
+   "cell": 102,
+   "reference": 57,
+   "only_cell": 76,
+   "only_reference": 31,
+   "mcnemar_p": 1.602858614557554e-05,
+   "mcnemar_p_disp": "<10^{-4}",
+   "cell_frac": 0.31875,
+   "cell_ci95": [
+    0.2701008256255906,
+    0.37169936310865476
+   ],
+   "reference_frac": 0.178125,
+   "reference_ci95": [
+    0.14009568318673332,
+    0.22379085887580585
+   ]
+  },
+  "lone": {
+   "cell": 5,
+   "reference": 7,
+   "only_cell": 3,
+   "only_reference": 5,
+   "mcnemar_p": 0.7265625,
+   "mcnemar_p_disp": "0.727",
+   "cell_frac": 0.015625,
+   "cell_ci95": [
+    0.006691954469849172,
+    0.03604992921649625
+   ],
+   "reference_frac": 0.021875,
+   "reference_ci95": [
+    0.010635649426464264,
+    0.04445795188973476
+   ]
+  },
+  "pair_of_deadlocks_cell": {
+   "n": 107,
+   "pair": 91,
+   "frac": 0.8504672897196262,
+   "ci95": [
+    0.7708287680780948,
+    0.9058124929646907
+   ]
+  },
+  "pair_overhang_mm_cell": {
+   "median": 25.0,
+   "min": 0.14,
+   "max": 62.0,
+   "n": 91,
+   "raw_median": 24.95747538023918,
+   "raw_min": 0.1396276780377681,
+   "raw_max": 62.25481779561137,
+   "above_100mm": 0,
+   "above_20mm": 61
+  },
+  "pair_of_deadlocks_reference": {
+   "n": 64,
+   "pair": 46,
+   "frac": 0.71875,
+   "ci95": [
+    0.598658376004965,
+    0.8140677389451542
+   ]
+  },
+  "pair_overhang_mm_reference": {
+   "median": 25.0,
+   "min": 0.26,
+   "max": 59.0,
+   "n": 46,
+   "raw_median": 24.53381940593269,
+   "raw_min": 0.26041739965287913,
+   "raw_max": 59.454791766975546,
+   "above_100mm": 0,
+   "above_20mm": 27
+  },
+  "n_resid_deadlocks": {
+   "2": 94,
+   "4": 2,
+   "5": 4,
+   "1": 3,
+   "3": 4
+  }
  }
 }

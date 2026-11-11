@@ -27,3 +27,6 @@ steps:
   - name: B4r
     cmd: [experiments/revision/B4_arch_dt.py, --workers, '4']
     cpu_h: 3
+  - name: D3
+    cmd: [experiments/revision/D3_croma_rerun.py]
+    cpu_h: 6.6

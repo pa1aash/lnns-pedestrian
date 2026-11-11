@@ -518,6 +518,11 @@ def main():
     o["check_as_used_reproduces_macros"] = {k: {"macro": nt[k], "recomputed": fmt_like(nt[k], v),
                                                 "ok": fmt_like(nt[k], v) == nt[k]} for k, v in chk.items()}
     print(revlib.out_json("D", o))
+    # D3 rerun (experiments/revision/D3_analyze.py) once its data exist; it reads the humans just written
+    import D3_analyze
+    if os.path.exists(D3_analyze.IN):
+        o["D3"]["rerun"] = D3_analyze.analyze()
+        revlib.out_json("D", o)
     report(o)
 
 

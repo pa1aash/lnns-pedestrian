@@ -134,7 +134,7 @@ def analyse():
         Q = [r for r in R if abs(r["dt"] - dt) < 1e-12]
         if not Q:
             continue
-        out["by_dt"][f"{dt:g}"] = {
+        out["by_dt"][f"dt{dt:g}".replace(".", "p")] = {
             "n": len(Q), "runs_with_arch": sum(r["n_episodes"] > 0 for r in Q),
             "episodes": sum(r["n_episodes"] for r in Q), "episodes_size3": sum(r["n_episodes_size3"] for r in Q),
             "max_size": max(r["max_size"] for r in Q), "max_lifetime_s": max(r["max_lifetime_s"] for r in Q),
@@ -146,7 +146,16 @@ def analyse():
             "max_overlap_arch_m": max(r["peak_max_overlap_m"] for r in Q),
             "max_wall_overlap_arch_m": max(r["peak_max_wall_overlap_m"] for r in Q),
             "max_overlap_all_m": max(r["max_overlap_all_m"] for r in Q),
+            "lifetime_p95_s": float(np.percentile([e["t1"] - e["t0"] for r in Q for e in r["episodes"]], 95)),
+            "persistent_wilson_hi": float(revlib.wilson(sum(r["n_persistent"] > 0 for r in Q), len(Q))[2]),
+            "median_peak_body_force_kN": float(np.median([r["peak_body_force_N"] for r in Q])) / 1e3,
+            "median_peak_overlap_m": float(np.median([r["peak_max_overlap_m"] for r in Q])),
+            "cpu_h": sum(r["wall_s"] for r in Q) / 3600.0,
             "median_evac_s": float(np.median([r["t_end"] for r in Q if r["complete"]])) if any(r["complete"] for r in Q) else None}
+    for v in out["by_dt"].values():
+        for k in ("max_overlap_arch_m", "max_wall_overlap_arch_m", "max_overlap_all_m", "median_peak_overlap_m"):
+            v[k[:-2] + "_cm"] = 100.0 * v[k]
+    out["cpu_h_total"] = sum(v["cpu_h"] for v in out["by_dt"].values())
     revlib.out_json("B4", out)
     print(json.dumps(out["by_dt"], indent=1))
 

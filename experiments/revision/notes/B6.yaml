@@ -15,3 +15,54 @@ RevBsixQuenchHeld: {file: rev_B6.json, key: "quench.line.held", fmt: "{:d}"}
 RevBsixReplayN: {file: rev_B6.json, key: "quench.line_replays.n", fmt: "{:d}"}
 RevBsixReplayHeld: {file: rev_B6.json, key: "quench.line_replays.held", fmt: "{:d}"}
 RevBsixPointHeld: {file: rev_B6.json, key: "quench.point.held", fmt: "{:d}"}
+RevBsixQuenchLo: {file: rev_B6.json, key: "quench.line.held_ci95.0", fmt: "{:.2f}"}
+RevBsixReplayLo: {file: rev_B6.json, key: "quench.line_replays.held_ci95.0", fmt: "{:.2f}"}
+# generation with the line goal (B6_gen.py -> data/revision/B6/gen_line.jsonl), against the point-goal runs
+RevBsixGenN: {file: rev_B6.json, key: "gen.n", fmt: "{:d}"}
+RevBsixGenComplete: {file: rev_B6.json, key: "gen.complete.cell", fmt: "{:d}"}
+RevBsixGenCompleteRef: {file: rev_B6.json, key: "gen.complete.reference", fmt: "{:d}"}
+RevBsixGenCompleteFrac: {file: rev_B6.json, key: "gen.complete.cell_frac", fmt: "{:.2f}"}
+RevBsixGenCompleteLo: {file: rev_B6.json, key: "gen.complete.cell_ci95.0", fmt: "{:.2f}"}
+RevBsixGenCompleteHi: {file: rev_B6.json, key: "gen.complete.cell_ci95.1", fmt: "{:.2f}"}
+RevBsixGenCompleteRefFrac: {file: rev_B6.json, key: "gen.complete.reference_frac", fmt: "{:.2f}"}
+RevBsixGenCompleteRefLo: {file: rev_B6.json, key: "gen.complete.reference_ci95.0", fmt: "{:.2f}"}
+RevBsixGenCompleteRefHi: {file: rev_B6.json, key: "gen.complete.reference_ci95.1", fmt: "{:.2f}"}
+RevBsixGenDead: {file: rev_B6.json, key: "gen.deadlock.cell", fmt: "{:d}"}
+RevBsixGenDeadRef: {file: rev_B6.json, key: "gen.deadlock.reference", fmt: "{:d}"}
+RevBsixGenDeadP: {file: rev_B6.json, key: "gen.deadlock.mcnemar_p", fmt: "sci", digits: 1}
+RevBsixGenDeadPDisp: {file: rev_B6.json, key: "gen.deadlock.mcnemar_p_disp", fmt: "{}"}
+RevBsixGenPair: {file: rev_B6.json, key: "gen.pair.cell", fmt: "{:d}"}
+RevBsixGenPairRef: {file: rev_B6.json, key: "gen.pair.reference", fmt: "{:d}"}
+RevBsixGenPairOnlyLine: {file: rev_B6.json, key: "gen.pair.only_cell", fmt: "{:d}"}
+RevBsixGenPairOnlyPoint: {file: rev_B6.json, key: "gen.pair.only_reference", fmt: "{:d}"}
+RevBsixGenPairFrac: {file: rev_B6.json, key: "gen.pair.cell_frac", fmt: "{:.2f}"}
+RevBsixGenPairLo: {file: rev_B6.json, key: "gen.pair.cell_ci95.0", fmt: "{:.2f}"}
+RevBsixGenPairHi: {file: rev_B6.json, key: "gen.pair.cell_ci95.1", fmt: "{:.2f}"}
+RevBsixGenPairRefFrac: {file: rev_B6.json, key: "gen.pair.reference_frac", fmt: "{:.2f}"}
+RevBsixGenPairRefLo: {file: rev_B6.json, key: "gen.pair.reference_ci95.0", fmt: "{:.2f}"}
+RevBsixGenPairRefHi: {file: rev_B6.json, key: "gen.pair.reference_ci95.1", fmt: "{:.2f}"}
+RevBsixGenPairP: {file: rev_B6.json, key: "gen.pair.mcnemar_p", fmt: "sci", digits: 1}
+RevBsixGenPairPDisp: {file: rev_B6.json, key: "gen.pair.mcnemar_p_disp", fmt: "{}"}
+RevBsixGenColl: {file: rev_B6.json, key: "gen.collective.cell", fmt: "{:d}"}
+RevBsixGenCollRef: {file: rev_B6.json, key: "gen.collective.reference", fmt: "{:d}"}
+RevBsixGenCollFrac: {file: rev_B6.json, key: "gen.collective.cell_frac", fmt: "{:.2f}"}
+RevBsixGenCollLo: {file: rev_B6.json, key: "gen.collective.cell_ci95.0", fmt: "{:.2f}"}
+RevBsixGenCollHi: {file: rev_B6.json, key: "gen.collective.cell_ci95.1", fmt: "{:.2f}"}
+RevBsixGenCollRefFrac: {file: rev_B6.json, key: "gen.collective.reference_frac", fmt: "{:.2f}"}
+RevBsixGenCollRefLo: {file: rev_B6.json, key: "gen.collective.reference_ci95.0", fmt: "{:.2f}"}
+RevBsixGenCollRefHi: {file: rev_B6.json, key: "gen.collective.reference_ci95.1", fmt: "{:.2f}"}
+RevBsixGenCollP: {file: rev_B6.json, key: "gen.collective.mcnemar_p", fmt: "sci", digits: 1}
+RevBsixGenCollPDisp: {file: rev_B6.json, key: "gen.collective.mcnemar_p_disp", fmt: "{}"}
+RevBsixGenLone: {file: rev_B6.json, key: "gen.lone.cell", fmt: "{:d}"}
+RevBsixGenLoneRef: {file: rev_B6.json, key: "gen.lone.reference", fmt: "{:d}"}
+RevBsixGenLoneP: {file: rev_B6.json, key: "gen.lone.mcnemar_p", fmt: "p"}
+RevBsixGenPairShare: {file: rev_B6.json, key: "gen.pair_of_deadlocks_cell.frac", fmt: "{:.2f}"}
+RevBsixGenPairShareLo: {file: rev_B6.json, key: "gen.pair_of_deadlocks_cell.ci95.0", fmt: "{:.2f}"}
+RevBsixGenPairShareHi: {file: rev_B6.json, key: "gen.pair_of_deadlocks_cell.ci95.1", fmt: "{:.2f}"}
+RevBsixGenPairShareRef: {file: rev_B6.json, key: "gen.pair_of_deadlocks_reference.frac", fmt: "{:.2f}"}
+RevBsixGenPairShareRefLo: {file: rev_B6.json, key: "gen.pair_of_deadlocks_reference.ci95.0", fmt: "{:.2f}"}
+RevBsixGenPairShareRefHi: {file: rev_B6.json, key: "gen.pair_of_deadlocks_reference.ci95.1", fmt: "{:.2f}"}
+RevBsixGenOverhangMin: {file: rev_B6.json, key: "gen.pair_overhang_mm_cell.min", fmt: "{:.2f}"}
+RevBsixGenOverhangMed: {file: rev_B6.json, key: "gen.pair_overhang_mm_cell.median", fmt: "{:.0f}"}
+RevBsixGenOverhangMax: {file: rev_B6.json, key: "gen.pair_overhang_mm_cell.max", fmt: "{:.0f}"}
+RevBsixGenOverhangAbove: {file: rev_B6.json, key: "gen.pair_overhang_mm_cell.above_100mm", fmt: "{:d}"}

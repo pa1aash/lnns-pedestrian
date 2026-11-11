@@ -14,6 +14,11 @@ Output: data/derived/rev_B5.json.
              fold (face / cap transition); b_f against the bisection b*.
   barrier    curl of the biased rest field (measured / predicted -c b / (sqrt(1+b^2) rho)), cross-member
              antisymmetry, path dependence W_rel = (W_line - W_flow)/W_flow, for the sharp folds and r_c = 0.02.
+  quench     b0 (r_c = 0.1, b = 0): runs freed, with Wilson 95% interval, first exit time; fold (r_c = 0.02,
+             b = s b_f (1 + eps)): freed per eps and pooled, passage time; grid (r_c = 0.02, E7b bias values):
+             quench against static (|b| > b*) agreement with Wilson interval, the disagreeing runs and their
+             relative gap (b* - |b|)/b*.
+  gen        r_c = 0.1 generation against the sharp-edge E7b_lib runs, seed-matched (B6_analyze.gen_summary).
 """
 import json
 import os
@@ -169,23 +174,38 @@ def main():
         n6 = json.load(open(os.path.join(revlib.DERIVED, "N6_analysis.json")))
         bs["N6_reference_slopes"] = {k: n6["slopes"][k]["median"] for k in ("dist", "W", "mu1")}
         o["barrier_sharp"] = bs
-    # ---------------- quench (queued)
+    # ---------------- quench (B5_quench.py)
     Q = jl(os.path.join(D, "quench.jsonl"))
     if Q:
         q = {}
         b0 = [r for r in Q if r["arm"] == "b0"]
-        q["b0"] = {"n": len(b0), "freed": int(sum(r["freed"] for r in b0)),
-                   "all_freed": int(sum(r["all_freed"] for r in b0)), "first_t": summ([r["first_t"] for r in b0 if r["freed"]])}
+        nf0 = int(sum(r["freed"] for r in b0))
+        q["b0"] = {"n": len(b0), "freed": nf0, "freed_ci95": list(revlib.wilson(nf0, len(b0))[1:]),
+                   "all_freed": int(sum(r["all_freed"] for r in b0)), "first_t": summ([r["first_t"] for r in b0 if r["freed"]]),
+                   "stationary_stop": int(sum(r["stationary_stop"] for r in b0))}
         fo = [r for r in Q if r["arm"] == "fold"]
         eps = sorted({r["eps"] for r in fo})
-        q["fold"] = {f"{e:g}": {"n": sum(r["eps"] == e for r in fo), "freed": int(sum(r["freed"] for r in fo if r["eps"] == e)),
+        q["fold"] = {"eps" + f"{e:g}".replace(".", "p"): {"n": sum(r["eps"] == e for r in fo), "freed": int(sum(r["freed"] for r in fo if r["eps"] == e)),
                                 "passage_s": summ([r["first_t"] for r in fo if r["eps"] == e and r["freed"]])} for e in eps}
+        nff = int(sum(r["freed"] for r in fo))
+        q["fold_all"] = {"n": len(fo), "freed": nff, "freed_ci95": list(revlib.wilson(nff, len(fo))[1:]),
+                         "b_f_source": dict(Counter(r["b_f_source"] for r in fo)),
+                         "passage_s": summ([r["first_t"] for r in fo if r["freed"]])}
         gr = [r for r in Q if r["arm"] == "grid" and r["static_freed"] is not None]
         agree = sum(r["static_freed"] == r["freed"] for r in gr)
         p, lo, hi = revlib.wilson(agree, len(gr)) if gr else (None, None, None)
-        q["grid"] = {"n": len(gr), "agree": int(agree), "wilson_lo": lo,
+        q["grid"] = {"n": len(gr), "agree": int(agree), "wilson_lo": lo, "wilson_hi": hi,
+                     "n_all": int(sum(r["arm"] == "grid" for r in Q)),
+                     "freed": int(sum(r["freed"] for r in gr)), "static_freed": int(sum(r["static_freed"] for r in gr)),
                      "freed_below_static": int(sum(r["freed"] and not r["static_freed"] for r in gr)),
                      "held_above_static": int(sum(r["static_freed"] and not r["freed"] for r in gr))}
+        dis = [r for r in gr if r["static_freed"] != r["freed"]]
+        q["grid"]["disagree"] = [{"tag": r["tag"], "b": r["b"], "b_star": r["b_star"], "first_t": r["first_t"]}
+                                 for r in dis]
+        q["grid"]["disagree_gap_rel_max"] = max([abs(r["b_star"] - abs(r["b"])) / r["b_star"] for r in dis],
+                                                default=None)
+        q["grid"]["disagree_gap_rel_max_pct"] = (None if q["grid"]["disagree_gap_rel_max"] is None
+                                                 else sig(100 * q["grid"]["disagree_gap_rel_max"], 2))
         o["quench"] = q
     if Bs:
         b = o["barrier_sharp"]

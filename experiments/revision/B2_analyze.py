@@ -18,6 +18,8 @@ data/E1/E1_runs.jsonl (E1b, w = 0.8 m, seeds 42-141), data/revision/B2/b2.jsonl 
    ((1 - f)^(100 q) ~ (1 - q f)^100: each stuck-alone agent blocks with probability q).
    Tested against the observed completion curve (deviance, w50 of each prediction); N_best (the N that fits
    best) is reported as a check, not a prediction.
+   Each run enters once: B2's w = 0.9 m runs repeat E7's w0.9 cell (same seeds, flags, deterministic) and are
+   checked against it, then dropped from the fits (E7's run is kept).
 4. Bracket ends (fix_a8 definitions, restated): w_lo = median over spawned agents of w_c (below it the
    median agent is stuck alone); w_hi = median over runs of the largest w_c in the run (above it the median
    run has no stuck-alone agent).
@@ -61,6 +63,21 @@ def runs():
     return R
 
 
+def dedupe(R):
+    """Drop B2 runs at a (w, seed) already run by E7/E1b; return the kept runs and the reproduction check."""
+    old = {(round(r["w"], 2), r["seed"]): r for r in R if r["src"] != "B2"}
+    keep, n_dup, n_same = [], 0, 0
+    for r in R:
+        o = old.get((round(r["w"], 2), r["seed"])) if r["src"] == "B2" else None
+        if o is None:
+            keep.append(r)
+            continue
+        n_dup += 1
+        n_same += int(o["complete"] == r["complete"] and
+                      sorted((str(k), v) for k, v in o["exit_t"].items()) == sorted((str(k), v) for k, v in r["exit_t"].items()))
+    return keep, {"n_repeated": n_dup, "identical_exits_and_completion": n_same}
+
+
 def logit_mle(w, y):
     X = np.column_stack([np.ones_like(w), w])
     th = np.zeros(2)
@@ -99,7 +116,9 @@ def w50_fit(R):
         th += st
         if np.abs(st).max() < 1e-10:
             break
-    return {"w50_m": float(-a / b), "w50_ci95": [float(np.nanpercentile(bs, 2.5)), float(np.nanpercentile(bs, 97.5))],
+    p = 1 / (1 + np.exp(-(a + b * np.array(ws))))
+    ll = -2 * float(np.sum(k * np.log(p) + (n - k) * np.log(1 - p)))
+    return {"w50_m": float(-a / b), "transition_10_90_m": float(2 * np.log(9) / b), "neg2loglik_logistic": ll, "w50_ci95": [float(np.nanpercentile(bs, 2.5)), float(np.nanpercentile(bs, 97.5))],
             "slope_per_m": float(b), "w50_pseudocount_m": float(-th[0] / th[1]),
             "table": [{"w": x, "n": int(nn), "k": int(kk), "completion": float(kk / nn)} for x, kk, nn in zip(ws, k, n)]}
 
@@ -109,10 +128,14 @@ def wc_of(a):
 
 
 def main():
-    R = runs()
-    out = {"doc": __doc__}
+    R, dup = dedupe(runs())
+    out = {"doc": __doc__, "n_runs": len(R), "n_runs_B2_new": sum(r["src"] == "B2" for r in R), "w0p9_repeat": dup}
     out["fit_all"] = w50_fit(R)
     out["fit_E7_widths_only"] = w50_fit([r for r in R if r["src"] != "B2"])
+    tab = out["fit_all"]["table"]
+    sat = [t["k"] * np.log(t["k"] / t["n"]) + (t["n"] - t["k"]) * np.log(1 - t["k"] / t["n"])
+           for t in tab if 0 < t["k"] < t["n"]]
+    out["fit_all"]["neg2loglik_saturated"] = -2 * float(np.sum(sat))
     # spawn independence of w
     base = {r["seed"]: r["attrs"] for r in R if r["w"] == 0.8}
     same = [all(abs(a["r"] - b["r"]) < 1e-12 and abs(a["v0"] - b["v0"]) < 1e-12 for a, b in zip(r["attrs"], base[r["seed"]]))
@@ -183,7 +206,34 @@ def main():
             pc = min(max((1 - f(t["w"])) ** N, 1e-9), 1 - 1e-9)
             d += -2 * (t["k"] * np.log(pc) + (t["n"] - t["k"]) * np.log(1 - pc))
         devs.append(d)
-    pred["N_best"] = {"N": float(Ns[int(np.argmin(devs))]), "neg2loglik": float(min(devs))}
+    Nb = float(Ns[int(np.argmin(devs))])
+    pred["N_best"] = {"N": Nb, "neg2loglik": float(min(devs)),
+                      "w50_pred_m": float(brentq(lambda w: (1 - f(w)) ** Nb - 0.5, 0.6, 1.2, xtol=1e-4))}
+    # arrival record (B2 runs only: n_touch and n_1m exist there)
+    arr = {}
+    for r in R:
+        if r["src"] != "B2":
+            continue
+        for i_s, a in r["arrive"].items():
+            i = int(i_s)
+            key = ("stuck" if wc_of(r["attrs"][i]) > r["w"] else "free") + ("_passed" if i_s in r["exit_t"] else "_held")
+            arr.setdefault(key, []).append((a["n_active"], a["n_touch"], a["n_1m"]))
+    rec = {}
+    for key, v in sorted(arr.items()):
+        v = np.array(v, float)
+        rec[key] = {"n": len(v), "n_active_median": float(np.median(v[:, 0])), "n_active_max": int(v[:, 0].max()),
+                    "n_touch_median": float(np.median(v[:, 1])), "n_touch_max": int(v[:, 1].max()),
+                    "frac_n_touch_0": float((v[:, 1] == 0).mean()), "n_1m_median": float(np.median(v[:, 2])),
+                    "n_1m_max": int(v[:, 2].max()), "frac_n_1m_0": float((v[:, 2] == 0).mean())}
+    out["arrival_record_B2"] = rec
+    dl = [r for r in R if r["src"] == "B2" and not r["complete"]]
+    out["arrival_record_B2"]["deadlocked_runs"] = {
+        "n": len(dl),
+        "with_stuck_alone_held_at_door": sum(any(wc_of(r["attrs"][int(i)]) > r["w"] and i not in r["exit_t"]
+                                                 for i in r["arrive"]) for r in dl)}
+    for v in pred.values():
+        v["delta_neg2loglik_vs_logistic"] = v["neg2loglik"] - out["fit_all"]["neg2loglik_logistic"]
+        v["w50_pred_minus_obs_m"] = v["w50_pred_m"] - out["fit_all"]["w50_m"] if v.get("w50_pred_m") else None
     out["prediction"] = pred
     out["f_at"] = {f"{w:.2f}": f(w) for w in (0.7, 0.8, 0.82, 0.84, 0.86, 0.88, 0.9, 0.92, 0.94, 0.96, 1.0)}
     revlib.out_json("B2", out)

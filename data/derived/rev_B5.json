@@ -1,6 +1,6 @@
 {
  "script": "experiments/revision/B5_analyze.py",
- "doc": "B5 analysis: the pair standoff with rounded jamb ends, and the work across the biased rest field.\n\nInputs (data/revision/B5/): reequil.jsonl, cont.jsonl, bisect.jsonl, barrier_sharp.jsonl (B5_static.py), and when\npresent quench.jsonl (B5_quench.py) and gen_rounded.jsonl (B5_gen.py); data/N6/n6_static.jsonl and\ndata/derived/N6_analysis.json (sharp-edge reference); data/E7b_bstar/fold_threshold.jsonl (sharp b*).\nOutput: data/derived/rev_B5.json.\n  reequil    per r_c: strict minima kept (Hessian positive definite, contact-free, x < 10, opposite sides),\n             flowed out (relaxation frees a member), converged elsewhere / undecided; displacement of the kept\n             minima; the geometric rule \"kept iff overhang > r_c\", overhang = min over members of |y - 5| - w/2\n             (how far the inner member's centre lies beyond the door edge, behind the flat jamb face), checked on\n             every (snapshot, r_c).\n  cont       r_c = 0.02 m: fold cases, log-log slopes against delta = 1 - b/b_f (delta 0.3 ... 0.001) of the\n             minimum-saddle distance, mu1 at the minimum, W_line and W_flow; member at a segment end at the\n             fold (face / cap transition); b_f against the bisection b*.\n  barrier    curl of the biased rest field (measured / predicted -c b / (sqrt(1+b^2) rho)), cross-member\n             antisymmetry, path dependence W_rel = (W_line - W_flow)/W_flow, for the sharp folds and r_c = 0.02.\n",
+ "doc": "B5 analysis: the pair standoff with rounded jamb ends, and the work across the biased rest field.\n\nInputs (data/revision/B5/): reequil.jsonl, cont.jsonl, bisect.jsonl, barrier_sharp.jsonl (B5_static.py), and when\npresent quench.jsonl (B5_quench.py) and gen_rounded.jsonl (B5_gen.py); data/N6/n6_static.jsonl and\ndata/derived/N6_analysis.json (sharp-edge reference); data/E7b_bstar/fold_threshold.jsonl (sharp b*).\nOutput: data/derived/rev_B5.json.\n  reequil    per r_c: strict minima kept (Hessian positive definite, contact-free, x < 10, opposite sides),\n             flowed out (relaxation frees a member), converged elsewhere / undecided; displacement of the kept\n             minima; the geometric rule \"kept iff overhang > r_c\", overhang = min over members of |y - 5| - w/2\n             (how far the inner member's centre lies beyond the door edge, behind the flat jamb face), checked on\n             every (snapshot, r_c).\n  cont       r_c = 0.02 m: fold cases, log-log slopes against delta = 1 - b/b_f (delta 0.3 ... 0.001) of the\n             minimum-saddle distance, mu1 at the minimum, W_line and W_flow; member at a segment end at the\n             fold (face / cap transition); b_f against the bisection b*.\n  barrier    curl of the biased rest field (measured / predicted -c b / (sqrt(1+b^2) rho)), cross-member\n             antisymmetry, path dependence W_rel = (W_line - W_flow)/W_flow, for the sharp folds and r_c = 0.02.\n  quench     b0 (r_c = 0.1, b = 0): runs freed, with Wilson 95% interval, first exit time; fold (r_c = 0.02,\n             b = s b_f (1 + eps)): freed per eps and pooled, passage time; grid (r_c = 0.02, E7b bias values):\n             quench against static (|b| > b*) agreement with Wilson interval, the disagreeing runs and their\n             relative gap (b* - |b|)/b*.\n  gen        r_c = 0.1 generation against the sharp-edge E7b_lib runs, seed-matched (B6_analyze.gen_summary).\n",
  "overhang_mm": {
   "median": 25.0,
   "min": 0.26,
@@ -551,9 +551,282 @@
    "mu1": 2.9019166167443975e-05
   }
  },
+ "quench": {
+  "b0": {
+   "n": 46,
+   "freed": 46,
+   "freed_ci95": [
+    0.9229238226702192,
+    1.0
+   ],
+   "all_freed": 46,
+   "first_t": {
+    "median": 4.6,
+    "min": 3.1,
+    "max": 7.5,
+    "n": 46,
+    "raw_median": 4.599999999995816,
+    "raw_min": 3.149999999997135,
+    "raw_max": 7.549999999993133
+   },
+   "stationary_stop": 0
+  },
+  "fold": {
+   "eps0p01": {
+    "n": 54,
+    "freed": 54,
+    "passage_s": {
+     "median": 19.0,
+     "min": 11.0,
+     "max": 28.0,
+     "n": 54,
+     "raw_median": 18.689999999983,
+     "raw_min": 11.49999999998954,
+     "raw_max": 27.96999999997456
+    }
+   },
+   "eps0p03": {
+    "n": 54,
+    "freed": 54,
+    "passage_s": {
+     "median": 16.0,
+     "min": 11.0,
+     "max": 23.0,
+     "n": 54,
+     "raw_median": 16.234999999985234,
+     "raw_min": 10.859999999990123,
+     "raw_max": 23.399999999978718
+    }
+   },
+   "eps0p1": {
+    "n": 54,
+    "freed": 54,
+    "passage_s": {
+     "median": 13.0,
+     "min": 9.5,
+     "max": 19.0,
+     "n": 54,
+     "raw_median": 13.234999999988453,
+     "raw_min": 9.50999999999901,
+     "raw_max": 18.869999999982838
+    }
+   },
+   "eps0p3": {
+    "n": 54,
+    "freed": 54,
+    "passage_s": {
+     "median": 10.0,
+     "min": 7.6,
+     "max": 16.0,
+     "n": 54,
+     "raw_median": 10.384999999990555,
+     "raw_min": 7.569999999993115,
+     "raw_max": 15.979999999985466
+    }
+   }
+  },
+  "fold_all": {
+   "n": 216,
+   "freed": 216,
+   "freed_ci95": [
+    0.9825256002503623,
+    1.0
+   ],
+   "b_f_source": {
+    "continuation": 108,
+    "natural": 108
+   },
+   "passage_s": {
+    "median": 14.0,
+    "min": 7.6,
+    "max": 28.0,
+    "n": 216,
+    "raw_median": 13.80999999999198,
+    "raw_min": 7.569999999993115,
+    "raw_max": 27.96999999997456
+   }
+  },
+  "grid": {
+   "n": 216,
+   "agree": 213,
+   "wilson_lo": 0.9599676539995934,
+   "wilson_hi": 0.9952655684660365,
+   "n_all": 216,
+   "freed": 163,
+   "static_freed": 160,
+   "freed_below_static": 3,
+   "held_above_static": 0,
+   "disagree": [
+    {
+     "tag": "E7b_B0.04_seed395",
+     "b": 0.02,
+     "b_star": 0.0201171875,
+     "first_t": 14.979999999986376
+    },
+    {
+     "tag": "E7b_B0.04_seed471",
+     "b": 0.01,
+     "b_star": 0.010351562499999998,
+     "first_t": 21.899999999980082
+    },
+    {
+     "tag": "E7b_B0.04_seed517",
+     "b": 0.01,
+     "b_star": 0.010351562499999998,
+     "first_t": 20.09999999998172
+    }
+   ],
+   "disagree_gap_rel_max": 0.03396226415094318,
+   "disagree_gap_rel_max_pct": 3.4
+  }
+ },
  "report": {
   "W_rel_median_pct": 0.21,
   "W_rel_median_pct_rc0p02": 0.25,
   "curl_over_mu1_median_pct": 2.8
+ },
+ "gen": {
+  "n": 320,
+  "complete": {
+   "cell": 319,
+   "reference": 256,
+   "only_cell": 63,
+   "only_reference": 0,
+   "mcnemar_p": 2.168404344971009e-19,
+   "mcnemar_p_disp": "<10^{-18}",
+   "cell_frac": 0.996875,
+   "cell_ci95": [
+    0.9825133897666745,
+    0.999448161806687
+   ],
+   "reference_frac": 0.8,
+   "reference_ci95": [
+    0.7527299061518783,
+    0.8401525400810949
+   ]
+  },
+  "deadlock": {
+   "cell": 1,
+   "reference": 64,
+   "only_cell": 0,
+   "only_reference": 63,
+   "mcnemar_p": 2.168404344971009e-19,
+   "mcnemar_p_disp": "<10^{-18}",
+   "cell_frac": 0.003125,
+   "cell_ci95": [
+    0.0005518381933127849,
+    0.017486610233325425
+   ],
+   "reference_frac": 0.2,
+   "reference_ci95": [
+    0.15984745991890512,
+    0.24727009384812174
+   ]
+  },
+  "capped": {
+   "cell": 0,
+   "reference": 0,
+   "only_cell": 0,
+   "only_reference": 0,
+   "mcnemar_p": 1.0,
+   "mcnemar_p_disp": "1.000",
+   "cell_frac": 0.0,
+   "cell_ci95": [
+    0.0,
+    0.011862589611711404
+   ],
+   "reference_frac": 0.0,
+   "reference_ci95": [
+    0.0,
+    0.011862589611711404
+   ]
+  },
+  "pair": {
+   "cell": 0,
+   "reference": 46,
+   "only_cell": 0,
+   "only_reference": 46,
+   "mcnemar_p": 2.842170943040401e-14,
+   "mcnemar_p_disp": "<10^{-13}",
+   "cell_frac": 0.0,
+   "cell_ci95": [
+    0.0,
+    0.011862589611711404
+   ],
+   "reference_frac": 0.14375,
+   "reference_ci95": [
+    0.10953157536625457,
+    0.18642051973208973
+   ]
+  },
+  "collective": {
+   "cell": 0,
+   "reference": 57,
+   "only_cell": 0,
+   "only_reference": 57,
+   "mcnemar_p": 1.3877787807814457e-17,
+   "mcnemar_p_disp": "<10^{-16}",
+   "cell_frac": 0.0,
+   "cell_ci95": [
+    0.0,
+    0.011862589611711404
+   ],
+   "reference_frac": 0.178125,
+   "reference_ci95": [
+    0.14009568318673332,
+    0.22379085887580585
+   ]
+  },
+  "lone": {
+   "cell": 1,
+   "reference": 7,
+   "only_cell": 0,
+   "only_reference": 6,
+   "mcnemar_p": 0.03125,
+   "mcnemar_p_disp": "0.031",
+   "cell_frac": 0.003125,
+   "cell_ci95": [
+    0.0005518381933127849,
+    0.017486610233325425
+   ],
+   "reference_frac": 0.021875,
+   "reference_ci95": [
+    0.010635649426464264,
+    0.04445795188973476
+   ]
+  },
+  "pair_of_deadlocks_cell": {
+   "n": 1,
+   "pair": 0,
+   "frac": 0.0,
+   "ci95": [
+    0.0,
+    0.7934567085261071
+   ]
+  },
+  "pair_overhang_mm_cell": null,
+  "pair_of_deadlocks_reference": {
+   "n": 64,
+   "pair": 46,
+   "frac": 0.71875,
+   "ci95": [
+    0.598658376004965,
+    0.8140677389451542
+   ]
+  },
+  "pair_overhang_mm_reference": {
+   "median": 25.0,
+   "min": 0.26,
+   "max": 59.0,
+   "n": 46,
+   "raw_median": 24.53381940593269,
+   "raw_min": 0.26041739965287913,
+   "raw_max": 59.454791766975546,
+   "above_100mm": 0,
+   "above_20mm": 27
+  },
+  "n_resid_deadlocks": {
+   "1": 1
+  }
  }
 }
