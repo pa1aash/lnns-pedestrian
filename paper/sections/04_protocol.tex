@@ -1,55 +1,51 @@
 \section{Mechanism Classes and the Screening Protocol}\label{sec:signatures}
 \input{tables/table2_signatures}
 %
-By which mechanism does a perturbation free a frozen deadlock, and how are two perturbations with the same rate told apart?
+Probes on frozen deadlocks sort perturbations into four mechanism classes (Table~\ref{tab:signatures}).
 
 \subsection{Mechanism Classes}
-A deadlock snapshot is a rest state of Eq.~\eqref{eq:force}: every agent is still and the forces on it balance. At a lone keystone, removing the blocker frees the others; at a second trap another agent takes its place and is held; in a pair or group standoff the blocker is not held alone and several agents stay held. A perturbation acts on a deadlock in one of five ways (responses to each probe in Table~\ref{tab:signatures}). \textbf{P} (prevent): it acts only while the crowd moves and so changes only how often deadlocks form. \textbf{L} (reshape): a deterministic force that persists at rest moves or removes the fixed point. \textbf{T} (heat): added fluctuations leave the fixed point in place and carry the state over a barrier $\Delta U$ at a rate set by $\Delta U/k_BT_{\rm eff}$. \textbf{D} (steer): a finite directional bias breaks a symmetry and removes a strict minimum at a finite threshold $b_f$. \textbf{N} (glitch): the outcome changes under a displacement far below the model's physical scales, or the effect vanishes in the corrected implementation.
-The Jaccard index $J$ of the outcome sets (Sect.~\ref{sec:stats}), the time to free, the final-state class and stall survival (stall: at least 10\,s without an exit) are descriptive signatures beyond Table~\ref{tab:signatures}; $J$ separates two perturbations only at the pair standoff, where both are deterministic.
+\emph{Prevent} acts only while the crowd moves: it changes how often deadlocks form and leaves a snapshot held. \emph{Reshape}, a deterministic force at rest, moves or removes the fixed point. The axial subtype is goal-directed (rest drive, rest-drive push); the lateral subtype is handed (the bias) and removes a strict minimum past a threshold $b_f$. \emph{Heat} carries the state over a barrier $\Delta U$ at a rate set by $\Delta U/k_{\mathrm{B}}T_{\mathrm{eff}}$. \emph{Glitch} changes the outcome under a displacement far below physical scales, or vanishes in a corrected implementation.
+
+A probe is a quench variant that the classes respond to differently. The rest-drive push, a constant force equal to the rest drive towards ($+$) or away from ($-$) the door, is a reference of class Reshape, axial. The corrected-implementation probe swaps the legacy solver for the RVO2 solver.
 
 \subsection{The Screening Protocol}\label{sec:protocol}
-The protocol screens a resolver, the steering mechanism credited with resolving deadlocks (the mechanism under test; Fig.~\ref{fig:protocol}):
-\begin{enumerate}
-\item Build a snapshot library of frozen deadlocks (Sect.~\ref{sec:model}).
-\item Apply the probes to each perturbation on the same snapshots: the quench, the $10^{-9}$\,m replay, a change of $\Delta t$ with per-step and with $\sqrt{\Delta t}$-scaled noise, the rest-drive push $\pm$, the lateral tilt $\pm b$ and the corrected implementation (here the RVO2 solver). The rest-drive push is a constant force equal to ORCA's rest drive, towards the door ($+$) or away from it ($-$).
-\item Read each perturbation's signatures, its responses to the probes.
-\item Assign each perturbation the class whose signatures it shows (Table~\ref{tab:signatures}).
-\item Compare the resolver with its rate-matched surrogate, a perturbation of another class whose single parameter is tuned to the resolver's rate on the same deadlocks (freed fraction for snapshots, completion fraction for whole runs). The two share a mechanism only if no probe separates them. A probe separates two perturbations when their 95\% intervals for that signature exclude each other, or when one shows the predicted effect and the other its absence; replay and handedness are exact counts.
-\end{enumerate}
-The rate match fixes the surrogate's parameter. The rest-drive push is the reference perturbation of known class L (Sect.~\ref{sec:att-lone}).
+\begin{figure*}[t]\centering\input{../figures/fig_protocol.tex}\caption{Screening protocol: probes on frozen deadlocks, class, comparison with the resolver.}\label{fig:protocol}\end{figure*}
+The protocol (Fig.~\ref{fig:protocol}) compares a resolver, the mechanism credited with resolving deadlocks, with a surrogate of another class fraction-matched at horizon $T$: the 95\% interval of the paired difference of freed fractions (completion fractions for whole runs) at $T$ covers zero. Quenches run to $T=120$\,s and whole runs to $T=600$\,s; force-coupled ORCA reaches its final outcome within \RevAeightSTRvoLatest\,s and \RevAeightWholeRvoLatest\,s respectively. Noise keeps freeing, so its surrogate matches from a horizon on: at the lone keystone from \RevAeightLKNoiseCMatchFrom\,s ($\sigma=0.07$\,m/s) and \RevAeightLKNoiseNoneMatchFrom\,s ($\sigma=0.0717$\,m/s), in whole runs from \RevAeightWholeNoiseMatchFrom\,s.
 
-\begin{figure*}[t]\centering\input{../figures/fig_protocol.tex}\caption{Screening protocol: the mechanism under test and its rate-matched surrogate are probed on the same frozen deadlocks and each is assigned a class.}\label{fig:protocol}\end{figure*}
+A probe separates two perturbations when a paired test on the same snapshots or spawn seeds rejects equality at level 0.05 after Holm's correction over the comparison's probes. Replay, per-step $\Delta t$ dependence and bias sign separate by definition (${}^\dagger$); the other probes are empirical, and time to free, overlap $J$ and final-state class serve as paired effect sizes.
 
 \subsection{Terms That Vanish at Rest}
-Stack the $n$ residual agents into $\mathbf x,\mathbf v\in\mathbb R^{2n}$, freeze the densities at their snapshot values and split the force as
+Stack the $n$ residual agents into $\mathbf{x},\mathbf{v}\in\mathbb R^{2n}$, freeze the densities and split the force as
 \begin{equation}\label{eq:split}
-\mathbf F(\mathbf x,\mathbf v)=\mathbf F_0(\mathbf x)-\mathsf D\,\mathbf v+\mathbf G(\mathbf x,\mathbf v),
+\mathbf{F}(\mathbf{x},\mathbf{v})=\mathbf{F}_0(\mathbf{x})-\mathsf{D}\,\mathbf{v}+\mathbf{G}(\mathbf{x},\mathbf{v}),
 \end{equation}
-with the rest field $\mathbf F_0(\mathbf x)=\mathbf F(\mathbf x,\mathbf 0)$, the damping $\mathsf D={\rm diag}(m_i/\tau_i)$ of Eq.~\eqref{eq:des} and $\mathbf G(\mathbf x,\mathbf 0)=\mathbf 0$.
+with rest field $\mathbf{F}_0(\mathbf{x})=\mathbf{F}(\mathbf{x},\mathbf{0})$, damping $\mathsf{D}=\mathrm{diag}(m_i/\tau_i)$ of Eq.~\eqref{eq:des} and $\mathbf{G}(\mathbf{x},\mathbf{0})=\mathbf{0}$.
 
-\begin{proposition}[rest-state lemma]\label{prop:rest}
-Suppose $\mathbf v\cdot\mathbf G(\mathbf x,\mathbf v)\le0$ for all $|\mathbf v|<\epsilon$. Then (i) the fixed points of $\mathsf M\dot{\mathbf v}=\mathbf F$, $\dot{\mathbf x}=\mathbf v$, with $\mathsf M$ the mass matrix, are exactly the states $(\mathbf x^\ast,\mathbf 0)$ with $\mathbf F_0(\mathbf x^\ast)=\mathbf 0$; and (ii) if $\mathbf F_0=-\nabla U$, every strict local minimum of $U$ is a Lyapunov-stable fixed point.
-\end{proposition}
-\begin{proof}
-(i) A fixed point has $\mathbf v=\mathbf 0$ and $\mathbf F(\mathbf x^\ast,\mathbf 0)=\mathbf F_0(\mathbf x^\ast)=\mathbf 0$; conversely such a state does not move. (ii) Let $E=\tfrac12\mathbf v^{\top}\mathsf M\mathbf v+U(\mathbf x)$. Along trajectories $\dot E=\mathbf v\cdot(\mathbf F+\nabla U)=-\mathbf v^{\top}\mathsf D\,\mathbf v+\mathbf v\cdot\mathbf G\le0$ while $|\mathbf v|<\epsilon$. Near a strict minimum, small sublevel sets of $E$ around $(\mathbf x^\ast,\mathbf 0)$ trap trajectories.
-\end{proof}
+\begin{remark}[Rest states]\label{rem:rest}
+If $\mathbf{v}\cdot\mathbf{G}(\mathbf{x},\mathbf{v})\le0$ for $|\mathbf{v}|<\epsilon$, then (i) the fixed points of $\mathsf{M}\dot{\mathbf{v}}=\mathbf{F}$, $\dot{\mathbf{x}}=\mathbf{v}$ are the states $(\mathbf{x}^\ast,\mathbf{0})$ with $\mathbf{F}_0(\mathbf{x}^\ast)=\mathbf{0}$, and (ii) if $\mathbf{F}_0=-\nabla U$, every strict local minimum of $U$ is Lyapunov stable (Lagrange--Dirichlet; Lyapunov function $\tfrac12\mathbf{v}^{\top}\mathsf{M}\mathbf{v}+U$, $\mathsf{M}$ the mass matrix).
+\end{remark}
 
-The hypotheses hold for SFM and SFM+TTC. The frictions of Eqs.~\eqref{eq:sfm}--\eqref{eq:wall} vanish at rest with power $-\kappa\,h(r_{ij}-d_{ij})\,[(\mathbf v_i-\mathbf v_j)\cdot\mathbf t_{ij}]^2\le0$ per pair and per wall, and the TTC force (Eq.~\eqref{eq:ttc}) is zero below relative speeds of $10^{-4}$\,m/s. With the densities frozen the SFM rest field is conservative,
+The remark idealises the simulation (a discrete map with a speed cap; a piecewise-smooth $U$) and assumes frozen densities and the TTC cutoff at relative speed $10^{-4}$\,m/s. SFM and SFM+TTC then meet its hypotheses: the frictions of Eqs.~\eqref{eq:sfm}--\eqref{eq:wall} dissipate, and the SFM rest field is $-\nabla U$ (to \ResidAllMax\,N) with
 \begin{equation}\label{eq:U}
-U(\mathbf x)=\sum_i c_i\,|\mathbf x_i-\mathbf g|+\sum_{i<j}\phi_{ij}(d_{ij})+\sum_{i,W}\phi_{iW}(d_{iW}),\qquad c_i=\frac{m_iv_{{\rm eff},i}}{\tau_i},
+U(\mathbf{x})=\sum_i c_i\,|\mathbf{x}_i-\mathbf{g}|+\sum_{i<j}\phi_{ij}(d_{ij})+\sum_{i,W}\phi_{iW}(d_{iW}),\qquad c_i=\frac{m_iv_{\mathrm{eff},i}}{\tau_i},
 \end{equation}
-with $\phi$ the exponential and compression potentials ($\max|\mathbf F_0+\nabla U|\le\ResidCollMax$\,N over the \ResidBarN\ barrier and $\ResidPairMax$\,N over the \ResidPairN\ pair snapshots). SFM+TTC therefore has the fixed points and stability of SFM, so TTC and friction are at most class P. In force coupling ORCA's rest drive enters $\mathbf F_0$ and is a candidate for class L. Part (ii) does not cover ORCA's velocity-dependent constraint part.
+$\phi$ the exponential and compression potentials. The Hessian of $U$ is positive definite at all \RevAtenStrict\ lone-trap snapshots (smallest eigenvalue \RevAtenMuMin--\RevAtenMuMax\,N/m), so each is a strict local minimum. SFM+TTC shares SFM's fixed points and stability, so TTC and friction are at most Prevent.
+
+In force coupling the ORCA term at $\mathbf{v}=\mathbf{0}$ enters $\mathbf{F}_0$ as a goal-directed drive part, the rest drive, and a non-conservative constraint part. At the pair standoff the constraint part binds and points laterally away from the partner (Sect.~\ref{sec:att-pair}); this rest field is not a gradient, so Remark~\ref{rem:rest}(ii) does not cover force-coupled ORCA at the pair.
 
 \subsection{Effective Temperature of Per-Step Noise}\label{sec:teff}
-Away from contact, one velocity component of agent $i$ under the update of Sect.~\ref{sec:model} is the autoregressive process $v_{n+1}=a\,v_n+\xi_n$, $a=1-\Delta t/\tau_i$, $\langle\xi_n\xi_{n'}\rangle=\sigma^2\delta_{nn'}$, with stationary variance $\sigma^2/(1-a^2)$. Setting $m_i\langle v^2\rangle=k_BT_{\rm eff}$ gives
+Away from contact, with frozen densities, linear friction and no speed clipping, a velocity component of agent $i$ follows $v_{n+1}=(1-\Delta t/\tau_i)\,v_n+\xi_n$, $\langle\xi_n\xi_{n'}\rangle=\sigma^2\delta_{nn'}$, and $m_i\langle v^2\rangle=k_{\mathrm{B}}T_{\mathrm{eff}}$ gives
 \begin{equation}\label{eq:teff}
-k_BT_{\rm eff}=\frac{m_i\,\sigma^2}{1-(1-\Delta t/\tau_i)^2}=\frac{m_i\,\sigma^2\tau_i}{2\,\Delta t}\left(1-\frac{\Delta t}{2\tau_i}\right)^{-1}.
+k_{\mathrm{B}}T_{\mathrm{eff}}=\frac{m_i\,\sigma^2}{1-(1-\Delta t/\tau_i)^2}=\frac{m_i\,\sigma^2\tau_i}{2\,\Delta t}\left(1-\frac{\Delta t}{2\tau_i}\right)^{-1},
 \end{equation}
-At fixed per-step $\sigma$, $k_BT_{\rm eff}\propto1/\Delta t$ up to the factor $(1-\Delta t/2\tau_i)^{-1}$; $\sqrt{\Delta t}$-scaled noise leaves only that factor. Eq.~\eqref{eq:teff} assumes frozen densities, linear friction and no contact or speed clipping. Through $\tau_i$, $T_{\rm eff}$ differs between agents by up to a factor of 1.5 (Table~\ref{tab:params}); $\sigma$ is set from the blocker's $\tau_i$. In separate runs the blocker's realised velocity variance is on average \TthreeRatioMean\ times Eq.~\eqref{eq:teff}; over the \TthreeCells\ noise settings of the escape experiments its median ratio is \TthreeCellsMedian. For activated escape, $\lambda\propto\exp(-\beta)$ with $\beta\equiv\Delta U/k_BT_{\rm eff}$, and the log rate ratio of two time steps has no free parameter,
+$\propto1/\Delta t$ at fixed per-step $\sigma$ up to the last factor, which alone remains for $\sqrt{\Delta t}$-scaled noise. The blocker's realised velocity variance averages \TthreeRatioMean\ times Eq.~\eqref{eq:teff}. For activated escape $\lambda\propto\exp(-\Delta U/k_{\mathrm{B}}T_{\mathrm{eff}})$, and the log rate ratio of $\Delta t_1=0.005$\,s and $\Delta t_2=0.02$\,s,
 \begin{equation}\label{eq:ell}
-\ell\equiv\ln\frac{\lambda(\Delta t_1)}{\lambda(\Delta t_2)}=\Delta U\left(\frac{1}{k_BT_{\rm eff}(\Delta t_2)}-\frac{1}{k_BT_{\rm eff}(\Delta t_1)}\right),
+\ell\equiv\ln\frac{\lambda(\Delta t_1)}{\lambda(\Delta t_2)}=\Delta U\left(\frac{1}{k_{\mathrm{B}}T_{\mathrm{eff}}(\Delta t_2)}-\frac{1}{k_{\mathrm{B}}T_{\mathrm{eff}}(\Delta t_1)}\right),
 \end{equation}
-positive for $\Delta t_1<\Delta t_2$ at fixed per-step $\sigma$, near zero for $\sqrt{\Delta t}$-scaled noise, and absent for a deterministic resolver.
+has no free parameter: positive at fixed per-step $\sigma$, near zero for $\sqrt{\Delta t}$-scaled noise, absent for a deterministic resolver.
 
 \subsection{Barriers from the String Method}\label{sec:barrier}
-The string method~\cite{e2007} gives $\Delta U$ on the rest-state energy $U$ of Eq.~\eqref{eq:U} from the snapshot minimum to an exit, with the blocker past the door plane. All residual agents are mobile (full), the neighbours are pinned (pinned) or the blocker is alone (alone). A string is used only if it converges (uphill perpendicular force below 5\,N, climbing image stationary at the maximum, under 1\% change on doubling the images), ends in an exit and, when alone, matches a direct two-dimensional path. Of \FinBarLibN\ lone-trap snapshots, \FinBarGateFail\ fail these tests; \LoneBarN\ barriers enter the library. Kramers theory predicts~\cite{kramers1940,hanggi1990} exponential escape (Weibull shape 1)~\cite{weibull1951} and $\ln\lambda$ linear in $1/k_BT_{\rm eff}$ with slope $-\Delta U$ in each condition; the neighbours' configuration should put the full barrier below the alone one.
+The string method~\cite{e2007} with a climbing image~\cite{henkelman2000} computes $\Delta U$ from the snapshot minimum to an exit with all residual agents mobile (full), neighbours pinned (pinned) or the blocker alone (alone). A barrier passes the gate when its string converges (perpendicular force below 5\,N, under 1\% change on doubling the images), ends in an exit and, when alone, matches a direct two-dimensional path. \LoneBarN\ of \FinBarLibN\ lone-trap snapshots pass; the \RevAfiveEthreeQual\ with full $\Delta U\ge3$\,J form the time-step pool. An escape run ends when the blocker's centre crosses the door plane $x=10$\,m ($|\mathbf{x}-\mathbf{g}|<0.5$\,m in a quench) and is censored at 300\,s (900\,s for $\beta_{\mathrm{ref}}=3.5$ and for per-step noise at $\Delta t=0.02$\,s). Kramers theory~\cite{kramers1940,langer1969,hanggi1990} predicts exponential escape times (Weibull shape 1~\cite{weibull1951}) and $\ln\lambda$ linear in $1/k_{\mathrm{B}}T_{\mathrm{eff}}$ with slope $-\Delta U$.
+
+\subsection{Statistics}\label{sec:stats}
+Intervals are 95\%: Wilson for proportions, Kaplan--Meier~\cite{kaplanmeier1958} for times, Student-$t$ for CroMa means and log flow ratios, otherwise a bootstrap over snapshots with all their seeds. McNemar's binomial test compares paired outcomes, Fisher's exact test unpaired counts. A paired sign-flip permutation test compares freed fractions per snapshot and times to free (mean truncated at $T$). The overlap $J=|S_1\cap S_2|/|S_1\cup S_2|$ is the Jaccard index of two perturbations' unresolved sets (freed sets at the pair), with a hypergeometric $p$-value. Deterministic perturbations run five replays per snapshot and leave it unresolved when held. A split-sample check fits the surrogate on half the snapshots and tests it on the rest.

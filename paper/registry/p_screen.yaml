@@ -1,0 +1,6 @@
+# Sect. 6 (screening) entries not covered by the other registries.
+# Pair standoffs: bias -b*_RVO2 (the sign-reversed fraction-matched bias), freed count and upper-member-first count.
+PscrPairBsRvoMinusFreed: {file: E7b_analysis.json, key: "s3_matched.rvo2.reversal.freed_a", fmt: "{:d}"}
+PscrPairBsRvoMinusUpper: {file: E7b_analysis.json, key: "s3_matched.rvo2.handedness.minus_upper_first", fmt: "{:d}"}
+# Legacy solver: last commit of the conference code (range RevAfourteenCommitConf..PscrCommitConfHead, tag r2.0-baseline).
+PscrCommitConfHead: {file: rev_A14.json, key: "identity.conference_head_short", fmt: "{}"}

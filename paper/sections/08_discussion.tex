@@ -1,21 +1,10 @@
 \section{Discussion}\label{sec:discussion}
 
-\subsection{Mechanisms Behind a Matched Rate}
-Three mechanisms reach the same rate: ORCA's rest drive removes the fixed point (class L), noise lifts the blocker over its barrier at a rate set by $\Delta U/k_BT_{\rm eff}$ (class T), and the lateral bias tilts the pair minimum until it is lost (class D). A matched rate is therefore weak evidence of a shared mechanism. The probes separate each surrogate from ORCA, and the rest-drive push, of ORCA's class, agrees with it on every probe at the lone keystone.
+\subsection{Mechanisms Behind a Matched Freed Fraction}
+In this social force model three mechanisms reach the same freed fraction at a stated horizon $T$: force-coupled ORCA's rest drive removes the rest state (Reshape, axial subtype), noise carries the blocker over its barrier (Heat), and the lateral bias tilts the pair minimum until it is lost (Reshape, lateral subtype). A matched freed fraction is therefore weak evidence of a shared mechanism. The probes separate each surrogate from force-coupled ORCA, and the rest-drive push, of the same class, agrees with it on every defining probe (Table~\ref{tab:signatures}).
 
 \subsection{Relation to Clogging and Robot Deadlock}
-Granular and pedestrian clogging is read through arches and clog-lifetime statistics~\cite{zuriguel2014,nicolas2018trap}. Both deadlock types are set by the wall geometry at the door edges: the lone trap by the jamb's wall range, the loss of the pair minimum at $b_f$ by the end of the jamb segment. At the lone trap noise acts by activated escape over the model's own barriers, with only the attempt rate fitted, as in trap models. A resolver and its rate-matched surrogate can be probed together at multi-robot deadlocks, closed-loop equilibria left by designed perturbations~\cite{grover2020}.
-
-\subsection{Using the Framework}\label{sec:framework}
-The open framework deadlock-screen needs from a steering model a restartable state, deterministic replay and switches for single force terms (\url{https://github.com/pa1aash/deadlock-screen}). Quench and replay are generic probes; the corrected-implementation probe needs a second implementation, the push probe the mechanism's force at rest, the tilt probe a goal-directed drive, and the noise variants of the time-step probe a noise term. The barriers need a rest field conservative at frozen densities. Before reading a narrow-door deadlock rate as crowd behaviour, a modeller should:
-\begin{enumerate}
-\renewcommand{\labelenumi}{(\roman{enumi})}
-\item compare $g_{\max}(r)$ with $m v_0/\tau$ over the population (Eq.~\eqref{eq:stuck});
-\item use the nearest point of the jamb--corridor wall union at a door edge;
-\item report ORCA results per solver and coupling: the legacy solver changes outcomes under $10^{-9}$\,m replays (Sect.~\ref{sec:att-lone}), and velocity coupling frees no deadlock (Sect.~\ref{sec:velorca});
-\item treat per-step noise, used for unjamming since~\cite{helbing2000freezing}, as having a $\Delta t$-dependent temperature (Eq.~\eqref{eq:teff});
-\item test against the completion, flow and gaps of matched experiments (Sect.~\ref{sec:validity}).
-\end{enumerate}
+Granular and pedestrian clogging is read through arches and clog-lifetime statistics~\cite{zuriguel2014,nicolas2018trap}; here noise frees the lone trap by activated escape over the model's own barriers, with the attempt rate fitted as in trap models. Multi-robot deadlocks are also closed-loop equilibria, which Grover et al.\ resolve with a switching controller because additive perturbations carry no guarantee~\cite{grover2023}.
 
 \subsection{Limitations}
-Agents are two-dimensional discs, 100 per room run, in one family of door geometries near $w=0.8$\,m, with human data at that width only. The deadlocks are those of the last agents at a narrow door at the end of an evacuation; the rest-state analysis, at frozen densities, describes them once formed. The pair library was built under a short-range wall law ($B_w=0.04$\,m on every wall), and velocity-coupled ORCA was screened by quench, replay and whole runs only. Whole runs end at 600\,s, and the \PairN\ pair standoffs give wide 95\% intervals for rate differences (Table~\ref{tab:matched}).
+Agents are two-dimensional discs, 100 per room run, and the deadlocks are those of the last agents at the end of an evacuation. The lone trap originates in the default wall range ($B_w=0.08$\,m) and the pair standoff in sharp segment ends: the pair library was built with $B_w=0.04$\,m on every wall, and rounded door edges remove the standoff. Force-coupled ORCA is a non-standard coupling; native ORCA, which sets velocities and treats walls as obstacles, is untested. A fraction match holds within a window of horizons (from \RevAeightLKNoiseCMatchFrom\,s at the lone keystone, from \RevAeightWholeNoiseMatchFrom\,s in whole runs), so each match is stated at its $T$, and the \PairN\ pair snapshots give wide 95\% intervals for differences in freed fraction (Table~\ref{tab:matched-bias}). All results come from one family of door geometries near $w=0.8$\,m, the width of the human data.

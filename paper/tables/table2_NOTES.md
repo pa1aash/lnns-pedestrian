@@ -63,3 +63,35 @@ N (glitch): quench "frees or holds, depending on solver details"; replay "outcom
 Headers: "Replay, 10^-9 m", "Δt, per step", "Δt, √Δt", "Push ±" (rest-drive push, defined in §4 text), "Tilt ±b", "Corrected numerics"; Class header left blank. Cells reworded without changing any prediction: "no change"/"no Δt dependence" → "flat" (key in caption: "flat: no dependence on Δt"); L push "+ frees, − not"; L/D replay "identical"; T replay "disagree"; T quench "frees; exponential times"; T Δt per step "falls as Δt grows"; D quench "frees only past b_f"; D tilt "handedness flips" (= first agent out switches side); N quench "set by solver details", replay "outcome flips" (the published solver's flips come from the leg-normal sign defect, a half-plane switch after smooth amplification), corrected numerics "effect vanishes".
 
 Final rewrite (2026-11-10, vocabulary v2): last column header "Corrected numerics" -> "Corrected implementation" (the one model: speed cap before the position update, rejection-sampled spawns, convex-union wall corners, RVO2 solver). No cell or prediction changed; N keeps "effect vanishes".
+
+## Wave 2 revision (2026-11-11): classes by name, daggers, Observed block
+Rows renamed: P -> Prevent, L -> Reshape, axial; D -> Reshape, lateral; T -> Heat; N -> Glitch. Header of the first column "Class";
+last column header "Corrected (RVO2)" (the corrected-implementation probe is the RVO2 solver). Prevent push/tilt "unchanged" -> "no change".
+Daggers (hold by definition, A7 "definitional"): Prevent held (quench, replay, both Δt: Prevent acts only while the crowd moves);
+Heat replay "disagree" (independent seeds) and both Δt cells (Eq. teff); Reshape lateral tilt (the bias sign picks the favoured member);
+Glitch replay and corrected-implementation cells (the class definition).
+Observed block (lone traps unless marked pair; tilt column = pair standoff). Sources:
+| Row | Cell | Value / macro | Source |
+|---|---|---|---|
+| RVO2 | quench | frees, deterministic | E2; A7 replay 0:0 |
+| RVO2 | replay | identical | E2 replays; A5x 0/800 at second traps |
+| RVO2 | Δt (both) | flat, abs(ell) <= \EthreeCThreeLnRatioMax | E3, Sect. 6.1 |
+| RVO2 | push | as +, \RevAsevenPushLoneFreedDiscA:\RevAsevenPushLoneFreedDiscB (push only : ORCA only) | A7 push vs ORCA (RVO2), lone keystone |
+| RVO2 | class | Reshape, axial | Sect. 6.1 |
+| RVO2, pair | quench | frees \RevAeightPairRvoFreedOneTwenty/\PairN | A8 |
+| RVO2, pair | tilt | none, \RevAsevenPairRvoHandOrca/\RevAsevenPairRvoHandOrcaN lower member first | A7 handedness |
+| RVO2, pair | corrected | legacy frees \RevAeightPairPubFreedOneTwenty/\PairN | A8 |
+| RVO2, pair | class | Reshape, solver-dependent; constraint part opposes drive part | A11, Sect. 6.3 (PairDriveRvo) |
+| legacy | replay | flips \RevAfiveXPoolLegacyReplayChanged/\RevAfiveXPoolLegacyReplays | A5x pooled second traps |
+| legacy | tilt | none, \RevAsevenPairPubHandOrca/\RevAsevenPairPubHandOrcaN | A7 |
+| legacy | corrected | flips vanish (RVO2 0/800) | A5x, A14 |
+| legacy | class | Glitch (replay flips) | A14, Sect. 6.1 |
+| Noise σ = 0.07 | quench | frees; matched at 120 s | A8 (from 70 s), A7 |
+| Noise | replay | disagree, \RevAsevenLoneEtwoReplayDiscA:\RevAsevenLoneEtwoReplayDiscB | A7 |
+| Noise | Δt per step / sqrt | falls, ell = \EthreeEllBA (β_ref 1.5) / flat | E3 |
+| Noise | corrected | --- (noise acts on SFM; no solver) | |
+| Bias b*, pair | quench, replay | frees past b_f; identical (A7 0:0) | E7b, A7 |
+| Bias | tilt | flips, \PairBsPubMinusUpper/\PairBsPubMinusFreed upper first at -b*_legacy | Sect. 6.3 |
+| Bias | corrected | persists (b*_RVO2 frees 8) | A8 |
+| ORCA velocity filter | quench | held, \VelLoneRvoK/\VelLoneN runs | Sect. 6.6 (Vel*) |
+| ORCA velocity filter | replay, corrected | identical; persists (either solver) | Vel* |

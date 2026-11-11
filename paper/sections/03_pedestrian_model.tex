@@ -1,56 +1,65 @@
 \section{Pedestrian Model}\label{sec:model}
 \input{tables/table1_params}
 %
+The social force model takes a TTC-inspired force or ORCA as optional terms (Table~\ref{tab:params}).
+
 \subsection{Forces}
-The model is a social force model to which a time-to-collision force and ORCA can be added one at a time (parameters in Table~\ref{tab:params}). Agent $i$ is a disc of radius $r_i$ and mass $m_i$ at $\mathbf{x}_i$ with velocity $\mathbf{v}_i$, desired speed $v_{0,i}$ and relaxation time $\tau_i$. The equation of motion is $m_i\dot{\mathbf{v}}_i=\mathbf{F}_i$ with
+Agent $i$ is a disc of radius $r_i$ and mass $m_i$ at $\mathbf{x}_i$ with velocity $\mathbf{v}_i$, desired speed $v_{0,i}$ and relaxation time $\tau_i$; $m_i\dot{\mathbf{v}}_i=\mathbf{F}_i$ with
 \begin{equation}\label{eq:force}
 \mathbf{F}_i=\mathbf{F}^{\rm des}_i+\sum_{j}\mathbf{f}^{\rm sfm}_{ij}+\mathbf{F}^{\rm ttc}_i+w_{o,i}\,\mathbf{F}^{\rm orca}_i+\sum_{W}\mathbf{f}^{\rm wall}_{iW},
 \end{equation}
-where $j$ runs over the other active agents within $R=3$\,m and $W$ over the wall segments. Three configurations switch terms on: SFM keeps the desired, social and wall forces; SFM+TTC adds $\mathbf F^{\rm ttc}_i$; SFM+ORCA adds $w_{o,i}\mathbf F^{\rm orca}_i$.
+with $j$ over the other active agents within $R=3$\,m and $W$ over wall segments. SFM keeps the desired, social and wall forces; SFM+TTC adds $\mathbf F^{\rm ttc}_i$; force-coupled ORCA adds $w_{o,i}\mathbf F^{\rm orca}_i$.
 
-The drive relaxes the velocity towards a speed $v_{{\rm eff},i}$ along the unit vector $\hat{\mathbf e}_i$ from the agent to its goal $\mathbf g$,
+The drive relaxes $\mathbf v_i$ towards speed $v_{{\rm eff},i}$ along the unit vector $\hat{\mathbf e}_i$ to the goal $\mathbf g$,
 \begin{equation}\label{eq:des}
 \mathbf{F}^{\rm des}_i=\frac{m_i}{\tau_i}\bigl(v_{{\rm eff},i}\,\hat{\mathbf e}_i-\mathbf v_i\bigr),\qquad
-v_{{\rm eff},i}=v_{0,i}\,\mathrm{clip}\!\left[1-e^{-\gamma\,(1/\rho_i-1/\rho_{\max})},\,0.05,\,1\right].
+v_{{\rm eff},i}=v_{0,i}\,\mathrm{clip}\bigl[1-e^{-\gamma(1/\rho_i-1/\rho_{\max})}\bigr],
 \end{equation}
-Here $v_{{\rm eff},i}$ follows Weidmann's speed--density relation~\cite{weidmann1993}, with $\rho_i=N_i/(\pi R^2)$ and $N_i$ the number of other active agents within $R$. In all \FinTermN\ deadlocks the blocker, the agent nearest the door, has at most \FinTermNbMax\ others within $R$ at detection (median \FinTermNbMedian), so $\rho\le\FinTermRhoMax$\,ped/m$^2$ and $v_{{\rm eff},i}=v_{0,i}$ to within 1\%. The lateral bias $b$, a deterministic tilt of fixed handedness, replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by $(\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i)/|\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i|$, with $\hat{\mathbf e}^{\perp}_i$ the unit normal to $\hat{\mathbf e}_i$.
+after Weidmann~\cite{weidmann1993}, with the factor clipped to $[0.05,1]$ and $\rho_i=\max(N_i/\pi R^2,\,0.01\,{\rm m}^{-2})$ for $N_i$ other active agents within $R$. The lateral bias $b$, a deterministic tilt of fixed handedness, replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by the normalised $\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i$, with $\hat{\mathbf e}^{\perp}_i\perp\hat{\mathbf e}_i$.
 
-For a pair at centre distance $d_{ij}$ with $r_{ij}=r_i+r_j$, unit normal $\mathbf n_{ij}$ pointing from $j$ to $i$, tangent $\mathbf t_{ij}$ and $h(x)=\max(0,x)$,
+For a pair at centre distance $d_{ij}$, with $r_{ij}=r_i+r_j$, unit normal $\mathbf n_{ij}$ from $j$ to $i$, tangent $\mathbf t_{ij}$ and $h(x)=\max(0,x)$,
 \begin{equation}\label{eq:sfm}
 \mathbf f^{\rm sfm}_{ij}=\bigl[A\,e^{(r_{ij}-d_{ij})/B}+k\,h(r_{ij}-d_{ij})\bigr]\mathbf n_{ij}+\kappa\,h(r_{ij}-d_{ij})\,\bigl[(\mathbf v_j-\mathbf v_i)\cdot\mathbf t_{ij}\bigr]\mathbf t_{ij},
 \end{equation}
-after~\cite{helbing2000nature}. A wall segment acts through its closest point, at distance $d_{iW}$, with the friction taken against the agent's own velocity:
+after~\cite{helbing2000nature}. A wall segment acts through its closest point, at distance $d_{iW}$, with friction against $\mathbf v_i$:
 \begin{equation}\label{eq:wall}
 \mathbf f^{\rm wall}_{iW}=\bigl[A_w\,e^{(r_i-d_{iW})/B_w}+k\,h(r_i-d_{iW})\bigr]\mathbf n_{iW}-\kappa\,h(r_i-d_{iW})\,(\mathbf v_i\cdot\mathbf t_{iW})\,\mathbf t_{iW}.
 \end{equation}
-Walls that meet at a corner act as their convex union: at a door edge only the nearest point on the union of jamb and corridor wall acts. The door edges are free, sharp segment ends.
 
-With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the contact time $\tau_{ij}$ solves $|\Delta\mathbf x+\Delta\mathbf v\,\tau|=r_{ij}$ and
+With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the contact time $\tau_{ij}$ solves $|\Delta\mathbf x+\Delta\mathbf v\,\tau|=r_{ij}$, and the TTC-inspired force is
 \begin{equation}\label{eq:ttc}
 \mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-\tau_{ij}/\tau_0}}{\tau_{ij}^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
 \end{equation}
-where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Pairs count only for $0<\tau_{ij}\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
+where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Eq.~\eqref{eq:ttc} uses the time-to-collision energy of~\cite{karamouzas2014} as a force magnitude ($k_{\rm ttc}$ in N\,s$^2$) instead of its gradient. A pair counts if $0<\tau_{ij}\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
 
-\subsection{ORCA as a Force}
-ORCA builds one half-plane of permitted velocities per neighbour, with horizon $\tau_h$, and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity. Two solvers are used: the legacy linear-program solver, which has a leg-normal sign defect (Sect.~\ref{sec:att-lone}), and the RVO2 solver, a line-by-line port of RVO2~\cite{vandenberg2011rvo2}. In force coupling, used throughout Sects.~\ref{sec:physics}--\ref{sec:att-pair}, the preferred velocity is $v_{0,i}\hat{\mathbf e}_i$ (with $v_0$, not $v_{\rm eff}$) and $\mathbf v^{\rm orca}_i$ is turned into a force gated off at high density:
+\subsection{Force-Coupled ORCA}\label{sec:identity}
+ORCA builds one half-plane of permitted velocities per neighbour (horizon $\tau_h$) and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity, with speed at most $2v_{0,i}$. The legacy linear-program solver has a leg-normal sign defect (Sect.~\ref{sec:att-lone}); the RVO2 solver ports RVO2~\cite{vandenberg2011rvo2} line by line. Force-coupled ORCA takes the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ and turns $\mathbf v^{\rm orca}_i$ into a force with a density gate:
 \begin{equation}\label{eq:orca}
 \mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad w_{o,i}=1-s(\rho_i;4,2),
 \end{equation}
-with $s(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. At rest with no binding constraint $\mathbf v^{\rm orca}_i=v_{0,i}\hat{\mathbf e}_i$, and Eq.~\eqref{eq:orca} gives \emph{ORCA's rest drive}, a constant push $w_{o,i}m_iv_{0,i}\hat{\mathbf e}_i/\tau_{\rm orca}$ towards the goal. ORCA's \emph{drive part} is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}.
+with $s(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \RevAtwoRunsWMin\ in whole runs and \RevAtwoLoneWMin\ at every snapshot, so it is inactive throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
+
+The \emph{drive part} of force-coupled ORCA is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}. With no binding constraint and $w_{o,i}=1$, Eqs.~\eqref{eq:des} and~\eqref{eq:orca} add to
+\begin{equation}\label{eq:identity}
+\mathbf F^{\rm des}_i+\mathbf F^{\rm orca}_i=m_i\Bigl(\frac{v_{{\rm eff},i}}{\tau_i}+\frac{v_{0,i}}{\tau_{\rm orca}}\Bigr)\hat{\mathbf e}_i-m_i\Bigl(\frac{1}{\tau_i}+\frac{1}{\tau_{\rm orca}}\Bigr)\mathbf v_i,\qquad
+\tau'_i=\frac{\tau_i\,\tau_{\rm orca}}{\tau_i+\tau_{\rm orca}}.
+\end{equation}
+The drive part is therefore the SFM with relaxation time $\tau'_i=\RevAoneTauPrimeLo$--$\RevAoneTauPrimeHi$\,s and target speed $\tau'_i(v_{{\rm eff},i}/\tau_i+v_{0,i}/\tau_{\rm orca})\approx v_{0,i}$; its rest drive, the first term, is \RevAoneDriveRatioLo--\RevAoneDriveRatioHi\ times the SFM's.
 
 \subsection{Integration and Noise}
-Because results of social force models depend on the integration scheme~\cite{koster2013}, the update caps the speed before the position update: $\mathbf v'=\Pi(\mathbf v+\mathbf F\Delta t/m)$, $\mathbf v'\leftarrow\Pi(\mathbf v'+\boldsymbol\xi)$, $\mathbf x'=\mathbf x+\mathbf v'\Delta t$, where $\Pi$ caps the speed at $2v_0$. The noise $\boldsymbol\xi$ has independent Gaussian components of standard deviation $\sigma$, either fixed per step or scaled as $\sigma\sqrt{\Delta t/0.01\,{\rm s}}$. In velocity coupling (Sect.~\ref{sec:velorca}) ORCA filters the velocity proposed by the forces and the noise: $\mathbf F$ omits the ORCA term, and after the noise step
+Results depend on the integration scheme~\cite{koster2013}; ours caps the speed at $2v_0$ ($\Pi$) before moving: $\mathbf v'=\Pi(\mathbf v+\mathbf F\Delta t/m)$, $\mathbf v'\leftarrow\Pi(\mathbf v'+\boldsymbol\xi)$, $\mathbf x'=\mathbf x+\mathbf v'\Delta t$. Noise $\boldsymbol\xi$ has independent Gaussian components of standard deviation $\sigma$, per step or $\sigma\sqrt{\Delta t/0.01\,{\rm s}}$. In the ORCA velocity filter (Sect.~\ref{sec:velorca}) $\mathbf F$ omits the ORCA term, and after the noise step
 \begin{equation}\label{eq:velorca}
 \mathbf v'\leftarrow\mathbf v'+w_{o,i}\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
 \end{equation}
-where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$ under the half-planes of the start of the step.
+where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$ under the step's initial half-planes.
 
-\subsection{Scenarios and Snapshots}
-In the room bottleneck the agents are spawned by rejection sampling, without initial overlaps. A run is deadlocked when the criterion of Table~\ref{tab:params} holds without an exit, and its state is saved as a snapshot, a frozen deadlock. A quench restarts a snapshot under one perturbation for at most 120\,s; all perturbations run on the same snapshots and are compared snapshot by snapshot. Deterministic perturbations stop once all speeds stay below $10^{-3}$\,m/s for 10\,s.
+\subsection{Scenarios and Snapshots}\label{sec:geometry}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{../figures/fig_geometry.pdf}
+\caption{Room bottleneck (left; inset, door region) and CroMa entrance (right), to scale: A door, $w=0.8$\,m; B goal and exit disc; C door edges; D, E ranges of $B_{w,\rm edge}$ and of its blend to $B_w$; F agent, $r=0.25$\,m; G holding area; H waiting zone; I bottleneck (2.0\,m).}
+\label{fig:geometry}
+\end{figure}
+In the room bottleneck (Fig.~\ref{fig:geometry}, left), 100 agents spawn without overlap in $[1,8]\times[1,9]$\,m of a $10\times10$\,m room and walk to the goal $\mathbf g=(11,5)$\,m behind a 0.8\,m door in the wall $x=10$\,m. Each \emph{door edge} (C) is a sharp \emph{segment end}; the \emph{jamb} is the wall face beside it. Variants lower the \emph{wall range} $B_w$ everywhere, or set the \emph{jamb range} $B_{w,\rm edge}$ within 0.5\,m of the door edge (D), blended linearly to $B_w$ by 1.0\,m along the wall (E). A third rounds each jamb into a capsule of radius $r_c=0.1$\,m at the same clear width. In CroMa (Fig.~\ref{fig:geometry}, right; Sect.~\ref{sec:validity}) a holding area opens through a 0.8\,m entrance into a bottleneck 0.2 or 2.0\,m long; its door edges are convex junctions of jamb and corridor wall, both with $B_{w,\rm edge}$; there the nearest point of the two walls acts once.
 
-\subsection{Statistics}\label{sec:stats}
-All bracketed intervals are 95\%. Proportions carry Wilson intervals~\cite{wilson1927}; paired outcomes are compared by the exact McNemar test~\cite{mcnemar1947} and unpaired counts by Fisher's exact test. Times to free are Kaplan--Meier estimates~\cite{kaplanmeier1958}. The noise level $\sigma_{50}$ at which half the runs complete comes from a logistic fit of completion against $\sigma$, with a bootstrap interval that resamples seeds. Jaccard indices, log rate ratios and paired differences carry percentile bootstrap intervals over snapshots, seeds or runs; CroMa means and log flow ratios carry Student-$t$ intervals.
-
-The overlap of two perturbations is the Jaccard index $J=|S_1\cap S_2|/|S_1\cup S_2|$ of their minority outcome sets $S_1$, $S_2$: the unresolved snapshots or runs at the lone trap and in whole runs, the freed standoffs at the pair. It is compared with its expectation for independent sets of the same sizes by a permutation $p$-value. The rate match of a surrogate is checked on random halves: its parameter is refitted on one half and its rate compared with the resolver's on the other.
-
-A replay displaces every coordinate by a Gaussian of standard deviation $10^{-9}$\,m; five replays per snapshot and perturbation are compared with the unperturbed run on whether and when the blocker is freed. The probes are read jointly as one signature, so no multiplicity correction is applied.
+The state of a deadlocked run (criterion in Table~\ref{tab:params}) is saved as a \emph{snapshot}. A \emph{quench} restarts a snapshot under one perturbation for at most 120\,s; an agent is freed when it exits ($|\mathbf x-\mathbf g|<0.5$\,m). A \emph{replay} is a quench with every coordinate displaced by Gaussian noise of standard deviation $10^{-9}$\,m, five per snapshot and perturbation.
