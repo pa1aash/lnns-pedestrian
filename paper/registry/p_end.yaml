@@ -20,3 +20,11 @@ PendCOneGapLowerMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf.c_me
 PendCThreeGapLowerMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.c_median_lower_bound", fmt: "{:.1f}"}
 # Velocity fluctuation, upper end of the model range (noise), two significant figures.
 PendSigFluct: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.fluct.mean", fmt: "{:.2f}"}
+# I3 numbers audit: two figures; lower bounds rounded down.
+PendCOneGapCompleteMax: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf.gap_complete.max", fmt: "sig"}
+PendCEdgeGapCompleteMax: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_edge.gap_complete.max", fmt: "sig"}
+PendCThreeGapCompleteMax: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.gap_complete.max", fmt: "sig"}
+PendSigGapCompleteMax: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.gap_complete.max", fmt: "sig"}
+PendCThreeOpenMean: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.final_open_to_600.mean", fmt: "sig"}
+PendCOneGapLowerMedianTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf.c_median_lower_bound", fmt: "floor"}
+PendCThreeGapLowerMedianTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.c_median_lower_bound", fmt: "floor"}

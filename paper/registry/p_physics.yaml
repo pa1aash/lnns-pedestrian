@@ -19,3 +19,14 @@ PphysBodyMid: {file: rev_B4.json, key: "by_dt.dt0p0025.peak_body_force_kN", fmt:
 PphysContactMid: {file: rev_B4.json, key: "by_dt.dt0p0025.peak_contact_force_kN", fmt: "{:.2f}"}
 # Completed runs at dt = 0.0025 s (RevBfourCompleteFine is dt = 0.001 s).
 PphysBfourCompleteMid: {file: rev_B4.json, key: "by_dt.dt0p0025.complete", fmt: "{:d}"}
+# I3 numbers audit: two-figure versions (lower bounds rounded down; arch peaks over both fine time steps).
+PphysWeidMinFloor: {file: final_corrected.json, key: "terminal.weidmann_min", fmt: "floor"}
+PphysBodyFine: {file: rev_B4.json, key: "by_dt.dt0p001.peak_body_force_kN", fmt: "sig"}
+PphysContactFine: {file: rev_B4.json, key: "by_dt.dt0p001.peak_contact_force_kN", fmt: "sig"}
+PphysDriveSFM: {file: E1_analysis.json, key: "E1b.drives_N.C1_free_m_v0_over_tau.p50", fmt: "sig"}
+PphysDriveORCA: {file: E1_analysis.json, key: "E1b.drives_N.C3_rest_orca_drive_w_o_m_v0_over_tau_orca.p50", fmt: "sig"}
+PphysGmaxThirtyFive: {file: E1_analysis.json, key: "gmax_curve.gmax_N.230", fmt: "sig"}
+PphysGmaxThirty: {file: rev_A13.json, key: "gmax.r030_N", fmt: "sig"}
+PphysGmaxMeanR: {file: rev_A13.json, key: "drive.gmax_at_mean_r_disp", fmt: "sig"}
+PphysLamOneMax: {file: E7b_analysis.json, key: "a_statics.lambda1.max", fmt: "sig"}
+PphysMuLossMax: {file: N6_analysis.json, key: "all.mu1_at_loss_max", fmt: "sig"}

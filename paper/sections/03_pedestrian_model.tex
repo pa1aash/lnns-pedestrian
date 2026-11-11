@@ -37,7 +37,7 @@ ORCA builds one half-plane of permitted velocities per neighbour (look-ahead tim
 \begin{equation}\label{eq:orca}
 \mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad \chi_i=1-\varsigma(\rho_i;4,2),
 \end{equation}
-with $\varsigma(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinFloor\ in whole runs and \RevAtwoLoneWMin\ at every snapshot, so $\chi_i\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
+with $\varsigma(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinTwo\ in whole runs and \PmodLoneWMinTwo\ at every snapshot, so $\chi_i\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
 
 The \emph{drive part} of force-coupled ORCA is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}. With no binding constraint and $\chi_i=1$, Eqs.~\eqref{eq:des} and~\eqref{eq:orca} add to
 \begin{equation}\label{eq:identity}

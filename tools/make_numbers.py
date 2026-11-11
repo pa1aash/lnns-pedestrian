@@ -6,6 +6,8 @@ Every number quoted in the paper text comes from a JSON file under data/derived/
 Formats: `fmt` is a Python format string ("{:.2f}"), or "sci" for scientific notation, or "p" for a p-value (with a companion <name>Rel macro carrying "=" or "<") in LaTeX,
 e.g. 0.000234 -> \ensuremath{2.3\times10^{-4}}. With "sci" the optional `digits` (default 2) is
 the number of significant digits of the mantissa; an exponent of 0 prints the mantissa alone.
+"sig" prints `digits` (default 2) significant figures in fixed notation, rounded half up; "floor" the same
+rounded down, for lower bounds.
 Fails with a non-zero exit status and a message naming the macro if a file or
 key is missing, a format string does not fit the value, or a name is invalid.
 """
@@ -49,6 +51,17 @@ def sci(val, digits=2):
     exp = int(exp)
     body = mant if exp == 0 else f"{mant}\\times10^{{{exp}}}"
     return f"\\ensuremath{{{body}}}"
+
+
+def sigfmt(val, digits=2, floor=False):
+    """`digits` significant figures in fixed notation; floor=True rounds down (for lower bounds)."""
+    if val == 0:
+        return "0"
+    e = math.floor(math.log10(abs(val)))
+    q = 10.0 ** (e - digits + 1)
+    r = (math.floor(val / q) if floor else math.floor(val / q + 0.5)) * q
+    dec = max(digits - 1 - e, 0)
+    return f"{r:.{dec}f}"
 
 
 def pfmt(val, digits=2):
@@ -120,9 +133,11 @@ def build(registry_path, derived_dir):
                 text = sci(val, spec.get("digits", 2))
             elif spec["fmt"] == "p":
                 text = pfmt(val, spec.get("digits", 2))
+            elif spec["fmt"] in ("sig", "floor"):
+                text = sigfmt(val, spec.get("digits", 2), floor=spec["fmt"] == "floor")
             else:
                 if "digits" in spec:
-                    fail("'digits' applies only to fmt: sci")
+                    fail("'digits' applies only to fmt: sci, p, sig, floor")
                 text = spec["fmt"].format(val)
                 if "," in spec["fmt"]:  # thousands separator as a thin space, e.g. 20\,000
                     text = text.replace(",", "\\,")
