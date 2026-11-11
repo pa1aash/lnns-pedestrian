@@ -2,9 +2,10 @@
 fig5_dt in the paper; their scripts are kept).
 (a) Arrhenius collapse: ln(lambda_hat / nu_hat) against beta = dU_cond / k_B T_eff for every (snapshot, condition,
     level) with an Arrhenius fit, with the line of slope -1 (data/derived/E4_analysis.json; experiments/E4/analyze.py),
-    plus the high-beta restarts of the revision (data/derived/rev_*.json, when present).
+    plus the high-beta restarts beta = 5-7 (data/derived/rev_B3.json, black triangles).
 (b) Arrhenius slope ratio -s / dU_cond per (snapshot, condition) with its 95% interval against dU_cond (log axis), with
-    the fitted trend of the slope ratio on ln dU_cond and its 95% band when the revision analysis provides it.
+    the B3 fits over beta = 1.5-7 (black triangles, alone condition, three snapshots) and a dashed reference at 0.9.
+    The A4 trend is dropped: B3 shows the decline was a beta = 1.5-2.5 effect at the deepest barrier.
 (c) Time-step signature, pooled over snapshots: escape rate normalised at dt = 0.01 s for per-step noise (filled),
     sqrt(dt)-scaled noise (open) and force-coupled ORCA (RVO2) (diamonds), with the per-step Arrhenius predictions
     (figures/data/fig5.json; experiments/E3/analyze.py). Conditions within a level are offset horizontally.
@@ -21,7 +22,8 @@ from rev_data import rev_arrhenius
 ROOT = HERE.parent
 E4 = json.load(open(ROOT / "data" / "derived" / "E4_analysis.json"))
 d5 = json.load(open(HERE / "data" / "fig5.json"))
-REV = rev_arrhenius()          # None until the revision analysis lands
+REV = rev_arrhenius()
+assert REV is not None, 'data/derived/rev_B3.json missing'
 V = ARM_COLOURS["noise"]
 V_LIGHT = mc.to_hex(0.55 * np.array(mc.to_rgb(V)) + 0.45)
 B = ARM_COLOURS["C3 RVO2"]
@@ -51,11 +53,10 @@ for c in CONDS:
     off = {"full": -0.08, "frozen": 0.0, "alone": 0.08}[c]
     axA.errorbar(xs + off, ys, yerr=[ys - lo, hi - ys], ls="none", marker=MK[c], ms=2.6, mfc=FILL[c], mec=V, mew=0.6,
                  ecolor=V, elinewidth=0.5, alpha=0.8, capsize=0, zorder=3)
-if REV and REV.get("collapse"):
-    for p in REV["collapse"]:
-        axA.errorbar([p["beta"]], [p["y"]], yerr=[[p["y"] - p["lo"]], [p["hi"] - p["y"]]], ls="none", marker="^",
-                     ms=3.0, mfc="black", mec="black", ecolor="black", elinewidth=0.6, capsize=0, zorder=4)
-        bmax = max(bmax, p["beta"] + 0.5)
+for p in REV["collapse"]:                       # B3 restarts at beta = 5-7, alone condition
+    axA.errorbar([p["beta"]], [p["y"]], yerr=[[p["y"] - p["lo"]], [p["hi"] - p["y"]]], ls="none", marker="^",
+                 ms=2.8, mfc="black", mec="black", mew=0.5, ecolor="black", elinewidth=0.5, capsize=0, zorder=4)
+    bmax = max(bmax, p["beta"] + 0.5)
 bb = np.array([0, 8])
 axA.plot(bb, -bb, color="0.45", lw=0.7, zorder=1)
 axA.set_xlim(0.8, bmax + 0.2)
@@ -66,11 +67,7 @@ axA.set_ylabel(r"$\ln(\hat\lambda/\hat\nu)$")
 # ---- (b) slope ratio against the barrier
 OFF = {"full": 0.94, "frozen": 1.0, "alone": 1.06}
 axB.axhline(1.0, color="0.7", lw=0.5, zorder=1)
-if REV and REV.get("trend"):
-    t = REV["trend"]
-    u = np.geomspace(0.5, 150, 100)
-    axB.fill_between(u, t["lo"](u), t["hi"](u), color="0.88", lw=0, zorder=0)
-    axB.plot(u, t["mid"](u), color="0.35", lw=0.8, zorder=1)
+axB.axhline(0.9, color="0.35", lw=0.8, ls=(0, (3, 2)), zorder=1)          # reference: effective barrier about 0.9 dU
 for c in CONDS:
     P = [(cc["dU"], cc["arrhenius"]) for s in E4["snapshots"].values() for k, cc in s["conds"].items()
          if k == c and cc.get("arrhenius")]
@@ -80,6 +77,9 @@ for c in CONDS:
     hi = np.array([a["ratio_ci95"][1] for _, a in P])
     axB.errorbar(x, r, yerr=[r - lo, hi - r], ls="none", marker=MK[c], ms=2.6, mfc=FILL[c], mec=V, mew=0.6,
                  ecolor=V, elinewidth=0.5, capsize=0, zorder=3)
+for q in REV["ratio"]:                           # B3: fit over beta = 1.5-7, alone condition
+    axB.errorbar([q["dU"] * 1.16], [q["r"]], yerr=[[q["r"] - q["lo"]], [q["hi"] - q["r"]]], ls="none", marker="^",
+                 ms=2.8, mfc="black", mec="black", mew=0.5, ecolor="black", elinewidth=0.5, capsize=0, zorder=4)
 axB.set_xscale("log")
 axB.set_xlim(0.5, 150)
 axB.set_xticks([1, 10, 100])

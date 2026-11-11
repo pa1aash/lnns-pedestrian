@@ -1,7 +1,8 @@
 """Fig. geometry: to-scale schematic of the two simulation geometries.
 
 Left: the room bottleneck (BottleneckScenario, w = 0.8 m) with an enlarged door-region inset.
-Right: the rebuilt CroMa entrance (CromaBottleneckScenario, w = 0.8 m, corridor L = 2.0 m).
+Right: the rebuilt CroMa entrance (CromaBottleneckScenario, w = 0.8 m, corridor L = 2.0 m as in two of the five runs; the dotted line J marks the 0.2 m
+bottleneck of the other three, the code default and the archive value).
 The wall segments, door edges and goals are taken from the scenario builders in code/sim, the
 goal capture radius from code/config/params.yaml, the B_w,edge zone from WallForces.edge_zone and
 the waiting zone from experiments/pilot/w28_croma.py (fluct). Both main panels share one scale.
@@ -23,7 +24,9 @@ PARAMS = yaml.safe_load(open(HERE.parent / "code" / "config" / "params.yaml"))
 R_GOAL = PARAMS["simulation"]["goal_reached_dist"]          # exit at |x - g| < 0.5 m
 Z0, Z1 = WallForces().edge_zone                               # B_w,edge within 0.5 m, blended to B_w by 1.0 m
 R_AGENT = PARAMS["agent"]["radius"]                           # mean radius 0.25 m
-L_CROMA = 2.0                                                 # long-corridor CroMa runs (E10: 2.0 or 0.21 m)
+L_CROMA = 2.0                                                 # long-corridor CroMa runs (4D030, 4D040)
+L_SHORT = CromaBottleneckScenario().length                    # code default; the Part D rerun and the archive use 0.2 m
+assert abs(L_SHORT - 0.2) < 1e-12
 WZ = (0.3, 2.5, 2.0)                                          # waiting zone: 0.3 < x_e - x < 2.5, |y - y_c| < 2
 
 room, room_state = BottleneckScenario(n_agents=1, exit_width=0.8).build(seed=0)
@@ -164,6 +167,8 @@ axC.text(x_e + L_CROMA / 2, y_c + 0.4 + 0.45, "I", **KEY)                  # cor
 axC.text(x_e + 0.45, y_c - 0.4 - 0.75, "C", **KEY)                          # door edges = convex junctions
 axC.plot([x_e + 0.05, x_e + 0.32], [y_c - 0.45, y_c - 0.95], **THIN)
 axC.text(g_croma[0], g_croma[1] + R_GOAL + 0.45, "B", **KEY)
+axC.plot([x_e + L_SHORT] * 2, [y_c - 0.4 - 0.25, y_c + 0.4 + 1.45], color="black", lw=0.6, ls=(0, (1.5, 1.5)), zorder=3)
+axC.text(x_e + L_SHORT, y_c + 0.4 + 1.45 + 0.4, "J", **KEY)                 # end of the 0.2 m bottleneck (3 of 5 runs)
 scalebar(axC, x0, -0.55, 2.0, "2\\,m")
 
 save(fig, "fig_geometry")

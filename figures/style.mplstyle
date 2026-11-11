@@ -1,6 +1,6 @@
 # Paper figure style (matches llncs body font: T1 Computer Modern via cm-super)
 text.usetex : True
-text.latex.preamble : \usepackage[T1]{fontenc}\DeclareMathSizes{7}{7}{6}{6}\DeclareMathSizes{8}{8}{6}{6}
+text.latex.preamble : \usepackage[T1]{fontenc}\DeclareMathSizes{7}{7}{7}{7}\DeclareMathSizes{8}{8}{7}{7}
 font.family : serif
 font.serif : Computer Modern Roman
 font.size : 8

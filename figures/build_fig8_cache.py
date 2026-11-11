@@ -1,82 +1,61 @@
-"""Per-run cache for the CroMa figure (figures/fig8_croma.py): completion, flow, fluctuation and the longest gap with
-the terminal gap of runs that did not complete treated as right-censored (a lower bound to the 600 s horizon).
+"""Per-run cache for the CroMa figure (figures/fig8_croma.py), from the Part D rerun of session C
+(data/derived/rev_D.json: key D3.rerun, 100 runs, agent number = participants who passed, bottleneck lengths as in the
+archive: 2.0 m for 4D030 and 4D040, 0.2 m for 4D110, 4D120 and 4D130) and the corrected human runs (humans_corrected).
 
-Inputs: data/E10/e10_croma.jsonl (per-run estimator of experiments/pilot/w28_croma.py) and the trajectories
-data/E10/raw/<cell>_seed<k>.npz (columns t, id, x, ...); RAW_ROOT overrides the repository root that holds data/E10/raw
-(the trajectories are not in every checkout). Humans: figures/data/fig8.json (experiments/E10/analyze.py); every human run
-empties the waiting area.
-Output: figures/data/fig8_runs.json.
-
-Longest gap of a run that did not complete: its terminal gap from the last passage is still open, so the longest gap is
-right-censored and stored as a lower bound with censored = true. Runs capped at 600 s end there. A run stopped as a
-deadlock (every active |v| < 0.01 m/s for 10 s, experiments/E10/e10_croma.py) is a rest state of a deterministic model
-(only SFM cells are stopped this way), which does not move again, so its terminal gap is taken to the 600 s horizon too;
-the gap at the stop time (t_end - last passage) is kept as terminal_gap_at_stop. Passage time of an agent: its first sample with x >= 10 m (the entrance plane), as in
-experiments/E10/analyze.py final_stall().
-"""
+Per run: flow, waiting-zone fluctuation and the longest gap between passages. The final gap of a run that did not complete
+(deadlocked, or still running at the 600 s horizon) is open and right-censored at the horizon: its plotted value is the
+lower bound c = max(longest closed gap, last passage to 600 s), as in D4; `censored` is true. Counts are asserted against
+notes/D_changes.md (experiments/revision/notes/D_changes.md).
+Output: figures/data/fig8_runs.json."""
 import json
 import math
-import os
-import sys
 from pathlib import Path
 
-import numpy as np
-
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parent
-RAW_ROOT = Path(os.environ.get("RAW_ROOT", ROOT))
+D = json.load(open(HERE.parent / "data" / "derived" / "rev_D.json"))
 T_MAX = 600.0
+JSONL = HERE.parent / "data" / "revision" / "D3" / "d3_croma.jsonl"     # per-run waiting-zone fluctuation (E10 estimator)
+FL = {}
+for _l in open(JSONL):
+    if _l.strip():
+        _r = json.loads(_l); _f = _r["estimator"]["fluct"]
+        FL[(_r["cell"], _r["seed"])] = math.sqrt((_f["sd_x"] ** 2 + _f["sd_y"] ** 2) / 2)
 CELLS = ["C1_cf", "C1_cf_edge", "C3_rvo2_cf", "C1_cf_sig"]
-
-
-def last_passage(npz):
-    D = np.load(npz)["data"]
-    ids = D[:, 1].astype(int)
-    last = None
-    for i in np.unique(ids):
-        t, x = D[ids == i, 0], D[ids == i, 2]
-        c = np.where(x - 10.0 >= 0)[0]
-        if len(c) and c[0] > 0:
-            last = t[c[0]] if last is None else max(last, t[c[0]])
-    return last
-
-
-def fl(e):
-    f = e.get("fluct") or {}
-    if f.get("sd_x") is None:
-        return None
-    return math.sqrt((f["sd_x"] ** 2 + f["sd_y"] ** 2) / 2)
+# D_changes.md: complete / deadlock / capped, flow mean, longest gap of completed runs (max), censored runs
+EXPECT = {"C1_cf": (2, 23, 0, 0.73, 20.4, 23), "C1_cf_edge": (21, 4, 0, None, 15.6, 4),
+          "C3_rvo2_cf": (10, 1, 14, 0.88, 7.6, 15), "C1_cf_sig": (18, 0, 7, None, 237.0, 7)}
 
 
 def main():
-    R = [json.loads(l) for l in open(ROOT / "data" / "E10" / "e10_croma.jsonl") if l.strip()]
-    fig8 = json.load(open(HERE / "data" / "fig8.json"))
-    out = {"source": "figures/build_fig8_cache.py", "t_max_s": T_MAX, "cells": {}}
-    h = fig8["runs"]["humans"]
-    out["cells"]["humans"] = [{"complete": True, "deadlock": False, "flow": f, "gap": g, "gap_censored": False, "fluct": u}
-                              for f, g, u in zip(h["flow"], h["longest_gap"], h["fluct"])]
+    H = D["humans_corrected"]
+    out = {"source": "figures/build_fig8_cache.py from data/derived/rev_D.json", "t_max_s": T_MAX, "cells": {}}
+    out["cells"]["humans"] = {
+        "runs": [{"run": r["run"], "complete": True, "censored": False, "flow": r["flow_per_s"],
+                  "gap": r["max_gap_s"], "fluct": r["fluct_rms"]} for r in H["runs"]],
+        "flow": H["flow"], "fluct": H["fluct"], "n_censored": 0}
+    assert abs(H["flow"]["mean"] - 1.47) < 0.005
+    rr = D["D3"]["rerun"]["per_variant"]
+    fl = {r["run"]: None for r in H["runs"]}
     for c in CELLS:
-        rows = []
-        for r in sorted((r for r in R if r["cell"] == c), key=lambda r: r["seed"]):
-            e = r["estimator"]
-            gap, cens, term = e.get("max_gap_s"), False, None
-            if not r["complete"]:
-                last = last_passage(RAW_ROOT / r["npz"])
-                term = None if last is None else float(r["t_end"] - last)
-                assert r["deadlock"] or abs(r["t_end"] - T_MAX) < 0.1, r["job_id"]
-                assert not (r["deadlock"] and r["sigma"] > 0), r["job_id"]
-                horizon = None if last is None else float(T_MAX - last)
-                gap = max(gap or 0.0, horizon or 0.0)
-                cens = True
-            rows.append({"seed": r["seed"], "run": r["run"], "complete": r["complete"], "deadlock": r["deadlock"],
-                         "t_end": r["t_end"], "flow": e.get("flow_per_s"), "gap": gap, "gap_censored": cens,
-                         "terminal_gap_at_stop": term, "fluct": fl(e)})
-        out["cells"][c] = rows
-        print(c, "n", len(rows), "complete", sum(x["complete"] for x in rows),
-              "censored", sum(x["gap_censored"] for x in rows),
-              "gap range", round(min(x["gap"] for x in rows), 1), round(max(x["gap"] for x in rows), 1))
+        v = rr[c]
+        runs = [{"seed": r["seed"], "run": r["run"], "status": r["status"], "complete": r["status"] == "complete",
+                 "censored": r["event"] == 0, "flow": r["flow"], "gap": r["c"],
+                 "fluct": FL[(c, r["seed"])]} for r in v["runs"]]
+        fluct = v["fluct"]
+        assert abs(sum(r["fluct"] for r in runs) / 25 - fluct["mean"]) < 1e-9, c
+        out["cells"][c] = {"runs": runs, "flow": v["flow"], "fluct": fluct, "n_censored": v["n_censored"],
+                           "gap_complete_max": v["gap_complete"]["max"], "complete": v["complete"],
+                           "deadlock": v["deadlock"], "capped": v["capped"]}
+        nc, nd, ncap, fm, gm, ncen = EXPECT[c]
+        assert (v["complete"], v["deadlock"], v["capped"], v["n_censored"]) == (nc, nd, ncap, ncen), c
+        assert abs(v["gap_complete"]["max"] - gm) < 0.5, c
+        assert fm is None or abs(v["flow"]["mean"] - fm) < 0.005, c
+        assert sum(r["censored"] for r in runs) == ncen and len(runs) == 25
+        print(c, "complete", nc, "deadlock", nd, "capped", ncap, "censored", ncen, "longest gap of completed runs",
+              round(gm, 1), "flow", round(v["flow"]["mean"], 3), [round(x, 3) for x in v["flow"]["ci95"]],
+              "fluct", round(fluct["mean"], 4))
     json.dump(out, open(HERE / "data" / "fig8_runs.json", "w"), indent=1)
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
