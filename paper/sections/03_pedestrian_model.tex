@@ -29,7 +29,6 @@ With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the col
 \mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-t_c/\tau_0}}{t_c^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
 \end{equation}
 where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Eq.~\eqref{eq:ttc} uses the time-to-collision energy of~\cite{karamouzas2014} as a force magnitude in place of its gradient, so $k_{\rm ttc}$ carries N\,s$^2$ with an implied length scale of 1\,m. Agent $j$ counts if $0<t_c\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
-%C2: B1c throttle off: CroMa flow
 
 \subsection{Force-Coupled ORCA}\label{sec:identity}
 ORCA builds one half-plane of permitted velocities per neighbour (look-ahead time $\tau_h$) and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity, with speed at most $2v_{0,i}$. The legacy linear-program solver has a leg-normal sign defect (Sect.~\ref{sec:att-lone}); the RVO2 solver ports RVO2~\cite{vandenberg2011rvo2} line by line. Force-coupled ORCA takes the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ and turns $\mathbf v^{\rm orca}_i$ into a force with a density gate:
@@ -51,7 +50,7 @@ Results depend on the integration scheme~\cite{koster2013}; ours caps the speed 
 \mathbf v'\leftarrow\mathbf v'+\chi_i\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
 \end{equation}
 with $\mathcal O_i(\mathbf u)$ the permitted velocity nearest $\mathbf u$ under the step's initial half-planes.
-At default desired speeds and $\Delta t=0.01$\,s bodies overlap by at most \RvAtwelveRoomMax\,cm in \RvAtwelveRoomN\ room runs and \RvAtwelveCroSFMMax\,cm in the CroMa runs, so the contact under-resolution found at \ArchVZero\,m/s (Sect.~\ref{sec:arches}) does not reach default speeds.
+At default speeds bodies overlap by at most \RvAtwelveRoomMax\,cm (room) and \RvAtwelveCroSFMMax\,cm (CroMa), so the contact under-resolution at \ArchVZero\,m/s (Sect.~\ref{sec:arches}) does not reach them.
 
 \subsection{Scenarios and Snapshots}\label{sec:geometry}
 \begin{figure}[t]
