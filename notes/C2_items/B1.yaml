@@ -78,5 +78,6 @@ RvBoneCroSigRatioOn: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.on.flow_
 RvBoneCroSigComplete: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.complete", fmt: "{:d}"}
 RvBoneCroSigCapped: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.capped", fmt: "{:d}"}
 RvBoneCroSigWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.window_ratio_to_human", fmt: sig, digits: 2}
+RvBoneCroRangeMax: {file: rev2_B1.json, key: "c.range_with_off.max", fmt: sig, digits: 2}
 RvBoneCroOffMin: {file: rev2_B1.json, key: "c.range_off_only.min", fmt: sig, digits: 2}
 RvBoneCroOffMax: {file: rev2_B1.json, key: "c.range_off_only.max", fmt: sig, digits: 2}
