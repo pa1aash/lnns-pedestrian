@@ -117,7 +117,10 @@ def part_c():
     d = DI.d4(M, hflow, hb)
     on = rev["D3"]["rerun"]["per_variant"]
     R3 = {(r["cell"], r["seed"]): r for r in jl(D3A.IN)}
-    raw3 = os.path.join(os.path.dirname(D3A.IN), "raw")
+    raw3 = next((d for d in (os.path.join(os.path.dirname(D3A.IN), "raw"), os.environ.get("D3_RAW"),
+                             "/Users/palaash/Developer/lnns-wt/C/data/revision/D3/raw") if d and os.path.isdir(d)), None)
+    if raw3 is None:
+        raise SystemExit("D3 raw trajectories not found; set D3_RAW")
     o = {"cells": cells, "per_variant": {}}
     for c in cells:
         X = {u["seed"]: u for u in M[c]}
@@ -146,6 +149,12 @@ def part_c():
                                               if len(lr) >= 2 else None},
             "completion_off_only": n10, "completion_on_only": n01, "mcnemar_p": mcnemar_exact(n10, n01),
             "mcnemar_p_disp": pdisp(mcnemar_exact(n10, n01))}
+    hw = rev["humans_corrected"]["window_obs"]["mean"]
+    for c in cells:
+        v = o["per_variant"][c]
+        v["window_ratio_to_human"] = v["window_flow"]["mean"] / hw
+        v["window_ratio_on"] = on[c]["window_flow"]["mean"] / hw
+        v["flow_ratio_change"] = v["flow_ratio"]["ratio"] - v["on"]["flow_ratio"]
     if len(cells) == 2:
         rs = {c: on[c]["flow_ratio"]["ratio"] for c in on}
         rs.update({c: o["per_variant"][c]["flow_ratio"]["ratio"] for c in cells})

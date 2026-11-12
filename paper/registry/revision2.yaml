@@ -845,3 +845,32 @@ RvBoneOrcaP: {file: rev2_B1.json, key: "b.orca.mcnemar_p", fmt: sci, digits: 2}
 RvBoneOrcaPDisp: {file: rev2_B1.json, key: "b.orca.mcnemar_p", fmt: p}
 RvBoneOrcaOffDeadlock: {file: rev2_B1.json, key: "b.orca.off_deadlock", fmt: "{:d}"}
 RvBoneOrcaOffCapped: {file: rev2_B1.json, key: "b.orca.off_capped", fmt: "{:d}"}
+# (c) CroMa, D3 agent numbers and lengths, seeds 42-66
+RvBoneCroSfmRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf.flow_ratio.ratio", fmt: sig, digits: 2}
+RvBoneCroSfmRatioLo: {file: rev2_B1.json, key: "c.per_variant.C1_cf.flow_ratio.ci95.0", fmt: sig, digits: 2}
+RvBoneCroSfmRatioHi: {file: rev2_B1.json, key: "c.per_variant.C1_cf.flow_ratio.ci95.1", fmt: sig, digits: 2}
+RvBoneCroSfmRatioOn: {file: rev2_B1.json, key: "c.per_variant.C1_cf.on.flow_ratio", fmt: sig, digits: 2}
+RvBoneCroSfmPaired: {file: rev2_B1.json, key: "c.per_variant.C1_cf.paired_flow_ratio_off_over_on.geo", fmt: sig, digits: 2}
+RvBoneCroSfmPairedLo: {file: rev2_B1.json, key: "c.per_variant.C1_cf.paired_flow_ratio_off_over_on.ci95.0", fmt: sig, digits: 2}
+RvBoneCroSfmPairedHi: {file: rev2_B1.json, key: "c.per_variant.C1_cf.paired_flow_ratio_off_over_on.ci95.1", fmt: sig, digits: 2}
+RvBoneCroSfmComplete: {file: rev2_B1.json, key: "c.per_variant.C1_cf.complete", fmt: "{:d}"}
+RvBoneCroSfmDeadlock: {file: rev2_B1.json, key: "c.per_variant.C1_cf.deadlock", fmt: "{:d}"}
+RvBoneCroSfmCens: {file: rev2_B1.json, key: "c.per_variant.C1_cf.n_censored", fmt: "{:d}"}
+RvBoneCroSfmGapCompleteMax: {file: rev2_B1.json, key: "c.per_variant.C1_cf.gap_complete.max", fmt: sig, digits: 2}
+RvBoneCroSfmWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf.window_ratio_to_human", fmt: sig, digits: 2}
+RvBoneCroSfmWindowRatioOn: {file: rev2_B1.json, key: "c.per_variant.C1_cf.window_ratio_on", fmt: sig, digits: 2}
+RvBoneCroOrcaRatio: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.flow_ratio.ratio", fmt: sig, digits: 2}
+RvBoneCroOrcaRatioLo: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.flow_ratio.ci95.0", fmt: sig, digits: 2}
+RvBoneCroOrcaRatioHi: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.flow_ratio.ci95.1", fmt: sig, digits: 2}
+RvBoneCroOrcaRatioOn: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.on.flow_ratio", fmt: sig, digits: 2}
+RvBoneCroOrcaPaired: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.paired_flow_ratio_off_over_on.geo", fmt: sig, digits: 2}
+RvBoneCroOrcaPairedLo: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.paired_flow_ratio_off_over_on.ci95.0", fmt: sig, digits: 2}
+RvBoneCroOrcaPairedHi: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.paired_flow_ratio_off_over_on.ci95.1", fmt: sig, digits: 2}
+RvBoneCroOrcaComplete: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.complete", fmt: "{:d}"}
+RvBoneCroOrcaDeadlock: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.deadlock", fmt: "{:d}"}
+RvBoneCroOrcaCapped: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.capped", fmt: "{:d}"}
+RvBoneCroOrcaCens: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.n_censored", fmt: "{:d}"}
+RvBoneCroOrcaGapCompleteMax: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.gap_complete.max", fmt: sig, digits: 2}
+RvBoneCroOrcaWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.window_ratio_to_human", fmt: sig, digits: 2}
+RvBoneCroOrcaWindowRatioOn: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.window_ratio_on", fmt: sig, digits: 2}
+RvBoneCroRangeMax: {file: rev2_B1.json, key: "c.range_with_off.max", fmt: sig, digits: 2}
