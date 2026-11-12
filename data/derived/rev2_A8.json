@@ -1,0 +1,883 @@
+{
+ "seeds": {
+  "E1a": {
+   "file": "data/E1/E1_runs.jsonl",
+   "n_rows": 200,
+   "run_seeds": "42-241",
+   "n_run_seeds": 200
+  },
+  "E1b": {
+   "file": "data/E1/E1_runs.jsonl",
+   "n_rows": 200,
+   "run_seeds": "42-241",
+   "n_run_seeds": 200
+  },
+  "E2": {
+   "file": "data/E2/e2_quench.jsonl",
+   "n_rows": 5580,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 780,
+   "noise_seed_min": 7000,
+   "noise_seed_max": 12904,
+   "n_noise_seeds": 300,
+   "n_noise_rows": 900,
+   "reps": "0-4",
+   "noise_rule": "7000 + 100 k + rep",
+   "k_range": "0-59",
+   "k_is_selection_index": true,
+   "same_seeds_every_sigma": true
+  },
+  "E3": {
+   "file": "data/E3/e3_dt.jsonl",
+   "n_rows": 2460,
+   "noise_seed_min": 51050,
+   "noise_seed_max": 70719,
+   "n_noise_seeds": 2400,
+   "n_noise_rows": 2400,
+   "reps": "0-19",
+   "noise_rule": "51000 + 1000 k + 10 round(1000 dt) + rep (+500 dt_scaled)",
+   "k_range": "0-19",
+   "k_is_selection_index": true
+  },
+  "E4": {
+   "file": "data/E4/e4_escape.jsonl",
+   "n_rows": 1740,
+   "noise_seed_min": 11000,
+   "noise_seed_max": 20219,
+   "n_noise_seeds": 600,
+   "n_noise_rows": 1740,
+   "reps": "0-19",
+   "noise_rule": "11000 + 1000 k + 100 level + rep",
+   "k_range": "0-9",
+   "k_is_selection_index": true,
+   "conditions": [
+    "alone",
+    "frozen",
+    "full"
+   ],
+   "same_seed_every_condition": true
+  },
+  "E5a": {
+   "file": "data/E5/e5a.jsonl",
+   "n_rows": 800,
+   "run_seeds": "42-141",
+   "n_run_seeds": 100,
+   "sigmas": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.07,
+    0.1,
+    0.2
+   ]
+  },
+  "E5b": {
+   "file": "data/E5/e5b.jsonl",
+   "n_rows": 500,
+   "run_seeds": "42-141",
+   "n_run_seeds": 100,
+   "sigmas": [
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.07
+   ]
+  },
+  "E6a": {
+   "file": "data/E6/e6a.jsonl",
+   "n_rows": 186,
+   "run_seeds": "242-427",
+   "n_run_seeds": 186
+  },
+  "E6b": {
+   "file": "data/E6/e6b.jsonl",
+   "n_rows": 186,
+   "run_seeds": "242-427",
+   "n_run_seeds": 186
+  },
+  "E6p": {
+   "file": "data/E6/e6p.jsonl",
+   "n_rows": 50,
+   "run_seeds": "428-477",
+   "n_run_seeds": 50
+  },
+  "E7": {
+   "file": "data/E7/e7_cells.jsonl",
+   "n_rows": 900,
+   "run_seeds": "42-141",
+   "n_run_seeds": 100
+  },
+  "E7b_lib": {
+   "file": "data/E7b/e7b_lib.jsonl",
+   "n_rows": 320,
+   "run_seeds": "242-561",
+   "n_run_seeds": 320
+  },
+  "E7b_quench": {
+   "file": "data/E7b/e7b_quench.jsonl",
+   "n_rows": 6440,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 920,
+   "noise_seed_min": 20000,
+   "noise_seed_max": 24504,
+   "n_noise_seeds": 230,
+   "n_noise_rows": 920,
+   "reps": "0-4",
+   "noise_rule": "20000 + 100 k + rep",
+   "k_range": "0-45",
+   "same_seeds_every_sigma": true
+  },
+  "E8": {
+   "file": "data/E8/e8_counterflow.jsonl",
+   "n_rows": 375,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "E9": {
+   "file": "data/E9/e9_crossing.jsonl",
+   "n_rows": 300,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "E10": {
+   "file": "data/E10/e10_croma.jsonl",
+   "n_rows": 125,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "E11": {
+   "file": "data/E11/e11_overlap.jsonl",
+   "n_rows": 325,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "arch": {
+   "file": "data/arch/arch.jsonl",
+   "n_rows": 25,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "N1": {
+   "file": "data/N1/n1.jsonl",
+   "n_rows": 680,
+   "noise_seed_min": 27000,
+   "noise_seed_max": 30319,
+   "n_noise_seeds": 680,
+   "n_noise_rows": 680,
+   "reps": "0-19",
+   "noise_rule": "27000 + 100 k + rep",
+   "k_range": "0-33"
+  },
+  "N2": {
+   "file": "data/N2/n2.jsonl",
+   "n_rows": 186,
+   "run_seeds": "242-427",
+   "n_run_seeds": 186,
+   "noise_seed_min": 50242,
+   "noise_seed_max": 50427,
+   "n_noise_seeds": 186,
+   "n_noise_rows": 186,
+   "reps": "",
+   "noise_rule": "50000 + run seed (velocity-noise generator reseeded after the spawn)"
+  },
+  "N3": {
+   "file": "data/N3/n3.jsonl",
+   "n_rows": 540,
+   "noise_seed_min": 32000,
+   "noise_seed_max": 40219,
+   "n_noise_seeds": 540,
+   "n_noise_rows": 540,
+   "reps": "0-19",
+   "noise_rule": "31000 + 1000 k + 100 level + rep",
+   "k_range": "1-9",
+   "conditions": [
+    "full_eqT"
+   ],
+   "same_seed_every_condition": true
+  },
+  "N5": {
+   "file": "data/N5/n5.jsonl",
+   "n_rows": 100,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "N6_quench": {
+   "file": "data/N6/n6_quench.jsonl",
+   "n_rows": 368
+  },
+  "velorca_lone": {
+   "file": "data/velorca/lone.jsonl",
+   "n_rows": 720,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 120
+  },
+  "velorca_pair": {
+   "file": "data/velorca/pair.jsonl",
+   "n_rows": 552,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 92
+  },
+  "velorca_whole": {
+   "file": "data/velorca/whole.jsonl",
+   "n_rows": 200,
+   "run_seeds": "242-341",
+   "n_run_seeds": 100
+  },
+  "A1": {
+   "file": "data/revision/A1/a1_quench.jsonl",
+   "n_rows": 120
+  },
+  "A2": {
+   "file": "data/revision/A2/a2_runs.jsonl",
+   "n_rows": 10,
+   "run_seeds": "242-251",
+   "n_run_seeds": 10
+  },
+  "A5x": {
+   "file": "data/revision/A5/a5_quench.jsonl",
+   "n_rows": 2814,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 804,
+   "noise_seed_min": 90000,
+   "noise_seed_max": 105904,
+   "n_noise_seeds": 670,
+   "n_noise_rows": 670,
+   "reps": "0-4",
+   "noise_rule": "90000 + 100 k + rep",
+   "k_range": "0-2, 4-10, 12-14, 16-23, 27-43, 46-49, 53-64, 66-87, 89-91, 93-98, 100, 102, 104-106, 108-113, 116-119, 121-128, 130-132, 134-144, 146-149, 151-156, 158-159",
+   "same_seeds_every_sigma": true
+  },
+  "B1": {
+   "file": "data/revision/B1/b1.jsonl",
+   "n_rows": 600,
+   "run_seeds": "43, 45-52, 54-60, 62-71, 73, 76-77, 79-84, 86-92, 94-104, 106-116, 118-119, 121-124, 126-133, 135-139, 141-145, 148-157, 159, 161-165, 167-169, 171-191, 193-194, 196-205, 207-209, 211-233, 235, 237-241",
+   "n_run_seeds": 172
+  },
+  "B2": {
+   "file": "data/revision/B2/b2.jsonl",
+   "n_rows": 800,
+   "run_seeds": "42-141",
+   "n_run_seeds": 100
+  },
+  "B3": {
+   "file": "data/revision/B3/b3.jsonl",
+   "n_rows": 180,
+   "noise_seed_min": 51000,
+   "noise_seed_max": 53219,
+   "n_noise_seeds": 180,
+   "n_noise_rows": 180,
+   "reps": "0-19",
+   "noise_rule": "51000 + 1000 k + 100 level + rep",
+   "k_range": "0-2"
+  },
+  "B4": {
+   "file": "data/revision/B4/b4.jsonl",
+   "n_rows": 30,
+   "run_seeds": "42-51",
+   "n_run_seeds": 10
+  },
+  "B5_gen": {
+   "file": "data/revision/B5/gen_rounded.jsonl",
+   "n_rows": 320,
+   "run_seeds": "242-561",
+   "n_run_seeds": 320
+  },
+  "B5_quench": {
+   "file": "data/revision/B5/quench.jsonl",
+   "n_rows": 478
+  },
+  "B6_gen": {
+   "file": "data/revision/B6/gen_line.jsonl",
+   "n_rows": 320,
+   "run_seeds": "242-561",
+   "n_run_seeds": 320
+  },
+  "B6_quench": {
+   "file": "data/revision/B6/quench.jsonl",
+   "n_rows": 322,
+   "perturb_seeds": "900-904",
+   "n_unperturbed": 92
+  },
+  "D3": {
+   "file": "data/revision/D3/d3_croma.jsonl",
+   "n_rows": 100,
+   "run_seeds": "42-66",
+   "n_run_seeds": 25
+  },
+  "noise_collisions": [
+   {
+    "a": "B3",
+    "b": "E3",
+    "n": 120,
+    "seeds": "51100-51119, 51200-51219, 52100-52119, 52200-52219, 53100-53119, 53200-53219"
+   },
+   {
+    "a": "E2",
+    "b": "E4",
+    "n": 30,
+    "seeds": "11000-11004, 11100-11104, 11200-11204, 12000-12004, 12100-12104, 12200-12204"
+   },
+   {
+    "a": "E4",
+    "b": "E7b_quench",
+    "n": 15,
+    "seeds": "20000-20004, 20100-20104, 20200-20204"
+   }
+  ],
+  "sources": {
+   "E1": "experiments/E1/e1_library.py:153",
+   "E2_perturb": "experiments/E2/e2_quench.py:44",
+   "E2_noise": "experiments/E2/e2_quench.py:66",
+   "perturb_draw": "experiments/lib/runlib.py:91",
+   "perturb_size": "experiments/lib/runlib.py:93",
+   "E3_noise": "experiments/E3/e3_dt.py:74",
+   "E3_t3": "experiments/E3/t3_variance.py:75",
+   "E4_noise": "experiments/E4/e4_escape.py:80",
+   "E5": "experiments/E5/e5_sweep.py:19",
+   "E6": "experiments/E6/e6.py:29",
+   "E7": "experiments/E7/e7_cells.py:21",
+   "E7b_lib": "experiments/E7b/e7b_lib.py:69",
+   "E7b_perturb": "experiments/E7b/e7b_quench.py:50",
+   "E7b_noise": "experiments/E7b/e7b_quench.py:111",
+   "E8": "experiments/E8/e8_counterflow.py:29",
+   "E9": "experiments/E9/e9_crossing.py:26",
+   "E10": "experiments/E10/e10_croma.py:56",
+   "E11": "experiments/E11/e11_overlap.py:30",
+   "arch": "experiments/arch/arch.py:124",
+   "N1": "experiments/runs3/N1.py:72",
+   "N2": "experiments/runs3/N2.py:27",
+   "N3": "experiments/runs3/N3.py:38",
+   "N5": "experiments/runs3/N5.py:26",
+   "velorca_perturb": "experiments/velorca/velorca.py:45",
+   "velorca_whole": "experiments/velorca/velorca.py:47",
+   "A5x_noise": "experiments/revision/A5_extra_second_traps.py:79",
+   "B2": "experiments/revision/B2_width.py:25",
+   "B3": "experiments/revision/B3_highbeta.py:65",
+   "B4": "experiments/revision/B4_arch_dt.py:32",
+   "B5_B6_gen": "experiments/revision/B6_gen.py:32",
+   "B6_perturb": "experiments/revision/B6_quench.py:32",
+   "D3": "experiments/revision/D3_croma_rerun.py:38",
+   "run_seed_spawn": "code/sim/core/simulation.py:70",
+   "noise_seed_restore": "experiments/lib/w2lib.py:80"
+  }
+ },
+ "deadlocks": {
+  "runs": 200,
+  "complete": 4,
+  "deadlock": 196,
+  "capped": 0,
+  "pickles": 196,
+  "deadlock_time_s": {
+   "min": 122.10000000002556,
+   "median": 155.65000000000342,
+   "max": 197.79999999996508
+  },
+  "complete_seeds": "96, 121, 168, 226",
+  "E1a": {
+   "runs": 200,
+   "complete": 3,
+   "deadlock": 197
+  },
+  "classes": {
+   "lone_keystone": 34,
+   "lone_keystone_second_trap": 160,
+   "collective": 2
+  },
+  "second_trap_K1b_held": 151,
+  "second_trap_K1b_freed": 9,
+  "collective_seeds": [
+   45,
+   101
+  ],
+  "rule": {
+   "v_thr_m_s": 0.01,
+   "hold_s": 10.0,
+   "check_every_steps": 10,
+   "t_max_s": 600.0,
+   "dt_s": 0.01
+  },
+  "sources": {
+   "detector": "experiments/lib/w2lib.py:152",
+   "timer_reset": "experiments/lib/w2lib.py:164",
+   "cap": "experiments/E1/e1_library.py:37",
+   "flags": "experiments/E1/e1_library.py:38",
+   "save": "experiments/E1/e1_library.py:146",
+   "keystone_classes": "experiments/E1/keystone.py:17",
+   "keystone_stop": "experiments/E1/keystone.py:5",
+   "keystone_window": "experiments/E1/keystone.py:38"
+  }
+ },
+ "selection": {
+  "E2": {
+   "n": 60,
+   "lone_keystone": 34,
+   "second_trap_pool": 160,
+   "second_trap_drawn": 26,
+   "drawn_seeds": [
+    46,
+    55,
+    60,
+    73,
+    74,
+    75,
+    103,
+    104,
+    111,
+    112,
+    113,
+    130,
+    158,
+    162,
+    170,
+    172,
+    174,
+    178,
+    186,
+    187,
+    192,
+    202,
+    209,
+    223,
+    230,
+    237
+   ],
+   "rule": "all lone keystones + Generator(PCG64(2026)).choice(160 ascending, 26, replace=False)"
+  },
+  "gate_accepted": 56,
+  "gate_accepted_by_class": {
+   "lone_keystone": 34,
+   "lone_keystone_second_trap": 22
+  },
+  "E3": {
+   "n_qualifying": 36,
+   "qualifying_by_class": {
+    "lone_keystone": 26,
+    "lone_keystone_second_trap": 10
+   },
+   "n": 20,
+   "by_class": {
+    "lone_keystone": 15,
+    "lone_keystone_second_trap": 5
+   },
+   "ranks": [
+    0,
+    2,
+    4,
+    6,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    29,
+    31,
+    33,
+    35
+   ],
+   "dU_min_J": 3.90493189222488,
+   "dU_max_J": 56.93224528478859,
+   "rule": "gate-accepted, full Delta U >= 3 J; ranks round(linspace(0, n_q - 1, 20)) by (Delta U, seed)"
+  },
+  "E4": {
+   "n_qualifying": 32,
+   "qualifying_by_class": {
+    "lone_keystone": 10,
+    "lone_keystone_second_trap": 22
+   },
+   "n": 10,
+   "by_class": {
+    "lone_keystone_second_trap": 7,
+    "lone_keystone": 3
+   },
+   "ranks": [
+    0,
+    3,
+    7,
+    10,
+    14,
+    17,
+    21,
+    24,
+    28,
+    31
+   ],
+   "dU_min_J": 0.020907573958197645,
+   "dU_max_J": 36.91735160313044,
+   "rule": "gate-accepted, n_resid >= 2 (blocker counted); ranks round(linspace(0, n_q - 1, 10)) by (Delta U, seed)"
+  },
+  "both_rules": 15,
+  "in_E3_and_E4": 2,
+  "pair": {
+   "library": 46,
+   "n": 12,
+   "ranks": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    25,
+    29,
+    33,
+    37,
+    41,
+    45
+   ],
+   "mu1_min_N_m": 65.03661907374993,
+   "mu1_max_N_m": 121.00076259971057,
+   "accepted": 12,
+   "channels": 24,
+   "channels_accepted": 21
+  },
+  "sources": {
+   "E2": "experiments/selection.py:42",
+   "spread": "experiments/selection.py:66",
+   "E3_rule": "experiments/selection.py:94",
+   "E4_rule": "experiments/selection.py:98",
+   "constants": "experiments/selection.py:33",
+   "pair": "experiments/E7b/e7b_barrier.py:76"
+  }
+ },
+ "strings": {
+  "n_rows": 60,
+  "accepted": {
+   "alone": 60,
+   "frozen": 60,
+   "full": 56
+  },
+  "resolution_pairs_full": {
+   "31-62": 54,
+   "62-124": 6
+  },
+  "failed": [
+   {
+    "tag": "E1b_seed75",
+    "class": "lone_keystone_second_trap",
+    "cond": "full",
+    "reasons": [
+     "barrier changes by 1e+02% from 62 to 124 images"
+    ],
+    "n_resid": 2
+   },
+   {
+    "tag": "E1b_seed172",
+    "class": "lone_keystone_second_trap",
+    "cond": "full",
+    "reasons": [
+     "climbing image not converged"
+    ],
+    "n_resid": 9
+   },
+   {
+    "tag": "E1b_seed174",
+    "class": "lone_keystone_second_trap",
+    "cond": "full",
+    "reasons": [
+     "string at 124 images not converged (F_perp_max 7.83 N)",
+     "climbing image below the path maximum (9.299 < 9.492 J)"
+    ],
+    "n_resid": 4
+   },
+   {
+    "tag": "E1b_seed209",
+    "class": "lone_keystone_second_trap",
+    "cond": "full",
+    "reasons": [
+     "barrier changes by 5.7% from 62 to 124 images"
+    ],
+    "n_resid": 2
+   }
+  ],
+  "n_failed": 4,
+  "settings": {
+   "images": [
+    31,
+    62,
+    124
+   ],
+   "schedule_iters_alpha": [
+    [
+     1500,
+     4e-05
+    ],
+    [
+     500,
+     1e-05
+    ],
+    [
+     500,
+     1e-05
+    ]
+   ],
+   "step_cap_m": 0.002,
+   "F_perp_tol_N": 5.0,
+   "doubling_tol": 0.01,
+   "climb_grad_tol_N": 0.01,
+   "climb_max_iters": 3000,
+   "climb_alpha_fallback_factor": 0.25,
+   "guard_tol_J": 0.0001,
+   "overlap_max_m": 0.02,
+   "x_exit_m": 10.35,
+   "exit_state_x_m": 10.0,
+   "grid_tol": 0.02,
+   "grid_res_tol": 0.01,
+   "grid_h_m": [
+    0.005,
+    0.0025
+   ],
+   "relax_steps": 4000,
+   "relax_alpha": 5e-05,
+   "relax_grad_tol_N": 0.001,
+   "fd_h_m": 1e-06,
+   "pair_cutoff_m": 3.0,
+   "frozen_ratio": 1.5
+  },
+  "sources": {
+   "step_cap": "experiments/BAR/bar.py:7",
+   "relax": "experiments/BAR/bar.py:122",
+   "relax_stop": "experiments/BAR/bar.py:129",
+   "fd_grad": "experiments/BAR/bar.py:95",
+   "end_alone_frozen": "experiments/BAR/bar.py:177",
+   "end_full": "experiments/BAR/gate.py:344",
+   "start": "experiments/BAR/gate.py:315",
+   "reparam": "experiments/BAR/gate.py:73",
+   "tolerances": "experiments/BAR/gate.py:58",
+   "resolutions": "experiments/BAR/gate.py:66",
+   "schedule": "experiments/BAR/gate.py:68",
+   "upwind_tangent": "experiments/BAR/gate.py:85",
+   "f_perp_segment": "experiments/BAR/gate.py:109",
+   "climb": "experiments/BAR/gate.py:128",
+   "gate_checks": "experiments/BAR/gate.py:239",
+   "rule_doc": "experiments/BAR/gate.py:6"
+  }
+ },
+ "orca": {
+  "solvers": {
+   "rvo2": {
+    "variant": "rvo2",
+    "time_horizon_s": 5.0,
+    "tau_orca_s": 0.5,
+    "collision_dt_s": 0.01,
+    "neighbor_radius_m": 3.0,
+    "gate_rho0": 4.0,
+    "gate_k": 2.0
+   },
+   "legacy": {
+    "variant": "published",
+    "time_horizon_s": 5.0,
+    "tau_orca_s": 0.5,
+    "collision_dt_s": 0.01,
+    "neighbor_radius_m": 3.0,
+    "gate_rho0": 4.0,
+    "gate_k": 2.0
+   }
+  },
+  "compute_orca_forces_args": [
+   "self",
+   "agent_state",
+   "neighbor_lists"
+  ],
+  "mentions_wall": false,
+  "max_neighbours": null,
+  "speed_circle_v0": 2.0,
+  "sources": {
+   "neighbor_radius": "code/sim/core/simulation.py:52",
+   "neighbour_query": "code/sim/core/simulation.py:127",
+   "horizon_default": "code/sim/steering/orca.py:266",
+   "tau_orca_default": "code/sim/steering/orca.py:267",
+   "construct": "code/sim/steering/hybrid.py:56",
+   "params_yaml": "code/config/params.yaml:5",
+   "force": "code/sim/steering/orca.py:434",
+   "speed_circle": "code/sim/steering/orca.py:418",
+   "rvo2_lines_call": "code/sim/steering/orca.py:388",
+   "rvo2_no_obstacles": "code/sim/steering/orca_rvo2.py:4",
+   "rvo2_neighbour_set": "code/sim/steering/orca_rvo2.py:20",
+   "rvo2_sorted": "code/sim/steering/orca.py:387",
+   "legacy_halfplanes": "code/sim/steering/orca.py:359",
+   "collision_dt": "code/sim/steering/orca.py:365",
+   "gate": "code/sim/steering/hybrid.py:138",
+   "added_to_F": "code/sim/steering/hybrid.py:189",
+   "walls_separate": "code/sim/steering/hybrid.py:182",
+   "velocity_filter": "code/sim/steering/orca.py:396"
+  }
+ },
+ "e3_orca": {
+  "n_snapshots": 20,
+  "runs_per_dt": 1,
+  "n_runs": 60,
+  "n_freed": 16,
+  "n_held_300s": 4,
+  "mixed": 0,
+  "ln_ratio_maxabs": 0.017699577097979823,
+  "ln_ratio_mean": -0.004803768028475985,
+  "t_esc_dt0p01_s": {
+   "min": 0.739999999999327,
+   "median": 1.2649999999988495,
+   "max": 5.139999999995325
+  },
+  "fig_n": 16,
+  "fig_mean": [
+   0.9974718040702292,
+   1.0,
+   1.0022749546058878
+  ],
+  "t_cens_s": 300.0,
+  "sigma": 0.0,
+  "perturb": null,
+  "event": "blocker centre x >= 10 m (or blocker exits)",
+  "noise_ell_definition": "ln lambda_hat(0.005) / lambda_hat(0.02), lambda_hat = censored-exponential MLE over 20 restarts",
+  "sources": {
+   "jobs": "experiments/E3/e3_dt.py:78",
+   "event": "experiments/lib/runlib.py:150",
+   "orca_ell": "experiments/E3/analyze.py:95",
+   "orca_fig": "experiments/E3/analyze.py:96",
+   "noise_ell": "experiments/E3/analyze.py:84",
+   "rate_mle": "experiments/E3/analyze.py:74",
+   "eq_ell": "paper/sections/04_protocol.tex:43",
+   "table2": "paper/tables/table2_signatures.tex:23",
+   "fig_caption": "paper/sections/05_deadlock_physics.tex:35"
+  }
+ },
+ "counts": {
+  "velorca_lone": {
+   "vel_rvo2": {
+    "runs": 360,
+    "unperturbed": 60,
+    "snapshots": 60
+   },
+   "vel_pub": {
+    "runs": 360,
+    "unperturbed": 60,
+    "snapshots": 60
+   }
+  },
+  "velorca_pair": {
+   "vel_rvo2": {
+    "runs": 276,
+    "unperturbed": 46,
+    "snapshots": 46
+   },
+   "vel_pub": {
+    "runs": 276,
+    "unperturbed": 46,
+    "snapshots": 46
+   }
+  },
+  "E2_det_runs_per_arm": [
+   360
+  ],
+  "E2_det_arms": 13,
+  "E2_C3_rvo2_runs": 360,
+  "E7b_det_runs_per_arm": [
+   276
+  ],
+  "E7b_det_arms": 20,
+  "E7b_C3_rvo2_runs": 276,
+  "B5_reequil": {
+   "rows": 276,
+   "radii": [
+    "rc0.001",
+    "rc0.003",
+    "rc0.01",
+    "rc0.02",
+    "rc0.05",
+    "rc0.1"
+   ],
+   "per_radius": [
+    46
+   ],
+   "snapshots": 46
+  },
+  "B5_rule_n_checked": 276,
+  "E2_lemma_pairs": 360,
+  "sources": {
+   "velorca_jobs": "experiments/velorca/velorca.py:56",
+   "B5_radii": "experiments/revision/B5_static.py:59",
+   "paper_velorca": "paper/sections/06_screening.tex:51",
+   "paper_B5": "paper/sections/05_deadlock_physics.tex:48"
+  }
+ },
+ "macros": {
+  "deadlocks": 196,
+  "runs": 200,
+  "complete": 4,
+  "lone": 34,
+  "second": 26,
+  "second_pool": 160,
+  "collective": 2,
+  "accepted": 56,
+  "failed": 4,
+  "e3_qual": 36,
+  "e3_n": 20,
+  "e4_qual": 32,
+  "e4_n": 10,
+  "pair_lib": 46,
+  "pair_bar": 12,
+  "img_lo": 31,
+  "img_mid": 62,
+  "img_hi": 124,
+  "step_cap_mm": 2.0,
+  "f_tol": 5.0,
+  "double_tol_pct": 1.0,
+  "overlap_cm": 2.0,
+  "grid_tol_pct": 2.0,
+  "x_exit": 10.35,
+  "orca_R": 3.0,
+  "orca_th": 5.0,
+  "orca_tau": 0.5,
+  "e3_orca_freed": 16,
+  "e3_orca_held": 4,
+  "e3_orca_ell_max": 0.017699577097979823,
+  "lone_runs": 360,
+  "pair_runs": 276,
+  "b5_cases": 276,
+  "b5_radii": 6,
+  "replays": 5,
+  "climb_tol": 0.01,
+  "du_min": 3.0,
+  "dl_vthr": 0.01,
+  "dl_hold": 10.0,
+  "dl_cap": 600.0,
+  "draw_seed": 2026,
+  "res_124": 6,
+  "e3_orca_cens": 300.0,
+  "lib_n": 60,
+  "e3_orca_n": 20,
+  "dl_check_s": 0.1,
+  "ks_window": 120.0,
+  "runs_per_snap": 6,
+  "replay_disp_m": 1e-09,
+  "width": 0.8,
+  "e1_lo": 42,
+  "e1_hi": 241,
+  "e5_lo": 42,
+  "e5_hi": 141,
+  "e6_lo": 242,
+  "e6_hi": 427,
+  "e6p_lo": 428,
+  "e6p_hi": 477,
+  "pairlib_lo": 242,
+  "pairlib_hi": 561,
+  "open_lo": 42,
+  "open_hi": 66,
+  "vel_lo": 242,
+  "vel_hi": 341,
+  "b2_lo": 42,
+  "b2_hi": 141,
+  "b4_lo": 42,
+  "b4_hi": 51,
+  "pert_lo": 900,
+  "pert_hi": 904
+ }
+}
