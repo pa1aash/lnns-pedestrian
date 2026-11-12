@@ -11,12 +11,12 @@
 \def\hd#1#2{\begin{tabular}[b]{@{}l@{}}#1\\#2\end{tabular}}%
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llllllll@{}}
 \toprule
-Class & Quench & Replay & \hd{$\Delta t$: per step;}{$\sqrt{\Delta t}$-scaled} & Push $\pm$ & Tilt $\pm b$ & \hd{First}{exit} & \hd{Corrected}{impl.} \\
+Class & Quench & Replay & \hd{$\Delta t$: per step;}{$\sqrt{\Delta t}$-scaled} & Push $\pm$ & Bias $\pm b$ & \hd{First}{exit} & \hd{Corrected}{impl.} \\
 \midrule
 Prevent & held$^\dagger$ & held$^\dagger$ & held$^\dagger$; held$^\dagger$ & no change$^\dagger$ & no change$^\dagger$ & n.a. & persists \\
 \tl{Reshape,}{axial} & frees & identical & flat; flat & \tl{$+$ frees,}{$-$ not} & n.a. & unhanded & persists \\
 \tl{Reshape,}{lateral} & frees past $b_f$ & identical & flat; flat & n.a. & \tl{both signs}{free past $b_f$} & side of $b^\dagger$ & persists \\
-Heat & \tl{frees,}{exp.\ times} & disagree$^\dagger$ & falls$^\dagger$; flat$^\dagger$ & n.a. & n.a. & unhanded & persists \\
+Heat & \tl{frees; exp.\ times}{at $\beta\ge1.5$} & disagree$^\dagger$ & falls$^\dagger$; flat$^\dagger$ & n.a. & n.a. & unhanded & persists \\
 \midrule
 \tl{Defect}{flag} & \multicolumn{6}{l}{as its class} & vanishes$^\dagger$ \\
 \tl{Replay}{sensitivity} & as its class & changes$^\dagger$ & \multicolumn{4}{l}{as its class} & as its class \\

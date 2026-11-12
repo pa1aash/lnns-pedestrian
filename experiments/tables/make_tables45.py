@@ -202,8 +202,7 @@ BLOCKS_B = [
 ]
 
 CAPTION_A = (
-    r"Per-step noise against force-coupled ORCA (RVO2), fraction-matched at the lone keystones and in whole runs "
-    r"(at the second traps $\Delta$ excludes 0)."
+    r"Per-step noise against force-coupled ORCA (RVO2), fraction-matched at the lone keystones and in whole runs."
 )
 NOTE_A = (
     r"Freed: runs freed by $T$ (noise), snapshots (force-coupled ORCA), runs completed (whole runs). "
@@ -216,7 +215,7 @@ NOTE_A = (
     r"$\ell$: Eq.~\eqref{eq:ell} pooled over the " + one("EthreeN") + r" snapshots of the time-step set, noise at "
     r"$\beta=1.5$ (prediction). "
     r"Intervals are unadjusted. $p$ beside $\Delta$, $\Delta$RMST and $\ell$: paired test, Holm-adjusted over the "
-    r"probes of the comparison (lone keystones 4: $\Delta$, replay, $\Delta$RMST, and $\ell$ or outcome identity; "
+    r"probes of the comparison (lone keystones 4: $\Delta$, replay, $\Delta$RMST and either $\ell$ or outcome identity; "
     r"second traps 3; whole runs 4: $\Delta$, outcome identity, $\Delta$RMST, final-state class). "
     r"$p$ beside $\Omega$: hypergeometric, unadjusted. "
     r"n.a.: not applicable; not run: probe not run on this set."
