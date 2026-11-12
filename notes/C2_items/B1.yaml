@@ -19,3 +19,19 @@ RvBoneOffWEightEightK: {file: rev2_B1.json, key: "a.per_width.2.off.k", fmt: "{:
 RvBoneOnWEightEightK: {file: rev2_B1.json, key: "a.per_width.2.on.k", fmt: "{:d}"}
 RvBoneOffWNineSixK: {file: rev2_B1.json, key: "a.per_width.4.off.k", fmt: "{:d}"}
 RvBoneOnWNineSixK: {file: rev2_B1.json, key: "a.per_width.4.on.k", fmt: "{:d}"}
+# (b) w = 0.8 m whole runs, seeds 242-341
+RvBoneSfmOffK: {file: rev2_B1.json, key: "b.sfm.off.k", fmt: "{:d}"}
+RvBoneSfmOnK: {file: rev2_B1.json, key: "b.sfm.on.k", fmt: "{:d}"}
+RvBoneSfmN: {file: rev2_B1.json, key: "b.sfm.off.n", fmt: "{:d}"}
+RvBoneSfmOffHi: {file: rev2_B1.json, key: "b.sfm.off.ci95.1", fmt: sig, digits: 2}
+RvBoneOrcaOffK: {file: rev2_B1.json, key: "b.orca.off.k", fmt: "{:d}"}
+RvBoneOrcaOnK: {file: rev2_B1.json, key: "b.orca.on.k", fmt: "{:d}"}
+RvBoneOrcaN: {file: rev2_B1.json, key: "b.orca.off.n", fmt: "{:d}"}
+RvBoneOrcaOffLo: {file: rev2_B1.json, key: "b.orca.off.ci95.0", fmt: sig, digits: 2}
+RvBoneOrcaOffHi: {file: rev2_B1.json, key: "b.orca.off.ci95.1", fmt: sig, digits: 2}
+RvBoneOrcaOffOnly: {file: rev2_B1.json, key: "b.orca.off_only", fmt: "{:d}"}
+RvBoneOrcaOnOnly: {file: rev2_B1.json, key: "b.orca.on_only", fmt: "{:d}"}
+RvBoneOrcaP: {file: rev2_B1.json, key: "b.orca.mcnemar_p", fmt: sci, digits: 2}
+RvBoneOrcaPDisp: {file: rev2_B1.json, key: "b.orca.mcnemar_p", fmt: p}
+RvBoneOrcaOffDeadlock: {file: rev2_B1.json, key: "b.orca.off_deadlock", fmt: "{:d}"}
+RvBoneOrcaOffCapped: {file: rev2_B1.json, key: "b.orca.off_capped", fmt: "{:d}"}
