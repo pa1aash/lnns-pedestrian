@@ -8,7 +8,7 @@ a  Completion against width, throttle off: binomial-logit MLE, w50 = -a/b with t
    HEADLINE CHANGE if the throttle-off w50 lies outside the published 95% interval.
 b  w = 0.8 m, seeds 242-341: completion of SFM and force-coupled ORCA (RVO2), off against on (velorca "sfm",
    E6a), Wilson intervals, paired McNemar; final state (deadlock / capped).
-c  CroMa (D3 cells C1_cf, C3_rvo2_cf; agent numbers of the participants who passed; 2.0 / 0.2 m): per-run flow,
+c  CroMa (D3 cells C1_cf, C3_rvo2_cf, and from part d C1_cf_edge, C1_cf_sig; agent numbers of the participants who passed; 2.0 / 0.2 m): per-run flow,
    flow ratio to the corrected human flows, gaps right-censored at 600 s, completions, with the D3 estimator
    (D_croma_integrity.d4 unchanged), against D3 (throttle on) paired by seed. HEADLINE CHANGE if the range of
    flow ratios over the four Sect. 7 variants (three from D3 for the variants not rerun) leaves 0.40-0.60.
@@ -102,9 +102,8 @@ def part_b():
 
 
 def part_c():
-    path = os.path.join(B1, "b1c.jsonl")
-    R = jl(path)
-    cells = [c for c in ("C1_cf", "C3_rvo2_cf") if sum(r["cell"] == c for r in R) >= 2]
+    R = jl(os.path.join(B1, "b1c.jsonl")) + jl(os.path.join(B1, "b1d.jsonl"))
+    cells = [c for c in ("C1_cf", "C1_cf_edge", "C3_rvo2_cf", "C1_cf_sig") if sum(r["cell"] == c for r in R) >= 25]
     if not cells:
         return {}
     rev = json.load(open(D3A.REV_D))
@@ -155,10 +154,13 @@ def part_c():
         v["window_ratio_to_human"] = v["window_flow"]["mean"] / hw
         v["window_ratio_on"] = on[c]["window_flow"]["mean"] / hw
         v["flow_ratio_change"] = v["flow_ratio"]["ratio"] - v["on"]["flow_ratio"]
-    if len(cells) == 2:
+    if len(cells) >= 2:
+        o["all_four_off"] = len(cells) == 4
         rs = {c: on[c]["flow_ratio"]["ratio"] for c in on}
         rs.update({c: o["per_variant"][c]["flow_ratio"]["ratio"] for c in cells})
         o["range_with_off"] = {"min": min(rs.values()), "max": max(rs.values()), "ratios": rs}
+        ro = {c: o["per_variant"][c]["flow_ratio"]["ratio"] for c in cells}
+        o["range_off_only"] = {"min": min(ro.values()), "max": max(ro.values()), "cells": cells}
         o["range_on"] = {"min": rev["D3"]["rerun"]["range"]["min"], "max": rev["D3"]["rerun"]["range"]["max"]}
         o["headline_change"] = (round(o["range_with_off"]["min"], 2) != round(o["range_on"]["min"], 2)
                                 or round(o["range_with_off"]["max"], 2) != round(o["range_on"]["max"], 2))

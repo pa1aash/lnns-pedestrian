@@ -9,7 +9,9 @@ Parts (each its own resumable JSONL in data/revision2/B1/, job_id as in the run 
   c  CroMa: the D3 cells C1_cf (SFM) and C3_rvo2_cf (force-coupled ORCA, RVO2), agent numbers and bottleneck
      lengths of D3 (participants who passed; 2.0 m for 4D030/4D040, 0.2 m otherwise), seeds 42-66, five model
      runs per human run, 600 s; runner E10.run, unchanged. Throttle-on counterpart: D3.
-Usage: B1_throttle.py a|b|c [qargs options]
+  d  CroMa, the other two Sect. 7 variants of D3 (C1_cf_edge: B_w = 0.04 m on the bottleneck edges; C1_cf_sig:
+     per-step noise sigma = 0.0467 m/s), as c, so that the throttle-off range covers all four variants.
+Usage: B1_throttle.py a|b|c|d [qargs options]
 """
 import os
 import sys
@@ -42,10 +44,10 @@ def jobs_b():
              "sigma": 0.0, "t_max": 600.0} for v, (cfg, fl) in V.items() for s in range(242, 342)]
 
 
-def jobs_c(raw):
+def jobs_c(raw, cells=("C1_cf", "C3_rvo2_cf")):
     J = []
     for j in D3.jobs(raw):
-        if j["cell"] in ("C1_cf", "C3_rvo2_cf"):
+        if j["cell"] in cells:
             J.append(dict(j, flags={**j["flags"], **OFF}))
     return J
 
@@ -61,6 +63,8 @@ if __name__ == "__main__":
         J, fn = jobs_b(), whole_run
     elif part == "c":
         J, fn = jobs_c(os.path.join(os.path.dirname(out), "raw_c")), E10.run
+    elif part == "d":
+        J, fn = jobs_c(os.path.join(os.path.dirname(out), "raw_c"), ("C1_cf_edge", "C1_cf_sig")), E10.run
     else:
-        sys.exit("part must be a, b or c")
+        sys.exit("part must be a, b, c or d")
     run_jobs(qargs.select(J, a), fn, out, workers=a.workers, log_every=10)

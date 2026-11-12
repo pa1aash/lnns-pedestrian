@@ -19,3 +19,6 @@ steps:
   - name: A11
     cmd: [experiments/revision2/A11_whole.py, --workers, '4']
     cpu_h: 4.5
+  - name: B1d
+    cmd: [experiments/revision2/B1_throttle.py, d, --workers, '4']
+    cpu_h: 1.5
