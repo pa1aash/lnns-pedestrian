@@ -3,16 +3,16 @@
 \caption{Outcomes of the 25 runs per model variant at the CroMa entrance.}
 \label{tab:croma}
 \centering\scriptsize\setlength{\tabcolsep}{3pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccc@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccc@{}}
 \toprule
-Variant & Complete & Deadlock & Running & Max.\ gap & Flow ratio [95\%]\\
+Variant & Runs & Max.\ gap & Flow ratio [95\%] & No throttle [95\%]\\
 \midrule
-SFM & \RevDThreeCOneComplete & \RevDThreeCOneDeadlock & \RevDThreeCOneCapped & \PendCOneGapCompleteMax\,s & \RevDThreeCOneFlowRatio\ [\RevDThreeCOneFlowRatioLo, \RevDThreeCOneFlowRatioHi]\\
-SFM, jamb range & \RevDThreeCEdgeComplete & \RevDThreeCEdgeDeadlock & \RevDThreeCEdgeCapped & \PendCEdgeGapCompleteMax\,s & \RevDThreeCEdgeFlowRatio\ [\RevDThreeCEdgeFlowRatioLo, \RevDThreeCEdgeFlowRatioHi]\\
-Force-coupled ORCA (RVO2) & \RevDThreeCThreeComplete & \RevDThreeCThreeDeadlock & \RevDThreeCThreeCapped & \PendCThreeGapCompleteMax\,s & \RevDThreeCThreeFlowRatio\ [\RevDThreeCThreeFlowRatioLo, \RevDThreeCThreeFlowRatioHi]\\
-SFM, noise $\sigma^\ast$ & \RevDThreeCSigComplete & \RevDThreeCSigDeadlock & \RevDThreeCSigCapped & \PendSigGapCompleteMax\,s & \RevDThreeCSigFlowRatio\ [\RevDThreeCSigFlowRatioLo, \RevDThreeCSigFlowRatioHi]\\
+SFM & \RevDThreeCOneComplete/\RevDThreeCOneDeadlock/\RevDThreeCOneCapped & \PendCOneGapCompleteMax\,s & \RevDThreeCOneFlowRatio\ [\RevDThreeCOneFlowRatioLo, \RevDThreeCOneFlowRatioHi] & \RvBoneCroSfmRatio\ [\RvBoneCroSfmRatioLo, \RvBoneCroSfmRatioHi]\\
+SFM, jamb range & \RevDThreeCEdgeComplete/\RevDThreeCEdgeDeadlock/\RevDThreeCEdgeCapped & \PendCEdgeGapCompleteMax\,s & \RevDThreeCEdgeFlowRatio\ [\RevDThreeCEdgeFlowRatioLo, \RevDThreeCEdgeFlowRatioHi] & \RvBoneCroEdgeRatio\ [\RvBoneCroEdgeRatioLo, \RvBoneCroEdgeRatioHi]\\
+Force-coupled ORCA (RVO2) & \RevDThreeCThreeComplete/\RevDThreeCThreeDeadlock/\RevDThreeCThreeCapped & \PendCThreeGapCompleteMax\,s & \RevDThreeCThreeFlowRatio\ [\RevDThreeCThreeFlowRatioLo, \RevDThreeCThreeFlowRatioHi] & \RvBoneCroOrcaRatio\ [\RvBoneCroOrcaRatioLo, \RvBoneCroOrcaRatioHi]\\
+SFM, noise $\sigma^\ast$ & \RevDThreeCSigComplete/\RevDThreeCSigDeadlock/\RevDThreeCSigCapped & \PendSigGapCompleteMax\,s & \RevDThreeCSigFlowRatio\ [\RevDThreeCSigFlowRatioLo, \RevDThreeCSigFlowRatioHi] & \RvBoneCroSigRatio\ [\RvBoneCroSigRatioLo, \RvBoneCroSigRatioHi]\\
 \bottomrule
 \end{tabular*}
 \par\smallskip
-\parbox{\textwidth}{\scriptsize Running: still moving at 600\,s. Max.\ gap: longest gap of completed runs.}
+\parbox{\textwidth}{\scriptsize Runs: complete/deadlock/still moving at 600\,s. Max.\ gap: longest gap of completed runs. No throttle: $v_{\rm eff}=v_0$, same spawns.}
 \end{table}
