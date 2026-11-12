@@ -1,0 +1,53 @@
+# A6 split-half fit of the lateral bias b* (experiments/revision2/A6_bstar_split.py)
+# Legacy/Rvo = fit to ORCA (legacy)/(RVO2); Err = held-out bias freed fraction minus ORCA's (quench interpolation),
+# ErrStatic = the same from the static thresholds; Ref = split alone (ORCA held-out minus fitting half).
+RvAsixNSnap: {file: rev2_A6.json, key: "n_snapshots", fmt: "{:d}"}
+RvAsixNSplits: {file: rev2_A6.json, key: "n_splits", fmt: "{:d}"}
+RvAsixNHalf: {file: rev2_A6.json, key: "n_half", fmt: "{:d}"}
+RvAsixNNonmono: {file: rev2_A6.json, key: "n_quench_nonmonotone", fmt: "{:d}"}
+RvAsixLegacyBFull: {file: rev2_A6.json, key: "solvers.legacy.b_star_full", fmt: sig, digits: 2}
+RvAsixLegacyBFitMedian: {file: rev2_A6.json, key: "solvers.legacy.b_fit.median", fmt: sig, digits: 2}
+RvAsixLegacyBFitLo: {file: rev2_A6.json, key: "solvers.legacy.b_fit.lo95", fmt: sig, digits: 2}
+RvAsixLegacyBFitHi: {file: rev2_A6.json, key: "solvers.legacy.b_fit.hi95", fmt: sig, digits: 2}
+RvAsixLegacyErrMedian: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.median", fmt: sig, digits: 2}
+RvAsixLegacyErrLo: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.lo95", fmt: sig, digits: 2}
+RvAsixLegacyErrHi: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.hi95", fmt: sig, digits: 2}
+RvAsixLegacyErrStaticMedian: {file: rev2_A6.json, key: "solvers.legacy.err_held_static.median", fmt: sig, digits: 2}
+RvAsixLegacyErrStaticLo: {file: rev2_A6.json, key: "solvers.legacy.err_held_static.lo95", fmt: sig, digits: 2}
+RvAsixLegacyErrStaticHi: {file: rev2_A6.json, key: "solvers.legacy.err_held_static.hi95", fmt: sig, digits: 2}
+RvAsixLegacyRefMedian: {file: rev2_A6.json, key: "solvers.legacy.split_ref.median", fmt: sig, digits: 2}
+RvAsixLegacyRefLo: {file: rev2_A6.json, key: "solvers.legacy.split_ref.lo95", fmt: sig, digits: 2}
+RvAsixLegacyRefHi: {file: rev2_A6.json, key: "solvers.legacy.split_ref.hi95", fmt: sig, digits: 2}
+RvAsixLegacyFitErrMedian: {file: rev2_A6.json, key: "solvers.legacy.err_fit_quench.median", fmt: sig, digits: 2}
+RvAsixLegacyFitErrLo: {file: rev2_A6.json, key: "solvers.legacy.err_fit_quench.lo95", fmt: sig, digits: 2}
+RvAsixLegacyFitErrHi: {file: rev2_A6.json, key: "solvers.legacy.err_fit_quench.hi95", fmt: sig, digits: 2}
+RvAsixLegacyErrMean: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.mean", fmt: sig, digits: 2}
+RvAsixLegacyErrSd: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.sd", fmt: sig, digits: 2}
+RvAsixLegacyErrRmse: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.rmse", fmt: sig, digits: 2}
+RvAsixLegacyRefRmse: {file: rev2_A6.json, key: "solvers.legacy.split_ref.rmse", fmt: sig, digits: 2}
+RvAsixLegacyRefSd: {file: rev2_A6.json, key: "solvers.legacy.split_ref.sd", fmt: sig, digits: 2}
+RvAsixLegacyErrFracInMargin: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.frac_abs_le_0p10", fmt: sig, digits: 2}
+RvAsixLegacyErrMedianAbs: {file: rev2_A6.json, key: "solvers.legacy.err_held_quench.median_abs", fmt: sig, digits: 2}
+RvAsixRvoBFull: {file: rev2_A6.json, key: "solvers.rvo2.b_star_full", fmt: sig, digits: 2}
+RvAsixRvoBFitMedian: {file: rev2_A6.json, key: "solvers.rvo2.b_fit.median", fmt: sig, digits: 2}
+RvAsixRvoBFitLo: {file: rev2_A6.json, key: "solvers.rvo2.b_fit.lo95", fmt: sig, digits: 2}
+RvAsixRvoBFitHi: {file: rev2_A6.json, key: "solvers.rvo2.b_fit.hi95", fmt: sig, digits: 2}
+RvAsixRvoErrMedian: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.median", fmt: sig, digits: 2}
+RvAsixRvoErrLo: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.lo95", fmt: sig, digits: 2}
+RvAsixRvoErrHi: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.hi95", fmt: sig, digits: 2}
+RvAsixRvoErrStaticMedian: {file: rev2_A6.json, key: "solvers.rvo2.err_held_static.median", fmt: sig, digits: 2}
+RvAsixRvoErrStaticLo: {file: rev2_A6.json, key: "solvers.rvo2.err_held_static.lo95", fmt: sig, digits: 2}
+RvAsixRvoErrStaticHi: {file: rev2_A6.json, key: "solvers.rvo2.err_held_static.hi95", fmt: sig, digits: 2}
+RvAsixRvoRefMedian: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.median", fmt: sig, digits: 2}
+RvAsixRvoRefLo: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.lo95", fmt: sig, digits: 2}
+RvAsixRvoRefHi: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.hi95", fmt: sig, digits: 2}
+RvAsixRvoFitErrMedian: {file: rev2_A6.json, key: "solvers.rvo2.err_fit_quench.median", fmt: sig, digits: 2}
+RvAsixRvoFitErrLo: {file: rev2_A6.json, key: "solvers.rvo2.err_fit_quench.lo95", fmt: sig, digits: 2}
+RvAsixRvoFitErrHi: {file: rev2_A6.json, key: "solvers.rvo2.err_fit_quench.hi95", fmt: sig, digits: 2}
+RvAsixRvoErrMean: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.mean", fmt: sig, digits: 2}
+RvAsixRvoErrSd: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.sd", fmt: sig, digits: 2}
+RvAsixRvoErrRmse: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.rmse", fmt: sig, digits: 2}
+RvAsixRvoRefRmse: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.rmse", fmt: sig, digits: 2}
+RvAsixRvoRefSd: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.sd", fmt: sig, digits: 2}
+RvAsixRvoErrFracInMargin: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.frac_abs_le_0p10", fmt: sig, digits: 2}
+RvAsixRvoErrMedianAbs: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.median_abs", fmt: sig, digits: 2}

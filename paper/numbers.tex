@@ -6531,6 +6531,446 @@
 \newcommand{\RevDRatioMin}{0.40}
 % RevDRatioMax <- rev_D.json:D4_range.max
 \newcommand{\RevDRatioMax}{0.59}
+% RvAfiveMargin <- rev2_A5.json:margin
+\newcommand{\RvAfiveMargin}{0.10}
+% RvAfiveHalfwidthMin <- rev2_A5.json:margin_basis.orca_wilson_halfwidth_min
+\newcommand{\RvAfiveHalfwidthMin}{0.066}
+% RvAfiveHalfwidthMax <- rev2_A5.json:margin_basis.orca_wilson_halfwidth_max
+\newcommand{\RvAfiveHalfwidthMax}{0.17}
+% RvAfiveNEquivalent <- rev2_A5.json:summary.n_equivalent
+\newcommand{\RvAfiveNEquivalent}{3}
+% RvAfiveNMain <- rev2_A5.json:summary.n_main
+\newcommand{\RvAfiveNMain}{7}
+% RvAfiveNBoot <- rev2_A5.json:n_boot
+\newcommand{\RvAfiveNBoot}{10\,000}
+% RvAfiveLoneEtwoN <- rev2_A5.json:comparisons.lone_E2.n_units
+\newcommand{\RvAfiveLoneEtwoN}{34}
+% RvAfiveLoneEtwoOrcaFreed <- rev2_A5.json:comparisons.lone_E2.orca_freed
+\newcommand{\RvAfiveLoneEtwoOrcaFreed}{30}
+% RvAfiveLoneEtwoSurFrac <- rev2_A5.json:comparisons.lone_E2.surrogate_fraction
+\newcommand{\RvAfiveLoneEtwoSurFrac}{0.87}
+% RvAfiveLoneEtwoOrcaFrac <- rev2_A5.json:comparisons.lone_E2.orca_fraction
+\newcommand{\RvAfiveLoneEtwoOrcaFrac}{0.88}
+% RvAfiveLoneEtwoDiff <- rev2_A5.json:comparisons.lone_E2.delta
+\newcommand{\RvAfiveLoneEtwoDiff}{-0.012}
+% RvAfiveLoneEtwoDiffLo <- rev2_A5.json:comparisons.lone_E2.boot_ci95.0
+\newcommand{\RvAfiveLoneEtwoDiffLo}{-0.10}
+% RvAfiveLoneEtwoDiffHi <- rev2_A5.json:comparisons.lone_E2.boot_ci95.1
+\newcommand{\RvAfiveLoneEtwoDiffHi}{0.076}
+% RvAfiveLoneEtwoDiffLoNinety <- rev2_A5.json:comparisons.lone_E2.boot_ci90.0
+\newcommand{\RvAfiveLoneEtwoDiffLoNinety}{-0.082}
+% RvAfiveLoneEtwoDiffHiNinety <- rev2_A5.json:comparisons.lone_E2.boot_ci90.1
+\newcommand{\RvAfiveLoneEtwoDiffHiNinety}{0.065}
+% RvAfiveLoneEtwoTLoNinety <- rev2_A5.json:comparisons.lone_E2.t_ci90.0
+\newcommand{\RvAfiveLoneEtwoTLoNinety}{-0.090}
+% RvAfiveLoneEtwoTHiNinety <- rev2_A5.json:comparisons.lone_E2.t_ci90.1
+\newcommand{\RvAfiveLoneEtwoTHiNinety}{0.066}
+% RvAfiveLoneEtwoPTost <- rev2_A5.json:comparisons.lone_E2.p_tost_t
+\newcommand{\RvAfiveLoneEtwoPTost}{\ensuremath{3.2\times10^{-2}}}
+% RvAfiveLoneEtwoPTostDisp <- rev2_A5.json:comparisons.lone_E2.p_tost_t
+\newcommand{\RvAfiveLoneEtwoPTostDisp}{0.032}
+% RvAfiveLoneEtwoPTostDispRel <- relation and value of rev2_A5.json:comparisons.lone_E2.p_tost_t
+\newcommand{\RvAfiveLoneEtwoPTostDispRel}{\ensuremath{=0.032}}
+% RvAfiveLoneEtwoOrcaHalfwidth <- rev2_A5.json:comparisons.lone_E2.orca_wilson_halfwidth
+\newcommand{\RvAfiveLoneEtwoOrcaHalfwidth}{0.11}
+% RvAfiveLoneEtwoOrcaLastExit <- rev2_A5.json:comparisons.lone_E2.orca_last_exit_s
+\newcommand{\RvAfiveLoneEtwoOrcaLastExit}{6.9}
+% RvAfiveLoneEtwoWinFrom <- rev2_A5.json:comparisons.lone_E2.window_at_horizon_from_s
+\newcommand{\RvAfiveLoneEtwoWinFrom}{89}
+% RvAfiveLoneEtwoWinTo <- rev2_A5.json:comparisons.lone_E2.window_at_horizon_to_s
+\newcommand{\RvAfiveLoneEtwoWinTo}{120}
+% RvAfiveLoneEtwoTrivialTo <- rev2_A5.json:comparisons.lone_E2.trivial_T_s.0.1
+\newcommand{\RvAfiveLoneEtwoTrivialTo}{1}
+% RvAfiveLoneNoneN <- rev2_A5.json:comparisons.lone_N1.n_units
+\newcommand{\RvAfiveLoneNoneN}{34}
+% RvAfiveLoneNoneOrcaFreed <- rev2_A5.json:comparisons.lone_N1.orca_freed
+\newcommand{\RvAfiveLoneNoneOrcaFreed}{30}
+% RvAfiveLoneNoneSurFrac <- rev2_A5.json:comparisons.lone_N1.surrogate_fraction
+\newcommand{\RvAfiveLoneNoneSurFrac}{0.86}
+% RvAfiveLoneNoneOrcaFrac <- rev2_A5.json:comparisons.lone_N1.orca_fraction
+\newcommand{\RvAfiveLoneNoneOrcaFrac}{0.88}
+% RvAfiveLoneNoneDiff <- rev2_A5.json:comparisons.lone_N1.delta
+\newcommand{\RvAfiveLoneNoneDiff}{-0.018}
+% RvAfiveLoneNoneDiffLo <- rev2_A5.json:comparisons.lone_N1.boot_ci95.0
+\newcommand{\RvAfiveLoneNoneDiffLo}{-0.074}
+% RvAfiveLoneNoneDiffHi <- rev2_A5.json:comparisons.lone_N1.boot_ci95.1
+\newcommand{\RvAfiveLoneNoneDiffHi}{0.041}
+% RvAfiveLoneNoneDiffLoNinety <- rev2_A5.json:comparisons.lone_N1.boot_ci90.0
+\newcommand{\RvAfiveLoneNoneDiffLoNinety}{-0.065}
+% RvAfiveLoneNoneDiffHiNinety <- rev2_A5.json:comparisons.lone_N1.boot_ci90.1
+\newcommand{\RvAfiveLoneNoneDiffHiNinety}{0.031}
+% RvAfiveLoneNoneTLoNinety <- rev2_A5.json:comparisons.lone_N1.t_ci90.0
+\newcommand{\RvAfiveLoneNoneTLoNinety}{-0.068}
+% RvAfiveLoneNoneTHiNinety <- rev2_A5.json:comparisons.lone_N1.t_ci90.1
+\newcommand{\RvAfiveLoneNoneTHiNinety}{0.033}
+% RvAfiveLoneNonePTost <- rev2_A5.json:comparisons.lone_N1.p_tost_t
+\newcommand{\RvAfiveLoneNonePTost}{\ensuremath{4.8\times10^{-3}}}
+% RvAfiveLoneNonePTostDisp <- rev2_A5.json:comparisons.lone_N1.p_tost_t
+\newcommand{\RvAfiveLoneNonePTostDisp}{0.0048}
+% RvAfiveLoneNonePTostDispRel <- relation and value of rev2_A5.json:comparisons.lone_N1.p_tost_t
+\newcommand{\RvAfiveLoneNonePTostDispRel}{\ensuremath{=0.0048}}
+% RvAfiveLoneNoneOrcaHalfwidth <- rev2_A5.json:comparisons.lone_N1.orca_wilson_halfwidth
+\newcommand{\RvAfiveLoneNoneOrcaHalfwidth}{0.11}
+% RvAfiveLoneNoneOrcaLastExit <- rev2_A5.json:comparisons.lone_N1.orca_last_exit_s
+\newcommand{\RvAfiveLoneNoneOrcaLastExit}{6.9}
+% RvAfiveLoneNoneWinFrom <- rev2_A5.json:comparisons.lone_N1.window_at_horizon_from_s
+\newcommand{\RvAfiveLoneNoneWinFrom}{86}
+% RvAfiveLoneNoneWinTo <- rev2_A5.json:comparisons.lone_N1.window_at_horizon_to_s
+\newcommand{\RvAfiveLoneNoneWinTo}{120}
+% RvAfiveLoneNoneWinNinetyFiveFrom <- rev2_A5.json:comparisons.lone_N1.window95_at_horizon_from_s
+\newcommand{\RvAfiveLoneNoneWinNinetyFiveFrom}{91}
+% RvAfiveLoneNoneTrivialTo <- rev2_A5.json:comparisons.lone_N1.trivial_T_s.0.1
+\newcommand{\RvAfiveLoneNoneTrivialTo}{1}
+% RvAfiveSecondEtwoN <- rev2_A5.json:comparisons.second_E2.n_units
+\newcommand{\RvAfiveSecondEtwoN}{26}
+% RvAfiveSecondEtwoOrcaFreed <- rev2_A5.json:comparisons.second_E2.orca_freed
+\newcommand{\RvAfiveSecondEtwoOrcaFreed}{17}
+% RvAfiveSecondEtwoSurFrac <- rev2_A5.json:comparisons.second_E2.surrogate_fraction
+\newcommand{\RvAfiveSecondEtwoSurFrac}{0.90}
+% RvAfiveSecondEtwoOrcaFrac <- rev2_A5.json:comparisons.second_E2.orca_fraction
+\newcommand{\RvAfiveSecondEtwoOrcaFrac}{0.65}
+% RvAfiveSecondEtwoDiff <- rev2_A5.json:comparisons.second_E2.delta
+\newcommand{\RvAfiveSecondEtwoDiff}{0.25}
+% RvAfiveSecondEtwoDiffLo <- rev2_A5.json:comparisons.second_E2.boot_ci95.0
+\newcommand{\RvAfiveSecondEtwoDiffLo}{0.077}
+% RvAfiveSecondEtwoDiffHi <- rev2_A5.json:comparisons.second_E2.boot_ci95.1
+\newcommand{\RvAfiveSecondEtwoDiffHi}{0.43}
+% RvAfiveSecondEtwoDiffLoNinety <- rev2_A5.json:comparisons.second_E2.boot_ci90.0
+\newcommand{\RvAfiveSecondEtwoDiffLoNinety}{0.10}
+% RvAfiveSecondEtwoDiffHiNinety <- rev2_A5.json:comparisons.second_E2.boot_ci90.1
+\newcommand{\RvAfiveSecondEtwoDiffHiNinety}{0.40}
+% RvAfiveSecondEtwoTLoNinety <- rev2_A5.json:comparisons.second_E2.t_ci90.0
+\newcommand{\RvAfiveSecondEtwoTLoNinety}{0.087}
+% RvAfiveSecondEtwoTHiNinety <- rev2_A5.json:comparisons.second_E2.t_ci90.1
+\newcommand{\RvAfiveSecondEtwoTHiNinety}{0.41}
+% RvAfiveSecondEtwoPTost <- rev2_A5.json:comparisons.second_E2.p_tost_t
+\newcommand{\RvAfiveSecondEtwoPTost}{\ensuremath{9.4\times10^{-1}}}
+% RvAfiveSecondEtwoPTostDisp <- rev2_A5.json:comparisons.second_E2.p_tost_t
+\newcommand{\RvAfiveSecondEtwoPTostDisp}{0.94}
+% RvAfiveSecondEtwoPTostDispRel <- relation and value of rev2_A5.json:comparisons.second_E2.p_tost_t
+\newcommand{\RvAfiveSecondEtwoPTostDispRel}{\ensuremath{=0.94}}
+% RvAfiveSecondEtwoOrcaHalfwidth <- rev2_A5.json:comparisons.second_E2.orca_wilson_halfwidth
+\newcommand{\RvAfiveSecondEtwoOrcaHalfwidth}{0.17}
+% RvAfiveSecondEtwoOrcaLastExit <- rev2_A5.json:comparisons.second_E2.orca_last_exit_s
+\newcommand{\RvAfiveSecondEtwoOrcaLastExit}{14}
+% RvAfiveSecondEtwoTrivialTo <- rev2_A5.json:comparisons.second_E2.trivial_T_s.0.1
+\newcommand{\RvAfiveSecondEtwoTrivialTo}{1}
+% RvAfiveSecondPoolN <- rev2_A5.json:comparisons.second_pool.n_units
+\newcommand{\RvAfiveSecondPoolN}{160}
+% RvAfiveSecondPoolOrcaFreed <- rev2_A5.json:comparisons.second_pool.orca_freed
+\newcommand{\RvAfiveSecondPoolOrcaFreed}{121}
+% RvAfiveSecondPoolSurFrac <- rev2_A5.json:comparisons.second_pool.surrogate_fraction
+\newcommand{\RvAfiveSecondPoolSurFrac}{0.89}
+% RvAfiveSecondPoolOrcaFrac <- rev2_A5.json:comparisons.second_pool.orca_fraction
+\newcommand{\RvAfiveSecondPoolOrcaFrac}{0.76}
+% RvAfiveSecondPoolDiff <- rev2_A5.json:comparisons.second_pool.delta
+\newcommand{\RvAfiveSecondPoolDiff}{0.13}
+% RvAfiveSecondPoolDiffLo <- rev2_A5.json:comparisons.second_pool.boot_ci95.0
+\newcommand{\RvAfiveSecondPoolDiffLo}{0.076}
+% RvAfiveSecondPoolDiffHi <- rev2_A5.json:comparisons.second_pool.boot_ci95.1
+\newcommand{\RvAfiveSecondPoolDiffHi}{0.19}
+% RvAfiveSecondPoolDiffLoNinety <- rev2_A5.json:comparisons.second_pool.boot_ci90.0
+\newcommand{\RvAfiveSecondPoolDiffLoNinety}{0.085}
+% RvAfiveSecondPoolDiffHiNinety <- rev2_A5.json:comparisons.second_pool.boot_ci90.1
+\newcommand{\RvAfiveSecondPoolDiffHiNinety}{0.18}
+% RvAfiveSecondPoolTLoNinety <- rev2_A5.json:comparisons.second_pool.t_ci90.0
+\newcommand{\RvAfiveSecondPoolTLoNinety}{0.084}
+% RvAfiveSecondPoolTHiNinety <- rev2_A5.json:comparisons.second_pool.t_ci90.1
+\newcommand{\RvAfiveSecondPoolTHiNinety}{0.18}
+% RvAfiveSecondPoolPTost <- rev2_A5.json:comparisons.second_pool.p_tost_t
+\newcommand{\RvAfiveSecondPoolPTost}{\ensuremath{8.6\times10^{-1}}}
+% RvAfiveSecondPoolPTostDisp <- rev2_A5.json:comparisons.second_pool.p_tost_t
+\newcommand{\RvAfiveSecondPoolPTostDisp}{0.86}
+% RvAfiveSecondPoolPTostDispRel <- relation and value of rev2_A5.json:comparisons.second_pool.p_tost_t
+\newcommand{\RvAfiveSecondPoolPTostDispRel}{\ensuremath{=0.86}}
+% RvAfiveSecondPoolOrcaHalfwidth <- rev2_A5.json:comparisons.second_pool.orca_wilson_halfwidth
+\newcommand{\RvAfiveSecondPoolOrcaHalfwidth}{0.066}
+% RvAfiveSecondPoolOrcaLastExit <- rev2_A5.json:comparisons.second_pool.orca_last_exit_s
+\newcommand{\RvAfiveSecondPoolOrcaLastExit}{36}
+% RvAfiveSecondPoolWinOtherOneFrom <- rev2_A5.json:comparisons.second_pool.window_equiv90_nontrivial_s.0.0
+\newcommand{\RvAfiveSecondPoolWinOtherOneFrom}{22}
+% RvAfiveSecondPoolWinOtherOneTo <- rev2_A5.json:comparisons.second_pool.window_equiv90_nontrivial_s.0.1
+\newcommand{\RvAfiveSecondPoolWinOtherOneTo}{43}
+% RvAfiveSecondPoolTrivialTo <- rev2_A5.json:comparisons.second_pool.trivial_T_s.0.1
+\newcommand{\RvAfiveSecondPoolTrivialTo}{1}
+% RvAfiveSecondEtwoLegacyN <- rev2_A5.json:comparisons.second_E2_legacy.n_units
+\newcommand{\RvAfiveSecondEtwoLegacyN}{26}
+% RvAfiveSecondEtwoLegacyOrcaFreed <- rev2_A5.json:comparisons.second_E2_legacy.orca_freed
+\newcommand{\RvAfiveSecondEtwoLegacyOrcaFreed}{22}
+% RvAfiveSecondEtwoLegacySurFrac <- rev2_A5.json:comparisons.second_E2_legacy.surrogate_fraction
+\newcommand{\RvAfiveSecondEtwoLegacySurFrac}{0.90}
+% RvAfiveSecondEtwoLegacyOrcaFrac <- rev2_A5.json:comparisons.second_E2_legacy.orca_fraction
+\newcommand{\RvAfiveSecondEtwoLegacyOrcaFrac}{0.85}
+% RvAfiveSecondEtwoLegacyDiff <- rev2_A5.json:comparisons.second_E2_legacy.delta
+\newcommand{\RvAfiveSecondEtwoLegacyDiff}{0.054}
+% RvAfiveSecondEtwoLegacyDiffLo <- rev2_A5.json:comparisons.second_E2_legacy.boot_ci95.0
+\newcommand{\RvAfiveSecondEtwoLegacyDiffLo}{-0.046}
+% RvAfiveSecondEtwoLegacyDiffHi <- rev2_A5.json:comparisons.second_E2_legacy.boot_ci95.1
+\newcommand{\RvAfiveSecondEtwoLegacyDiffHi}{0.17}
+% RvAfiveSecondEtwoLegacyDiffLoNinety <- rev2_A5.json:comparisons.second_E2_legacy.boot_ci90.0
+\newcommand{\RvAfiveSecondEtwoLegacyDiffLoNinety}{-0.031}
+% RvAfiveSecondEtwoLegacyDiffHiNinety <- rev2_A5.json:comparisons.second_E2_legacy.boot_ci90.1
+\newcommand{\RvAfiveSecondEtwoLegacyDiffHiNinety}{0.15}
+% RvAfiveSecondEtwoLegacyTLoNinety <- rev2_A5.json:comparisons.second_E2_legacy.t_ci90.0
+\newcommand{\RvAfiveSecondEtwoLegacyTLoNinety}{-0.044}
+% RvAfiveSecondEtwoLegacyTHiNinety <- rev2_A5.json:comparisons.second_E2_legacy.t_ci90.1
+\newcommand{\RvAfiveSecondEtwoLegacyTHiNinety}{0.15}
+% RvAfiveSecondEtwoLegacyPTost <- rev2_A5.json:comparisons.second_E2_legacy.p_tost_t
+\newcommand{\RvAfiveSecondEtwoLegacyPTost}{\ensuremath{2.1\times10^{-1}}}
+% RvAfiveSecondEtwoLegacyPTostDisp <- rev2_A5.json:comparisons.second_E2_legacy.p_tost_t
+\newcommand{\RvAfiveSecondEtwoLegacyPTostDisp}{0.21}
+% RvAfiveSecondEtwoLegacyPTostDispRel <- relation and value of rev2_A5.json:comparisons.second_E2_legacy.p_tost_t
+\newcommand{\RvAfiveSecondEtwoLegacyPTostDispRel}{\ensuremath{=0.21}}
+% RvAfiveSecondEtwoLegacyOrcaHalfwidth <- rev2_A5.json:comparisons.second_E2_legacy.orca_wilson_halfwidth
+\newcommand{\RvAfiveSecondEtwoLegacyOrcaHalfwidth}{0.14}
+% RvAfiveSecondEtwoLegacyOrcaLastExit <- rev2_A5.json:comparisons.second_E2_legacy.orca_last_exit_s
+\newcommand{\RvAfiveSecondEtwoLegacyOrcaLastExit}{51}
+% RvAfiveSecondEtwoLegacyTrivialTo <- rev2_A5.json:comparisons.second_E2_legacy.trivial_T_s.0.1
+\newcommand{\RvAfiveSecondEtwoLegacyTrivialTo}{1}
+% RvAfiveSecondPoolLegacyN <- rev2_A5.json:comparisons.second_pool_legacy.n_units
+\newcommand{\RvAfiveSecondPoolLegacyN}{160}
+% RvAfiveSecondPoolLegacyOrcaFreed <- rev2_A5.json:comparisons.second_pool_legacy.orca_freed
+\newcommand{\RvAfiveSecondPoolLegacyOrcaFreed}{133}
+% RvAfiveSecondPoolLegacySurFrac <- rev2_A5.json:comparisons.second_pool_legacy.surrogate_fraction
+\newcommand{\RvAfiveSecondPoolLegacySurFrac}{0.89}
+% RvAfiveSecondPoolLegacyOrcaFrac <- rev2_A5.json:comparisons.second_pool_legacy.orca_fraction
+\newcommand{\RvAfiveSecondPoolLegacyOrcaFrac}{0.83}
+% RvAfiveSecondPoolLegacyDiff <- rev2_A5.json:comparisons.second_pool_legacy.delta
+\newcommand{\RvAfiveSecondPoolLegacyDiff}{0.057}
+% RvAfiveSecondPoolLegacyDiffLo <- rev2_A5.json:comparisons.second_pool_legacy.boot_ci95.0
+\newcommand{\RvAfiveSecondPoolLegacyDiffLo}{0.015}
+% RvAfiveSecondPoolLegacyDiffHi <- rev2_A5.json:comparisons.second_pool_legacy.boot_ci95.1
+\newcommand{\RvAfiveSecondPoolLegacyDiffHi}{0.10}
+% RvAfiveSecondPoolLegacyDiffLoNinety <- rev2_A5.json:comparisons.second_pool_legacy.boot_ci90.0
+\newcommand{\RvAfiveSecondPoolLegacyDiffLoNinety}{0.021}
+% RvAfiveSecondPoolLegacyDiffHiNinety <- rev2_A5.json:comparisons.second_pool_legacy.boot_ci90.1
+\newcommand{\RvAfiveSecondPoolLegacyDiffHiNinety}{0.095}
+% RvAfiveSecondPoolLegacyTLoNinety <- rev2_A5.json:comparisons.second_pool_legacy.t_ci90.0
+\newcommand{\RvAfiveSecondPoolLegacyTLoNinety}{0.021}
+% RvAfiveSecondPoolLegacyTHiNinety <- rev2_A5.json:comparisons.second_pool_legacy.t_ci90.1
+\newcommand{\RvAfiveSecondPoolLegacyTHiNinety}{0.094}
+% RvAfiveSecondPoolLegacyPTost <- rev2_A5.json:comparisons.second_pool_legacy.p_tost_t
+\newcommand{\RvAfiveSecondPoolLegacyPTost}{\ensuremath{2.9\times10^{-2}}}
+% RvAfiveSecondPoolLegacyPTostDisp <- rev2_A5.json:comparisons.second_pool_legacy.p_tost_t
+\newcommand{\RvAfiveSecondPoolLegacyPTostDisp}{0.029}
+% RvAfiveSecondPoolLegacyPTostDispRel <- relation and value of rev2_A5.json:comparisons.second_pool_legacy.p_tost_t
+\newcommand{\RvAfiveSecondPoolLegacyPTostDispRel}{\ensuremath{=0.029}}
+% RvAfiveSecondPoolLegacyOrcaHalfwidth <- rev2_A5.json:comparisons.second_pool_legacy.orca_wilson_halfwidth
+\newcommand{\RvAfiveSecondPoolLegacyOrcaHalfwidth}{0.058}
+% RvAfiveSecondPoolLegacyOrcaLastExit <- rev2_A5.json:comparisons.second_pool_legacy.orca_last_exit_s
+\newcommand{\RvAfiveSecondPoolLegacyOrcaLastExit}{110}
+% RvAfiveSecondPoolLegacyWinFrom <- rev2_A5.json:comparisons.second_pool_legacy.window_at_horizon_from_s
+\newcommand{\RvAfiveSecondPoolLegacyWinFrom}{23}
+% RvAfiveSecondPoolLegacyWinTo <- rev2_A5.json:comparisons.second_pool_legacy.window_at_horizon_to_s
+\newcommand{\RvAfiveSecondPoolLegacyWinTo}{120}
+% RvAfiveSecondPoolLegacyTrivialTo <- rev2_A5.json:comparisons.second_pool_legacy.trivial_T_s.0.1
+\newcommand{\RvAfiveSecondPoolLegacyTrivialTo}{1}
+% RvAfiveWholeN <- rev2_A5.json:comparisons.whole_E6.n_units
+\newcommand{\RvAfiveWholeN}{186}
+% RvAfiveWholeOrcaFreed <- rev2_A5.json:comparisons.whole_E6.orca_freed
+\newcommand{\RvAfiveWholeOrcaFreed}{101}
+% RvAfiveWholeSurFrac <- rev2_A5.json:comparisons.whole_E6.surrogate_fraction
+\newcommand{\RvAfiveWholeSurFrac}{0.53}
+% RvAfiveWholeOrcaFrac <- rev2_A5.json:comparisons.whole_E6.orca_fraction
+\newcommand{\RvAfiveWholeOrcaFrac}{0.54}
+% RvAfiveWholeDiff <- rev2_A5.json:comparisons.whole_E6.delta
+\newcommand{\RvAfiveWholeDiff}{-0.011}
+% RvAfiveWholeDiffLo <- rev2_A5.json:comparisons.whole_E6.boot_ci95.0
+\newcommand{\RvAfiveWholeDiffLo}{-0.10}
+% RvAfiveWholeDiffHi <- rev2_A5.json:comparisons.whole_E6.boot_ci95.1
+\newcommand{\RvAfiveWholeDiffHi}{0.075}
+% RvAfiveWholeDiffLoNinety <- rev2_A5.json:comparisons.whole_E6.boot_ci90.0
+\newcommand{\RvAfiveWholeDiffLoNinety}{-0.086}
+% RvAfiveWholeDiffHiNinety <- rev2_A5.json:comparisons.whole_E6.boot_ci90.1
+\newcommand{\RvAfiveWholeDiffHiNinety}{0.065}
+% RvAfiveWholeTLoNinety <- rev2_A5.json:comparisons.whole_E6.t_ci90.0
+\newcommand{\RvAfiveWholeTLoNinety}{-0.086}
+% RvAfiveWholeTHiNinety <- rev2_A5.json:comparisons.whole_E6.t_ci90.1
+\newcommand{\RvAfiveWholeTHiNinety}{0.065}
+% RvAfiveWholePTost <- rev2_A5.json:comparisons.whole_E6.p_tost_t
+\newcommand{\RvAfiveWholePTost}{\ensuremath{2.6\times10^{-2}}}
+% RvAfiveWholePTostDisp <- rev2_A5.json:comparisons.whole_E6.p_tost_t
+\newcommand{\RvAfiveWholePTostDisp}{0.026}
+% RvAfiveWholePTostDispRel <- relation and value of rev2_A5.json:comparisons.whole_E6.p_tost_t
+\newcommand{\RvAfiveWholePTostDispRel}{\ensuremath{=0.026}}
+% RvAfiveWholeOrcaHalfwidth <- rev2_A5.json:comparisons.whole_E6.orca_wilson_halfwidth
+\newcommand{\RvAfiveWholeOrcaHalfwidth}{0.071}
+% RvAfiveWholeOrcaLastExit <- rev2_A5.json:comparisons.whole_E6.orca_last_exit_s
+\newcommand{\RvAfiveWholeOrcaLastExit}{160}
+% RvAfiveWholeWinFrom <- rev2_A5.json:comparisons.whole_E6.window_at_horizon_from_s
+\newcommand{\RvAfiveWholeWinFrom}{545}
+% RvAfiveWholeWinTo <- rev2_A5.json:comparisons.whole_E6.window_at_horizon_to_s
+\newcommand{\RvAfiveWholeWinTo}{600}
+% RvAfiveWholeTrivialTo <- rev2_A5.json:comparisons.whole_E6.trivial_T_s.0.1
+\newcommand{\RvAfiveWholeTrivialTo}{110}
+% RvAfivePairLegacyN <- rev2_A5.json:comparisons.pair_legacy.n_units
+\newcommand{\RvAfivePairLegacyN}{46}
+% RvAfivePairLegacyOrcaFreed <- rev2_A5.json:comparisons.pair_legacy.orca_freed
+\newcommand{\RvAfivePairLegacyOrcaFreed}{21}
+% RvAfivePairLegacySurFrac <- rev2_A5.json:comparisons.pair_legacy.surrogate_fraction
+\newcommand{\RvAfivePairLegacySurFrac}{0.48}
+% RvAfivePairLegacyOrcaFrac <- rev2_A5.json:comparisons.pair_legacy.orca_fraction
+\newcommand{\RvAfivePairLegacyOrcaFrac}{0.46}
+% RvAfivePairLegacyDiff <- rev2_A5.json:comparisons.pair_legacy.delta
+\newcommand{\RvAfivePairLegacyDiff}{0.022}
+% RvAfivePairLegacyDiffLo <- rev2_A5.json:comparisons.pair_legacy.boot_ci95.0
+\newcommand{\RvAfivePairLegacyDiffLo}{-0.15}
+% RvAfivePairLegacyDiffHi <- rev2_A5.json:comparisons.pair_legacy.boot_ci95.1
+\newcommand{\RvAfivePairLegacyDiffHi}{0.20}
+% RvAfivePairLegacyDiffLoNinety <- rev2_A5.json:comparisons.pair_legacy.boot_ci90.0
+\newcommand{\RvAfivePairLegacyDiffLoNinety}{-0.13}
+% RvAfivePairLegacyDiffHiNinety <- rev2_A5.json:comparisons.pair_legacy.boot_ci90.1
+\newcommand{\RvAfivePairLegacyDiffHiNinety}{0.17}
+% RvAfivePairLegacyTLoNinety <- rev2_A5.json:comparisons.pair_legacy.t_ci90.0
+\newcommand{\RvAfivePairLegacyTLoNinety}{-0.13}
+% RvAfivePairLegacyTHiNinety <- rev2_A5.json:comparisons.pair_legacy.t_ci90.1
+\newcommand{\RvAfivePairLegacyTHiNinety}{0.17}
+% RvAfivePairLegacyPTost <- rev2_A5.json:comparisons.pair_legacy.p_tost_t
+\newcommand{\RvAfivePairLegacyPTost}{\ensuremath{2.0\times10^{-1}}}
+% RvAfivePairLegacyPTostDisp <- rev2_A5.json:comparisons.pair_legacy.p_tost_t
+\newcommand{\RvAfivePairLegacyPTostDisp}{0.20}
+% RvAfivePairLegacyPTostDispRel <- relation and value of rev2_A5.json:comparisons.pair_legacy.p_tost_t
+\newcommand{\RvAfivePairLegacyPTostDispRel}{\ensuremath{=0.20}}
+% RvAfivePairLegacyOrcaHalfwidth <- rev2_A5.json:comparisons.pair_legacy.orca_wilson_halfwidth
+\newcommand{\RvAfivePairLegacyOrcaHalfwidth}{0.14}
+% RvAfivePairLegacyOrcaLastExit <- rev2_A5.json:comparisons.pair_legacy.orca_last_exit_s
+\newcommand{\RvAfivePairLegacyOrcaLastExit}{38}
+% RvAfivePairLegacyTrivialTo <- rev2_A5.json:comparisons.pair_legacy.trivial_T_s.0.1
+\newcommand{\RvAfivePairLegacyTrivialTo}{3}
+% RvAfivePairRvoN <- rev2_A5.json:comparisons.pair_rvo2.n_units
+\newcommand{\RvAfivePairRvoN}{46}
+% RvAfivePairRvoOrcaFreed <- rev2_A5.json:comparisons.pair_rvo2.orca_freed
+\newcommand{\RvAfivePairRvoOrcaFreed}{7}
+% RvAfivePairRvoSurFrac <- rev2_A5.json:comparisons.pair_rvo2.surrogate_fraction
+\newcommand{\RvAfivePairRvoSurFrac}{0.17}
+% RvAfivePairRvoOrcaFrac <- rev2_A5.json:comparisons.pair_rvo2.orca_fraction
+\newcommand{\RvAfivePairRvoOrcaFrac}{0.15}
+% RvAfivePairRvoDiff <- rev2_A5.json:comparisons.pair_rvo2.delta
+\newcommand{\RvAfivePairRvoDiff}{0.022}
+% RvAfivePairRvoDiffLo <- rev2_A5.json:comparisons.pair_rvo2.boot_ci95.0
+\newcommand{\RvAfivePairRvoDiffLo}{-0.13}
+% RvAfivePairRvoDiffHi <- rev2_A5.json:comparisons.pair_rvo2.boot_ci95.1
+\newcommand{\RvAfivePairRvoDiffHi}{0.17}
+% RvAfivePairRvoDiffLoNinety <- rev2_A5.json:comparisons.pair_rvo2.boot_ci90.0
+\newcommand{\RvAfivePairRvoDiffLoNinety}{-0.11}
+% RvAfivePairRvoDiffHiNinety <- rev2_A5.json:comparisons.pair_rvo2.boot_ci90.1
+\newcommand{\RvAfivePairRvoDiffHiNinety}{0.15}
+% RvAfivePairRvoTLoNinety <- rev2_A5.json:comparisons.pair_rvo2.t_ci90.0
+\newcommand{\RvAfivePairRvoTLoNinety}{-0.12}
+% RvAfivePairRvoTHiNinety <- rev2_A5.json:comparisons.pair_rvo2.t_ci90.1
+\newcommand{\RvAfivePairRvoTHiNinety}{0.16}
+% RvAfivePairRvoPTost <- rev2_A5.json:comparisons.pair_rvo2.p_tost_t
+\newcommand{\RvAfivePairRvoPTost}{\ensuremath{1.8\times10^{-1}}}
+% RvAfivePairRvoPTostDisp <- rev2_A5.json:comparisons.pair_rvo2.p_tost_t
+\newcommand{\RvAfivePairRvoPTostDisp}{0.18}
+% RvAfivePairRvoPTostDispRel <- relation and value of rev2_A5.json:comparisons.pair_rvo2.p_tost_t
+\newcommand{\RvAfivePairRvoPTostDispRel}{\ensuremath{=0.18}}
+% RvAfivePairRvoOrcaHalfwidth <- rev2_A5.json:comparisons.pair_rvo2.orca_wilson_halfwidth
+\newcommand{\RvAfivePairRvoOrcaHalfwidth}{0.10}
+% RvAfivePairRvoOrcaLastExit <- rev2_A5.json:comparisons.pair_rvo2.orca_last_exit_s
+\newcommand{\RvAfivePairRvoOrcaLastExit}{5.2}
+% RvAfivePairRvoTrivialTo <- rev2_A5.json:comparisons.pair_rvo2.trivial_T_s.0.1
+\newcommand{\RvAfivePairRvoTrivialTo}{4}
+% RvAsixNSnap <- rev2_A6.json:n_snapshots
+\newcommand{\RvAsixNSnap}{46}
+% RvAsixNSplits <- rev2_A6.json:n_splits
+\newcommand{\RvAsixNSplits}{200}
+% RvAsixNHalf <- rev2_A6.json:n_half
+\newcommand{\RvAsixNHalf}{23}
+% RvAsixNNonmono <- rev2_A6.json:n_quench_nonmonotone
+\newcommand{\RvAsixNNonmono}{0}
+% RvAsixLegacyBFull <- rev2_A6.json:solvers.legacy.b_star_full
+\newcommand{\RvAsixLegacyBFull}{0.022}
+% RvAsixLegacyBFitMedian <- rev2_A6.json:solvers.legacy.b_fit.median
+\newcommand{\RvAsixLegacyBFitMedian}{0.022}
+% RvAsixLegacyBFitLo <- rev2_A6.json:solvers.legacy.b_fit.lo95
+\newcommand{\RvAsixLegacyBFitLo}{0.018}
+% RvAsixLegacyBFitHi <- rev2_A6.json:solvers.legacy.b_fit.hi95
+\newcommand{\RvAsixLegacyBFitHi}{0.027}
+% RvAsixLegacyErrMedian <- rev2_A6.json:solvers.legacy.err_held_quench.median
+\newcommand{\RvAsixLegacyErrMedian}{0.044}
+% RvAsixLegacyErrLo <- rev2_A6.json:solvers.legacy.err_held_quench.lo95
+\newcommand{\RvAsixLegacyErrLo}{-0.29}
+% RvAsixLegacyErrHi <- rev2_A6.json:solvers.legacy.err_held_quench.hi95
+\newcommand{\RvAsixLegacyErrHi}{0.30}
+% RvAsixLegacyErrStaticMedian <- rev2_A6.json:solvers.legacy.err_held_static.median
+\newcommand{\RvAsixLegacyErrStaticMedian}{0}
+% RvAsixLegacyErrStaticLo <- rev2_A6.json:solvers.legacy.err_held_static.lo95
+\newcommand{\RvAsixLegacyErrStaticLo}{-0.30}
+% RvAsixLegacyErrStaticHi <- rev2_A6.json:solvers.legacy.err_held_static.hi95
+\newcommand{\RvAsixLegacyErrStaticHi}{0.35}
+% RvAsixLegacyRefMedian <- rev2_A6.json:solvers.legacy.split_ref.median
+\newcommand{\RvAsixLegacyRefMedian}{0.043}
+% RvAsixLegacyRefLo <- rev2_A6.json:solvers.legacy.split_ref.lo95
+\newcommand{\RvAsixLegacyRefLo}{-0.30}
+% RvAsixLegacyRefHi <- rev2_A6.json:solvers.legacy.split_ref.hi95
+\newcommand{\RvAsixLegacyRefHi}{0.30}
+% RvAsixLegacyFitErrMedian <- rev2_A6.json:solvers.legacy.err_fit_quench.median
+\newcommand{\RvAsixLegacyFitErrMedian}{0.0100}
+% RvAsixLegacyFitErrLo <- rev2_A6.json:solvers.legacy.err_fit_quench.lo95
+\newcommand{\RvAsixLegacyFitErrLo}{-0.067}
+% RvAsixLegacyFitErrHi <- rev2_A6.json:solvers.legacy.err_fit_quench.hi95
+\newcommand{\RvAsixLegacyFitErrHi}{0.044}
+% RvAsixLegacyErrMean <- rev2_A6.json:solvers.legacy.err_held_quench.mean
+\newcommand{\RvAsixLegacyErrMean}{0.016}
+% RvAsixLegacyErrSd <- rev2_A6.json:solvers.legacy.err_held_quench.sd
+\newcommand{\RvAsixLegacyErrSd}{0.16}
+% RvAsixLegacyErrRmse <- rev2_A6.json:solvers.legacy.err_held_quench.rmse
+\newcommand{\RvAsixLegacyErrRmse}{0.16}
+% RvAsixLegacyRefRmse <- rev2_A6.json:solvers.legacy.split_ref.rmse
+\newcommand{\RvAsixLegacyRefRmse}{0.16}
+% RvAsixLegacyRefSd <- rev2_A6.json:solvers.legacy.split_ref.sd
+\newcommand{\RvAsixLegacyRefSd}{0.16}
+% RvAsixLegacyErrFracInMargin <- rev2_A6.json:solvers.legacy.err_held_quench.frac_abs_le_0p10
+\newcommand{\RvAsixLegacyErrFracInMargin}{0.44}
+% RvAsixLegacyErrMedianAbs <- rev2_A6.json:solvers.legacy.err_held_quench.median_abs
+\newcommand{\RvAsixLegacyErrMedianAbs}{0.11}
+% RvAsixRvoBFull <- rev2_A6.json:solvers.rvo2.b_star_full
+\newcommand{\RvAsixRvoBFull}{0.0091}
+% RvAsixRvoBFitMedian <- rev2_A6.json:solvers.rvo2.b_fit.median
+\newcommand{\RvAsixRvoBFitMedian}{0.0097}
+% RvAsixRvoBFitLo <- rev2_A6.json:solvers.rvo2.b_fit.lo95
+\newcommand{\RvAsixRvoBFitLo}{0.0046}
+% RvAsixRvoBFitHi <- rev2_A6.json:solvers.rvo2.b_fit.hi95
+\newcommand{\RvAsixRvoBFitHi}{0.020}
+% RvAsixRvoErrMedian <- rev2_A6.json:solvers.rvo2.err_held_quench.median
+\newcommand{\RvAsixRvoErrMedian}{0.043}
+% RvAsixRvoErrLo <- rev2_A6.json:solvers.rvo2.err_held_quench.lo95
+\newcommand{\RvAsixRvoErrLo}{-0.19}
+% RvAsixRvoErrHi <- rev2_A6.json:solvers.rvo2.err_held_quench.hi95
+\newcommand{\RvAsixRvoErrHi}{0.40}
+% RvAsixRvoErrStaticMedian <- rev2_A6.json:solvers.rvo2.err_held_static.median
+\newcommand{\RvAsixRvoErrStaticMedian}{0.043}
+% RvAsixRvoErrStaticLo <- rev2_A6.json:solvers.rvo2.err_held_static.lo95
+\newcommand{\RvAsixRvoErrStaticLo}{-0.22}
+% RvAsixRvoErrStaticHi <- rev2_A6.json:solvers.rvo2.err_held_static.hi95
+\newcommand{\RvAsixRvoErrStaticHi}{0.39}
+% RvAsixRvoRefMedian <- rev2_A6.json:solvers.rvo2.split_ref.median
+\newcommand{\RvAsixRvoRefMedian}{-0.043}
+% RvAsixRvoRefLo <- rev2_A6.json:solvers.rvo2.split_ref.lo95
+\newcommand{\RvAsixRvoRefLo}{-0.22}
+% RvAsixRvoRefHi <- rev2_A6.json:solvers.rvo2.split_ref.hi95
+\newcommand{\RvAsixRvoRefHi}{0.22}
+% RvAsixRvoFitErrMedian <- rev2_A6.json:solvers.rvo2.err_fit_quench.median
+\newcommand{\RvAsixRvoFitErrMedian}{0.012}
+% RvAsixRvoFitErrLo <- rev2_A6.json:solvers.rvo2.err_fit_quench.lo95
+\newcommand{\RvAsixRvoFitErrLo}{-0.052}
+% RvAsixRvoFitErrHi <- rev2_A6.json:solvers.rvo2.err_fit_quench.hi95
+\newcommand{\RvAsixRvoFitErrHi}{0.085}
+% RvAsixRvoErrMean <- rev2_A6.json:solvers.rvo2.err_held_quench.mean
+\newcommand{\RvAsixRvoErrMean}{0.049}
+% RvAsixRvoErrSd <- rev2_A6.json:solvers.rvo2.err_held_quench.sd
+\newcommand{\RvAsixRvoErrSd}{0.15}
+% RvAsixRvoErrRmse <- rev2_A6.json:solvers.rvo2.err_held_quench.rmse
+\newcommand{\RvAsixRvoErrRmse}{0.15}
+% RvAsixRvoRefRmse <- rev2_A6.json:solvers.rvo2.split_ref.rmse
+\newcommand{\RvAsixRvoRefRmse}{0.11}
+% RvAsixRvoRefSd <- rev2_A6.json:solvers.rvo2.split_ref.sd
+\newcommand{\RvAsixRvoRefSd}{0.11}
+% RvAsixRvoErrFracInMargin <- rev2_A6.json:solvers.rvo2.err_held_quench.frac_abs_le_0p10
+\newcommand{\RvAsixRvoErrFracInMargin}{0.51}
+% RvAsixRvoErrMedianAbs <- rev2_A6.json:solvers.rvo2.err_held_quench.median_abs
+\newcommand{\RvAsixRvoErrMedianAbs}{0.100}
 % RunNOneSigma <- N1_analysis.json:sigma_n1
 \newcommand{\RunNOneSigma}{0.0717}
 % RunNOneUnresNoise <- N1_analysis.json:identity.noise_vs_C3_rvo2.n_a

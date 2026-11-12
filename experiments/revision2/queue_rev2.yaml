@@ -13,3 +13,6 @@ steps:
   - name: B2dt
     cmd: [experiments/revision2/B2_dt.py, --workers, '4']
     cpu_h: 4.2
+  - name: A10
+    cmd: [experiments/revision2/A10_noise_replay.py, --workers, '4']
+    cpu_h: 0.5

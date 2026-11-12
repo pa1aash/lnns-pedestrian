@@ -1,0 +1,166 @@
+# A5 equivalence (TOST, margin 0.10) and horizon windows (experiments/revision2/A5_equivalence.py)
+# LoneEtwo/LoneNone = lone keystone sigma 0.07 (E2) / 0.0717 (N1); SecondEtwo/SecondPool = second trap 26 / 160;
+# ...Legacy = against ORCA (legacy), else ORCA (RVO2); Whole = E6b vs E6a; PairLegacy/PairRvo = +b* vs ORCA.
+# Diff = surrogate minus ORCA freed fraction; Lo/Hi = 95% cluster bootstrap, LoNinety/HiNinety = 90% (TOST);
+# WinFrom/WinTo = window of T (s) containing the horizon where the 90% interval is inside +-0.10.
+RvAfiveMargin: {file: rev2_A5.json, key: "margin", fmt: "{:.2f}"}
+RvAfiveHalfwidthMin: {file: rev2_A5.json, key: "margin_basis.orca_wilson_halfwidth_min", fmt: sig, digits: 2}
+RvAfiveHalfwidthMax: {file: rev2_A5.json, key: "margin_basis.orca_wilson_halfwidth_max", fmt: sig, digits: 2}
+RvAfiveNEquivalent: {file: rev2_A5.json, key: "summary.n_equivalent", fmt: "{:d}"}
+RvAfiveNMain: {file: rev2_A5.json, key: "summary.n_main", fmt: "{:d}"}
+RvAfiveNBoot: {file: rev2_A5.json, key: "n_boot", fmt: "{:,d}"}
+RvAfiveLoneEtwoN: {file: rev2_A5.json, key: "comparisons.lone_E2.n_units", fmt: "{:d}"}
+RvAfiveLoneEtwoOrcaFreed: {file: rev2_A5.json, key: "comparisons.lone_E2.orca_freed", fmt: "{:d}"}
+RvAfiveLoneEtwoSurFrac: {file: rev2_A5.json, key: "comparisons.lone_E2.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveLoneEtwoOrcaFrac: {file: rev2_A5.json, key: "comparisons.lone_E2.orca_fraction", fmt: sig, digits: 2}
+RvAfiveLoneEtwoDiff: {file: rev2_A5.json, key: "comparisons.lone_E2.delta", fmt: sig, digits: 2}
+RvAfiveLoneEtwoDiffLo: {file: rev2_A5.json, key: "comparisons.lone_E2.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveLoneEtwoDiffHi: {file: rev2_A5.json, key: "comparisons.lone_E2.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveLoneEtwoDiffLoNinety: {file: rev2_A5.json, key: "comparisons.lone_E2.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveLoneEtwoDiffHiNinety: {file: rev2_A5.json, key: "comparisons.lone_E2.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveLoneEtwoTLoNinety: {file: rev2_A5.json, key: "comparisons.lone_E2.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveLoneEtwoTHiNinety: {file: rev2_A5.json, key: "comparisons.lone_E2.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveLoneEtwoPTost: {file: rev2_A5.json, key: "comparisons.lone_E2.p_tost_t", fmt: sci, digits: 2}
+RvAfiveLoneEtwoPTostDisp: {file: rev2_A5.json, key: "comparisons.lone_E2.p_tost_t", fmt: p, digits: 2}
+RvAfiveLoneEtwoOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.lone_E2.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveLoneEtwoOrcaLastExit: {file: rev2_A5.json, key: "comparisons.lone_E2.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveLoneEtwoWinFrom: {file: rev2_A5.json, key: "comparisons.lone_E2.window_at_horizon_from_s", fmt: "{:.0f}"}
+RvAfiveLoneEtwoWinTo: {file: rev2_A5.json, key: "comparisons.lone_E2.window_at_horizon_to_s", fmt: "{:.0f}"}
+RvAfiveLoneEtwoTrivialTo: {file: rev2_A5.json, key: "comparisons.lone_E2.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveLoneNoneN: {file: rev2_A5.json, key: "comparisons.lone_N1.n_units", fmt: "{:d}"}
+RvAfiveLoneNoneOrcaFreed: {file: rev2_A5.json, key: "comparisons.lone_N1.orca_freed", fmt: "{:d}"}
+RvAfiveLoneNoneSurFrac: {file: rev2_A5.json, key: "comparisons.lone_N1.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveLoneNoneOrcaFrac: {file: rev2_A5.json, key: "comparisons.lone_N1.orca_fraction", fmt: sig, digits: 2}
+RvAfiveLoneNoneDiff: {file: rev2_A5.json, key: "comparisons.lone_N1.delta", fmt: sig, digits: 2}
+RvAfiveLoneNoneDiffLo: {file: rev2_A5.json, key: "comparisons.lone_N1.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveLoneNoneDiffHi: {file: rev2_A5.json, key: "comparisons.lone_N1.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveLoneNoneDiffLoNinety: {file: rev2_A5.json, key: "comparisons.lone_N1.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveLoneNoneDiffHiNinety: {file: rev2_A5.json, key: "comparisons.lone_N1.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveLoneNoneTLoNinety: {file: rev2_A5.json, key: "comparisons.lone_N1.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveLoneNoneTHiNinety: {file: rev2_A5.json, key: "comparisons.lone_N1.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveLoneNonePTost: {file: rev2_A5.json, key: "comparisons.lone_N1.p_tost_t", fmt: sci, digits: 2}
+RvAfiveLoneNonePTostDisp: {file: rev2_A5.json, key: "comparisons.lone_N1.p_tost_t", fmt: p, digits: 2}
+RvAfiveLoneNoneOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.lone_N1.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveLoneNoneOrcaLastExit: {file: rev2_A5.json, key: "comparisons.lone_N1.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveLoneNoneWinFrom: {file: rev2_A5.json, key: "comparisons.lone_N1.window_at_horizon_from_s", fmt: "{:.0f}"}
+RvAfiveLoneNoneWinTo: {file: rev2_A5.json, key: "comparisons.lone_N1.window_at_horizon_to_s", fmt: "{:.0f}"}
+RvAfiveLoneNoneWinNinetyFiveFrom: {file: rev2_A5.json, key: "comparisons.lone_N1.window95_at_horizon_from_s", fmt: "{:.0f}"}
+RvAfiveLoneNoneTrivialTo: {file: rev2_A5.json, key: "comparisons.lone_N1.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveSecondEtwoN: {file: rev2_A5.json, key: "comparisons.second_E2.n_units", fmt: "{:d}"}
+RvAfiveSecondEtwoOrcaFreed: {file: rev2_A5.json, key: "comparisons.second_E2.orca_freed", fmt: "{:d}"}
+RvAfiveSecondEtwoSurFrac: {file: rev2_A5.json, key: "comparisons.second_E2.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveSecondEtwoOrcaFrac: {file: rev2_A5.json, key: "comparisons.second_E2.orca_fraction", fmt: sig, digits: 2}
+RvAfiveSecondEtwoDiff: {file: rev2_A5.json, key: "comparisons.second_E2.delta", fmt: sig, digits: 2}
+RvAfiveSecondEtwoDiffLo: {file: rev2_A5.json, key: "comparisons.second_E2.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoDiffHi: {file: rev2_A5.json, key: "comparisons.second_E2.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoDiffLoNinety: {file: rev2_A5.json, key: "comparisons.second_E2.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoDiffHiNinety: {file: rev2_A5.json, key: "comparisons.second_E2.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoTLoNinety: {file: rev2_A5.json, key: "comparisons.second_E2.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoTHiNinety: {file: rev2_A5.json, key: "comparisons.second_E2.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoPTost: {file: rev2_A5.json, key: "comparisons.second_E2.p_tost_t", fmt: sci, digits: 2}
+RvAfiveSecondEtwoPTostDisp: {file: rev2_A5.json, key: "comparisons.second_E2.p_tost_t", fmt: p, digits: 2}
+RvAfiveSecondEtwoOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.second_E2.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveSecondEtwoOrcaLastExit: {file: rev2_A5.json, key: "comparisons.second_E2.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveSecondEtwoTrivialTo: {file: rev2_A5.json, key: "comparisons.second_E2.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveSecondPoolN: {file: rev2_A5.json, key: "comparisons.second_pool.n_units", fmt: "{:d}"}
+RvAfiveSecondPoolOrcaFreed: {file: rev2_A5.json, key: "comparisons.second_pool.orca_freed", fmt: "{:d}"}
+RvAfiveSecondPoolSurFrac: {file: rev2_A5.json, key: "comparisons.second_pool.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveSecondPoolOrcaFrac: {file: rev2_A5.json, key: "comparisons.second_pool.orca_fraction", fmt: sig, digits: 2}
+RvAfiveSecondPoolDiff: {file: rev2_A5.json, key: "comparisons.second_pool.delta", fmt: sig, digits: 2}
+RvAfiveSecondPoolDiffLo: {file: rev2_A5.json, key: "comparisons.second_pool.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolDiffHi: {file: rev2_A5.json, key: "comparisons.second_pool.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolDiffLoNinety: {file: rev2_A5.json, key: "comparisons.second_pool.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolDiffHiNinety: {file: rev2_A5.json, key: "comparisons.second_pool.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolTLoNinety: {file: rev2_A5.json, key: "comparisons.second_pool.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolTHiNinety: {file: rev2_A5.json, key: "comparisons.second_pool.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolPTost: {file: rev2_A5.json, key: "comparisons.second_pool.p_tost_t", fmt: sci, digits: 2}
+RvAfiveSecondPoolPTostDisp: {file: rev2_A5.json, key: "comparisons.second_pool.p_tost_t", fmt: p, digits: 2}
+RvAfiveSecondPoolOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.second_pool.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveSecondPoolOrcaLastExit: {file: rev2_A5.json, key: "comparisons.second_pool.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveSecondPoolWinOtherOneFrom: {file: rev2_A5.json, key: "comparisons.second_pool.window_equiv90_nontrivial_s.0.0", fmt: "{:.0f}"}
+RvAfiveSecondPoolWinOtherOneTo: {file: rev2_A5.json, key: "comparisons.second_pool.window_equiv90_nontrivial_s.0.1", fmt: "{:.0f}"}
+RvAfiveSecondPoolTrivialTo: {file: rev2_A5.json, key: "comparisons.second_pool.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveSecondEtwoLegacyN: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.n_units", fmt: "{:d}"}
+RvAfiveSecondEtwoLegacyOrcaFreed: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.orca_freed", fmt: "{:d}"}
+RvAfiveSecondEtwoLegacySurFrac: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyOrcaFrac: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.orca_fraction", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyDiff: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.delta", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyDiffLo: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyDiffHi: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyDiffLoNinety: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyDiffHiNinety: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyTLoNinety: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyTHiNinety: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyPTost: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.p_tost_t", fmt: sci, digits: 2}
+RvAfiveSecondEtwoLegacyPTostDisp: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.p_tost_t", fmt: p, digits: 2}
+RvAfiveSecondEtwoLegacyOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyOrcaLastExit: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveSecondEtwoLegacyTrivialTo: {file: rev2_A5.json, key: "comparisons.second_E2_legacy.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveSecondPoolLegacyN: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.n_units", fmt: "{:d}"}
+RvAfiveSecondPoolLegacyOrcaFreed: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.orca_freed", fmt: "{:d}"}
+RvAfiveSecondPoolLegacySurFrac: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyOrcaFrac: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.orca_fraction", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyDiff: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.delta", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyDiffLo: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyDiffHi: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyDiffLoNinety: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyDiffHiNinety: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyTLoNinety: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyTHiNinety: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyPTost: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.p_tost_t", fmt: sci, digits: 2}
+RvAfiveSecondPoolLegacyPTostDisp: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.p_tost_t", fmt: p, digits: 2}
+RvAfiveSecondPoolLegacyOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyOrcaLastExit: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveSecondPoolLegacyWinFrom: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.window_at_horizon_from_s", fmt: "{:.0f}"}
+RvAfiveSecondPoolLegacyWinTo: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.window_at_horizon_to_s", fmt: "{:.0f}"}
+RvAfiveSecondPoolLegacyTrivialTo: {file: rev2_A5.json, key: "comparisons.second_pool_legacy.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfiveWholeN: {file: rev2_A5.json, key: "comparisons.whole_E6.n_units", fmt: "{:d}"}
+RvAfiveWholeOrcaFreed: {file: rev2_A5.json, key: "comparisons.whole_E6.orca_freed", fmt: "{:d}"}
+RvAfiveWholeSurFrac: {file: rev2_A5.json, key: "comparisons.whole_E6.surrogate_fraction", fmt: sig, digits: 2}
+RvAfiveWholeOrcaFrac: {file: rev2_A5.json, key: "comparisons.whole_E6.orca_fraction", fmt: sig, digits: 2}
+RvAfiveWholeDiff: {file: rev2_A5.json, key: "comparisons.whole_E6.delta", fmt: sig, digits: 2}
+RvAfiveWholeDiffLo: {file: rev2_A5.json, key: "comparisons.whole_E6.boot_ci95.0", fmt: sig, digits: 2}
+RvAfiveWholeDiffHi: {file: rev2_A5.json, key: "comparisons.whole_E6.boot_ci95.1", fmt: sig, digits: 2}
+RvAfiveWholeDiffLoNinety: {file: rev2_A5.json, key: "comparisons.whole_E6.boot_ci90.0", fmt: sig, digits: 2}
+RvAfiveWholeDiffHiNinety: {file: rev2_A5.json, key: "comparisons.whole_E6.boot_ci90.1", fmt: sig, digits: 2}
+RvAfiveWholeTLoNinety: {file: rev2_A5.json, key: "comparisons.whole_E6.t_ci90.0", fmt: sig, digits: 2}
+RvAfiveWholeTHiNinety: {file: rev2_A5.json, key: "comparisons.whole_E6.t_ci90.1", fmt: sig, digits: 2}
+RvAfiveWholePTost: {file: rev2_A5.json, key: "comparisons.whole_E6.p_tost_t", fmt: sci, digits: 2}
+RvAfiveWholePTostDisp: {file: rev2_A5.json, key: "comparisons.whole_E6.p_tost_t", fmt: p, digits: 2}
+RvAfiveWholeOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.whole_E6.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfiveWholeOrcaLastExit: {file: rev2_A5.json, key: "comparisons.whole_E6.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfiveWholeWinFrom: {file: rev2_A5.json, key: "comparisons.whole_E6.window_at_horizon_from_s", fmt: "{:.0f}"}
+RvAfiveWholeWinTo: {file: rev2_A5.json, key: "comparisons.whole_E6.window_at_horizon_to_s", fmt: "{:.0f}"}
+RvAfiveWholeTrivialTo: {file: rev2_A5.json, key: "comparisons.whole_E6.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfivePairLegacyN: {file: rev2_A5.json, key: "comparisons.pair_legacy.n_units", fmt: "{:d}"}
+RvAfivePairLegacyOrcaFreed: {file: rev2_A5.json, key: "comparisons.pair_legacy.orca_freed", fmt: "{:d}"}
+RvAfivePairLegacySurFrac: {file: rev2_A5.json, key: "comparisons.pair_legacy.surrogate_fraction", fmt: sig, digits: 2}
+RvAfivePairLegacyOrcaFrac: {file: rev2_A5.json, key: "comparisons.pair_legacy.orca_fraction", fmt: sig, digits: 2}
+RvAfivePairLegacyDiff: {file: rev2_A5.json, key: "comparisons.pair_legacy.delta", fmt: sig, digits: 2}
+RvAfivePairLegacyDiffLo: {file: rev2_A5.json, key: "comparisons.pair_legacy.boot_ci95.0", fmt: sig, digits: 2}
+RvAfivePairLegacyDiffHi: {file: rev2_A5.json, key: "comparisons.pair_legacy.boot_ci95.1", fmt: sig, digits: 2}
+RvAfivePairLegacyDiffLoNinety: {file: rev2_A5.json, key: "comparisons.pair_legacy.boot_ci90.0", fmt: sig, digits: 2}
+RvAfivePairLegacyDiffHiNinety: {file: rev2_A5.json, key: "comparisons.pair_legacy.boot_ci90.1", fmt: sig, digits: 2}
+RvAfivePairLegacyTLoNinety: {file: rev2_A5.json, key: "comparisons.pair_legacy.t_ci90.0", fmt: sig, digits: 2}
+RvAfivePairLegacyTHiNinety: {file: rev2_A5.json, key: "comparisons.pair_legacy.t_ci90.1", fmt: sig, digits: 2}
+RvAfivePairLegacyPTost: {file: rev2_A5.json, key: "comparisons.pair_legacy.p_tost_t", fmt: sci, digits: 2}
+RvAfivePairLegacyPTostDisp: {file: rev2_A5.json, key: "comparisons.pair_legacy.p_tost_t", fmt: p, digits: 2}
+RvAfivePairLegacyOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.pair_legacy.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfivePairLegacyOrcaLastExit: {file: rev2_A5.json, key: "comparisons.pair_legacy.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfivePairLegacyTrivialTo: {file: rev2_A5.json, key: "comparisons.pair_legacy.trivial_T_s.0.1", fmt: "{:.0f}"}
+RvAfivePairRvoN: {file: rev2_A5.json, key: "comparisons.pair_rvo2.n_units", fmt: "{:d}"}
+RvAfivePairRvoOrcaFreed: {file: rev2_A5.json, key: "comparisons.pair_rvo2.orca_freed", fmt: "{:d}"}
+RvAfivePairRvoSurFrac: {file: rev2_A5.json, key: "comparisons.pair_rvo2.surrogate_fraction", fmt: sig, digits: 2}
+RvAfivePairRvoOrcaFrac: {file: rev2_A5.json, key: "comparisons.pair_rvo2.orca_fraction", fmt: sig, digits: 2}
+RvAfivePairRvoDiff: {file: rev2_A5.json, key: "comparisons.pair_rvo2.delta", fmt: sig, digits: 2}
+RvAfivePairRvoDiffLo: {file: rev2_A5.json, key: "comparisons.pair_rvo2.boot_ci95.0", fmt: sig, digits: 2}
+RvAfivePairRvoDiffHi: {file: rev2_A5.json, key: "comparisons.pair_rvo2.boot_ci95.1", fmt: sig, digits: 2}
+RvAfivePairRvoDiffLoNinety: {file: rev2_A5.json, key: "comparisons.pair_rvo2.boot_ci90.0", fmt: sig, digits: 2}
+RvAfivePairRvoDiffHiNinety: {file: rev2_A5.json, key: "comparisons.pair_rvo2.boot_ci90.1", fmt: sig, digits: 2}
+RvAfivePairRvoTLoNinety: {file: rev2_A5.json, key: "comparisons.pair_rvo2.t_ci90.0", fmt: sig, digits: 2}
+RvAfivePairRvoTHiNinety: {file: rev2_A5.json, key: "comparisons.pair_rvo2.t_ci90.1", fmt: sig, digits: 2}
+RvAfivePairRvoPTost: {file: rev2_A5.json, key: "comparisons.pair_rvo2.p_tost_t", fmt: sci, digits: 2}
+RvAfivePairRvoPTostDisp: {file: rev2_A5.json, key: "comparisons.pair_rvo2.p_tost_t", fmt: p, digits: 2}
+RvAfivePairRvoOrcaHalfwidth: {file: rev2_A5.json, key: "comparisons.pair_rvo2.orca_wilson_halfwidth", fmt: sig, digits: 2}
+RvAfivePairRvoOrcaLastExit: {file: rev2_A5.json, key: "comparisons.pair_rvo2.orca_last_exit_s", fmt: sig, digits: 2}
+RvAfivePairRvoTrivialTo: {file: rev2_A5.json, key: "comparisons.pair_rvo2.trivial_T_s.0.1", fmt: "{:.0f}"}
