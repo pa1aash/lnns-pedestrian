@@ -9,7 +9,7 @@ conclusions, intro premise, recommendations, limitations). Pending C2 inputs are
 
 ## Framing and main issues
 F1 | resolved | Sect. 4.1, 5.2, 6.2, 8, 10; Table 2 | activated escape claimed only with the blocker alone at beta >= 1.5; matched noise acts "by fluctuations" (median beta 0.64 and 1.4 stated); Table 2 Heat cell "exp. times at beta >= 1.5"; time-step span beta = 0.75-5.0 (beta0 = 1.5 and 2.5) in Sect. 4.4
-F2 | partly | Sect. 4.1; Tables 2, 3; Sect. 6.1 | three exclusive classes by the force added at rest, defect flag from the corrected-implementation probe alone, replay sensitivity a separate attribute, legacy "Reshape, axial" with the flag, separate First-exit column, daggers for by-construction cells; but the lone-trap flag cell ("flips vanish; yes", note c) rests on vanishing replay flips, which is replay sensitivity again; noise replay attribute pending C2 A10
+F2 | partly | Sect. 4.1; Tables 2, 3; Sect. 6.1 | three exclusive classes by the force added at rest, defect flag from the corrected-implementation probe alone, replay sensitivity a separate attribute, legacy "Reshape, axial" with the flag, separate First-exit column, daggers for by-construction cells; the legacy flag now comes from the pair standoff alone (lone-trap cell "persists; no", note c; Sect. 6.1), the vanishing lone-trap replay flips are its replay sensitivity; partly only because the noise replay attribute is pending C2 A10
 F3 | partly - pending C2 B1c, A11 | Sect. 1, 3.1, 5.1, 8 | (i) crowd-disaster opening replaced by the default-wall deadlock motivation; (ii) throttle "not part of the original social force model [20, 22]" in Sect. 3.1 and Limitations, ablation w50 and 0.8 m completions reported, CroMa flow off-throttle pending B1c; (iii) stuck-alone fraction 0.081 [0.077, 0.085] at r = 0.225 m; (iv) [13] reproduction counts given, SFM+TTC and full-blend cells pending A11
 M1 | resolved | Sect. 4.4; Limitations | beta set from the blocker's tau_i; full-condition weighting 0.91-1.2 (median 1.0); per-agent temperature in Limitations
 M2 | resolved | Sect. 5.2 | gamma/omega_b = 0.41 (underdamped), Mel'nikov-Meshkov factor >= 0.79, predicted 0.97 of Langer; "turnover factor below 1" sentence replaced by the measured 0.69 deficit, stated as unexplained
@@ -94,4 +94,4 @@ G5 | resolved | Sect. 8 | throttle, single time step, per-agent temperature, rad
 - Abstract, Sect. 4 (coinage): the abstract still uses about ten coined terms (lone trap, blocker, pair standoff, rest drive, drive part, fraction-matched, replay, defect flag) that a reader meets undefined; Figs. 1 and 3 keep superseded vocabulary.
 
 ## Counts (72 IDs)
-resolved 60 | partly 12 (5 of them only pending C2 inputs: F3, M6, M7, M10 and table item C2) | not resolved 0 | disagreed 0
+resolved 60 | partly 12 (6 of them only pending C2 inputs: F2, F3, M6, M7, M10 and table item C2) | not resolved 0 | disagreed 0
