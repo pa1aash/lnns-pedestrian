@@ -1,7 +1,7 @@
 """Fig 3 (paper Fig. 4 before the geometry figure is inserted): completion against exit width and against wall-law
 variant. Left from data/derived/rev_B2.json (rev_data.rev_width()), right from figures/data/fig3.json (experiments/E7/analyze.py).
 Left: fraction of SFM runs completed against w with Wilson 95% intervals (1100 runs, 100 per width, w = 0.9 m once), the
-fitted logistic with its pointwise 95% band, and the bracket on the critical width (grey bracket below the axis).
+fitted logistic with its pointwise 95% band, and the bracket on the critical width (shaded span).
 No prediction curves (ruling R2).
 Right: w = 0.8 m, one wall-law variant per row: horizontal stacked bar of all runs by outcome (white completed, light
 grey pair or group standoff, dark grey lone trap) with the Wilson 95% interval of the completed fraction drawn as a
@@ -31,19 +31,31 @@ g = REV["logistic"]
 axL.fill_between(g["w"], g["lo"], g["hi"], color="0.86", lw=0, zorder=0)
 axL.plot(g["w"], g["mid"], color=C1, lw=0.8, zorder=1)
 b_lo, b_hi = REV["bracket"]
-yb = -0.075                                                       # bracket on w50, below the data
-axL.plot([b_lo, b_lo, b_lo, b_hi, b_hi, b_hi], [yb - 0.025, yb + 0.025, yb, yb, yb + 0.025, yb - 0.025], color="0.35",
-         lw=0.8, solid_joinstyle="miter", clip_on=False, zorder=2)
+axL.axvspan(b_lo, b_hi, ymin=0, ymax=1, color="0.93", lw=0, zorder=-1)  # bracket on w50 as a shaded span
 axL.vlines(w, lo, hi, color=C1, lw=0.7, zorder=2)
 axL.plot(w, p, marker="o", ms=2.8, ls="none", color=C1, zorder=3)
+# Throttle ablation (experiments/revision2/B1_throttle.py part a, v_eff = v0): open grey squares, drawn only once the
+# complete run set (5 widths x 100 seeds) is in data/revision2/B1/b1a.jsonl; until then the panel is unchanged.
+B1A = HERE.parent / "data" / "revision2" / "B1" / "b1a.jsonl"
+if B1A.exists():
+    runs = {}
+    for line in open(B1A):
+        r = json.loads(line)
+        runs[r["job_id"]] = r
+    by_w = {}
+    for r in runs.values():
+        by_w.setdefault(round(r["width"], 2), []).append(bool(r["complete"]))
+    if len(by_w) == 5 and all(len(v) == 100 for v in by_w.values()):
+        wb = np.array(sorted(by_w)); pb = np.array([np.mean(by_w[x]) for x in wb])
+        axL.plot(wb, pb, marker="s", ms=3.0, ls="none", mfc="white", mec="0.45", mew=0.7, zorder=4)
+        print("throttle ablation drawn:", dict(zip(wb.tolist(), pb.tolist())))
 axL.set_xlim(0.68, 1.02)
-axL.set_ylim(-0.115, 1.03)
+axL.set_ylim(-0.03, 1.03)
 axL.set_xticks([0.7, 0.8, 0.9, 1.0])
-axL.spines['left'].set_bounds(0, 1)
 axL.set_yticks([0, 0.25, 0.5, 0.75, 1])
 axL.set_yticklabels(["0", "0.25", "0.5", "0.75", "1"])
-axL.set_xlabel("exit width $w$ (m)")
-axL.set_ylabel("runs completed")
+axL.set_xlabel("door width $w$ (m)")
+axL.set_ylabel("fraction of runs completed")
 
 # ---- right: w = 0.8 m, one wall-law variant per row
 LAB = {"default": "default", "B0.04": "all walls 0.04", "B0.02": "all walls 0.02", "Bedge0.04": "jambs 0.04",

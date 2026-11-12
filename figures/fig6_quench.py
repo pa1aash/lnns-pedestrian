@@ -17,16 +17,19 @@ LABEL = {"C1": "SFM", "C2": "SFM+TTC", "C3_pub": "legacy", "C3_rvo2": "RVO2", "d
          "bias0p05": "$b=0.05$", "bias0p1": "$b=0.1$", "bias0p2": "$b=0.2$", "bias0p5": "$b=0.5$",
          "noise0p03": "$\\sigma=0.03$", "noise0p05": "$\\sigma=0.05$", "noise0p07": "$\\sigma=0.07$"}
 HEADERS = ["baselines", "force-coupled ORCA", "bias", "noise"]
-BLUE, VERM, GREY = ARM_COLOURS["C3 RVO2"], ARM_COLOURS["noise"], "#b4b4b4"
+# rows drawn; the others (SFM, SFM+TTC, constraint parts, push -, every bias) sit at 0 to 2 of n and go to the caption
+KEEP = {"C3_pub", "C3_rvo2", "drive_only", "frozen_plus", "noise0p03", "noise0p05", "noise0p07"}
+BLUE, VERM = ARM_COLOURS["C3 RVO2"], ARM_COLOURS["noise"]
 
-fig = fig_full(6.8)
+fig = fig_full(4.6)
 axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [1.15, 1]})
 
 # ---- left: blocker freed within 120 s; filled = lone keystone, open = second trap; 95% cluster bootstrap
-groups = [(h, [(a, LABEL[a]) for a in g]) for h, g in zip(HEADERS, d["groups"])]
+groups = [(h, [(a, LABEL[a]) for a in g if a in KEEP]) for h, g in zip(HEADERS, d["groups"])]
+groups = [(h, m) for h, m in groups if m]
 series = [{"values": {a: (r["p"], r["lo"], r["hi"]) for a, r in bt["strata"][st]["rates"].items()},
            "filled": filled, "dy": dy}
-          for st, filled, dy in (("lone_keystone", True, -0.17), ("lone_keystone_second_trap", False, 0.17))]
+          for st, filled, dy in (("lone_keystone", True, -0.2), ("lone_keystone_second_trap", False, 0.2))]
 dotplot(axL, groups, series)
 axL.set_xticks([0, 0.25, 0.5, 0.75, 1])
 axL.set_xticklabels(["0", "0.25", "0.5", "0.75", "1"])
@@ -45,9 +48,6 @@ def steps(c, k="F"):
     return t, np.array(c[k], float)
 
 
-for arm in ("noise0p03", "noise0p05", "drive_only", "C3_pub", "frozen_plus"):
-    t, F = steps(C[arm])
-    axR.step(t, F, where="post", color=GREY, lw=0.7, zorder=1)
 for arm, col, ls in (("C3_rvo2", BLUE, "-"), ("noise0p07", VERM, "--")):
     t, F = steps(C[arm])
     _, lo = steps(C[arm], "lo")

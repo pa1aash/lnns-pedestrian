@@ -54,7 +54,7 @@ axR.set_xlim(R0, R1); axR.set_ylim(Y0, Y1)
 axR.set_xticks([0.15, 0.20, 0.25, 0.30, 0.35])
 axR.set_yticks([1, 2, 3, 4, 5])
 axR.set_xlabel(r"agent radius $r$ (m)")
-axR.set_ylabel(r"$v_0/\tau$ (m\,s$^{-2}$)")
+axR.set_ylabel(r"$v_0/\tau$ (m/s$^2$)")
 for ax in (axL, axR):
     ax.spines[["top", "right"]].set_visible(True)
 

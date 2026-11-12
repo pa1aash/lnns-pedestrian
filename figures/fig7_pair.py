@@ -4,7 +4,7 @@ pair snapshots, rebuilt from data/E7b when missing or stale)."""
 import json
 
 import build_fig7_boot
-from common import ARM_COLOURS, HERE, fig_full, qa, save
+from common import ARM_COLOURS, FULL_W_CM, HERE, fig_full, qa, save
 from dotplot import dotplot
 
 d = json.load(open(HERE / "data" / "fig7.json"))
@@ -21,13 +21,27 @@ LABEL = {"C1": "SFM", "C2": "SFM+TTC", "C3_pub": "legacy", "C3_rvo2": "RVO2", "d
 for s in ("0p01", "0p02", "0p03", "0p05"):
     LABEL[f"noise{s}"] = f"$\\sigma={s.replace('p', '.')}$"
 HEADERS = ["baselines", "force-coupled ORCA", "bias", "noise"]
+# rows drawn; SFM and SFM+TTC (0/46) and the noise arms (224/230 to 230/230) go to the caption
+DROP = {"C1", "C2", "noise0p01", "noise0p02", "noise0p03", "noise0p05"}
 
 # the two reference lines are the force-coupled ORCA rates of fig7.json; the bootstrap cache must agree
 for ref in ("C3_pub", "C3_rvo2"):
     assert abs(d["ref"][ref] - bt["rates"][ref]["p"]) < 1e-12, ref
 
-fig = fig_full(6.8)
-axL, axR = fig.subplots(1, 2, gridspec_kw={"width_ratios": [0.85, 1.4]})
+# fixed layout (cm): left panel | 3.2 cm column for the row labels of the right panel | right panel
+H = 5.0
+fig = fig_full(H)
+fig.set_layout_engine("none")
+BOT, TOP = 0.95, 0.15
+
+
+def axes_cm(x0, x1):
+    return fig.add_axes([x0 / FULL_W_CM, BOT / H, (x1 - x0) / FULL_W_CM, (H - BOT - TOP) / H])
+
+
+axL = axes_cm(1.2, 4.45)
+LAB0 = 4.75   # label column 4.75 to 7.95 cm
+axR = axes_cm(LAB0 + 3.2, 12.0)
 
 # ---- left: freed fraction against signed lateral bias b (95% snapshot bootstrap), static prediction, ORCA rates
 sc = d["static_curve"]
@@ -47,13 +61,20 @@ axL.set_xlabel("lateral bias $b$")
 axL.set_ylabel("pairs freed within 120 s")
 
 # ---- right: freed fraction per perturbation, 95% cluster bootstrap over pair snapshots
-groups = [(h, [(a, LABEL[a]) for a in g]) for h, g in zip(HEADERS, d["groups"])]
+groups = [(h, [(a, LABEL[a]) for a in g if a not in DROP]) for h, g in zip(HEADERS, d["groups"])]
+groups = [(h, m) for h, m in groups if m]
 dotplot(axR, groups, [{"values": {a: (r["p"], r["lo"], r["hi"]) for a, r in bt["rates"].items()}}])
 axR.set_xticks([0, 0.25, 0.5, 0.75, 1])
 axR.set_xticklabels(["0", "0.25", "0.5", "0.75", "1"])
 axR.grid(axis="x", color="#e2e2e2", lw=0.5, zorder=0)
 axR.set_axisbelow(True)
 axR.set_xlabel("pairs freed within 120 s")
+
+# the row labels must stay inside their column, clear of the left panel
+r = fig.canvas.get_renderer()
+x_lab = min(t.get_window_extent(r).x0 for t in axR.get_yticklabels()) / fig.dpi * 2.54
+assert x_lab >= LAB0 - 1e-6, f"row labels start at {x_lab:.2f} cm, inside the left panel"
+print(f"row labels start at {x_lab:.2f} cm (column from {LAB0} cm)")
 
 save(fig, "fig7_pair")
 qa("fig7_pair")

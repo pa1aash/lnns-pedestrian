@@ -116,7 +116,12 @@ axC.minorticks_off()
 axC.set_ylim(0.05, 6)
 axC.set_yticks([0.1, 0.3, 1, 3]); axC.set_yticklabels(["0.1", "0.3", "1", "3"])
 axC.set_xlabel(r"time step $\Delta t$ (s)")
-axC.set_ylabel(r"rate / rate at $\Delta t=0.01$ s")
+axC.set_ylabel(r"relative to $\Delta t=0.01$ s")
+
+# panel letters, left-aligned with each panel's y label
+for ax, k in zip((axA, axB, axC), "abc"):
+    ax.annotate("(%s)" % k, xy=(0, 1), xycoords="axes fraction", xytext=(-26, 5), textcoords="offset points",
+                fontsize=8, ha="left", va="bottom", annotation_clip=False)
 
 save(fig, "fig_escape_dt")
 qa("fig_escape_dt")

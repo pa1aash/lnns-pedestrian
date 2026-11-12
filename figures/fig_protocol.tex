@@ -1,38 +1,44 @@
 % Fig. (protocol): the five steps of the screening protocol as a greyscale vector flowchart, full \textwidth.
 % Input from paper/sections/04_protocol.tex inside a figure* environment; needs tikz with the libraries
 % arrows.meta and calc (both loaded in paper/main.tex). No fills: black text and arrows, grey frames.
-% One row per step (step name left, detail right); the rows carry the detail of the protocol so that the figure
-% stands alone without a numbered list in the text.
+% One column per step, left to right; terms are defined in the glossary and Sect. 4, so the boxes carry lists,
+% not sentences. Classes after ruling R6: Prevent; Reshape, axial or lateral; Heat; the defect flag is a
+% separate attribute in its own dashed box. Text is \scriptsize = 7 pt in llncs.
 \begin{tikzpicture}[
     font=\scriptsize,
     every node/.style={outer sep=0pt},
+    pbox/.style={anchor=north west, inner sep=2.5pt},
     frame/.style={draw=black!60, line width=0.5pt},
-    rule/.style={draw=black!60, line width=0.4pt},
-    flow/.style={-{Stealth[length=1.5mm,width=1.2mm]}, line width=0.6pt, color=black},
+    flow/.style={-{Stealth[length=1.4mm,width=1.1mm]}, line width=0.6pt, color=black},
   ]
-  \pgfmathsetlengthmacro{\hw}{0.17\textwidth}%       heading cell
-  \pgfmathsetlengthmacro{\pad}{3pt}%
-  \pgfmathsetlengthmacro{\bw}{\textwidth-\hw-2*\pad-0.5pt}% body text width
-  \pgfmathsetlengthmacro{\vgap}{0.30cm}%
-  \pgfmathsetlengthmacro{\hhw}{0.5*\hw}%
-  % \protostep{name}{north-west corner of the body cell}{heading}{body}
-  \long\def\protostep#1#2#3#4{%
-    \node[anchor=north west, text width=\bw, inner xsep=\pad, inner ysep=2.6pt, align=left, execute at begin node={\hyphenpenalty=10000 \exhyphenpenalty=10000 \relax}] (#1b) at #2 {#4};%
-    \draw[frame] ($(#1b.north west)-(\hw,0)$) rectangle (#1b.south east);%
-    \draw[rule] (#1b.north west) -- (#1b.south west);%
-    \node[anchor=west, inner sep=0pt, font=\scriptsize\bfseries] at ($(#1b.west)-(\hw,0)+(\pad,0)$) {#3};%
-    \coordinate (#1t) at ($(#1b.north west)-(\hhw,0)$);%
-    \coordinate (#1s) at ($(#1b.south west)-(\hhw,0)$);%
-  }%
-  \protostep{s1}{(\hw,0)}{1\hspace{0.5em}Snapshots}%
-    {A library of frozen deadlocks, each a rest state saved from a whole run: lone keystones, second traps and pair standoffs.}
-  \protostep{s2}{($(s1b.south west)-(0,\vgap)$)}{2\hspace{0.5em}Probes}%
-    {Each perturbation is applied to the same snapshots under each probe: quench (restart under the perturbation); replay (a copy displaced by $10^{\textstyle -9}$\,m); time step $\Delta t$ changed, with per-step and with $\sqrt{\Delta t}$-scaled noise; rest-drive push $\pm$ (a constant force equal to the drive part of the ORCA term at rest, towards ($+$) or away from ($-$) the door); lateral tilt $\pm b$; corrected implementation (the RVO2 solver).}
-  \protostep{s3}{($(s2b.south west)-(0,\vgap)$)}{3\hspace{0.5em}Signatures}%
-    {The responses of each perturbation to the probes, paired by snapshot: freed fraction at horizon $T$, times to free, outcome changes under replay and handedness under tilt.}
-  \protostep{s4}{($(s3b.south west)-(0,\vgap)$)}{4\hspace{0.5em}Class}%
-    {The class whose signatures the perturbation shows (Table~\ref{tab:signatures}): Prevent; Reshape, axial or lateral; Heat; Glitch.}
-  \protostep{s5}{($(s4b.south west)-(0,\vgap)$)}{5\hspace{0.5em}Compare}%
-    {The resolver (the mechanism under test) against its surrogate, a perturbation of another class whose one parameter is set so that it is fraction-matched at $T$ on the same deadlocks. The two share a mechanism only if no probe separates them (paired tests, Holm-corrected across probes).}
-  \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5}{\draw[flow] (\a s) -- (\b t);}%
+  \pgfmathsetlengthmacro{\gap}{0.30cm}%
+  % column text widths (sum + 5 x 5pt inner sep + 4 gaps = \textwidth)
+  \pgfmathsetlengthmacro{\pwa}{0.175*(\textwidth-4*\gap-25.5pt)}%
+  \pgfmathsetlengthmacro{\pwb}{0.220*(\textwidth-4*\gap-25.5pt)}%
+  \pgfmathsetlengthmacro{\pwc}{0.225*(\textwidth-4*\gap-25.5pt)}%
+  \pgfmathsetlengthmacro{\pwd}{0.175*(\textwidth-4*\gap-25.5pt)}%
+  \pgfmathsetlengthmacro{\pwe}{0.205*(\textwidth-4*\gap-25.5pt)}%
+  % cell text: ragged right, no hyphenation; every box takes the height of the tallest step
+  \def\pfmt{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000 }%
+  \def\pA{\textbf{1 Snapshots}\\[1pt]frozen deadlocks:\\ lone keystones\\ second traps\\ pair standoffs}%
+  \def\pB{\textbf{2 Probes}\\[1pt]quench\\ replay ($10^{\textstyle -9}$\,m)\\ time step $\Delta t$ with per-step or $\sqrt{\Delta t}$-scaled noise\\ rest-drive push~$\pm$\\ lateral tilt $\pm b$\\ RVO2 solver}%
+  \def\pC{\textbf{3 Signatures}\\[1pt]freed fraction at~$T$\\ times to free\\ $\Delta t$ dependence\\ handedness under tilt\\ replay sensitivity\\ (paired by snapshot)}%
+  \def\pD{\textbf{4 Class}\\[1pt]Prevent\\ Reshape, axial or lateral\\ Heat}%
+  \def\pF{\textbf{Defect flag}\\[1pt]outcome vanishes with the RVO2 solver}%
+  \def\pE{\textbf{5 Compare}\\[1pt]resolver against its fraction-matched surrogate\\ same snapshots\\ paired tests, Holm-corrected}%
+  % text nodes first, frames afterwards down to the lowest step box (the class box keeps its own height)
+  \node[pbox] (s1) at (0,0) {\parbox[t]{\pwa}{\pfmt\pA}};
+  \node[pbox] (s2) at ($(s1.north east)+(\gap,0)$) {\parbox[t]{\pwb}{\pfmt\pB}};
+  \node[pbox] (s3) at ($(s2.north east)+(\gap,0)$) {\parbox[t]{\pwc}{\pfmt\pC}};
+  \node[pbox] (s4) at ($(s3.north east)+(\gap,0)$) {\parbox[t]{\pwd}{\pfmt\pD}};
+  \node[pbox] (fl) at ($(s4.south west)+(0,-\gap)$) {\parbox[t]{\pwd}{\pfmt\pF}};
+  \node[pbox] (s5) at ($(s4.north east)+(\gap,0)$) {\parbox[t]{\pwe}{\pfmt\pE}};
+  \global\dimen1=0pt
+  \foreach \n in {s1,s2,s3,s5}{\pgfpointanchor{\n}{south}\pgfgetlastxy{\px}{\py}\ifdim\py<\dimen1\global\dimen1=\py\fi}%
+  \foreach \n in {s1,s2,s3,s5}{\draw[frame] (\n.north west) rectangle (\n.north east |- 0pt,\the\dimen1);}%
+  \draw[frame] (s4.north west) rectangle (s4.south east);%
+  \draw[frame, dashed] (fl.north west) rectangle (fl.south east);%
+  \foreach \a/\b in {s1/s2, s2/s3, s3/s4, s4/s5}{\draw[flow] ($(\a.north east)+(0,-0.45cm)$) -- ($(\b.north west)+(0,-0.45cm)$);}%
+  \coordinate (pbot) at (0pt,\the\dimen1); \coordinate (s3r) at ($(s3.north east)+(-0.35cm,0)$);%
+  \draw[flow] (s3r |- pbot) |- (fl.west);%
 \end{tikzpicture}%
