@@ -71,6 +71,9 @@ def part_a():
                     "off_only": n10, "on_only": n01, "mcnemar_p": p, "mcnemar_p_disp": pdisp(p),
                     "off_deadlock": sum(r["deadlock"] for r in off if r["w"] == w)})
     o["per_width"] = per
+    b, c = sum(p["off_only"] for p in per), sum(p["on_only"] for p in per)
+    o["pooled_paired"] = {"n": sum(p["off"]["n"] for p in per), "off_only": b, "on_only": c,
+                          "mcnemar_p": mcnemar_exact(b, c), "mcnemar_p_disp": pdisp(mcnemar_exact(b, c))}
     return o
 
 

@@ -1,0 +1,21 @@
+# B1: density-throttle ablation, veff_throttle = off (experiments/revision2/B1_throttle.py, B1_analyze.py)
+# (a) width sweep, SFM, seeds 42-141
+RvBoneWfiftyOff: {file: rev2_B1.json, key: "a.off.w50_m", fmt: "{:.3f}"}
+RvBoneWfiftyOffLo: {file: rev2_B1.json, key: "a.off.w50_ci95.0", fmt: "{:.3f}"}
+RvBoneWfiftyOffHi: {file: rev2_B1.json, key: "a.off.w50_ci95.1", fmt: "{:.3f}"}
+RvBoneWfiftyOnSame: {file: rev2_B1.json, key: "a.on_same_widths.w50_m", fmt: "{:.3f}"}
+RvBoneWfiftyOnSameLo: {file: rev2_B1.json, key: "a.on_same_widths.w50_ci95.0", fmt: "{:.3f}"}
+RvBoneWfiftyOnSameHi: {file: rev2_B1.json, key: "a.on_same_widths.w50_ci95.1", fmt: "{:.3f}"}
+RvBoneDwfiftyPub: {file: rev2_B1.json, key: "a.dw50_off_minus_published_m", fmt: sci, digits: 1}
+RvBoneDwfiftySame: {file: rev2_B1.json, key: "a.dw50_off_minus_on_m", fmt: sci, digits: 1}
+RvBoneWidthRuns: {file: rev2_B1.json, key: "a.n_runs", fmt: "{:d}"}
+RvBoneWidthOffOnly: {file: rev2_B1.json, key: "a.pooled_paired.off_only", fmt: "{:d}"}
+RvBoneWidthOnOnly: {file: rev2_B1.json, key: "a.pooled_paired.on_only", fmt: "{:d}"}
+RvBoneWidthP: {file: rev2_B1.json, key: "a.pooled_paired.mcnemar_p", fmt: sci, digits: 2}
+RvBoneWidthPDisp: {file: rev2_B1.json, key: "a.pooled_paired.mcnemar_p", fmt: p}
+RvBoneOffWEightK: {file: rev2_B1.json, key: "a.per_width.0.off.k", fmt: "{:d}"}
+RvBoneOnWEightK: {file: rev2_B1.json, key: "a.per_width.0.on.k", fmt: "{:d}"}
+RvBoneOffWEightEightK: {file: rev2_B1.json, key: "a.per_width.2.off.k", fmt: "{:d}"}
+RvBoneOnWEightEightK: {file: rev2_B1.json, key: "a.per_width.2.on.k", fmt: "{:d}"}
+RvBoneOffWNineSixK: {file: rev2_B1.json, key: "a.per_width.4.off.k", fmt: "{:d}"}
+RvBoneOnWNineSixK: {file: rev2_B1.json, key: "a.per_width.4.on.k", fmt: "{:d}"}
