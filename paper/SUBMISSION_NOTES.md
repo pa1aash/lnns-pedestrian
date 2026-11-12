@@ -32,7 +32,7 @@ Pedestrian dynamics · Social force model · Reciprocal collision avoidance · A
 
 ## PRIMORIS checklist
 
-- [ ] Source: the Overleaf source zip (one `main.tex`, `refs.bib`, `figures/`, unmodified `llncs.cls` and `splncs04.bst`); it compiles with pdfLaTeX + BibTeX to 26 pages (checked from scratch after the revision-3 integration: 0 errors, 0 undefined references, 0 overfull boxes).
+- [ ] Source: the Overleaf source zip (one `main.tex`, `refs.bib`, `figures/`, unmodified `llncs.cls` and `splncs04.bst`); it compiles with pdfLaTeX + BibTeX to 26 pages (checked from scratch on 2026-11-12 after the final revision-3 integration: 0 errors, 0 undefined references, 0 overfull boxes).
 - [ ] PDF of the final build (with `\finaltrue`, no `\pending` left).
 - [ ] Figures: Figs 1, 2 and 4–9 as files in `figures/` (Fig. 1 a 600 dpi PNG, the others vector PDF); the protocol figure (Fig. 3) is TikZ inside the source; alt text in the repository's `figures/ALT_TEXT.md`.
 - [ ] Licence to Publish, signed by the corresponding author on behalf of both authors.
