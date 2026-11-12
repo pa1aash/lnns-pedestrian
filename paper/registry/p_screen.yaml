@@ -4,8 +4,8 @@ PscrPairBsRvoMinusFreed: {file: E7b_analysis.json, key: "s3_matched.rvo2.reversa
 PscrPairBsRvoMinusUpper: {file: E7b_analysis.json, key: "s3_matched.rvo2.handedness.minus_upper_first", fmt: "{:d}"}
 # Legacy solver: last commit of the conference code (range RevAfourteenCommitConf..PscrCommitConfHead, tag r2.0-baseline).
 PscrCommitConfHead: {file: rev_A14.json, key: "identity.conference_head_short", fmt: "{}"}
-# Table 3a/3b cells at two significant figures (Sect. 4.6 rule); same keys as the RevAseven*/TabThree*/RunNOne*/Esix* macros.
-# Delta RMST (s), Table 3a/3b (rev_A7).
+# Tables 4 and 5 cells at two significant figures (Sect. 4.6 rule); same keys as the RevAseven*/TabThree*/RunNOne*/Esix* macros.
+# Delta RMST (s), Tables 4 and 5 (rev_A7).
 PscrTimeLoneEtwoEff: {file: rev_A7.json, key: "lone_E2.time.effect", fmt: "{:.0f}"}
 PscrTimeLoneEtwoLo: {file: rev_A7.json, key: "lone_E2.time.ci95.0", fmt: "{:.1f}"}
 PscrTimeLoneEtwoHi: {file: rev_A7.json, key: "lone_E2.time.ci95.1", fmt: "{:.0f}"}
@@ -24,7 +24,7 @@ PscrTimePairPubHi: {file: rev_A7.json, key: "pair_pub.time.ci95.1", fmt: "{:.0f}
 PscrTimePairRvoEff: {file: rev_A7.json, key: "pair_rvo2.time.effect", fmt: "{:.1f}"}
 PscrTimePairRvoLo: {file: rev_A7.json, key: "pair_rvo2.time.ci95.0", fmt: "{:.0f}"}
 PscrTimePairRvoHi: {file: rev_A7.json, key: "pair_rvo2.time.ci95.1", fmt: "{:.0f}"}
-# Delta (freed fraction, surrogate minus force-coupled ORCA) and other Table 3a/3b cells.
+# Delta (freed fraction, surrogate minus force-coupled ORCA) and other Tables 4 and 5 cells.
 PscrLKDiff: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_noise_minus_C3", fmt: "{:+.3f}"}
 PscrLKDiffLo: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.0", fmt: "{:.2f}"}
 PscrLKDiffHi: {file: E2_analysis.json, key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_ci95_boot.1", fmt: "{:.3f}"}

@@ -1,4 +1,4 @@
-"""A9: reconciliation of the overlap J of the unresolved sets (Table 3 J = 0.20 against text J = 0.75).
+"""A9: reconciliation of the overlap J of the unresolved sets (Table 4 J = 0.20 against text J = 0.75).
 
 Inputs (existing data only):
   data/E2/e2_quench.jsonl, data/derived/selection.json   lone-trap snapshots; noise0.07 (5 seeds), C3_rvo2
@@ -15,12 +15,12 @@ Set definitions
                           none : k = 0
                           all  : k < m     (fewer than all seeds free it)
   whole runs            one run per seed and stream; with the two streams (E6b, N2) combined, m = 2.
-  pair                  both arms deterministic; Table 3 uses the minority (freed) sets; the held sets are given too.
+  pair                  both arms deterministic; Table 5 uses the minority (freed) sets; the held sets are given too.
 J = |S1 & S2| / |S1 | S2| on the universe of N units.
 Independence: with set sizes a = |S1|, b = |S2| fixed, the overlap X is hypergeometric(N, a, b):
   p_ge = P(X >= x_obs) = sum_{k >= x_obs} C(a,k) C(N-a,b-k) / C(N,b) (exact; scipy.stats.hypergeom.sf);
   p_le = P(X <= x_obs) for the lower tail; E X = ab/N; J at E X = (ab/N) / (a + b - ab/N);
-  E J = sum_k P(X=k) k/(a+b-k) (the value Table 3 prints in parentheses, fix_a1.hyper_j).
+  E J = sum_k P(X=k) k/(a+b-k) (the value Tables 4 and 5 print in parentheses, fix_a1.hyper_j).
 Reconciliation (lone keystones)
   per_snapshot   k of 5 (E2, sigma 0.07), k of 20 (N1, sigma 0.0717) and the ORCA outcome, for every snapshot
                  that is not freed by all seeds of both or that ORCA does not free.

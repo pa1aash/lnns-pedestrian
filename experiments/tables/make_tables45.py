@@ -19,7 +19,7 @@ whose seeds disagree; deterministic arms: 1e-9 m replays that change the outcome
 unresolved sets, pair: freed sets; independence expectation in parentheses), ell (Eq. ell, time-step set) and,
 in Table 5, "First exit below axis" (first exits by the member at y < 5 m, below the door axis; A13).
 
-`make_tables45.py derive` writes data/derived/table3_pair.json: the 95% percentile bootstrap interval of the
+`make_tables45.py derive` writes data/derived/table3_pair.json (file name from the earlier numbering): the 95% percentile bootstrap interval of the
 pair-block paired rate difference (bias +b* minus ORCA, unperturbed runs, per snapshot), 2000 resamples of
 the 46 snapshots, PCG64(12345). The table itself reports the rev_A8 interval (PscrPair*Diff*, one fresh
 PCG64(12345) per comparison, as the A7/A8 tests), so the derive output is kept for reference only.

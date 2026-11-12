@@ -1228,7 +1228,7 @@ ResidAllMax:
   key: "overall_max_N"
   fmt: sci
   digits: 1
-# --- Table 3 (experiments/tables/make_table3.py): matched-control blocks
+# --- Tables 4 and 5 (experiments/tables/make_tables45.py): matched-control blocks; the macro prefix TabThree and the file name table3_pair.json keep the earlier numbering
 TabThreeLKDiff:
   file: E2_analysis.json
   key: "f_noise_vs_C3.lone_keystone.noise0p07.paired_rate_diff_noise_minus_C3"
@@ -1302,7 +1302,7 @@ TabThreePairRvoJacFHi:
   file: E7b_analysis.json
   key: "s3_matched.rvo2.jaccard_freed.ci95.1"
   fmt: "{:.2f}"
-# integer form for the disjoint case (Table 3 prints "0 (disjoint)" when the freed sets share no snapshot)
+# integer form for the disjoint case (Table 5 prints "0 (disjoint)" when the freed sets share no snapshot)
 TabThreePairRvoJacFInt:
   file: E7b_analysis.json
   key: "s3_matched.rvo2.jaccard_freed.value"

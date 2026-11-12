@@ -1,13 +1,13 @@
-"""A6: second-trap rows for Table 3 (noise sigma = 0.07 m/s against force-coupled ORCA, RVO2 solver).
+"""A6: second-trap rows for Table 4 (noise sigma = 0.07 m/s against force-coupled ORCA, RVO2 solver).
 
 Inputs (existing data only):
   data/E2/e2_quench.jsonl            E2 lone-trap quench library (arms noise0.07, C3_rvo2, C3_pub)
   data/derived/selection.json        E2 snapshots: tag, blocker id, stratum (class)
-  data/derived/E2_analysis.json      the published Table 3 lone-keystone row (experiments/E2/analyze.py)
+  data/derived/E2_analysis.json      the published Table 4 lone-keystone row (experiments/E2/analyze.py)
   experiments/fixan/fix_a1.py        lone_block(): J of the unresolved sets, two-level bootstrap, independence
 Output: data/derived/rev_A6.json
 
-Every definition is the one of the lone-keystone row of Table 3 (macros EtwoLKNoiseC*, TabThreeLK*,
+Every definition is the one of the lone-keystone row of Table 4 (macros EtwoLKNoiseC*, TabThreeLK*,
 FixAoneLoneJ*), applied to the 26 snapshots of stratum lone_keystone_second_trap:
   freed       the blocker (selection.json) exits within 120 s.
   noise       every (snapshot, seed) run counts once (5 seeds per snapshot, 130 runs).

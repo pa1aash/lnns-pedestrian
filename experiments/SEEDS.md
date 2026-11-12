@@ -49,7 +49,7 @@ Bootstrap and permutation intervals use one fixed generator per script.
 | Script | Generator | Source |
 |---|---|---|
 | E1 analysis and chain | `PCG64(12345)` | `experiments/E1/e1_analyze.py:30`, `experiments/E1/chain.py:35` |
-| E2, E3, E4, E7b analysis, Table 3 | seed 12345 | `experiments/E2/analyze.py:36`, `experiments/E3/analyze.py:42`, `experiments/E4/analyze.py:43`, `experiments/E7b/analyze.py:65`, `experiments/tables/make_table3.py:34` |
+| E2, E3, E4, E7b analysis, Tables 4 and 5 | seed 12345 | `experiments/E2/analyze.py:36`, `experiments/E3/analyze.py:42`, `experiments/E4/analyze.py:43`, `experiments/E7b/analyze.py:65`, `experiments/tables/make_tables45.py:43` |
 | E8, E9 (shared statistics), E11 | `PCG64(12345)` | `experiments/lib/openstats.py:39`, `experiments/E11/analyze.py:52` |
 | E6, E10 analysis | `default_rng(2026)` | `experiments/E6/analyze.py:52`, `experiments/E10/analyze.py:45` |
 | E7 analysis | `default_rng(7)` | `experiments/E7/analyze.py:144` |

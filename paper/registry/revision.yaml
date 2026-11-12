@@ -439,7 +439,7 @@ RevAfiveXSFMFreedSpeedB: {file: rev_A5x.json, key: "sfm_freed_snapshot_speed.fre
 RevAfiveXSFMFreedRankB: {file: rev_A5x.json, key: "sfm_freed_snapshot_speed.freed.E1b_seed184.rank_fastest", fmt: "{:d}"}
 
 # ---- A6
-# A6 second-trap rows for Table 3 (experiments/revision/A6_second_trap_rows.py)
+# A6 second-trap rows for Table 4 (experiments/revision/A6_second_trap_rows.py)
 RevAsixSTSnaps: {file: rev_A6.json, key: "lone_keystone_second_trap.n_snapshots", fmt: "{:d}"}
 RevAsixSTNoiseFreed: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.freed", fmt: "{:d}"}
 RevAsixSTNoiseN: {file: rev_A6.json, key: "lone_keystone_second_trap.noise0p07.n_runs", fmt: "{:d}"}

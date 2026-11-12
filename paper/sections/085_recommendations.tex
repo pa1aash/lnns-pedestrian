@@ -3,9 +3,9 @@ The open framework deadlock-screen needs a steering model with a restartable sta
 \begin{enumerate}
 \renewcommand{\labelenumi}{(\roman{enumi})}
 \item compare $g_{\max}(r)$ with the rest drive $m v_{\rm eff}/\tau$ (Eq.~\eqref{eq:stuck}) over radii and speeds;
-\item round the door edges ($r_c=0.1$\,m removes the pair standoff, Sect.~\ref{sec:pair}) and check the wall range;
+\item round door edges ($r_c=0.1$\,m prevents pair standoffs), check the wall range;
 \item report ORCA results per solver and per coupling (Sects.~\ref{sec:identity} and~\ref{sec:att-lone}--\ref{sec:velorca});
-\item treat per-step noise, used against clogs~\cite{xu2021}, as of $\Delta t$-dependent temperature (Eq.~\eqref{eq:teff});
+\item treat per-step noise~\cite{xu2021} as of $\Delta t$-dependent temperature (Eq.~\eqref{eq:teff});
 \item test completion, flow and censored gaps against experiments (Sect.~\ref{sec:validity});
 \item report a density throttle on the desired speed and test with it off (Eq.~\eqref{eq:des}).
 \end{enumerate}

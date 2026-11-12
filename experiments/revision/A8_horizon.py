@@ -7,7 +7,7 @@ Inputs (existing data only; an outcome at horizon T is read off the recorded exi
   data/N1/n1.jsonl     lone keystones only, sigma = 0.0717 m/s, 20 seeds per snapshot.
   data/E7b/e7b_quench.jsonl + data/E7b_bstar/bstar_quench.jsonl   46 pair standoffs; C3_pub, C3_rvo2,
         bstar_pub+ (b*_legacy), bstar_rvo2+ (b*_RVO2), unperturbed runs. Freed: freed and first member exit
-        time first_t <= T (make_table3.py derive rule).
+        time first_t <= T (make_tables45.py derive rule).
   data/E6/e6a.jsonl (C3 RVO2), data/E6/e6b.jsonl (C1 + sigma*), data/N2/n2.jsonl (C1 + sigma*, second
         noise stream on the same spawns); 186 seeds. Completed by T: complete and evacuation_time <= T.
 Horizons: snapshots 60 s and 120 s (the quench window is 120 s); whole runs 300 s and 600 s (t_max 600 s).
@@ -17,7 +17,7 @@ Output: data/derived/rev_A8.json
   Delta            mean over units of (surrogate freed fraction of the unit minus ORCA outcome of the unit):
                    per snapshot k_i/m - c_i for noise, c'_i - c_i for deterministic arms, per seed for whole runs.
                    95% percentile bootstrap over units, 2000 resamples, a fresh PCG64(12345) per comparison
-                   (the E2 analyze.py / make_table3.py rule). Whole runs also carry the Newcombe paired interval
+                   (the E2 analyze.py / make_tables45.py rule). Whole runs also carry the Newcombe paired interval
                    (method 10, the Esix rule).
   fraction-matched at T   the 95% interval of Delta covers 0.
   horizon-specific        fraction-matched at one horizon of the pair and not at the other.

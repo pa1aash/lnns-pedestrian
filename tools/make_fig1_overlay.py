@@ -32,25 +32,25 @@ AXIS_LW, TICK_CM, TICK_GAP_CM = 0.4, 0.05, 0.035
 
 # (text, panel, anchor, dx_cm, dy_cm, tikz anchor). Offsets in printed cm; anchors "@tl" etc are panel corners,
 # "a+b" is the midpoint of anchors a and b. Panel tags top-left; scene labels beside the one object they name (each
-# "passes alone" over its own disc, under the kerb; "held alone" over the blocker's top-left, in the doorway); ribbon labels
+# "passes alone" over its own disc, under the kerb; "blocker" over the blocker's top-left, in the doorway); ribbon labels
 # above one end of their ribbon; tick labels are generated with the axes.
 LABELS = [
     ("lone trap", "lone", "@tl", 0.10, -0.08, "north west"),
     ("100 N", "lone", "scale100_mid", -0.10, 0.0, "east"),
     ("0.5 m", "lone", "scale_half_m_mid", 0.0, 0.07, "south"),
-    ("held alone", "lone", "held_top", -0.26, 0.10, "south east"),
+    ("blocker", "lone", "held_top", -0.26, 0.10, "south east"),
     ("passes alone", "lone", "n54_top", 0.0, 0.06, "south"),
     ("passes alone", "lone", "n38_top", 0.0, 0.06, "south"),
     ("drive", "lone", "drive_f", 0.15, 0.0, "west"),
     ("wall", "lone", "wall_1", 0.12, -0.03, "west"),
-    ("ORCA", "lone", "orca_mid", 0.12, 0.0, "west"),
+    ("drive part", "lone", "orca_mid", 0.12, 0.0, "west"),
     ("own drive", "rib_lone", "band_01", 0.02, 0.03, "south west"),
-    ("added drive", "rib_lone", "label1", -0.02, 0.03, "south east"),
+    ("with push", "rib_lone", "label1", -0.02, 0.03, "south east"),
     ("noise", "rib_lone", "band_10+band_11", 0.08, 0.0, "west"),
     ("pair standoff", "pair", "@tl", 0.10, -0.08, "north west"),
     ("held together", "pair", "between", 0.0, 1.0, "south"),
-    ("no tilt", "rib_pair", "label0", 0.02, 0.03, "south west"),
-    ("tilted", "rib_pair", "label1", -0.02, 0.03, "south east"),
+    ("no bias", "rib_pair", "label0", 0.02, 0.03, "south west"),
+    ("biased", "rib_pair", "label1", -0.02, 0.03, "south east"),
 ]
 
 
