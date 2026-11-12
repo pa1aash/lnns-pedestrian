@@ -1,0 +1,15 @@
+# Revision-3 runs (session C2, Part B and A10). 4 workers per step. Estimates from the wall times of the
+# throttle-on counterparts (B2, velorca, E6a, D3).
+steps:
+  - name: B1a
+    cmd: [experiments/revision2/B1_throttle.py, a, --workers, '4']
+    cpu_h: 4.0
+  - name: B1b
+    cmd: [experiments/revision2/B1_throttle.py, b, --workers, '4']
+    cpu_h: 3.4
+  - name: B1c
+    cmd: [experiments/revision2/B1_throttle.py, c, --workers, '4']
+    cpu_h: 3.3
+  - name: B2dt
+    cmd: [experiments/revision2/B2_dt.py, --workers, '4']
+    cpu_h: 4.2

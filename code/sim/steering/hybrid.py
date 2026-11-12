@@ -100,6 +100,12 @@ class HybridSteeringModel(SteeringModel):
         # Wave 2: orca_force_transform "none" | "reverse_parallel" | "reverse_lateral"
         # (component of the ORCA force relative to the goal direction e_hat).
         self.orca_transform = params.get("w2_orca_transform", "none")
+        # Revision 3: veff_throttle="off" drops the density throttle of Eq. (2) on the desired speed
+        # (v_eff = v0 in the desired force); "on" (default) keeps the Weidmann factor. Other uses of the
+        # local density (ORCA gate, crush weight) are unchanged.
+        self.veff_throttle = params.get("veff_throttle", "on")
+        if self.veff_throttle not in ("on", "off"):
+            raise ValueError(f"veff_throttle must be 'on' or 'off', got {self.veff_throttle!r}")
         # Wave 2: noise="lateral_bias" -> desired direction tilted to (e + b e_perp)/|.|,
         # e_perp = e rotated +90 deg (fixed handedness); b = tan(bias angle).
         self.lateral_bias = (float(params.get("w2_bias_b", 0.0))
@@ -158,7 +164,7 @@ class HybridSteeringModel(SteeringModel):
             agent_state.desired_speeds,
             agent_state.masses,
             agent_state.taus,
-            local_densities=local_densities,
+            local_densities=local_densities if self.veff_throttle == "on" else None,
             weidmann_gamma=self.params.get("weidmann_gamma", 1.913),
             weidmann_rho_max=self.params.get("weidmann_rho_max", 5.4),
         )
@@ -214,7 +220,7 @@ class HybridSteeringModel(SteeringModel):
             agent_state.positions, agent_state.velocities,
             agent_state.goals, agent_state.desired_speeds,
             agent_state.masses, agent_state.taus,
-            local_densities=local_densities,
+            local_densities=local_densities if self.veff_throttle == "on" else None,
             weidmann_gamma=self.params.get("weidmann_gamma", 1.913),
             weidmann_rho_max=self.params.get("weidmann_rho_max", 5.4),
         )
