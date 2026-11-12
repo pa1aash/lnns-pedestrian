@@ -1,0 +1,152 @@
+{
+ "script": "experiments/revision2/A10_analyze.py",
+ "doc": "A10 analysis: does a 1e-9 m replay change the outcome of a noise quench when the noise stream is held fixed?\n\nInputs: data/revision2/A10/a10.jsonl (experiments/revision2/A10_noise_replay.py: 34 lone keystones x 5 noise seeds,\neach as the E2 reference and as a 1e-9 m replay with the same noise seed); data/E2/e2_quench.jsonl (the ordinary\n1e-9 m replays of the deterministic arms, perturb seeds 900-904, and the five independent noise seeds at\nsigma = 0.07 m/s); data/derived/rev_A7.json (the replay-change counts of A7: E2 9:0, N1 14:0).\nMethod:\n  reference check   every ref run must reproduce the stored E2 record bit for bit (exits, final positions, t_run).\n  run level         a flip = blocker freed within 120 s in one of (ref, replay) and not in the other; flips split\n                    into ref-only (b) and replay-only (c); exact McNemar on b, c; Wilson interval of the flip\n                    fraction over the 170 pairs. Among pairs freed in both: exit-time shifts |t_replay - t_ref|.\n  snapshot level    a snapshot \"changes under fixed-stream replay\" when any of its five pairs flips (the rule A7\n                    uses for deterministic replays). Compared, on the same 34 snapshots, with\n                    (i) ordinary replays of each deterministic E2 arm (any of five 1e-9 m replays changes the\n                    unperturbed outcome; force-coupled ORCA (RVO2) is arm C3_rvo2), and\n                    (ii) independent noise seeds (the five E2 seeds disagree on freed; A7's replay probe),\n                    by exact McNemar on the paired snapshot indicators.\n  independent-seed  per run pair, the chance that two different E2 seeds of the same snapshot disagree,\n  baseline          mean over snapshots of 2 k (5 - k) / 20 (k = seeds that free), against the run-level flip\n                    fraction.\nOutput: data/derived/rev2_A10.json.  Usage: A10_analyze.py [--in PATH] [--partial]\n",
+ "input": "data/revision2/A10/a10.jsonl",
+ "complete": true,
+ "n_missing": 0,
+ "ref_check": {
+  "n_ref": 170,
+  "n_match": 170,
+  "all_match": true
+ },
+ "run": {
+  "n_pairs": 170,
+  "ref_freed": 148,
+  "replay_freed": 148,
+  "flips": 0,
+  "flip": {
+   "k": 0,
+   "n": 170,
+   "frac": 0.0,
+   "ci95": [
+    0.0,
+    0.022098277972591136
+   ],
+   "frac_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.022
+   ]
+  },
+  "mcnemar": {
+   "test": "exact McNemar",
+   "first": "ref freed",
+   "second": "replay freed",
+   "n_first": 148,
+   "n_second": 148,
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "p": 1.0,
+   "p_disp": "1.000"
+  },
+  "n_both_freed": 148,
+  "n_same_exit_time": 148,
+  "shift_median_s": 0.0,
+  "shift_max_s": 0.0,
+  "indep_seed_disagree": 0.14705882352941177,
+  "indep_seed_disagree_2sf": 0.15
+ },
+ "snapshot": {
+  "n": 34,
+  "changed_fixed_stream": {
+   "k": 0,
+   "n": 34,
+   "frac": 0.0,
+   "ci95": [
+    0.0,
+    0.10151790621961015
+   ],
+   "frac_2sf": 0.0,
+   "ci95_2sf": [
+    0.0,
+    0.1
+   ]
+  },
+  "changed_seeds_E2": 9,
+  "a7_replay_E2": [
+   9,
+   0
+  ],
+  "a7_replay_N1": [
+   14,
+   0
+  ],
+  "det_replay_changed": {
+   "C1": {
+    "changed": 0,
+    "n": 34
+   },
+   "C2": {
+    "changed": 0,
+    "n": 34
+   },
+   "C3_pub": {
+    "changed": 0,
+    "n": 34
+   },
+   "C3_rvo2": {
+    "changed": 0,
+    "n": 34
+   },
+   "drive_only": {
+    "changed": 0,
+    "n": 34
+   },
+   "constraint_only_pub": {
+    "changed": 0,
+    "n": 34
+   },
+   "constraint_only_rvo2": {
+    "changed": 0,
+    "n": 34
+   },
+   "frozen_plus": {
+    "changed": 0,
+    "n": 34
+   },
+   "frozen_minus": {
+    "changed": 0,
+    "n": 34
+   },
+   "bias0.05": {
+    "changed": 0,
+    "n": 34
+   },
+   "bias0.1": {
+    "changed": 0,
+    "n": 34
+   },
+   "bias0.2": {
+    "changed": 0,
+    "n": 34
+   },
+   "bias0.5": {
+    "changed": 0,
+    "n": 34
+   }
+  },
+  "vs_orca_rvo2": {
+   "test": "exact McNemar",
+   "first": "fixed-stream replay",
+   "second": "ORCA (RVO2) replay",
+   "n_first": 0,
+   "n_second": 0,
+   "b_first_only": 0,
+   "c_second_only": 0,
+   "p": 1.0,
+   "p_disp": "1.000"
+  },
+  "vs_seeds_E2": {
+   "test": "exact McNemar",
+   "first": "fixed-stream replay",
+   "second": "independent E2 seeds",
+   "n_first": 0,
+   "n_second": 9,
+   "b_first_only": 0,
+   "c_second_only": 9,
+   "p": 0.00390625,
+   "p_disp": "0.0039"
+  },
+  "changed_tags": []
+ }
+}
