@@ -118,7 +118,7 @@ def per_run_ratio(mv, hv):
 PAPER = {
     "source": "Boomers et al., Pedestrian Crowd Management Experiments: A Data Guidance Paper, arXiv:2303.02319v2 "
               "(10 Mar 2023); published in Collective Dynamics 8 (2023) A141, DOI 10.17815/CD.2023.141. Page numbers "
-              "are those of the arXiv v2 PDF.",
+              "are those of the arXiv v2 PDF; the journal PDF has the same pages for these items.",
     "motivation": {
         "levels": "Sect. 3.7 (p. 20): motivation normal, hurry, full commitment; Table 19 (App. A.9, p. A19 = PDF "
                   "p. 57) codes h0 normal, h1 hurry, h2 full commitment (he normal-hurry, not used here)",

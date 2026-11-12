@@ -1,0 +1,32 @@
+# Registry entries for A10 (replay of the E2 noise quench with the noise stream held fixed).
+# Source: data/derived/rev2_A10.json (experiments/revision2/A10_analyze.py, after queue step A10).
+# Run level: 34 lone keystones x 5 noise seeds = 170 (reference, replay) pairs, sigma = 0.07 m/s.
+RvAtenNRef: {file: rev2_A10.json, key: "ref_check.n_ref", fmt: "{:d}"}
+RvAtenNRefMatch: {file: rev2_A10.json, key: "ref_check.n_match", fmt: "{:d}"}
+RvAtenNPairs: {file: rev2_A10.json, key: "run.n_pairs", fmt: "{:d}"}
+RvAtenRefFreed: {file: rev2_A10.json, key: "run.ref_freed", fmt: "{:d}"}
+RvAtenReplayFreed: {file: rev2_A10.json, key: "run.replay_freed", fmt: "{:d}"}
+RvAtenFlips: {file: rev2_A10.json, key: "run.flips", fmt: "{:d}"}
+RvAtenFlipFrac: {file: rev2_A10.json, key: "run.flip.frac", fmt: sig, digits: 2}
+RvAtenFlipLo: {file: rev2_A10.json, key: "run.flip.ci95_2sf.0", fmt: sig, digits: 2}
+RvAtenFlipHi: {file: rev2_A10.json, key: "run.flip.ci95_2sf.1", fmt: sig, digits: 2}
+RvAtenFlipRefOnly: {file: rev2_A10.json, key: "run.mcnemar.b_first_only", fmt: "{:d}"}
+RvAtenFlipReplayOnly: {file: rev2_A10.json, key: "run.mcnemar.c_second_only", fmt: "{:d}"}
+RvAtenFlipPExact: {file: rev2_A10.json, key: "run.mcnemar.p", fmt: sci, digits: 2}
+RvAtenFlipP: {file: rev2_A10.json, key: "run.mcnemar.p", fmt: p}
+RvAtenIndepDisagree: {file: rev2_A10.json, key: "run.indep_seed_disagree", fmt: sig, digits: 2}
+RvAtenBothFreed: {file: rev2_A10.json, key: "run.n_both_freed", fmt: "{:d}"}
+RvAtenSameExitTime: {file: rev2_A10.json, key: "run.n_same_exit_time", fmt: "{:d}"}
+RvAtenShiftMedian: {file: rev2_A10.json, key: "run.shift_median_s", fmt: sig, digits: 2}
+RvAtenShiftMax: {file: rev2_A10.json, key: "run.shift_max_s", fmt: sig, digits: 2}
+# Snapshot level (34 lone keystones): any of five pairs flips; comparators on the same snapshots
+RvAtenSnapChanged: {file: rev2_A10.json, key: "snapshot.changed_fixed_stream.k", fmt: "{:d}"}
+RvAtenSnapN: {file: rev2_A10.json, key: "snapshot.n", fmt: "{:d}"}
+RvAtenSnapSeedChanged: {file: rev2_A10.json, key: "snapshot.changed_seeds_E2", fmt: "{:d}"}
+RvAtenSnapOrcaChanged: {file: rev2_A10.json, key: "snapshot.det_replay_changed.C3_rvo2.changed", fmt: "{:d}"}
+RvAtenVsOrcaPExact: {file: rev2_A10.json, key: "snapshot.vs_orca_rvo2.p", fmt: sci, digits: 2}
+RvAtenVsOrcaP: {file: rev2_A10.json, key: "snapshot.vs_orca_rvo2.p", fmt: p}
+RvAtenVsSeedsDiscA: {file: rev2_A10.json, key: "snapshot.vs_seeds_E2.b_first_only", fmt: "{:d}"}
+RvAtenVsSeedsDiscB: {file: rev2_A10.json, key: "snapshot.vs_seeds_E2.c_second_only", fmt: "{:d}"}
+RvAtenVsSeedsPExact: {file: rev2_A10.json, key: "snapshot.vs_seeds_E2.p", fmt: sci, digits: 2}
+RvAtenVsSeedsP: {file: rev2_A10.json, key: "snapshot.vs_seeds_E2.p", fmt: p}
