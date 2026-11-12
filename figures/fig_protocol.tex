@@ -20,9 +20,9 @@
   \pgfmathsetlengthmacro{\pwe}{0.205*(\textwidth-4*\gap-25.5pt)}%
   % cell text: ragged right, no hyphenation; every box takes the height of the tallest step
   \def\pfmt{\raggedright\hyphenpenalty=10000\exhyphenpenalty=10000 }%
-  \def\pA{\textbf{1 Snapshots}\\[1pt]frozen deadlocks:\\ lone keystones\\ second traps\\ pair standoffs}%
-  \def\pB{\textbf{2 Probes}\\[1pt]quench\\ replay ($10^{\textstyle -9}$\,m)\\ time step $\Delta t$ with per-step or $\sqrt{\Delta t}$-scaled noise\\ rest-drive push~$\pm$\\ lateral tilt $\pm b$\\ RVO2 solver}%
-  \def\pC{\textbf{3 Signatures}\\[1pt]freed fraction at~$T$\\ times to free\\ $\Delta t$ dependence\\ handedness under tilt\\ replay sensitivity\\ (paired by snapshot)}%
+  \def\pA{\textbf{1 Snapshots}\\[1pt]saved rest states:\\ lone keystones\\ second traps\\ pair standoffs}%
+  \def\pB{\textbf{2 Probes}\\[1pt]quench\\ replay ($10^{\textstyle -9}$\,m)\\ time step $\Delta t$ with per-step or $\sqrt{\Delta t}$-scaled noise\\ rest-drive push~$\pm$\\ lateral bias $\pm b$\\ RVO2 solver}%
+  \def\pC{\textbf{3 Responses}\\[1pt]freed fraction at~$T$\\ times to free\\ $\Delta t$ dependence\\ handedness under bias\\ replay sensitivity\\ (paired by snapshot)}%
   \def\pD{\textbf{4 Class}\\[1pt]Prevent\\ Reshape, axial or lateral\\ Heat}%
   \def\pF{\textbf{Defect flag}\\[1pt]outcome vanishes with the RVO2 solver}%
   \def\pE{\textbf{5 Compare}\\[1pt]resolver against its fraction-matched surrogate\\ same snapshots\\ paired tests, Holm-corrected}%

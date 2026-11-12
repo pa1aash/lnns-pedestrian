@@ -27,3 +27,8 @@ Checks: every figure PDF has only 7 and 8 pt text (`pdftohtml -xml -zoom 1`), al
 3. Fig. 6(c): the force-coupled ORCA quantity is inverse time to free, not a rate or a freed fraction.
 4. Sect. 7 and Limitations: CroMa walls are thick and tapered (not a flare); 7.8 × 8.6 m holding area is inferred.
 5. Fig. 5 now shows the throttle ablation (open squares); use the caption above, which includes it.
+
+## Addendum (after P2's report): figure vocabulary (P2 items M12, B1, B3)
+- Fig. 1 overlay labels: "held alone" became "blocker", "ORCA" became "drive part" (the blue arrow is m v0/τ_orca, the ORCA term's drive part), and "no tilt"/"tilted" became "no bias"/"biased". Caption: "blue, the drive part of the ORCA term"; "lateral bias (grey marker, where the biased curve leads)". The graphic was not re-rendered (overlay text only).
+- Fig. 3 boxes: "frozen deadlocks" became "saved rest states", "3 Signatures" became "3 Responses", "lateral tilt ±b" became "lateral bias ±b", and "handedness under tilt" became "handedness under bias". This matches the caption P2 wrote and Table 2.
+- The paper is still 26 pages, with 0 errors and 0 overfull boxes. Pages 2 and 9 were inspected at 160 dpi. Alt text is updated.
