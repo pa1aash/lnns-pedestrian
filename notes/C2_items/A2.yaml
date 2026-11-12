@@ -1,0 +1,46 @@
+# A2: damping regime, Kramers-Grote-Hynes and Mel'nikov-Meshkov factors (experiments/revision2/A2_damping.py)
+RvAtwoNFits: {file: rev2_A2.json, key: "headline.n_fits", fmt: "{:d}"}
+RvAtwoNValid: {file: rev2_A2.json, key: "n_valid", fmt: "{:d}"}
+RvAtwoGamOmegaMin: {file: rev2_A2.json, key: "headline.g_wb_min", fmt: sig, digits: 2}
+RvAtwoGamOmegaMed: {file: rev2_A2.json, key: "headline.g_wb_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaMax: {file: rev2_A2.json, key: "headline.g_wb_max", fmt: sig, digits: 2}
+RvAtwoGamOmegaFullMed: {file: rev2_A2.json, key: "headline.g_wb_full_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaPinnedMed: {file: rev2_A2.json, key: "headline.g_wb_frozen_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaAloneMed: {file: rev2_A2.json, key: "headline.g_wb_alone_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaAMed: {file: rev2_A2.json, key: "headline.g_wa_med", fmt: sig, digits: 2}
+RvAtwoOmegaBMin: {file: rev2_A2.json, key: "headline.wb_min", fmt: sig, digits: 2}
+RvAtwoOmegaBMax: {file: rev2_A2.json, key: "headline.wb_max", fmt: sig, digits: 2}
+RvAtwoOmegaAMin: {file: rev2_A2.json, key: "headline.wa_min", fmt: sig, digits: 2}
+RvAtwoOmegaAMax: {file: rev2_A2.json, key: "headline.wa_max", fmt: sig, digits: 2}
+RvAtwoKappaMin: {file: rev2_A2.json, key: "headline.kappa_min", fmt: sig, digits: 2}
+RvAtwoKappaMed: {file: rev2_A2.json, key: "headline.kappa_med", fmt: sig, digits: 2}
+RvAtwoKappaMax: {file: rev2_A2.json, key: "headline.kappa_max", fmt: sig, digits: 2}
+RvAtwoKappaMdMin: {file: rev2_A2.json, key: "headline.kappa_md_min", fmt: sig, digits: 2}
+RvAtwoKappaMdMax: {file: rev2_A2.json, key: "headline.kappa_md_max", fmt: sig, digits: 2}
+RvAtwoLossMin: {file: rev2_A2.json, key: "headline.gS_dU_min", fmt: sig, digits: 2}
+RvAtwoLossMed: {file: rev2_A2.json, key: "headline.gS_dU_med", fmt: sig, digits: 2}
+RvAtwoLossMax: {file: rev2_A2.json, key: "headline.gS_dU_max", fmt: sig, digits: 2}
+RvAtwoBetaTurnover: {file: rev2_A2.json, key: "headline.beta_delta_one_med", fmt: sig, digits: 2}
+RvAtwoAAtTurnover: {file: rev2_A2.json, key: "headline.A_at_delta_one", fmt: sig, digits: 2}
+RvAtwoSHarmMin: {file: rev2_A2.json, key: "headline.S_harm_ratio_min", fmt: sig, digits: 2}
+RvAtwoSHarmMax: {file: rev2_A2.json, key: "headline.S_harm_ratio_max", fmt: sig, digits: 2}
+RvAtwoAMin: {file: rev2_A2.json, key: "headline.A_E4_min", fmt: sig, digits: 2}
+RvAtwoAMed: {file: rev2_A2.json, key: "headline.A_E4_med", fmt: sig, digits: 2}
+RvAtwoALowSMin: {file: rev2_A2.json, key: "headline.A_E4_lowS_min", fmt: sig, digits: 2}
+RvAtwoAFitMin: {file: rev2_A2.json, key: "headline.A_fit_min", fmt: sig, digits: 2}
+RvAtwoAFitMed: {file: rev2_A2.json, key: "headline.A_fit_med", fmt: sig, digits: 2}
+RvAtwoKappaAFitMed: {file: rev2_A2.json, key: "headline.kA_fit_med", fmt: sig, digits: 2}
+RvAtwoMeasLanger: {file: rev2_A2.json, key: "headline.measured_median", fmt: sig, digits: 2}
+RvAtwoMeasTst: {file: rev2_A2.json, key: "headline.meas_tst_med", fmt: sig, digits: 2}
+RvAtwoMeasOverAFit: {file: rev2_A2.json, key: "headline.meas_over_Afit_med", fmt: sig, digits: 2}
+RvAtwoInsideRange: {file: rev2_A2.json, key: "headline.inside_A_range", fmt: "{:d}"}
+RvAtwoMeasMin: {file: rev2_A2.json, key: "summary.all.measured_over_langer.min", fmt: sig, digits: 2}
+RvAtwoMeasMax: {file: rev2_A2.json, key: "summary.all.measured_over_langer.max", fmt: sig, digits: 2}
+RvAtwoABthreeMin: {file: rev2_A2.json, key: "b3_summary.A_beta5_7.min", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMed: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.median", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMin: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.min", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMax: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.max", fmt: sig, digits: 2}
+RvAtwoFreeOverLanger: {file: rev2_A2.json, key: "headline.free_over_langer_med", fmt: sig, digits: 2}
+RvAtwoRhoSlope: {file: rev2_A2.json, key: "headline.rho_r_meas", fmt: sig, digits: 2}
+RvAtwoRhoSlopeP: {file: rev2_A2.json, key: "headline.rho_p", fmt: sci, digits: 2}
+RvAtwoRhoSlopePDisp: {file: rev2_A2.json, key: "headline.rho_p", fmt: p}

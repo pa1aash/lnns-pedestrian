@@ -2,6 +2,54 @@
 # experiments/revision2/build_registry2.py from notes/C2_items/*.yaml; edit those.
 # Sources: data/derived/rev2_*.json (experiments/revision2/*.py).
 
+# ---- A2
+# A2: damping regime, Kramers-Grote-Hynes and Mel'nikov-Meshkov factors (experiments/revision2/A2_damping.py)
+RvAtwoNFits: {file: rev2_A2.json, key: "headline.n_fits", fmt: "{:d}"}
+RvAtwoNValid: {file: rev2_A2.json, key: "n_valid", fmt: "{:d}"}
+RvAtwoGamOmegaMin: {file: rev2_A2.json, key: "headline.g_wb_min", fmt: sig, digits: 2}
+RvAtwoGamOmegaMed: {file: rev2_A2.json, key: "headline.g_wb_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaMax: {file: rev2_A2.json, key: "headline.g_wb_max", fmt: sig, digits: 2}
+RvAtwoGamOmegaFullMed: {file: rev2_A2.json, key: "headline.g_wb_full_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaPinnedMed: {file: rev2_A2.json, key: "headline.g_wb_frozen_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaAloneMed: {file: rev2_A2.json, key: "headline.g_wb_alone_med", fmt: sig, digits: 2}
+RvAtwoGamOmegaAMed: {file: rev2_A2.json, key: "headline.g_wa_med", fmt: sig, digits: 2}
+RvAtwoOmegaBMin: {file: rev2_A2.json, key: "headline.wb_min", fmt: sig, digits: 2}
+RvAtwoOmegaBMax: {file: rev2_A2.json, key: "headline.wb_max", fmt: sig, digits: 2}
+RvAtwoOmegaAMin: {file: rev2_A2.json, key: "headline.wa_min", fmt: sig, digits: 2}
+RvAtwoOmegaAMax: {file: rev2_A2.json, key: "headline.wa_max", fmt: sig, digits: 2}
+RvAtwoKappaMin: {file: rev2_A2.json, key: "headline.kappa_min", fmt: sig, digits: 2}
+RvAtwoKappaMed: {file: rev2_A2.json, key: "headline.kappa_med", fmt: sig, digits: 2}
+RvAtwoKappaMax: {file: rev2_A2.json, key: "headline.kappa_max", fmt: sig, digits: 2}
+RvAtwoKappaMdMin: {file: rev2_A2.json, key: "headline.kappa_md_min", fmt: sig, digits: 2}
+RvAtwoKappaMdMax: {file: rev2_A2.json, key: "headline.kappa_md_max", fmt: sig, digits: 2}
+RvAtwoLossMin: {file: rev2_A2.json, key: "headline.gS_dU_min", fmt: sig, digits: 2}
+RvAtwoLossMed: {file: rev2_A2.json, key: "headline.gS_dU_med", fmt: sig, digits: 2}
+RvAtwoLossMax: {file: rev2_A2.json, key: "headline.gS_dU_max", fmt: sig, digits: 2}
+RvAtwoBetaTurnover: {file: rev2_A2.json, key: "headline.beta_delta_one_med", fmt: sig, digits: 2}
+RvAtwoAAtTurnover: {file: rev2_A2.json, key: "headline.A_at_delta_one", fmt: sig, digits: 2}
+RvAtwoSHarmMin: {file: rev2_A2.json, key: "headline.S_harm_ratio_min", fmt: sig, digits: 2}
+RvAtwoSHarmMax: {file: rev2_A2.json, key: "headline.S_harm_ratio_max", fmt: sig, digits: 2}
+RvAtwoAMin: {file: rev2_A2.json, key: "headline.A_E4_min", fmt: sig, digits: 2}
+RvAtwoAMed: {file: rev2_A2.json, key: "headline.A_E4_med", fmt: sig, digits: 2}
+RvAtwoALowSMin: {file: rev2_A2.json, key: "headline.A_E4_lowS_min", fmt: sig, digits: 2}
+RvAtwoAFitMin: {file: rev2_A2.json, key: "headline.A_fit_min", fmt: sig, digits: 2}
+RvAtwoAFitMed: {file: rev2_A2.json, key: "headline.A_fit_med", fmt: sig, digits: 2}
+RvAtwoKappaAFitMed: {file: rev2_A2.json, key: "headline.kA_fit_med", fmt: sig, digits: 2}
+RvAtwoMeasLanger: {file: rev2_A2.json, key: "headline.measured_median", fmt: sig, digits: 2}
+RvAtwoMeasTst: {file: rev2_A2.json, key: "headline.meas_tst_med", fmt: sig, digits: 2}
+RvAtwoMeasOverAFit: {file: rev2_A2.json, key: "headline.meas_over_Afit_med", fmt: sig, digits: 2}
+RvAtwoInsideRange: {file: rev2_A2.json, key: "headline.inside_A_range", fmt: "{:d}"}
+RvAtwoMeasMin: {file: rev2_A2.json, key: "summary.all.measured_over_langer.min", fmt: sig, digits: 2}
+RvAtwoMeasMax: {file: rev2_A2.json, key: "summary.all.measured_over_langer.max", fmt: sig, digits: 2}
+RvAtwoABthreeMin: {file: rev2_A2.json, key: "b3_summary.A_beta5_7.min", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMed: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.median", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMin: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.min", fmt: sig, digits: 2}
+RvAtwoMeasBthreeMax: {file: rev2_A2.json, key: "b3_summary.measured_beta5_7.max", fmt: sig, digits: 2}
+RvAtwoFreeOverLanger: {file: rev2_A2.json, key: "headline.free_over_langer_med", fmt: sig, digits: 2}
+RvAtwoRhoSlope: {file: rev2_A2.json, key: "headline.rho_r_meas", fmt: sig, digits: 2}
+RvAtwoRhoSlopeP: {file: rev2_A2.json, key: "headline.rho_p", fmt: sci, digits: 2}
+RvAtwoRhoSlopePDisp: {file: rev2_A2.json, key: "headline.rho_p", fmt: p}
+
 # ---- A5
 # A5 equivalence (TOST, margin 0.10) and horizon windows (experiments/revision2/A5_equivalence.py)
 # LoneEtwo/LoneNone = lone keystone sigma 0.07 (E2) / 0.0717 (N1); SecondEtwo/SecondPool = second trap 26 / 160;
@@ -224,6 +272,40 @@ RvAsixRvoRefRmse: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.rmse", fmt: 
 RvAsixRvoRefSd: {file: rev2_A6.json, key: "solvers.rvo2.split_ref.sd", fmt: sig, digits: 2}
 RvAsixRvoErrFracInMargin: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.frac_abs_le_0p10", fmt: sig, digits: 2}
 RvAsixRvoErrMedianAbs: {file: rev2_A6.json, key: "solvers.rvo2.err_held_quench.median_abs", fmt: sig, digits: 2}
+
+# ---- A7
+# A7: Arrhenius slope ratios with the temperature along the unstable mode (experiments/revision2/A7_mode_temperature.py)
+RvAsevenCMin: {file: rev2_A7.json, key: "headline.c_min", fmt: sig, digits: 2}
+RvAsevenCMed: {file: rev2_A7.json, key: "headline.c_med", fmt: "{:.1f}"}
+RvAsevenCMax: {file: rev2_A7.json, key: "headline.c_max", fmt: sig, digits: 2}
+RvAsevenCdynMin: {file: rev2_A7.json, key: "headline.cdyn_min", fmt: sig, digits: 2}
+RvAsevenCdynMax: {file: rev2_A7.json, key: "headline.cdyn_max", fmt: sig, digits: 2}
+RvAsevenNFull: {file: rev2_A7.json, key: "headline.n_full", fmt: "{:d}"}
+RvAsevenBetaModeMin: {file: rev2_A7.json, key: "summary.beta_mode_full_min", fmt: sig, digits: 2}
+RvAsevenBetaModeMax: {file: rev2_A7.json, key: "summary.beta_mode_full_max", fmt: sig, digits: 2}
+RvAsevenFullMedBlocker: {file: rev2_A7.json, key: "headline.full_med_b", fmt: sig, digits: 2}
+RvAsevenFullMedMode: {file: rev2_A7.json, key: "headline.full_med_m", fmt: sig, digits: 2}
+RvAsevenFullMinMode: {file: rev2_A7.json, key: "headline.full_min_m", fmt: sig, digits: 2}
+RvAsevenFullMaxMode: {file: rev2_A7.json, key: "headline.full_max_m", fmt: sig, digits: 2}
+RvAsevenFullMinBlocker: {file: rev2_A7.json, key: "summary.full_ratio_blocker.min", fmt: sig, digits: 2}
+RvAsevenFullMaxBlocker: {file: rev2_A7.json, key: "summary.full_ratio_blocker.max", fmt: sig, digits: 2}
+RvAsevenCoverBlocker: {file: rev2_A7.json, key: "headline.full_cover_b", fmt: "{:d}"}
+RvAsevenCoverMode: {file: rev2_A7.json, key: "headline.full_cover_m", fmt: "{:d}"}
+RvAsevenNAll: {file: rev2_A7.json, key: "headline.n_all", fmt: "{:d}"}
+RvAsevenAllMedBlocker: {file: rev2_A7.json, key: "headline.all_med_b", fmt: sig, digits: 2}
+RvAsevenAllMedMode: {file: rev2_A7.json, key: "headline.all_med_m", fmt: sig, digits: 2}
+RvAsevenPoolSlopeBlocker: {file: rev2_A7.json, key: "headline.pool_b_b", fmt: sig, digits: 2}
+RvAsevenPoolSlopeMode: {file: rev2_A7.json, key: "headline.pool_b_m", fmt: sig, digits: 2}
+RvAsevenPoolSlopeModeLo: {file: rev2_A7.json, key: "headline.pool_b_m_lo", fmt: sig, digits: 2}
+RvAsevenPoolSlopeModeHi: {file: rev2_A7.json, key: "headline.pool_b_m_hi", fmt: sig, digits: 2}
+RvAsevenCondSlopeBlocker: {file: rev2_A7.json, key: "headline.condint_b_b", fmt: sig, digits: 2}
+RvAsevenCondSlopeMode: {file: rev2_A7.json, key: "headline.condint_b_m", fmt: sig, digits: 2}
+RvAsevenCondSlopeModeLo: {file: rev2_A7.json, key: "headline.condint_b_m_lo", fmt: sig, digits: 2}
+RvAsevenCondSlopeModeHi: {file: rev2_A7.json, key: "headline.condint_b_m_hi", fmt: sig, digits: 2}
+RvAsevenFullSlopeBlocker: {file: rev2_A7.json, key: "headline.fullreg_b_b", fmt: sig, digits: 2}
+RvAsevenFullSlopeMode: {file: rev2_A7.json, key: "headline.fullreg_b_m", fmt: sig, digits: 2}
+RvAsevenFullSlopeModeLo: {file: rev2_A7.json, key: "headline.fullreg_b_m_lo", fmt: sig, digits: 2}
+RvAsevenFullSlopeModeHi: {file: rev2_A7.json, key: "headline.fullreg_b_m_hi", fmt: sig, digits: 2}
 
 # ---- A8
 # A8: protocol facts (seeds, deadlock library, selection, string-method gate, ORCA settings, ORCA escape rate, run counts).

@@ -1,0 +1,32 @@
+# A7: Arrhenius slope ratios with the temperature along the unstable mode (experiments/revision2/A7_mode_temperature.py)
+RvAsevenCMin: {file: rev2_A7.json, key: "headline.c_min", fmt: sig, digits: 2}
+RvAsevenCMed: {file: rev2_A7.json, key: "headline.c_med", fmt: "{:.1f}"}
+RvAsevenCMax: {file: rev2_A7.json, key: "headline.c_max", fmt: sig, digits: 2}
+RvAsevenCdynMin: {file: rev2_A7.json, key: "headline.cdyn_min", fmt: sig, digits: 2}
+RvAsevenCdynMax: {file: rev2_A7.json, key: "headline.cdyn_max", fmt: sig, digits: 2}
+RvAsevenNFull: {file: rev2_A7.json, key: "headline.n_full", fmt: "{:d}"}
+RvAsevenBetaModeMin: {file: rev2_A7.json, key: "summary.beta_mode_full_min", fmt: sig, digits: 2}
+RvAsevenBetaModeMax: {file: rev2_A7.json, key: "summary.beta_mode_full_max", fmt: sig, digits: 2}
+RvAsevenFullMedBlocker: {file: rev2_A7.json, key: "headline.full_med_b", fmt: sig, digits: 2}
+RvAsevenFullMedMode: {file: rev2_A7.json, key: "headline.full_med_m", fmt: sig, digits: 2}
+RvAsevenFullMinMode: {file: rev2_A7.json, key: "headline.full_min_m", fmt: sig, digits: 2}
+RvAsevenFullMaxMode: {file: rev2_A7.json, key: "headline.full_max_m", fmt: sig, digits: 2}
+RvAsevenFullMinBlocker: {file: rev2_A7.json, key: "summary.full_ratio_blocker.min", fmt: sig, digits: 2}
+RvAsevenFullMaxBlocker: {file: rev2_A7.json, key: "summary.full_ratio_blocker.max", fmt: sig, digits: 2}
+RvAsevenCoverBlocker: {file: rev2_A7.json, key: "headline.full_cover_b", fmt: "{:d}"}
+RvAsevenCoverMode: {file: rev2_A7.json, key: "headline.full_cover_m", fmt: "{:d}"}
+RvAsevenNAll: {file: rev2_A7.json, key: "headline.n_all", fmt: "{:d}"}
+RvAsevenAllMedBlocker: {file: rev2_A7.json, key: "headline.all_med_b", fmt: sig, digits: 2}
+RvAsevenAllMedMode: {file: rev2_A7.json, key: "headline.all_med_m", fmt: sig, digits: 2}
+RvAsevenPoolSlopeBlocker: {file: rev2_A7.json, key: "headline.pool_b_b", fmt: sig, digits: 2}
+RvAsevenPoolSlopeMode: {file: rev2_A7.json, key: "headline.pool_b_m", fmt: sig, digits: 2}
+RvAsevenPoolSlopeModeLo: {file: rev2_A7.json, key: "headline.pool_b_m_lo", fmt: sig, digits: 2}
+RvAsevenPoolSlopeModeHi: {file: rev2_A7.json, key: "headline.pool_b_m_hi", fmt: sig, digits: 2}
+RvAsevenCondSlopeBlocker: {file: rev2_A7.json, key: "headline.condint_b_b", fmt: sig, digits: 2}
+RvAsevenCondSlopeMode: {file: rev2_A7.json, key: "headline.condint_b_m", fmt: sig, digits: 2}
+RvAsevenCondSlopeModeLo: {file: rev2_A7.json, key: "headline.condint_b_m_lo", fmt: sig, digits: 2}
+RvAsevenCondSlopeModeHi: {file: rev2_A7.json, key: "headline.condint_b_m_hi", fmt: sig, digits: 2}
+RvAsevenFullSlopeBlocker: {file: rev2_A7.json, key: "headline.fullreg_b_b", fmt: sig, digits: 2}
+RvAsevenFullSlopeMode: {file: rev2_A7.json, key: "headline.fullreg_b_m", fmt: sig, digits: 2}
+RvAsevenFullSlopeModeLo: {file: rev2_A7.json, key: "headline.fullreg_b_m_lo", fmt: sig, digits: 2}
+RvAsevenFullSlopeModeHi: {file: rev2_A7.json, key: "headline.fullreg_b_m_hi", fmt: sig, digits: 2}
