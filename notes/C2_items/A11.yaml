@@ -1,6 +1,6 @@
 # Registry entries for A11 (conference headline under this model's whole-run setup, w = 0.8 m).
 # Source: data/derived/rev2_A11.json (experiments/revision2/A11_analyze.py). Percentages of runs that complete.
-# The C2 and C4 entries (commented block at the end) exist once the queue step A11 has run; uncomment then.
+# C2 and C4 (corrected flags) from queue step A11 (data/revision2/A11/a11.jsonl).
 # --- C1_pub
 RvAelevenCOnePubK: {file: rev2_A11.json, key: "cells.C1_pub.k", fmt: "{:d}"}
 RvAelevenCOnePubN: {file: rev2_A11.json, key: "cells.C1_pub.n", fmt: "{:d}"}
@@ -62,26 +62,26 @@ RvAelevenNoiseCfConfP: {file: rev2_A11.json, key: "sweep.cf_s50.fisher_p", fmt: 
 RvAelevenCostCTwoCf: {file: rev2_A11.json, key: "cost.estimate_cpu_h_per_100.C2_cf", fmt: sig, digits: 2}
 RvAelevenCostCFourCf: {file: rev2_A11.json, key: "cost.estimate_cpu_h_per_100.C4_cf", fmt: sig, digits: 2}
 RvAelevenCostCFourPub: {file: rev2_A11.json, key: "cost.estimate_cpu_h_per_100.C4_pub", fmt: sig, digits: 2}
-# --- after queue step A11 (uncomment):
-# RvAelevenCTwoCfK: {file: rev2_A11.json, key: "cells.C2_cf.k", fmt: "{:d}"}
-# RvAelevenCTwoCfN: {file: rev2_A11.json, key: "cells.C2_cf.n", fmt: "{:d}"}
-# RvAelevenCTwoCfPct: {file: rev2_A11.json, key: "cells.C2_cf.pct", fmt: sig, digits: 2}
-# RvAelevenCTwoCfLo: {file: rev2_A11.json, key: "cells.C2_cf.ci95_pct_2sf.0", fmt: sig, digits: 2}
-# RvAelevenCTwoCfHi: {file: rev2_A11.json, key: "cells.C2_cf.ci95_pct_2sf.1", fmt: sig, digits: 2}
-# RvAelevenCTwoCfConfPExact: {file: rev2_A11.json, key: "vs_conference.C2_cf.fisher_p", fmt: sci, digits: 2}
-# RvAelevenCTwoCfConfP: {file: rev2_A11.json, key: "vs_conference.C2_cf.fisher_p", fmt: p}
-# RvAelevenCFourCfK: {file: rev2_A11.json, key: "cells.C4_cf.k", fmt: "{:d}"}
-# RvAelevenCFourCfN: {file: rev2_A11.json, key: "cells.C4_cf.n", fmt: "{:d}"}
-# RvAelevenCFourCfPct: {file: rev2_A11.json, key: "cells.C4_cf.pct", fmt: sig, digits: 2}
-# RvAelevenCFourCfLo: {file: rev2_A11.json, key: "cells.C4_cf.ci95_pct_2sf.0", fmt: sig, digits: 2}
-# RvAelevenCFourCfHi: {file: rev2_A11.json, key: "cells.C4_cf.ci95_pct_2sf.1", fmt: sig, digits: 2}
-# RvAelevenCFourCfConfPExact: {file: rev2_A11.json, key: "vs_conference.C4_cf.fisher_p", fmt: sci, digits: 2}
-# RvAelevenCFourCfConfP: {file: rev2_A11.json, key: "vs_conference.C4_cf.fisher_p", fmt: p}
-# RvAelevenCTwoCOneDiscA: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.first_only", fmt: "{:d}"}
-# RvAelevenCTwoCOneDiscB: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.second_only", fmt: "{:d}"}
-# RvAelevenCTwoCOnePExact: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.p", fmt: sci, digits: 2}
-# RvAelevenCTwoCOneP: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.p", fmt: p}
-# RvAelevenCFourCThreeDiscA: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.first_only", fmt: "{:d}"}
-# RvAelevenCFourCThreeDiscB: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.second_only", fmt: "{:d}"}
-# RvAelevenCFourCThreePExact: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: sci, digits: 2}
-# RvAelevenCFourCThreeP: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: p}
+# --- C2 and C4, corrected flags (queue step A11)
+RvAelevenCTwoCfK: {file: rev2_A11.json, key: "cells.C2_cf.k", fmt: "{:d}"}
+RvAelevenCTwoCfN: {file: rev2_A11.json, key: "cells.C2_cf.n", fmt: "{:d}"}
+RvAelevenCTwoCfPct: {file: rev2_A11.json, key: "cells.C2_cf.pct", fmt: sig, digits: 2}
+RvAelevenCTwoCfLo: {file: rev2_A11.json, key: "cells.C2_cf.ci95_pct_2sf.0", fmt: sig, digits: 2}
+RvAelevenCTwoCfHi: {file: rev2_A11.json, key: "cells.C2_cf.ci95_pct_2sf.1", fmt: sig, digits: 2}
+RvAelevenCTwoCfConfPExact: {file: rev2_A11.json, key: "vs_conference.C2_cf.fisher_p", fmt: sci, digits: 2}
+RvAelevenCTwoCfConfP: {file: rev2_A11.json, key: "vs_conference.C2_cf.fisher_p", fmt: p}
+RvAelevenCFourCfK: {file: rev2_A11.json, key: "cells.C4_cf.k", fmt: "{:d}"}
+RvAelevenCFourCfN: {file: rev2_A11.json, key: "cells.C4_cf.n", fmt: "{:d}"}
+RvAelevenCFourCfPct: {file: rev2_A11.json, key: "cells.C4_cf.pct", fmt: sig, digits: 2}
+RvAelevenCFourCfLo: {file: rev2_A11.json, key: "cells.C4_cf.ci95_pct_2sf.0", fmt: sig, digits: 2}
+RvAelevenCFourCfHi: {file: rev2_A11.json, key: "cells.C4_cf.ci95_pct_2sf.1", fmt: sig, digits: 2}
+RvAelevenCFourCfConfPExact: {file: rev2_A11.json, key: "vs_conference.C4_cf.fisher_p", fmt: sci, digits: 2}
+RvAelevenCFourCfConfP: {file: rev2_A11.json, key: "vs_conference.C4_cf.fisher_p", fmt: p}
+RvAelevenCTwoCOneDiscA: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.first_only", fmt: "{:d}"}
+RvAelevenCTwoCOneDiscB: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.second_only", fmt: "{:d}"}
+RvAelevenCTwoCOnePExact: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.p", fmt: sci, digits: 2}
+RvAelevenCTwoCOneP: {file: rev2_A11.json, key: "paired.C2_vs_C1_cf.p", fmt: p}
+RvAelevenCFourCThreeDiscA: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.first_only", fmt: "{:d}"}
+RvAelevenCFourCThreeDiscB: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.second_only", fmt: "{:d}"}
+RvAelevenCFourCThreePExact: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: sci, digits: 2}
+RvAelevenCFourCThreeP: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: p}
