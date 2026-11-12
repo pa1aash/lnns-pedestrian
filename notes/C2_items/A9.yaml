@@ -1,0 +1,173 @@
+# A9: CroMa comparison by bottleneck length and motivation, 10%-90% passage flow, headline ratio, data-paper facts.
+# Source: data/derived/rev2_A9.json (experiments/revision2/A9_croma_compare.py). Intervals: delta method on the log
+# ratio, Welch df; Boot = percentile bootstrap (seed 2026), secondary. Window ratios use the UB rule (no run censored).
+RvAnineRatioMin: {file: rev2_A9.json, key: "headline.min", fmt: sig, digits: 2}
+RvAnineRatioMax: {file: rev2_A9.json, key: "headline.max", fmt: sig, digits: 2}
+RvAnineCOneRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf.pooled.ratio", fmt: sig, digits: 2}
+RvAnineCOneRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.pooled.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.pooled.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.pooled.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCOneRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.pooled.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCOneLongRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf.long.ratio", fmt: sig, digits: 2}
+RvAnineCOneLongRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.long.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneLongRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.long.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneLongRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.long.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCOneLongRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.long.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCOneShortRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf.short.ratio", fmt: sig, digits: 2}
+RvAnineCOneShortRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.short.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneShortRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.short.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneShortRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.short.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCOneShortRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.short.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCOneNormalRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf.normal.ratio", fmt: sig, digits: 2}
+RvAnineCOneNormalRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.normal.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneNormalRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.normal.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneHurryRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf.hurry.ratio", fmt: sig, digits: 2}
+RvAnineCOneHurryRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf.hurry.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneHurryRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf.hurry.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneRatioDthirty: {file: rev2_A9.json, key: "per_geometry.C1_cf.per_human_run.4D030.ratio", fmt: sig, digits: 2}
+RvAnineCOneRatioDforty: {file: rev2_A9.json, key: "per_geometry.C1_cf.per_human_run.4D040.ratio", fmt: sig, digits: 2}
+RvAnineCOneRatioDoneten: {file: rev2_A9.json, key: "per_geometry.C1_cf.per_human_run.4D110.ratio", fmt: sig, digits: 2}
+RvAnineCOneRatioDonetwenty: {file: rev2_A9.json, key: "per_geometry.C1_cf.per_human_run.4D120.ratio", fmt: sig, digits: 2}
+RvAnineCOneRatioDonethirty: {file: rev2_A9.json, key: "per_geometry.C1_cf.per_human_run.4D130.ratio", fmt: sig, digits: 2}
+RvAnineCOneWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf.pooled.ub.ratio", fmt: sig, digits: 2}
+RvAnineCOneWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf.pooled.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf.pooled.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneLongWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf.long.ub.ratio", fmt: sig, digits: 2}
+RvAnineCOneLongWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf.long.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneLongWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf.long.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneShortWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf.short.ub.ratio", fmt: sig, digits: 2}
+RvAnineCOneShortWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf.short.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCOneShortWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf.short.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCOneWindowCens: {file: rev2_A9.json, key: "window.per_variant.C1_cf.pooled.n_censored", fmt: "{:d}"}
+RvAnineCOneWindowFlow: {file: rev2_A9.json, key: "window.per_variant.C1_cf.pooled.model_mean_ub", fmt: "{:.2f}"}
+RvAnineCEdgeRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.pooled.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.pooled.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.pooled.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.pooled.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.pooled.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeLongRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.long.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeLongRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.long.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeLongRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.long.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeLongRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.long.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeLongRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.long.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeShortRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.short.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeShortRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.short.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeShortRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.short.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeShortRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.short.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeShortRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.short.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeNormalRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.normal.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeNormalRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.normal.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeNormalRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.normal.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeHurryRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.hurry.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeHurryRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.hurry.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeHurryRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.hurry.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeRatioDthirty: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.per_human_run.4D030.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeRatioDforty: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.per_human_run.4D040.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeRatioDoneten: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.per_human_run.4D110.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeRatioDonetwenty: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.per_human_run.4D120.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeRatioDonethirty: {file: rev2_A9.json, key: "per_geometry.C1_cf_edge.per_human_run.4D130.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.pooled.ub.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.pooled.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.pooled.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeLongWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.long.ub.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeLongWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.long.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeLongWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.long.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeShortWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.short.ub.ratio", fmt: sig, digits: 2}
+RvAnineCEdgeShortWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.short.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCEdgeShortWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.short.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCEdgeWindowCens: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.pooled.n_censored", fmt: "{:d}"}
+RvAnineCEdgeWindowFlow: {file: rev2_A9.json, key: "window.per_variant.C1_cf_edge.pooled.model_mean_ub", fmt: "{:.2f}"}
+RvAnineCThreeRatio: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.pooled.ratio", fmt: sig, digits: 2}
+RvAnineCThreeRatioLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.pooled.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeRatioHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.pooled.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.pooled.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.pooled.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeLongRatio: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.long.ratio", fmt: sig, digits: 2}
+RvAnineCThreeLongRatioLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.long.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeLongRatioHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.long.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeLongRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.long.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeLongRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.long.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeShortRatio: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.short.ratio", fmt: sig, digits: 2}
+RvAnineCThreeShortRatioLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.short.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeShortRatioHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.short.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeShortRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.short.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeShortRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.short.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeNormalRatio: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.normal.ratio", fmt: sig, digits: 2}
+RvAnineCThreeNormalRatioLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.normal.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeNormalRatioHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.normal.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeHurryRatio: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.hurry.ratio", fmt: sig, digits: 2}
+RvAnineCThreeHurryRatioLo: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.hurry.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeHurryRatioHi: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.hurry.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeRatioDthirty: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.per_human_run.4D030.ratio", fmt: sig, digits: 2}
+RvAnineCThreeRatioDforty: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.per_human_run.4D040.ratio", fmt: sig, digits: 2}
+RvAnineCThreeRatioDoneten: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.per_human_run.4D110.ratio", fmt: sig, digits: 2}
+RvAnineCThreeRatioDonetwenty: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.per_human_run.4D120.ratio", fmt: sig, digits: 2}
+RvAnineCThreeRatioDonethirty: {file: rev2_A9.json, key: "per_geometry.C3_rvo2_cf.per_human_run.4D130.ratio", fmt: sig, digits: 2}
+RvAnineCThreeWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.pooled.ub.ratio", fmt: sig, digits: 2}
+RvAnineCThreeWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.pooled.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.pooled.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeLongWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.long.ub.ratio", fmt: sig, digits: 2}
+RvAnineCThreeLongWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.long.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeLongWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.long.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeShortWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.short.ub.ratio", fmt: sig, digits: 2}
+RvAnineCThreeShortWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.short.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCThreeShortWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.short.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCThreeWindowCens: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.pooled.n_censored", fmt: "{:d}"}
+RvAnineCThreeWindowFlow: {file: rev2_A9.json, key: "window.per_variant.C3_rvo2_cf.pooled.model_mean_ub", fmt: "{:.2f}"}
+RvAnineCSigRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.pooled.ratio", fmt: sig, digits: 2}
+RvAnineCSigRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.pooled.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.pooled.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.pooled.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCSigRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.pooled.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCSigLongRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.long.ratio", fmt: sig, digits: 2}
+RvAnineCSigLongRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.long.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigLongRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.long.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigLongRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.long.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCSigLongRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.long.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCSigShortRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.short.ratio", fmt: sig, digits: 2}
+RvAnineCSigShortRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.short.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigShortRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.short.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigShortRatioBootLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.short.boot_ci95.0", fmt: sig, digits: 2}
+RvAnineCSigShortRatioBootHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.short.boot_ci95.1", fmt: sig, digits: 2}
+RvAnineCSigNormalRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.normal.ratio", fmt: sig, digits: 2}
+RvAnineCSigNormalRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.normal.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigNormalRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.normal.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigHurryRatio: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.hurry.ratio", fmt: sig, digits: 2}
+RvAnineCSigHurryRatioLo: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.hurry.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigHurryRatioHi: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.hurry.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigRatioDthirty: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.per_human_run.4D030.ratio", fmt: sig, digits: 2}
+RvAnineCSigRatioDforty: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.per_human_run.4D040.ratio", fmt: sig, digits: 2}
+RvAnineCSigRatioDoneten: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.per_human_run.4D110.ratio", fmt: sig, digits: 2}
+RvAnineCSigRatioDonetwenty: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.per_human_run.4D120.ratio", fmt: sig, digits: 2}
+RvAnineCSigRatioDonethirty: {file: rev2_A9.json, key: "per_geometry.C1_cf_sig.per_human_run.4D130.ratio", fmt: sig, digits: 2}
+RvAnineCSigWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.pooled.ub.ratio", fmt: sig, digits: 2}
+RvAnineCSigWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.pooled.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.pooled.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigLongWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.long.ub.ratio", fmt: sig, digits: 2}
+RvAnineCSigLongWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.long.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigLongWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.long.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigShortWindowRatio: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.short.ub.ratio", fmt: sig, digits: 2}
+RvAnineCSigShortWindowRatioLo: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.short.ub.ci95.0", fmt: sig, digits: 2}
+RvAnineCSigShortWindowRatioHi: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.short.ub.ci95.1", fmt: sig, digits: 2}
+RvAnineCSigWindowCens: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.pooled.n_censored", fmt: "{:d}"}
+RvAnineCSigWindowFlow: {file: rev2_A9.json, key: "window.per_variant.C1_cf_sig.pooled.model_mean_ub", fmt: "{:.2f}"}
+RvAnineWindowCensTotal: {file: rev2_A9.json, key: "window.n_censored_total", fmt: "{:d}"}
+RvAnineWindowRatioMin: {file: rev2_A9.json, key: "window.range_ub.min", fmt: sig, digits: 2}
+RvAnineWindowRatioMax: {file: rev2_A9.json, key: "window.range_ub.max", fmt: sig, digits: 2}
+RvAnineHumanFlow: {file: rev2_A9.json, key: "humans_geom.pooled.flow_mean", fmt: "{:.2f}"}
+RvAnineHumanWindowFlow: {file: rev2_A9.json, key: "humans_geom.pooled.window_mean", fmt: "{:.2f}"}
+RvAnineHumanLongFlow: {file: rev2_A9.json, key: "humans_geom.long.flow_mean", fmt: "{:.2f}"}
+RvAnineHumanLongWindowFlow: {file: rev2_A9.json, key: "humans_geom.long.window_mean", fmt: "{:.2f}"}
+RvAnineHumanShortFlow: {file: rev2_A9.json, key: "humans_geom.short.flow_mean", fmt: "{:.2f}"}
+RvAnineHumanShortWindowFlow: {file: rev2_A9.json, key: "humans_geom.short.window_mean", fmt: "{:.2f}"}
+RvAnineMotivNormalN: {file: rev2_A9.json, key: "paper.motivation.n_normal", fmt: "{:d}"}
+RvAnineMotivHurryN: {file: rev2_A9.json, key: "paper.motivation.n_hurry", fmt: "{:d}"}
+RvAnineMotivFullN: {file: rev2_A9.json, key: "paper.motivation.n_full", fmt: "{:d}"}
+RvAnineShoulderWidth: {file: rev2_A9.json, key: "radius.shoulder_mean_m", fmt: "{:.2f}"}
+RvAnineShoulderWidthSD: {file: rev2_A9.json, key: "radius.shoulder_sd_m", fmt: "{:.2f}"}
+RvAnineShoulderHalf: {file: rev2_A9.json, key: "radius.shoulder_half_m", fmt: "{:.3f}"}
+RvAnineModelDiameter: {file: rev2_A9.json, key: "radius.model_diameter_mean_m", fmt: "{:.2f}"}
+RvAnineModelDiameterSD: {file: rev2_A9.json, key: "radius.model_diameter_sd_m", fmt: "{:.2f}"}
+RvAnineDiameterOverShoulder: {file: rev2_A9.json, key: "radius.diameter_over_shoulder", fmt: sig, digits: 2}
+RvAnineDiameterExcessSD: {file: rev2_A9.json, key: "radius.diameter_minus_shoulder_in_sd", fmt: "{:.2f}"}
+RvAnineDiameterExcess: {file: rev2_A9.json, key: "radius.diameter_minus_shoulder_m", fmt: "{:.2f}"}
