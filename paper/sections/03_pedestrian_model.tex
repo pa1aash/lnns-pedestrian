@@ -13,7 +13,7 @@ The drive relaxes $\mathbf v_i$ towards speed $v_{{\rm eff},i}$ along the unit v
 \mathbf{F}^{\rm des}_i=\frac{m_i}{\tau_i}\bigl(v_{{\rm eff},i}\,\hat{\mathbf e}_i-\mathbf v_i\bigr),\qquad
 v_{{\rm eff},i}=v_{0,i}\,\mathrm{clip}\bigl[1-e^{-\gamma(1/\rho_i-1/\rho_{\max})}\bigr],
 \end{equation}
-after Weidmann~\cite{weidmann1993}, with the factor clipped to $[0.05,1]$ and $\rho_i=\max(N_i/\pi R^2,$ $0.01\,{\rm m}^{-2})$ for $N_i$ other active agents within $R$. This density throttle on the desired speed is not part of the original social force model~\cite{helbing1995,helbing2000nature}. The lateral bias $b$ replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by the normalised $\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i$ ($\hat{\mathbf e}^{\perp}_i\perp\hat{\mathbf e}_i$); it is deterministic, of fixed handedness and switched on as a step at $t=0$ of a quench.
+after Weidmann~\cite{weidmann1993}, with the factor clipped to $[0.05,1]$ and $\rho_i=\max(N_i/\pi R^2,$ $0.01\,{\rm m}^{-2})$ for $N_i$ other active agents within $R$. This density throttle on the desired speed is not part of the original social force model~\cite{helbing1995,helbing2000nature}; removing it leaves $w_{50}$ unchanged (Sect.~\ref{sec:lone}). The lateral bias $b$ replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by the normalised $\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i$ ($\hat{\mathbf e}^{\perp}_i\perp\hat{\mathbf e}_i$); it is deterministic, of fixed handedness and switched on as a step at $t=0$ of a quench.
 
 For agents $i$, $j$ at centre distance $d_{ij}$, with $r_{ij}=r_i+r_j$, unit normal $\mathbf n_{ij}$ from $j$ to $i$, tangent $\mathbf t_{ij}$ and $h(x)=\max(0,x)$,
 \begin{equation}\label{eq:sfm}
@@ -29,7 +29,7 @@ With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the col
 \mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-t_c/\tau_0}}{t_c^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
 \end{equation}
 where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Eq.~\eqref{eq:ttc} uses the time-to-collision energy of~\cite{karamouzas2014} as a force magnitude in place of its gradient, so $k_{\rm ttc}$ carries N\,s$^2$ with an implied length scale of 1\,m. Agent $j$ counts if $0<t_c\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
-%C2: B1 throttle-off ablation (w50, completion at 0.8 m, CroMa flow)
+%C2: B1b/c throttle off: completion at 0.8 m, CroMa flow
 
 \subsection{Force-Coupled ORCA}\label{sec:identity}
 ORCA builds one half-plane of permitted velocities per neighbour (look-ahead time $\tau_h$) and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity, with speed at most $2v_{0,i}$. The legacy linear-program solver has a leg-normal sign defect (Sect.~\ref{sec:att-lone}); the RVO2 solver ports RVO2~\cite{vandenberg2011rvo2} line by line. Force-coupled ORCA takes the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ and turns $\mathbf v^{\rm orca}_i$ into a force with a density gate:
@@ -51,7 +51,7 @@ Results depend on the integration scheme~\cite{koster2013}; ours caps the speed 
 \mathbf v'\leftarrow\mathbf v'+\chi_i\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
 \end{equation}
 with $\mathcal O_i(\mathbf u)$ the permitted velocity nearest $\mathbf u$ under the step's initial half-planes.
-%C2: A12 B2 largest overlap at default speed; dt = 0.005 s check
+At default desired speeds and $\Delta t=0.01$\,s bodies overlap by at most \RvAtwelveRoomMax\,cm in \RvAtwelveRoomN\ room runs and \RvAtwelveCroSFMMax\,cm in the CroMa runs, so the contact under-resolution found at \ArchVZero\,m/s (Sect.~\ref{sec:arches}) does not reach default speeds.
 
 \subsection{Scenarios and Snapshots}\label{sec:geometry}
 \begin{figure}[t]
