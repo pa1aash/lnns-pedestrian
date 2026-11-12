@@ -1,0 +1,17 @@
+# B2: time step dt = 0.005 s against 0.01 s, SFM, widths 0.80, 0.88, 0.96 m (experiments/revision2/B2_dt.py, B2dt_analyze.py)
+RvBtwoNPerWidth: {file: rev2_B2.json, key: "per_width.0.n", fmt: "{:d}"}
+RvBtwoEightFineK: {file: rev2_B2.json, key: "per_width.0.dt005.k", fmt: "{:d}"}
+RvBtwoEightCoarseK: {file: rev2_B2.json, key: "per_width.0.dt01.k", fmt: "{:d}"}
+RvBtwoEightEightFineK: {file: rev2_B2.json, key: "per_width.1.dt005.k", fmt: "{:d}"}
+RvBtwoEightEightCoarseK: {file: rev2_B2.json, key: "per_width.1.dt01.k", fmt: "{:d}"}
+RvBtwoNineSixFineK: {file: rev2_B2.json, key: "per_width.2.dt005.k", fmt: "{:d}"}
+RvBtwoNineSixCoarseK: {file: rev2_B2.json, key: "per_width.2.dt01.k", fmt: "{:d}"}
+RvBtwoFineOnly: {file: rev2_B2.json, key: "pooled_paired.dt005_only", fmt: "{:d}"}
+RvBtwoCoarseOnly: {file: rev2_B2.json, key: "pooled_paired.dt01_only", fmt: "{:d}"}
+RvBtwoPooledP: {file: rev2_B2.json, key: "pooled_paired.mcnemar_p", fmt: sci, digits: 2}
+RvBtwoPooledPDisp: {file: rev2_B2.json, key: "pooled_paired.mcnemar_p", fmt: p}
+RvBtwoWfiftyFine: {file: rev2_B2.json, key: "w50.dt005_m", fmt: "{:.3f}"}
+RvBtwoWfiftyCoarse: {file: rev2_B2.json, key: "w50.dt01_m", fmt: "{:.3f}"}
+RvBtwoShift: {file: rev2_B2.json, key: "w50.shift_m", fmt: "{:.3f}"}
+RvBtwoShiftLo: {file: rev2_B2.json, key: "w50.shift_ci95.0", fmt: "{:.3f}"}
+RvBtwoShiftHi: {file: rev2_B2.json, key: "w50.shift_ci95.1", fmt: "{:.3f}"}

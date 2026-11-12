@@ -44,6 +44,9 @@ def main():
         o["per_width"].append({"w": w, "n": len(s), "dt005": {"k": a, "ci95": [pa[1], pa[2]]},
                                "dt01": {"k": b, "ci95": [pb[1], pb[2]]}, "dt005_only": n10, "dt01_only": n01,
                                "mcnemar_p": p, "mcnemar_p_disp": pdisp(p)})
+    b, c = sum(p["dt005_only"] for p in o["per_width"]), sum(p["dt01_only"] for p in o["per_width"])
+    o["pooled_paired"] = {"dt005_only": b, "dt01_only": c, "mcnemar_p": mcnemar_exact(b, c),
+                          "mcnemar_p_disp": pdisp(mcnemar_exact(b, c))}
     ws = sorted({k[0] for k in keys})
     if len(ws) == 3:
         def fit(D, K):
