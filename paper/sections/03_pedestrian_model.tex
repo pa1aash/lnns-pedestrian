@@ -15,7 +15,7 @@ The drive relaxes $\mathbf v_i$ towards speed $v_{{\rm eff},i}$ along the unit v
 \mathbf{F}^{\rm des}_i=\frac{m_i}{\tau_i}\bigl(v_{{\rm eff},i}\,\hat{\mathbf e}_i-\mathbf v_i\bigr),\qquad
 v_{{\rm eff},i}=v_{0,i}\,\mathrm{clip}\bigl[1-e^{-\gamma(1/\rho_i-1/\rho_{\max})}\bigr],
 \end{equation}
-after Weidmann~\cite{weidmann1993}, with the factor clipped to $[0.05,1]$ and $\rho_i=\max(N_i/\pi R^2,$ $0.01\,{\rm m}^{-2})$ for $N_i$ other active agents within $R$. The lateral bias $b$, a deterministic tilt of fixed handedness, replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by the normalised $\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i$ ($\hat{\mathbf e}^{\perp}_i\perp\hat{\mathbf e}_i$).
+after Weidmann~\cite{weidmann1993}, with the factor clipped to $[0.05,1]$ and $\rho_i=\max(N_i/\pi R^2,$ $0.01\,{\rm m}^{-2})$ for $N_i$ other active agents within $R$. This density throttle on the desired speed is not part of the original social force model~\cite{helbing1995,helbing2000nature}. The lateral bias $b$, a deterministic tilt of fixed handedness switched on as a step at $t=0$ of a quench, replaces $\hat{\mathbf e}_i$ in Eq.~\eqref{eq:des} by the normalised $\hat{\mathbf e}_i+b\,\hat{\mathbf e}^{\perp}_i$ ($\hat{\mathbf e}^{\perp}_i\perp\hat{\mathbf e}_i$).
 
 For a pair at centre distance $d_{ij}$, with $r_{ij}=r_i+r_j$, unit normal $\mathbf n_{ij}$ from $j$ to $i$, tangent $\mathbf t_{ij}$ and $h(x)=\max(0,x)$,
 \begin{equation}\label{eq:sfm}
@@ -26,25 +26,26 @@ after~\cite{helbing2000nature}. A wall segment acts through its closest point, a
 \mathbf f^{\rm wall}_{iW}=\bigl[A_w\,e^{(r_i-d_{iW})/B_w}+k\,h(r_i-d_{iW})\bigr]\mathbf n_{iW}-\kappa\,h(r_i-d_{iW})\,(\mathbf v_i\cdot\mathbf t_{iW})\,\mathbf t_{iW}.
 \end{equation}
 
-With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the contact time $\tau_{ij}$ solves $|\Delta\mathbf x+\Delta\mathbf v\,\tau|=r_{ij}$, and the TTC-inspired force is
+With relative position $\Delta\mathbf x$ and velocity $\Delta\mathbf v$, the collision time $t_c$ solves $|\Delta\mathbf x+\Delta\mathbf v\,t_c|=r_{ij}$, and the TTC-inspired force is
 \begin{equation}\label{eq:ttc}
-\mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-\tau_{ij}/\tau_0}}{\tau_{ij}^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
+\mathbf F^{\rm ttc}_i=\sum_j k_{\rm ttc}\,\frac{e^{-t_c/\tau_0}}{t_c^2}\,\hat{\mathbf n}^{\rm avoid}_{ij},
 \end{equation}
-where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Eq.~\eqref{eq:ttc} uses the time-to-collision energy of~\cite{karamouzas2014} as a force magnitude ($k_{\rm ttc}$ in N\,s$^2$) instead of its gradient. A pair counts if $0<\tau_{ij}\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
+where $\hat{\mathbf n}^{\rm avoid}_{ij}$ separates the predicted positions at contact. Eq.~\eqref{eq:ttc} takes the time-to-collision energy of~\cite{karamouzas2014}, whose scale is an energy, as a force magnitude in place of its gradient ($k_{\rm ttc}$ in N\,s$^2$, an implied length scale of 1\,m). A pair counts if $0<t_c\le\tau_{\max}$ and $|\Delta\mathbf v|\ge10^{-4}$\,m/s, so $\mathbf F^{\rm ttc}$ vanishes at rest.
+%C2: B1 throttle-off ablation (w50, completion at 0.8 m, CroMa flow)
 
 \subsection{Force-Coupled ORCA}\label{sec:identity}
 ORCA builds one half-plane of permitted velocities per neighbour (look-ahead time $\tau_h$) and returns the permitted velocity $\mathbf v^{\rm orca}_i$ nearest to a preferred velocity, with speed at most $2v_{0,i}$. The legacy linear-program solver has a leg-normal sign defect (Sect.~\ref{sec:att-lone}); the RVO2 solver ports RVO2~\cite{vandenberg2011rvo2} line by line. Force-coupled ORCA takes the preferred velocity $v_{0,i}\hat{\mathbf e}_i$ and turns $\mathbf v^{\rm orca}_i$ into a force with a density gate:
 \begin{equation}\label{eq:orca}
-\mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad \chi_i=1-\varsigma(\rho_i;4,2),
+\mathbf F^{\rm orca}_i=\frac{m_i}{\tau_{\rm orca}}\bigl(\mathbf v^{\rm orca}_i-\mathbf v_i\bigr),\qquad \chi_i=1-S(\rho_i;4,2),
 \end{equation}
-with $\varsigma(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinTwo\ in whole runs and \PmodLoneWMinTwo\ at every snapshot, so $\chi_i\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
+with the logistic $S(x;x_0,c)=1/(1+e^{-c(x-x_0)})$. Each agent's half-planes come from all active agents within $R$, nearest first, with no cap on their number. The conversion follows the velocity relaxation of~\cite[Eq.~(7)]{vandenberg2011avo}; pedestrians relax a chosen velocity with $\tau_{\rm orca}=0.5$\,s~\cite{moussaid2011}. The gate is at least \PmodRunsWMinTwo\ in whole runs and \PmodLoneWMinTwo\ at every snapshot, so $\chi_i\approx1$ throughout. Native ORCA, which sets velocities directly and treats walls as obstacles, has no wall social force and is not tested here.
 
 The \emph{drive part} of force-coupled ORCA is Eq.~\eqref{eq:orca} with $\mathbf v^{\rm orca}_i$ replaced by $v_{0,i}\hat{\mathbf e}_i$; the remainder, zero when no constraint binds, is its \emph{constraint part}. With no binding constraint and $\chi_i=1$, Eqs.~\eqref{eq:des} and~\eqref{eq:orca} add to
 \begin{equation}\label{eq:identity}
 \mathbf F^{\rm des}_i+\mathbf F^{\rm orca}_i=m_i\Bigl(\frac{v_{{\rm eff},i}}{\tau_i}+\frac{v_{0,i}}{\tau_{\rm orca}}\Bigr)\hat{\mathbf e}_i-m_i\Bigl(\frac{1}{\tau_i}+\frac{1}{\tau_{\rm orca}}\Bigr)\mathbf v_i,\qquad
 \tau'_i=\frac{\tau_i\,\tau_{\rm orca}}{\tau_i+\tau_{\rm orca}}.
 \end{equation}
-The drive part is therefore this social force model with relaxation time $\tau'_i=\RevAoneTauPrimeLo$--$\RevAoneTauPrimeHi$\,s and target speed $\tau'_i(v_{{\rm eff},i}/\tau_i+v_{0,i}/\tau_{\rm orca})\approx v_{0,i}$. The \emph{rest drive} of a configuration is its total goal-directed force at $\mathbf v_i=0$; for force-coupled ORCA it is the first term, \RevAoneDriveRatioLo--\RevAoneDriveRatioHi\ times that of SFM.
+The drive plus the drive part is therefore this social force model with relaxation time $\tau'_i=\RevAoneTauPrimeLo$--$\RevAoneTauPrimeHi$\,s and target speed $\tau'_i(v_{{\rm eff},i}/\tau_i+v_{0,i}/\tau_{\rm orca})\approx v_{0,i}$. The \emph{rest drive} of a configuration is its total goal-directed force at $\mathbf v_i=0$; for force-coupled ORCA it is the first term, \RevAoneDriveRatioLo--\RevAoneDriveRatioHi\ times that of SFM.
 
 \subsection{Integration and Noise}
 Results depend on the integration scheme~\cite{koster2013}; ours caps the speed at $2v_0$ ($\Pi$) before moving: $\mathbf v'=\Pi(\mathbf v+\mathbf F\Delta t/m)$, $\mathbf v'\leftarrow\Pi(\mathbf v'+\boldsymbol\xi)$, $\mathbf x'=\mathbf x+\mathbf v'\Delta t$. Noise $\boldsymbol\xi$ has independent Gaussian components of standard deviation $\sigma$ (per-step noise) or $\sigma\sqrt{\Delta t/0.01\,{\rm s}}$ ($\sqrt{\Delta t}$-scaled noise). In the ORCA velocity filter (Sect.~\ref{sec:velorca}) $\mathbf F$ omits the ORCA term, and after the noise step
@@ -52,6 +53,7 @@ Results depend on the integration scheme~\cite{koster2013}; ours caps the speed 
 \mathbf v'\leftarrow\mathbf v'+\chi_i\bigl(\Pi(\mathcal O_i(\mathbf v'))-\mathbf v'\bigr),
 \end{equation}
 where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$ under the step's initial half-planes.
+%C2: A12 B2 largest overlap at default speed; dt = 0.005 s check
 
 \subsection{Scenarios and Snapshots}\label{sec:geometry}
 \begin{figure}[t]
@@ -62,4 +64,13 @@ where $\mathcal O_i(\mathbf u)$ is the permitted velocity nearest to $\mathbf u$
 \end{figure}
 In the room bottleneck (Fig.~\ref{fig:geometry}, left), 100 agents spawn without overlap in $[1,8]\times[1,9]$\,m of a $10\times10$\,m room and walk to the goal $\mathbf g=(11,5)$\,m behind a 0.8\,m door in the wall $x=10$\,m. Each \emph{door edge} (C) is a sharp \emph{segment end}; the \emph{jamb} is the wall face beside it. Variants lower the \emph{wall range} $B_w$ everywhere, or set the \emph{jamb range} $B_{w,\rm edge}$ within 0.5\,m of the door edge (D), blended linearly to $B_w$ by 1.0\,m along the wall (E). A third rounds each segment end into a capsule of radius $r_c=0.1$\,m at the same clear width. In CroMa (Fig.~\ref{fig:geometry}, right; Sect.~\ref{sec:validity}) a holding area opens through a 0.8\,m entrance into a bottleneck 0.2 or 2.0\,m long. Its door edges are convex junctions of jamb and corridor wall (both $B_{w,\rm edge}$); an agent feels the nearer one.
 
-The state of a deadlocked run (criterion in Table~\ref{tab:params}) is saved as a \emph{snapshot} in the snapshot library. A \emph{quench} restarts a snapshot under one perturbation for at most 120\,s; an agent is freed when it exits ($|\mathbf x-\mathbf g|<0.5$\,m). A \emph{replay} is a quench with every coordinate displaced by Gaussian noise (SD $10^{-9}$\,m), five per snapshot and perturbation.
+A run is deadlocked when all speeds stay below 0.01\,m/s for 10\,s without an exit; its state is saved as a \emph{snapshot}. A \emph{quench} restarts a snapshot under one perturbation and stops at 120\,s or once all speeds stay below $10^{-3}$\,m/s for 10\,s; an agent is freed when it exits ($|\mathbf x-\mathbf g|<0.5$\,m). A \emph{replay} is a quench with every coordinate displaced by Gaussian noise (SD $10^{-9}$\,m), five per snapshot and perturbation. The keystone test quenches a snapshot with the \emph{blocker}, the agent nearest the door, alone: the blocker is a \emph{lone keystone} if it is held and removing it frees all others, a \emph{second trap} if another agent is then held. The snapshot sets are nested:
+\begin{itemize}
+\item deadlock set: the \FinCritN\ deadlocks of \RevAfiveRuns\ room runs (seeds 42--241), \KeystoneBLone\ lone keystones, \KeystoneBSecondTrap\ second traps and \FinCritNegN\ group standoffs;
+\item screening set: \EtwoNAll\ snapshots, all \EtwoNLK\ lone keystones and \EtwoNST\ second traps drawn at random (PCG64, seed 2026);
+\item barrier set: the \LoneBarN\ screening-set snapshots whose barrier is accepted (Sect.~\ref{sec:barrier}; \RevAfiveGateFailSecond\ second traps fail);
+\item time-step set: \EthreeN\ of the \RevAfiveEthreeQual\ barrier-set snapshots with full $\Delta U\ge3$\,J, evenly spaced in $\Delta U$ rank;
+\item Arrhenius set: \EfourN\ of the \FixAthreeEfourQual\ barrier-set snapshots with an agent besides the blocker, evenly spaced in $\Delta U$ rank;
+\item pair set: \PairN\ pair-standoff snapshots, built with $B_w=0.04$\,m on every wall.
+\end{itemize}
+%C2: A8 protocol details (seeds, provenance of the 196 deadlocks, 2 of 98 vs 2 of 196, selection rules, string-method settings, ORCA settings, deterministic resolver's rate, 360 and 276 decompositions)

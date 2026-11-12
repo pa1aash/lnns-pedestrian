@@ -1,0 +1,30 @@
+% Table 3: observed responses to the probes of Table 2 with the assigned class (cell sources: paper/tables/table2_NOTES.md,
+% section "Table 3"). Input at the top of Sect. 6. Every number is a numbers.tex macro.
+\begin{table}[t]
+\caption{Observed response to each probe and assigned class, at the lone traps and the pair standoff. $k/n$: counts; $a$:$b$: snapshots discordant with force-coupled ORCA (RVO2).}
+\label{tab:observed}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1pt}
+\def\tl#1#2{\begin{tabular}[t]{@{}l@{}}#1\\#2\end{tabular}}%
+\def\tll#1#2#3{\begin{tabular}[t]{@{}l@{}}#1\\#2\\#3\end{tabular}}%
+\def\hd#1#2{\begin{tabular}[b]{@{}l@{}}#1\\#2\end{tabular}}%
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llllllllll@{}}
+\toprule
+Perturbation & Quench & Replay & $\Delta t$ & Push $\pm$ & Tilt $\pm b$ & \hd{First}{exit} & \hd{Corrected;}{flag} & \hd{Replay}{sens.} & Class \\
+\midrule
+\multicolumn{10}{@{}l}{\emph{Lone traps}: force-coupled ORCA} \\
+\quad RVO2 & \tl{frees}{\EtwoLKCThreeRVOFreed/\EtwoLKCThreeRVON} & \tl{identical,}{\TabThreeLKRvoReplayDis/\TabThreeLKRvoReplays} & \tl{flat;}{flat$^a$} & \tl{$+$\,\EtwoLKFrozenPlusFreed,}{$-$\,\EtwoLKFrozenMinusFreed} & n.a. & n.a. & \tl{persists;}{no} & no & \tl{Reshape,}{axial} \\
+\quad legacy & \tl{frees}{\EtwoLKCThreePubFreed/\EtwoLKCThreeRVON} & \tl{changes,}{\RevAfiveXPoolLegacyReplayChanged/\RevAfiveXPoolLegacyReplays$^b$} & not run & as RVO2 & n.a. & n.a. & \tl{vanish$^c$;}{yes} & yes & \tl{Reshape,}{axial} \\
+\tl{Noise $\sigma=$}{0.07\,m/s} & \tl{frees,}{matched$^d$} & \tl{disagree$^\dagger$,}{\RevAsevenLoneEtwoReplayDiscA:\RevAsevenLoneEtwoReplayDiscB} & \tl{$\ell=\PprotEllBA$;}{flat} & n.a. & n.a. & n.a. & n.a. & n.a. & Heat \\
+\tll{ORCA}{velocity}{filter} & \tl{held}{\VelLoneRvoK/\VelLoneN} & identical & not run & n.a. & n.a. & n.a. & \tl{persists;}{no} & no & \tl{at most}{Prevent} \\
+\midrule
+\multicolumn{10}{@{}l}{\emph{Pair standoff}: force-coupled ORCA} \\
+\quad RVO2 & \tl{frees}{\PairRvoFreed/\PairN} & \tl{identical,}{\TabThreePairRvoReplayDis/\TabThreePairOrcaReplays} & not run & \tl{$+$\,\PairFrozenPlusFreed,}{$-$\,\PairFrozenMinusFreed} & n.a. & \tl{lower}{\TabThreePairRvoOrcaLower/\PairRvoFreed} & \tl{persists;}{no} & no & \tl{Reshape,}{axial$^e$} \\
+\quad legacy & \tl{frees}{\PairPubFreed/\PairN} & \tl{identical,}{\TabThreePairPubReplayDis/\TabThreePairOrcaReplays} & not run & as RVO2 & n.a. & \tl{lower}{\PairPubLower/\PairPubFreed} & \tl{RVO2:}{\PairRvoFreed; yes} & no & \tl{Reshape,}{axial$^e$} \\
+\tl{Bias $+b^\ast$,}{legacy} & \tl{frees}{\PairBsPubFreed/\PairN} & \tl{identical,}{\TabThreePairBsPubReplayDis/\TabThreePairBsReplays} & not run & n.a. & \tl{$-b^\ast$: \PairBsPubMinusFreed,}{\PairBsPubRevA:\PairBsPubRevB$^f$} & \tll{side of $b^\dagger$:}{\PairBsPubHand/\PairBsPubN,}{\PairBsPubMinusUpper/\PairBsPubMinusFreed} & \tl{persists;}{no} & no & \tl{Reshape,}{lateral} \\
+\bottomrule
+\end{tabular*}
+\par\smallskip\raggedright
+$^\dagger$\,By construction. Flag: defect flag. n.a., not run, $\Delta t$ (per-step; $\sqrt{\Delta t}$-scaled noise): as in Table~\ref{tab:signatures}. Lone-trap counts: the \EtwoNLK\ lone keystones; filter: quenches of the screening set. $\ell$: Eq.~\eqref{eq:ell} pooled, $\beta_0=1.5$ ($\ell>0$: falls). First exit: lower, the member at $y<5$\,m; for the bias, the member favoured by the sign of $b$ ($+b^\ast$; $-b^\ast$). $^a$\,$|\ell|\le\EthreeCThreeLnRatioMax$ per snapshot. $^b$\,The \RevAfiveXPoolN\ second traps. $^c$\,The replay changes vanish. $^d$\,Fraction-matched at $T=120$\,s at the lone keystones. $^e$\,Freed count solver-dependent; the constraint part opposes the drive part. $^f$\,Freed by $-b^\ast$, discordant with $+b^\ast$.
+\end{table}

@@ -95,3 +95,33 @@ Observed block (lone traps unless marked pair; tilt column = pair standoff). Sou
 | Bias | corrected | persists (b*_RVO2 frees 8) | A8 |
 | ORCA velocity filter | quench | held, \VelLoneRvoK/\VelLoneN runs | Sect. 6.6 (Vel*) |
 | ORCA velocity filter | replay, corrected | identical; persists (either solver) | Vel* |
+
+## Revision 3 (rulings R6, R10; referee F2, M13): Table 2 predictions only, observed block moved to Table 3
+Table 2 (tab:signatures) keeps the predictions of the four class rows; no prediction changed except the layout:
+- Glitch row removed as a class. Two attribute rows: "Defect flag" (corrected implementation: vanishes, by construction;
+  other probes "as its class") and "Replay sensitivity" (replay: changes, by construction; other probes "as its class").
+- New column "First exit" (which standoff member exits first). Reshape, lateral: "side of b" (by construction, the sign of
+  b picks the favoured member; was the dagger on the old Tilt cell "flips"). Reshape, axial and Heat: "unhanded" (a
+  goal-directed force and isotropic noise prefer no side; old NOTES line D tilt). Prevent: n.a.
+- Tilt column for Reshape, lateral: "both signs free past b_f" (old NOTES: "same rate" under b -> -b).
+- Dagger = "by construction" (was "by definition"). Prevent push/tilt "no change" daggered (no force at rest).
+- "---" replaced by "n.a." (probe not applicable to the class). "not run" is used in Table 3 only.
+- No p-values anywhere in Table 2.
+
+## Table 3 (tab:observed, table3_observed.tex)
+Former bottom block of Table 2, split into lone-trap and pair blocks. Cell sources as in the "Observed block" table
+above, plus:
+| Row | Cell | Value / macro | Source |
+|---|---|---|---|
+| RVO2, lone | quench | \EtwoLKCThreeRVOFreed/\EtwoLKCThreeRVON lone keystones | E2 |
+| RVO2, lone | replay | \TabThreeLKRvoReplayDis/\TabThreeLKRvoReplays | E2 replays |
+| RVO2, lone | push | + \EtwoLKFrozenPlusFreed, - \EtwoLKFrozenMinusFreed | E2 frozen-mean push, Sect. 6.1 |
+| legacy, lone | quench | \EtwoLKCThreePubFreed/34 | E2 |
+| legacy, lone | push | as RVO2 (the push replaces the ORCA term, so it is solver-independent) | definition |
+| legacy | class | Reshape, axial, defect flag yes, replay sensitive yes | ruling R6 |
+| ORCA velocity filter | quench, replay, corrected | held \VelLoneRvoK/\VelLoneN; identical (\VelLoneReplayDis); persists (\VelLonePubK with legacy) | Vel*, Sect. 6.6 |
+| ORCA velocity filter | class | at most Prevent | Sect. 6.6 |
+| RVO2, pair | quench, replay, push, first exit | \PairRvoFreed/\PairN; \TabThreePairRvoReplayDis/\TabThreePairOrcaReplays; + \PairFrozenPlusFreed, - \PairFrozenMinusFreed; lower \TabThreePairRvoOrcaLower/\PairRvoFreed | Sect. 6.4 |
+| legacy, pair | quench, replay, first exit, corrected | \PairPubFreed/\PairN; \TabThreePairPubReplayDis/\TabThreePairOrcaReplays (not replay sensitive at the pair); lower \PairPubLower/\PairPubFreed; RVO2 frees \PairRvoFreed (flag yes) | Sect. 6.4 |
+| bias +b*_legacy, pair | quench, replay, tilt, first exit | \PairBsPubFreed/\PairN; \TabThreePairBsPubReplayDis/\TabThreePairBsReplays; -b* frees \PairBsPubMinusFreed, discordant \PairBsPubRevA:\PairBsPubRevB; favoured member first \PairBsPubHand/\PairBsPubN (+b*), \PairBsPubMinusUpper/\PairBsPubMinusFreed (-b*) | Sect. 6.4 |
+The Tilt column holds bias responses only; exit order is in the First-exit column. No p-values in Table 3.

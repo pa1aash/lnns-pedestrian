@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Write paper/tables/table1_params.tex from data/params/model.yaml and data/derived/rev_A15.json.
 
-Table 1 (tab:params): Symbol | Meaning | Value | Source, in three blocks (agents; forces; numerics and
-criteria), LNCS width 12.2 cm. Model values are read from model.yaml; the thresholds and horizons of the numerics
-block are written here and checked against the audited rows of rev_A15.json, so the table cannot drift from the code.
-Quantities stated in Sect. 3 (n, w, g, R, r_c, clip bounds, density floor, tau_orca, TTC cutoff, ORCA speed limit and gate, speed cap)
+Table 1 (tab:params): Symbol | Meaning | Value | Source, in three blocks (agents; forces, one parameter per row;
+numerics), LNCS width 12.2 cm. Model values are read from model.yaml. The criteria (deadlock, quench stop, horizons,
+replay shift, blocker escape and censoring, stall) are stated in the text of Sects. 3.4, 4.2, 4.5 and 6.2, not in the
+table; their values are written here and checked against the audited rows of rev_A15.json, so the text constants
+cannot drift from the code. The ORCA neighbour set (all active agents within R, nearest first, no cap on the number)
+is read from code/sim/core/simulation.py:120-130 and code/sim/steering/orca.py:375-387 (it is not in model.yaml).
+Quantities stated in Sect. 3 (n, w, g, density floor, tau_orca, TTC cutoff, ORCA speed limit and gate, speed cap)
 are not repeated in the table.
 """
 import json
@@ -38,7 +41,7 @@ ez, clip = val("edge_zone"), val("speed_factor_clip")
 dl = val("deadlock_criterion")
 c = {k: rf"\cite{{{k}}}" for k in ("helbing2000nature", "weidmann1993", "karamouzas2014", "vandenberg2011",
                                    "vandenberg2011rvo2")}
-TW = "--"
+TW = "this work"
 
 # variant wall ranges (Sect. 5.1 runs) and criteria of the numerics block (audited in C_REPORT A15)
 B_W_VARIANTS, B_W_EDGE = (0.04, 0.02), 0.04
@@ -58,51 +61,48 @@ assert (val("orca_gate", "rho0"), val("orca_gate", "k")) == (4.0, 2.0)
 assert model["w2_numerics"] == "fixed" and model["w2_crush"] == "off"
 assert model["w2_wall_corner"] == "convex_union" and model["spawn"] == "rejection"
 
+W = val("neighbor_radius")
 blocks = [
     ("Agents", [
-        (r"$m$, $\tau$", r"mass; relaxation time", rf"${g(val('mass'))}${U}kg; $\mathcal U({g(tau['low'])},{g(tau['high'])})${U}s",
-         c["helbing2000nature"]),
+        ("$m$", "mass", rf"${g(val('mass'))}${U}kg", c["helbing2000nature"]),
+        (r"$\tau$", "relaxation time", rf"$\mathcal U({g(tau['low'])},{g(tau['high'])})${U}s (0.5{U}s in~{c['helbing2000nature']})",
+         TW),
         ("$v_0$", "desired speed", rf"$\mathcal N({g(v0['mean'])},{g(v0['std'])})${U}m/s, "
          rf"$\ge{g(v0['min'])}${U}m/s", c["weidmann1993"]),
         ("$r$", "radius", rf"$\mathcal N({g(r['mean'])},{g(r['std'])})${U}m, $\ge{g(r['min'])}${U}m", TW),
     ]),
     ("Forces", [
-        (r"$\gamma$, $\rho_{\max}$", "speed--density relation",
-         rf"${g(val('weidmann_gamma'))}${U}m$^{{-2}}$, ${g(val('weidmann_rho_max'))}${U}m$^{{-2}}$", c["weidmann1993"]),
-        (r"$A$, $B$; $k$, $\kappa$", "social; contact",
-         rf"${g(val('A'))}${U}N, ${g(val('B'))}${U}m; ${g(val('k'))}${U}kg/s$^2$, ${g(val('kappa'))}${U}kg/(m\,s)",
-         c["helbing2000nature"]),
-        ("$A_w$, $B_w$", "wall strength; wall range", rf"$A$, $B$ (variants ${'$, $'.join(g(b) for b in B_W_VARIANTS)}${U}m)",
-         c["helbing2000nature"]),
-        (r"$B_{w,\rm edge}$; $r_c$", "jamb range; segment-end radius (variants)",
-         rf"${g(B_W_EDGE)}${U}m; ${g(val('edge_radius'))}${U}m", TW),
-        (r"$R$; clip", r"neighbour radius; bounds of $v_{\rm eff}/v_0$",
-         rf"${g(val('neighbor_radius'))}${U}m; $[{g(val('speed_factor_clip')[0])},{g(val('speed_factor_clip')[1])}]$", TW),
-        (r"$k_{\rm ttc}$, $\tau_0$, $\tau_{\max}$", "TTC scale; times",
-         rf"${g(val('k_ttc'))}${U}N\,s$^2$, ${g(val('tau_0'))}${U}s, ${g(val('tau_max'))}${U}s", rf"{c['karamouzas2014']} ($\tau_0$)"),
+        (r"$\gamma$", "speed--density shape", rf"${g(val('weidmann_gamma'))}${U}m$^{{-2}}$", c["weidmann1993"]),
+        (r"$\rho_{\max}$", "jam density", rf"${g(val('weidmann_rho_max'))}${U}m$^{{-2}}$", c["weidmann1993"]),
+        ("", r"bounds of $v_{\rm eff}/v_0$", rf"$[{g(clip[0])},{g(clip[1])}]$", TW),
+        ("$R$", "neighbour radius (density, forces, ORCA)", rf"${g(W)}${U}m", TW),
+        ("$A$", "social strength", rf"${g(val('A'))}${U}N", c["helbing2000nature"]),
+        ("$B$", "social range", rf"${g(val('B'))}${U}m", c["helbing2000nature"]),
+        ("$k$", "body compression", rf"${g(val('k'))}${U}kg/s$^2$", c["helbing2000nature"]),
+        (r"$\kappa$", "sliding friction", rf"${g(val('kappa'))}${U}kg/(m{U}s)", c["helbing2000nature"]),
+        ("$A_w$", "wall strength", "$A$", c["helbing2000nature"]),
+        ("$B_w$", "wall range", rf"$B$ (variants ${'$, $'.join(g(b) for b in B_W_VARIANTS)}${U}m)", c["helbing2000nature"]),
+        (r"$B_{w,\rm edge}$", "jamb range (variant)", rf"${g(B_W_EDGE)}${U}m", TW),
+        ("$r_c$", "segment-end radius (variant)", rf"${g(val('edge_radius'))}${U}m", TW),
+        (r"$k_{\rm ttc}$", "TTC scale", rf"${g(val('k_ttc'))}${U}N{U}s$^2$", TW),
+        (r"$\tau_0$", "TTC decay time", rf"${g(val('tau_0'))}${U}s", c["karamouzas2014"]),
+        (r"$\tau_{\max}$", "TTC look-ahead", rf"${g(val('tau_max'))}${U}s", TW),
         (r"$\tau_h$", "ORCA look-ahead time", rf"${g(val('time_horizon'))}${U}s", c["vandenberg2011"]),
+        ("", "ORCA neighbour count", r"no cap (all active within $R$)", TW),
     ]),
-    ("Numerics and criteria", [
+    ("Numerics", [
         (r"$\Delta t$; $\sigma$", "time step; noise SD", rf"${g(val('dt'))}${U}s; set per experiment", TW),
-        ("", "deadlock: all speeds", rf"$<{g(dl['v_thr'])}${U}m/s for ${g(dl['hold'])}${U}s", TW),
-        ("", "horizon: quench; run", rf"${QUENCH_T}${U}s; ${RUN_T}${U}s", TW),
-        ("", "quench stop: all speeds", rf"$<{g(STOP_V)}${U}m/s for ${STOP_HOLD}${U}s", TW),
-        ("", "replay shift (SD)", rf"${g(REPLAY_DX)}${U}m per coordinate", TW),
-        ("", r"blocker escape; censoring",
-         rf"$x\ge{ESC_X}${U}m; ${ESC_T}${U}s (${ESC_T_LONG}${U}s at $\beta=3.5$, per-step noise at "
-         rf"$\Delta t=0.02${U}s)", TW),
-        ("", "stall", rf"$\ge{STALL}${U}s between exits", TW),
     ]),
 ]
 L = ["% generated by experiments/tables/make_table1.py from data/params/model.yaml and data/derived/rev_A15.json;"
      " do not edit",
      "\\begin{table}[t]",
-     "\\caption{Model parameters and criteria. $\\mathcal N(\\mathrm{mean},\\mathrm{SD})$, clipped "
-     "below; $\\mathcal U(a,b)$: uniform on $[a,b]$; --: this work.}",
+     "\\caption{Model parameters. $\\mathcal N(\\mathrm{mean},\\mathrm{SD})$, clipped "
+     "below; $\\mathcal U(a,b)$: uniform on $[a,b]$.}",
      "\\label{tab:params}",
      "\\centering\\scriptsize\\setlength{\\tabcolsep}{3pt}",
-     "\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{1.85cm}>{\\raggedright\\arraybackslash}p{3.3cm}"
-     ">{\\raggedright\\arraybackslash}p{5.6cm}>{\\raggedright\\arraybackslash}p{0.8cm}@{}}",
+     "\\begin{tabular}{@{}>{\\raggedright\\arraybackslash}p{1.1cm}>{\\raggedright\\arraybackslash}p{4.1cm}"
+     ">{\\raggedright\\arraybackslash}p{4.6cm}>{\\raggedright\\arraybackslash}p{1.5cm}@{}}",
      "\\toprule",
      "Symbol & Meaning & Value & Source \\\\"]
 for title, rows in blocks:

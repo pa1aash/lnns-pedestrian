@@ -1,8 +1,8 @@
-% Table 2: mechanism classes, predicted and observed responses to each probe (cell sources: paper/tables/table2_NOTES.md).
-% The former "RVO2, pair" row is merged: its quench counts sit in the RVO2 and legacy quench cells, its class in note a.
+% Table 2: predicted response of each mechanism class to each probe of a snapshot (predictions only; cell sources:
+% paper/tables/table2_NOTES.md). The observed responses are Table 3 (tables/table3_observed.tex, tab:observed).
 % Needs \usepackage{booktabs} in main.tex.
 \begin{table}[t]
-\caption{Response of each class to each probe of a snapshot, predicted (top) and observed with the assigned class (bottom). Observed cells: lone traps; tilt column and pair rows: pair standoff.}
+\caption{Predicted response of each mechanism class to each probe of a snapshot. The defect flag and replay sensitivity attach to a mechanism of any class.}
 \label{tab:signatures}
 \centering
 \scriptsize
@@ -11,21 +11,17 @@
 \def\hd#1#2{\begin{tabular}[b]{@{}l@{}}#1\\#2\end{tabular}}%
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llllllll@{}}
 \toprule
-Class & Quench & \hd{Replay,}{$10^{-9}$\,m} & \hd{$\Delta t$: per step;}{$\sqrt{\Delta t}$-scaled} & Push $\pm$ & Tilt $\pm b$ & \hd{Corrected}{(RVO2)} & \\
+Class & Quench & Replay & \hd{$\Delta t$: per step;}{$\sqrt{\Delta t}$-scaled} & Push $\pm$ & Tilt $\pm b$ & \hd{First}{exit} & \hd{Corrected}{impl.} \\
 \midrule
-Prevent & held$^\dagger$ & held$^\dagger$ & held$^\dagger$ & no change & no change & persists & \\
-\tl{Reshape,}{axial} & frees & identical & flat & $+$ frees, $-$ not & --- & persists & \\
-\tl{Reshape,}{lateral} & frees past $b_f$ & identical & flat & --- & flips$^\dagger$ & persists & \\
-Heat & \tl{frees,}{exp.\ times} & disagree$^\dagger$ & falls$^\dagger$; flat$^\dagger$ & --- & --- & persists & \\
-Glitch & solver-set & flips$^\dagger$ & --- & --- & --- & vanishes$^\dagger$ & \\
+Prevent & held$^\dagger$ & held$^\dagger$ & held$^\dagger$; held$^\dagger$ & no change$^\dagger$ & no change$^\dagger$ & n.a. & persists \\
+\tl{Reshape,}{axial} & frees & identical & flat; flat & \tl{$+$ frees,}{$-$ not} & n.a. & unhanded & persists \\
+\tl{Reshape,}{lateral} & frees past $b_f$ & identical & flat; flat & n.a. & \tl{both signs}{free past $b_f$} & side of $b^\dagger$ & persists \\
+Heat & \tl{frees,}{exp.\ times} & disagree$^\dagger$ & falls$^\dagger$; flat$^\dagger$ & n.a. & n.a. & unhanded & persists \\
 \midrule
-\multicolumn{7}{@{}l}{\emph{Observed}: force-coupled ORCA} & Class \\
-\quad RVO2 & \tl{frees;}{pair \RevAeightPairRvoFreedOneTwenty/\PairN} & identical & \tl{flat,}{$|\ell|\le\EthreeCThreeLnRatioMax$} & as $+$, \RevAsevenPushLoneFreedDiscA:\RevAsevenPushLoneFreedDiscB & none, \RevAsevenPairRvoHandOrca/\RevAsevenPairRvoHandOrcaN & persists & \tl{Reshape,}{axial$^a$} \\
-\quad legacy & \tl{frees;}{pair \RevAeightPairPubFreedOneTwenty/\PairN} & \tl{flips}{\RevAfiveXPoolLegacyReplayChanged/\RevAfiveXPoolLegacyReplays} & --- & --- & \tl{none,}{\RevAsevenPairPubHandOrca/\RevAsevenPairPubHandOrcaN} & \tl{flips}{vanish} & Glitch \\
-\tl{Noise,}{$\sigma=0.07$\,m/s} & \tl{frees;}{matched$^b$} & \tl{disagree,}{\RevAsevenLoneEtwoReplayDiscA:\RevAsevenLoneEtwoReplayDiscB} & \tl{falls, $\ell=\PprotEllBA$;}{flat} & --- & --- & --- & Heat \\
-\tl{Bias $b^\ast$,}{pair} & frees past $b_f$ & identical & --- & --- & \tl{flips,}{\PairBsPubMinusUpper/\PairBsPubMinusFreed} & persists & \tl{Reshape,}{lateral} \\
+\tl{Defect}{flag} & \multicolumn{6}{l}{as its class} & vanishes$^\dagger$ \\
+\tl{Replay}{sensitivity} & as its class & changes$^\dagger$ & \multicolumn{4}{l}{as its class} & as its class \\
 \bottomrule
 \end{tabular*}
 \par\smallskip\raggedright
-$^\dagger$\,By definition. ---: no prediction or not run. flat, falls: freed fraction constant, falling in $\Delta t$; $|\ell|\le$: largest per snapshot. $a$:$b$, snapshots discordant with force-coupled ORCA (RVO2); $k/n$, counts; tilt: freed standoffs whose member favoured by $-b^\ast$ (bias) or $+b$ (force-coupled ORCA) exits first. $^a$\,At the pair: Reshape, axial, solver-dependent; the constraint part opposes the drive part. $^b$\,Fraction-matched at $T=120$\,s at lone keystones, not second traps.
+$^\dagger$\,By construction. Replay: $10^{-9}$\,m. Corrected impl.: corrected implementation. n.a.: probe not applicable to the class; not run (Table~\ref{tab:observed}): applicable, not run. flat, falls: freed fraction constant, falling as $\Delta t$ grows. Push $\pm$: rest-drive push towards ($+$) or away from ($-$) the door. First exit: the standoff member that exits first; unhanded: no side preferred.
 \end{table}
