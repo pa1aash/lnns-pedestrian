@@ -132,13 +132,13 @@ BLOCKS_A = [
     (r"Lone keystones: " + one("EtwoNLK") + r" snapshots, $T=120$\,s", [
         (stl("noise, 5 seeds", r"$\sigma=0.07$\,m/s"),
          frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
-         dpm("PscrLKDiff", "PscrLKDiffLo", "PscrLKDiffHi", "RevAsevenLoneEtwoFreedPHolm"),
+         dpm("RvAfiveLoneEtwoDiff", "RvAfiveLoneEtwoDiffLo", "RvAfiveLoneEtwoDiffHi", "RevAsevenLoneEtwoFreedPHolm"),
          dpm("PscrTimeLoneEtwoEff", "PscrTimeLoneEtwoLo", "PscrTimeLoneEtwoHi", "RevAsevenLoneEtwoTimePHolm"),
          frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA,
          st("{} ({})".format(*m("PprotEllBA", "PprotEllBAPred")), pv("RevAsevenLoneEtwoEllPHolm"))),
         (stl("noise, 20 seeds", r"$\sigma=" + one("RunNOneSigma") + r"$\,m/s"),
          frac("RunNOneFreed", "RunNOneRunsN"),
-         dpm("PscrNOneDiff", "PscrNOneDiffLo", "PscrNOneDiffHi", "RevAsevenLoneNoneFreedPHolm"),
+         dpm("RvAfiveLoneNoneDiff", "RvAfiveLoneNoneDiffLo", "RvAfiveLoneNoneDiffHi", "RevAsevenLoneNoneFreedPHolm"),
          dpm("PscrTimeLoneNoneEff", "PscrTimeLoneNoneLo", "PscrTimeLoneNoneHi", "RevAsevenLoneNoneTimePHolm"),
          "{}/{}".format(*m("RevAsevenLoneNoneReplayDiscA", "EtwoNLK")),
          jcell("RevAnineLKNHalfJ", "PscrLKNHalfEJ", "RevAnineLKNHalfP"), NA),
@@ -150,7 +150,7 @@ BLOCKS_A = [
     (r"Second traps: " + one("RevAsixSTSnaps") + r" snapshots, $T=120$\,s", [
         (stl("noise, 5 seeds", r"$\sigma=0.07$\,m/s"),
          frac("RevAsixSTNoiseFreed", "RevAsixSTNoiseN"),
-         dpm("RevAsixSTDiff", "PscrSTDiffLo", "RevAsixSTDiffHi", "RevAsevenSecondFreedPHolm"),
+         dpm("RvAfiveSecondEtwoDiff", "RvAfiveSecondEtwoDiffLo", "RvAfiveSecondEtwoDiffHi", "RevAsevenSecondFreedPHolm"),
          dpm("PscrTimeSecondEff", "PscrTimeSecondLo", "PscrTimeSecondHi", "RevAsevenSecondTimePHolm"),
          frac("RevAsixSTNoiseDisagree", "RevAsixSTSnaps"),
          jcell("RevAsixSTJ", "RevAsixSTJInd", "RevAsixSTJIndP"), NR),
@@ -161,7 +161,7 @@ BLOCKS_A = [
     (r"Whole runs: " + one("EsixN") + r" spawn seeds, $T=600$\,s", [
         (stl("noise", r"$\sigma^\ast=" + one("EsixSigmaStar") + r"$\,m/s"),
          frac("EsixNoiseK", "EsixN"),
-         dpm("PscrWholeDiff", "PscrWholeDiffLo", "PscrWholeDiffHi", "RevAsevenWholeEsixFreedPHolm"),
+         dpm("RvAfiveWholeDiff", "RvAfiveWholeDiffLo", "RvAfiveWholeDiffHi", "RevAsevenWholeEsixFreedPHolm"),
          dpm("PscrTimeWholeEff", "PscrTimeWholeLo", "PscrTimeWholeHi", "RevAsevenWholeEsixTimePHolm"),
          NR, jcell("RevAnineWholeEJ", "RevAnineWholeEEJ", "RevAnineWholeEP"), NR),
         (stl("force-coupled", "ORCA (RVO2)"), frac("EsixCThreeK", "EsixN"), E, E, NR, E, NR),
@@ -175,7 +175,7 @@ BLOCKS_B = [
     (r"Legacy solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
         (stl("bias", r"$+b^\ast_{\rm legacy}=" + one("PscrPairBstarPub") + "$"),
          frac("PairBsPubFreed", "PairN"),
-         dpm("PscrPairPubDiff", "PscrPairPubDiffLo", "PscrPairPubDiffHi", "RevAsevenPairPubFreedPHolm"),
+         dpm("RvAfivePairLegacyDiff", "RvAfivePairLegacyDiffLo", "RvAfivePairLegacyDiffHi", "RevAsevenPairPubFreedPHolm"),
          dpm("PscrTimePairPubEff", "PscrTimePairPubLo", "PscrTimePairPubHi", "RevAsevenPairPubTimePHolm"),
          frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"),
          jcell("RevAninePairPubJ", "RevAninePairPubEJ", "RevAninePairPubP"),
@@ -188,7 +188,7 @@ BLOCKS_B = [
     (r"RVO2 solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
         (stl("bias", r"$+b^\ast_{\rm RVO2}=" + one("PairBstarRvo") + "$"),
          frac("PairBsRvoFreed", "PairN"),
-         dpm("PscrPairRvoDiff", "PscrPairRvoDiffLo", "PscrPairRvoDiffHi", "RevAsevenPairRvoFreedPHolm"),
+         dpm("RvAfivePairRvoDiff", "RvAfivePairRvoDiffLo", "RvAfivePairRvoDiffHi", "RevAsevenPairRvoFreedPHolm"),
          dpm("PscrTimePairRvoEff", "PscrTimePairRvoLo", "PscrTimePairRvoHi", "RevAsevenPairRvoTimePHolm"),
          frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"),
          # Omega = 0: the informative tail is P(X <= 0) (A9), marked with a dagger in the note

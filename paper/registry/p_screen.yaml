@@ -49,5 +49,5 @@ PscrPairRvoDiffHi: {file: rev_A8.json, key: "pair.delta.bstar_rvo2_plus_vs_C3_rv
 # Sect. 6 text values at two significant figures (numbers.md IMPRECISE entries).
 PscrCreepSpeedMin: {file: rev_A13.json, key: "creep.speed_median_min", fmt: "{:.3f}"}
 PscrReplayPubMaxDt: {file: E2_analysis.json, key: "b_replay_determinism.pooled.C3_pub.max_abs_dt_blocker_exit_s", fmt: "{:.0f}"}
-PscrStallMaxDiff: {file: E6_analysis.json, key: "lifetimes.pred_vs_obs.max_abs_diff", fmt: "{:.3f}"}
+PscrStallMaxDiff: {file: E6_analysis.json, key: "lifetimes.pred_vs_obs.max_abs_diff", fmt: "{:.4f}"}
 PscrJacAsymMin: {file: rev_A11.json, key: "headline.jac_asym_min", fmt: "{:.3f}"}

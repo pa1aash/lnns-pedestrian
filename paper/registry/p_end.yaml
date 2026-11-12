@@ -28,3 +28,7 @@ PendSigGapCompleteMax: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.g
 PendCThreeOpenMean: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.final_open_to_600.mean", fmt: "sig"}
 PendCOneGapLowerMedianTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf.c_median_lower_bound", fmt: "floor"}
 PendCThreeGapLowerMedianTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C3_rvo2_cf.c_median_lower_bound", fmt: "floor"}
+# Conference completion counts (gang2026, Sect. 4.6), as recorded by the conference-headline check.
+PendConfCThreeK: {file: rev2_A11.json, key: "conference.completion.C3.k", fmt: "{:d}"}
+PendConfCOneK: {file: rev2_A11.json, key: "conference.completion.C1.k", fmt: "{:d}"}
+PendConfN: {file: rev2_A11.json, key: "conference.completion.C3.n", fmt: "{:d}"}
