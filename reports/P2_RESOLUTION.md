@@ -57,7 +57,7 @@ B5 | resolved | Fig. 5 | bracket shaded; throttle-off completions as open square
 B6 | resolved | Fig. 6 | panel letters; (c) defines the force-coupled ORCA quantity as inverse time to free
 B7 | resolved | Fig. 7 | baseline rows removed and named in the caption; right panel two curves with bands
 B8 | resolved | Fig. 8 | noise rows removed; solver line styles named (b grid stated in Sect. 5.3, not the caption)
-B9 | partly | Fig. 9 | marker shape by length, 600 s line, open markers; legend "SFM, B_w,edge" and "SFM + noise sigma*" differ from Table 6 and the text; identical smoothing not stated
+B9 | resolved | Fig. 9; Table 6; Sect. 7 | marker shape by length, 600 s line, open markers; Table 6 rows now carry the legend labels "SFM, B_w,edge" and "SFM + noise sigma*"; smoothing "as the humans'" stated in Sect. 7
 
 ## Lens C: tables
 C1 | resolved | Table 1 | as M13
@@ -94,4 +94,4 @@ G5 | resolved | Sect. 8 | throttle, single time step, per-agent temperature, rad
 - Abstract, Sect. 4 (coinage): the abstract still uses about ten coined terms (lone trap, blocker, pair standoff, rest drive, drive part, fraction-matched, replay, defect flag) that a reader meets undefined; Figs. 1 and 3 keep superseded vocabulary.
 
 ## Counts (72 IDs)
-resolved 66 | partly 6 (M11, M12, G3 and the figure items B1, B3, B9) | not resolved 0 | disagreed 0
+resolved 67 | partly 5 (M11, M12, G3 and the figure items B1, B3) | not resolved 0 | disagreed 0

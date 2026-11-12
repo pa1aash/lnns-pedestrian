@@ -158,6 +158,7 @@ def main(out):
     open(os.path.join(out, "README.txt"), "w").write(
         "Compile main.tex with pdfLaTeX and BibTeX (Overleaf: Compiler pdfLaTeX; locally: latexmk -pdf main.tex).\n"
         "Files: main.tex (the whole paper), refs.bib (cited entries only), figures/, llncs.cls, splncs04.bst (unmodified).\n"
+        "Packages beyond llncs come with TeX Live (Overleaf included); cite prints grouped citations sorted and compressed.\n"
         "Three author items are marked \\pending{...} and print in red: the Zenodo DOI (Data and Code Availability),\n"
         "the Acknowledgments and the Disclosure of Interests, all in the credits block just before the references.\n"
         "For the final build uncomment \\finaltrue in the preamble: any \\pending left then stops the compile with an error.\n")
