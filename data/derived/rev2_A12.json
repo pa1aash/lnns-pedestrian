@@ -1,0 +1,430 @@
+{
+ "sets": {
+  "room": {
+   "agent_overlap_run_max_m": {
+    "n": 10,
+    "max": 0.006245836489349232,
+    "p99": 0.005957235017483227,
+    "median": -0.005360747573592062,
+    "min": -0.00914604151292353
+   },
+   "agent_overlap_run_max_cm": {
+    "n": 10,
+    "max": 0.6245836489349232,
+    "p99": 0.5957235017483227,
+    "median": -0.5360747573592062,
+    "min": -0.9146041512923531
+   },
+   "agent_overlap_late_run_max_cm": {
+    "n": 10,
+    "max": 0.6245836489349232,
+    "p99": 0.5957235017483227,
+    "median": -0.8287210231475939,
+    "min": -1.7601288654980674
+   },
+   "wall_overlap_run_max_m": {
+    "n": 10,
+    "max": 0.0077604454682996815,
+    "p99": 0.007455875479767866,
+    "median": -0.0013161419777825561,
+    "min": -0.011830933898294455
+   },
+   "wall_overlap_run_max_cm": {
+    "n": 10,
+    "max": 0.7760445468299682,
+    "p99": 0.7455875479767866,
+    "median": -0.13161419777825561,
+    "min": -1.1830933898294456
+   },
+   "per_step_max_median_cm": -9.471958287807952,
+   "per_step_p99_max_cm": -3.2767223406863484,
+   "n_runs_contact": 2,
+   "n_runs_wall_contact": 3,
+   "steps_gt5cm_total": 0,
+   "steps_gt1cm_total": 0,
+   "steps_total": 154200,
+   "largest": {
+    "job_id": "room|seed49",
+    "max_agent": {
+     "ov": 0.006245836489349232,
+     "t": 17.119999999999877,
+     "pair": [
+      48,
+      84
+     ],
+     "radii": [
+      0.20394987086426494,
+      0.2733245401105198
+     ],
+     "pos": [
+      [
+       9.739073518810606,
+       5.235352993595819
+      ],
+      [
+       9.705061649390434,
+       4.765553982613115
+      ]
+     ],
+     "n_active": 85
+    }
+   },
+   "largest_over_radius_sum": 0.013086468383236266,
+   "cpu_s": 561.614395,
+   "runs": {
+    "room|seed42": {
+     "max_agent_overlap_m": -0.008775384110448314,
+     "max_agent_overlap_late_m": -0.017601288654980674,
+     "max_wall_overlap_m": -0.0015861450129520671,
+     "t_end": 156.30000000000283,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 65.95831199999999
+    },
+    "room|seed43": {
+     "max_agent_overlap_m": -0.005187827054427885,
+     "max_agent_overlap_late_m": -0.012030829678306487,
+     "max_wall_overlap_m": 0.004376334484612832,
+     "t_end": 151.10000000000755,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 63.198077999999995
+    },
+    "room|seed44": {
+     "max_agent_overlap_m": -0.003307415009717596,
+     "max_agent_overlap_late_m": -0.008077408996731816,
+     "max_wall_overlap_m": -0.0006328369957745161,
+     "t_end": 155.50000000000355,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 64.22717
+    },
+    "room|seed45": {
+     "max_agent_overlap_m": -0.006191961337406959,
+     "max_agent_overlap_late_m": -0.008497011466220061,
+     "max_wall_overlap_m": -0.0010461389426130452,
+     "t_end": 158.00000000000128,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 58.481381999999996
+    },
+    "room|seed46": {
+     "max_agent_overlap_m": -0.00914604151292353,
+     "max_agent_overlap_late_m": -0.00914604151292353,
+     "max_wall_overlap_m": 0.0077604454682996815,
+     "t_end": 135.50000000002174,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 47.521773000000024
+    },
+    "room|seed47": {
+     "max_agent_overlap_m": -0.006935807361692858,
+     "max_agent_overlap_late_m": -0.006935807361692858,
+     "max_wall_overlap_m": -0.009739598361448498,
+     "t_end": 160.99999999999855,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 54.292866000000004
+    },
+    "room|seed48": {
+     "max_agent_overlap_m": -0.0023001854622503592,
+     "max_agent_overlap_late_m": -0.008053883965869868,
+     "max_wall_overlap_m": -0.007679011413828152,
+     "t_end": 181.09999999998027,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 58.034155999999996
+    },
+    "room|seed49": {
+     "max_agent_overlap_m": 0.006245836489349232,
+     "max_agent_overlap_late_m": 0.006245836489349232,
+     "max_wall_overlap_m": 0.0011391388981528694,
+     "t_end": 159.89999999999955,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 50.47091
+    },
+    "room|seed50": {
+     "max_agent_overlap_m": -0.005533668092756239,
+     "max_agent_overlap_late_m": -0.009897101764469118,
+     "max_wall_overlap_m": -0.004846105257648253,
+     "t_end": 148.00000000001037,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 49.25923899999998
+    },
+    "room|seed51": {
+     "max_agent_overlap_m": 0.0030391534686158295,
+     "max_agent_overlap_late_m": 0.0030391534686158295,
+     "max_wall_overlap_m": -0.011830933898294455,
+     "t_end": 135.60000000002165,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 50.170508999999925
+    }
+   }
+  },
+  "C1_cf": {
+   "agent_overlap_run_max_m": {
+    "n": 5,
+    "max": 0.02443634247717258,
+    "p99": 0.02439733911219457,
+    "median": 0.00770531186375345,
+    "min": -0.006032738976978869
+   },
+   "agent_overlap_run_max_cm": {
+    "n": 5,
+    "max": 2.4436342477172577,
+    "p99": 2.439733911219457,
+    "median": 0.770531186375345,
+    "min": -0.6032738976978869
+   },
+   "agent_overlap_late_run_max_cm": {
+    "n": 5,
+    "max": 2.4436342477172577,
+    "p99": 2.415354362806665,
+    "median": 0.770531186375345,
+    "min": -0.70608604094754
+   },
+   "wall_overlap_run_max_m": {
+    "n": 5,
+    "max": 0.01980759983681818,
+    "p99": 0.019597529749420646,
+    "median": 0.006181997024568731,
+    "min": 0.0036682996007084134
+   },
+   "wall_overlap_run_max_cm": {
+    "n": 5,
+    "max": 1.980759983681818,
+    "p99": 1.9597529749420646,
+    "median": 0.6181997024568731,
+    "min": 0.36682996007084134
+   },
+   "per_step_max_median_cm": -8.953049935613155,
+   "per_step_p99_max_cm": -2.3265732597251145,
+   "n_runs_contact": 4,
+   "n_runs_wall_contact": 5,
+   "steps_gt5cm_total": 0,
+   "steps_gt1cm_total": 15,
+   "steps_total": 97593,
+   "largest": {
+    "job_id": "C1_cf|seed46",
+    "max_agent": {
+     "ov": 0.02443634247717258,
+     "t": 1.0800000000000007,
+     "pair": [
+      82,
+      107
+     ],
+     "radii": [
+      0.2589674287665145,
+      0.22740078424909219
+     ],
+     "pos": [
+      [
+       9.525829863858903,
+       4.8735447219273045
+      ],
+      [
+       9.414371897809488,
+       5.321828309428859
+      ]
+     ],
+     "n_active": 128
+    }
+   },
+   "largest_over_radius_sum": 0.05024247437072632,
+   "cpu_s": 434.229791,
+   "runs": {
+    "C1_cf|seed42": {
+     "max_agent_overlap_m": 0.02346125835272239,
+     "max_agent_overlap_late_m": 0.017366371249524337,
+     "max_wall_overlap_m": 0.01980759983681818,
+     "t_end": 205.29999999995826,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 104.87361799999996
+    },
+    "C1_cf|seed43": {
+     "max_agent_overlap_m": 0.0007635357022195421,
+     "max_agent_overlap_late_m": -0.0070608604094754,
+     "max_wall_overlap_m": 0.004289714134462219,
+     "t_end": 206.62999999995705,
+     "complete": true,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 89.68037900000002
+    },
+    "C1_cf|seed44": {
+     "max_agent_overlap_m": 0.00770531186375345,
+     "max_agent_overlap_late_m": 0.00770531186375345,
+     "max_wall_overlap_m": 0.014555847651879866,
+     "t_end": 193.19999999996926,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 78.07223999999997
+    },
+    "C1_cf|seed45": {
+     "max_agent_overlap_m": -0.006032738976978869,
+     "max_agent_overlap_late_m": -0.006032738976978869,
+     "max_wall_overlap_m": 0.0036682996007084134,
+     "t_end": 174.39999999998636,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 81.90644400000008
+    },
+    "C1_cf|seed46": {
+     "max_agent_overlap_m": 0.02443634247717258,
+     "max_agent_overlap_late_m": 0.02443634247717258,
+     "max_wall_overlap_m": 0.006181997024568731,
+     "t_end": 196.39999999996635,
+     "complete": false,
+     "deadlock": true,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 79.69710999999995
+    }
+   }
+  },
+  "C3_rvo2_cf": {
+   "agent_overlap_run_max_m": {
+    "n": 5,
+    "max": 0.01892142431329158,
+    "p99": 0.01875390846318695,
+    "median": 0.010800353667228535,
+    "min": 0.0027882638197766485
+   },
+   "agent_overlap_run_max_cm": {
+    "n": 5,
+    "max": 1.892142431329158,
+    "p99": 1.875390846318695,
+    "median": 1.0800353667228535,
+    "min": 0.27882638197766485
+   },
+   "agent_overlap_late_run_max_cm": {
+    "n": 5,
+    "max": 1.473352806067585,
+    "p99": 1.4612587038949694,
+    "median": 0.8251959398587694,
+    "min": 0.27882638197766485
+   },
+   "wall_overlap_run_max_m": {
+    "n": 5,
+    "max": 0.01670652651567381,
+    "p99": 0.016532608881258525,
+    "median": 0.007176550601958875,
+    "min": 0.004733478813835568
+   },
+   "wall_overlap_run_max_cm": {
+    "n": 5,
+    "max": 1.670652651567381,
+    "p99": 1.6532608881258526,
+    "median": 0.7176550601958875,
+    "min": 0.47334788138355677
+   },
+   "per_step_max_median_cm": -8.193367835059053,
+   "per_step_p99_max_cm": -2.0772598193203797,
+   "n_runs_contact": 5,
+   "n_runs_wall_contact": 5,
+   "steps_gt5cm_total": 0,
+   "steps_gt1cm_total": 10,
+   "steps_total": 165451,
+   "largest": {
+    "job_id": "C3_rvo2_cf|seed42",
+    "max_agent": {
+     "ov": 0.01892142431329158,
+     "t": 0.15,
+     "pair": [
+      0,
+      19
+     ],
+     "radii": [
+      0.27280399256127563,
+      0.2559337024582556
+     ],
+     "pos": [
+      [
+       3.563594129787226,
+       6.361371479173201
+      ],
+      [
+       3.9206360421788204,
+       6.7252858958601065
+      ]
+     ],
+     "n_active": 135
+    }
+   },
+   "largest_over_radius_sum": 0.03578603245337489,
+   "cpu_s": 1489.9661700000001,
+   "runs": {
+    "C3_rvo2_cf|seed42": {
+     "max_agent_overlap_m": 0.01892142431329158,
+     "max_agent_overlap_late_m": 0.011710002517521967,
+     "max_wall_overlap_m": 0.012358585655291743,
+     "t_end": 599.9999999995994,
+     "complete": false,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 430.81701499999997
+    },
+    "C3_rvo2_cf|seed43": {
+     "max_agent_overlap_m": 0.003526706591617912,
+     "max_agent_overlap_late_m": 0.003526706591617912,
+     "max_wall_overlap_m": 0.007062871513336788,
+     "t_end": 599.9999999995994,
+     "complete": false,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 363.80647499999986
+    },
+    "C3_rvo2_cf|seed44": {
+     "max_agent_overlap_m": 0.010800353667228535,
+     "max_agent_overlap_late_m": 0.008251959398587694,
+     "max_wall_overlap_m": 0.01670652651567381,
+     "t_end": 156.60000000000255,
+     "complete": true,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 246.61517400000002
+    },
+    "C3_rvo2_cf|seed45": {
+     "max_agent_overlap_m": 0.0027882638197766485,
+     "max_agent_overlap_late_m": 0.0027882638197766485,
+     "max_wall_overlap_m": 0.004733478813835568,
+     "t_end": 149.56000000000896,
+     "complete": true,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 221.58628399999998
+    },
+    "C3_rvo2_cf|seed46": {
+     "max_agent_overlap_m": 0.014733528060675849,
+     "max_agent_overlap_late_m": 0.014733528060675849,
+     "max_wall_overlap_m": 0.007176550601958875,
+     "t_end": 148.35000000001006,
+     "complete": true,
+     "deadlock": false,
+     "steps_ov_gt5cm": 0,
+     "cpu_s": 227.1412220000002
+    }
+   }
+  }
+ },
+ "cpu_s_total": 2485.810356,
+ "n_runs": 20,
+ "cpu_h_total": 0.6905028766666667,
+ "reproduction_mismatch": []
+}

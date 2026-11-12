@@ -1,0 +1,16 @@
+# A4 beta span of the time-step probe E3 (experiments/revision2/A4_e3_beta.py -> data/derived/rev2_A4.json)
+RvAfourN: {file: rev2_A4.json, key: "n_snapshots", fmt: "{:d}"}
+RvAfourNLevel: {file: rev2_A4.json, key: "n_per_level.b1p5", fmt: "{:d}"}
+RvAfourPerStepMin: {file: rev2_A4.json, key: "overall.per_step.min", fmt: sig, digits: 2}
+RvAfourPerStepMax: {file: rev2_A4.json, key: "overall.per_step.max", fmt: sig, digits: 2}
+RvAfourLowFine: {file: rev2_A4.json, key: "by_level.b1p5.per_step.dt0p005.min", fmt: sig, digits: 2}
+RvAfourLowCoarse: {file: rev2_A4.json, key: "by_level.b1p5.per_step.dt0p02.max", fmt: sig, digits: 2}
+RvAfourHighFine: {file: rev2_A4.json, key: "by_level.b2p5.per_step.dt0p005.min", fmt: sig, digits: 2}
+RvAfourHighCoarse: {file: rev2_A4.json, key: "by_level.b2p5.per_step.dt0p02.max", fmt: sig, digits: 2}
+RvAfourScaledMin: {file: rev2_A4.json, key: "overall.dt_scaled.min", fmt: sig, digits: 2}
+RvAfourScaledMax: {file: rev2_A4.json, key: "overall.dt_scaled.max", fmt: sig, digits: 2}
+RvAfourRatioFine: {file: rev2_A4.json, key: "per_step_ratio_005.min", fmt: "{:.2f}"}
+RvAfourRatioCoarse: {file: rev2_A4.json, key: "per_step_ratio_02.max", fmt: sig, digits: 2}
+RvAfourCellsBelowOneHalf: {file: rev2_A4.json, key: "cells_below_1p5.per_step", fmt: "{:d}"}
+RvAfourCellsBelowOne: {file: rev2_A4.json, key: "cells_below_1.per_step", fmt: "{:d}"}
+RvAfourCellsPerArm: {file: rev2_A4.json, key: "n_cells_per_arm", fmt: "{:d}"}

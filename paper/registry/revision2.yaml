@@ -2,6 +2,31 @@
 # experiments/revision2/build_registry2.py from notes/C2_items/*.yaml; edit those.
 # Sources: data/derived/rev2_*.json (experiments/revision2/*.py).
 
+# ---- A1
+# A1 radius sensitivity of the stuck-alone fraction (experiments/revision2/A1_radius.py -> data/derived/rev2_A1.json)
+# Default-radius values reproduce PphysStuckAloneFrac (0.23) and StuckAloneFracCThree (0.013); the Rv macros below
+# repeat them under one name family for the comparison sentence.
+RvAoneN: {file: rev2_A1.json, key: "n_agents", fmt: "{:d}"}
+RvAoneFracSFM: {file: rev2_A1.json, key: "mu250.sfm.frac", fmt: sig, digits: 2}
+RvAoneFracORCA: {file: rev2_A1.json, key: "mu250.orca.frac", fmt: sig, digits: 2}
+RvAoneKSFM: {file: rev2_A1.json, key: "mu250.sfm.k", fmt: "{:d}"}
+RvAoneKORCA: {file: rev2_A1.json, key: "mu250.orca.k", fmt: "{:d}"}
+RvAoneFracSFMShift: {file: rev2_A1.json, key: "mu225.sfm.frac", fmt: sig, digits: 2}
+RvAoneFracSFMShiftLo: {file: rev2_A1.json, key: "mu225.sfm.wilson95.1", fmt: sig, digits: 2}
+RvAoneFracSFMShiftHi: {file: rev2_A1.json, key: "mu225.sfm.wilson95.2", fmt: sig, digits: 2}
+RvAoneKSFMShift: {file: rev2_A1.json, key: "mu225.sfm.k", fmt: "{:d}"}
+RvAoneFracORCAShift: {file: rev2_A1.json, key: "mu225.orca.frac", fmt: sig, digits: 2}
+RvAoneFracORCAShiftLo: {file: rev2_A1.json, key: "mu225.orca.wilson95.1", fmt: sig, digits: 2}
+RvAoneFracORCAShiftHi: {file: rev2_A1.json, key: "mu225.orca.wilson95.2", fmt: sig, digits: 2}
+RvAoneKORCAShift: {file: rev2_A1.json, key: "mu225.orca.k", fmt: "{:d}"}
+RvAoneRatioSFM: {file: rev2_A1.json, key: "change_sfm.ratio", fmt: sig, digits: 2}
+RvAoneRatioORCA: {file: rev2_A1.json, key: "change_orca.ratio", fmt: sig, digits: 2}
+RvAoneGmaxShift: {file: rev2_A1.json, key: "gmax_N.r0225", fmt: sig, digits: 2}
+RvAoneGmaxShiftExact: {file: rev2_A1.json, key: "gmax_N.r0225", fmt: "{:.0f}"}
+RvAoneGmaxRatio: {file: rev2_A1.json, key: "gmax_ratio_225_over_250", fmt: sig, digits: 2}
+RvAoneDriveOverGmaxShift: {file: rev2_A1.json, key: "drive_sfm_median_over_gmax225", fmt: sig, digits: 2}
+RvAoneClippedShift: {file: rev2_A1.json, key: "mu225.n_clipped", fmt: "{:d}"}
+
 # ---- A2
 # A2: damping regime, Kramers-Grote-Hynes and Mel'nikov-Meshkov factors (experiments/revision2/A2_damping.py)
 RvAtwoNFits: {file: rev2_A2.json, key: "headline.n_fits", fmt: "{:d}"}
@@ -140,6 +165,24 @@ RvAthreeToyRatioLo: {file: rev2_A3.json, key: "toy.code_pooled_ratio.ci95_boot.0
 RvAthreeToyRatioHi: {file: rev2_A3.json, key: "toy.code_pooled_ratio.ci95_boot.1", fmt: sig, digits: 2}
 RvAthreeToyCPUmin: {file: rev2_A3.json, key: "toy.cpu_min", fmt: sig, digits: 2}
 RvAthreeCapDeepMid: {file: rev2_A3.json, key: "reg.cap_deep_b2p5", fmt: sig, digits: 2}
+
+# ---- A4
+# A4 beta span of the time-step probe E3 (experiments/revision2/A4_e3_beta.py -> data/derived/rev2_A4.json)
+RvAfourN: {file: rev2_A4.json, key: "n_snapshots", fmt: "{:d}"}
+RvAfourNLevel: {file: rev2_A4.json, key: "n_per_level.b1p5", fmt: "{:d}"}
+RvAfourPerStepMin: {file: rev2_A4.json, key: "overall.per_step.min", fmt: sig, digits: 2}
+RvAfourPerStepMax: {file: rev2_A4.json, key: "overall.per_step.max", fmt: sig, digits: 2}
+RvAfourLowFine: {file: rev2_A4.json, key: "by_level.b1p5.per_step.dt0p005.min", fmt: sig, digits: 2}
+RvAfourLowCoarse: {file: rev2_A4.json, key: "by_level.b1p5.per_step.dt0p02.max", fmt: sig, digits: 2}
+RvAfourHighFine: {file: rev2_A4.json, key: "by_level.b2p5.per_step.dt0p005.min", fmt: sig, digits: 2}
+RvAfourHighCoarse: {file: rev2_A4.json, key: "by_level.b2p5.per_step.dt0p02.max", fmt: sig, digits: 2}
+RvAfourScaledMin: {file: rev2_A4.json, key: "overall.dt_scaled.min", fmt: sig, digits: 2}
+RvAfourScaledMax: {file: rev2_A4.json, key: "overall.dt_scaled.max", fmt: sig, digits: 2}
+RvAfourRatioFine: {file: rev2_A4.json, key: "per_step_ratio_005.min", fmt: "{:.2f}"}
+RvAfourRatioCoarse: {file: rev2_A4.json, key: "per_step_ratio_02.max", fmt: sig, digits: 2}
+RvAfourCellsBelowOneHalf: {file: rev2_A4.json, key: "cells_below_1p5.per_step", fmt: "{:d}"}
+RvAfourCellsBelowOne: {file: rev2_A4.json, key: "cells_below_1.per_step", fmt: "{:d}"}
+RvAfourCellsPerArm: {file: rev2_A4.json, key: "n_cells_per_arm", fmt: "{:d}"}
 
 # ---- A5
 # A5 equivalence (TOST, margin 0.10) and horizon windows (experiments/revision2/A5_equivalence.py)
@@ -735,3 +778,31 @@ RvAelevenCostCFourPub: {file: rev2_A11.json, key: "cost.estimate_cpu_h_per_100.C
 # RvAelevenCFourCThreeDiscB: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.second_only", fmt: "{:d}"}
 # RvAelevenCFourCThreePExact: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: sci, digits: 2}
 # RvAelevenCFourCThreeP: {file: rev2_A11.json, key: "paired.C4_vs_C3_cf.p", fmt: p}
+
+# ---- A12
+# A12 largest body overlaps, dt = 0.01 s (experiments/revision2/A12_overlap.py -> data/derived/rev2_A12.json); values in cm
+RvAtwelveRoomMax: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomPNinetyNine: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveRoomMedian: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveRoomLateMax: {file: rev2_A12.json, key: "sets.room.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomWallMax: {file: rev2_A12.json, key: "sets.room.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomWallMedian: {file: rev2_A12.json, key: "sets.room.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveRoomN: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveRoomContact: {file: rev2_A12.json, key: "sets.room.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCroSFMMax: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMPNinetyNine: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveCroSFMMedian: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroSFMLateMax: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMWallMax: {file: rev2_A12.json, key: "sets.C1_cf.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMWallMedian: {file: rev2_A12.json, key: "sets.C1_cf.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroSFMN: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveCroSFMContact: {file: rev2_A12.json, key: "sets.C1_cf.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCroORCAMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAPNinetyNine: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveCroORCAMedian: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroORCALateMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAWallMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAWallMedian: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroORCAN: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveCroORCAContact: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCPUh: {file: rev2_A12.json, key: "cpu_h_total", fmt: sig, digits: 2}

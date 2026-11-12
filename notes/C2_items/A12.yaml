@@ -1,0 +1,26 @@
+# A12 largest body overlaps, dt = 0.01 s (experiments/revision2/A12_overlap.py -> data/derived/rev2_A12.json); values in cm
+RvAtwelveRoomMax: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomPNinetyNine: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveRoomMedian: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveRoomLateMax: {file: rev2_A12.json, key: "sets.room.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomWallMax: {file: rev2_A12.json, key: "sets.room.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveRoomWallMedian: {file: rev2_A12.json, key: "sets.room.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveRoomN: {file: rev2_A12.json, key: "sets.room.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveRoomContact: {file: rev2_A12.json, key: "sets.room.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCroSFMMax: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMPNinetyNine: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveCroSFMMedian: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroSFMLateMax: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMWallMax: {file: rev2_A12.json, key: "sets.C1_cf.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroSFMWallMedian: {file: rev2_A12.json, key: "sets.C1_cf.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroSFMN: {file: rev2_A12.json, key: "sets.C1_cf.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveCroSFMContact: {file: rev2_A12.json, key: "sets.C1_cf.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCroORCAMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAPNinetyNine: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.p99", fmt: sig, digits: 2}
+RvAtwelveCroORCAMedian: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroORCALateMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_late_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAWallMax: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.wall_overlap_run_max_cm.max", fmt: sig, digits: 2}
+RvAtwelveCroORCAWallMedian: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.wall_overlap_run_max_cm.median", fmt: sig, digits: 2}
+RvAtwelveCroORCAN: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.agent_overlap_run_max_cm.n", fmt: "{:d}"}
+RvAtwelveCroORCAContact: {file: rev2_A12.json, key: "sets.C3_rvo2_cf.n_runs_contact", fmt: "{:d}"}
+RvAtwelveCPUh: {file: rev2_A12.json, key: "cpu_h_total", fmt: sig, digits: 2}

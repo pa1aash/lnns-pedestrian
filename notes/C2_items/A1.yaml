@@ -1,0 +1,23 @@
+# A1 radius sensitivity of the stuck-alone fraction (experiments/revision2/A1_radius.py -> data/derived/rev2_A1.json)
+# Default-radius values reproduce PphysStuckAloneFrac (0.23) and StuckAloneFracCThree (0.013); the Rv macros below
+# repeat them under one name family for the comparison sentence.
+RvAoneN: {file: rev2_A1.json, key: "n_agents", fmt: "{:d}"}
+RvAoneFracSFM: {file: rev2_A1.json, key: "mu250.sfm.frac", fmt: sig, digits: 2}
+RvAoneFracORCA: {file: rev2_A1.json, key: "mu250.orca.frac", fmt: sig, digits: 2}
+RvAoneKSFM: {file: rev2_A1.json, key: "mu250.sfm.k", fmt: "{:d}"}
+RvAoneKORCA: {file: rev2_A1.json, key: "mu250.orca.k", fmt: "{:d}"}
+RvAoneFracSFMShift: {file: rev2_A1.json, key: "mu225.sfm.frac", fmt: sig, digits: 2}
+RvAoneFracSFMShiftLo: {file: rev2_A1.json, key: "mu225.sfm.wilson95.1", fmt: sig, digits: 2}
+RvAoneFracSFMShiftHi: {file: rev2_A1.json, key: "mu225.sfm.wilson95.2", fmt: sig, digits: 2}
+RvAoneKSFMShift: {file: rev2_A1.json, key: "mu225.sfm.k", fmt: "{:d}"}
+RvAoneFracORCAShift: {file: rev2_A1.json, key: "mu225.orca.frac", fmt: sig, digits: 2}
+RvAoneFracORCAShiftLo: {file: rev2_A1.json, key: "mu225.orca.wilson95.1", fmt: sig, digits: 2}
+RvAoneFracORCAShiftHi: {file: rev2_A1.json, key: "mu225.orca.wilson95.2", fmt: sig, digits: 2}
+RvAoneKORCAShift: {file: rev2_A1.json, key: "mu225.orca.k", fmt: "{:d}"}
+RvAoneRatioSFM: {file: rev2_A1.json, key: "change_sfm.ratio", fmt: sig, digits: 2}
+RvAoneRatioORCA: {file: rev2_A1.json, key: "change_orca.ratio", fmt: sig, digits: 2}
+RvAoneGmaxShift: {file: rev2_A1.json, key: "gmax_N.r0225", fmt: sig, digits: 2}
+RvAoneGmaxShiftExact: {file: rev2_A1.json, key: "gmax_N.r0225", fmt: "{:.0f}"}
+RvAoneGmaxRatio: {file: rev2_A1.json, key: "gmax_ratio_225_over_250", fmt: sig, digits: 2}
+RvAoneDriveOverGmaxShift: {file: rev2_A1.json, key: "drive_sfm_median_over_gmax225", fmt: sig, digits: 2}
+RvAoneClippedShift: {file: rev2_A1.json, key: "mu225.n_clipped", fmt: "{:d}"}
