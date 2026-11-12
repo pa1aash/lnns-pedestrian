@@ -907,7 +907,23 @@ RvBoneCroOrcaCens: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.n_censore
 RvBoneCroOrcaGapCompleteMax: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.gap_complete.max", fmt: sig, digits: 2}
 RvBoneCroOrcaWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.window_ratio_to_human", fmt: sig, digits: 2}
 RvBoneCroOrcaWindowRatioOn: {file: rev2_B1.json, key: "c.per_variant.C3_rvo2_cf.window_ratio_on", fmt: sig, digits: 2}
-RvBoneCroRangeMax: {file: rev2_B1.json, key: "c.range_with_off.max", fmt: sig, digits: 2}
+# (d) CroMa edge-wall and noise variants without the throttle; range over all four variants
+RvBoneCroEdgeRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.flow_ratio.ratio", fmt: sig, digits: 2}
+RvBoneCroEdgeRatioLo: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.flow_ratio.ci95.0", fmt: sig, digits: 2}
+RvBoneCroEdgeRatioHi: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.flow_ratio.ci95.1", fmt: sig, digits: 2}
+RvBoneCroEdgeRatioOn: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.on.flow_ratio", fmt: sig, digits: 2}
+RvBoneCroEdgeComplete: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.complete", fmt: "{:d}"}
+RvBoneCroEdgeDeadlock: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.deadlock", fmt: "{:d}"}
+RvBoneCroEdgeWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf_edge.window_ratio_to_human", fmt: sig, digits: 2}
+RvBoneCroSigRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.flow_ratio.ratio", fmt: sig, digits: 2}
+RvBoneCroSigRatioLo: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.flow_ratio.ci95.0", fmt: sig, digits: 2}
+RvBoneCroSigRatioHi: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.flow_ratio.ci95.1", fmt: sig, digits: 2}
+RvBoneCroSigRatioOn: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.on.flow_ratio", fmt: sig, digits: 2}
+RvBoneCroSigComplete: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.complete", fmt: "{:d}"}
+RvBoneCroSigCapped: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.capped", fmt: "{:d}"}
+RvBoneCroSigWindowRatio: {file: rev2_B1.json, key: "c.per_variant.C1_cf_sig.window_ratio_to_human", fmt: sig, digits: 2}
+RvBoneCroOffMin: {file: rev2_B1.json, key: "c.range_off_only.min", fmt: sig, digits: 2}
+RvBoneCroOffMax: {file: rev2_B1.json, key: "c.range_off_only.max", fmt: sig, digits: 2}
 
 # ---- B2
 # B2: time step dt = 0.005 s against 0.01 s, SFM, widths 0.80, 0.88, 0.96 m (experiments/revision2/B2_dt.py, B2dt_analyze.py)
