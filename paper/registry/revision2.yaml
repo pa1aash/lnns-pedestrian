@@ -50,6 +50,97 @@ RvAtwoRhoSlope: {file: rev2_A2.json, key: "headline.rho_r_meas", fmt: sig, digit
 RvAtwoRhoSlopeP: {file: rev2_A2.json, key: "headline.rho_p", fmt: sci, digits: 2}
 RvAtwoRhoSlopePDisp: {file: rev2_A2.json, key: "headline.rho_p", fmt: p}
 
+# ---- A3
+# A3 censoring-aware Arrhenius slope ratio over beta 1.5-7, alone condition, and causes of the shortfall
+# (experiments/revision2/A3_arrhenius.py, toy runs A3_toy_runs.py). Shallow/Mid/Deep = E1b_seed72 / 162 / 192
+# (dU_alone 5.8 / 21 / 56 J). Ratio = fitted slope / string barrier; Lo/Hi = 95% bootstrap over restarts.
+RvAthreeRestarts: {file: rev2_A3.json, key: "pooled.restarts", fmt: "{:d}"}
+RvAthreeEvents: {file: rev2_A3.json, key: "pooled.events", fmt: "{:d}"}
+RvAthreeCensored: {file: rev2_A3.json, key: "pooled.censored", fmt: "{:d}"}
+RvAthreeSlopeRatio: {file: rev2_A3.json, key: "pooled.ratio", fmt: sig, digits: 2}
+RvAthreeSlopeRatioLo: {file: rev2_A3.json, key: "pooled.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeSlopeRatioHi: {file: rev2_A3.json, key: "pooled.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeSlopeRatioProfLo: {file: rev2_A3.json, key: "pooled.ci95_profile.0", fmt: sig, digits: 2}
+RvAthreeSlopeRatioProfHi: {file: rev2_A3.json, key: "pooled.ci95_profile.1", fmt: sig, digits: 2}
+RvAthreeWeibullMeanRatio: {file: rev2_A3.json, key: "pooled_weibull_mean.ratio", fmt: sig, digits: 2}
+RvAthreeWeibullMeanRatioLo: {file: rev2_A3.json, key: "pooled_weibull_mean.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeWeibullMeanRatioHi: {file: rev2_A3.json, key: "pooled_weibull_mean.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeHighRatio: {file: rev2_A3.json, key: "pooled_5_7.ratio", fmt: sig, digits: 2}
+RvAthreeHighRatioLo: {file: rev2_A3.json, key: "pooled_5_7.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeHighRatioHi: {file: rev2_A3.json, key: "pooled_5_7.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeRatioShallow: {file: rev2_A3.json, key: "snapshots.E1b_seed72.ratio", fmt: sig, digits: 2}
+RvAthreeRatioShallowLo: {file: rev2_A3.json, key: "snapshots.E1b_seed72.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeRatioShallowHi: {file: rev2_A3.json, key: "snapshots.E1b_seed72.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeRatioMid: {file: rev2_A3.json, key: "snapshots.E1b_seed162.ratio", fmt: sig, digits: 2}
+RvAthreeRatioMidLo: {file: rev2_A3.json, key: "snapshots.E1b_seed162.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeRatioMidHi: {file: rev2_A3.json, key: "snapshots.E1b_seed162.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeRatioDeep: {file: rev2_A3.json, key: "snapshots.E1b_seed192.ratio", fmt: sig, digits: 2}
+RvAthreeRatioDeepLo: {file: rev2_A3.json, key: "snapshots.E1b_seed192.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeRatioDeepHi: {file: rev2_A3.json, key: "snapshots.E1b_seed192.ci95_boot.1", fmt: sig, digits: 2}
+# censored restarts of 20 at beta 5 / 6 / 7
+RvAthreeCensShallowFive: {file: rev2_A3.json, key: "snapshots.E1b_seed72.censored.5", fmt: "{:d}"}
+RvAthreeCensShallowSix: {file: rev2_A3.json, key: "snapshots.E1b_seed72.censored.6", fmt: "{:d}"}
+RvAthreeCensShallowSeven: {file: rev2_A3.json, key: "snapshots.E1b_seed72.censored.7", fmt: "{:d}"}
+RvAthreeCensMidFive: {file: rev2_A3.json, key: "snapshots.E1b_seed162.censored.5", fmt: "{:d}"}
+RvAthreeCensMidSix: {file: rev2_A3.json, key: "snapshots.E1b_seed162.censored.6", fmt: "{:d}"}
+RvAthreeCensMidSeven: {file: rev2_A3.json, key: "snapshots.E1b_seed162.censored.7", fmt: "{:d}"}
+RvAthreeCensDeepFive: {file: rev2_A3.json, key: "snapshots.E1b_seed192.censored.5", fmt: "{:d}"}
+RvAthreeCensDeepSix: {file: rev2_A3.json, key: "snapshots.E1b_seed192.censored.6", fmt: "{:d}"}
+RvAthreeCensDeepSeven: {file: rev2_A3.json, key: "snapshots.E1b_seed192.censored.7", fmt: "{:d}"}
+RvAthreeCensFracMax: {file: rev2_A3.json, key: "censored_frac_5_7_max", fmt: sig, digits: 2}
+# Weibull shape, beta 6-7, one shape per snapshot (censored profile likelihood)
+RvAthreeWeibullShallow: {file: rev2_A3.json, key: "snapshots.E1b_seed72.weibull_6_7.k", fmt: sig, digits: 2}
+RvAthreeWeibullShallowLo: {file: rev2_A3.json, key: "snapshots.E1b_seed72.weibull_6_7.ci95.0", fmt: sig, digits: 2}
+RvAthreeWeibullShallowHi: {file: rev2_A3.json, key: "snapshots.E1b_seed72.weibull_6_7.ci95.1", fmt: sig, digits: 2}
+RvAthreeWeibullMid: {file: rev2_A3.json, key: "snapshots.E1b_seed162.weibull_6_7.k", fmt: sig, digits: 2}
+RvAthreeWeibullMidLo: {file: rev2_A3.json, key: "snapshots.E1b_seed162.weibull_6_7.ci95.0", fmt: sig, digits: 2}
+RvAthreeWeibullMidHi: {file: rev2_A3.json, key: "snapshots.E1b_seed162.weibull_6_7.ci95.1", fmt: sig, digits: 2}
+RvAthreeWeibullDeep: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull_6_7.k", fmt: sig, digits: 2}
+RvAthreeWeibullDeepLo: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull_6_7.ci95.0", fmt: sig, digits: 2}
+RvAthreeWeibullDeepHi: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull_6_7.ci95.1", fmt: sig, digits: 2}
+RvAthreeWeibullDeepSix: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull.6.k", fmt: sig, digits: 2}
+RvAthreeWeibullDeepSixHi: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull.6.ci95.1", fmt: sig, digits: 2}
+RvAthreeWeibullDeepSeven: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull.7.k", fmt: sig, digits: 2}
+RvAthreeWeibullDeepSevenHi: {file: rev2_A3.json, key: "snapshots.E1b_seed192.weibull.7.ci95.1", fmt: sig, digits: 2}
+RvAthreeToyWeibullDeep: {file: rev2_A3.json, key: "toy.weibull_6_7.E1b_seed192.k", fmt: sig, digits: 2}
+RvAthreeToyWeibullDeepLo: {file: rev2_A3.json, key: "toy.weibull_6_7.E1b_seed192.ci95.0", fmt: sig, digits: 2}
+RvAthreeToyWeibullDeepHi: {file: rev2_A3.json, key: "toy.weibull_6_7.E1b_seed192.ci95.1", fmt: sig, digits: 2}
+# (a) finite-barrier prefactor
+RvAthreeInvBetaRatio: {file: rev2_A3.json, key: "fit_invbeta.ratio", fmt: sig, digits: 2}
+RvAthreeInvBetaRatioLo: {file: rev2_A3.json, key: "fit_invbeta.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeInvBetaRatioHi: {file: rev2_A3.json, key: "fit_invbeta.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeLogBetaRatio: {file: rev2_A3.json, key: "fit_logbeta.ratio", fmt: sig, digits: 2}
+RvAthreeLogBetaRatioLo: {file: rev2_A3.json, key: "fit_logbeta.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeLogBetaRatioHi: {file: rev2_A3.json, key: "fit_logbeta.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeTheoryRatio: {file: rev2_A3.json, key: "theory_pooled_ratio", fmt: sig, digits: 2}
+RvAthreeTheoryShallow: {file: rev2_A3.json, key: "theory.E1b_seed72.ratio_theory", fmt: sig, digits: 2}
+RvAthreeTheoryMid: {file: rev2_A3.json, key: "theory.E1b_seed162.ratio_theory", fmt: sig, digits: 2}
+RvAthreeTheoryDeep: {file: rev2_A3.json, key: "theory.E1b_seed192.ratio_theory", fmt: sig, digits: 2}
+RvAthreeTstShallow: {file: rev2_A3.json, key: "theory.E1b_seed72.ratio_tst_only", fmt: sig, digits: 2}
+RvAthreeTstMid: {file: rev2_A3.json, key: "theory.E1b_seed162.ratio_tst_only", fmt: sig, digits: 2}
+RvAthreeTstDeep: {file: rev2_A3.json, key: "theory.E1b_seed192.ratio_tst_only", fmt: sig, digits: 2}
+RvAthreeTstSevenOverHarmDeep: {file: rev2_A3.json, key: "theory.E1b_seed192.nu_tst_7_over_harmonic", fmt: sig, digits: 2}
+RvAthreeTstSevenOverHarmShallow: {file: rev2_A3.json, key: "theory.E1b_seed72.nu_tst_7_over_harmonic", fmt: sig, digits: 2}
+RvAthreeMMShallowLow: {file: rev2_A3.json, key: "reg.A_mm_shallow_b1p5", fmt: sig, digits: 2}
+RvAthreeMMDeepLow: {file: rev2_A3.json, key: "reg.A_mm_deep_b1p5", fmt: sig, digits: 2}
+# (b) discrete-time temperature
+RvAthreeDtBiasMin: {file: rev2_A3.json, key: "discrete_time_bias_range.0", fmt: sig, digits: 2}
+RvAthreeDtBiasMax: {file: rev2_A3.json, key: "discrete_time_bias_range.1", fmt: sig, digits: 2}
+RvAthreeTconfDeep: {file: rev2_A3.json, key: "discrete_time.E1b_seed192.modes.0.Tconf_over_Teff", fmt: sig, digits: 2}
+RvAthreeTconfDeepSim: {file: rev2_A3.json, key: "discrete_time.E1b_seed192.modes.0.Tconf_over_Teff_sim", fmt: sig, digits: 2}
+# (c) speed cap
+RvAthreeTkinDeepLow: {file: rev2_A3.json, key: "reg.Tkin_axial_deep_b1p5", fmt: sig, digits: 2}
+RvAthreeCapDeepLow: {file: rev2_A3.json, key: "reg.cap_deep_b1p5", fmt: sig, digits: 2}
+RvAthreeCapCorrRatio: {file: rev2_A3.json, key: "toy.measured_corrected_cap.ratio", fmt: sig, digits: 2}
+RvAthreeCapCorrRatioLo: {file: rev2_A3.json, key: "toy.measured_corrected_cap.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeCapCorrRatioHi: {file: rev2_A3.json, key: "toy.measured_corrected_cap.ci95_boot.1", fmt: sig, digits: 2}
+# toy reproduction (code update, string potential)
+RvAthreeToyRatio: {file: rev2_A3.json, key: "toy.code_pooled_ratio.ratio", fmt: sig, digits: 2}
+RvAthreeToyRatioLo: {file: rev2_A3.json, key: "toy.code_pooled_ratio.ci95_boot.0", fmt: sig, digits: 2}
+RvAthreeToyRatioHi: {file: rev2_A3.json, key: "toy.code_pooled_ratio.ci95_boot.1", fmt: sig, digits: 2}
+RvAthreeToyCPUmin: {file: rev2_A3.json, key: "toy.cpu_min", fmt: sig, digits: 2}
+RvAthreeCapDeepMid: {file: rev2_A3.json, key: "reg.cap_deep_b2p5", fmt: sig, digits: 2}
+
 # ---- A5
 # A5 equivalence (TOST, margin 0.10) and horizon windows (experiments/revision2/A5_equivalence.py)
 # LoneEtwo/LoneNone = lone keystone sigma 0.07 (E2) / 0.0717 (N1); SecondEtwo/SecondPool = second trap 26 / 160;
