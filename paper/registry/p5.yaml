@@ -1,0 +1,8 @@
+# Registry entries added in session P5: the beta_0 = 2.5 level of the time-step probe (Sect. 7.1) at the paper's
+# two-significant-figure rule (EthreeEllBB* print three). Observed pooled ell and its bootstrap 95% interval from
+# E3_analysis.json; prediction of Eq. (ell) with the energy-span barriers (experiments/revision6/P4_span.py), which
+# equals the reported-barrier prediction EthreeEllBBPred at this level.
+PfiveEllBB: {file: E3_analysis.json, key: "headline.ell_ps_b2p5_obs", fmt: sig, digits: 2}
+PfiveEllBBLo: {file: E3_analysis.json, key: "headline.ell_ps_b2p5_lo", fmt: sig, digits: 2}
+PfiveEllBBHi: {file: E3_analysis.json, key: "headline.ell_ps_b2p5_hi", fmt: sig, digits: 2}
+PfiveEllBBPredSpan: {file: rev6_P4.json, key: "headline.ell_b2p5_pred_span", fmt: sig, digits: 2}

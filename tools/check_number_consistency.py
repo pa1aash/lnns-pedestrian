@@ -11,6 +11,9 @@ Text is taken from the LaTeX sources with every number macro replaced by its val
 Numbers that name a figure element only (panel radii, colour-scale ends, sample sizes of a plot) are listed too;
 the report decides which are mismatches. Exit 1 when any number is missing.
 
+Each abstract sentence is also checked on its own: its numbers must all appear in one body section file, and the
+sentences keyed in ABSTRACT_SECTION must find them in the section that reports the claim.
+
 Usage: python3 tools/check_number_consistency.py [-v]
 """
 import re
@@ -47,6 +50,11 @@ def expand(s):
 ALLOWED_CAPTION = {"95": "interval level (Sect. 4.4) or plotted percentile band",
                    "2000": "number of agents drawn in the scatter (display subsample)",
                    "150": "colour-scale end of the margin shading", "1000": "colour-scale end of the wall-force shading"}
+
+# abstract sentences checked against the section that reports them (key: a phrase of the sentence)
+ABSTRACT_SECTION = {"critical width": "sec:lone", "beside the door": "sec:lone", "relaxation time": "sec:identity",
+                    "whole runs, against": "sec:att-whole", "Arrhenius slope": "sec:escape",
+                    "human flow": "sec:validity"}
 
 NUM = re.compile(r"(?<![A-Za-z_\\])(10\^-?\d+|\d+(?:\.\d+)?)")
 
@@ -142,6 +150,23 @@ def main():
             for t in numbers(expand(sent)):
                 if t not in body_tokens(ref_text):
                     missing.append((name + " (cited section)", t, ", ".join(refs)))
+    # abstract, sentence by sentence: every number of one sentence must appear in one body section file (a claim is
+    # reported in one place), and the sentences named in ABSTRACT_SECTION must find their numbers in that section
+    sec_files = {n: body_tokens(expand(strip_floats(raw[n]))) for n in body_files}
+    for sent in re.split(r"(?<=[.;])\s+(?=[A-Z\\])", abstract.split("\\begin{abstract}")[-1]):
+        toks = numbers(expand(sent))
+        if not toks:
+            continue
+        key = next((k for k in ABSTRACT_SECTION if k in sent), None)
+        if verbose:
+            print(f"abstract sentence [{key or 'one section'}]: {' '.join(toks)}")
+        if key:
+            ref = ABSTRACT_SECTION[key]
+            for t in toks:
+                if t not in body_tokens(expand(strip_floats(raw[label_file[ref]]))):
+                    missing.append(("abstract (" + key + ")", t, ref))
+        elif not any(all(t in toks_f for t in toks) for toks_f in sec_files.values()):
+            missing.append(("abstract (one section)", " ".join(toks), "any single section"))
     for name, t, where in missing:
         if name.startswith("caption") and (t in ALLOWED_CAPTION or t in B):
             print(f"note {name}: {t} not in {where} but {ALLOWED_CAPTION[t] if t in ALLOWED_CAPTION else 'in the body'}")
