@@ -26,14 +26,20 @@ $A_w$ & wall strength & $A$ & \cite{helbing2000nature} \\
 $B_w$ & wall range & $B$ (variants $0.04$, $0.02$\,m) & \cite{helbing2000nature} \\
 $B_{w,\rm edge}$ & jamb range (variant) & $0.04$\,m & this work \\
 $r_c$ & segment-end radius (variant) & $0.1$\,m & this work \\
-$k_{\rm ttc}$ & TTC scale & $1.5$\,N\,s$^2$ & this work \\
+$k_{\rm ttc}$ & TTC scale & $1.5$\,N\,s$^2$ (energy scale $k=1.5$ in~\cite{karamouzas2014}, used as a force) & \cite{karamouzas2014} \\
 $\tau_0$ & TTC decay time & $3$\,s & \cite{karamouzas2014} \\
 $\tau_{\max}$ & TTC look-ahead & $8$\,s & this work \\
 $\tau_h$ & ORCA look-ahead time & $5$\,s & \cite{vandenberg2011} \\
  & ORCA neighbour count & no cap (all active within $R$) & this work \\
+$\tau_{\rm orca}$ & ORCA relaxation time & $0.5$\,s & \cite{moussaid2011} \\
+ & ORCA speed limit & $2\,v_0$ & this work \\
+$\chi$ & density gate $1-S(\rho;x_0,c)$ & $x_0=4$\,m$^{-2}$, $c=2$\,m$^2$ & this work \\
 \midrule
 \multicolumn{4}{@{}l}{\emph{Numerics}} \\
 $\Delta t$; $\sigma$ & time step; noise SD & $0.01$\,s; set per experiment & this work \\
+ & speed cap & $2\,v_0$ & this work \\
+ & deadlock & all $|\mathbf v|<0.01$\,m/s for 10\,s, no exit & this work \\
+ & quench stop; horizon & all $|\mathbf v|<10^{-3}$\,m/s for 10\,s; 120\,s & this work \\
 \bottomrule
 \end{tabular}
 \end{table}

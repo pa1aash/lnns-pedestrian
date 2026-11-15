@@ -1843,7 +1843,7 @@ RevDThreeCSigGapLowerMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf
 RevDThreeCSigGapKMRmean: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.km_restricted_mean", fmt: "{:.0f}"}
 RevDThreeCSigGapKMSTau: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.km_S_at_tau", fmt: "{:.2f}"}
 RevDThreeCSigGapsTwo: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.gaps_gt_2s.mean", fmt: "{:.1f}"}
-RevDThreeCSigFluct: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.fluct.mean", fmt: "{:.3f}"}
+RevDThreeCSigFluct: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.fluct.mean", fmt: sig, digits: 2}  # P3: 0.108 -> 0.11
 RevDThreeCSigGapCompleteMean: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.gap_complete.mean", fmt: "{:.1f}"}
 RevDThreeCSigGapKMMedian: {file: rev_D.json, key: "D3.rerun.per_variant.C1_cf_sig.km_median", fmt: "{:.1f}"}
 RevDThreeCSigDFlow: {file: rev_D.json, key: "D3.rerun.paired_vs_E10.C1_cf_sig.flow.mean_diff", fmt: "{:.3f}"}

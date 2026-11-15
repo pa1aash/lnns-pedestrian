@@ -240,7 +240,8 @@ EtenHumanGap:
 EtenHumanGapMax:
   file: E10_analysis.json
   key: "humans.longest_gap_max"
-  fmt: "{:.2f}"
+  fmt: sig
+  digits: 2  # P3: 2.04 -> 2.0 (two significant figures)
 EtenHumanGapsTwo:
   file: E10_analysis.json
   key: "humans.gaps_gt_2s.mean"

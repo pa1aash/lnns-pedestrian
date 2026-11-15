@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-r"""Write Tables 4 and 5 of Sect. 6: paper/tables/table4_noise.tex (Table 4, tab:matched-noise) and
-paper/tables/table5_bias.tex (Table 5, tab:matched-bias).
+r"""Write the merged table of matched comparisons (Sect. 7): paper/tables/table2_matched.tex (Table 2, tab:matched).
+
+Revision 5 (session P3) merged the former Tables 4 (tab:matched-noise) and 5 (tab:matched-bias) into one table of
+four columns: Set | Perturbation | Freed | Delta [95%]. The dropped columns (Holm-adjusted p beside Delta, dRMST with
+its p, Replay, Omega with its p, ell, first exit with its p) are stated in the text of Sects. 7.1-7.3; their macros
+are listed in DROPPED below and the build fails if one of them leaves the registry. The description of the former
+two tables follows; it still describes the sources of every cell.
 
 Table 4: per-step noise fraction-matched to force-coupled ORCA (RVO2) at the lone keystone (sigma = 0.07 m/s,
 five seeds, E2; sigma = 0.0717 m/s, 20 seeds, N1; T = 120 s), at the second trap (sigma = 0.07 m/s, E2, A6) and
@@ -37,8 +42,7 @@ import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT_A = ROOT / "paper" / "tables" / "table4_noise.tex"
-OUT_B = ROOT / "paper" / "tables" / "table5_bias.tex"
+OUT = ROOT / "paper" / "tables" / "table2_matched.tex"
 DERIVED = ROOT / "data" / "derived" / "table3_pair.json"
 T_Q, N_BOOT, RNG_SEED = 120.0, 2000, 12345
 PAIR_ARMS = {"pub": ("bstar_pub+", "C3_pub"), "rvo2": ("bstar_rvo2+", "C3_rvo2")}
@@ -125,147 +129,89 @@ def jcell(j, ind, p=None, mark=""):
     return st(cell, pv(p) + mark) if p else cell
 
 
-# Table 4: Perturbation | Freed | Delta [CI], p | dRMST [CI], p | Replay | Omega (indep.), p | ell (pred.), p
-COLS_A = (r"Perturbation & Freed & $\Delta$ [95\%] & \hd{$\Delta$RMST (s)}{[95\%]} & Replay & \hd{$\Omega$}{(indep.)} "
-          r"& $\ell$ (pred.)")
-BLOCKS_A = [
-    (r"Lone keystones: " + one("EtwoNLK") + r" snapshots, $T=120$\,s", [
-        (stl("noise, 5 seeds", r"$\sigma=0.07$\,m/s"),
-         frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"),
-         dpm("RvAfiveLoneEtwoDiff", "RvAfiveLoneEtwoDiffLo", "RvAfiveLoneEtwoDiffHi", "RevAsevenLoneEtwoFreedPHolm"),
-         dpm("PscrTimeLoneEtwoEff", "PscrTimeLoneEtwoLo", "PscrTimeLoneEtwoHi", "RevAsevenLoneEtwoTimePHolm"),
-         frac("TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps"), NA,
-         st("{} ({})".format(*m("PprotEllBA", "PprotEllBAPred")), pv("RevAsevenLoneEtwoEllPHolm"))),
-        (stl("noise, 20 seeds", r"$\sigma=" + one("RunNOneSigma") + r"$\,m/s"),
-         frac("RunNOneFreed", "RunNOneRunsN"),
-         dpm("RvAfiveLoneNoneDiff", "RvAfiveLoneNoneDiffLo", "RvAfiveLoneNoneDiffHi", "RevAsevenLoneNoneFreedPHolm"),
-         dpm("PscrTimeLoneNoneEff", "PscrTimeLoneNoneLo", "PscrTimeLoneNoneHi", "RevAsevenLoneNoneTimePHolm"),
-         "{}/{}".format(*m("RevAsevenLoneNoneReplayDiscA", "EtwoNLK")),
-         jcell("RevAnineLKNHalfJ", "PscrLKNHalfEJ", "RevAnineLKNHalfP"), NA),
-        (stl("force-coupled", "ORCA (RVO2)"),
-         frac("EtwoLKCThreeRVOFreed", "EtwoLKCThreeRVON"), E, E,
-         frac("TabThreeLKRvoReplayDis", "TabThreeLKRvoReplays"), E,
-         "$" + one("PscrOrcaLnRatio") + "$"),
-    ]),
-    (r"Second traps: " + one("RevAsixSTSnaps") + r" snapshots, $T=120$\,s", [
-        (stl("noise, 5 seeds", r"$\sigma=0.07$\,m/s"),
-         frac("RevAsixSTNoiseFreed", "RevAsixSTNoiseN"),
-         dpm("RvAfiveSecondEtwoDiff", "RvAfiveSecondEtwoDiffLo", "RvAfiveSecondEtwoDiffHi", "RevAsevenSecondFreedPHolm"),
-         dpm("PscrTimeSecondEff", "PscrTimeSecondLo", "PscrTimeSecondHi", "RevAsevenSecondTimePHolm"),
-         frac("RevAsixSTNoiseDisagree", "RevAsixSTSnaps"),
-         jcell("RevAsixSTJ", "RevAsixSTJInd", "RevAsixSTJIndP"), NR),
-        (stl("force-coupled", "ORCA (RVO2)"),
-         frac("RevAsixSTOrcaFreed", "RevAsixSTOrcaN"), E, E,
-         frac("RevAsixSTOrcaReplayDis", "RevAsixSTOrcaReplays"), E, NR),
-    ]),
-    (r"Whole runs: " + one("EsixN") + r" spawn seeds, $T=600$\,s", [
-        (stl("noise", r"$\sigma^\ast=" + one("EsixSigmaStar") + r"$\,m/s"),
-         frac("EsixNoiseK", "EsixN"),
-         dpm("RvAfiveWholeDiff", "RvAfiveWholeDiffLo", "RvAfiveWholeDiffHi", "RevAsevenWholeEsixFreedPHolm"),
-         dpm("PscrTimeWholeEff", "PscrTimeWholeLo", "PscrTimeWholeHi", "RevAsevenWholeEsixTimePHolm"),
-         NR, jcell("RevAnineWholeEJ", "RevAnineWholeEEJ", "RevAnineWholeEP"), NR),
-        (stl("force-coupled", "ORCA (RVO2)"), frac("EsixCThreeK", "EsixN"), E, E, NR, E, NR),
-    ]),
+# Merged table: Set | Perturbation | Freed | Delta [95%] (Delta: surrogate minus force-coupled ORCA, unadjusted)
+COLS = r"Set & Perturbation & Freed & $\Delta$ [95\%]"
+
+
+def set_label(name, n, T):
+    return name + " (" + n + ", " + T + r"\,s)"
+
+
+ROWS = [
+    (set_label("Lone keystones", one("EtwoNLK"), "120"), r"noise $\sigma=0.07$\,m/s, 5 seeds",
+     frac("EtwoLKNoiseCFreed", "EtwoLKNoiseCN"), dpm("RvAfiveLoneEtwoDiff", "RvAfiveLoneEtwoDiffLo", "RvAfiveLoneEtwoDiffHi")),
+    ("", r"noise $\sigma=" + one("RunNOneSigma") + r"$\,m/s, 20 seeds",
+     frac("RunNOneFreed", "RunNOneRunsN"), dpm("RvAfiveLoneNoneDiff", "RvAfiveLoneNoneDiffLo", "RvAfiveLoneNoneDiffHi")),
+    ("", "force-coupled ORCA", frac("EtwoLKCThreeRVOFreed", "EtwoLKCThreeRVON"), E),
+    (set_label("Second traps", one("RevAsixSTSnaps"), "120"), r"noise $\sigma=0.07$\,m/s, 5 seeds",
+     frac("RevAsixSTNoiseFreed", "RevAsixSTNoiseN"),
+     dpm("RvAfiveSecondEtwoDiff", "RvAfiveSecondEtwoDiffLo", "RvAfiveSecondEtwoDiffHi")),
+    ("", "force-coupled ORCA", frac("RevAsixSTOrcaFreed", "RevAsixSTOrcaN"), E),
+    (set_label("Whole runs", one("EsixN"), "600"), r"noise $\sigma^\ast=" + one("EsixSigmaStar") + r"$\,m/s",
+     frac("EsixNoiseK", "EsixN"), dpm("RvAfiveWholeDiff", "RvAfiveWholeDiffLo", "RvAfiveWholeDiffHi")),
+    ("", "force-coupled ORCA", frac("EsixCThreeK", "EsixN"), E),
+    (set_label("Pair standoffs, legacy", one("PairN"), "120"), r"bias $+b^\ast=" + one("PscrPairBstarPub") + "$",
+     frac("PairBsPubFreed", "PairN"), dpm("RvAfivePairLegacyDiff", "RvAfivePairLegacyDiffLo", "RvAfivePairLegacyDiffHi")),
+    ("", "force-coupled ORCA (legacy)", frac("PairPubFreed", "PairN"), E),
+    (set_label("Pair standoffs, RVO2", one("PairN"), "120"), r"bias $+b^\ast=" + one("PairBstarRvo") + "$",
+     frac("PairBsRvoFreed", "PairN"), dpm("RvAfivePairRvoDiff", "RvAfivePairRvoDiffLo", "RvAfivePairRvoDiffHi")),
+    ("", "force-coupled ORCA", frac("PairRvoFreed", "PairN"), E),
 ]
 
-# Table 5: Perturbation | Freed | Delta [CI], p | dRMST [CI], p | Replay | Omega (indep.), p | first exit below axis, p
-COLS_B = (r"Perturbation & Freed & $\Delta$ [95\%] & \hd{$\Delta$RMST (s)}{[95\%]} & Replay & \hd{$\Omega$}{(indep.)} "
-          r"& \hd{First exit}{below axis}")
-BLOCKS_B = [
-    (r"Legacy solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
-        (stl("bias", r"$+b^\ast_{\rm legacy}=" + one("PscrPairBstarPub") + "$"),
-         frac("PairBsPubFreed", "PairN"),
-         dpm("RvAfivePairLegacyDiff", "RvAfivePairLegacyDiffLo", "RvAfivePairLegacyDiffHi", "RevAsevenPairPubFreedPHolm"),
-         dpm("PscrTimePairPubEff", "PscrTimePairPubLo", "PscrTimePairPubHi", "RevAsevenPairPubTimePHolm"),
-         frac("TabThreePairBsPubReplayDis", "TabThreePairBsReplays"),
-         jcell("RevAninePairPubJ", "RevAninePairPubEJ", "RevAninePairPubP"),
-         st(frac("PairBsPubHand", "PairBsPubN"), pv("RevAsevenPairPubHandPHolm"))),
-        (stl("force-coupled", "ORCA (legacy)"),
-         frac("PairPubFreed", "PairN"), E, E,
-         frac("TabThreePairPubReplayDis", "TabThreePairOrcaReplays"), E,
-         frac("PairPubLower", "TabThreePairPubOrcaN")),
-    ]),
-    (r"RVO2 solver: " + one("PairN") + r" pair standoffs, $T=120$\,s", [
-        (stl("bias", r"$+b^\ast_{\rm RVO2}=" + one("PairBstarRvo") + "$"),
-         frac("PairBsRvoFreed", "PairN"),
-         dpm("RvAfivePairRvoDiff", "RvAfivePairRvoDiffLo", "RvAfivePairRvoDiffHi", "RevAsevenPairRvoFreedPHolm"),
-         dpm("PscrTimePairRvoEff", "PscrTimePairRvoLo", "PscrTimePairRvoHi", "RevAsevenPairRvoTimePHolm"),
-         frac("TabThreePairBsRvoReplayDis", "TabThreePairBsReplays"),
-         # Omega = 0: the informative tail is P(X <= 0) (A9), marked with a dagger in the note
-         jcell("RevAninePairRvoJ", "PscrPairRvoEJ", "RevAninePairRvoPLe", r"$^\dagger$"),
-         st(frac("TabThreePairRvoHand", "TabThreePairRvoHandN"), pv("RevAsevenPairRvoHandPHolm"))),
-        (stl("force-coupled", "ORCA (RVO2)"),
-         frac("PairRvoFreed", "PairN"), E, E,
-         frac("TabThreePairRvoReplayDis", "TabThreePairOrcaReplays"), E,
-         frac("TabThreePairRvoOrcaLower", "TabThreePairRvoOrcaN")),
-    ]),
+# Macros of the dropped columns of the former Tables 4 and 5, now in the text of Sect. 7 (checked to exist).
+DROPPED = [
+    "RevAsevenLoneEtwoFreedPHolm", "RevAsevenLoneNoneFreedPHolm", "RevAsevenSecondFreedPHolm",
+    "RevAsevenWholeEsixFreedPHolm", "RevAsevenPairPubFreedPHolm", "RevAsevenPairRvoFreedPHolm",
+    "PscrTimeLoneEtwoEff", "PscrTimeLoneEtwoLo", "PscrTimeLoneEtwoHi", "RevAsevenLoneEtwoTimePHolm",
+    "PscrTimeLoneNoneEff", "PscrTimeLoneNoneLo", "PscrTimeLoneNoneHi", "RevAsevenLoneNoneTimePHolm",
+    "PscrTimeSecondEff", "PscrTimeSecondLo", "PscrTimeSecondHi", "RevAsevenSecondTimePHolm",
+    "PscrTimeWholeEff", "PscrTimeWholeLo", "PscrTimeWholeHi", "RevAsevenWholeEsixTimePHolm",
+    "PscrTimePairPubEff", "PscrTimePairPubLo", "PscrTimePairPubHi", "RevAsevenPairPubTimePHolm",
+    "PscrTimePairRvoEff", "PscrTimePairRvoLo", "PscrTimePairRvoHi", "RevAsevenPairRvoTimePHolm",
+    "TabThreeLKNoiseDisagree", "TabThreeLKNoiseSnaps", "RevAsevenLoneNoneReplayDiscA", "TabThreeLKRvoReplayDis",
+    "TabThreeLKRvoReplays", "RevAsixSTNoiseDisagree", "RevAsixSTOrcaReplayDis", "RevAsixSTOrcaReplays",
+    "TabThreePairBsPubReplayDis", "TabThreePairBsRvoReplayDis", "TabThreePairBsReplays", "TabThreePairPubReplayDis",
+    "TabThreePairRvoReplayDis", "TabThreePairOrcaReplays",
+    "RevAnineLKNHalfJ", "PscrLKNHalfEJ", "RevAnineLKNHalfP", "RevAsixSTJ", "RevAsixSTJInd", "RevAsixSTJIndP",
+    "RevAnineWholeEJ", "RevAnineWholeEEJ", "RevAnineWholeEP", "RevAninePairPubJ", "RevAninePairPubEJ",
+    "RevAninePairPubP", "RevAninePairRvoJ", "PscrPairRvoEJ", "RevAninePairRvoPLe",
+    "PprotEllBA", "PprotEllBAPred", "RevAsevenLoneEtwoEllPHolm", "PscrOrcaLnRatio", "EthreeN",
+    "PairBsPubHand", "PairBsPubN", "RevAsevenPairPubHandPHolm", "TabThreePairRvoHand", "TabThreePairRvoHandN",
+    "RevAsevenPairRvoHandPHolm", "PairPubLower", "TabThreePairPubOrcaN", "TabThreePairRvoOrcaLower",
+    "TabThreePairRvoOrcaN",
 ]
 
-CAPTION_A = (
-    r"Per-step noise against force-coupled ORCA (RVO2), fraction-matched at the lone keystones and in whole runs."
-)
-NOTE_A = (
-    r"Freed: runs freed by $T$ (noise), snapshots (force-coupled ORCA), runs completed (whole runs). "
-    r"$\Delta$: freed fraction, noise minus force-coupled ORCA. "
-    r"$\Delta$RMST: difference of the mean time to free, capped at $T$. "
-    r"Replay: snapshots whose seeds disagree (noise, by construction) or whose $10^{-9}$\,m replay changes the "
-    r"outcome (force-coupled ORCA). "
-    r"$\Omega$: Jaccard index of the unresolved sets (noise: freed in fewer than half the seeds); in parentheses, "
-    r"for independent sets. "
-    r"$\ell$: Eq.~\eqref{eq:ell} pooled over the " + one("EthreeN") + r" snapshots of the time-step set, noise at "
-    r"$\beta=1.5$ (prediction). "
-    r"Intervals are unadjusted. $p$ beside $\Delta$, $\Delta$RMST and $\ell$: paired test, Holm-adjusted over the "
-    r"probes of the comparison (lone keystones 4: $\Delta$, replay, $\Delta$RMST and either $\ell$ or outcome identity; "
-    r"second traps 3; whole runs 4: $\Delta$, outcome identity, $\Delta$RMST, final-state class). "
-    r"$p$ beside $\Omega$: hypergeometric, unadjusted. "
-    r"n.a.: not applicable; not run: probe not run on this set."
-)
-CAPTION_B = (
-    r"Lateral bias $+b^\ast$ fraction-matched to force-coupled ORCA with the same solver at the pair standoff."
-)
-NOTE_B = (
-    r"Columns as in Table~\ref{tab:matched-noise}; $\Omega$ compares the freed sets. "
-    r"First exit below axis: freed standoffs first left by the member at $y<5$\,m, below the door axis. "
-    r"Holm family per solver: 5 probes ($\Delta$, replay, outcome identity, $\Delta$RMST, first exit). "
-    r"$^\dagger$$\Omega=0$: $p$ of an overlap this small or smaller."
-)
+CAPTION = r"Matched surrogates against force-coupled ORCA: freed fraction at the horizon $T$ and the paired difference."
+NOTE = (r"Set: number of snapshots or runs and horizon $T$. Freed: noise quenches freed by $T$ (snapshots times seeds), snapshots freed (force-coupled ORCA, bias), runs "
+        r"completed (whole runs). $\Delta$: freed fraction of the surrogate minus that of force-coupled ORCA, with "
+        r"its unadjusted 95\% interval.")
 
-def render(rows_blocks, cols, caption, note, label):
-    ncol = cols.count("&") + 1
+
+def render():
+    m(*DROPPED)
     lines = [
         "% generated by experiments/tables/make_tables45.py from paper/registry/*.yaml macros; do not edit",
         r"\begin{table}[t]",
-    ]
-    lines += [
-        r"\caption{" + caption + "}",
-        r"\label{" + label + "}",
-        r"\centering\scriptsize\setlength{\tabcolsep}{1pt}",
-        r"\def\st#1#2{\begin{tabular}[t]{@{}c@{}}#1\\\relax#2\end{tabular}}%",
-        r"\def\stl#1#2{\begin{tabular}[t]{@{}l@{}}#1\\\relax#2\end{tabular}}%",
-        r"\def\hd#1#2{\begin{tabular}[b]{@{}c@{}}#1\\\relax#2\end{tabular}}%",
-        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l" + "c" * (ncol - 1) + "@{}}",
+        r"\caption{" + CAPTION + "}",
+        r"\label{tab:matched}",
+        r"\centering\scriptsize\setlength{\tabcolsep}{2pt}",
+        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcc@{}}",
         r"\toprule",
-        cols + r" \\",
+        COLS + r" \\",
+        r"\midrule",
     ]
-    nrows = 0
-    for title, rows in rows_blocks:
-        lines += [r"\midrule", r"\multicolumn{" + str(ncol) + r"}{@{}l}{\emph{" + title + r"}} \\"]
-        for r in rows:
-            assert len(r) == ncol, (title, r)
-            lines.append(" & ".join(r) + r" \\")
-            nrows += 1
+    for i, r in enumerate(ROWS):
+        if i and r[0]:
+            lines.append(r"\addlinespace[2pt]")
+        lines.append(" & ".join(r) + r" \\")
     lines += [r"\bottomrule", r"\end{tabular*}", r"\par\smallskip",
-              r"\parbox{\textwidth}{\scriptsize " + note + "}", r"\end{table}"]
-    return "\n".join(lines) + "\n", nrows
+              r"\parbox{\textwidth}{\scriptsize " + NOTE + "}", r"\end{table}"]
+    return "\n".join(lines) + "\n"
 
 
 def main():
-    for out, blocks, cols, cap, note, label in (
-            (OUT_A, BLOCKS_A, COLS_A, CAPTION_A, NOTE_A, "tab:matched-noise"),
-            (OUT_B, BLOCKS_B, COLS_B, CAPTION_B, NOTE_B, "tab:matched-bias")):
-        text, n = render(blocks, cols, cap, note, label)
-        out.write_text(text)
-        print(f"wrote {out} ({n} rows)")
+    OUT.write_text(render())
+    print(f"wrote {OUT} ({len(ROWS)} rows)")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,24 @@
+# Registry entries added in revision 5 (session P3): display macros at the paper's precision rule (two significant
+# figures) for values whose Rx/Rw macros print more digits, and values the text needs that have no macro yet.
+# Sources: data/derived/rev5_X1.json (energy span, session C4), rev5_X2.json (CroMa time step, C4).
+# Full-condition slope-ratio median with the energy-span barriers (rev5_X1 headline; was PphysRatioFull 1.2)
+PthreeRatioFullSpan: {file: rev5_X1.json, key: "headline.e4_ratio_med_full_span", fmt: sig, digits: 2}
+# Matched-noise beta (sigma = 0.07 m/s) over the 56 barriers with the span (was RevAthreeSeven* 0.64, 0.15, 1.6)
+PthreeBetaSevenSpanMed: {file: rev5_X1.json, key: "headline.a3_s0p07_span_median", fmt: sig, digits: 2}
+PthreeBetaSevenSpanQone: {file: rev5_X1.json, key: "headline.a3_s0p07_span_q25", fmt: sig, digits: 2}
+PthreeBetaSevenSpanQthree: {file: rev5_X1.json, key: "headline.a3_s0p07_span_q75", fmt: sig, digits: 2}
+# Median beta at sigma* with the span (was RevAthreeStarMed 1.4)
+PthreeBetaStarSpanMed: {file: rev5_X1.json, key: "headline.a3_sstar_span_median", fmt: sig, digits: 2}
+# E1b_seed60, full condition: reported barrier (saddle into a deeper rest state) and energy span
+PthreeSixtyRep: {file: rev5_X1.json, key: "paths.E1b_seed60|full.dU_published", fmt: sig, digits: 2}
+PthreeSixtySpan: {file: rev5_X1.json, key: "paths.E1b_seed60|full.dU_span", fmt: sig, digits: 2}
+# E1b_seed170, full condition: adjacent rest state (U relative to the snapshot minimum) and exit barrier from it
+PthreeOneSeventyRestE: {file: rev5_X1.json, key: "paths.E1b_seed170|full.deepest_min_E_M_J", fmt: sig, digits: 2}
+PthreeOneSeventySpan: {file: rev5_X1.json, key: "paths.E1b_seed170|full.dU_span", fmt: sig, digits: 2}
+# CroMa noise variant: explicit-friction factor 2 kappa h dt / m at the largest agent overlap, dt = 0.01 and 0.005 s
+PthreeCroSigFrictionOne: {file: rev5_X2.json, key: "per_dt.dt0p01.C1_cf_sig.friction_factor", fmt: sig, digits: 2}
+PthreeCroSigFrictionHalf: {file: rev5_X2.json, key: "per_dt.dt0p005.C1_cf_sig.friction_factor", fmt: sig, digits: 2}
+# E1b_seed170: beta of the exit from the adjacent rest state at the lowest Arrhenius-test noise (beta_ref 1.5; rev4_T5)
+PthreeOneSeventyBetaExit: {file: rev4_T5.json, key: "levels.b1p5.beta_M2_exit", fmt: sig, digits: 2}
+# Lone keystones freed by force-coupled ORCA although the stuck-alone margin with its rest drive is positive (rev4_T6 6c)
+PthreeRocFreedPos: {file: rev4_T6.json, key: "c.freed_with_positive_margin", fmt: "{:d}"}
