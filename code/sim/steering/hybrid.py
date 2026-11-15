@@ -106,6 +106,14 @@ class HybridSteeringModel(SteeringModel):
         self.veff_throttle = params.get("veff_throttle", "on")
         if self.veff_throttle not in ("on", "off"):
             raise ValueError(f"veff_throttle must be 'on' or 'off', got {self.veff_throttle!r}")
+        # Revision 4: sfm_tau_prime="on" replaces the desired force by the SFM drive with relaxation time
+        # tau'_i = tau_i tau_orca / (tau_i + tau_orca) and target speed tau'_i (v_eff,i / tau_i + v0_i / tau_orca),
+        # i.e. m (v_t e - v) / tau' (the identity of the drive plus force-coupled ORCA's drive part at gate 1).
+        # The speed cap 2 v0 and every other use of tau_i and v0_i are unchanged. "off" (default): unchanged.
+        self.sfm_tau_prime = params.get("sfm_tau_prime", "off")
+        if self.sfm_tau_prime not in ("on", "off"):
+            raise ValueError(f"sfm_tau_prime must be 'on' or 'off', got {self.sfm_tau_prime!r}")
+        self.tau_orca_prime = float(params.get("tau_orca", 0.5))
         # Wave 2: noise="lateral_bias" -> desired direction tilted to (e + b e_perp)/|.|,
         # e_perp = e rotated +90 deg (fixed handedness); b = tan(bias angle).
         self.lateral_bias = (float(params.get("w2_bias_b", 0.0))
@@ -157,17 +165,20 @@ class HybridSteeringModel(SteeringModel):
             e = safe_normalize(agent_state.goals - agent_state.positions)
             e_perp = np.column_stack([-e[:, 1], e[:, 0]])
             goals_des = agent_state.positions + e + self.lateral_bias * e_perp
-        F_desire = compute_desired_force(
-            agent_state.positions,
-            agent_state.velocities,
-            goals_des,
-            agent_state.desired_speeds,
-            agent_state.masses,
-            agent_state.taus,
-            local_densities=local_densities if self.veff_throttle == "on" else None,
-            weidmann_gamma=self.params.get("weidmann_gamma", 1.913),
-            weidmann_rho_max=self.params.get("weidmann_rho_max", 5.4),
-        )
+        if self.sfm_tau_prime == "on":
+            F_desire = self._desired_tau_prime(agent_state, goals_des, local_densities)
+        else:
+            F_desire = compute_desired_force(
+                agent_state.positions,
+                agent_state.velocities,
+                goals_des,
+                agent_state.desired_speeds,
+                agent_state.masses,
+                agent_state.taus,
+                local_densities=local_densities if self.veff_throttle == "on" else None,
+                weidmann_gamma=self.params.get("weidmann_gamma", 1.913),
+                weidmann_rho_max=self.params.get("weidmann_rho_max", 5.4),
+            )
         F = (1.0 - w_crush)[:, None] * F_desire
 
         # SFM agent-agent (always on)
@@ -292,6 +303,20 @@ class HybridSteeringModel(SteeringModel):
         out = v_prop + w_orca[:, None] * (v_o - v_prop)
         out[~agent_state.active] = v_prop[~agent_state.active]
         return out
+
+    def _desired_tau_prime(self, agent_state, goals_des, local_densities):
+        """SFM drive m (v_t e - v) / tau' with tau' = tau tau_o / (tau + tau_o), v_t = tau' (v_eff / tau + v0 / tau_o)."""
+        v0, tau, t_o = agent_state.desired_speeds, agent_state.taus, self.tau_orca_prime
+        if self.veff_throttle == "on" and local_densities is not None:
+            rho = np.maximum(local_densities, 0.01)
+            W = np.clip(1.0 - np.exp(-self.params.get("weidmann_gamma", 1.913)
+                                     * (1.0 / rho - 1.0 / self.params.get("weidmann_rho_max", 5.4))), 0.05, 1.0)
+        else:
+            W = np.ones_like(v0)
+        tau_p = tau * t_o / (tau + t_o)
+        v_t = tau_p * (W * v0 / tau + v0 / t_o)
+        return compute_desired_force(agent_state.positions, agent_state.velocities, goals_des, v_t,
+                                     agent_state.masses, tau_p, local_densities=None)
 
     @staticmethod
     def _sigmoid(x: np.ndarray, x0: float, k: float) -> np.ndarray:

@@ -1,0 +1,278 @@
+{
+ "script": "experiments/revision4/T6f_analyze.py",
+ "doc": "T6f analysis: lone release 1 m upstream for the 200 positive-margin agents (data/revision4/T6f/t6f.jsonl) and the\nenergy balance against the outcome. Rule tested: pass iff KE at x_rest (entry into the region where the wall force\nexceeds the drive) exceeds the adverse work A = int (back - D) dx over that region (drag inside the region ignored).\nAlso the B1 rest-state release (data/derived/rev_B1.json pos_rest: 0 of 200 pass) for reference.\nOutput: data/derived/rev4_T6f.json.\n",
+ "n": 200,
+ "passed": 127,
+ "frac": 0.635,
+ "ci95": [
+  0.5663157405897017,
+  0.6985958378123518
+ ],
+ "rest_release_B1": {
+  "n": 200,
+  "passed": 0,
+  "margin_range_N": [
+   0.008079575810910455,
+   453.56461132354207
+  ]
+ },
+ "smallest_positive_margin_N": 0.008079575810910455,
+ "largest_margin_N": 453.56461132354207,
+ "max_margin_passed_N": 125.19712185324806,
+ "min_margin_held_N": 42.484832541049286,
+ "rule_ke_gt_A": {
+  "agree": 153,
+  "n": 200,
+  "pass_but_rule_no": 0,
+  "held_but_rule_yes": 47
+ },
+ "KE_at_x_rest_J": {
+  "min": 3.9343251399310373,
+  "median": 22.044143326701175,
+  "max": 64.14519533893079
+ },
+ "smallest_margins": [
+  {
+   "margin_N": 0.008079575810910455,
+   "passed": true,
+   "r": 0.26577515052059025,
+   "v0": 1.0222727858242509,
+   "tau": 0.431408279983069,
+   "drive_N": 189.56943262458864,
+   "x0": 8.8285,
+   "x_rest": 9.8275,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.5386663220817103,
+   "KE_at_x_rest_J": 11.606456261801473,
+   "speed_at_x_peak": 0.5362937155284094,
+   "KE_at_x_peak_J": 11.504437972610662,
+   "adverse_work_J": 9.966636967510647e-06,
+   "dUw_release_to_peak_J": 38.48531615407453,
+   "ledger_to_xmax": {
+    "drive_work_J": 222.38328425608725,
+    "drag_dissipation_J": 153.4804876231209,
+    "wall_work_J": -59.76631697584563,
+    "KE_at_xmax_J": 9.00181657551649
+   }
+  },
+  {
+   "margin_N": 0.32408921818341696,
+   "passed": true,
+   "r": 0.24531013732089282,
+   "v0": 1.0077857805070791,
+   "tau": 0.5504628059307287,
+   "drive_N": 146.46377842776914,
+   "x0": 8.8285,
+   "x_rest": 9.82,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.5922867320311913,
+   "KE_at_x_rest_J": 14.032142917607528,
+   "speed_at_x_peak": 0.576545483138004,
+   "KE_at_x_peak_J": 13.29618776507338,
+   "adverse_work_J": 0.0036279926997115023,
+   "dUw_release_to_peak_J": 29.798680230130124,
+   "ledger_to_xmax": {
+    "drive_work_J": 171.59370732623566,
+    "drag_dissipation_J": 115.56521870096645,
+    "wall_work_J": -46.278120858172784,
+    "KE_at_xmax_J": 9.659631369948297
+   }
+  },
+  {
+   "margin_N": 0.7520250272640112,
+   "passed": true,
+   "r": 0.2761924353348229,
+   "v0": 1.1591637486702606,
+   "tau": 0.43093476884390197,
+   "drive_N": 215.19057314034382,
+   "x0": 8.8285,
+   "x_rest": 9.8178,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.665916743759904,
+   "KE_at_x_rest_J": 17.737804384791744,
+   "speed_at_x_peak": 0.640454251563573,
+   "KE_at_x_peak_J": 16.40726593383426,
+   "adverse_work_J": 0.010619726485190863,
+   "dUw_release_to_peak_J": 43.83764092283776,
+   "ledger_to_xmax": {
+    "drive_work_J": 253.1343275980486,
+    "drag_dissipation_J": 172.38813499096133,
+    "wall_work_J": -68.05622239828372,
+    "KE_at_xmax_J": 12.5075205299504
+   }
+  },
+  {
+   "margin_N": 1.1176343418883619,
+   "passed": true,
+   "r": 0.2578968257620732,
+   "v0": 1.165827031838347,
+   "tau": 0.546441317498747,
+   "drive_N": 170.6791920017681,
+   "x0": 8.8285,
+   "x_rest": 9.8138,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.7152255295657443,
+   "KE_at_x_rest_J": 20.461902325703974,
+   "speed_at_x_peak": 0.6877080546754595,
+   "KE_at_x_peak_J": 18.91769473862019,
+   "adverse_work_J": 0.021625491690732766,
+   "dUw_release_to_peak_J": 34.875958040720015,
+   "ledger_to_xmax": {
+    "drive_work_J": 200.9684979029761,
+    "drag_dissipation_J": 132.47067638172535,
+    "wall_work_J": -54.13318232583264,
+    "KE_at_xmax_J": 14.225428877526724
+   }
+  },
+  {
+   "margin_N": 1.479921878901365,
+   "passed": true,
+   "r": 0.26433568741832153,
+   "v0": 1.0904144853072095,
+   "tau": 0.4722512395008528,
+   "drive_N": 184.71769161850816,
+   "x0": 8.8285,
+   "x_rest": 9.8122,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.6419188659110107,
+   "KE_at_x_rest_J": 16.482393216499126,
+   "speed_at_x_peak": 0.6064472415297899,
+   "KE_at_x_peak_J": 14.711130270363654,
+   "adverse_work_J": 0.031597248434791766,
+   "dUw_release_to_peak_J": 37.799031521348475,
+   "ledger_to_xmax": {
+    "drive_work_J": 216.99685171218016,
+    "drag_dissipation_J": 147.17896772683784,
+    "wall_work_J": -58.693198804554356,
+    "KE_at_xmax_J": 10.983341647300398
+   }
+  },
+  {
+   "margin_N": 1.8046579627361155,
+   "passed": true,
+   "r": 0.24055475397342302,
+   "v0": 1.0028724180327981,
+   "tau": 0.5877105756212554,
+   "drive_N": 136.512420859221,
+   "x0": 8.8285,
+   "x_rest": 9.8074,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.6150399595882955,
+   "KE_at_x_rest_J": 15.130966075614886,
+   "speed_at_x_peak": 0.5781125849453835,
+   "KE_at_x_peak_J": 13.368566434889333,
+   "adverse_work_J": 0.049429032611992385,
+   "dUw_release_to_peak_J": 28.0789957072795,
+   "ledger_to_xmax": {
+    "drive_work_J": 160.58677904259932,
+    "drag_dissipation_J": 106.92139950162668,
+    "wall_work_J": -43.59136657582231,
+    "KE_at_xmax_J": 9.976854053166559
+   }
+  },
+  {
+   "margin_N": 2.0204498443395664,
+   "passed": true,
+   "r": 0.26796300666036355,
+   "v0": 1.2849567763714032,
+   "tau": 0.5331463765365063,
+   "drive_N": 192.81110523063535,
+   "x0": 8.8285,
+   "x_rest": 9.8098,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.8019549442212279,
+   "KE_at_x_rest_J": 25.72526930243491,
+   "speed_at_x_peak": 0.765960969799403,
+   "KE_at_x_peak_J": 23.46784829024168,
+   "adverse_work_J": 0.04941749668329114,
+   "dUw_release_to_peak_J": 39.552344493853994,
+   "ledger_to_xmax": {
+    "drive_work_J": 226.92069579973543,
+    "drag_dissipation_J": 147.76431798385028,
+    "wall_work_J": -61.39777000448779,
+    "KE_at_xmax_J": 17.59232769164595
+   }
+  },
+  {
+   "margin_N": 2.457715892844348,
+   "passed": true,
+   "r": 0.22505162236535078,
+   "v0": 0.8346831831149305,
+   "tau": 0.5989268380641909,
+   "drive_N": 111.4905033560005,
+   "x0": 8.8285,
+   "x_rest": 9.8011,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.4998831264160223,
+   "KE_at_x_rest_J": 9.995325603018276,
+   "speed_at_x_peak": 0.4523182706433086,
+   "KE_at_x_peak_J": 8.183672718310135,
+   "adverse_work_J": 0.0867966912303122,
+   "dUw_release_to_peak_J": 23.132363816268676,
+   "ledger_to_xmax": {
+    "drive_work_J": 130.99080125679308,
+    "drag_dissipation_J": 88.8127718283848,
+    "wall_work_J": -35.91865386177534,
+    "KE_at_xmax_J": 6.190925279038075
+   }
+  },
+  {
+   "margin_N": 2.7629194933990107,
+   "passed": true,
+   "r": 0.27015922072906734,
+   "v0": 1.0525998566808912,
+   "tau": 0.4263848428560274,
+   "drive_N": 197.49292205235557,
+   "x0": 8.8285,
+   "x_rest": 9.806799999999999,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.6014151130013566,
+   "KE_at_x_rest_J": 14.468005525857382,
+   "speed_at_x_peak": 0.5485821283386012,
+   "KE_at_x_peak_J": 12.037694061300382,
+   "adverse_work_J": 0.07790628947653733,
+   "dUw_release_to_peak_J": 40.65320381613978,
+   "ledger_to_xmax": {
+    "drive_work_J": 231.8282323931333,
+    "drag_dissipation_J": 159.17493766061907,
+    "wall_work_J": -63.130006702088515,
+    "KE_at_xmax_J": 9.373648854294474
+   }
+  },
+  {
+   "margin_N": 3.072060812741796,
+   "passed": true,
+   "r": 0.2644360107446775,
+   "v0": 1.2683890070286061,
+   "tau": 0.5533997643759191,
+   "drive_N": 183.35952975462445,
+   "x0": 8.8285,
+   "x_rest": 9.8047,
+   "x_peak": 9.8285,
+   "speed_at_x_rest": 0.8000084781628044,
+   "KE_at_x_rest_J": 25.60054260529465,
+   "speed_at_x_peak": 0.7556470556884161,
+   "KE_at_x_peak_J": 22.84009891082289,
+   "adverse_work_J": 0.09463473536885003,
+   "dUw_release_to_peak_J": 37.846462812729044,
+   "ledger_to_xmax": {
+    "drive_work_J": 215.7645789544901,
+    "drag_dissipation_J": 139.76102235937148,
+    "wall_work_J": -58.751430017703775,
+    "KE_at_xmax_J": 17.096247232967507
+   }
+  }
+ ],
+ "smallest10_speed_at_x_peak_range": [
+  0.4523182706433086,
+  0.765960969799403
+ ],
+ "smallest10_KE_at_x_peak_J_range": [
+  8.183672718310135,
+  23.46784829024168
+ ],
+ "smallest10_dUw_release_to_peak_J_range": [
+  23.132363816268676,
+  43.83764092283776
+ ]
+}

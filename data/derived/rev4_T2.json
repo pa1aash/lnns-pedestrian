@@ -1,0 +1,118 @@
+{
+ "script": "experiments/revision4/T2_legacy_second.py",
+ "doc": "T2: force-coupled ORCA with the legacy solver at the second traps (no new runs).\n\nInputs (read only): data/E2/e2_quench.jsonl (the 26 screening-set second traps) and data/revision/A5/a5_quench.jsonl\n(the other 134 of the 160 deadlock-set second traps). Both use the same quench protocol for every arm (E2 arm\ndefinitions, experiments/E2/e2_quench.py: CF union arm flags, dt = 0.01 s, 120 s window, deterministic arms stop once\nstationary, unperturbed run per snapshot): C3_pub (force-coupled ORCA, legacy solver), C3_rvo2 (RVO2 solver) and\ndrive_only (ORCA's drive part). Outcome: the keystone-test blocker exits within 120 s (A5x_analyze.load, unchanged).\nPer set (screening 26, deadlock 160): freed counts with Wilson 95% intervals; paired exact McNemar tests legacy vs\nRVO2 and legacy vs drive part (two-sided, discordant counts), Holm over the two tests within each set; replay changes\n(5 replays, perturbation seeds 900-904) are copied from the same records. Every count is asserted equal to\ndata/derived/rev_A5x.json.\nOutput: data/derived/rev4_T2.json.\n",
+ "sets": {
+  "screening": {
+   "n": 26,
+   "C3_pub": {
+    "freed": 22,
+    "frac": 0.8461538461538461,
+    "ci95": [
+     0.6646841558168644,
+     0.9385006600107053
+    ]
+   },
+   "C3_rvo2": {
+    "freed": 17,
+    "frac": 0.6538461538461539,
+    "ci95": [
+     0.46220229009632996,
+     0.8058798502714787
+    ]
+   },
+   "drive_only": {
+    "freed": 24,
+    "frac": 0.9230769230769231,
+    "ci95": [
+     0.7585805251948495,
+     0.9786453608166245
+    ]
+   },
+   "tests": {
+    "legacy_vs_rvo2": {
+     "first": "C3_pub",
+     "second": "C3_rvo2",
+     "disc_first_only": 6,
+     "disc_second_only": 1,
+     "p": 0.125,
+     "p_disp": "0.125",
+     "effect": 0.19230769230769232,
+     "p_holm": 0.25,
+     "p_holm_disp": "0.250"
+    },
+    "legacy_vs_drive": {
+     "first": "C3_pub",
+     "second": "drive_only",
+     "disc_first_only": 0,
+     "disc_second_only": 2,
+     "p": 0.5,
+     "p_disp": "0.500",
+     "effect": -0.07692307692307693,
+     "p_holm": 0.5,
+     "p_holm_disp": "0.500"
+    }
+   },
+   "legacy_replay": {
+    "replays": 130,
+    "replays_changed": 5,
+    "snapshots_changed": 2
+   }
+  },
+  "deadlock": {
+   "n": 160,
+   "C3_pub": {
+    "freed": 133,
+    "frac": 0.83125,
+    "ci95": [
+     0.7656098584028624,
+     0.8813564798164909
+    ]
+   },
+   "C3_rvo2": {
+    "freed": 121,
+    "frac": 0.75625,
+    "ci95": [
+     0.6842247960744507,
+     0.8162585976424075
+    ]
+   },
+   "drive_only": {
+    "freed": 149,
+    "frac": 0.93125,
+    "ci95": [
+     0.8810959503315197,
+     0.9611809805578271
+    ]
+   },
+   "tests": {
+    "legacy_vs_rvo2": {
+     "first": "C3_pub",
+     "second": "C3_rvo2",
+     "disc_first_only": 16,
+     "disc_second_only": 4,
+     "p": 0.01181793212890625,
+     "p_disp": "0.012",
+     "effect": 0.075,
+     "p_holm": 0.01181793212890625,
+     "p_holm_disp": "0.012"
+    },
+    "legacy_vs_drive": {
+     "first": "C3_pub",
+     "second": "drive_only",
+     "disc_first_only": 3,
+     "disc_second_only": 19,
+     "p": 0.0008554458618164062,
+     "p_disp": "<10^{-3}",
+     "effect": -0.1,
+     "p_holm": 0.0017108917236328125,
+     "p_holm_disp": "0.0017"
+    }
+   },
+   "legacy_replay": {
+    "replays": 800,
+    "replays_changed": 13,
+    "snapshots_changed": 7
+   }
+  }
+ }
+}

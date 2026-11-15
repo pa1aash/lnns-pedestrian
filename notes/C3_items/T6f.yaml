@@ -1,0 +1,16 @@
+# T6f lone release 1 m upstream, positive-margin agents (experiments/revision4/T6f_release.py, T6f_analyze.py -> rev4_T6f.json)
+RwSixfN: {file: rev4_T6f.json, key: "n", fmt: "{:d}"}
+RwSixfPassed: {file: rev4_T6f.json, key: "passed", fmt: "{:d}"}
+RwSixfLo: {file: rev4_T6f.json, key: "ci95.0", fmt: "{:.2f}"}
+RwSixfHi: {file: rev4_T6f.json, key: "ci95.1", fmt: "{:.2f}"}
+RwSixfMarginMin: {file: rev4_T6f.json, key: "smallest_positive_margin_N", fmt: "{:.3f}"}
+RwSixfMaxPassedMargin: {file: rev4_T6f.json, key: "max_margin_passed_N", fmt: "{:.0f}"}
+RwSixfMinHeldMargin: {file: rev4_T6f.json, key: "min_margin_held_N", fmt: "{:.0f}"}
+RwSixfRuleAgree: {file: rev4_T6f.json, key: "rule_ke_gt_A.agree", fmt: "{:d}"}
+RwSixfRuleHeldYes: {file: rev4_T6f.json, key: "rule_ke_gt_A.held_but_rule_yes", fmt: "{:d}"}
+RwSixfPeakSpeedLo: {file: rev4_T6f.json, key: "smallest10_speed_at_x_peak_range.0", fmt: "{:.2f}"}
+RwSixfPeakSpeedHi: {file: rev4_T6f.json, key: "smallest10_speed_at_x_peak_range.1", fmt: "{:.2f}"}
+RwSixfPeakKELo: {file: rev4_T6f.json, key: "smallest10_KE_at_x_peak_J_range.0", fmt: "{:.1f}"}
+RwSixfPeakKEHi: {file: rev4_T6f.json, key: "smallest10_KE_at_x_peak_J_range.1", fmt: "{:.1f}"}
+RwSixfWallPELo: {file: rev4_T6f.json, key: "smallest10_dUw_release_to_peak_J_range.0", fmt: "{:.0f}"}
+RwSixfWallPEHi: {file: rev4_T6f.json, key: "smallest10_dUw_release_to_peak_J_range.1", fmt: "{:.0f}"}

@@ -1,0 +1,25 @@
+# T6 facts from existing data (experiments/revision4/T6_facts.py -> data/derived/rev4_T6.json)
+RwSixStandoffMembersMin: {file: rev4_T6.json, key: "a.members_min", fmt: "{:d}"}
+RwSixStandoffMembersMax: {file: rev4_T6.json, key: "a.members_max", fmt: "{:d}"}
+RwSixAloneQuenches: {file: rev4_T6.json, key: "b.total", fmt: "{:d}"}
+RwSixAloneSnaps: {file: rev4_T6.json, key: "b.n_snapshots", fmt: "{:d}"}
+RwSixAloneBetas: {file: rev4_T6.json, key: "b.n_betas", fmt: "{:d}"}
+RwSixAloneEvents: {file: rev4_T6.json, key: "b.events", fmt: "{:d}"}
+RwSixAloneCensored: {file: rev4_T6.json, key: "b.censored", fmt: "{:d}"}
+RwSixRocHeld: {file: rev4_T6.json, key: "c.positives_held", fmt: "{:d}"}
+RwSixRocFreed: {file: rev4_T6.json, key: "c.negatives_freed", fmt: "{:d}"}
+RwSixRocAucLo: {file: rev4_T6.json, key: "c.auc_ci95_boot.0", fmt: "{:.2f}"}
+RwSixRocAucHi: {file: rev4_T6.json, key: "c.auc_ci95_boot.1", fmt: "{:.2f}"}
+RwSixBiasMax: {file: rev4_T6.json, key: "d.b_max", fmt: "{:.1f}"}
+RwSixBiasAngleMax: {file: rev4_T6.json, key: "d.angle_max_deg", fmt: "{:.0f}"}
+RwSixBiasSnaps: {file: rev4_T6.json, key: "d.n_snapshots", fmt: "{:d}"}
+RwSixBiasRuns: {file: rev4_T6.json, key: "d.total_runs", fmt: "{:d}"}
+RwSixStallN: {file: rev4_T6.json, key: "e.sample.n_stalls", fmt: "{:d}"}
+RwSixStallExit: {file: rev4_T6.json, key: "e.sample.ended_by_exit", fmt: "{:d}"}
+RwSixStallCens: {file: rev4_T6.json, key: "e.sample.censored_at_600s", fmt: "{:d}"}
+RwSixStallRuns: {file: rev4_T6.json, key: "e.sample.runs_with_stall", fmt: "{:d}"}
+RwSixStallArgmaxT: {file: rev4_T6.json, key: "e.argmax_t_s", fmt: "{:d}"}
+RwSixOverhangMin: {file: rev4_T6.json, key: "i.min_mm", fmt: "{:.2f}"}
+RwSixOverhangMax: {file: rev4_T6.json, key: "i.max_mm", fmt: "{:.0f}"}
+RwSixOverhangMed: {file: rev4_T6.json, key: "i.median_mm", fmt: "{:.0f}"}
+RwSixPlanN: {file: rev4_T6.json, key: "g.check", fmt: "{:.0f}"}

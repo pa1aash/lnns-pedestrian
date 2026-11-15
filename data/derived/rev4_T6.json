@@ -1,0 +1,259 @@
+{
+ "script": "experiments/revision4/T6_facts.py",
+ "doc": "T6: fact look-ups from existing data and code (no new runs), each with its source; recomputed from the source\nfiles so that every value has a registry key. Facts g (how 186 was fixed) and h (Welch or Student) are statements\nabout code and planning documents and are kept as text with their file:line sources.\nOutput: data/derived/rev4_T6.json.\n",
+ "a": {
+  "source": "data/derived/E1_keystone.json (modes.E1b.per_snapshot, class collective); data/E1/E1_runs.jsonl",
+  "n_deadlocks_196": 196,
+  "n_deadlocks_seeds_42_141": 98,
+  "E7_default_cell_classified": 98,
+  "E7_default_cell_collective": 2,
+  "standoffs": [
+   {
+    "seed": 45,
+    "members": 2,
+    "kind": "pair",
+    "blocker": 75,
+    "K1_blocker_alone_held": false,
+    "K2_held_without_blocker": [
+     56
+    ],
+    "in_seeds_42_141": true
+   },
+   {
+    "seed": 101,
+    "members": 2,
+    "kind": "pair",
+    "blocker": 24,
+    "K1_blocker_alone_held": false,
+    "K2_held_without_blocker": [
+     94
+    ],
+    "in_seeds_42_141": true
+   }
+  ],
+  "members_min": 2,
+  "members_max": 2,
+  "same_two_in_both_sets": true
+ },
+ "b": {
+  "source": "data/derived/rev2_A3.json (cells; inputs data/E4/e4_escape.jsonl alone and data/revision/B3/b3.jsonl)",
+  "snapshots": [
+   "E1b_seed162",
+   "E1b_seed192",
+   "E1b_seed72"
+  ],
+  "dU_alone_J": {
+   "E1b_seed162": 20.753059771399307,
+   "E1b_seed192": 56.309840198745064,
+   "E1b_seed72": 5.8308429743590295
+  },
+  "betas": [
+   1.5,
+   2.5,
+   3.5,
+   5.0,
+   6.0,
+   7.0
+  ],
+  "n_snapshots": 3,
+  "n_betas": 6,
+  "restarts_per_cell": [
+   20
+  ],
+  "total": 360,
+  "events": 321,
+  "censored": 39,
+  "from_E4": 180,
+  "from_B3": 180,
+  "t_cens_s": {
+   "E1b_seed72|1.5": 300.0,
+   "E1b_seed72|2.5": 300.0,
+   "E1b_seed72|3.5": 900.0,
+   "E1b_seed72|5.0": 1551.7,
+   "E1b_seed72|6.0": 4605.0,
+   "E1b_seed72|7.0": 13666.1,
+   "E1b_seed162|1.5": 300.0,
+   "E1b_seed162|2.5": 300.0,
+   "E1b_seed162|3.5": 900.0,
+   "E1b_seed162|5.0": 2349.0,
+   "E1b_seed162|6.0": 6385.3,
+   "E1b_seed162|7.0": 17357.1,
+   "E1b_seed192|1.5": 300.0,
+   "E1b_seed192|2.5": 300.0,
+   "E1b_seed192|3.5": 900.0,
+   "E1b_seed192|5.0": 4968.8,
+   "E1b_seed192|6.0": 13506.6,
+   "E1b_seed192|7.0": 36714.6
+  },
+  "seeds": "E4: noise seed 11000 + 1000 k + 100 level + rep (k = E4 index, level 0-2); B3: 51000 + 1000 k + 100 level + rep (level 0-2 for beta 5, 6, 7), rep 0-19"
+ },
+ "c": {
+  "source": "data/derived/E2_analysis.json f_noise_vs_C3.lone_keystone.margin_predicts_C3_rvo2_failure (experiments/E2/analyze.py:311-323)",
+  "n": 34,
+  "positives_held": 4,
+  "negatives_freed": 30,
+  "auc": 0.9833333333333333,
+  "auc_ci95_boot": [
+   0.9139784946236559,
+   1.0
+  ],
+  "score": "stuck-alone margin with the C3 rest drive (g_max - drive, N)",
+  "held_margins_N": [
+   9.966633740455705,
+   37.05608253631803,
+   40.66197604782565,
+   121.13684750052255
+  ],
+  "freed_margin_range_N": [
+   -172.8386384274817,
+   13.341268687631668
+  ],
+  "freed_with_positive_margin": 2,
+  "held_with_nonpositive_margin": 0
+ },
+ "d": {
+  "source": "data/E2/e2_quench.jsonl (arms bias0.05-bias0.5; experiments/E2/e2_quench.py:42-43, 44)",
+  "b_values": [
+   0.05,
+   0.1,
+   0.2,
+   0.5
+  ],
+  "b_max": 0.5,
+  "angle_max_deg": 26.565051177077994,
+  "handedness": "one (e_perp = e rotated +90 deg, b > 0 only)",
+  "arms": {
+   "bias0.05": {
+    "b": 0.05,
+    "runs": 204,
+    "blocker_freed": 0,
+    "snapshots": 34,
+    "runs_per_snapshot": 6,
+    "reps": [
+     "900",
+     "901",
+     "902",
+     "903",
+     "904",
+     "u"
+    ]
+   },
+   "bias0.1": {
+    "b": 0.1,
+    "runs": 204,
+    "blocker_freed": 0,
+    "snapshots": 34,
+    "runs_per_snapshot": 6,
+    "reps": [
+     "900",
+     "901",
+     "902",
+     "903",
+     "904",
+     "u"
+    ]
+   },
+   "bias0.2": {
+    "b": 0.2,
+    "runs": 204,
+    "blocker_freed": 0,
+    "snapshots": 34,
+    "runs_per_snapshot": 6,
+    "reps": [
+     "900",
+     "901",
+     "902",
+     "903",
+     "904",
+     "u"
+    ]
+   },
+   "bias0.5": {
+    "b": 0.5,
+    "runs": 204,
+    "blocker_freed": 0,
+    "snapshots": 34,
+    "runs_per_snapshot": 6,
+    "reps": [
+     "900",
+     "901",
+     "902",
+     "903",
+     "904",
+     "u"
+    ]
+   }
+  },
+  "n_snapshots": 34,
+  "total_runs": 816,
+  "total_freed": 0,
+  "noise_seeds": "none (deterministic arm); perturbation seeds 900-904 (1e-9 m) plus one unperturbed run",
+  "wilson_upper_bias0p5_snapshots": 0.10151790621961015
+ },
+ "e": {
+  "source": "data/derived/E6_analysis.json lifetimes (experiments/E6/analyze.py:122-136 stalls, :170-202 barrier_picture, :365-368 max_abs_diff; CHECK_T :49)",
+  "statistic": "max over t in {30, 60, 120, 300} s of |S_pred(t) - S_KM(t)|",
+  "value": 0.04509486429131537,
+  "argmax_t_s": 30,
+  "diffs": [
+   0.04509486429131537,
+   0.028596541120025798,
+   0.027155092871042785,
+   0.03712414088196314
+  ],
+  "S_pred": [
+   0.6779688352741688,
+   0.5257483113252647,
+   0.4134133604490478,
+   0.2985571550518271
+  ],
+  "S_obs_km": [
+   0.6328739709828535,
+   0.4971517702052389,
+   0.386258267578005,
+   0.261433014169864
+  ],
+  "sample": {
+   "runs": "E6b, C1 + sigma* = 0.0467 m/s, seeds 242-427 (186)",
+   "n_stalls": 349,
+   "ended_by_exit": 263,
+   "censored_at_600s": 86,
+   "runs_with_stall": 178,
+   "stall": "interval >= 10 s between exits (the first, approach gap excluded); open at 600 s censored"
+  },
+  "prediction": {
+   "n_barriers": 56,
+   "nu": 0.12527622459126672,
+   "kT_eff_median": 4.640893385799499,
+   "form": "S(t) = mean_i exp(-lambda_i t) / mean_i exp(-lambda_i 10 s), lambda_i = nu exp(-dU_i / kT_eff(sigma*, tau_b,i))"
+  },
+  "test": "none: a descriptive maximum distance at four times; S_KM is the Kaplan-Meier estimate, no p-value or band"
+ },
+ "i": {
+  "source": "experiments/revision/B5_analyze.py:9, :36 (W_HALF = 0.4), :104-112; data/derived/rev_B5.json overhang_mm",
+  "definition": "min over the two pair members of |y_i - 5| - w/2, w/2 = 0.4 m, at the saved snapshot positions",
+  "sign": "positive when the member's centre lies laterally beyond the door edge (|y - 5| > w/2, behind the jamb's flat face); negative would be a centre inside the opening",
+  "n": 46,
+  "min_mm": 0.26041739965287913,
+  "max_mm": 59.454791766975546,
+  "median_mm": 24.53381940593269,
+  "all_positive": true
+ },
+ "g": {
+  "answer": "planned before the runs: the TOST sample size n = z^2 2p(1-p)/delta^2 with z = 2.927 (alpha 0.05 each side, power 0.80), p = 0.575, delta = 0.15 gives 186 per arm",
+  "check": 186.10142438888892,
+  "sources": [
+   "pedestrian-abs-plan wave2/SIGNATURES.md:6 and :18 (S7, 186 per arm at +-0.15)",
+   "pedestrian-abs-plan plan/FINAL_PLAN.md:257, :270, :338 (E6 186 per arm, TOST-sized)",
+   "pedestrian-abs-plan wave2/COMPUTE_PLAN.md:30, :41; plan/CORRECTIONS_TABLE.md:29",
+   "experiments/E6/e6.py:29 SEEDS range(242, 428), first commit a48a386 (2026-11-08) before any E6 run",
+   "reports/B4B_REPORT.md:13 (E6a 186 jobs queued)"
+  ],
+  "not_a_stopping_rule": "no launcher, log or commit shows a compute-window or stopping rule; seeds 242-427 are the first 186 after the E1 seeds 42-241"
+ },
+ "h": {
+  "flow_ratio": "Welch: delta-method interval of the log ratio of means with Welch-Satterthwaite df (experiments/fixan/fix_a7.py:103-118, ratio_means; used by D_croma_integrity.d4 :268)",
+  "means": "Student t with n - 1 df (fix_a7.tci :85-92; E10/analyze.py tci :59-67) for flow, fluctuation, gaps",
+  "matched_ratio": "Student t on the logs over human runs (fix_a7.matched_ratio :135)"
+ }
+}
