@@ -6,7 +6,7 @@ Paper: "Mechanism Screening for Deadlock Resolution in a Social Force Model" (LN
 (or `paper/tables/`, `figures/`). Numbers quoted below are the rendered values of the `numbers.tex` macros; every
 rewrite in Part 6 is written in LaTeX with the original macros, so the registry still drives every number.
 
-Writing standard applied: the house prose standard (prose-craft SKILL.md, found under `~/.claude/skills/synced/`), read
+Writing standard applied: the house prose standard (prose-craft standard), read
 in full. Venue: Springer LNNS (llncs class). Spelling: British, confirmed consistent (Part 7.3).
 
 Contents
