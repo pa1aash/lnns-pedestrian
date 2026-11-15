@@ -1,0 +1,163 @@
+{
+ "doc": "P4: the stall prediction, the time-step prediction and the escape figure with energy-span barriers.\n\nBarrier list. The 56 accepted full-condition library barriers (experiments/E6/analyze.py reported_barriers), with\neach affected path's reported barrier replaced by its energy span (data/derived/rev5_X1.json paths[<snap>|full]\ndU_span where affected, as in experiments/revision5/X1_analyze.py rean_E4); 8 of the 56 change.\n\nOutputs (data/derived/rev6_P4.json):\n  stall      experiments/E6/analyze.barrier_picture(sigma*, nu, barriers) with the span list; nu is the median\n             full-condition attempt rate of E4 (identical with the span: X1 per_condition_span.full.nu_hat_median).\n             The agreement statistic is the one in E6_analysis.json lifetimes.pred_vs_obs.max_abs_diff: the maximum,\n             over t = 30, 60, 120 and 300 s, of |S_pred(t) - S_KM(t)|, with S_KM the Kaplan-Meier survival of the\n             observed noise stalls (unchanged; read from E6_analysis.json) and S_pred the barrier mixture\n             conditioned on lasting >= 10 s. The reported-barrier values are recomputed alongside and must equal\n             the published ones exactly.\n  E3         experiments/E3/analyze.py re-run with the span (X1_analyze.rean_E3): predicted and observed pooled ell\n             at beta_0 = 1.5 and 2.5.\n  E4         experiments/E4/analyze.py re-run with the span (X1_analyze.rean_E4): the inputs of fig_escape_dt.\nScratch outputs of the re-runs (E4_analysis_span.json, fig4_span.json, E3_analysis_span.json, fig5_span.json) go to\ndata/revision6/P4/; figures/fig_escape_dt.py reads E4_analysis_span.json and fig5_span.json from there.\n",
+ "stall": {
+  "reported": {
+   "n_barriers": 56,
+   "nu_full_median": 0.12527622459126672,
+   "sigma": 0.0467,
+   "kT_eff_median": 4.640893385799499,
+   "dU_median": 6.41479142364841,
+   "beta_median": 1.4333215766844738,
+   "pred_S_at": {
+    "30": 0.6779688352741688,
+    "60": 0.5257483113252647,
+    "120": 0.4134133604490478,
+    "300": 0.2985571550518271
+   },
+   "pred_median_lifetime_s": 69.22611381683198,
+   "pred_frac_rate_below_1_per_600s": 0.17857142857142858,
+   "diff_pred_minus_obs": {
+    "30": 0.04509486429131537,
+    "60": 0.028596541120025798,
+    "120": 0.027155092871042785,
+    "300": 0.03712414088196314
+   },
+   "max_abs_diff": 0.04509486429131537,
+   "argmax_t": "30",
+   "median_obs_km_s": 59.41
+  },
+  "span": {
+   "n_barriers": 56,
+   "nu_full_median": 0.12527622459126672,
+   "sigma": 0.0467,
+   "kT_eff_median": 4.640893385799499,
+   "dU_median": 7.774565828412904,
+   "beta_median": 1.6690569497161554,
+   "pred_S_at": {
+    "30": 0.7024858205226775,
+    "60": 0.547615866297273,
+    "120": 0.4328038292266041,
+    "300": 0.3136615202704056
+   },
+   "pred_median_lifetime_s": 78.1269074553454,
+   "pred_frac_rate_below_1_per_600s": 0.19642857142857142,
+   "diff_pred_minus_obs": {
+    "30": 0.06961184953982402,
+    "60": 0.050464096092034116,
+    "120": 0.046545561648599076,
+    "300": 0.05222850610054164
+   },
+   "max_abs_diff": 0.06961184953982402,
+   "argmax_t": "30",
+   "median_obs_km_s": 59.41
+  },
+  "changed": [
+   {
+    "snap": "E1b_seed46",
+    "dU_rep": 2.3460731438900666,
+    "dU_span": 15.253938552558452
+   },
+   {
+    "snap": "E1b_seed130",
+    "dU_rep": 1.183304607530772,
+    "dU_span": 9.164445795752272
+   },
+   {
+    "snap": "E1b_seed170",
+    "dU_rep": 0.12820464901949435,
+    "dU_span": 2.81642162143919
+   },
+   {
+    "snap": "E1b_seed60",
+    "dU_rep": 0.020907573958197645,
+    "dU_span": 3.3572336363133104
+   },
+   {
+    "snap": "E1b_seed111",
+    "dU_rep": 0.5569872858245617,
+    "dU_span": 9.651566450431858
+   },
+   {
+    "snap": "E1b_seed223",
+    "dU_rep": 0.06913735542582344,
+    "dU_span": 3.6817786376104777
+   },
+   {
+    "snap": "E1b_seed230",
+    "dU_rep": 10.471029544770545,
+    "dU_span": 16.481160020936557
+   },
+   {
+    "snap": "E1b_seed237",
+    "dU_rep": 10.264818928238753,
+    "dU_span": 16.787684231465164
+   }
+  ],
+  "S_obs_km": {
+   "30": 0.6328739709828535,
+   "60": 0.4971517702052389,
+   "120": 0.386258267578005,
+   "300": 0.261433014169864
+  },
+  "statistic": "max over t in {30, 60, 120, 300} s of |S_pred(t) - S_KM(t)| (E6_analysis.json lifetimes.pred_vs_obs.max_abs_diff)"
+ },
+ "E3": {
+  "substituted": {
+   "E1b_seed237": [
+    10.264818928238753,
+    16.787684231465164
+   ]
+  },
+  "published": {
+   "ell_ps_b1p5_obs": 2.1637936582405994,
+   "ell_ps_b1p5_lo": 1.8049112327299366,
+   "ell_ps_b1p5_hi": 2.7047215837802887,
+   "ell_ps_b1p5_pred": 2.2161703192213507,
+   "ell_ps_b2p5_obs": 3.2302720677887087,
+   "ell_ps_b2p5_lo": 2.962311552634375,
+   "ell_ps_b2p5_hi": 3.5212992629220237,
+   "ell_ps_b2p5_pred": 3.696070062567757,
+   "ell_ds_obs": -0.08560082794637244,
+   "ell_ds_pred": -0.029253206070293948
+  },
+  "span": {
+   "ell_ps_b1p5_obs": 2.1637936582405994,
+   "ell_ps_b1p5_lo": 1.8049112327299366,
+   "ell_ps_b1p5_hi": 2.7047215837802887,
+   "ell_ps_b1p5_pred": 2.3567894609303677,
+   "ell_ps_b2p5_obs": 3.2302720677887087,
+   "ell_ps_b2p5_lo": 2.962311552634375,
+   "ell_ps_b2p5_hi": 3.5212992629220237,
+   "ell_ps_b2p5_pred": 3.696070062567757,
+   "ell_ds_obs": -0.08560082794637244,
+   "ell_ds_pred": -0.030039538036069846
+  },
+  "fig5_pred_reproduction_maxdev": 0.0
+ },
+ "E4": {
+  "substituted": {
+   "E1b_seed170|full": [
+    0.12820464901949435,
+    2.81642162143919
+   ],
+   "E1b_seed237|full": [
+    10.264818928238753,
+    16.787684231465164
+   ]
+  },
+  "ratio_med_full_span": 1.1111384290531046,
+  "nu_full_median_span": 0.12527622459126672
+ },
+ "headline": {
+  "stall_max_abs_diff_rep": 0.04509486429131537,
+  "stall_max_abs_diff_span": 0.06961184953982402,
+  "stall_argmax_t_span": "30",
+  "stall_pred_median_span": 78.1269074553454,
+  "stall_pred_median_rep": 69.22611381683198,
+  "stall_obs_median": 59.41,
+  "stall_n_changed": 8,
+  "ell_b1p5_pred_span": 2.3567894609303677,
+  "ell_b1p5_pred_rep": 2.2161703192213507,
+  "ell_b2p5_pred_span": 3.696070062567757
+ }
+}

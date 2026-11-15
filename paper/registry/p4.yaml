@@ -1,0 +1,13 @@
+# Registry entries added in session P4: the stall prediction and the time-step prediction with the energy-span
+# barriers (experiments/revision6/P4_span.py -> data/derived/rev6_P4.json and data/revision6/P4/).
+# Stall prediction (Sect. 7.2): max over t = 30, 60, 120, 300 s of |S_pred(t) - S_KM(t)|, 56 barriers with the
+# energy span for the 8 affected full-condition paths (was PscrStallMaxDiff 0.045 with the reported barriers)
+PfourStallMaxDiffSpan: {file: rev6_P4.json, key: "headline.stall_max_abs_diff_span", fmt: sig, digits: 2}
+# Time-step probe (Sect. 7.1): predicted pooled ell at beta_0 = 1.5, per-step noise, with the energy span
+# (was EthreeEllBAPred/PprotEllBAPred 2.2 with the reported barrier); observed interval at two significant figures
+PfourEllBAPredSpan: {file: rev6_P4.json, key: "headline.ell_b1p5_pred_span", fmt: sig, digits: 2}
+PfourEllBALo: {file: E3_analysis.json, key: "headline.ell_ps_b1p5_lo", fmt: sig, digits: 2}
+PfourEllBAHi: {file: E3_analysis.json, key: "headline.ell_ps_b1p5_hi", fmt: sig, digits: 2}
+# Barrier-set median of the 56 full-condition barriers with the energy span (Sect. 5.3; was LoneBarMed 6.4 J with the
+# reported barriers)
+PfourBarMedSpan: {file: rev6_P4.json, key: "stall.span.dU_median", fmt: "{:.1f}"}

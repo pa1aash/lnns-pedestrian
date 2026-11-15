@@ -167,22 +167,47 @@ def perm_table_test(labels_a, labels_b, n_perm=B):
     return {"chi2": s0, "p_perm": (cnt + 1) / (n_perm + 1), "categories": cats}
 
 
-def barrier_picture(sigma, nu):
-    G = jl(os.path.join(DATA, "BAR", "gate.jsonl"))
-    E1 = {f"{r['mode']}_seed{r['seed']}": r for r in jl(os.path.join(DATA, "E1", "E1_runs.jsonl"))}
-    rows = []
-    for g in G:
+def reported_barriers():
+    """The 56 accepted full-condition library barriers as published: [(snapshot id, dU in J), ...] in gate order."""
+    out = []
+    for g in jl(os.path.join(DATA, "BAR", "gate.jsonl")):
         f = g.get("full", {})
         if not f.get("accepted") or f.get("dU") is None or f["dU"] <= 0:
             continue
+        out.append((g["job_id"], f["dU"]))
+    return out
+
+
+def blocker_taus():
+    """Snapshot id -> the blocker's relaxation time tau (s) from the E1 run that produced the snapshot (0.5 if absent)."""
+    G = jl(os.path.join(DATA, "BAR", "gate.jsonl"))
+    E1 = {f"{r['mode']}_seed{r['seed']}": r for r in jl(os.path.join(DATA, "E1", "E1_runs.jsonl"))}
+    taus = {}
+    for g in G:
         run = E1.get(g["job_id"])
         tau = None
         if run and run.get("attrs"):
             tau = next((a["tau"] for a in run["attrs"] if a["id"] == g["blocker"]), None)
-        tau = tau or 0.5
+        taus[g["job_id"]] = tau or 0.5
+    return taus
+
+
+def barrier_picture(sigma, nu, barriers=None):
+    """Stall-lifetime prediction from a barrier list.
+
+    barriers: [(snapshot id, dU in J), ...]; None means reported_barriers() (the published picture). Each barrier gives
+    an exponential lifetime with rate nu exp(-dU / k_BT_eff(sigma, dt = 0.01 s, tau of its blocker)); the prediction is
+    their equal-weight mixture conditioned on lasting >= STALL.
+    """
+    if barriers is None:
+        barriers = reported_barriers()
+    taus = blocker_taus()
+    rows = []
+    for snap, dU in barriers:
+        tau = taus.get(snap, 0.5)
         kT = kT_eff(sigma, 0.01, tau)
-        rows.append({"snap": g["job_id"], "dU": f["dU"], "tau": tau, "kT": kT, "beta": f["dU"] / kT,
-                     "rate": nu * math.exp(-f["dU"] / kT)})
+        rows.append({"snap": snap, "dU": dU, "tau": tau, "kT": kT, "beta": dU / kT,
+                     "rate": nu * math.exp(-dU / kT)})
     lam = np.array([x["rate"] for x in rows])
 
     def S(t):                                   # survival conditioned on lasting >= STALL

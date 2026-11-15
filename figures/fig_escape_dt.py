@@ -9,7 +9,12 @@ fig5_dt in the paper; their scripts are kept).
 (c) Time-step signature, pooled over snapshots: escape rate normalised at dt = 0.01 s for per-step noise (filled),
     sqrt(dt)-scaled noise (open) and force-coupled ORCA (RVO2) (diamonds), with the per-step Arrhenius predictions
     (figures/data/fig5.json; experiments/E3/analyze.py). Conditions within a level are offset horizontally.
-Markers by condition: full o, pinned s, alone ^ (filled, open, filled)."""
+Markers by condition: full o, pinned s, alone ^ (filled, open, filled).
+Barriers (P4): dU_cond is the energy span. The span differs from the reported barrier only for 8 full-condition
+paths, two of them in the Arrhenius set (seed170, no fit; seed237) and one in the time-step set (seed237), so (a) and
+(b) read the span re-run of the E4 analysis and (c) the span re-run of the E3 analysis, both written by
+experiments/revision6/P4_span.py to data/revision6/P4/ (pinned and alone entries are asserted identical to the
+published E4_analysis.json; only the per-step prediction curves of (c) differ from figures/data/fig5.json)."""
 import json
 import math
 
@@ -20,8 +25,11 @@ from common import ARM_COLOURS, HERE, fig_full, qa, save
 from rev_data import rev_arrhenius
 
 ROOT = HERE.parent
-E4 = json.load(open(ROOT / "data" / "derived" / "E4_analysis.json"))
-d5 = json.load(open(HERE / "data" / "fig5.json"))
+E4 = json.load(open(ROOT / "data" / "revision6" / "P4" / "E4_analysis_span.json"))
+_E4pub = json.load(open(ROOT / "data" / "derived" / "E4_analysis.json"))
+assert all(E4["snapshots"][t]["conds"].get(c) == s["conds"].get(c)
+           for t, s in _E4pub["snapshots"].items() for c in ("frozen", "alone")), "pinned/alone must be unchanged"
+d5 = json.load(open(ROOT / "data" / "revision6" / "P4" / "fig5_span.json"))
 REV = rev_arrhenius()
 assert REV is not None, 'data/derived/rev_B3.json missing'
 V = ARM_COLOURS["noise"]
