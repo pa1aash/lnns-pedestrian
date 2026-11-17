@@ -1,0 +1,27 @@
+% Run and snapshot sets (session P6, from notes/C5_items/T6.md fact a); every number is a registry macro (paper/registry/p6.yaml and earlier files).
+\begin{table}[t]
+\caption{Run sets and snapshot sets. Seeds are spawn seeds; every room run has 100 agents at $w=0.8$\,m (other widths in the width runs), $\Delta t=0.01$\,s and a 600\,s cap.}
+\label{tab:runsets}
+\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{1.3cm}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{1.2cm}@{}}
+\toprule
+Set & Seeds & Size & Configuration & Sect. \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Runs}} \\
+Deadlock set & \RzSetDeadlockLo--\RzSetDeadlockHi & \RzSetDeadlockN\ runs & SFM & \ref{sec:geometry}, \ref{sec:lone} \\
+Width and wall runs & \RzSetCellsLo--\RzSetCellsHi & \RzSetCellsN\ per cell & SFM; widths, wall and jamb range, rounded ends, line goal & \ref{sec:lone} \\
+Pair library & \RzSetPairlibLo--\RzSetPairlibHi & \RzSetPairlibN\ runs & SFM, $B_w=0.04$\,m on every wall & \ref{sec:geometry}, \ref{sec:pair} \\
+Whole runs & \RzSetWholeLo--\RzSetWholeHi & \RzSetWholeN\ per arm & SFM; force-coupled ORCA; drive part, also throttled; SFM with $\tau'$; noise $\sigma^\ast$ & \ref{sec:att-whole} \\
+\quad first \RzSetFirstN & \RzSetFirstLo--\RzSetFirstHi & \RzSetFirstN\ per arm & throttle off; ORCA velocity filter; SFM+TTC+ORCA & \ref{sec:model}, \ref{sec:att-whole}, \ref{sec:velorca} \\
+\quad replaced drive & \RzToneoneSeedLo--\RzToneoneSeedHi & \RzToneoneN\ per arm & R1, R2 & \ref{sec:att-lone} \\
+Noise sweep & \RzSetNoiseLo--\RzSetNoiseHi & \RzSetNoiseN\ per level & SFM, \RzSetNoiseLevels\ levels of per-step noise & \ref{sec:att-whole} \\
+Legacy solver & \RzSetLegacyLo--\RzSetLegacyHi & \RzSetLegacyN\ runs & force-coupled ORCA (legacy) & \ref{sec:att-whole} \\
+CroMa & \RzSetCromaLo--\RzSetCromaHi & \RzSetCromaN\ per variant & four variants, CroMa geometry & \ref{sec:validity} \\
+\addlinespace[2pt]
+\multicolumn{5}{@{}l}{\emph{Snapshots}} \\
+Deadlock set & & \FinCritN & \KeystoneBLone\ lone keystones, \KeystoneBSecondTrap\ second traps, \FinCritNegN\ pair standoffs & \ref{sec:geometry}, \ref{sec:att-lone} \\
+\quad nested subsets & & \EtwoNAll, \LoneBarN, \EthreeN, \EfourN & screening set (\EtwoNLK\ lone keystones, \EtwoNST\ second traps), barrier, time-step and Arrhenius sets & \ref{sec:escape}, \ref{sec:att-lone} \\
+Pair set & & \PairN & pair standoffs of the pair library & \ref{sec:pair}, \ref{sec:att-pair} \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,190 @@
+# Registry entries added in session P6 (revision-7 evidence of session C5). Prefix Rz.
+# rev7_headline.json: experiments/revision7/build_headline7.py from the rev7_*.json task outputs (C5).
+# p6_numbers.json: tools/build_p6_numbers.py from the rev7_*.json files, the run records and earlier derived files.
+# Symbols: the Kramers transmission factor is Theta, the Mel'nikov-Meshkov depopulation factor Phi and the
+# transition-state rate lambda_TST (kappa, A and k keep their Table 1 meanings); hence RzTthreeTheta for C5's
+# RzTthreeKappa.
+
+# alone Arrhenius slope ratio on 56 snapshots (Sect. 5.2)
+RzTtwoRatio: {file: rev7_headline.json, key: "t2_ratio", fmt: "{:.3f}"}
+RzTtwoLo: {file: rev7_headline.json, key: "t2_lo", fmt: "{:.3f}"}
+RzTtwoHi: {file: rev7_headline.json, key: "t2_hi", fmt: "{:.3f}"}
+RzTtwoRatioTwo: {file: rev7_headline.json, key: "t2_ratio", fmt: sig, digits: 2}
+RzTtwoN: {file: rev7_headline.json, key: "t2_n", fmt: "{:d}"}
+RzTtwoEvents: {file: rev7_headline.json, key: "t2_events", fmt: "{:d}"}
+RzTtwoRestarts: {file: rev7_headline.json, key: "t2_restarts", fmt: "{:d}"}
+RzTtwoCoverone: {file: rev7_headline.json, key: "t2_cover1", fmt: "{:d}"}
+RzTtwoCoverTheory: {file: rev7_headline.json, key: "t2_cover_theory", fmt: "{:d}"}
+RzTtwoEfourRatio: {file: rev7_headline.json, key: "t2_e4_ratio", fmt: sig, digits: 2}
+RzTtwoEfourLo: {file: rev7_headline.json, key: "t2_e4_lo", fmt: sig, digits: 2}
+RzTtwoEfourHi: {file: rev7_headline.json, key: "t2_e4_hi", fmt: sig, digits: 2}
+RzTtwoNuLangerMed: {file: p6_numbers.json, key: "t2.nu_langer_med", fmt: sig, digits: 2}
+RzTtwoNuLangerMin: {file: p6_numbers.json, key: "t2.nu_langer_min", fmt: sig, digits: 2}
+RzTtwoNuLangerMax: {file: p6_numbers.json, key: "t2.nu_langer_max", fmt: sig, digits: 2}
+RzTtwoGammaOmegaMed: {file: p6_numbers.json, key: "t2.gamma_omega_med", fmt: sig, digits: 2}
+RzTtwoWeibullMed: {file: p6_numbers.json, key: "t2.weibull_med", fmt: sig, digits: 2}
+RzTtwoWeibullMin: {file: p6_numbers.json, key: "t2.weibull_min", fmt: sig, digits: 2}
+RzTtwoWeibullMax: {file: p6_numbers.json, key: "t2.weibull_max", fmt: sig, digits: 2}
+RzTtwoWeibullCells: {file: p6_numbers.json, key: "t2.weibull_cells", fmt: "{:d}"}
+
+# rate theory on the ten Arrhenius-set snapshots: lambda_TST, Theta lambda_TST, Phi Theta lambda_TST (Sect. 5.2)
+RzTthreeTst: {file: rev7_headline.json, key: "t3_tst", fmt: sig, digits: 2}
+RzTthreeTheta: {file: rev7_headline.json, key: "t3_kappa", fmt: sig, digits: 2}
+RzTthreeFull: {file: rev7_headline.json, key: "t3_full", fmt: sig, digits: 2}
+
+# time-step probe, Eq. (ell) (Sect. 7.1); beta_0 = 1.5 at two and beta_0 = 2.5 at three significant figures
+RzTfourOnepfiveA: {file: rev7_headline.json, key: "t4_1p5_a", fmt: sig, digits: 2}
+RzTfourOnepfiveC: {file: rev7_headline.json, key: "t4_1p5_c", fmt: sig, digits: 2}
+RzTfourOnepfiveObs: {file: rev7_headline.json, key: "t4_1p5_obs", fmt: sig, digits: 2}
+RzTfourOnepfiveLo: {file: rev7_headline.json, key: "t4_1p5_lo", fmt: sig, digits: 2}
+RzTfourOnepfiveHi: {file: rev7_headline.json, key: "t4_1p5_hi", fmt: sig, digits: 2}
+RzTfourTwopfiveA: {file: rev7_headline.json, key: "t4_2p5_a", fmt: sig, digits: 3}
+RzTfourTwopfiveC: {file: rev7_headline.json, key: "t4_2p5_c", fmt: sig, digits: 3}
+RzTfourTwopfiveCthree: {file: p6_numbers.json, key: "t4.b2p5_pred_c_A3", fmt: sig, digits: 3}
+RzTfourTwopfiveObs: {file: rev7_headline.json, key: "t4_2p5_obs", fmt: sig, digits: 3}
+RzTfourTwopfiveLo: {file: rev7_headline.json, key: "t4_2p5_lo", fmt: sig, digits: 3}
+RzTfourTwopfiveHi: {file: rev7_headline.json, key: "t4_2p5_hi", fmt: sig, digits: 3}
+
+# split-sample matching (Sect. 7.1): held-out error in freed (completed) fraction
+RzTfiveHeldoutMed: {file: p6_numbers.json, key: "t5.lone_med", fmt: sig, digits: 2}
+RzTfiveHeldoutLo: {file: p6_numbers.json, key: "t5.lone_lo", fmt: sig, digits: 2}
+RzTfiveHeldoutHi: {file: p6_numbers.json, key: "t5.lone_hi", fmt: sig, digits: 2}
+RzTfiveWholeMed: {file: p6_numbers.json, key: "t5.whole_med", fmt: sig, digits: 2}
+RzTfiveWholeLo: {file: p6_numbers.json, key: "t5.whole_lo", fmt: sig, digits: 2}
+RzTfiveWholeHi: {file: p6_numbers.json, key: "t5.whole_hi", fmt: sig, digits: 2}
+
+# pair standoffs run to 600 s (Sect. 7.3)
+RzToneLegacyFreed: {file: p6_numbers.json, key: "t1.legacy.freed", fmt: "{:d}"}
+RzToneLegacyLo: {file: p6_numbers.json, key: "t1.legacy.lo", fmt: sig, digits: 2}
+RzToneLegacyHi: {file: p6_numbers.json, key: "t1.legacy.hi", fmt: sig, digits: 2}
+RzToneRvoFreed: {file: p6_numbers.json, key: "t1.rvo2.freed", fmt: "{:d}"}
+RzToneRvoLo: {file: p6_numbers.json, key: "t1.rvo2.lo", fmt: sig, digits: 2}
+RzToneRvoHi: {file: p6_numbers.json, key: "t1.rvo2.hi", fmt: sig, digits: 2}
+RzToneDriveFreed: {file: p6_numbers.json, key: "t1.drive.freed", fmt: "{:d}"}
+RzToneDriveLo: {file: p6_numbers.json, key: "t1.drive.lo", fmt: sig, digits: 2}
+RzToneDriveHi: {file: p6_numbers.json, key: "t1.drive.hi", fmt: sig, digits: 2}
+RzToneConsFreed: {file: p6_numbers.json, key: "t1.constraint.freed", fmt: "{:d}"}
+RzToneConsLo: {file: p6_numbers.json, key: "t1.constraint.lo", fmt: sig, digits: 2}
+RzToneConsHi: {file: p6_numbers.json, key: "t1.constraint.hi", fmt: sig, digits: 2}
+RzToneSfmFreed: {file: p6_numbers.json, key: "t1.sfm.freed", fmt: "{:d}"}
+RzToneSfmHi: {file: p6_numbers.json, key: "t1.sfm.hi", fmt: sig, digits: 2}
+RzToneLateFreed: {file: p6_numbers.json, key: "t1.freed_after_120_all", fmt: "{:d}"}
+RzToneDispMax: {file: p6_numbers.json, key: "t1.disp_cm.max", fmt: "{:.0f}"}
+RzToneLegRvoA: {file: p6_numbers.json, key: "t1.legacy_rvo2.a", fmt: "{:d}"}
+RzToneLegRvoB: {file: p6_numbers.json, key: "t1.legacy_rvo2.b", fmt: "{:d}"}
+RzToneLegRvoP: {file: p6_numbers.json, key: "t1.legacy_rvo2.p", fmt: sci, digits: 2}
+
+# whole-run replays (Sect. 7.2)
+RzTsevenDriveChanges: {file: rev7_headline.json, key: "t7_drive_changes", fmt: "{:d}"}
+RzTsevenTauprimeChanges: {file: rev7_headline.json, key: "t7_tauprime_changes", fmt: "{:d}"}
+RzTsevenRvotwoChanges: {file: rev7_headline.json, key: "t7_rvo2_changes", fmt: "{:d}"}
+RzTsevenSfmChanges: {file: rev7_headline.json, key: "t7_sfm_changes", fmt: "{:d}"}
+RzTsevenMaxShift: {file: p6_numbers.json, key: "t7.max_k_shift", fmt: "{:d}"}
+
+# throttled drive part (Sect. 7.2)
+RzTeightK: {file: p6_numbers.json, key: "t8.k", fmt: "{:d}"}
+RzTeightN: {file: p6_numbers.json, key: "t8.n", fmt: "{:d}"}
+RzTeightLo: {file: p6_numbers.json, key: "t8.lo", fmt: sig, digits: 2}
+RzTeightHi: {file: p6_numbers.json, key: "t8.hi", fmt: sig, digits: 2}
+RzTeightLone: {file: p6_numbers.json, key: "t8.lone", fmt: "{:d}"}
+RzTeightSecond: {file: p6_numbers.json, key: "t8.second", fmt: "{:d}"}
+RzTeightDriveA: {file: p6_numbers.json, key: "t8.veff_vs_drive.a", fmt: "{:d}"}
+RzTeightDriveB: {file: p6_numbers.json, key: "t8.veff_vs_drive.b", fmt: "{:d}"}
+RzTeightDriveP: {file: p6_numbers.json, key: "t8.veff_vs_drive.p", fmt: p}
+RzTeightTauA: {file: p6_numbers.json, key: "t8.veff_vs_tauprime.a", fmt: "{:d}"}
+RzTeightTauB: {file: p6_numbers.json, key: "t8.veff_vs_tauprime.b", fmt: "{:d}"}
+RzTeightTauP: {file: p6_numbers.json, key: "t8.veff_vs_tauprime.p", fmt: p}
+RzTeightRvoA: {file: p6_numbers.json, key: "t8.veff_vs_rvo2.a", fmt: "{:d}"}
+RzTeightRvoB: {file: p6_numbers.json, key: "t8.veff_vs_rvo2.b", fmt: "{:d}"}
+RzTeightRvoP: {file: p6_numbers.json, key: "t8.veff_vs_rvo2.p", fmt: p}
+
+# combined target speed of drive plus drive part (Sect. 3.2)
+RzGRho: {file: p6_numbers.json, key: "g.rho", fmt: "{:.1f}"}
+RzGTau: {file: p6_numbers.json, key: "g.tau", fmt: "{:.1f}"}
+RzGRatio: {file: p6_numbers.json, key: "g.ratio", fmt: "{:.3f}"}
+RzGRatioLo: {file: p6_numbers.json, key: "g.ratio_lo", fmt: "{:.3f}"}
+RzGRatioHi: {file: p6_numbers.json, key: "g.ratio_hi", fmt: "{:.3f}"}
+
+# replacing the drive, R1 and R2 (Sect. 7.1)
+RzTonezeroLoneFreed: {file: p6_numbers.json, key: "t10.lone_freed", fmt: "{:d}"}
+RzTonezeroLoneN: {file: p6_numbers.json, key: "t10.lone_n", fmt: "{:d}"}
+RzTonezeroLoneOrcaFreed: {file: p6_numbers.json, key: "t10.lone_orca_freed", fmt: "{:d}"}
+RzTonezeroScreenDisagree: {file: p6_numbers.json, key: "t10.screen_disagree", fmt: "{:d}"}
+RzTonezeroScreenN: {file: p6_numbers.json, key: "t10.screen_n", fmt: "{:d}"}
+RzTonezeroOtherN: {file: p6_numbers.json, key: "t10.other_n", fmt: "{:d}"}
+RzTonezeroOtherDisagree: {file: p6_numbers.json, key: "t10.other_disagree", fmt: "{:d}"}
+RzTonezeroOtherFreed: {file: p6_numbers.json, key: "t10.other_freed", fmt: "{:d}"}
+RzTonezeroOtherPredFreed: {file: p6_numbers.json, key: "t10.other_pred_freed", fmt: "{:d}"}
+RzTonezeroOtherHeldFreed: {file: p6_numbers.json, key: "t10.other_held_freed", fmt: "{:d}"}
+RzTonezeroOtherNeigh: {file: p6_numbers.json, key: "t10.other_neigh_first", fmt: "{:d}"}
+RzTonezeroOtherSmall: {file: p6_numbers.json, key: "t10.other_small_margin", fmt: "{:d}"}
+RzTonezeroOtherSmallMin: {file: p6_numbers.json, key: "t10.other_small_margin_min", fmt: "{:.0f}"}
+RzTonezeroOtherSmallMax: {file: p6_numbers.json, key: "t10.other_small_margin_max", fmt: "{:.0f}"}
+RzTonezeroOtherUnexpl: {file: p6_numbers.json, key: "t10.other_unexplained", fmt: "{:d}"}
+RzToneoneN: {file: p6_numbers.json, key: "t11.n", fmt: "{:d}"}
+RzToneoneK: {file: p6_numbers.json, key: "t11.k", fmt: "{:d}"}
+RzToneoneHi: {file: p6_numbers.json, key: "t11.hi", fmt: sig, digits: 2}
+RzToneoneMoving: {file: p6_numbers.json, key: "t11.moving", fmt: "{:d}"}
+RzToneoneRvoK: {file: p6_numbers.json, key: "t11.rvo2_k", fmt: "{:d}"}
+RzToneoneSeedLo: {file: p6_numbers.json, key: "t11.seed_lo", fmt: "{:d}"}
+RzToneoneSeedHi: {file: p6_numbers.json, key: "t11.seed_hi", fmt: "{:d}"}
+
+# run sets, sample size and facts b, c, d, h (Sect. 3.4, 5.1, 5.2, Table of run sets)
+RzBZ: {file: p6_numbers.json, key: "b.z", fmt: "{:.3f}"}
+RzBP: {file: p6_numbers.json, key: "b.p", fmt: "{:.3f}"}
+RzBDelta: {file: p6_numbers.json, key: "b.delta", fmt: "{:.2f}"}
+RzBN: {file: p6_numbers.json, key: "b.n", fmt: "{:d}"}
+RzDLoneOnly: {file: p6_numbers.json, key: "d.lone_blocker_only", fmt: "{:d}"}
+RzDLoneN: {file: p6_numbers.json, key: "d.lone_n", fmt: "{:d}"}
+RzHLoneSeed: {file: p6_numbers.json, key: "h.b004_lone_seed", fmt: "{:d}"}
+RzHJambN: {file: p6_numbers.json, key: "h.jamb_deadlocks", fmt: "{:d}"}
+RzHJambTwo: {file: p6_numbers.json, key: "h.jamb_two", fmt: "{:d}"}
+RzHJambThree: {file: p6_numbers.json, key: "h.jamb_three", fmt: "{:d}"}
+RzHJambSeedA: {file: p6_numbers.json, key: "h.jamb_three_seed_a", fmt: "{:d}"}
+RzHJambSeedB: {file: p6_numbers.json, key: "h.jamb_three_seed_b", fmt: "{:d}"}
+RzCSkipSeed: {file: p6_numbers.json, key: "c.skip_seed", fmt: "{:d}"}
+RzCPairMinSeed: {file: p6_numbers.json, key: "c.pair_min_seed", fmt: "{:d}"}
+RzMiscSeventyBelow: {file: p6_numbers.json, key: "misc.s170_rest_below", fmt: sig, digits: 2}
+RzMiscFrictionOne: {file: p6_numbers.json, key: "misc.friction_dt01", fmt: sig, digits: 3}
+RzMiscFrictionHalf: {file: p6_numbers.json, key: "misc.friction_dt005", fmt: sig, digits: 3}
+RzSetDeadlockLo: {file: p6_numbers.json, key: "sets.deadlock.lo", fmt: "{:d}"}
+RzSetDeadlockHi: {file: p6_numbers.json, key: "sets.deadlock.hi", fmt: "{:d}"}
+RzSetDeadlockN: {file: p6_numbers.json, key: "sets.deadlock.n", fmt: "{:d}"}
+RzSetCellsLo: {file: p6_numbers.json, key: "sets.cells.lo", fmt: "{:d}"}
+RzSetCellsHi: {file: p6_numbers.json, key: "sets.cells.hi", fmt: "{:d}"}
+RzSetCellsN: {file: p6_numbers.json, key: "sets.cells.n", fmt: "{:d}"}
+RzSetPairlibLo: {file: p6_numbers.json, key: "sets.pairlib.lo", fmt: "{:d}"}
+RzSetPairlibHi: {file: p6_numbers.json, key: "sets.pairlib.hi", fmt: "{:d}"}
+RzSetPairlibN: {file: p6_numbers.json, key: "sets.pairlib.n", fmt: "{:d}"}
+RzSetWholeLo: {file: p6_numbers.json, key: "sets.whole.lo", fmt: "{:d}"}
+RzSetWholeHi: {file: p6_numbers.json, key: "sets.whole.hi", fmt: "{:d}"}
+RzSetWholeN: {file: p6_numbers.json, key: "sets.whole.n", fmt: "{:d}"}
+RzSetFirstLo: {file: p6_numbers.json, key: "sets.first100.lo", fmt: "{:d}"}
+RzSetFirstHi: {file: p6_numbers.json, key: "sets.first100.hi", fmt: "{:d}"}
+RzSetFirstN: {file: p6_numbers.json, key: "sets.first100.n", fmt: "{:d}"}
+RzSetLegacyLo: {file: p6_numbers.json, key: "sets.legacy.lo", fmt: "{:d}"}
+RzSetLegacyHi: {file: p6_numbers.json, key: "sets.legacy.hi", fmt: "{:d}"}
+RzSetLegacyN: {file: p6_numbers.json, key: "sets.legacy.n", fmt: "{:d}"}
+RzSetNoiseLo: {file: p6_numbers.json, key: "sets.noise.lo", fmt: "{:d}"}
+RzSetNoiseHi: {file: p6_numbers.json, key: "sets.noise.hi", fmt: "{:d}"}
+RzSetNoiseN: {file: p6_numbers.json, key: "sets.noise.n", fmt: "{:d}"}
+RzSetNoiseLevels: {file: p6_numbers.json, key: "sets.noise.levels", fmt: "{:d}"}
+RzSetCromaLo: {file: p6_numbers.json, key: "sets.croma.lo", fmt: "{:d}"}
+RzSetCromaHi: {file: p6_numbers.json, key: "sets.croma.hi", fmt: "{:d}"}
+RzSetCromaN: {file: p6_numbers.json, key: "sets.croma.n", fmt: "{:d}"}
+
+# two-significant-figure versions of the matched-level time-step numbers (Sect. 7.1; rule of Sect. 4.4)
+RzStepBetaHalfMin: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p005.min", fmt: sig, digits: 2}
+RzStepBetaHalfMax: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p005.max", fmt: sig, digits: 2}
+RzStepBetaOneMin: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p01.min", fmt: sig, digits: 2}
+RzStepBetaOneMax: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p01.max", fmt: sig, digits: 2}
+RzStepBetaTwoMin: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p02.min", fmt: sig, digits: 2}
+RzStepBetaTwoMax: {file: rev4_T3.json, key: "arms.per_step.beta.dt0p02.max", fmt: sig, digits: 2}
+RzStepEll: {file: rev4_T3.json, key: "arms.per_step.ell_mean", fmt: sig, digits: 2}
+RzStepEllLo: {file: rev4_T3.json, key: "arms.per_step.ell_ci95_boot.0", fmt: "{:.1f}"}
+RzStepEllHi: {file: rev4_T3.json, key: "arms.per_step.ell_ci95_boot.1", fmt: sig, digits: 2}
+RzStepPred: {file: rev4_T3.json, key: "arms.per_step.pred_mean", fmt: sig, digits: 2}
+RzScaledEll: {file: rev4_T3.json, key: "arms.dt_scaled.ell_mean", fmt: sig, digits: 2}
+RzScaledEllLo: {file: rev4_T3.json, key: "arms.dt_scaled.ell_ci95_boot.0", fmt: sig, digits: 2}
+RzScaledEllHi: {file: rev4_T3.json, key: "arms.dt_scaled.ell_ci95_boot.1", fmt: sig, digits: 2}
+RzScaledPred: {file: rev4_T3.json, key: "arms.dt_scaled.pred_mean", fmt: sig, digits: 2}
