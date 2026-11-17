@@ -114,6 +114,19 @@ class HybridSteeringModel(SteeringModel):
         if self.sfm_tau_prime not in ("on", "off"):
             raise ValueError(f"sfm_tau_prime must be 'on' or 'off', got {self.sfm_tau_prime!r}")
         self.tau_orca_prime = float(params.get("tau_orca", 0.5))
+        # Revision 7: orca_pref = "v0" (default) | "veff". "veff" sets ORCA's preferred velocity to v_eff e (v0 times
+        # the density throttle factor of Eq. 2, as in the desired force) instead of v0 e, in the linear program and in
+        # its drive/constraint split. orca_replace = "off" (default) | "on". "on" makes the ORCA term replace the
+        # goal-directed drive instead of adding to it: F = (1 - w_o) F_desire + w_o F_ORCA + ... (w_o the ORCA gate).
+        self.orca_pref = params.get("orca_pref", "v0")
+        if self.orca_pref not in ("v0", "veff"):
+            raise ValueError(f"orca_pref must be 'v0' or 'veff', got {self.orca_pref!r}")
+        self.orca_replace = params.get("orca_replace", "off")
+        if self.orca_replace not in ("on", "off"):
+            raise ValueError(f"orca_replace must be 'on' or 'off', got {self.orca_replace!r}")
+        if (self.orca_pref != "v0" or self.orca_replace != "off") and (
+                self.orca is None or self.orca_coupling != "force" or self.sfm_tau_prime != "off"):
+            raise ValueError("orca_pref/orca_replace require force-coupled ORCA and sfm_tau_prime='off'")
         # Wave 2: noise="lateral_bias" -> desired direction tilted to (e + b e_perp)/|.|,
         # e_perp = e rotated +90 deg (fixed handedness); b = tan(bias angle).
         self.lateral_bias = (float(params.get("w2_bias_b", 0.0))
@@ -179,6 +192,8 @@ class HybridSteeringModel(SteeringModel):
                 weidmann_gamma=self.params.get("weidmann_gamma", 1.913),
                 weidmann_rho_max=self.params.get("weidmann_rho_max", 5.4),
             )
+        if self.orca_replace == "on":
+            F_desire = (1.0 - w_orca)[:, None] * F_desire
         F = (1.0 - w_crush)[:, None] * F_desire
 
         # SFM agent-agent (always on)
@@ -190,6 +205,8 @@ class HybridSteeringModel(SteeringModel):
 
         # ORCA (weighted by density); with velocity coupling ORCA acts in orca_velocity_filter instead
         if self.orca is not None and self.orca_coupling == "force":
+            if self.orca_pref == "veff":
+                self.orca.pref_factor = self._weidmann(local_densities, agent_state.n)
             F_orca = self.orca.compute_orca_forces(agent_state, neighbor_lists)
             if self.orca_transform != "none":
                 from sim.core.helpers import safe_normalize
@@ -317,6 +334,14 @@ class HybridSteeringModel(SteeringModel):
         v_t = tau_p * (W * v0 / tau + v0 / t_o)
         return compute_desired_force(agent_state.positions, agent_state.velocities, goals_des, v_t,
                                      agent_state.masses, tau_p, local_densities=None)
+
+    def _weidmann(self, local_densities, n):
+        """Density throttle factor of Eq. 2 (1 when veff_throttle is off), as compute_desired_force."""
+        if self.veff_throttle != "on" or local_densities is None:
+            return np.ones(n)
+        rho = np.maximum(local_densities, 0.01)
+        return np.clip(1.0 - np.exp(-self.params.get("weidmann_gamma", 1.913)
+                                    * (1.0 / rho - 1.0 / self.params.get("weidmann_rho_max", 5.4))), 0.05, 1.0)
 
     @staticmethod
     def _sigmoid(x: np.ndarray, x0: float, k: float) -> np.ndarray:

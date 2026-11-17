@@ -278,6 +278,9 @@ class ORCAModel:
         self.variant = variant
         self.split = split
         self.lp3_calls = 0
+        # Revision 7 flag orca_pref (set by the hybrid model each step): None (default) = preferred speed v0;
+        # otherwise an (N,) array of factors W_i so that v_pref = W_i v0_i e_i (the density throttle of Eq. 2).
+        self.pref_factor = None
 
     def compute_orca_forces(
         self,
@@ -303,7 +306,7 @@ class ORCAModel:
         desired_speeds = agent_state.desired_speeds
         goals = agent_state.goals
 
-        if self.variant != "published" or self.split != "full":
+        if self.variant != "published" or self.split != "full" or self.pref_factor is not None:
             return check_forces(self._forces_wave2(agent_state, neighbor_lists), "ORCA")
 
         for i in range(n):
@@ -415,6 +418,8 @@ class ORCAModel:
                 continue
             goal_dir = safe_normalize(agent_state.goals[i] - agent_state.positions[i])
             v_pref = agent_state.desired_speeds[i] * goal_dir
+            if self.pref_factor is not None:
+                v_pref = v_pref * self.pref_factor[i]
             max_speed = 2.0 * agent_state.desired_speeds[i]
             m, v = agent_state.masses[i], agent_state.velocities[i]
             if self.split == "drive_only":
