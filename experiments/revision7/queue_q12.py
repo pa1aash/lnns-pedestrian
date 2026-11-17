@@ -25,7 +25,13 @@ T7_OUT = os.path.join(L.data_dir("T7"), "t7_replay.jsonl")
 def t1_jobs():
     sys.path.insert(0, os.path.join(L.ROOT, "experiments", "E7b"))
     import e7b_quench
-    J = [dict(j, t_q=600.0) for j in e7b_quench.jobs() if j["arm"] in PAIR_ARMS and j["deterministic"]]
+    # deterministic dynamics: a run that ended freed or at rest (stationary stop) within 120 s keeps that outcome, so
+    # only the runs still moving at 120 s are extended (from the snapshot, to 600 s; the first 120 s reproduce the
+    # original run, checked in T1_analyze)
+    orig = {r["job_id"]: r for r in L.load_runs(os.path.join(L.DATA, "E7b", "e7b_quench.jsonl"))}
+    moving = {k for k, r in orig.items() if not r["freed"] and not r["stationary_stop"]}
+    J = [dict(j, t_q=600.0) for j in e7b_quench.jobs() if j["arm"] in PAIR_ARMS and j["deterministic"]
+         and j["job_id"] in moving]
     J.sort(key=lambda j: PAIR_ARMS.index(j["arm"]))
     return J
 
@@ -35,11 +41,18 @@ def t8_jobs():
 
 
 def t7_jobs():
-    return [L.whole_job(a, s, perturb=900) for a in ("drive", "tauprime", "rvo2", "sfm") for s in L.SEEDS_WHOLE]
+    # seed-major order, so that a run stopped at the time limit covers all four arms on the same seed prefix
+    return [L.whole_job(a, s, perturb=900) for s in L.SEEDS_WHOLE for a in ("drive", "tauprime", "rvo2", "sfm")]
 
 
 if __name__ == "__main__":
     w = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 3
     only = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else ["T1", "T8", "T7"]
-    T = {"T1": (T1_OUT, "pair", t1_jobs), "T8": (T8_OUT, "whole", t8_jobs), "T7": (T7_OUT, "whole", t7_jobs)}
+    # priority (cost rule, session C5): unperturbed pair runs first, replays of the pair arms last
+    u = [j for j in t1_jobs() if j["perturb"] is None]
+    rp = [j for j in t1_jobs() if j["perturb"] is not None]
+    T = {"T1": (T1_OUT, "pair", lambda: u), "T8": (T8_OUT, "whole", t8_jobs), "T7": (T7_OUT, "whole", t7_jobs),
+         "T1r": (T1_OUT, "pair", lambda: rp)}
+    if "--only" not in sys.argv:
+        only = ["T1", "T8", "T7", "T1r"]
     print("wall", L.run_queue([(T[k][0], T[k][1], T[k][2]()) for k in only], w))

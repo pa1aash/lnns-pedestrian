@@ -1,0 +1,142 @@
+{
+ "doc": "Task 5: split-sample matching of per-step noise to force-coupled ORCA (RVO2), as rev2_A6 did for the bias b*.\n\n(1) Lone keystones (34, selection.json E2). Noise quenches (C1 + sigma, 120 s): sigma = 0.03, 0.05, 0.07 m/s with 5\n    seeds (data/E2/e2_quench.jsonl) and 0.0717 m/s with 20 seeds (data/N1/n1.jsonl); sigma = 0 is the SFM restart,\n    which frees no lone keystone. f_i(sigma) = fraction of seeds whose blocker exits within 120 s. ORCA: the\n    unperturbed C3_rvo2 quench, freed within 120 s. 200 random halves of 17 (Generator(PCG64(2026)), permutation per\n    split; first 17 fit). Primary fit (the rule that gave 0.0717, experiments/runs3/N1.py): binomial-logit fit of the\n    per-restart outcomes at sigma = 0.03, 0.05, 0.07 (E2, 5 seeds per snapshot) over S, inverted at ORCA's freed\n    fraction on S -> sigma_S; held-out difference e = P_H(sigma_S) - ORCA_H with P_H the same logit fit on H (no\n    clipping; sigma_S may lie above 0.07 as 0.0717 does). Secondary (interpolation): sigma_S = the smallest sigma at which the piecewise-linear F_S(sigma) = mean_S f_i\n    reaches ORCA's freed fraction on S (grid 0, 0.03, 0.05, 0.07, 0.0717; if never reached, the grid maximum).\n    Held-out difference e = F_H(sigma_S) - ORCA_H (F_H interpolated the same way). Reference spread: ORCA_H - ORCA_S.\n(2) Whole runs (186 seeds 242-427). Completion against sigma exists only on E5b's seeds 42-141 (C1 + sigma, sigma =\n    0.03-0.07, 100 runs each); on the 186 seeds the noise was run at sigma* = 0.0467 only (data/E6/e6b.jsonl). Fit on\n    a half S of 93 seeds: sigma_S = logit inversion (experiments/lib/fits.py on E5b, as E6) at ORCA's completion\n    rate on S (data/E6/e6a.jsonl). Held-out: noise completion on H at sigma_S, estimated as the observed E6b\n    completion on H at sigma* shifted along the E5b logit curve, P_H(sigma_S) = expit(logit(c_H) + b (sigma_S -\n    sigma*)); e = P_H(sigma_S) - ORCA_H. Reference: ORCA_H - ORCA_S. 200 random halves, PCG64(2026).\nOutput: data/derived/rev7_T5.json",
+ "lone": {
+  "n": 34,
+  "orca_freed": 30,
+  "logit_full": {
+   "a": -2.0532221916287514,
+   "b": 56.70056339837057,
+   "sigma": 0.07174752715575175
+  },
+  "logit_heldout_error": {
+   "median": -0.006366847008997867,
+   "lo95": -0.18187370557656746,
+   "hi95": 0.15585705130515679,
+   "mean": -0.006459566997080184,
+   "mean_abs": 0.06979281508286007
+  },
+  "logit_sigma_S": {
+   "median": 0.07115006486784256,
+   "lo95": 0.05974738545169317,
+   "hi95": 0.09165903159867729,
+   "mean": 0.07240700415242927,
+   "mean_abs": 0.07240700415242927
+  },
+  "F_full_by_sigma": {
+   "0.0": 0.0,
+   "0.03": 0.4117647058823529,
+   "0.05": 0.6882352941176471,
+   "0.07": 0.8705882352941179,
+   "0.0717": 0.8647058823529411
+  },
+  "n_seeds": {
+   "0.03": [
+    5
+   ],
+   "0.05": [
+    5
+   ],
+   "0.07": [
+    5
+   ],
+   "0.0717": [
+    20
+   ]
+  },
+  "interp_sigma_full_fit": 0.0717,
+  "interp_heldout_error": {
+   "median": -0.02352941176470591,
+   "lo95": -0.16443850267379687,
+   "hi95": 0.04125000000000009,
+   "mean": -0.037493386930508146,
+   "mean_abs": 0.04749338693050815
+  },
+  "split_alone": {
+   "median": 0.0,
+   "lo95": -0.23529411764705888,
+   "hi95": 0.23529411764705888,
+   "mean": 0.0,
+   "mean_abs": 0.08705882352941177
+  },
+  "interp_sigma_S": {
+   "median": 0.0717,
+   "lo95": 0.06227272727272727,
+   "hi95": 0.0717,
+   "mean": 0.06941045380190845,
+   "mean_abs": 0.06941045380190845
+  },
+  "n_sigma_S_at_grid_max": 106
+ },
+ "whole": {
+  "n": 186,
+  "orca_complete": 101,
+  "noise_sigma_star_complete": 99,
+  "logit_E5b": {
+   "a": -3.1748306305412806,
+   "b": 71.74143164555495,
+   "cov": [
+    [
+     0.1504015784707942,
+     -2.9317267417966977
+    ],
+    [
+     -2.931726741796698,
+     61.30319308161897
+    ]
+   ],
+   "deviance": 0.15035525149448226,
+   "dof": 3,
+   "x": [
+    0.03,
+    0.04,
+    0.05,
+    0.06,
+    0.07
+   ],
+   "k": [
+    27.0,
+    41.0,
+    61.0,
+    76.0,
+    86.0
+   ],
+   "n": [
+    100.0,
+    100.0,
+    100.0,
+    100.0,
+    100.0
+   ]
+  },
+  "sigma_star": 0.0467,
+  "heldout_error": {
+   "median": -0.0058700528253575746,
+   "lo95": -0.12472987716156735,
+   "hi95": 0.12356607660330965,
+   "mean": -0.008134357475431545,
+   "mean_abs": 0.05237737369458342
+  },
+  "heldout_error_at_sigma_star": {
+   "median": -0.010752688172043001,
+   "lo95": -0.08629032258064519,
+   "hi95": 0.06478494623655925,
+   "mean": -0.006774193548387093,
+   "mean_abs": 0.03419354838709678
+  },
+  "split_alone": {
+   "median": 0.010752688172043001,
+   "lo95": -0.13978494623655913,
+   "hi95": 0.11827956989247312,
+   "mean": 0.001505376344086022,
+   "mean_abs": 0.05118279569892474
+  },
+  "sigma_S": {
+   "median": 0.046356107537783145,
+   "lo95": 0.04335419628605113,
+   "hi95": 0.05065919199766769,
+   "mean": 0.04662675407155564,
+   "mean_abs": 0.04662675407155564
+  }
+ },
+ "bstar_reference_rev2_A6": {}
+}

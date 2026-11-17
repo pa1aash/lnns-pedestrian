@@ -1,0 +1,746 @@
+{
+ "doc": "Task 10 analysis: R1 / R2 quenches against the pre-registered prediction (notes/C5_items/prereg_replace.md,\ndata/derived/rev7_T9_prereg.json, committed in 2ac5353 before any R run).\n\nOutcome: blocker freed within 120 s (blocker_freed) in the unperturbed run; replays (perturb 900-904) compared with it.\nConfusion matrix (predicted freed / held x observed freed / held) per stratum: 34 lone keystones, 26 screening second\ntraps, 134 other second traps. Each disagreement is listed with its static margin, its constraint-part data (lp_rest)\nand the run's first exit (agent, time) and blocker exit time, to trace it to exception 1 (constraint part in motion) or\n2 (pushes from behind). Comparison arms on the same snapshots (unperturbed, 120 s): SFM (C1), force-coupled ORCA\n(C3_rvo2), drive part (drive_only), from data/E2/e2_quench.jsonl and data/revision/A5/a5_quench.jsonl; the tau' SFM\n(sfm_tau_tau) from data/revision/A1/a1_quench.jsonl (screening set only). Exact McNemar R1 vs each arm per stratum.\nPairs (46): freed by 600 s / at rest / still moving, unperturbed and replays (no prediction was made).\nOutput: data/derived/rev7_T10.json",
+ "strata": {
+  "lone_keystone": {
+   "n": 34,
+   "R1": {
+    "n_done": 34,
+    "freed": 1,
+    "freed_wilson95": [
+     0.00521077192559663,
+     0.1491590221634482
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 1,
+     "pred_freed_obs_held": 0,
+     "pred_held_obs_freed": 0,
+     "pred_held_obs_held": 33
+    },
+    "disagreements": [],
+    "n_disagree": 0,
+    "replays_done": 20,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 34,
+      "arm_freed": 0,
+      "R_only": 1,
+      "arm_only": 0,
+      "p": 1.0,
+      "p_disp": "1.000"
+     },
+     "C3_rvo2": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     },
+     "drive_only": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     },
+     "tauprime": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     }
+    }
+   },
+   "R2": {
+    "n_done": 34,
+    "freed": 1,
+    "freed_wilson95": [
+     0.00521077192559663,
+     0.1491590221634482
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 1,
+     "pred_freed_obs_held": 0,
+     "pred_held_obs_freed": 0,
+     "pred_held_obs_held": 33
+    },
+    "disagreements": [],
+    "n_disagree": 0,
+    "replays_done": 20,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 34,
+      "arm_freed": 0,
+      "R_only": 1,
+      "arm_only": 0,
+      "p": 1.0,
+      "p_disp": "1.000"
+     },
+     "C3_rvo2": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     },
+     "drive_only": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     },
+     "tauprime": {
+      "n": 34,
+      "arm_freed": 30,
+      "R_only": 0,
+      "arm_only": 29,
+      "p": 3.725290298461914e-09,
+      "p_disp": "<10^{-8}"
+     }
+    }
+   },
+   "R1_R2_identical_outcome": 34,
+   "R1_R2_identical_t_run": 34
+  },
+  "lone_keystone_second_trap": {
+   "n": 26,
+   "R1": {
+    "n_done": 26,
+    "freed": 1,
+    "freed_wilson95": [
+     0.0068218089769898765,
+     0.18893176991958405
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 0,
+     "pred_freed_obs_held": 0,
+     "pred_held_obs_freed": 1,
+     "pred_held_obs_held": 25
+    },
+    "disagreements": [
+     {
+      "tag": "E1b_seed223",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.182468852122895,
+      "margin_SFM": 62.888936312182466,
+      "lp_rest": {
+       "v_orca": [
+        1.1542261679852357,
+        -0.024182849305347524
+       ],
+       "v_pref": [
+        1.1558506279325884,
+        -0.32570802480496924
+       ],
+       "D_axial": 184.66737194836762,
+       "margin": 44.644849581056036,
+       "constraint_axial_N": -0.25982004307267376,
+       "constraint_lateral_N": 48.2266640143863
+      },
+      "blocker_exit_t": 7.589999999993097,
+      "first_agent": 5,
+      "first_t": 7.589999999993097,
+      "blocker": 5,
+      "n_resid": 2,
+      "exits": {
+       "5": 7.589999999993097
+      },
+      "stationary_stop": true,
+      "t_run": 25.899999999976444
+     }
+    ],
+    "n_disagree": 1,
+    "replays_done": 0,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 26,
+      "arm_freed": 0,
+      "R_only": 1,
+      "arm_only": 0,
+      "p": 1.0,
+      "p_disp": "1.000"
+     },
+     "C3_rvo2": {
+      "n": 26,
+      "arm_freed": 17,
+      "R_only": 1,
+      "arm_only": 17,
+      "p": 0.00014495849609375,
+      "p_disp": "<10^{-3}"
+     },
+     "drive_only": {
+      "n": 26,
+      "arm_freed": 24,
+      "R_only": 0,
+      "arm_only": 23,
+      "p": 2.384185791015625e-07,
+      "p_disp": "<10^{-6}"
+     },
+     "tauprime": {
+      "n": 26,
+      "arm_freed": 24,
+      "R_only": 0,
+      "arm_only": 23,
+      "p": 2.384185791015625e-07,
+      "p_disp": "<10^{-6}"
+     }
+    }
+   },
+   "R2": {
+    "n_done": 26,
+    "freed": 1,
+    "freed_wilson95": [
+     0.0068218089769898765,
+     0.18893176991958405
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 0,
+     "pred_freed_obs_held": 0,
+     "pred_held_obs_freed": 1,
+     "pred_held_obs_held": 25
+    },
+    "disagreements": [
+     {
+      "tag": "E1b_seed223",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.182468852122895,
+      "margin_SFM": 62.888936312182466,
+      "lp_rest": {
+       "v_orca": [
+        1.1542261679852357,
+        -0.024182849305347524
+       ],
+       "v_pref": [
+        1.1558506279325884,
+        -0.32570802480496924
+       ],
+       "D_axial": 184.66737194836762,
+       "margin": 44.644849581056036,
+       "constraint_axial_N": -0.25982004307267376,
+       "constraint_lateral_N": 48.2266640143863
+      },
+      "blocker_exit_t": 7.589999999993097,
+      "first_agent": 5,
+      "first_t": 7.589999999993097,
+      "blocker": 5,
+      "n_resid": 2,
+      "exits": {
+       "5": 7.589999999993097
+      },
+      "stationary_stop": true,
+      "t_run": 25.899999999976444
+     }
+    ],
+    "n_disagree": 1,
+    "replays_done": 0,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 26,
+      "arm_freed": 0,
+      "R_only": 1,
+      "arm_only": 0,
+      "p": 1.0,
+      "p_disp": "1.000"
+     },
+     "C3_rvo2": {
+      "n": 26,
+      "arm_freed": 17,
+      "R_only": 1,
+      "arm_only": 17,
+      "p": 0.00014495849609375,
+      "p_disp": "<10^{-3}"
+     },
+     "drive_only": {
+      "n": 26,
+      "arm_freed": 24,
+      "R_only": 0,
+      "arm_only": 23,
+      "p": 2.384185791015625e-07,
+      "p_disp": "<10^{-6}"
+     },
+     "tauprime": {
+      "n": 26,
+      "arm_freed": 24,
+      "R_only": 0,
+      "arm_only": 23,
+      "p": 2.384185791015625e-07,
+      "p_disp": "<10^{-6}"
+     }
+    }
+   },
+   "R1_R2_identical_outcome": 26,
+   "R1_R2_identical_t_run": 26
+  },
+  "other_second_trap": {
+   "n": 134,
+   "R1": {
+    "n_done": 134,
+    "freed": 12,
+    "freed_wilson95": [
+     0.05196945675334397,
+     0.1500131087421233
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 4,
+     "pred_freed_obs_held": 1,
+     "pred_held_obs_freed": 8,
+     "pred_held_obs_held": 121
+    },
+    "disagreements": [
+     {
+      "tag": "E1b_seed79",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 36.98498743464879,
+      "margin_SFM": 54.061681274818426,
+      "lp_rest": null,
+      "blocker_exit_t": 49.68999999995481,
+      "first_agent": 92,
+      "first_t": 32.48999999997045,
+      "blocker": 14,
+      "n_resid": 3,
+      "exits": {
+       "92": 32.48999999997045,
+       "14": 49.68999999995481
+      },
+      "stationary_stop": true,
+      "t_run": 67.99999999993815
+     },
+     {
+      "tag": "E1b_seed86",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 17.25924768295701,
+      "margin_SFM": 31.659865517139337,
+      "lp_rest": null,
+      "blocker_exit_t": 6.469999999994116,
+      "first_agent": 13,
+      "first_t": 6.469999999994116,
+      "blocker": 13,
+      "n_resid": 2,
+      "exits": {
+       "13": 6.469999999994116
+      },
+      "stationary_stop": true,
+      "t_run": 23.899999999978263
+     },
+     {
+      "tag": "E1b_seed116",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 2.1489846190408173,
+      "margin_SFM": 13.580417522472573,
+      "lp_rest": null,
+      "blocker_exit_t": 4.289999999996098,
+      "first_agent": 56,
+      "first_t": 4.289999999996098,
+      "blocker": 56,
+      "n_resid": 4,
+      "exits": {
+       "56": 4.289999999996098,
+       "10": 11.849999999989222,
+       "3": 15.369999999986021
+      },
+      "stationary_stop": true,
+      "t_run": 32.29999999997062
+     },
+     {
+      "tag": "E1b_seed138",
+      "pred_freed": true,
+      "obs_freed": false,
+      "margin_R": -1.6502662118814442,
+      "margin_SFM": 10.86857526191946,
+      "lp_rest": null,
+      "blocker_exit_t": null,
+      "first_agent": null,
+      "first_t": null,
+      "blocker": 87,
+      "n_resid": 2,
+      "exits": {},
+      "stationary_stop": false,
+      "t_run": 119.99999999989089
+     },
+     {
+      "tag": "E1b_seed143",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.50811092054613,
+      "margin_SFM": 53.8154886607478,
+      "lp_rest": null,
+      "blocker_exit_t": 67.51999999993859,
+      "first_agent": 78,
+      "first_t": 16.36999999998511,
+      "blocker": 8,
+      "n_resid": 4,
+      "exits": {
+       "78": 16.36999999998511,
+       "8": 67.51999999993859,
+       "59": 70.6999999999357
+      },
+      "stationary_stop": true,
+      "t_run": 88.99999999991905
+     },
+     {
+      "tag": "E1b_seed184",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 20.75871371866785,
+      "margin_SFM": 31.34061420478463,
+      "lp_rest": null,
+      "blocker_exit_t": 14.549999999986767,
+      "first_agent": 70,
+      "first_t": 7.439999999993233,
+      "blocker": 73,
+      "n_resid": 4,
+      "exits": {
+       "70": 7.439999999993233,
+       "73": 14.549999999986767,
+       "15": 19.33999999998241
+      },
+      "stationary_stop": true,
+      "t_run": 37.09999999996626
+     },
+     {
+      "tag": "E1b_seed214",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 3.999561281144395,
+      "margin_SFM": 31.378246443629877,
+      "lp_rest": null,
+      "blocker_exit_t": 7.019999999993615,
+      "first_agent": 49,
+      "first_t": 7.019999999993615,
+      "blocker": 49,
+      "n_resid": 2,
+      "exits": {
+       "49": 7.019999999993615
+      },
+      "stationary_stop": true,
+      "t_run": 23.699999999978445
+     },
+     {
+      "tag": "E1b_seed225",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.83797970141073,
+      "margin_SFM": 54.06512658949501,
+      "lp_rest": null,
+      "blocker_exit_t": 17.519999999984066,
+      "first_agent": 90,
+      "first_t": 17.519999999984066,
+      "blocker": 90,
+      "n_resid": 3,
+      "exits": {
+       "90": 17.519999999984066
+      },
+      "stationary_stop": false,
+      "t_run": 119.99999999989089
+     },
+     {
+      "tag": "E1b_seed236",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 4.219912570986963,
+      "margin_SFM": 24.906509516517474,
+      "lp_rest": null,
+      "blocker_exit_t": 8.789999999992006,
+      "first_agent": 36,
+      "first_t": 8.789999999992006,
+      "blocker": 36,
+      "n_resid": 2,
+      "exits": {
+       "36": 8.789999999992006
+      },
+      "stationary_stop": true,
+      "t_run": 25.499999999976808
+     }
+    ],
+    "n_disagree": 9,
+    "replays_done": 0,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 134,
+      "arm_freed": 2,
+      "R_only": 10,
+      "arm_only": 0,
+      "p": 0.001953125,
+      "p_disp": "0.002"
+     },
+     "C3_rvo2": {
+      "n": 134,
+      "arm_freed": 104,
+      "R_only": 2,
+      "arm_only": 94,
+      "p": 1.1755920753965606e-25,
+      "p_disp": "<10^{-24}"
+     },
+     "drive_only": {
+      "n": 134,
+      "arm_freed": 125,
+      "R_only": 1,
+      "arm_only": 114,
+      "p": 5.585196838722984e-33,
+      "p_disp": "<10^{-32}"
+     }
+    }
+   },
+   "R2": {
+    "n_done": 134,
+    "freed": 12,
+    "freed_wilson95": [
+     0.05196945675334397,
+     0.1500131087421233
+    ],
+    "confusion": {
+     "pred_freed_obs_freed": 4,
+     "pred_freed_obs_held": 1,
+     "pred_held_obs_freed": 8,
+     "pred_held_obs_held": 121
+    },
+    "disagreements": [
+     {
+      "tag": "E1b_seed79",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 36.98498743464879,
+      "margin_SFM": 54.061681274818426,
+      "lp_rest": null,
+      "blocker_exit_t": 49.68999999995481,
+      "first_agent": 92,
+      "first_t": 32.48999999997045,
+      "blocker": 14,
+      "n_resid": 3,
+      "exits": {
+       "92": 32.48999999997045,
+       "14": 49.68999999995481
+      },
+      "stationary_stop": true,
+      "t_run": 67.99999999993815
+     },
+     {
+      "tag": "E1b_seed86",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 17.25924768295701,
+      "margin_SFM": 31.659865517139337,
+      "lp_rest": null,
+      "blocker_exit_t": 6.469999999994116,
+      "first_agent": 13,
+      "first_t": 6.469999999994116,
+      "blocker": 13,
+      "n_resid": 2,
+      "exits": {
+       "13": 6.469999999994116
+      },
+      "stationary_stop": true,
+      "t_run": 23.899999999978263
+     },
+     {
+      "tag": "E1b_seed116",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 2.1489846190408173,
+      "margin_SFM": 13.580417522472573,
+      "lp_rest": null,
+      "blocker_exit_t": 4.289999999996098,
+      "first_agent": 56,
+      "first_t": 4.289999999996098,
+      "blocker": 56,
+      "n_resid": 4,
+      "exits": {
+       "56": 4.289999999996098,
+       "10": 11.849999999989222,
+       "3": 15.369999999986021
+      },
+      "stationary_stop": true,
+      "t_run": 32.29999999997062
+     },
+     {
+      "tag": "E1b_seed138",
+      "pred_freed": true,
+      "obs_freed": false,
+      "margin_R": -1.6502662118814442,
+      "margin_SFM": 10.86857526191946,
+      "lp_rest": null,
+      "blocker_exit_t": null,
+      "first_agent": null,
+      "first_t": null,
+      "blocker": 87,
+      "n_resid": 2,
+      "exits": {},
+      "stationary_stop": false,
+      "t_run": 119.99999999989089
+     },
+     {
+      "tag": "E1b_seed143",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.50811092054613,
+      "margin_SFM": 53.8154886607478,
+      "lp_rest": null,
+      "blocker_exit_t": 55.68999999994935,
+      "first_agent": 78,
+      "first_t": 16.36999999998511,
+      "blocker": 8,
+      "n_resid": 4,
+      "exits": {
+       "78": 16.36999999998511,
+       "8": 55.68999999994935,
+       "59": 73.7699999999329
+      },
+      "stationary_stop": true,
+      "t_run": 92.09999999991624
+     },
+     {
+      "tag": "E1b_seed184",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 20.75871371866785,
+      "margin_SFM": 31.34061420478463,
+      "lp_rest": null,
+      "blocker_exit_t": 14.549999999986767,
+      "first_agent": 70,
+      "first_t": 7.439999999993233,
+      "blocker": 73,
+      "n_resid": 4,
+      "exits": {
+       "70": 7.439999999993233,
+       "73": 14.549999999986767,
+       "15": 19.33999999998241
+      },
+      "stationary_stop": true,
+      "t_run": 37.09999999996626
+     },
+     {
+      "tag": "E1b_seed214",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 3.999561281144395,
+      "margin_SFM": 31.378246443629877,
+      "lp_rest": null,
+      "blocker_exit_t": 7.019999999993615,
+      "first_agent": 49,
+      "first_t": 7.019999999993615,
+      "blocker": 49,
+      "n_resid": 2,
+      "exits": {
+       "49": 7.019999999993615
+      },
+      "stationary_stop": true,
+      "t_run": 23.699999999978445
+     },
+     {
+      "tag": "E1b_seed225",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 37.83797970141073,
+      "margin_SFM": 54.06512658949501,
+      "lp_rest": null,
+      "blocker_exit_t": 17.519999999984066,
+      "first_agent": 90,
+      "first_t": 17.519999999984066,
+      "blocker": 90,
+      "n_resid": 3,
+      "exits": {
+       "90": 17.519999999984066
+      },
+      "stationary_stop": false,
+      "t_run": 119.99999999989089
+     },
+     {
+      "tag": "E1b_seed236",
+      "pred_freed": false,
+      "obs_freed": true,
+      "margin_R": 4.219912570986963,
+      "margin_SFM": 24.906509516517474,
+      "lp_rest": null,
+      "blocker_exit_t": 8.789999999992006,
+      "first_agent": 36,
+      "first_t": 8.789999999992006,
+      "blocker": 36,
+      "n_resid": 2,
+      "exits": {
+       "36": 8.789999999992006
+      },
+      "stationary_stop": true,
+      "t_run": 25.499999999976808
+     }
+    ],
+    "n_disagree": 9,
+    "replays_done": 0,
+    "replay_discordant_snapshots": [],
+    "vs": {
+     "C1": {
+      "n": 134,
+      "arm_freed": 2,
+      "R_only": 10,
+      "arm_only": 0,
+      "p": 0.001953125,
+      "p_disp": "0.002"
+     },
+     "C3_rvo2": {
+      "n": 134,
+      "arm_freed": 104,
+      "R_only": 2,
+      "arm_only": 94,
+      "p": 1.1755920753965606e-25,
+      "p_disp": "<10^{-24}"
+     },
+     "drive_only": {
+      "n": 134,
+      "arm_freed": 125,
+      "R_only": 1,
+      "arm_only": 114,
+      "p": 5.585196838722984e-33,
+      "p_disp": "<10^{-32}"
+     }
+    }
+   },
+   "R1_R2_identical_outcome": 134,
+   "R1_R2_identical_t_run": 132
+  }
+ },
+ "pairs": {
+  "R1_u": {
+   "n": 46,
+   "freed": 25,
+   "rest": 0,
+   "moving_600": 21,
+   "freed_by_120": 25
+  },
+  "R1_rep": {
+   "n": 0,
+   "freed": 0,
+   "rest": 0,
+   "moving_600": 0,
+   "freed_by_120": 0
+  },
+  "R2_u": {
+   "n": 46,
+   "freed": 25,
+   "rest": 0,
+   "moving_600": 21,
+   "freed_by_120": 25
+  },
+  "R2_rep": {
+   "n": 0,
+   "freed": 0,
+   "rest": 0,
+   "moving_600": 0,
+   "freed_by_120": 0
+  }
+ }
+}
